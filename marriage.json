@@ -925,5 +925,69 @@
       ],
       "correctAnswerIndex": 2
     }
-  ]
+  ],
+  "sharedSister": {
+    "note": "Lines for any Sister of Mercy without her own entry in \"sisters\" (Sisters who join the roster later). Each Sister gets her own fixed pick from these lists, so two Sisters rarely sound the same. A Sister's own entry always wins.",
+    "start": [
+      "Ask whether she would ever marry you",
+      "Ask her, seriously, about marriage",
+      "Ask if she would consider marrying you"
+    ],
+    "player": [
+      "{first}, can I ask you something serious? Would you ever marry me?",
+      "{first}, I keep thinking about us. Would you consider marrying me?",
+      "I mean this, {first}. Would you ever marry someone like me?"
+    ],
+    "intro": [
+      "I would only marry a man who knows the faith as well as he knows me. Five questions, answered correctly one after another. A wrong answer and we start again. Ready?",
+      "Marriage is a sacrament, not a whim. I will ask you about the faith: five right in a row. Miss one and we begin again.",
+      "Then let me ask you a few things first. Five correct answers in a row and I will know you are serious. One mistake and we start over.",
+      "My grandmother would never forgive me if I married a man who did not know his catechism. Five in a row, please. Get one wrong and we go back to the beginning."
+    ],
+    "resume": [
+      "Where were we? Ah, yes. Carry on.",
+      "Back again? Good. Let us continue.",
+      "Ready? Then we pick up where we stopped."
+    ],
+    "pause": [
+      "Of course. Take your time, and come back to me.",
+      "We will stop here. Pray on it.",
+      "That is all right. I will be here when you are ready."
+    ],
+    "correct": [
+      "That is right.",
+      "Good. Keep going.",
+      "Yes! Well done.",
+      "Correct. Next one.",
+      "You have been paying attention at Mass.",
+      "That is exactly right.",
+      "Very good. Do not stop now.",
+      "Right again. I am impressed."
+    ],
+    "wrong": [
+      "No, I am afraid not. We start again.",
+      "Not quite. From the beginning.",
+      "That is not right. Let us begin again.",
+      "Oh dear. Back to the start.",
+      "No. Have another look at your catechism.",
+      "Wrong, I am sorry. Again from the top.",
+      "Close, but no. We start over.",
+      "I am afraid that is wrong. Once more, from the beginning."
+    ],
+    "pass": [
+      "Five in a row. You really do know the faith. Then yes, you may ask me properly.",
+      "That is five. I did not know you had it in you. Ask me again, properly this time.",
+      "Five, all correct. I am smiling at my phone like a fool. You may propose."
+    ],
+    "noRing": [
+      "Without a ring? Come back when you mean it properly.",
+      "A proposal deserves a ring. I will wait, but not forever.",
+      "I would like to say yes. I would like a ring even more."
+    ],
+    "accept": [
+      "With a ring and on your word? Yes. Yes, I will marry you.",
+      "Yes. A thousand times yes. I am telling my mother straight away.",
+      "Yes. I have prayed about this, and the answer is yes."
+    ]
+  }
 }

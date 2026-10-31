@@ -34,9 +34,24 @@
     .stage-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
     .vignette { pointer-events: none; position: absolute; inset: 0; background: linear-gradient(to bottom, #0005, transparent 22%, transparent 76%, #0006); }
     .prop { position: absolute; display: none; width: 31%; right: 2%; top: 49%; image-rendering: pixelated; pointer-events: none; filter: drop-shadow(0 5px 5px #0009); }
-    .prop.visible { display: block; }
+    .prop.visible { display: block; pointer-events: auto; cursor: pointer; }
+    /* Tapping the clutter tidies it away until tomorrow's mess. */
+    .prop.tidying { pointer-events: none; transform-origin: 50% 90%; animation: propTidy .6s steps(6,end) forwards; }
+    @keyframes propTidy { 0% { transform: none; opacity: 1; } 35% { transform: scale(.9,.72) rotate(-5deg); } 100% { transform: scale(.25) rotate(12deg) translateY(25%); opacity: 0; } }
+    @keyframes propFade { to { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .prop.tidying { animation: propFade .3s forwards; } }
     .fatal-overlay { position: absolute; z-index: 20; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 18px; background: #670000e8 url('assets/source/death-red.png') center / cover; text-align: center; padding: 18px; }
     .fatal-overlay.visible { display: flex; }
+    /* Every death screen: New game, or Change difficulty (three faces, stacked). */
+    .death-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .death-difficulty { display: none; flex-direction: column; gap: 7px; width: min(78%,260px); }
+    .fatal-overlay.choosing .death-difficulty { display: flex; }
+    .fatal-overlay.choosing .death-actions { display: none; }
+    .death-difficulty button { display: flex !important; align-items: center; gap: 10px; width: 100%; padding: 6px 8px !important; text-align: left; }
+    .death-difficulty img { width: 46px; height: 46px; flex: none; border: 2px solid #ed7d56; border-radius: 4px; object-fit: cover; image-rendering: pixelated; }
+    .death-difficulty b { display: block; font-size: 13px; }
+    .death-difficulty small { display: block; margin-top: 2px; font: 9px/1.3 ui-monospace,Consolas,monospace; color: #ffcfb4; text-transform: none; letter-spacing: .03em; }
+    .death-difficulty button.current { border-color: #ffd978 !important; }
     .death-pixels { width: min(96%,340px); height: auto; image-rendering: pixelated; filter: drop-shadow(0 4px 0 #290a11); }
     .fatal-overlay p { font: bold 12px/1.6 ui-monospace,Consolas,monospace; letter-spacing: .09em; text-transform: uppercase; color: #ffd9c2; text-shadow: 2px 2px #16070b; }
     .fatal-overlay button { font: bold 12px ui-monospace,Consolas,monospace; text-transform: uppercase; letter-spacing: .1em; color: #ffe9d0; background: #1a0e12; border: 2px solid #ed7d56; padding: 12px 20px; cursor: pointer; }
@@ -46,6 +61,18 @@
     .phone-wrap { position: absolute; z-index: 5; width: var(--phone-width,90%); aspect-ratio: 830 / 1536; top: var(--phone-top,50%); left: 50%; transform: translate(-50%,-50%) rotate(var(--phone-angle,-1.2deg)); transform-origin: 50% 85%; transition: transform .55s cubic-bezier(.2,.7,.15,1),width .3s; filter: drop-shadow(8px 18px 10px #000b); }
     .stage.lowered .phone-wrap { transform: translate(-43%,7%) rotate(-8deg) scale(.91); }
     .stage.ringing .phone-wrap { animation: ringingBuzz 145ms steps(2,end) infinite; }
+    /* She is calling: a banner across the top of the screen; tap it to open the call. */
+    .incoming-banner { position: absolute; z-index: 30; left: 4%; right: 4%; top: 7%; display: flex; align-items: center; gap: 8px; padding: 6px 8px; border: 1px solid #7be39a; border-radius: 12px; background: #0f2a18f2; color: #eafff0; font: bold 11px Verdana,sans-serif; text-align: left; cursor: pointer; box-shadow: 0 4px 14px #000a; animation: incomingPulse 1.1s ease-in-out infinite; }
+    .incoming-banner[hidden] { display: none; }
+    .incoming-banner img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex: none; }
+    .incoming-banner small { display: block; font-weight: normal; color: #b9f3c9; }
+    @keyframes incomingPulse { 0%,100% { box-shadow: 0 4px 14px #000a, 0 0 0 0 #7be39a66; } 50% { box-shadow: 0 4px 14px #000a, 0 0 0 6px #7be39a00; } }
+    .ringing-screen.incoming img.incoming-face { width: 46%; aspect-ratio: 1; border-radius: 50%; object-fit: cover; border: 3px solid #7be39a; }
+    .incoming-actions { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
+    .incoming-actions button { padding: 7px 12px; border: 0; border-radius: 16px; font: bold 11px Verdana,sans-serif; color: #fff; cursor: pointer; }
+    .incoming-actions [data-call-answer] { background: #2e9d52; }
+    .incoming-actions [data-call-decline] { background: #b93243; }
+    @media (prefers-reduced-motion: reduce) { .incoming-banner { animation: none; } }
     @keyframes ringingBuzz { 0%,100% { transform: translate(-50%,-50%) rotate(var(--phone-angle,-1.2deg)); } 50% { transform: translate(calc(-50% + 2px),calc(-50% - 1px)) rotate(calc(var(--phone-angle,-1.2deg) + .45deg)); } }
     .stage.blocked .phone-wrap { animation: blockedPhoneShake 65ms steps(2,end) 12; }
     @keyframes blockedPhoneShake { 0%,100% { transform: translate(-50%,-50%) rotate(var(--phone-angle,-1.2deg)); } 25% { transform: translate(-47%,-50%) rotate(1.5deg); } 75% { transform: translate(-53%,-50%) rotate(-2deg); } }
@@ -82,6 +109,16 @@
     .wallpaper { position: absolute; inset: 0; background: url('assets/variants/iphone-standard/home-wallpaper.webp') center center / cover; image-rendering: pixelated; }
     .screen-shade { position: absolute; inset: 0; background: linear-gradient(to bottom,#0000,#0005); }
     .status { position: relative; height: 18px; background: #0009; color: #fff; display: flex; justify-content: space-between; padding: 3px 6px 0; font-size: 10px; font-weight: bold; }
+    /* The day in the status bar doubles as a quiet "go forward in time" control. */
+    .status-day { margin: -3px 0 0; padding: 3px 4px 2px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+    .status-day i { margin-left: 3px; font-style: normal; opacity: .55; }
+    .status-day:hover i,.status-day:focus-visible i { opacity: 1; }
+    .day-dialog { position: absolute; z-index: 30; top: 21px; left: 50%; transform: translateX(-50%); width: 78%; padding: 8px 9px; border: 1px solid #5a6b85; border-radius: 8px; background: #101a2bf2; box-shadow: 0 6px 16px #000a; color: #fff; text-align: center; font: bold 11px Arial,sans-serif; }
+    .day-dialog[hidden] { display: none; }
+    .day-dialog p { margin: 0 0 7px; }
+    .day-dialog div { display: flex; gap: 5px; }
+    .day-dialog button { flex: 1; padding: 5px 3px; border: 1px solid #6d93c4; border-radius: 5px; background: #2c4b74; color: #fff; font: bold 10px Arial,sans-serif; cursor: pointer; }
+    .day-dialog #day-no { background: #1a2436; border-color: #3b4c63; }
     .screen-header { position: relative; display: flex; justify-content: center; align-items: center; padding-top: 14px; flex-direction: column; }
     .screen-header strong { font-family: 'Courier New',ui-monospace,monospace; font-size: 23px; font-weight: 900; letter-spacing: 4px; color: #f7debd; text-shadow: 2px 2px #964a7b,3px 3px #08111e; }
     .app-grid { position: absolute; top: 36%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; row-gap: 13px; justify-items: center; }
@@ -98,12 +135,19 @@
     .settings-options { display: grid; gap: 5px; }
     .settings-options button { width: 100%; min-height: 34px; padding: 7px 9px; border: 1px solid #afb7c2; border-radius: 5px; background: #fff; color: #27374d; text-align: left; font: bold 11px Tahoma,sans-serif; cursor: pointer; }
     .settings-options button.selected { border-color: #638baf; box-shadow: inset 0 0 0 2px #92bdde; background: #e4f3ff; }
+    /* Settings ▸ About: version, and Credits from the second playthrough. */
+    .settings-version { margin-top: 16px; text-align: center; color: #7a8796 !important; font-size: 10px !important; }
+    .settings-note { padding: 9px 10px; border: 1px solid #afb7c2; border-radius: 5px; background: #fff; color: #27374d; font-size: 11px; line-height: 1.5; }
+    .settings-note p { margin: 0 0 7px; color: #27374d !important; }
+    .settings-note .signature { margin: 0; text-align: right; font-style: italic; }
+    .settings-donate { display: block; margin-top: 8px; padding: 9px; border: 1px solid #5f8f5a; border-radius: 5px; background: #e8f6e5; color: #24502a; text-align: center; text-decoration: none; font: bold 12px Tahoma,sans-serif; }
+    .settings-back { margin: 0 0 6px; border: 0; background: none; color: #3d6a96; font: bold 12px Tahoma,sans-serif; cursor: pointer; padding: 2px 0; }
     .a-news { background: linear-gradient(#f4ead4,#98734d); color: #3e2c1b; }
     .a-notes { background: linear-gradient(#eacf6b,#7b6027); color: #31220d; }
     .a-calls { background: linear-gradient(#91bd7e,#2d6c43); }
     .mini-app { position: relative; background: #f0e4cb; color: #2b2730; height: calc(100% - 18px); padding: 7px 8px; font-family: Georgia,serif; overflow: auto; }
     .mini-app.news-mode { font-family: Arial,Helvetica,sans-serif; background: #f4f3ee; }
-    .mini-app.notes-mode { background: #fff9ec; color: #333b48; font-family: -apple-system,BlinkMacSystemFont,Arial,sans-serif; padding: 9px; }
+    .mini-app.notes-mode { background: linear-gradient(#fff9ec80,#fff9ec80), url('assets/contacts/contacts-bg.png') center/cover, #fff9ec; color: #333b48; font-family: -apple-system,BlinkMacSystemFont,Arial,sans-serif; padding: 9px; } /* Contacts; its own background shows once made */
     .mini-app.notes-mode h3 { color: #a87923; font: bold 18px -apple-system,BlinkMacSystemFont,Arial,sans-serif; border-bottom: 2px solid #f0cc75; padding-bottom: 6px; }
     .mini-app.notes-mode .paper { background: repeating-linear-gradient(to bottom,#fffdf5 0px,#fffdf5 21px,#dce9eb 22px,#fffdf5 23px); padding: 9px; border: 1px solid #e5d3ae; border-radius: 5px; }
     .contact-entry { position: relative; display: block; padding: 4px 2px; }
@@ -265,7 +309,7 @@
     .hands.hidden,.leg-layer.hidden { display: none; }
     .stage.lowered .hands { opacity: 0; }
     .tip { font-size: 11px; max-width: 410px; text-align: center; margin: 17px auto 0; }
-    /* The Blue Ribbon Ledger: case file in Notes, evidence sheet and retaliation scene */
+    /* The Blue Ribbon Ledger: case file in the bedside cupboard, evidence sheet and retaliation scene */
     .case-card { display: flex; gap: 8px; align-items: center; width: 100%; margin: 0 0 10px; padding: 7px; border: 1px solid #c8a35c; border-radius: 6px; background: linear-gradient(#fff6dc,#f3e2b4); color: #3a2a12; text-align: left; cursor: pointer; box-shadow: 0 2px 4px #0002; }
     .case-card img { width: 36px; height: 36px; flex: none; object-fit: contain; image-rendering: pixelated; }
     .case-card b { display: block; font: bold 8px Verdana,sans-serif; letter-spacing: .12em; color: #8a5a1a; }
@@ -410,6 +454,79 @@
     .home-invasion p { position: absolute; left: 6%; right: 6%; bottom: 9%; margin: 0; padding: 10px; border: 2px solid #b8343f; border-radius: 4px; background: #0d0a10e8; color: #ffe1d6; text-align: center; font: bold calc(14px * var(--reading-scale))/1.45 'Trebuchet MS',Tahoma,sans-serif; transition: opacity .8s steps(5,end); }
     .home-invasion.blackout img,.home-invasion.blackout p { opacity: 0; }
     .home-invasion.flash { background: #fff; } .home-invasion.flash img { opacity: 0; } /* Professor Vale: a white flash */
+    /* Contacts (replaces Notes): starts empty, fills as you're given numbers. */
+    .contacts-empty { margin: 26px 8px; text-align: center; color: #6c7686; font-size: calc(12px * var(--reading-scale)); line-height: 1.5; }
+    .contacts-letter { margin: 9px 0 2px; padding: 1px 4px; border-bottom: 1px solid #e5d3ae; color: #a87923; font: bold 10px Arial,sans-serif; letter-spacing: .08em; }
+    .contact-row { position: relative; display: flex; gap: 7px; align-items: center; width: 100%; padding: 5px 3px; border: 0; border-bottom: 1px solid #f0e6cf; background: none; color: inherit; text-align: left; cursor: pointer; font: inherit; }
+    .contact-row img { width: 30px; height: 30px; flex: none; border-radius: 50%; object-fit: cover; object-position: center 25%; image-rendering: pixelated; background: #dfe6ee; }
+    .contact-row span { flex: 1; min-width: 0; }
+    .contact-row b { display: block; font-size: calc(12px * var(--reading-scale)); }
+    .contact-row small { display: block; color: #7a8290; font-size: calc(9.5px * var(--reading-scale)); }
+    .contact-row em { flex: none; font: bold calc(10px * var(--reading-scale)) ui-monospace,Consolas,monospace; color: #175742; font-style: normal; }
+    .contact-row:disabled { cursor: default; opacity: .6; }
+    .contact-row.fumbled em { color: #ad6670; }
+    .contact-row .scribble-x { top: 6px; }
+    /* Calls: Keypad and Voicemail tabs. */
+    .calls-top { gap: 4px; }
+    .calls-tab { border: 1px solid #3b4c63; border-radius: 9px; background: #0f1826; color: #9fb0c7; padding: 2px 8px; font: bold 9px Arial,sans-serif; letter-spacing: .06em; cursor: pointer; }
+    .calls-tab.active { background: #2c4b74; color: #fff; border-color: #6d93c4; }
+    .voicemail-list { flex: 1; overflow: auto; padding: 6px 2px; }
+    .voicemail { margin: 0 0 6px; padding: 6px 7px; border-radius: 6px; background: #142236e6; border: 1px solid #2c3f58; font-size: calc(10px * var(--reading-scale)); line-height: 1.35; color: #dfe8f5; }
+    .voicemail b { display: block; color: #fff; margin-bottom: 2px; }
+    .voicemail button { margin-top: 4px; border: 1px solid #6d93c4; border-radius: 4px; background: #2c4b74; color: #fff; font: bold 9px Arial,sans-serif; padding: 3px 7px; cursor: pointer; }
+    .voicemail-empty { margin: 30px 10px; text-align: center; color: #9bacc1; font-size: 11px; }
+    /* The bedside cupboard: an invisible tap area over the cabinet in the room art (the
+       room itself is unchanged), and the cupboard that opens over the room. The wood
+       look is a placeholder until the cupboard artwork exists. */
+    .cupboard-spot { position: absolute; z-index: 4; left: 0; top: 47.5%; width: 24%; height: 13%; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
+    .cupboard-spot:focus-visible { outline: 2px solid #ffd978; }
+    .stage.lowered .cupboard-spot { z-index: 7; } /* with the phone down, the cabinet is reachable even where the phone overlaps it */
+    .cupboard-spot.new { animation: cupboardGlow 2.4s ease-in-out infinite; }
+    @keyframes cupboardGlow { 0%,100% { box-shadow: inset 0 0 0 0 #ffd97800; } 50% { box-shadow: inset 0 0 14px 3px #ffd97899; } }
+    .cupboard { display: none; position: absolute; z-index: 9; inset: 0; /* above the phone; below room notices, the Evidence Sheet, calls and death scenes */ align-items: center; justify-content: center; padding: 4%; background: #0a0605d9; }
+    .cupboard.open { display: flex; }
+    /* The cupboard is the open cabinet itself (assets/cupboard/cupboard-open.png): case folders and
+       the notebook sit in the top drawer, things stand on the three shelves, and the hint and the
+       Connect tools lie on the rug. Positions are percentages of the cabinet picture. */
+    .cupboard-frame { display: flex; flex-direction: column; width: 100%; max-width: 440px; max-height: 100%; border: 5px solid #4a2e1a; border-radius: 6px; background: #1a100a; box-shadow: 0 10px 30px #000c; overflow: hidden; }
+    .cupboard-head { display: flex; align-items: center; justify-content: space-between; padding: 5px 8px; background: #22150c; color: #f3e6cc; font-size: 12px; letter-spacing: .04em; }
+    .cupboard-head button { border: 1px solid #8a6a4a; border-radius: 4px; background: #3a2617; color: #f3e6cc; font: bold 11px Arial,sans-serif; padding: 2px 8px; cursor: pointer; }
+    .cupboard-body { flex: 1; min-height: 0; overflow: auto; container-type: inline-size; /* the notebook's lines are measured in its width */ font-size: calc(11px * var(--reading-scale)); line-height: 1.4; color: #f3e6cc; }
+    .cupboard-body h4 { margin: 8px 0 5px; color: #e8c98e; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .cup-cabinet { position: relative; width: 100%; aspect-ratio: 2 / 3; background: url('assets/cupboard/cupboard-open.png') center / 100% 100% no-repeat, linear-gradient(90deg,#2b1b11,#3a2617 20%,#33200f 50%,#3a2617 80%,#2b1b11); image-rendering: pixelated; container-type: inline-size; touch-action: none; }
+    .cup-drawer { position: absolute; left: 19%; top: 17.6%; width: 71%; height: 10.4%; display: flex; align-items: center; justify-content: center; gap: 1.5%; }
+    .cup-file { position: relative; flex: 0 1 19%; height: 92%; padding: 0; border: 0; background: url('assets/cupboard/folder.png') center / contain no-repeat; color: #f6ead2; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; font: bold max(8px, 2.7cqw)/1.15 Arial,sans-serif; filter: drop-shadow(0 2px 2px #000a); }
+    /* Every label in the cupboard sits on a see-through dark backing, so it reads over the wood and paper. */
+    .cup-tag { display: block; max-width: 100%; padding: 1px 4px 2px; border-radius: 3px; background: #120b06b8; }
+    .cup-file small { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: max(7px, 2.1cqw)/1.15 Arial,sans-serif; color: #e2d2b3; }
+    .cup-file[data-cup-open="notebook"] { background-image: url('assets/cupboard/notebook.png'); }
+    .cup-file.new::after { content: ''; position: absolute; top: 4%; right: 8%; width: 2cqw; height: 2cqw; border-radius: 50%; background: #ffd978; box-shadow: 0 0 6px #ffd978; }
+    .cup-shelf { position: absolute; left: 21%; top: 29%; width: 68%; height: 41.5%; }
+    .cup-item { position: absolute; width: 17.6%; height: 21%; padding: 0; border: 0; background: none; color: #f3e6cc; cursor: grab; touch-action: none; user-select: none; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+    .cup-item img { display: block; width: 100%; height: 76%; object-fit: contain; object-position: bottom; image-rendering: pixelated; pointer-events: none; filter: drop-shadow(0 3px 2px #000c); }
+    .cup-item span { display: block; max-width: 155%; margin-top: 2%; padding: 1px 4px; border-radius: 3px; background: #120b06b8; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: max(8px, 2.4cqw)/1.3 Arial,sans-serif; pointer-events: none; }
+    .cup-item.dragging { cursor: grabbing; z-index: 3; filter: brightness(1.15); }
+    .cup-item.picked img { filter: drop-shadow(0 0 4px #ffd978) drop-shadow(0 0 2px #ffd978); }
+    .cup-item.picked span { background: #ffd978; color: #2b1b10; }
+    .cup-item .cup-order { position: absolute; top: 0; left: 0; width: 4cqw; height: 4cqw; border-radius: 50%; background: #ffd978; color: #2b1b10; font: bold 2.6cqw/4cqw Arial,sans-serif; text-align: center; z-index: 1; }
+    .cup-rug { position: absolute; left: 4%; right: 4%; bottom: 1.5%; height: 12.5%; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; }
+    .cup-hint { margin: 0; padding: 3px 6px; border-radius: 4px; background: #120b06b8; color: #f0e2c6; font-size: max(9px, 2.9cqw); text-align: center; }
+    .cup-tools { display: flex; gap: 6px; margin: 0; }
+    .cup-tools button { flex: 1; padding: 5px; border: 1px solid #b08a5a; border-radius: 5px; background: #4a2e1ad9; color: #fff; font: bold max(9px, 3.1cqw) Arial,sans-serif; cursor: pointer; }
+    .cup-tools button:disabled { opacity: .45; cursor: default; }
+    .cup-empty { position: absolute; left: 23%; width: 64%; top: 46%; margin: 0; padding: 4px 6px; border-radius: 4px; background: #120b06b8; text-align: center; color: #f0e2c6; font-size: max(10px, 3.2cqw); }
+    .cup-back { margin: 6px 0 6px 8px; border: 1px solid #8a6a4a; border-radius: 4px; background: #3a2617; color: #f3e6cc; font: bold 11px Arial,sans-serif; padding: 3px 8px; cursor: pointer; }
+    .cup-inspect { padding: 0 10px 12px; }
+    .cup-inspect .cup-stand { padding: 10px 10px 0; background: url('assets/cupboard/shelf.png') bottom / 100% 18px no-repeat; }
+    .cup-inspect img { display: block; width: 100%; max-height: 190px; object-fit: contain; image-rendering: pixelated; margin: 0 0 12px; }
+    .cup-inspect .cup-act { display: block; width: 100%; margin-top: 6px; padding: 7px; border: 1px solid #b08a5a; border-radius: 5px; background: #4a2e1a; color: #fff; font: bold 11px Arial,sans-serif; cursor: pointer; }
+    /* Case pages shown inside the cupboard keep their own look, on paper. */
+    .cupboard-body .case-page,.cupboard-body .chapel-case,.cupboard-body .pv-case,.cupboard-body .cup-paper { margin: 0 8px 10px; color: #2e2a26; background: #fbf4e2; border-radius: 4px; padding: 8px; }
+    /* The notebook: handwriting on the ruled lines of assets/cupboard/notebook-page.png. */
+    .cupboard-body .cup-notebook { min-height: 150cqw; margin: 0; padding: 7.6cqw 6cqw 8cqw 14.5cqw; border-radius: 0; background: url('assets/cupboard/notebook-page.png') top / 100% auto repeat-y, repeating-linear-gradient(to bottom,#fbf4e2 0,#fbf4e2 21px,#d9e3ea 22px,#fbf4e2 23px); color: #24305e; font: 3.3cqw/4.72cqw 'Segoe Print','Bradley Hand','Comic Sans MS',cursive; }
+    .cupboard-body .cup-notebook h3,.cupboard-body .cup-notebook h4,.cupboard-body .cup-notebook p { margin: 0; font: inherit; line-height: 4.72cqw; color: #24305e; }
+    .cupboard-body .cup-notebook h3 { font-weight: bold; text-decoration: underline; }
+    .cupboard-body .cup-notebook h4 { color: #8d2c47; letter-spacing: 0; text-transform: none; font-weight: bold; }
     .home-invasion.police-arrest img { filter: none; }
     .home-invasion.police-arrest .invasion-lights { display: none; }
     .stage.police-arrest-in-progress .leg-layer,
@@ -511,6 +628,7 @@
         <button class="bar-button" id="police-preview">Preview three false police reports</button>
         <button class="bar-button" id="marriage-preview">Preview a Sister of Mercy wedding (cycles through all five)</button><!-- Marriage -->
         <button class="bar-button" id="vale-preview">Open the Professor Vale case now</button><!-- Professor Vale -->
+        <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
       <p>Tap an app to open it. Press the physical Home button once to return to MATCH; press it once more on the home screen to put the phone down. Double-press or hold it to lower the phone and hide your hands from anywhere. Tap the top of the lowered phone to raise it again. The game is a local simulation and makes no real calls.</p>
     </aside>
@@ -525,18 +643,21 @@
           <div class="day-caption" id="day-caption" aria-live="polite"></div>
           <img class="prop" id="prop" src="assets/props/instant-noodles.png" alt="Takeaway clutter">
           <img class="desk-ring" id="desk-ring" src="assets/marriage/wedding-ring.png" alt="A gold wedding band on your desk"><!-- Marriage: shown once a jeweller gives you the ring -->
+          <button class="cupboard-spot" id="cupboard-spot" aria-label="Open your bedside cupboard"></button><!-- Bedside cupboard: tap area over the cabinet in the room art -->
+          <div class="cupboard" id="cupboard" aria-hidden="true"><div class="cupboard-frame" role="dialog" aria-label="Bedside cupboard"><div class="cupboard-head"><b>Bedside cupboard</b><button data-cup-close aria-label="Close the cupboard">✕ Close</button></div><div class="cupboard-body" id="cupboard-body"></div></div></div>
           <img class="leg-layer hidden" id="leg-layer" src="assets/ui/jeans-legs.png" alt="First-person knees in jeans">
           <div class="phone-wrap" id="phone">
             <div class="screen" id="screen">
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
-              <div class="status"><span>●●● 4G</span><span id="status-day">Day 1</span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
+              <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
+              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go to tomorrow</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCH</strong></div>
                 <div class="app-grid">
                   <button class="app" data-app="hinge"><span class="app-mark"><img src="assets/icons/hinge.png" alt=""></span><small>Hinge</small></button>
                   <button class="app" data-app="news"><span class="app-mark"><img src="assets/icons/news.png" alt=""></span><small>News</small></button>
-                  <button class="app" data-app="notes"><span class="app-mark"><img src="assets/icons/notes.png" alt=""></span><small>Notes</small></button>
+                  <button class="app" data-app="notes"><span class="app-mark"><img src="assets/icons/contacts.png" alt=""></span><small>Contacts</small></button><!-- Contacts replaced Notes; its internal app id stays "notes" so saves and quests keep working -->
                   <button class="app" data-app="calls"><span class="app-mark"><img src="assets/icons/calls.png" alt=""></span><small>Calls</small></button>
                   <button class="app settings-app" data-app="settings"><span class="app-mark"><img src="assets/icons/settings.png" alt=""></span><small>Settings</small></button>
                 </div>
@@ -544,6 +665,8 @@
               <div class="mini-app" id="opened" style="display:none"></div>
               <div class="news-expand" id="news-expand" aria-label="Expanded image on phone"><img id="news-expand-image" alt=""><span>Tap anywhere to close</span></div>
               <div class="blocked-flash" id="blocked-flash" aria-live="assertive"><strong>BLOCKED</strong><small>This contact has blocked you</small></div>
+              <button class="incoming-banner" id="incoming-banner" hidden aria-live="assertive"></button><!-- She is calling: tap to open the call -->
+
             </div>
             <img class="bezel bezel-top" src="assets/ui/iphone3g-bezel.png" alt="Vintage black iPhone 3G bezel">
             <img class="bezel bezel-bottom" src="assets/ui/iphone3g-bezel.png" alt="">
@@ -562,7 +685,7 @@
           </div>
           <div class="bear-attack" id="bear-attack" role="img" aria-label="Animated bear charge across the bedroom"><img id="bear-attack-image" src="assets/events/bear-threshold.webp" alt=""></div>
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><p id="invasion-caption"></p></div>
-          <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><button id="new-game">New game</button></div>
+          <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><div class="death-actions"><button id="new-game">New game</button><button id="change-difficulty">Change difficulty</button></div><div class="death-difficulty" id="death-difficulty" role="group" aria-label="Choose a difficulty for the new game"><button data-death-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><span><b>Mogger</b><small>Everyone wants you</small></span></button><button data-death-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><span><b>Normie</b><small>You have to earn it</small></span></button><button data-death-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><span><b>Truecel</b><small>They’re embarrassed they matched</small></span></button></div></div>
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
         </div>
       </div>
@@ -591,7 +714,7 @@
     }
     function newWorld(seed){
       const text=String(seed);
-      return {version:3,seed:text,rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
+      return {version:3,seed:text,contactsKnown:{},cupboard:{pos:{},seen:[]},rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
     }
     // Blue Ribbon Ledger progress lives inside world, so it travels with the
     // existing version-3 save. Older saves without it load a fresh case.
@@ -614,9 +737,18 @@
     function recordClue(text){if(text&&!world.clues.includes(text))world.clues.push(text);}
     function updateRunStatus(message){
       $('run-status').textContent=message||`Day ${world.day} · ${Math.max(0,10-hingeSwipesToday)} swipes available · ${selectedDifficulty.toUpperCase()}`;
+      // Most changes in the game pass through here: note new contacts and new things in the cupboard.
+      try{announceNewContacts();updateCupboardHint();}catch{}
       // The phone shows the simulated day rather than a clock time.
       const statusDay=$('status-day');
       if(statusDay)statusDay.textContent=`Day ${world.day}`;
+    }
+    // One place that changes difficulty: the playtest panel and the death screen both use it.
+    function setDifficulty(value){
+      if(matchRates[value]===undefined)return;
+      selectedDifficulty=value;
+      document.querySelectorAll('[data-difficulty]').forEach(other=>{other.classList.toggle('selected',other.dataset.difficulty===value);other.setAttribute('aria-pressed',String(other.dataset.difficulty===value));});
+      const copy=$('difficulty-description');if(copy)copy.textContent=difficultyCopy[value];
     }
     document.querySelectorAll('[data-difficulty]').forEach(button=>button.addEventListener('click',()=>{
       selectedDifficulty=button.dataset.difficulty;
@@ -719,6 +851,7 @@
       $('hand-layer').classList.remove('hidden');
       $('leg-layer').classList.toggle('hidden',!$('legs').checked);
       $('leg-layer').src=assetUrl(`assets/ui/${$('legs-type').value}.png`);
+      $('prop').classList.remove('tidying');
       $('prop').classList.toggle('visible',$('clutter').checked);
       const position=choose(phonePositions);
       $('phone').style.setProperty('--phone-width',`${position.width}%`);
@@ -776,6 +909,61 @@
     $('legs').addEventListener('change',e=>$('leg-layer').classList.toggle('hidden',!e.target.checked));
     $('clutter').addEventListener('change',e=>$('prop').classList.toggle('visible',e.target.checked));
     $('clutter-type').addEventListener('change',setClutterPlacement);
+    // Tap the clutter to tidy it away, with a sound that suits the item. It stays
+    // tidy until the next day's room brings new mess.
+    const clutterTidy={
+      'instant-noodles': {sound:'crumple',note:'Noodle pot crumpled and binned.'},
+      'chinese-takeaway':{sound:'crumple',note:'Takeaway carton squashed and binned.'},
+      'pizza-box':       {sound:'cardboard',note:'Pizza box folded up and binned.'},
+      'beer-cans':       {sound:'cans',note:'Cans crushed and binned.'},
+      'coffee-cups':     {sound:'crumple',note:'Coffee cups crumpled and binned.'},
+      'flowers':         {sound:'rustle',note:'Wilted flowers binned.'},
+      'red-shoes':       {sound:'thud',note:'Shoes kicked under the bed.'},
+      'laundry':         {sound:'cloth',note:'Laundry thrown in the hamper.'}
+    };
+    function playClutterSound(kind){
+      if($('mute-audio').checked)return;
+      try{
+        const Audio=window.AudioContext||window.webkitAudioContext;
+        if(!Audio)return;
+        const audio=new Audio(),now=audio.currentTime;
+        const noise=audio.createBuffer(1,Math.floor(audio.sampleRate*.9),audio.sampleRate);
+        const samples=noise.getChannelData(0);
+        for(let i=0;i<samples.length;i++)samples[i]=Math.random()*2-1;
+        // A short burst of filtered noise: crackles, rustles and crunches are built from these.
+        const burst=(at,length,type,frequency,q,volume)=>{
+          const source=audio.createBufferSource(),filter=audio.createBiquadFilter(),gain=audio.createGain();
+          source.buffer=noise;filter.type=type;filter.frequency.value=frequency;filter.Q.value=q;
+          gain.gain.setValueAtTime(volume,now+at);gain.gain.exponentialRampToValueAtTime(.0008,now+at+length);
+          source.connect(filter);filter.connect(gain);gain.connect(audio.destination);
+          source.start(now+at,Math.random()*.4,length+.02);
+        };
+        const tone=(at,length,type,frequency,volume,slideTo)=>{
+          const osc=audio.createOscillator(),gain=audio.createGain();
+          osc.type=type;osc.frequency.setValueAtTime(frequency,now+at);
+          if(slideTo)osc.frequency.exponentialRampToValueAtTime(slideTo,now+at+length);
+          gain.gain.setValueAtTime(volume,now+at);gain.gain.exponentialRampToValueAtTime(.0008,now+at+length);
+          osc.connect(gain);gain.connect(audio.destination);osc.start(now+at);osc.stop(now+at+length+.02);
+        };
+        if(kind==='crumple')for(let i=0;i<9;i++)burst(i*.05+Math.random()*.03,.035+Math.random()*.03,'bandpass',2200+Math.random()*2600,1.4,.16);
+        else if(kind==='cardboard'){for(let i=0;i<5;i++)burst(i*.08+Math.random()*.03,.06,'bandpass',700+Math.random()*700,1.1,.2);tone(.42,.12,'sine',110,.16,60);}
+        else if(kind==='cans')for(let i=0;i<3;i++){burst(i*.16,.09,'highpass',3000,.8,.12);tone(i*.16,.18,'triangle',1800+i*420,.04);}
+        else if(kind==='rustle'){for(let i=0;i<6;i++)burst(i*.07,.08,'highpass',4200,.7,.07);burst(.1,.25,'bandpass',2600,1.2,.05);}
+        else if(kind==='thud'){tone(0,.16,'sine',95,.25,45);tone(.22,.16,'sine',85,.22,40);burst(0,.05,'lowpass',500,.7,.12);burst(.22,.05,'lowpass',450,.7,.1);}
+        else{burst(0,.45,'lowpass',900,.6,.1);burst(.05,.35,'bandpass',1500,.9,.06);} // cloth
+        window.setTimeout(()=>audio.close(),1100);
+      }catch{}
+    }
+    function tidyClutter(){
+      const prop=$('prop');
+      if(!prop.classList.contains('visible')||prop.classList.contains('tidying'))return;
+      const tidy=clutterTidy[$('clutter-type').value]||clutterTidy['instant-noodles'];
+      playClutterSound(tidy.sound);
+      prop.classList.add('tidying');
+      showGameNotice(tidy.note);
+      window.setTimeout(()=>{$('clutter').checked=false;prop.classList.remove('visible','tidying');},600);
+    }
+    $('prop').addEventListener('click',tidyClutter);
     $('hand-pose').addEventListener('change',setGrip);
     $('legs-type').addEventListener('change',e=>$('leg-layer').src=assetUrl(`assets/ui/${e.target.value}.png`));
     $('shuffle-look').addEventListener('click',()=>{randomiseRoomLook();fit();});
@@ -791,6 +979,8 @@
     function advanceToNextDay(){
       if(dayTransitionInFlight||world.policeArrested)return;
       dayTransitionInFlight=true;
+      stopRinging();
+      closeCupboard(); // the cupboard shuts while time passes
       if(hingeIndex>=hingeDeck.length)setupHingeDeck();
       hingeSwipesToday=0;
       hingeView='discover';
@@ -808,6 +998,7 @@
         world.day++;
         visibleNewsDay=world.day;
         deliverNextDayMessages();
+        talkNewDay(); // warm women message you first
         // Runs before today's paper is printed so delayed case stories appear in it.
         const caseEvent=blueRibbonNewDay();
         chapel?.onNewDay(); // Task 2: countdown, favours, vigil and ritual night
@@ -819,6 +1010,7 @@
         setLowered(false);
         $('day-caption').classList.remove('visible');
         dayTransitionInFlight=false;
+        scheduleHerCalls(); // women who really like you may ring today
         updateRunStatus();
         saveRun(true);
         if(valeGameOver(valeDay?.ending))return; // Professor Vale: an arrest or death is already playing in the room
@@ -944,13 +1136,18 @@
       if(expandedNews.has(key))expandedNews.delete(key);else expandedNews.add(key);
       if(!world.seenArticles.includes(key))world.seenArticles.push(key);
       if(item.clue)recordClue(item.clue);
+      // Contacts: every edition prints the newsroom tip line and the police number;
+      // Vale's stories name the University Office, the faith pages St Brigid's Chapel.
+      learnService('newsroom','police');
+      if(/^professor_/.test(articleId)||item.pvReadKey)learnService('university');
+      if(['bishop_guitars','religion_chapel'].includes(articleId))learnService('chapel');
       // Professor Vale: reading a Vale story opens the case; quest stories carry their own key.
       const valeStory={professor_car:'car',professor_fire:'fire',professor_campus:'campus'}[articleId];
       if(valeStory)PV?.onNewsRead(valeStory);
       if(item.pvReadKey)PV?.onNewsRead(item.pvReadKey);
       if(edition.day===1&&articleId==='charity_gala'&&BR&&!brState().foundationKnown){
         brState().foundationKnown=true;brNumber('foundation');
-        updateRunStatus('Blue Ribbon Foundation office number added to Notes. Calls there will be noticed.');showGameNotice('Foundation number saved to Notes');
+        updateRunStatus('Blue Ribbon Foundation office number saved to Contacts. Calls there will be noticed.');
       }
       renderNews();
     }
@@ -978,14 +1175,30 @@
       hydrateInlineImages($('opened'));
       if($('news-reroll'))$('news-reroll').onclick=rerollNewsPreview;
     }
+    // Calls has two tabs: the keypad and voicemail. Voicemails are messages people left
+    // overnight (the Professor Vale case), newest first, with a way to ring back.
+    var callsView='keypad';
+    function voicemailEntries(){
+      if(!PV?.isOpen())return [];
+      const file=PV.engine.caseFile(world.professorVale,world.day);
+      return file.voicemails.map(message=>({...message,number:file.numbers.find(line=>line.name.split(' ')[0]===String(message.from).split(' ')[0])?.number||null})).reverse();
+    }
     function renderCalls(){
+      if(incomingCall){renderIncomingCall();return;} // she is calling you
+      if(herCall){renderHerCall();return;}
       if(ringingContact){renderRingingCall();return;}
       if(activeGenericCall){renderConnectedCall();return;}
       if(activeCallId){renderConnectedCall();return;}
       $('opened').classList.remove('connected-mode');
       $('opened').classList.add('calls-mode');
       $('opened').style.backgroundImage=`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`;
-      $('opened').innerHTML=`<div class="calls-shell"><div class="calls-top"><span>KEYPAD</span></div><div class="calls-screen"><div class="dial-number" id="dial-number"></div><div class="dial-message" id="dial-message"></div></div><div class="dial-keys">${[['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']].map(([digit,letters])=>`<button class="dial-key" data-digit="${digit}" aria-label="Dial ${digit}"><span class="digit">${digit}</span><span class="letters">${letters||'&nbsp;'}</span></button>`).join('')}</div><div class="calls-actions"><button id="dial-clear" aria-label="Delete last digit">⌫</button><button class="call-now" id="dial-call">☎ Call</button><button id="dial-reset" aria-label="Clear all digits">Clear</button></div></div>`;
+      const voicemails=voicemailEntries();
+      const tabs=`<div class="calls-top"><button class="calls-tab${callsView==='keypad'?' active':''}" data-calls-view="keypad">KEYPAD</button><button class="calls-tab${callsView==='voicemail'?' active':''}" data-calls-view="voicemail">VOICEMAIL${voicemails.length?` (${voicemails.length})`:''}</button></div>`;
+      if(callsView==='voicemail'){
+        $('opened').innerHTML=`<div class="calls-shell">${tabs}<div class="voicemail-list">${voicemails.length?voicemails.map(message=>`<div class="voicemail"><b>Day ${message.day} · ${esc(message.from)}</b>${esc(message.text)}${message.number?`<br><button data-note-dial="${esc(message.number)}">☎ Call back</button>`:''}</div>`).join(''):'<p class="voicemail-empty">No voicemail.</p>'}</div></div>`;
+        return;
+      }
+      $('opened').innerHTML=`<div class="calls-shell">${tabs}<div class="calls-screen"><div class="dial-number" id="dial-number"></div><div class="dial-message" id="dial-message"></div></div><div class="dial-keys">${[['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']].map(([digit,letters])=>`<button class="dial-key" data-digit="${digit}" aria-label="Dial ${digit}"><span class="digit">${digit}</span><span class="letters">${letters||'&nbsp;'}</span></button>`).join('')}</div><div class="calls-actions"><button id="dial-clear" aria-label="Delete last digit">⌫</button><button class="call-now" id="dial-call">☎ Call</button><button id="dial-reset" aria-label="Clear all digits">Clear</button></div></div>`;
       $('dial-clear').onclick=()=>{dialledNumber=dialledNumber.slice(0,-1);dialStatus='';updateDialDisplay();};
       $('dial-reset').onclick=()=>{dialledNumber='';dialStatus='';updateDialDisplay();};
       $('dial-call').onclick=()=>{
@@ -1216,6 +1429,7 @@
       callRevealTimer=window.setTimeout(nextLetters,100);
     }
     function endSimulatedCall(){
+      if(herCall){herCall=null;}
       pendingCaseConfirm=null; // [Blue Ribbon]
       stopCallTypewriter();callRevealText='';callRevealProgress=0;callRevealElement=null;
       if(ringTimer!==null){clearTimeout(ringTimer);ringTimer=null;}
@@ -1366,6 +1580,16 @@
     // session-specific display copy, not changes to faction or biography data.
     let hingeProfiles=window.MATCH_HINGE_PROFILES||[];
     let hingeDialogue=window.MATCH_HINGE_DIALOGUES||null;
+    // The character database (character_database.json): each woman's personality type.
+    let characterDB=window.MATCH_CHARACTER_DB||null,personalityIndex=null;
+    if(!characterDB&&typeof fetch==='function')fetch('character_database.json').then(r=>r.json()).then(db=>{characterDB=db;personalityIndex=null;}).catch(()=>{});
+    function personalityOf(profile){
+      if(!characterDB||!profile)return null;
+      if(!personalityIndex){const types=new Map(characterDB.types.map(type=>[type.id,type]));personalityIndex=new Map(characterDB.women.map(woman=>[woman.id,types.get(woman.type)]));}
+      return personalityIndex.get(profile.id)||null;
+    }
+    // How women treat you: the difficulty chosen at the start (Mogger, Normie, Truecel).
+    const tone=()=>['mogger','normie','truecel'].includes(selectedDifficulty)?selectedDifficulty:'normie';
     let hingeDeck=[],hingeIndex=0,hingeSwipesToday=0,hingeView='discover',activeChatId=null,activeCallId=null,activeProfileId=null,profileReturnView='thread';
     let hingeJobs={},hingeGalleryIndex={},hingeThreads=new Map(),hingeLikes=0;
     let hingeToast='',swipeLocked=false,hingeTouchStart=null,suppressPhotoClickUntil=0,lastSwipeAt=0;
@@ -1453,7 +1677,7 @@
         'The record shop played something cheerful today. I am still recovering.',
         'I have tickets to a band with seventeen listeners. This is your warning.',
         'Hi. I am trying to decide whether the moon looks sinister or simply tired tonight.',
-        'My favourite bar serves coffee until 2 AM. You would either love it or run away.',
+        'My favourite bar serves coffee until the small hours. You would either love it or run away.',
         'I found an old horror film so bad it has become my entire personality.'
       ],
       normie_girls:[
@@ -1467,6 +1691,8 @@
     function introFor(profile){
       const messages=hingeDialogue?.initialMessages||{};
       const specific=hingeDialogue?.characterLines?.[profile.id]?.intro;
+      const personality=personalityOf(profile);
+      if(personality?.first&&(tone()!=='normie'||!specific))return personality.first[tone()];
       if(specific)return specific;
       const variants=icebreakers[profile.factionId];
       return variants?variants[hashSeed(profile.id)%variants.length]:messages[profile.factionId]||messages.default||'Hey! How are you?';
@@ -1475,6 +1701,7 @@
       if(hingeThreads.has(profile.id))return hingeThreads.get(profile.id);
       const awaiting=responseMode==='tomorrow'||responseMode==='ghost';
       const thread={id:profile.id,topics:[],number:null,pending:false,fumbled:false,blocked:false,photoRequests:0,
+        warmth:0,followUp:null,deeper:null,talk:sanitizeTalk(null),
         awaiting,replyOnDay:responseMode==='tomorrow'?world.day+1:null,ghosted:responseMode==='ghost',
         log:awaiting?[]:[{who:'her',text:introFor(profile)}],callLog:[]};
       hingeThreads.set(profile.id,thread);
@@ -1536,9 +1763,16 @@
       if(marriageOptions?.only)return marriageOptions.html;
       const chapelOptions=chapel?.optionsFor(thread); // Task 2: Chapel at Midnight choices
       if(chapelOptions?.only)return chapelOptions.html;
-      const topics=hingeDialogue?.topics||[];
-      const available=topics.filter(topic=>!thread.topics.includes(topic.id)&&(topic.id!=='case'||world.day>=2));
-      const result=available.map(topic=>`<button class="hinge-chat-choice" data-hinge-topic="${topic.id}">${esc(topic.label)}</button>`);
+      // She has asked you something: only your answers show until you reply.
+      const followHtml=thread.followUp?talkFollowHtml(thread):'';
+      if(followHtml)return followHtml;
+      const profileNow=hingeProfile(thread.id);
+      const result=talkTopicsFor(thread,profileNow).map(topic=>`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`);
+      if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))result.unshift(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`);
+      if(newsTalkAvailable(thread))result.push(`<button class="hinge-chat-choice" data-hinge-topic="news">📰 ${esc(characterDB.newsTalk.label)}</button>`);
+      if(realEggAvailable(thread,profileNow))result.push(`<button class="hinge-chat-choice" data-hinge-topic="egg:real">${esc(talkKit().eggs.real.label)}</button>`);
+      const caseTopic=(hingeDialogue?.topics||[]).find(topic=>topic.id==='case');
+      if(caseTopic&&world.day>=2&&!thread.topics.includes('case'))result.push(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`);
       for(const topic of brHingeTopicsFor(hingeProfile(thread.id))){
         if(brTopicAvailable(topic,thread))result.push(caseHingeTopicButton(topic));
       }
@@ -1548,12 +1782,12 @@
       }
       if(chapelOptions?.html)result.unshift(chapelOptions.html); // Task 2
       if(marriageOptions?.html)result.unshift(marriageOptions.html); // Marriage
-      if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number){
+      if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number && talkState(thread).numberRefusedDay!==world.day){
         result.push('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>');
       }
       if(thread.number)result.push(`<div style="font:9px Verdana,sans-serif;color:#a8e8bc;text-align:center">Number saved: ${thread.number}</div>`);
-      if(thread.photoRequests<2)result.push('<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">♡ Ask for a picture</button>');
-      result.push('<button class="hinge-chat-choice risky" data-hinge-topic="fumble">Try a disastrous pick-up line</button>');
+      // Always offered. After her first picture it becomes "Another one?".
+      result.push(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">♡ ${picturesSent(thread,hingeProfile(thread.id)).length?'Another one?':'Ask for a picture'}</button>`);
       return result.join('');
     }
     function renderHinge(){
@@ -1576,12 +1810,13 @@
         body=threads.length?`<div class="hinge-list">${threads.map(thread=>{
           const profile=hingeProfile(thread.id);
           const last=thread.log[thread.log.length-1];
-          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
+          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${talkState(thread).unread?'💬 New message':thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
         }).join('')}</div>`:'<div class="hinge-empty">No conversations yet.<p>Like somebody to start a chat.</p></div>';
       }else if(hingeView==='thread'){
         const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
         if(!thread||!profile){hingeView='chats';return renderHinge();}
-        body=`<div class="hinge-chat-head"><button data-chat-back>‹</button><button class="face-button" data-profile-open="${profile.id}" aria-label="View ${esc(profile.name)}'s pictures"><img src="${profile.gallery[0]}" alt="${esc(profile.name)}"></button><strong>${esc(profile.name)} · Tap photo for profile</strong></div><div class="hinge-messages" id="hinge-messages">${thread.log.map(line=>line.evidence?evidenceChatBubble(line):line.image?`<div class="hinge-bubble her image-message"><img src="${line.image}" data-chat-selfie alt="Picture sent by ${esc(profile.name)}"><small>${esc(line.text)}</small></div>`:`<div class="hinge-bubble ${line.who}${line.block?' block-message':''}">${esc(line.text)}</div>`).join('')}${thread.pending?'<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>':''}</div><div class="hinge-options">${thread.pending?'':hingeOptionsFor(thread)}</div>`;
+        if(thread.id!==bearHingeCard.id)talkState(thread).unread=false;
+        body=`<div class="hinge-chat-head"><button data-chat-back>‹</button><button class="face-button" data-profile-open="${profile.id}" aria-label="View ${esc(profile.name)}'s pictures"><img src="${profile.gallery[0]}" alt="${esc(profile.name)}"></button><strong data-name-tap>${esc(profile.name)} · Tap photo for profile</strong></div><div class="hinge-messages" id="hinge-messages">${thread.log.map(line=>line.evidence?evidenceChatBubble(line):line.image?`<div class="hinge-bubble her image-message"><img src="${line.image}" data-chat-selfie alt="Picture sent by ${esc(profile.name)}"><small>${esc(line.text)}</small></div>`:`<div class="hinge-bubble ${line.who}${line.block?' block-message':''}">${esc(line.text)}</div>`).join('')}${thread.pending?'<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>':''}</div><div class="hinge-options">${thread.pending?'':hingeOptionsFor(thread)}</div>`;
       }else if(hingeView==='profile'){
         const profile=hingeProfile(activeProfileId);
         if(!profile){hingeView='chats';return renderHinge();}
@@ -1632,7 +1867,8 @@
       let delay=minimum+Math.floor(gameRandom()*(maximum-minimum));
       if(topicId==='photo')delay+=1200;
       if(topicId==='fumble')delay=Math.min(delay,1700);
-      return delay;
+      delay*=(personalityOf(profile)?.speed||1)*{mogger:.7,normie:1,truecel:1.4}[tone()];
+      return Math.round(delay);
     }
     function chooseBearTopic(id){
       const thread=hingeThreads.get(bearHingeCard.id);
@@ -1671,10 +1907,11 @@
     function chooseHingeTopic(id){
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
+      if(isTalkTopic(id))return chooseTalk(id,thread,profile);
       if(id==='photo'){
-        if(thread.photoRequests>=2)return;
+        const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
-        thread.log.push({who:'you',text:'Will you send me a picture of yourself?'});
+        thread.log.push({who:'you',text:another?choose(['Another one?','Got another one?','Another one? Please?']):'Will you send me a picture of yourself?'});
         if(profile.factionId==='sisters_of_mercy'){
           thread.blocked=true;
           thread.log.push({who:'her',text:'That is completely inappropriate. Do not contact me again.',block:true});
@@ -1685,11 +1922,24 @@
         thread.pending=true;
         renderHinge();
         window.setTimeout(()=>{
-          if(gameRandom()<.78&&profile.privatePhotos?.length){
-            const picture=gamePick(profile.privatePhotos);
-            thread.log.push({who:'her',text:gamePick(['All right, here you go. What do you think?','Found this on my camera roll. Be nice!','Fine, but now you owe me a better conversation.']),image:picture.src});
+          // Each yes sends one of her private pictures you haven't seen yet. Whether she says yes
+          // depends on her type (how much talk she needs first) and the difficulty: Mogger always,
+          // Normie once you've talked enough, Truecel only after much more, and often not even then.
+          const unseen=(profile.privatePhotos||[]).filter(picture=>!sent.includes(picture.src));
+          const personality=personalityOf(profile);
+          const needs={eager:0,teasing:1,'after-trust':2,reluctant:3,never:99}[personality?.pictures]??1;
+          const talked=thread.topics.length+warmthOf(thread); // warmth counts, and a cold woman needs more talk
+          const willing=tone()==='mogger'||(tone()==='normie'?talked>=needs:talked>=needs+2&&gameRandom()<.5);
+          if(unseen.length&&willing){
+            const picture=gamePick(unseen);
+            const line=another?(personality?.another||gamePick(['Greedy! Okay, one more.','Here’s another. Don’t say I never spoil you.','Fine, but this one’s just for you.','Since you asked so nicely…']))
+              :gamePick(['All right, here you go. What do you think?','Found this on my camera roll. Be nice!','Fine, but now you owe me a better conversation.']);
+            thread.log.push({who:'her',text:line,image:picture.src});
+          }else if(unseen.length||!another){
+            const refusal=personality?.refuse||choose(['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.']);
+            thread.log.push({who:'her',text:tone()==='truecel'?choose(['Lol, no. ','Ew, no. ','Why would I? ','Absolutely not. '])+refusal:refusal});
           }else{
-            thread.log.push({who:'her',text:choose(['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.'])});
+            thread.log.push({who:'her',text:personality?.out||choose(['That’s all of them, I promise!','You’ve seen everything on my camera now.','No more! A girl needs some mystery.'])});
           }
           thread.pending=false;
           if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
@@ -1702,15 +1952,23 @@
         reply=hingeDialogue?.characterLines?.[profile.id]?.fumble||'Wow. That was rude. I don’t think we should carry on talking.';
       }else if(id==='number'){
         if(thread.topics.length<(hingeDialogue?.numberUnlockAfterTopics||2))return;
-        if(!thread.number)thread.number=unusedContactNumber();
+        thread.followUp=null;
         thread.log.push({who:'you',text:hingeDialogue?.phoneNumber?.player||'Could I have your number?'});
-        reply=(hingeDialogue?.phoneNumber?.reply||'My number is {number}.').replace('{number}',thread.number);
+        if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'){ // she's gone cold on you: not today
+          talkState(thread).numberRefusedDay=world.day;
+          reply=gamePick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.']);
+        }else{
+          if(!thread.number)thread.number=unusedContactNumber();
+          reply=(hingeDialogue?.phoneNumber?.reply||'My number is {number}.').replace('{number}',thread.number);
+          if(warmthOf(thread)>=3)ensureCallSchedule(); // she really likes you: she may ring today
+        }
       }else{
         const topic=hingeDialogue?.topics?.find(item=>item.id===id);
         if(!topic||thread.topics.includes(id))return;
+        thread.followUp=null;
         thread.topics.push(id);
         thread.log.push({who:'you',text:topic.player});
-        reply=replyFor(topic,profile);
+        reply=id==='date'?dateReply(thread,profile,replyFor(topic,profile)):replyFor(topic,profile);
         if(id==='case'){
           if(profile.factionId==='thunderbirds'){recordClue(`${profile.name} said the Blue Ribbon committee had a dispute before Elena Cross disappeared.`);world.flags.galaRumour=true;brAddSuspicion(5,`You asked ${profile.name} (Thunderbirds) about Elena Cross.`);}
           else if(profile.factionId==='fourth_estate'){recordClue(`${profile.name} says the newsroom is checking a witness near the interstate junction.`);world.flags.reporterLead=true;}
@@ -1722,8 +1980,729 @@
       window.setTimeout(()=>{
         thread.log.push({who:'her',text:reply});thread.pending=false;
         if(id==='fumble')thread.fumbled=true;
+        else if(tone()==='mogger'&&profile.factionId!=='sisters_of_mercy'&&gameRandom()<.35){ // Mogger: unasked pictures
+          const unseen=(profile.privatePhotos||[]).filter(picture=>!picturesSent(thread,profile).includes(picture.src));
+          if(unseen.length)thread.log.push({who:'her',text:personalityOf(profile)?.unasked||'Thought you might like this.',image:gamePick(unseen).src});
+        }
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,id));
+    }
+    // Coffee depends on how she feels about you. Warm (or on Mogger), she says yes and gives you
+    // her number; cold, she says no; otherwise "not yet", and you can ask again another day.
+    function dateReply(thread,profile,notYet){
+      const dates=talkKit()?.dates,faction=profile.factionId;
+      if(!dates)return notYet;
+      const warmth=warmthOf(thread);
+      if(tone()==='mogger'||warmth>=3){
+        const yes=seededPick(dates.yes[faction]||dates.yes.normie_girls,profile.id);
+        if(thread.number)return yes;
+        thread.number=unusedContactNumber();
+        return `${yes} ${fillIn(dates.number,{number:thread.number})}`;
+      }
+      // Not a yes: the question can come back on a later day.
+      thread.topics=thread.topics.filter(topic=>topic!=='date');
+      talkState(thread).dateDay=world.day;
+      if(warmth<=-1)return seededPick(dates.no[faction]||dates.no.normie_girls,profile.id);
+      return notYet;
+    }
+    // Her private pictures already in this chat. Worked out from the chat itself, so
+    // older saves need nothing new, and only pictures from her private set count.
+    function picturesSent(thread,profile){
+      const own=new Set((profile?.privatePhotos||[]).map(picture=>picture.src));
+      return thread.log.filter(entry=>entry.who==='her'&&entry.image&&own.has(entry.image)).map(entry=>entry.image);
+    }
+    // ---------- Deeper conversations ----------
+    // Content lives in character_database.json: worldTopics (town topics; the big ones have real
+    // stances), newsTalk, talk (questions she asks you, moods, callbacks, gossip, Easter eggs),
+    // types[].roots (the story behind her opinions) and women[].conversation (her own topics).
+    // A chat is built from small parts: at most three topics on offer at once; her answer in her own
+    // voice; then she asks you back, and you answer with a mood (small talk) or a real stance (big
+    // questions). Warmth (-3 to 5) is how she feels about you. It opens her personal topics and the
+    // story behind her opinions, and makes pictures and her number easier. Women in one faction
+    // compare notes, so what you tell one, her friends may hear.
+    const TALK_CAP=3;
+    const TALK_MOODS=['bright','tired','restless','wistful','prickly','giddy'];
+    const CONTRARIANS=new Set(['witty-sceptic','curious-contrarian','tomboy-writer','wild-heart']);
+    const PROPER_START=/^(I|I’d|I’ll|I’m|I’ve|Blue|Detective|Elena|God|God’s|Houellebecq|Houellebecq’s|Latin|Paglia|Professor|Saint|Sunfall|Vale|Hector|Gerald|St)\b/;
+    const CLAUSE_START=/^(The|It|It’s|That|That’s|This|There’s|Most|Some|Somebody|Someone|People|Everyone|Every|Everybody|Nobody|Nothing|Love|Faith|Sunfall|Men|Women|Apps|Half|Being|Giving|Tradition|Solidarity|Loneliness|Rules|A|An|Our|Their|They|They’re|We|We’re|Prayer|God|Paglia|Houellebecq|Vale|Professor|Civic|Crime|Poverty|Children|Church|Hatred|Karma|Old)\b/;
+    const talkKit=()=>characterDB?.talk||null;
+    const talkState=thread=>{
+      const talk=thread.talk;
+      return talk&&talk.memory&&['tags','roots','asked','informed'].every(key=>Array.isArray(talk[key]))?talk:(thread.talk=sanitizeTalk(talk));
+    };
+    const warmthOf=thread=>Number.isFinite(thread?.warmth)?thread.warmth:0;
+    const warmBy=(thread,delta)=>{thread.warmth=Math.max(-3,Math.min(5,warmthOf(thread)+delta));if(thread.warmth>=3&&thread.number)ensureCallSchedule();};
+    // A topic with no warmth requirement is always open, however cold she is.
+    const warmEnough=(warmth,topic)=>!topic.needsWarmth||warmth>=topic.needsWarmth;
+    const seededPick=(list,key)=>list?.length?list[hashSeed(world.seed+'|'+key)%list.length]:null;
+    // Like seededPick, but she won't say the same line to you twice until she's run through them all.
+    function freshPick(thread,key,list,seed){
+      if(!list?.length)return null;
+      const state=talkState(thread);
+      const used=state.used[key]||(state.used[key]=[]);
+      const fresh=list.filter(item=>!used.includes(item));
+      if(!fresh.length)used.length=0;
+      const choice=seededPick(fresh.length?fresh:list,seed);
+      used.push(choice);
+      if(used.length>30)used.shift();
+      return choice;
+    }
+    const fillIn=(template,values)=>String(template).replace(/\{(\w+)\}/g,(match,key)=>values[key]??match);
+    const firstName=profile=>String(profile?.name||'').split(' ')[0];
+    function convo(){
+      const c=world.convo&&typeof world.convo==='object'?world.convo:(world.convo={});
+      c.told||={};c.jokes||={};c.asked||={};c.tags||={};
+      return c;
+    }
+    function sanitizeConvo(raw){
+      const src=raw&&typeof raw==='object'?raw:{};
+      const ids=list=>Array.isArray(list)?list.filter(id=>typeof id==='string').slice(0,300):[];
+      const byKey=obj=>Object.fromEntries(Object.entries(obj&&typeof obj==='object'?obj:{}).slice(0,100).map(([key,list])=>[key,ids(list)]));
+      const told={};
+      for(const [question,list] of Object.entries(src.told&&typeof src.told==='object'?src.told:{}).slice(0,50)){
+        if(Array.isArray(list))told[question]=list.filter(entry=>entry&&typeof entry.id==='string'&&typeof entry.answer==='string').slice(0,300).map(entry=>({id:entry.id,answer:entry.answer}));
+      }
+      const count=value=>Math.max(0,Math.min(9999,Math.trunc(Number(value)||0)));
+      const tags=Object.fromEntries(Object.entries(src.tags&&typeof src.tags==='object'?src.tags:{}).slice(0,60).map(([tag,value])=>[tag,count(value)]));
+      const calls=src.calls&&typeof src.calls==='object'&&Number.isInteger(src.calls.day)?{day:src.calls.day,slots:ids(src.calls.slots).slice(0,3),callers:ids(src.calls.callers).slice(0,3)}:null;
+      return {told,jokes:byKey(src.jokes),asked:byKey(src.asked),tags,bearAsks:count(src.bearAsks),gerald:!!src.gerald,hector:count(src.hector),hectorDone:!!src.hectorDone,mirror:!!src.mirror,
+        calls,phoneAsked:ids(src.phoneAsked),sisterAsked:ids(src.sisterAsked)};
+    }
+    // Only known fields, with the right types: a save can't smuggle anything else in.
+    function sanitizeTalk(raw){
+      const src=raw&&typeof raw==='object'?raw:{};
+      const day=value=>Number.isInteger(value)&&value>0?value:null;
+      const words=list=>Array.isArray(list)?list.filter(word=>typeof word==='string').slice(-60):[];
+      const memory=Object.fromEntries(Object.entries(src.memory&&typeof src.memory==='object'?src.memory:{}).filter(([,value])=>typeof value==='string').slice(0,80));
+      return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
+        newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
+        dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),
+        repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
+        used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
+    }
+    function womanOf(profile){return characterDB?.women?.find(woman=>woman.id===profile?.id)||null;}
+    function moodOf(profile){return TALK_MOODS[hashSeed(world.seed+'|mood|'+profile.id+'|'+world.day)%TALK_MOODS.length];}
+    // One friend in her own faction: she mentions her, and hears about you from her.
+    function friendOf(profile){
+      const others=hingeProfiles.filter(other=>other.factionId===profile.factionId&&other.id!==profile.id);
+      return others.length?others[hashSeed(world.seed+'|friend|'+profile.id)%others.length]:null;
+    }
+    // Her answer in her own voice: sometimes her type's opener, sometimes its sign-off.
+    function voiced(text,profile,key){
+      const voice=personalityOf(profile)?.voice;
+      if(!voice||!text)return text;
+      const roll=hashSeed(world.seed+'|voice|'+profile.id+'|'+key)%4;
+      if(roll===0){
+        const open=seededPick((voice.open||[]).filter(Boolean),profile.id+key);
+        if(open){
+          const joined=open.trimEnd();
+          if(/[.?!:…]$/.test(joined))return open+text;
+          const quoted=text.startsWith('“');
+          const body=quoted?text.slice(1):text;
+          if(/[A-Za-z]$/.test(joined)&&!CLAUSE_START.test(body))return text; // "I think" needs a statement after it
+          const lower=PROPER_START.test(body)?body:body.charAt(0).toLowerCase()+body.slice(1);
+          return open+(quoted?'“':'')+lower;
+        }
+      }
+      if(roll===1){const close=seededPick((voice.close||[]).filter(Boolean),profile.id+key);if(close)return text+close;}
+      return text;
+    }
+    function topicView(topic,profile){
+      const own=womanOf(profile)?.conversation?.views?.[topic.id];
+      if(own)return own;
+      const views=topic.views?.[profile.factionId]||[];
+      return seededPick(views,profile.id+'|'+topic.id)||seededPick(talkKit()?.neutral||[],profile.id);
+    }
+    function talkTopicsFor(thread,profile){
+      const asked=new Set(thread.topics),warmth=warmthOf(thread),state=talkState(thread);
+      const base=(hingeDialogue?.topics||[]).filter(topic=>topic.id!=='case'&&!(topic.id==='date'&&state.dateDay===world.day));
+      const work=base.find(topic=>topic.id==='work');
+      const own=(womanOf(profile)?.conversation?.own||[]).filter(item=>!asked.has('own:'+item.id)&&warmEnough(warmth,item)).map(item=>({id:'own:'+item.id,label:item.label}));
+      // Each woman offers the town topics in her own order, so no two chats look alike.
+      const pool=[...(characterDB?.worldTopics||[]).filter(topic=>warmEnough(warmth,topic)).map(topic=>({id:'world:'+topic.id,label:topic.label})),
+        ...base.filter(topic=>topic.id!=='work').map(topic=>({id:topic.id,label:topic.label}))].filter(topic=>!asked.has(topic.id));
+      pool.sort((a,b)=>hashSeed(world.seed+profile.id+a.id)-hashSeed(world.seed+profile.id+b.id));
+      // A mix: small talk first, then one of her own topics and one about the town, then whatever is left.
+      const picked=[];
+      if(work&&!asked.has('work'))picked.push({id:'work',label:work.label});
+      else if(talkKit()?.daily&&state.dayDay!==world.day)picked.push({id:'daily',label:talkKit().daily.label}); // once a day: how was hers?
+      if(own.length)picked.push(own.shift());
+      if(pool.length)picked.push(pool.shift());
+      while(picked.length<TALK_CAP&&(own.length||pool.length))picked.push(own.length?own.shift():pool.shift());
+      return picked.slice(0,TALK_CAP);
+    }
+    // What she asks you back, and the answers you can give.
+    function followChoices(follow){
+      const kit=talkKit();
+      if(!follow||!kit)return [];
+      const moods=options=>['warm','challenge','joke'].filter(key=>options?.[key]).map(key=>({id:key,label:options[key].label,player:options[key].player,mood:key,tags:[]}));
+      if(follow.kind==='question'){
+        const question=kit.herQuestions?.find(item=>item.id===follow.id);
+        return question?question.answers.map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer})):[];
+      }
+      if(follow.kind==='news')return moods(kit.newsFollow?.options);
+      if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
+      const topic=characterDB?.worldTopics?.find(item=>item.id===follow.id);
+      if(!topic)return [];
+      if(topic.stances)return topic.stances.map(stance=>({id:stance.id,label:stance.label,player:stance.player,tags:stance.tags||[],stance:true}));
+      return moods(topic.follow?.options);
+    }
+    function talkFollowHtml(thread){
+      const choices=followChoices(thread.followUp);
+      if(!choices.length){thread.followUp=null;return '';}
+      return choices.map(choice=>`<button class="hinge-chat-choice follow-choice" data-hinge-topic="follow:${esc(choice.id)}">${esc(choice.label)}</button>`).join('');
+    }
+    function newsTalkAvailable(thread){
+      return !!characterDB?.newsTalk&&!!talkKit()&&thread.topics.length>=1&&talkState(thread).newsDay!==world.day;
+    }
+    function realEggAvailable(thread,profile){
+      return !!talkKit()?.eggs?.real&&!thread.topics.includes('egg:real')&&warmthOf(thread)>=3&&hashSeed(world.seed+'|real|'+profile.id)%3===0;
+    }
+    // Today's paper: which kind of story each item is.
+    function storyKind(item){
+      const id=String(item?.id||'');
+      if(item?.chapelFragment||item?.chapelOutcome)return 'chapel';
+      if(/^(br_|charity_|missing_)/.test(id))return 'charity';
+      if(/^(professor_|pv_)/.test(id)||item?.pvReadKey)return 'professor';
+      if(/^(bishop_|religion_)/.test(id))return 'faith';
+      if(/^political_/.test(id))return 'protest';
+      if(/^(crime_|police_)/.test(id))return 'crime';
+      if(id==='local_bear')return 'bear';
+      return 'local';
+    }
+    // She talks about the story closest to her world: one her faction knows more about, if
+    // today's paper has one she hasn't told you about yet, otherwise the front page.
+    function newsStoryFor(thread,profile){
+      const kinds=(getNewsEdition(world.day).items||[]).map(storyKind);
+      const informed=characterDB.newsTalk.kinds||{};
+      const told=talkState(thread).informed;
+      return kinds.find(kind=>informed[kind]?.informed?.[profile.factionId]&&!told.includes(kind))||kinds[0]||'local';
+    }
+    function bearEgg(){
+      const kit=talkKit(),c=convo();
+      c.bearAsks=(c.bearAsks||0)+1;
+      if(!c.gerald&&c.bearAsks>=3){c.gerald=true;return [kit.eggs.gerald.named];}
+      if(c.gerald&&gameRandom()<.6)return [gamePick(kit.eggs.gerald.lines)];
+      return [];
+    }
+    // At most one line before her answer: the survey joke, her reputation news, a friend who
+    // mentioned you, her mood today, or something you told her earlier.
+    function talkOpener(thread,profile,topicId){
+      const kit=talkKit(),c=convo(),state=talkState(thread);
+      if(topicId){
+        const others=(c.asked[topicId]||[]).filter(id=>id!==profile.id&&hingeProfile(id)?.factionId===profile.factionId);
+        if(others.length>=2)return fillIn(seededPick(kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});
+      }
+      if(state.lastDay!==world.day){
+        state.lastDay=world.day;
+        const rep=reputationLine(thread,profile);
+        if(rep)return rep;
+        const friend=friendOf(profile);
+        if(friend&&!state.friendShown&&hingeThreads.get(friend.id)?.topics?.length){state.friendShown=true;return fillIn(seededPick(kit.asides.friendKnows,profile.id),{friend:firstName(friend)});}
+        if(gameRandom()<.45)return seededPick(kit.moods[moodOf(profile)],profile.id+world.day);
+      }
+      if(state.cbDay!==world.day&&state.tags?.length&&gameRandom()<.3){
+        const tag=[...state.tags].reverse().find(item=>kit.callbacks[item]);
+        if(tag){state.cbDay=world.day;return seededPick(kit.callbacks[tag],profile.id+tag);}
+      }
+      return null;
+    }
+    // Once you've leaned hard one way across town, her faction has heard about it.
+    function reputationLine(thread,profile){
+      const kit=talkKit(),state=talkState(thread);
+      if(state.repShown)return null;
+      const [tag,times]=Object.entries(convo().tags).sort((a,b)=>b[1]-a[1])[0]||[];
+      if(!tag||times<3)return null;
+      const liking=kit.affinity[profile.factionId]?.[tag]||0,lines=kit.reputation[profile.factionId];
+      if(!lines||!liking)return null;
+      state.repShown=true;
+      return liking>0?lines.liked:lines.disliked;
+    }
+    // Now and then, a word about the town, a friend, or Hector at the taco stand.
+    function talkAside(thread,profile){
+      const kit=talkKit(),c=convo(),state=talkState(thread);
+      if(state.asideDay===world.day||gameRandom()>=.22)return null;
+      state.asideDay=world.day;
+      if((c.hector||0)>=4&&!c.hectorDone){c.hectorDone=true;return kit.asides.hectorPayoff;}
+      const roll=gameRandom(),friend=friendOf(profile);
+      if(roll<.35&&!c.hectorDone){c.hector=(c.hector||0)+1;return seededPick(kit.asides.hector,profile.id+c.hector);}
+      if(roll<.7&&friend)return fillIn(seededPick(kit.asides.friend,profile.id+world.day),{friend:firstName(friend)});
+      return seededPick(kit.asides.places,profile.id+world.day);
+    }
+    // The story behind her opinions: one per kind (love, faith, the world), when she's warm enough.
+    function rootCategory(thread,profile,category){
+      const roots=personalityOf(profile)?.roots,used=talkState(thread).roots;
+      if(!roots)return null;
+      return [category,'love','faith','world'].find(key=>key&&roots[key]&&!used.includes(key))||null;
+    }
+    function maybeHerQuestion(thread,profile,lines){
+      const kit=talkKit(),state=talkState(thread);
+      if(thread.followUp||state.qDay===world.day||warmthOf(thread)<0)return;
+      const chance={mogger:.5,normie:.35,truecel:.2}[tone()];
+      const open=(kit.herQuestions||[]).filter(question=>!state.asked.includes(question.id));
+      if(!open.length||gameRandom()>=chance)return;
+      const question=gamePick(open);
+      state.asked.push(question.id);state.qDay=world.day;
+      lines.push(seededPick(question.ask,profile.id+question.id));
+      thread.followUp={kind:'question',id:question.id};
+    }
+    function moggerPicture(thread,profile){
+      if(tone()!=='mogger'||profile.factionId==='sisters_of_mercy'||gameRandom()>=.25)return;
+      const unseen=(profile.privatePhotos||[]).filter(picture=>!picturesSent(thread,profile).includes(picture.src));
+      if(unseen.length)thread.log.push({who:'her',text:personalityOf(profile)?.unasked||'Thought you might like this.',image:gamePick(unseen).src});
+    }
+    function deliverTalk(thread,profile,lines,delayKey,after){
+      thread.pending=true;
+      renderHinge();
+      window.setTimeout(()=>{
+        for(const text of lines)if(text)thread.log.push({who:'her',text});
+        thread.pending=false;
+        if(after)after();
+        if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
+      },hingeReplyDelay(profile,delayKey));
+    }
+    const isTalkTopic=id=>/^(own|world|follow|egg):/.test(id)||id==='news'||id==='deeper'||id==='daily';
+    function chooseTalk(id,thread,profile){
+      const kit=talkKit();
+      if(!characterDB||!kit)return;
+      if(id.startsWith('follow:'))return answerFollow(id.slice(7),thread,profile);
+      const state=talkState(thread),c=convo(),lines=[];
+      let after=null;
+      if(id.startsWith('world:')){
+        const topic=characterDB.worldTopics.find(item=>'world:'+item.id===id);
+        if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic))return;
+        thread.followUp=null;thread.topics.push(id);
+        thread.log.push({who:'you',text:topic.player});
+        lines.push(talkOpener(thread,profile,topic.id));
+        lines.push(voiced(topicView(topic,profile),profile,topic.id));
+        if(topic.id==='bear')lines.push(...bearEgg());
+        lines.push(talkAside(thread,profile));
+        // Easter egg: she knew the last person in your room.
+        if(['sunfall','leave'].includes(topic.id)&&!state.tenant&&warmthOf(thread)>=2&&hashSeed(world.seed+'|tenant|'+profile.id)%4===0){state.tenant=true;lines.push(seededPick(kit.eggs.lastTenant,profile.id));}
+        const ask=topic.ask||topic.follow?.question;
+        if(ask?.length){lines.push(seededPick(ask,profile.id+topic.id+world.day));thread.followUp={kind:'topic',id:topic.id};}
+        const askedBy=c.asked[topic.id]||(c.asked[topic.id]=[]);
+        if(!askedBy.includes(profile.id))askedBy.push(profile.id);
+        after=()=>moggerPicture(thread,profile);
+      }else if(id.startsWith('own:')){
+        const own=womanOf(profile)?.conversation?.own?.find(item=>'own:'+item.id===id);
+        if(!own||thread.topics.includes(id)||!warmEnough(warmthOf(thread),own))return;
+        thread.followUp=null;thread.topics.push(id);
+        thread.log.push({who:'you',text:own.player});
+        lines.push(talkOpener(thread,profile,null));
+        lines.push(own.reply);
+        if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
+        maybeHerQuestion(thread,profile,lines);
+        after=()=>{if(own.note)recordClue(own.note);moggerPicture(thread,profile);};
+      }else if(id==='news'){
+        if(!newsTalkAvailable(thread))return;
+        const news=characterDB.newsTalk,kind=newsStoryFor(thread,profile),about=news.kinds[kind]||{};
+        thread.followUp=null;state.newsDay=world.day;
+        if(!thread.topics.includes('news'))thread.topics.push('news');
+        const phrase=kit.newsFollow.phrases[kind]||'the paper';
+        thread.log.push({who:'you',text:`${news.player} ${phrase.charAt(0).toUpperCase()+phrase.slice(1)}?`});
+        lines.push(talkOpener(thread,profile,null));
+        lines.push(voiced(seededPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day)||seededPick(kit.neutral,profile.id),profile,'news'+world.day));
+        // In her faction's world she may know more than the paper printed: that goes in your notebook.
+        const informed=about.informed?.[profile.factionId];
+        const chance={mogger:1,normie:warmthOf(thread)>=1?1:.5,truecel:warmthOf(thread)>=1?.5:.2}[tone()];
+        let note=null;
+        if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);lines.push(seededPick(informed.lines,profile.id));note=informed.note;}
+        if(kind==='bear')lines.push(...bearEgg());
+        lines.push(freshPick(thread,'newsAsk',kit.newsFollow.questionByFaction?.[profile.factionId]||kit.newsFollow.question,profile.id+world.day));
+        thread.followUp={kind:'news',id:kind};
+        after=()=>{if(note)recordClue(note);moggerPicture(thread,profile);};
+      }else if(id==='daily'){
+        // Once a day: how was hers? Her mood, a slice of her life in Sunfall, maybe what she
+        // heard about today's paper, and then she asks about yours.
+        const daily=kit.daily;
+        if(!daily||state.dayDay===world.day)return;
+        thread.followUp=null;state.dayDay=world.day;state.lastDay=world.day;
+        if(!thread.topics.includes('daily'))thread.topics.push('daily');
+        thread.log.push({who:'you',text:seededPick(daily.player,profile.id+world.day)});
+        lines.push(reputationLine(thread,profile));
+        lines.push(seededPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
+        lines.push(voiced(freshPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day));
+        if(gameRandom()<.35){
+          const phrase=kit.newsFollow.phrases[storyKind(gamePick(getNewsEdition(world.day).items||[]))];
+          if(phrase)lines.push(fillIn(seededPick(daily.heard,profile.id+world.day),{story:phrase}));
+        }
+        lines.push(freshPick(thread,'dayAsk',daily.askByFaction?.[profile.factionId]||daily.ask,profile.id+world.day));
+        thread.followUp={kind:'day',id:'day'};
+        after=()=>moggerPicture(thread,profile);
+      }else if(id==='deeper'){
+        const category=rootCategory(thread,profile,thread.deeper);
+        thread.deeper=null;
+        if(!category)return;
+        state.roots.push(category);
+        thread.log.push({who:'you',text:seededPick(kit.deeper.player,profile.id+category)});
+        lines.push(personalityOf(profile).roots[category]);
+        warmBy(thread,1); // she opened up to you
+        maybeHerQuestion(thread,profile,lines);
+      }else if(id==='egg:real'){
+        if(!realEggAvailable(thread,profile))return;
+        thread.followUp=null;thread.topics.push('egg:real');
+        thread.log.push({who:'you',text:kit.eggs.real.player});
+        lines.push(hashSeed(world.seed+'|maker|'+profile.id)%6===0?kit.eggs.real.developer:(kit.eggs.real.lines[profile.factionId]||kit.eggs.real.lines.normie_girls));
+      }else return;
+      deliverTalk(thread,profile,lines,'talk',after);
+    }
+    // How a light answer lands depends on who she is.
+    function moodScore(mood,personality){
+      const [,C,E,A]=personality?.bigFive||[3,3,3,3,3];
+      const contrarian=CONTRARIANS.has(personality?.id)||A<=2;
+      if(mood==='warm')return contrarian?0:1;
+      if(mood==='challenge')return contrarian?1:A>=4?-1:0;
+      if(mood==='joke')return E>=4?1:C>=4&&E<=2?-1:0;
+      return 0;
+    }
+    function settleScore(score,{mood,serious,personality,profile}){
+      const A=personality?.bigFive?.[3]??3;
+      if(serious&&score<0&&(CONTRARIANS.has(personality?.id)||A>=4))score+=1; // she enjoys an argument, or forgives one
+      const today=moodOf(profile);
+      if(today==='prickly'&&score<=0)score-=1;
+      if(today==='giddy'&&mood==='joke')score+=1;
+      if(tone()==='mogger')score=score<0?0:score+1;
+      else if(tone()==='truecel')score=score>0?score-1:score<0?score-1:0; // a shrug is still a shrug
+      return Math.max(-2,Math.min(2,score));
+    }
+    function answerFollow(choiceId,thread,profile){
+      const follow=thread.followUp,choice=followChoices(follow).find(item=>item.id===choiceId);
+      if(!choice)return;
+      thread.followUp=null;
+      const kit=talkKit(),c=convo(),state=talkState(thread),personality=personalityOf(profile),faction=profile.factionId;
+      const reaction=(delta,key)=>delta>0?seededPick(personality?.reactions?.warm||kit.neutral,key):delta<0?seededPick(personality?.reactions?.cool||kit.neutral,key):seededPick(kit.neutral,key);
+      const otherName=id=>firstName(hingeProfile(id));
+      thread.log.push({who:'you',text:choice.player});
+      const lines=[];
+      let score=0,delta=0;
+      if(follow.kind==='question'){
+        score=choice.tags.reduce((sum,tag)=>sum+(kit.affinity[faction]?.[tag]||0),0);
+        delta=settleScore(score,{serious:true,personality,profile});
+        // Easter egg: her friends compare notes on what you told them.
+        const others=(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id&&hingeProfile(entry.id)?.factionId===faction);
+        const contradicted=others.find(entry=>entry.answer!==choice.id),agreed=others.find(entry=>entry.answer===choice.id);
+        const question=kit.herQuestions.find(item=>item.id===follow.id);
+        if(contradicted&&gameRandom()<.6){
+          const told=question.answers.find(answer=>answer.id===contradicted.answer)?.told||'something else';
+          lines.push(fillIn(seededPick(kit.eggs.twoFaced,profile.id+follow.id),{other:otherName(contradicted.id),told}));
+          delta=Math.min(delta,0)-1;
+        }else{
+          lines.push(delta>0?seededPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+follow.id+world.day):delta<0?seededPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+follow.id+world.day):seededPick(kit.neutral,profile.id+follow.id));
+          if(agreed&&gameRandom()<.3){lines.push(fillIn(seededPick(kit.eggs.consistent,profile.id+follow.id),{other:otherName(agreed.id)}));delta+=1;}
+        }
+        c.told[follow.id]=[...(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id),{id:profile.id,answer:choice.id}];
+      }else if(follow.kind==='day'){
+        delta=settleScore(choice.tags.reduce((sum,tag)=>sum+(kit.affinity[faction]?.[tag]||0),0),{personality,profile});
+        lines.push(delta>0?seededPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+'day'+world.day):delta<0?seededPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+'day'+world.day):seededPick(kit.neutral,profile.id+world.day));
+      }else if(choice.stance){
+        const topic=characterDB.worldTopics.find(item=>item.id===follow.id);
+        const [base,line]=topic?.replies?.[choice.id]?.[faction]||[0,seededPick(kit.neutral,profile.id)];
+        delta=settleScore(base,{serious:true,personality,profile});
+        lines.push(line);
+        if(delta!==0&&gameRandom()<.35)lines.push(reaction(delta,profile.id+follow.id+choice.id));
+      }else{
+        delta=settleScore(moodScore(choice.mood,personality),{mood:choice.mood,personality,profile});
+        // Easter egg: the same joke, told to two women who know each other.
+        const jokers=choice.mood==='joke'?(c.jokes[follow.id]||(c.jokes[follow.id]=[])):null;
+        const heard=jokers?.find(id=>id!==profile.id&&hingeProfile(id)?.factionId===faction);
+        if(heard&&gameRandom()<.7){
+          lines.push(fillIn(seededPick(tone()==='mogger'?kit.eggs.recycledJokeMogger:kit.eggs.recycledJoke,profile.id+follow.id),{other:otherName(heard)}));
+          delta=tone()==='mogger'?0:Math.min(delta,0)-1;
+        }else lines.push(reaction(delta,profile.id+follow.id+choice.id));
+        if(jokers&&!jokers.includes(profile.id))jokers.push(profile.id);
+      }
+      // Easter egg (Truecel only): a woman who gets as few matches as you.
+      if(tone()==='truecel'&&!c.mirror&&delta>=0&&['dignified-outsider','shy-gentle'].includes(personality?.id)&&['lonely','market','why','scared'].includes(follow.id)){
+        c.mirror=true;lines.push(kit.eggs.mirror);delta+=1;
+      }
+      warmBy(thread,Math.max(-2,Math.min(2,delta)));
+      state.memory[(follow.kind==='question'?'q:':follow.kind==='news'?'news:':'')+follow.id]=choice.id;
+      for(const tag of choice.tags){state.tags.push(tag);c.tags[tag]=(c.tags[tag]||0)+1;}
+      state.tags=state.tags.slice(-12);
+      // Warm enough, and she'll tell you why she thinks what she thinks.
+      const topic=follow.kind==='topic'?characterDB.worldTopics.find(item=>item.id===follow.id):null;
+      const needs=moodOf(profile)==='wistful'?0:1;
+      if(follow.kind!=='question'&&warmthOf(thread)>=needs)thread.deeper=rootCategory(thread,profile,topic?.category||'world');
+      if(!thread.deeper)maybeHerQuestion(thread,profile,lines);
+      deliverTalk(thread,profile,lines,'talk');
+    }
+    // ---------- A new day: warm women message you first ----------
+    // At most two a day, only women who like you (warmth 2+), and only if you've been talking.
+    function talkNewDay(){
+      const kit=talkKit();
+      if(!kit?.morning)return;
+      let sent=0;
+      for(const thread of hingeThreads.values()){
+        if(sent>=2)break;
+        if(thread.id===bearHingeCard.id||warmthOf(thread)<2||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending)continue;
+        const profile=hingeProfile(thread.id),state=talkState(thread);
+        if(!profile||state.morningDay===world.day||gameRandom()>=.4)continue;
+        const tag=[...state.tags].reverse().find(item=>kit.callbacks[item]);
+        const text=tag&&gameRandom()<.4?seededPick(kit.callbacks[tag],profile.id+tag+world.day):seededPick(kit.morning[moodOf(profile)]||kit.morning.bright,profile.id+world.day);
+        if(!text)continue;
+        thread.log.push({who:'her',text});
+        state.morningDay=world.day;state.unread=true;sent++;
+      }
+    }
+
+    // ---------- She calls you ----------
+    // Women who really like you (warmth 3+, and you've swapped numbers) ring you. At most three
+    // calls a day, and only one in each part of the day (early, middle, late). The phone rings and
+    // vibrates; tap the banner to open the call. A Sister tests you on the faith over the phone and
+    // asks about marriage; anyone else flirts, and may let something slip about the town.
+    const CALL_SLOTS=[{key:'early',after:30000},{key:'middle',after:110000},{key:'late',after:210000}];
+    const CALL_RING_MS=22000,MAX_CALLS_A_DAY=3;
+    let callSlotTimers=[],callScheduleDay=null,incomingCall=null,incomingTimer=null,ringLoopTimer=null,herCall=null;
+    function callsToday(){
+      const c=convo();
+      if(!c.calls||c.calls.day!==world.day)c.calls={day:world.day,slots:[],callers:[]};
+      return c.calls;
+    }
+    function clearCallSchedule(){
+      for(const timer of callSlotTimers)window.clearTimeout(timer);
+      callSlotTimers=[];callScheduleDay=null;
+    }
+    // A new day (or a load): start the day's call times afresh.
+    function scheduleHerCalls(){clearCallSchedule();ensureCallSchedule();}
+    // The day's call times only start once somebody could actually ring: a woman who really likes
+    // you and has your number. Called again whenever someone warms up or swaps numbers.
+    function ensureCallSchedule(){
+      if(callScheduleDay===world.day||!herCallers().length)return;
+      callScheduleDay=world.day;
+      const day=world.day,seed=world.seed,used=callsToday().slots;
+      for(const slot of CALL_SLOTS)if(!used.includes(slot.key))callSlotTimers.push(window.setTimeout(()=>{if(world.day===day&&world.seed===seed)tryHerCall(slot.key);},slot.after));
+    }
+    function callBusy(){
+      return !!(incomingCall||herCall||ringingContact||activeCallId||activeGenericCall||dayTransitionInFlight||world.policeArrested||$('fatal-overlay').classList.contains('visible'));
+    }
+    function herCallers(){
+      const today=callsToday();
+      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&warmthOf(thread)>=3&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&!today.callers.includes(thread.id)&&hingeProfile(thread.id));
+    }
+    // One part of the day: maybe someone rings. Returns true if the phone started ringing.
+    function tryHerCall(slot,force=false){
+      const today=callsToday();
+      if(today.slots.includes(slot)||today.callers.length>=MAX_CALLS_A_DAY||callBusy())return false;
+      const callers=herCallers().sort((a,b)=>warmthOf(b)-warmthOf(a));
+      if(!callers.length)return false;
+      if(!force&&gameRandom()>={mogger:.85,normie:.65,truecel:.4}[tone()])return false;
+      const caller=gameRandom()<.6?callers[0]:gamePick(callers); // the warmest is likeliest
+      today.slots.push(slot);today.callers.push(caller.id);
+      startIncomingCall(caller.id);
+      return true;
+    }
+    function playRingtone(){
+      if($('mute-audio')?.checked)return;
+      try{
+        const AudioCtx=window.AudioContext||window.webkitAudioContext;
+        if(!AudioCtx)return;
+        const audio=new AudioCtx(),now=audio.currentTime;
+        for(const [start,freq] of [[0,880],[.12,660],[.24,880],[.36,660],[.9,880],[1.02,660],[1.14,880],[1.26,660]]){
+          const osc=audio.createOscillator(),gain=audio.createGain();
+          osc.type='square';osc.frequency.value=freq;gain.gain.setValueAtTime(.05,now+start);gain.gain.exponentialRampToValueAtTime(.0001,now+start+.11);
+          osc.connect(gain).connect(audio.destination);osc.start(now+start);osc.stop(now+start+.12);
+        }
+        window.setTimeout(()=>{try{audio.close();}catch{}},1800);
+      }catch{}
+    }
+    function startIncomingCall(id){
+      const profile=hingeProfile(id);
+      if(!profile)return;
+      incomingCall={id};
+      stage.classList.add('ringing');
+      const banner=$('incoming-banner');
+      banner.innerHTML=`<img src="${esc(profile.gallery[0])}" alt=""><span>📞 ${esc(profile.name)} is calling…<small>Tap to open the call</small></span>`;
+      banner.hidden=false;
+      hydrateInlineImages(banner);
+      const ring=()=>{
+        if(!incomingCall)return;
+        playRingtone();
+        try{if(typeof navigator!=='undefined'&&navigator.vibrate)navigator.vibrate([400,200,400]);}catch{}
+        ringLoopTimer=window.setTimeout(ring,3000);
+      };
+      ring();
+      incomingTimer=window.setTimeout(missHerCall,CALL_RING_MS);
+      if(currentApp==='calls')renderCalls();
+    }
+    function stopRinging(){
+      incomingCall=null;
+      window.clearTimeout(incomingTimer);window.clearTimeout(ringLoopTimer);incomingTimer=ringLoopTimer=null;
+      stage.classList.remove('ringing');
+      $('incoming-banner').hidden=true;
+      try{if(typeof navigator!=='undefined'&&navigator.vibrate)navigator.vibrate(0);}catch{}
+    }
+    // Nobody answered: a missed call, and she says so in the chat.
+    function missHerCall(){
+      if(!incomingCall)return;
+      const id=incomingCall.id;
+      stopRinging();
+      const thread=hingeThreads.get(id),profile=hingeProfile(id),kit=talkKit();
+      if(thread&&profile){
+        thread.callLog.push({who:'her',text:'Missed call'});
+        const line=seededPick(kit?.calls?.missed?.[profile.factionId]||kit?.calls?.missed?.normie_girls||[],profile.id+world.day);
+        if(line){thread.log.push({who:'her',text:line});talkState(thread).unread=true;}
+      }
+      if(currentApp==='calls')renderCalls();
+      else if(currentApp==='hinge')renderHinge();
+    }
+    // Tapping the banner: raise the phone and show the incoming call.
+    function openIncomingCall(){
+      if(!incomingCall)return;
+      setLowered(false);
+      callsView='keypad';
+      openApp('calls');
+    }
+    function renderIncomingCall(){
+      const profile=hingeProfile(incomingCall.id);
+      $('opened').classList.remove('calls-mode');
+      $('opened').classList.add('connected-mode');
+      // Its own background once drawn (NEW_IMAGE_REQUESTS.md); until then the call background shows through.
+      $('opened').style.backgroundImage=`url("${assetUrl('assets/ui/incoming-call-bg.png')}"), url("${assetUrl('assets/hinge/ui/connected-call-bg.png')}")`;
+      $('opened').innerHTML=`<div class="ringing-screen incoming"><p>INCOMING CALL</p><img class="incoming-face" src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"><h3>${esc(profile.name)}</h3><p>Hinge match</p><div class="incoming-actions"><button data-call-answer>☎ Answer</button><button data-call-decline>Decline</button></div></div>`;
+      hydrateInlineImages($('opened'));
+    }
+    function declineHerCall(){
+      if(!incomingCall)return;
+      const id=incomingCall.id;
+      stopRinging();
+      const thread=hingeThreads.get(id);
+      if(thread){thread.callLog.push({who:'you',text:'Declined call'});warmBy(thread,-1);}
+      renderCalls();
+    }
+    // The call itself. Each step: what she says, then your choices.
+    function answerHerCall(){
+      if(!incomingCall)return;
+      const id=incomingCall.id,profile=hingeProfile(id),kit=talkKit()?.calls;
+      stopRinging();
+      if(!profile||!kit)return renderCalls();
+      const sister=profile.factionId==='sisters_of_mercy';
+      herCall={id,kind:sister?'sister':'flirt',step:'open',flirted:false,asked:false,said:''};
+      const callThread=hingeThreads.get(id);
+      herCall.said=sister?freshPick(callThread,'callOpen',kit.sister.open,id+world.day):voiced(freshPick(callThread,'callOpen',[...(kit.open[profile.factionId]||kit.open.normie_girls),...(talkKit().morning?.[moodOf(profile)]||[])],id+world.day),profile,'call'+world.day);
+      hingeThreads.get(id)?.callLog.push({who:'her',text:herCall.said});
+      renderCalls();
+    }
+    function herCallChoices(){
+      const kit=talkKit().calls,call=herCall;
+      if(call.step==='bye')return [{id:'hangup',label:'☎ Hang up'}];
+      if(call.kind==='sister'){
+        if(call.step==='open')return [{id:'listen',label:'Of course. Ask me.'}];
+        if(call.step==='exam')return call.exam.answers.map((answer,index)=>({id:'exam:'+index,label:`${'ABCD'[index]}. ${answer}`}));
+        if(call.step==='ask')return call.ask.answers.map(answer=>({id:'ask:'+answer.id,label:answer.label}));
+        return [{id:'hangup',label:'☎ Hang up'}];
+      }
+      const out=[];
+      if(!call.flirted)out.push({id:'flirt',label:kit.options.flirt.label});
+      if(!call.asked)out.push({id:'ask',label:kit.options.ask.label});
+      out.push({id:'go',label:kit.options.go.label});
+      return out;
+    }
+    function pickSisterAsk(call){
+      const asks=talkKit().calls.sister.asks,done=convo().sisterAsked||(convo().sisterAsked=[]);
+      const open=asks.filter(ask=>!done.includes(call.id+':'+ask.id));
+      if(!open.length)return null;
+      const ask=seededPick(open,call.id+world.day);
+      done.push(call.id+':'+ask.id);
+      return ask;
+    }
+    function chooseHerCall(choice){
+      if(!herCall)return;
+      const kit=talkKit().calls,call=herCall,profile=hingeProfile(call.id),thread=hingeThreads.get(call.id);
+      if(!profile||!thread){endHerCall();return;}
+      if(choice==='hangup'){endHerCall();return;}
+      if(!herCallChoices().some(item=>item.id===choice))return;
+      const faction=profile.factionId;
+      const say=text=>{call.said=text;thread.callLog.push({who:'her',text});};
+      const you=text=>thread.callLog.push({who:'you',text});
+      if(call.kind==='sister'){
+        if(call.step==='open'){
+          const asked=convo().phoneAsked||(convo().phoneAsked=[]);
+          const exam=marriage?.phoneQuestion?.(`${call.id}:${world.day}`,asked);
+          you('Of course. Ask me.');
+          if(exam){asked.push(exam.id);call.exam=exam;call.step='exam';say(`${seededPick(kit.sister.examIntro,call.id+world.day)} ${exam.question}`);}
+          else{call.ask=pickSisterAsk(call);call.step=call.ask?'ask':'bye';say(call.ask?call.ask.ask:seededPick(kit.sister.bye,call.id));}
+        }else if(call.step==='exam'){
+          const index=Number(choice.split(':')[1]),right=index===call.exam.correctAnswerIndex;
+          you(`${'ABCD'[index]}. ${call.exam.answers[index]}`);
+          if(right)warmBy(thread,1);
+          const verdict=right?seededPick(kit.sister.right,call.id+world.day):fillIn(seededPick(kit.sister.wrong,call.id+world.day),{answer:call.exam.answers[call.exam.correctAnswerIndex]});
+          call.ask=pickSisterAsk(call);call.step=call.ask?'ask':'bye';
+          say(`${verdict} ${call.ask?call.ask.ask:seededPick(kit.sister.bye,call.id)}`);
+        }else if(call.step==='ask'){
+          const answer=call.ask.answers.find(item=>'ask:'+item.id===choice);
+          you(answer.player);
+          const score=settleScore(answer.tags.reduce((sum,tag)=>sum+(talkKit().affinity[faction]?.[tag]||0),0),{serious:true,personality:personalityOf(profile),profile});
+          warmBy(thread,Math.max(-1,Math.min(1,score)));
+          for(const tag of answer.tags){talkState(thread).tags.push(tag);convo().tags[tag]=(convo().tags[tag]||0)+1;}
+          call.step='bye';
+          say(`${score>0?seededPick([].concat(answer.pos),call.id):score<0?seededPick([].concat(answer.neg),call.id):seededPick(talkKit().neutral,call.id)} ${seededPick(kit.sister.bye,call.id+world.day)}`);
+        }
+      }else if(choice==='flirt'){
+        call.flirted=true;
+        you(seededPick(kit.options.flirt.player,call.id+world.day));
+        if(tone()!=='truecel'||warmthOf(thread)>=4)warmBy(thread,1);
+        say(freshPick(thread,'flirtBack',[...(kit.flirtBack[faction]||kit.flirtBack.normie_girls),...(personalityOf(profile)?.reactions?.warm||[])],call.id+world.day));
+      }else if(choice==='ask'){
+        call.asked=true;
+        you(kit.options.ask.player);
+        // She tells you something she knows, if there's anything she hasn't told you yet.
+        const told=talkState(thread).informed,tells=kit.tells[faction]||[];
+        const index=tells.findIndex((item,at)=>!told.includes('call:'+at));
+        if(index>=0){told.push('call:'+index);recordClue(tells[index].note);say(tells[index].line);}
+        else{
+          // Out of gossip: something from today's paper that her world knows about, else the town.
+          const news=characterDB.newsTalk.kinds||{},kinds=(getNewsEdition(world.day).items||[]).map(storyKind);
+          const kind=kinds.find(item=>news[item]?.informed?.[faction]&&!told.includes(item));
+          if(kind){told.push(kind);recordClue(news[kind].informed[faction].note);say(seededPick(news[kind].informed[faction].lines,call.id));}
+          else say(freshPick(thread,'callTown',[...talkKit().asides.places,...kit.noTell],call.id+world.day));
+        }
+      }else if(choice==='go'){
+        you(kit.options.go.player);
+        call.step='bye';say(freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day));
+      }
+      // Two things said, and she wraps up herself.
+      if(call.kind==='flirt'&&call.step!=='bye'&&call.flirted&&call.asked){
+        call.step='bye';
+        say(`${call.said} ${freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day)}`);
+        thread.callLog.splice(thread.callLog.length-2,1);
+      }
+      renderCalls();
+    }
+    function renderHerCall(){
+      const profile=hingeProfile(herCall.id);
+      if(!profile){endHerCall();return;}
+      $('opened').classList.remove('calls-mode');
+      $('opened').classList.add('connected-mode');
+      $('opened').style.backgroundImage=`url("${assetUrl('assets/hinge/ui/connected-call-bg.png')}")`;
+      $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · SHE CALLED YOU</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
+      hydrateInlineImages($('opened'));
+      $('call-bubble').innerHTML=`<img src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(profile.name)}</strong><p class="speech" aria-live="off">${esc(herCall.said)}</p><div class="call-bubble-buttons">${herCallChoices().map(choice=>`<button data-her-call="${esc(choice.id)}">${esc(choice.label)}</button>`).join('')}</div></div>`;
+      $('call-bubble').classList.add('visible');
+      hydrateInlineImages($('call-bubble'));
+      startCallTypewriter(herCall.said);
+    }
+    function endHerCall(){
+      if(!herCall)return;
+      herCall=null;
+      stopCallTypewriter();
+      $('call-bubble').classList.remove('visible');
+      saveRun(true);
+      if(currentApp==='calls')renderCalls();
+    }
+
+    // Easter egg: tap her name five times and she tells you a secret.
+    let nameTaps={id:null,count:0};
+    function tapHerName(){
+      const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId),kit=talkKit();
+      if(!thread||!profile||!kit||profile.id===bearHingeCard.id||thread.pending||thread.awaiting||thread.blocked||thread.fumbled||talkState(thread).secretTold)return;
+      if(nameTaps.id!==profile.id)nameTaps={id:profile.id,count:0};
+      if(++nameTaps.count<5)return;
+      nameTaps.count=0;
+      const secrets=kit.eggs.secrets[profile.factionId];
+      if(!secrets)return;
+      talkState(thread).secretTold=true;
+      deliverTalk(thread,profile,[`${seededPick(kit.eggs.tapIntro,profile.id)} ${seededPick(secrets,profile.id)}`],'talk');
     }
     function flashBlocked(){
       const flash=$('blocked-flash');
@@ -1737,27 +2716,43 @@
     }
     const appContent={
       hinge:'<h3>Hinge</h3><p>10 swipes remaining today.</p><p>Swipe carefully. Some people are keeping secrets.</p><div class="paper"><p>♥ &nbsp; A new face is waiting.</p></div>',
+      // Contacts (replaces Notes): an A–Z list that starts empty. Case files, evidence
+      // and items live in the bedside cupboard in the room, not on the phone.
       notes:()=>{
-        const numbers=[...hingeThreads.values()].filter(thread=>thread.number).map(thread=>{
-          const profile=hingeProfile(thread.id);
-          const unavailable=thread.fumbled||thread.blocked;
-          const scribble=unavailable?'<svg class="scribble-x" viewBox="0 0 80 25" aria-label="Crossed out"><path d="M4 4 Q17 13 35 21 T76 23 M74 2 Q53 9 38 16 T5 24"/></svg>':'';
-          return `<p class="contact-entry ${unavailable?'fumbled':''}"><b>${esc(profile.name)}</b><br><span class="number"><button class="notes-call" data-note-dial="${thread.number}" ${unavailable?'disabled aria-label="Number unavailable"':''}>${thread.number} ☎</button>${scribble}</span>${unavailable?`<br><small>${thread.blocked?'Blocked you':'Will not take your calls'}</small>`:''}</p>`;
-        }).join('');
-        const services=[['police','Sunfall Police'],['newsroom','Sunfall Daily newsroom'],['chapel','St Brigid’s Chapel'],['university','University Office']];
-        const serviceMarkup=services.map(([key,name])=>`<p class="contact-entry"><b>${name}</b><br><button class="notes-call" data-note-dial="${contactNumbers[key]}">${contactNumbers[key]} ☎</button></p>`).join('');
-        const caseNumbers=caseNumbersMarkup();
-        const matchNames=[...hingeThreads.values()].filter(thread=>!thread.number).map(thread=>`<p>• ${esc(hingeProfile(thread.id)?.name||'Unknown')}: ${thread.awaiting?'Awaiting response':thread.blocked?'Blocked':thread.fumbled?'Conversation ended':'Chat in Hinge to learn more'}</p>`).join('');
-        const clues=world.clues.length?`<h3>Scraps & clues</h3><div class="paper">${world.clues.map(item=>`<p>• ${esc(item)}</p>`).join('')}</div>`:'';
-        const policeWarning=world.falsePoliceReports?`<p><strong>Police warning:</strong> ${world.falsePoliceReports}/3 false crime reports. A third false report ends your run.</p>`:'';
-        return `<h3>Notes</h3>${caseCardMarkup()}${valeCaseCardMarkup()}<div class="paper">${policeWarning}<p>Tap a number to open the Calls keypad, or dial seven digits yourself.</p>${serviceMarkup}${caseNumbers}${numbers||'<p>Other numbers appear after chatting in Hinge.</p>'}${matchNames}</div>${chapel?.notesEntry()||''/* Task 2: case page */}${marriage?.notesEntry()||''/* Marriage: Sisters, ring, jewellers */}${clues}`;
+        const list=contactEntries();
+        if(!list.length)return '<h3>Contacts</h3><p class="contacts-empty">No contacts yet.<br>Names and numbers you’re given will appear here.</p>';
+        let letter='',html='<h3>Contacts</h3>';
+        for(const entry of list){
+          const first=entry.name.charAt(0).toUpperCase();
+          if(first!==letter){letter=first;html+=`<div class="contacts-letter">${esc(letter)}</div>`;}
+          const scribble=entry.unavailable?'<svg class="scribble-x" viewBox="0 0 80 25" aria-label="Crossed out"><path d="M4 4 Q17 13 35 21 T76 23 M74 2 Q53 9 38 16 T5 24"/></svg>':'';
+          html+=`<button class="contact-row${entry.unavailable?' fumbled':''}" data-note-dial="${esc(entry.number)}"${entry.unavailable?' disabled aria-label="Number unavailable"':''}><img src="${esc(entry.portrait)}" alt=""${entry.fallback?` data-fallback="${esc(entry.fallback)}" onerror="imageFallback(this)"`:''}><span><b>${esc(entry.name)}</b><small>${esc(entry.detail)}</small></span><em>${esc(entry.number)}</em>${scribble}</button>`;
+        }
+        return html;
       }
     };
+    // Settings ▸ About. GAME_VERSION shows at the bottom; Credits appear from the second
+    // playthrough (counted on this device, across runs). Edit DEVELOPER_NOTE and DONATE_URL here.
+    const GAME_VERSION='0.9';
+    const DEVELOPER_NOTE=['Thank you for playing MATCH.','I made this game because I wanted something strange, funny and a little dangerous, a dating app where every match might be hiding a story. If you found the ring, the bear, or the Back Row, you have seen most of what I hoped to make.','If you enjoyed it and want more, you can support future updates below.'];
+    const DEVELOPER_SIGNATURE='Chris, the developer';
+    const DONATE_URL=''; // the donate button appears once this is set
+    let settingsView='main';
+    // Kept beside the save (each edition has its own), and never reset by starting a new run.
+    const PLAYTHROUGH_KEY=SAVE_KEY+':playthroughs';
+    function playthroughs(){try{return Number(localStorage.getItem(PLAYTHROUGH_KEY))||1;}catch{return 1;}}
+    function countPlaythrough(){try{localStorage.setItem(PLAYTHROUGH_KEY,String(playthroughs()+1));}catch{}}
+    function creditsUnlocked(){return playthroughs()>=2;}
     function renderSettings(){
+      if(settingsView==='credits'&&creditsUnlocked()){
+        $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support MATCH</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Story, design and direction: Chris</p><p>Built with Claude and ChatGPT</p></div><p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
+        return;
+      }
+      settingsView='main';
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -1775,7 +2770,7 @@
       if(app==='news'){visibleNewsDay=world.day;renderNews();return;}
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
-      if(app==='settings'){renderSettings();return;}
+      if(app==='settings'){settingsView='main';renderSettings();return;}
       if(app==='notes'){notesView='main';caseWithdrawArmed=false;renderNotes();return;}
       $('opened').innerHTML=typeof appContent[app]==='function'?appContent[app]():appContent[app];
       hydrateInlineImages($('opened'));
@@ -1788,6 +2783,8 @@
       if(chapelChoice){chapel?.choose(chapelChoice.dataset.chapelChoice);return;}
       const settingFont=event.target.closest('[data-setting-font]');
       if(settingFont){setFontScale(settingFont.dataset.settingFont);return;}
+      const settingsNav=event.target.closest('[data-settings-view]');
+      if(settingsNav){settingsView=settingsNav.dataset.settingsView;renderSettings();$('opened').scrollTop=0;return;}
       const settingWallpaper=event.target.closest('[data-setting-wallpaper]');
       if(settingWallpaper){$('wallpaper-style').value=settingWallpaper.dataset.settingWallpaper;wallpaperLocked=true;fit();renderSettings();return;}
       const notesNav=event.target.closest('[data-notes-view]');
@@ -1800,8 +2797,10 @@
       if(caseTopic){chooseBlueRibbonHingeTopic(caseTopic.dataset.brTopic);return;}
       const valeTopic=event.target.closest('[data-pv-topic]'); // Professor Vale
       if(valeTopic){chooseValeHingeTopic(valeTopic.dataset.pvTopic);return;}
+      const callsTab=event.target.closest('[data-calls-view]');
+      if(callsTab){callsView=callsTab.dataset.callsView;renderCalls();return;}
       const noteNumber=event.target.closest('[data-note-dial]');
-      if(noteNumber&&!noteNumber.disabled){dialledNumber=noteNumber.dataset.noteDial;dialStatus='Number copied from Notes.';openApp('calls');return;}
+      if(noteNumber&&!noteNumber.disabled){dialledNumber=noteNumber.dataset.noteDial;dialStatus=currentApp==='calls'?'Ready to ring back.':'Number copied from Contacts.';callsView='keypad';openApp('calls');return;}
       const newsDay=event.target.closest('[data-news-day]');
       if(newsDay){visibleNewsDay=Number(newsDay.dataset.newsDay);renderNews();return;}
       const story=event.target.closest('[data-news-read]');
@@ -1826,6 +2825,7 @@
       if(bearTopic){chooseBearTopic(bearTopic.dataset.bearTopic);return;}
       const topic=event.target.closest('[data-hinge-topic]');
       if(topic){chooseHingeTopic(topic.dataset.hingeTopic);return;}
+      if(event.target.closest('[data-name-tap]')){tapHerName();return;}
       const selfie=event.target.closest('[data-chat-selfie]');
       if(selfie){$('news-expand-image').src=selfie.src;$('news-expand-image').alt=selfie.alt;$('news-expand').classList.add('visible');return;}
       if(event.target.closest('[data-hinge-next-day]')){advanceToNextDay();return;}
@@ -1833,7 +2833,10 @@
       if(callTopic){chooseCallTopic(callTopic.dataset.callTopic);return;}
       const serviceTopic=event.target.closest('[data-service-topic]');
       if(serviceTopic){chooseServiceTopic(serviceTopic.dataset.serviceTopic);return;}
+      if(event.target.closest('[data-call-answer]')){answerHerCall();return;}
+      if(event.target.closest('[data-call-decline]')){declineHerCall();return;}
       if(event.target.closest('[data-call-hangup]')){
+        if(herCall){endHerCall();return;}
         endSimulatedCall();dialStatus='Call ended.';renderCalls();return;
       }
       const pressed=event.target.closest('.dial-key');
@@ -1850,6 +2853,8 @@
       $('news-expand').classList.add('visible');
     });
     $('call-bubble').addEventListener('click',event=>{
+      const herChoice=event.target.closest('[data-her-call]');
+      if(herChoice){chooseHerCall(herChoice.dataset.herCall);return;}
       if(event.target.closest('[data-call-next]')){
         if(finishCallTypewriter())return;
         callSpeechState='options';
@@ -1862,6 +2867,7 @@
       if(event.target.closest('[data-case-cancel]')){pendingCaseConfirm=null;callSpeechState='options';renderCallBubble();return;} // [Blue Ribbon]
       if(event.target.closest('[data-call-hangup]')){endSimulatedCall();dialStatus='Call ended.';renderCalls();}
     });
+    $('incoming-banner').addEventListener('click',openIncomingCall);
     $('opened').addEventListener('pointerdown',event=>{
       const card=event.target.closest('.hinge-card');
       if(card&&currentApp==='hinge'){
@@ -1964,6 +2970,16 @@
       if(control)resolveBearReaction(control.dataset.bearReaction);
     });
     $('new-game').onclick=()=>startNewRun();
+    // Change difficulty from any death screen: pick a face, and a new game starts at that level.
+    $('change-difficulty').onclick=()=>{
+      $('fatal-overlay').classList.add('choosing');
+      document.querySelectorAll('[data-death-difficulty]').forEach(button=>button.classList.toggle('current',button.dataset.deathDifficulty===selectedDifficulty));
+    };
+    document.querySelectorAll('[data-death-difficulty]').forEach(button=>button.addEventListener('click',()=>{
+      setDifficulty(button.dataset.deathDifficulty);
+      $('fatal-overlay').classList.remove('choosing');
+      startNewRun(true);
+    }));
     // ===== The Blue Ribbon Ledger: Thunderbirds investigation =====
     // Narrative data lives in blue_ribbon_ledger.json (inlined by the standalone
     // build). Every delay is counted in simulated days, never clock time.
@@ -2061,7 +3077,7 @@
       if(scrap.source==='witness_rm'&&s.witness==='unknown')s.witness='known';
       recordClue(`Evidence Sheet: ${scrap.title} (${route}).`);
       showGameNotice(`${scrap.kind==='evidence'?'New evidence':'New note'}: ${scrap.title}`);
-      updateRunStatus(`${scrap.title} added to Notes ▸ Blue Ribbon case.`);
+      updateRunStatus(`${scrap.title}: put away in your bedside cupboard.`);
       return true;
     }
     // Connections: authored claims per pair of scraps, plus a weak "same day" claim.
@@ -2132,8 +3148,7 @@
       if(!force&&brEvaluateDossier().apparentIndependent<(BR.requiredIndependentLinks||3))return false;
       s.federalUnlocked=true;brNumber('federal');
       recordClue('The Sunfall Daily city desk gave you a federal field office number for your dossier.');
-      showGameNotice('Federal field office number added to Notes');
-      return true;
+      return true; // Contacts announces the new number
     }
     function brProtectWitness(){
       const s=brState();
@@ -2520,7 +3535,7 @@
     function evidenceChatBubble(line){
       const scrap=brScrapIndex.get(line.evidence);
       const art=evidenceFinalArt(scrap);
-      return `<div class="hinge-bubble her evidence-message">${art?evidenceCompositeHtml(scrap,art,'ev-chat-art',150):''}<span class="ev-chip">📎 ${esc(scrap?.title||'Evidence')}</span><br>${esc(line.text)}<small>Saved to Notes ▸ Blue Ribbon case</small></div>`;
+      return `<div class="hinge-bubble her evidence-message">${art?evidenceCompositeHtml(scrap,art,'ev-chat-art',150):''}<span class="ev-chip">📎 ${esc(scrap?.title||'Evidence')}</span><br>${esc(line.text)}<small>Kept in your bedside cupboard</small></div>`;
     }
     // Paper versions of each scrap. They stay readable when the artwork is absent
     // and double as the transcription in the Inspect view.
@@ -2648,7 +3663,7 @@
       }else if(sheetModal?.type==='inspect'&&s.found[sheetModal.id]){
         modal=inspectModalMarkup(sheetModal.id);
       }
-      sheet.innerHTML=`<div class="ev-head"><div><strong>Evidence Sheet</strong><small>The Blue Ribbon Ledger · ${count.found}/${count.total} scraps · Suspicion: ${esc(brLevel())}</small></div><button data-ev-act="close" aria-label="Close the evidence sheet">✕ Close</button></div>${tools}<div class="ev-board">${empty}${scraps}<svg class="ev-strings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${evidenceStringsMarkup()}</svg></div><div class="ev-foot"><p>Pinned links: <b>${dossier.links}</b> · Independent sources backing each other (as far as you can tell): <b>${dossier.apparentIndependent}/${dossier.required}</b>${s.federalUnlocked?' · Federal line open':''}</p><p class="ev-legend"><span><i></i>Pinned link</span><span><i class="weak"></i>Circumstantial</span><span><i class="twice"></i>Same source twice</span><span><i class="same"></i>Same-source deduction</span></p><button data-ev-act="toggle-links">${sheetShowLinks?'Hide':'Show'} pinned links (${dossier.links})</button>${sheetShowLinks?(links||'<p>No string pinned yet.</p>'):''}</div>${modal}`;
+      sheet.innerHTML=`<div class="ev-head"><div><strong>Evidence Sheet</strong><small>The Blue Ribbon Ledger · ${count.found}/${count.total} scraps</small></div><button data-ev-act="close" aria-label="Close the evidence sheet">✕ Close</button></div>${tools}<div class="ev-board">${empty}${scraps}<svg class="ev-strings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${evidenceStringsMarkup()}</svg></div><div class="ev-foot"><p>Pinned links: <b>${dossier.links}</b> · Independent sources backing each other (as far as you can tell): <b>${dossier.apparentIndependent}/${dossier.required}</b>${s.federalUnlocked?' · Federal line open':''}</p><p class="ev-legend"><span><i></i>Pinned link</span><span><i class="weak"></i>Circumstantial</span><span><i class="twice"></i>Same source twice</span><span><i class="same"></i>Same-source deduction</span></p><button data-ev-act="toggle-links">${sheetShowLinks?'Hide':'Show'} pinned links (${dossier.links})</button>${sheetShowLinks?(links||'<p>No string pinned yet.</p>'):''}</div>${modal}`;
     }
     function evidenceSheetAction(action){
       const s=brState();
@@ -2676,7 +3691,7 @@
     function toggleEvidenceClaim(id){
       const s=brState(),hadFederal=s.federalUnlocked;
       if(s.links.includes(id)){if(brUnpinLink(id))sheetMessage='String removed.';}
-      else if(brPinLink(id))sheetMessage=!hadFederal&&s.federalUnlocked?'Three independent links pinned. The city desk gave you a federal field office number (see Notes).':'String pinned. Investigators will judge whether it holds up.';
+      else if(brPinLink(id))sheetMessage=!hadFederal&&s.federalUnlocked?'Three independent links pinned. The city desk gave you a federal field office number (see Contacts).':'String pinned. Investigators will judge whether it holds up.';
       sheetModal=null;sheetSelected=null;
       renderEvidenceSheet();
     }
@@ -2744,14 +3759,298 @@
       }
     });
     // Notes: the case file page and its decisions.
+    // The phone's Contacts app (internal id "notes"). Case pages no longer live on the
+    // phone: asking for one opens it in the bedside cupboard instead.
     function renderNotes(){
-      if(notesView==='case'&&BR)$('opened').innerHTML=casePageMarkup();
-      else if(notesView==='vale'&&PV){ // Professor Vale: the quest draws its own case page
-        $('opened').innerHTML='<div class="case-page"><button class="case-back" data-notes-view="main">‹ Notes</button><div id="pv-notes-page"></div></div>';
-        PV.renderNotesPage($('pv-notes-page'));
-      }
-      else{notesView='main';$('opened').innerHTML=appContent.notes();}
+      if(notesView==='case'||notesView==='vale'){const view=notesView==='case'?'br':'vale';notesView='main';openCupboard(view);}
+      notesView='main';
+      $('opened').innerHTML=appContent.notes();
       hydrateInlineImages($('opened'));
+    }
+
+    // ---------- The bedside cupboard ----------
+    // Everything physical lives here, not on the phone: case files, evidence and
+    // items. Tap the cabinet by the bed to open it, drag things around the shelves,
+    // tap one to look closer. The room art is unchanged; the cupboard's own look is a
+    // placeholder until its artwork exists.
+    let cupboardView='shelf';
+    let cupboardSelecting=false,cupboardPicked=[]; // Connect: items picked, in the order tapped
+    function cupboardIsOpen(){return $('cupboard').classList.contains('open');}
+    function cupboardState(){
+      const c=world.cupboard&&typeof world.cupboard==='object'?world.cupboard:(world.cupboard={});
+      if(!c.pos||typeof c.pos!=='object')c.pos={};
+      if(!Array.isArray(c.seen))c.seen=[];
+      if(!Array.isArray(c.notified))c.notified=[];
+      return c;
+    }
+    function cupboardFiles(){
+      const files=[];
+      if(BR){
+        const s=brState(),count=brEvidenceCount();
+        if(count.found||s.foundationKnown||s.outcome||s.suspicion>0)
+          files.push({id:'br',title:'The Blue Ribbon Ledger',detail:`${count.found}/${count.total} scraps${s.outcome?` · ${{success:'Federal inquiry open',failed:'Investigation failed',withdrawn:'You withdrew'}[s.outcome]}`:''}`});
+      }
+      if(chapel?.state?.()?.active)files.push({id:'chapel',title:'The Chapel at Midnight',detail:chapel.statusLine?.()||'Case open'});
+      if(PV?.isOpen()){const card=PV.caseCard();files.push({id:'vale',title:card.title,detail:card.status});}
+      const m=world.marriage;
+      if(m&&(m.ring||Object.values(m.sisters||{}).some(s=>s?.started)))files.push({id:'wedding',title:'Wedding box',detail:m.ring?'The ring is here':'Your examinations'});
+      const notes=notebookNotes().reduce((total,group)=>total+group.lines.length,0);
+      if(notes)files.unshift({id:'notebook',title:'Notebook',detail:`${notes} note${notes===1?'':'s'}`});
+      return files;
+    }
+    // The notebook only holds notes: what you've read and what people have told you.
+    function notebookNotes(){
+      const groups=[];
+      if(world.clues.length)groups.push({title:'Things you’ve heard',lines:world.clues.slice().reverse()});
+      const chapelState=chapel?.state?.();
+      if(chapelState?.active&&chapelState.journal?.length)groups.push({title:'The chapel',lines:chapelState.journal.slice().reverse().map(entry=>`Day ${entry.day}: ${entry.text}`)});
+      if(PV?.isOpen()){const facts=PV.engine.caseFile(world.professorVale,world.day).facts;if(facts.length)groups.push({title:'Professor Vale',lines:facts.slice()});}
+      return groups;
+    }
+    function cupboardItems(){
+      const items=[];
+      const m=world.marriage;
+      if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweller'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
+      if(chapel?.state?.()?.marks>0)items.push({id:'pendant',label:'Crescent pendant',short:'Pendant',image:'assets/items/crescent-pendant.png',text:'A silver crescent pendant on a black cord, left outside your door. The coven knows who you are.',file:'chapel'});
+      if(BR){
+        const s=brState();
+        for(const scrap of BR.scraps)if(s.found[scrap.id])items.push({id:'br:'+scrap.id,label:scrap.title,short:SCRAP_SHORT[scrap.id],image:scrap.image||null,
+          text:`${scrap.title}. ${Array.isArray(scrap.facts)?scrap.facts.join(' '):''} Found: ${s.found[scrap.id].route}, Day ${s.found[scrap.id].day}.`,file:'br',sheet:true});
+      }
+      if(PV?.isOpen()){
+        const file=PV.engine.caseFile(world.professorVale,world.day),v=world.professorVale;
+        const symbols=window.ProfessorVale?.DATA?.workbench?.symbols||{};
+        for(const thing of file.inventory)if(thing.status==='have')items.push({id:'pv:'+thing.id,label:`${symbols[thing.id]||''} ${thing.label}`.trim(),image:thing.image,text:`${thing.label}, with a sticker marked ${symbols[thing.id]||'?'}. Delivered to your door for the Back Row.`,file:'vale'});
+        if(v.stage==='backrow')items.push({id:'pv:note',label:'Vanessa’s note',image:'assets/quests/professor/vanessa-note.png',text:`Vanessa’s folded note: ${(v.noteOrder||[]).map(id=>symbols[id]).join('  ')}. Connect the three parts in that order, matching each part’s sticker.`,file:'vale'});
+        if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
+      }
+      return items;
+    }
+    function cupboardSignature(){return [...cupboardFiles().map(file=>'file:'+file.id),...cupboardItems().map(item=>'item:'+item.id)];}
+    // The cabinet glows while something new is inside; each new thing is mentioned once.
+    function updateCupboardHint(){
+      const state=cupboardState(),signature=cupboardSignature();
+      const fresh=signature.filter(id=>!state.seen.includes(id));
+      $('cupboard-spot').classList.toggle('new',fresh.length>0&&!cupboardIsOpen());
+      const unannounced=fresh.filter(id=>!state.notified.includes(id));
+      if(!unannounced.length)return;
+      state.notified.push(...unannounced);
+      const item=unannounced.length===1&&unannounced[0].startsWith('item:')?cupboardItems().find(entry=>'item:'+entry.id===unannounced[0]):null;
+      showGameNotice(item?`${item.label}: put away in your bedside cupboard`:'Something new is in your bedside cupboard');
+    }
+    function openCupboard(view='shelf'){
+      cupboardView=view;
+      $('cupboard').classList.add('open');
+      $('cupboard').setAttribute('aria-hidden','false');
+      cupboardState().seen=cupboardSignature();
+      $('cupboard-spot').classList.remove('new');
+      playUiSound(240);
+      renderCupboard();
+    }
+    // A tap on a shelf item: pick it for connecting, or look closer.
+    function cupboardTap(id){
+      if(cupboardSelecting){const at=cupboardPicked.indexOf(id);if(at>=0)cupboardPicked.splice(at,1);else cupboardPicked.push(id);renderCupboard();return;}
+      cupboardView='item:'+id;renderCupboard();
+    }
+    // Connect things from the cupboard. The three Back Row parts build the device (in the order
+    // picked, which must match Vanessa's note); two Blue Ribbon scraps go to the Evidence Sheet's
+    // "What links these?"; anything else doesn't go together.
+    function connectItems(ids){
+      const picked=[...new Set(ids.filter(Boolean))];
+      cupboardSelecting=false;cupboardPicked=[];
+      const parts=picked.filter(id=>/^pv:(semtex|wire|phone)$/.test(id)).map(id=>id.slice(3));
+      const others=picked.filter(id=>!/^pv:(semtex|wire|phone|note)$/.test(id));
+      const scraps=picked.filter(id=>id.startsWith('br:')).map(id=>id.slice(3));
+      if(parts.length&&!others.length){
+        if(parts.length<3){showGameNotice('You need all three parts, in the order on Vanessa’s note.');renderCupboard();return;}
+        PV?.assembleFromParts(parts);
+        if(cupboardIsOpen())renderCupboard();
+        return;
+      }
+      if(scraps.length===2&&picked.length===2&&BR){
+        openEvidenceSheet();sheetModal={type:'claims',a:scraps[0],b:scraps[1]};renderEvidenceSheet();
+        renderCupboard();return;
+      }
+      showGameNotice('These don’t go together.');
+      renderCupboard();
+    }
+    function closeCupboard(){
+      $('cupboard').classList.remove('open');
+      $('cupboard').setAttribute('aria-hidden','true');
+      cupboardView='shelf';caseWithdrawArmed=false;cupboardSelecting=false;cupboardPicked=[];
+    }
+    const cupBack='<button class="cup-back" data-cup-back>‹ Cupboard</button>';
+    function renderCupboard(){
+      const body=$('cupboard-body');
+      const view=cupboardView;
+      if(view==='br'&&BR)body.innerHTML=casePageMarkup();
+      else if(view==='chapel'&&chapel?.state?.()?.active)chapel.choose('open-case'); // the Chapel draws its page into the cupboard
+      else if(view==='vale'&&PV?.isOpen()){body.innerHTML=`<div class="case-page">${cupBack}<div id="pv-notes-page"></div></div>`;PV.renderNotesPage($('pv-notes-page'));}
+      else if(view==='wedding'&&marriage)body.innerHTML=`${cupBack}<div class="cup-paper">${marriage.notesEntry({shops:false})}</div>`;
+      else if(view==='notebook'){
+        const groups=notebookNotes();
+        body.innerHTML=`${cupBack}<div class="cup-paper cup-notebook"><h3>Notebook</h3>${groups.map(group=>`<h4>${esc(group.title)}</h4>${group.lines.map(line=>`<p>– ${esc(line)}</p>`).join('')}`).join('')||'<p>Nothing written down yet.</p>'}</div>`;
+      }
+      else if(view.startsWith('item:')){
+        const item=cupboardItems().find(entry=>entry.id===view.slice(5));
+        if(!item){cupboardView='shelf';renderCupboard();return;}
+        body.innerHTML=`${cupBack}<div class="cup-inspect">${item.image?`<div class="cup-stand"><img src="${esc(item.image)}" alt=""></div>`:''}<h4>${esc(item.label)}</h4><p>${esc(item.text)}</p>${item.sheet?'<button class="cup-act" data-br-action="sheet">📌 Lay it out on the Evidence Sheet</button>':''}${item.file?`<button class="cup-act" data-cup-open="${esc(item.file)}">Open the file it belongs to</button>`:''}</div>`;
+      }else{
+        cupboardView='shelf';
+        const files=cupboardFiles(),items=cupboardItems(),pos=cupboardState().pos;
+        const tools=items.length>=2?`<div class="cup-tools">${cupboardSelecting?`<button data-cup-act="connect"${cupboardPicked.length<2?' disabled':''}>🔗 Connect${cupboardPicked.length?` (${cupboardPicked.length})`:''}</button><button data-cup-act="cancel-select">Cancel</button>`:'<button data-cup-act="select">🔗 Select things to connect</button>'}</div>`:'';
+        const hint=!files.length&&!items.length?'':cupboardSelecting?'Tap the things to connect, in order. Then press Connect.':items.length?'Drag things along the shelves. Tap one to look closer. Drop one on another to connect them.':'Your files are in the drawer.';
+        // The cabinet itself: files in the open drawer, things standing on the three shelves.
+        body.innerHTML=`<div class="cup-cabinet" id="cup-cabinet">`+
+          (files.length?`<div class="cup-drawer">${files.map(file=>`<button class="cup-file" data-cup-open="${esc(file.id)}" title="${esc(`${file.title} · ${file.detail}`)}" aria-label="${esc(`${file.title}. ${file.detail}`)}"><span class="cup-tag">${esc(CUP_FILE_NAMES[file.id]||file.title)}<small>${esc(file.detail)}</small></span></button>`).join('')}</div>`:'')+
+          `<div class="cup-shelf" id="cup-shelf">${items.map((item,index)=>{
+            const spot=shelfSpot(pos[item.id],index,items.length),pick=cupboardPicked.indexOf(item.id);
+            return `<button class="cup-item${pick>=0?' picked':''}" data-cup-item="${esc(item.id)}" aria-label="${esc(item.label)}" style="left:${spot.x}%;top:${SHELF_TOPS[spot.s]}%">${pick>=0?`<b class="cup-order">${pick+1}</b>`:''}${item.image?`<img src="${esc(item.image)}" alt="">`:''}<span>${esc(item.short||shelfName(item.label))}</span></button>`;
+          }).join('')}</div>`+
+          (!files.length&&!items.length?'<p class="cup-empty">Nothing in here yet.<br>Things you find, and your case files, will be kept here.</p>':'')+
+          `<div class="cup-rug">${tools}${hint?`<p class="cup-hint">${hint}</p>`:''}</div></div>`;
+      }
+      hydrateInlineImages(body);
+      if(cupboardView==='shelf')wireShelfDrag();
+    }
+    // Where things stand: three shelves (tops as % of the shelf area), five places on each.
+    const SHELF_TOPS=[11.5,44,76.6],SHELF_MAX_X=82.4;
+    const CUP_FILE_NAMES={notebook:'Notebook',br:'Ledger',chapel:'Chapel',vale:'Vale',wedding:'Wedding'};
+    function shelfSpot(saved,index,count){
+      if(saved&&Number.isInteger(saved.s)&&saved.s>=0&&saved.s<SHELF_TOPS.length&&Number.isFinite(saved.x))return {x:Math.max(0,Math.min(SHELF_MAX_X,saved.x)),s:saved.s};
+      const perShelf=count>12?5:4;
+      return {x:(index%perShelf)*(SHELF_MAX_X/(perShelf-1)),s:Math.min(SHELF_TOPS.length-1,Math.floor(index/perShelf))};
+    }
+    // On the shelf a thing wears a short name (its first two words); tap it for the full one.
+    // Shelf names for the Blue Ribbon scraps (their full titles show when you look closer).
+    const SCRAP_SHORT={tb_gala_ticket:'Ticket',tb_charity_ledger:'Ledger page',tb_phone_slip:'Phone slip',tb_news_photo:'News photo',tb_witness_statement:'Statement',tb_rumour_donor:'Rumour',tb_anonymous_note:'Note'};
+    const shelfName=label=>{const words=String(label).trim().split(/\s+/);return words.length>2?words.slice(0,2).join(' '):String(label);};
+    // Drag a thing along or between shelves (it stands on the nearest one, and stays where you
+    // leave it); drop it on another thing to connect them; a tap without moving looks closer.
+    function wireShelfDrag(){
+      const shelf=$('cup-shelf');
+      if(!shelf?.getBoundingClientRect)return;
+      shelf.querySelectorAll('[data-cup-item]').forEach(item=>item.addEventListener('pointerdown',event=>{
+        event.preventDefault();
+        const rect=shelf.getBoundingClientRect();
+        const start={x:event.clientX,y:event.clientY,left:parseFloat(item.style.left)||0,top:parseFloat(item.style.top)||0};
+        let moved=false;
+        try{item.setPointerCapture(event.pointerId);}catch{}
+        const move=e=>{
+          const dx=e.clientX-start.x,dy=e.clientY-start.y;
+          if(!moved&&Math.hypot(dx,dy)<5)return;
+          moved=true;item.classList.add('dragging');
+          item.style.left=`${Math.max(0,Math.min(SHELF_MAX_X,start.left+dx/rect.width*100))}%`;
+          item.style.top=`${Math.max(-10,Math.min(SHELF_TOPS[SHELF_TOPS.length-1],start.top+dy/rect.height*100))}%`;
+        };
+        const up=()=>{
+          item.removeEventListener('pointermove',move);item.removeEventListener('pointerup',up);item.removeEventListener('pointercancel',up);
+          item.classList.remove('dragging');
+          if(moved){
+            const box=item.getBoundingClientRect(),cx=box.left+box.width/2,cy=box.top+box.height/2;
+            const onto=[...shelf.querySelectorAll('[data-cup-item]')].find(other=>{if(other===item)return false;const r=other.getBoundingClientRect();return cx>r.left&&cx<r.right&&cy>r.top&&cy<r.bottom;});
+            if(onto){ // put it back where it was, then try the connection
+              item.style.left=start.left+'%';item.style.top=start.top+'%';
+              connectItems([item.dataset.cupItem,onto.dataset.cupItem]);
+              return;
+            }
+            const top=parseFloat(item.style.top);
+            const s=SHELF_TOPS.reduce((best,shelfTop,index)=>Math.abs(shelfTop-top)<Math.abs(SHELF_TOPS[best]-top)?index:best,0);
+            item.style.top=SHELF_TOPS[s]+'%';
+            cupboardState().pos[item.dataset.cupItem]={x:parseFloat(item.style.left),s};
+            saveRun(true);
+          }
+          else cupboardTap(item.dataset.cupItem);
+        };
+        item.addEventListener('pointermove',move);item.addEventListener('pointerup',up);item.addEventListener('pointercancel',up);
+      }));
+    }
+    // Go forward in time from the phone itself: tap the day in the status bar.
+    function dayDialogAllowed(){return !dayTransitionInFlight&&!world.policeArrested&&!$('fatal-overlay').classList.contains('visible');}
+    $('day-button').addEventListener('click',event=>{
+      event.stopPropagation();
+      $('day-dialog').hidden=!(dayDialogAllowed()&&$('day-dialog').hidden);
+    });
+    $('day-yes').onclick=()=>{$('day-dialog').hidden=true;if(dayDialogAllowed())advanceToNextDay();};
+    $('day-no').onclick=()=>{$('day-dialog').hidden=true;};
+    $('day-dialog').hidden=true;
+    $('cupboard-spot').addEventListener('click',()=>openCupboard());
+    $('cupboard-preview').onclick=()=>openCupboard(); // testing menu
+    $('cupboard').addEventListener('click',event=>{
+      const target=event.target;
+      if(target===$('cupboard')||target.closest('[data-cup-close]')){closeCupboard();return;}
+      if(target.closest('[data-cup-back]')){cupboardView='shelf';caseWithdrawArmed=false;renderCupboard();return;}
+      const open=target.closest('[data-cup-open]');
+      if(open){cupboardView=open.dataset.cupOpen;renderCupboard();return;}
+      const item=target.closest('[data-cup-item]');
+      if(item&&event.detail===0){cupboardTap(item.dataset.cupItem);return;} // keyboard; pointer taps are handled on release
+      const act=target.closest('[data-cup-act]');
+      if(act&&!act.disabled){
+        if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
+        else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
+        else if(act.dataset.cupAct==='connect'){connectItems(cupboardPicked);return;}
+        renderCupboard();return;
+      }
+      const caseAction=target.closest('[data-br-action]');
+      if(caseAction){handleCaseAction(caseAction.dataset.brAction);return;}
+      const chapelChoice=target.closest('[data-chapel-choice]');
+      if(chapelChoice){chapel?.choose(chapelChoice.dataset.chapelChoice);return;}
+      const marriageChoice=target.closest('[data-marriage-choice]');
+      if(marriageChoice){marriage?.choose(marriageChoice.dataset.marriageChoice);return;}
+      const dial=target.closest('[data-note-dial]');
+      if(dial&&!dial.disabled){closeCupboard();dialledNumber=dial.dataset.noteDial;dialStatus='Number copied.';callsView='keypad';setLowered(false);openApp('calls');}
+    });
+    // A picture that hasn't been made yet falls back to the one named in data-fallback.
+    function imageFallback(img){const fallback=img.getAttribute('data-fallback');img.onerror=null;img.removeAttribute('onerror');if(fallback)img.src=assetUrl(fallback);}
+    // ---------- Contacts ----------
+    // Everyone you have a number for. Nothing is listed at the start: services appear
+    // once the game has given you their number (the paper prints the newsroom tip line
+    // and the police number; Vale's stories, the university; the faith pages or the
+    // Chapel case, St Brigid's). Saves from before Contacts existed list all four.
+    const SERVICE_CONTACTS={police:['Sunfall Police','Emergencies and reports'],newsroom:['Sunfall Daily newsroom','Tip line'],chapel:['St Brigid’s Chapel','Parish office'],university:['University Office','Campus switchboard']};
+    function serviceKnown(key){
+      const known=world.contactsKnown;
+      if(!known||known[key])return true;
+      if(key==='university')return !!PV?.isOpen();
+      if(key==='chapel')return !!chapel?.state?.()?.active;
+      return false;
+    }
+    function learnService(...keys){
+      if(!world.contactsKnown)return;
+      for(const key of keys)world.contactsKnown[key]=true;
+    }
+    function contactEntries(){
+      const list=[];
+      for(const [key,[name,detail]] of Object.entries(SERVICE_CONTACTS))if(serviceKnown(key)){
+        const warning=key==='police'&&world.falsePoliceReports?` · ⚠ ${world.falsePoliceReports}/3 false reports`:'';
+        list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
+      }
+      for(const thread of hingeThreads.values()){
+        if(!thread.number)continue;
+        const profile=hingeProfile(thread.id);
+        if(!profile)continue;
+        const unavailable=!!(thread.fumbled||thread.blocked);
+        list.push({key:thread.id,name:profile.name,detail:unavailable?(thread.blocked?'Blocked you':'Won’t take your calls'):'Hinge match',number:thread.number,portrait:profile.gallery?.[0]||'assets/icons/hinge.png',unavailable});
+      }
+      if(BR){
+        const s=brState();
+        if(s.foundationKnown)list.push({key:'br:foundation',name:'Blue Ribbon Foundation',detail:'Your calls will be noticed',number:brNumber('foundation'),portrait:'assets/factions/thunderbirds_blue_ribbon.png'});
+        if(s.federalUnlocked)list.push({key:'br:federal',name:'Federal field office',detail:'Ready when your evidence is',number:brNumber('federal'),portrait:'assets/icons/calls.png'});
+      }
+      if(PV?.isOpen())for(const line of PV.engine.caseFile(world.professorVale,world.day).numbers){
+        list.push({key:'pv:'+line.number,name:line.name,detail:'Professor Vale case',number:line.number,portrait:PV.contactForNumber(line.number)?.portrait||'assets/icons/calls.png'});
+      }
+      for(const jeweller of marriage?.jewellerContacts?.()||[])list.push({key:'jeweller:'+jeweller.id,name:jeweller.name,detail:jeweller.shop,number:jeweller.number,portrait:jeweller.portrait});
+      return list.sort((a,b)=>a.name.localeCompare(b.name));
+    }
+    // A contact you didn't have before gets a short note in the room.
+    function announceNewContacts(){
+      if(!world.contactsKnown)return;
+      const seen=world.contactsSeen||(world.contactsSeen=[]);
+      const fresh=contactEntries().filter(entry=>!seen.includes(entry.key));
+      if(!fresh.length)return;
+      for(const entry of fresh)seen.push(entry.key);
+      showGameNotice(fresh.length===1?`${fresh[0].name} saved to Contacts`:`${fresh.length} new numbers saved to Contacts`);
     }
     function valeCaseCardMarkup(){
       if(!PV?.isOpen())return '';
@@ -2787,20 +4086,22 @@
       const witnessCopy={unknown:'No witness yet. Somebody saw how the night ended.',known:'R.M., a catering supervisor, saw the end of the night. Her identity is not protected yet, and people watching you could follow your calls to her.',protected:'You have promised to keep R.M.’s identity secret. She trusts you.',exposed:'R.M.’s identity leaked. She has withdrawn her statement and left town.'};
       const federal=s.federalUnlocked?`<button class="case-button safe" data-br-action="call-federal">☎ Call the federal field office<small>${esc(brNumber('federal'))} · submit your dossier when it is ready</small></button>`:`<p>Federal report locked. Pin ${dossier.required} independent links on the Evidence Sheet (you have ${dossier.apparentIndependent}).</p>`;
       const withdraw=open?`<button class="case-button danger ${caseWithdrawArmed?'armed':''}" data-br-action="withdraw">${caseWithdrawArmed?'Tap again to walk away for good':'Withdraw from the investigation'}<small>Lowers suspicion, but the case stays unsolved. Cannot be undone.</small></button>`:'';
-      const log=s.log.slice(-5).reverse().map(entry=>`<li>Day ${entry.day}: ${esc(entry.text)} (${entry.delta>0?'+':''}${entry.delta})</li>`).join('');
-      return `<div class="case-page"><button class="case-back" data-notes-view="main">‹ Notes</button><h3>The Blue Ribbon Ledger</h3>${outcome}<div class="suspicion-meter level-${level.toLowerCase()}"><div class="meter-head"><span>Suspicion</span><b>${esc(level)} · ${s.suspicion}/100</b></div><div class="meter-bar"><i style="width:${s.suspicion}%"></i></div>${warning?`<span class="case-warning">${esc(warning)}</span>`:''}</div><button class="case-button" data-br-action="sheet">📌 Open the Evidence Sheet<small>Move, rotate and connect scraps with string</small></button><h4>Evidence (${count.found}/${count.total})</h4><ul>${scrapList}</ul>${cards?`<h4>Other notes on the board</h4><ul>${cards}</ul>`:''}<h4>Dossier</h4><p>Pinned links: ${dossier.links}. Independent sources backing each other (as far as you can tell): ${dossier.apparentIndependent}/${dossier.required}.</p><h4>Witness</h4><p>${esc(witnessCopy[s.witness])}</p>${open&&s.witness==='known'?'<button class="case-button safe" data-br-action="protect">Protect R.M.’s identity<small>Keep her name out of every chat, call and newspaper</small></button>':''}<h4>Decisions</h4>${open||s.federalUnlocked?federal:''}${withdraw}${log?`<h4>Who has noticed you</h4><ul>${log}</ul>`:''}</div>`;
+      return `<div class="case-page"><button class="case-back" data-cup-back>‹ Cupboard</button><h3>The Blue Ribbon Ledger</h3>${outcome}${warning?`<p class="case-warning">${esc(warning)}</p>`:''}<button class="case-button" data-br-action="sheet">📌 Open the Evidence Sheet<small>Move, rotate and connect scraps with string</small></button><h4>Evidence (${count.found}/${count.total})</h4><ul>${scrapList}</ul>${cards?`<h4>Other notes on the board</h4><ul>${cards}</ul>`:''}<h4>Dossier</h4><p>Pinned links: ${dossier.links}. Independent sources backing each other (as far as you can tell): ${dossier.apparentIndependent}/${dossier.required}.</p><h4>Witness</h4><p>${esc(witnessCopy[s.witness])}</p>${open&&s.witness==='known'?'<button class="case-button safe" data-br-action="protect">Protect R.M.’s identity<small>Keep her name out of every chat, call and newspaper</small></button>':''}<h4>Decisions</h4>${open||s.federalUnlocked?federal:''}${withdraw}</div>`; // no visible meters: suspicion shows in the world (the sedan, people going quiet)
     }
+    // Blue Ribbon decisions, made from its file in the bedside cupboard.
+    function refreshCaseFile(){if(cupboardIsOpen())renderCupboard();}
     function handleCaseAction(action){
-      if(action==='sheet'){openEvidenceSheet();return;}
-      if(action==='protect'){brProtectWitness();renderNotes();return;}
+      if(action==='sheet'){openEvidenceSheet();return;} // opens over the cupboard; closing it returns there
+      if(action==='protect'){brProtectWitness();refreshCaseFile();return;}
       if(action==='withdraw'){
-        if(!caseWithdrawArmed){caseWithdrawArmed=true;renderNotes();return;}
+        if(!caseWithdrawArmed){caseWithdrawArmed=true;refreshCaseFile();return;}
         caseWithdrawArmed=false;
         if(brWithdraw())updateRunStatus('You walked away from the Blue Ribbon case.');
-        renderNotes();return;
+        refreshCaseFile();return;
       }
       if(action==='call-federal'&&brState().federalUnlocked){
-        dialledNumber=brNumber('federal');dialStatus='Federal field office number copied from Notes.';openApp('calls');
+        closeCupboard();setLowered(false);callsView='keypad';
+        dialledNumber=brNumber('federal');dialStatus='Federal field office number copied.';openApp('calls');
       }
     }
     function sanitizeBlueRibbon(raw){
@@ -2836,8 +4137,8 @@
       if(!BR)return;
       if(brState().retaliated||brState().outcome)startNewRun(true);
       for(const scrap of BR.scraps)if(scrap.kind==='evidence')brFindScrap(scrap.id,'Workbench preview');
-      setLowered(false);openApp('notes');notesView='case';renderNotes();
-      updateRunStatus('Preview: all five Blue Ribbon scraps added. Open the case file in Notes.');
+      openCupboard('br');
+      updateRunStatus('Preview: all five Blue Ribbon scraps added. The case file is open in your bedside cupboard.');
     };
     function snapshotRun(){
       return {
@@ -2879,6 +4180,7 @@
           editions:Array.isArray(saved.world.editions)?saved.world.editions.filter(e=>Number.isInteger(e.day)&&Array.isArray(e.items)).slice(0,365):[],
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
+        world.convo=sanitizeConvo(saved.world.convo);
         world.falsePoliceReports=Math.max(0,Math.min(3,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
         world.policeArrestPhase=dayPhases.includes(saved.world.policeArrestPhase)?saved.world.policeArrestPhase:null;
@@ -2901,9 +4203,13 @@
           const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{})})):[];
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),
+            warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
+            followUp:raw.followUp&&['topic','question','news','day'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
+            deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,
             log,callLog:Array.isArray(raw.callLog)?raw.callLog.filter(l=>l&&typeof l.text==='string').slice(-100):[]}];
         }));
+        stopRinging();herCall=null;scheduleHerCalls();
         if(saved.serviceNumbers&&['newsroom','chapel','university'].every(key=>validDemoNumber(saved.serviceNumbers[key]||''))){
           for(const key of ['newsroom','chapel','university'])contactNumbers[key]=saved.serviceNumbers[key];
         }
@@ -2926,6 +4232,7 @@
         $('fatal-overlay').classList.toggle('visible',bearState==='dead');
         if(bearState==='dead')drawDeathTitle('A BEAR','EATEN');
         PV=mountVale(); // Professor Vale: the case comes back with world
+        closeCupboard();
         // A retaliation death is permanent: reloading the save cannot escape it.
         if(world.blueRibbon.retaliated){showBlueRibbonDeath();openApp('notes');return true;}
         if(world.policeArrested){showPoliceArrestDeath();return true;}
@@ -2942,8 +4249,10 @@
     }
     function startNewRun(skipConfirmation=false){
       if(!skipConfirmation&&typeof window.confirm==='function'&&!window.confirm('Start a fresh MATCH run? Your current unsaved progress will be lost.'))return;
+      countPlaythrough(); // a second playthrough unlocks Credits in Settings
+      stopRinging();herCall=null;
       endSimulatedCall();
-      clearBearTimers();clearBearVisuals();clearPoliceArrest();closeEvidenceSheet(false);
+      clearBearTimers();clearBearVisuals();clearPoliceArrest();closeEvidenceSheet(false);closeCupboard();
       notesView='main';caseWithdrawArmed=false;clearGameNotices();$('watch-lights').classList.remove('visible');
       chapel?.reset(); // Task 2
       world=newWorld('Scottsdale-'+Date.now()+'-'+Math.random());
@@ -2951,9 +4260,10 @@
       PV=mountVale(); // Professor Vale: a fresh case (the new world has none yet)
       hingeThreads.clear();hingeGalleryIndex={};hingeLikes=0;hingeToast='';
       setupHingeDeck();hingeView='discover';activeChatId=null;
+      clearCallSchedule();
       visibleNewsDay=1;expandedNews.clear();getNewsEdition(1);
       time.value='bedroom-dusk';bearState='none';bearAttackPhase='bedroom-dusk';$('door').checked=false;
-      $('fatal-overlay').classList.remove('visible');
+      $('fatal-overlay').classList.remove('visible','choosing');
       $('day-caption').classList.remove('visible');
       dialledNumber='';dialStatus='Enter a number using the keypad.';
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
@@ -2970,8 +4280,12 @@
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,ensureThread:profile=>ensureHingeThread(profile,'now'),
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
       setDoor:open=>{$('door').checked=open;fit();},
-      openChat:id=>{hingeView='thread';activeChatId=id;openApp('hinge');},
-      rerender:()=>{if(currentApp==='hinge')renderHinge();},
+      openChat:id=>{closeCupboard();setLowered(false);hingeView='thread';activeChatId=id;openApp('hinge');},
+      rerender:()=>{if(currentApp==='hinge')renderHinge();if(cupboardIsOpen()&&cupboardView==='shelf')renderCupboard();},
+      // The case page lives in the bedside cupboard, not on the phone.
+      caseRoot:()=>$('cupboard-body'),
+      closeCase:()=>{cupboardView='shelf';renderCupboard();},
+      showCase:()=>openCupboard('chapel'),
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id),
       vibrate:pattern=>{try{if(typeof navigator!=='undefined'&&navigator.vibrate)navigator.vibrate(pattern);}catch{}}
     }):null;
@@ -2988,9 +4302,10 @@
     marriage=window.MATCH_MARRIAGE_ENGINE?window.MATCH_MARRIAGE_ENGINE.create({
       document,$,esc,assetUrl,setLowered,playUiSound,
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,
+      sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
       save:()=>saveRun(true),startNewRun:()=>startNewRun(true),
-      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();},
+      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;
     // Professor Vale: "The Professor Who Won't Disappear" (quests/professor-vale.js).
@@ -3007,7 +4322,11 @@
         showDeath:info=>showValeDeath(info),
         overlayRoot:()=>stage,
         save:()=>saveRun(true),
-        onChange:()=>{if(currentApp==='notes')renderNotes();else if(currentApp==='hinge')renderHinge();},
+        onChange:()=>{
+          if(currentApp==='notes')renderNotes();else if(currentApp==='hinge')renderHinge();else if(currentApp==='calls'&&callsView==='voicemail'&&!activeGenericCall)renderCalls();
+          if(cupboardIsOpen()&&cupboardView==='shelf')renderCupboard();
+        },
+        elsewhere:{voicemails:true,numbers:true,meters:true,todo:true}, // voicemails in Calls, numbers in Contacts; no meters or to-do list
         seed:()=>String(world.seed||Date.now())
       }):null;
     }
@@ -3017,7 +4336,7 @@
       if(!PV){updateRunStatus('The Professor Vale quest did not load.');return;}
       if($('fatal-overlay').classList.contains('visible')||world.professorVale?.ending)startNewRun(true);
       if(!PV.isOpen())PV.onNewsRead('car');
-      setLowered(false);openApp('notes');notesView='vale';renderNotes();
+      openCupboard('vale');
       updateRunStatus('Preview: the Professor Vale case is open. Ask a Progressive match about the protests to begin.');
     };
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.

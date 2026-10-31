@@ -313,7 +313,7 @@
       const edition=(api.world().editions||[]).find(item=>item.day===today());
       if(edition)decorateEdition(edition);
       journal(st,'Case opened. Victoria Blackwood messaged you about her Midnight Show.');
-      st.notice='☾ Victoria Blackwood messaged you. A new case is open in Notes.';
+      st.notice='☾ Victoria Blackwood messaged you. A new case file is in your bedside cupboard.';
     }
     function ensureServiceTopic(on){
       const list=api.serviceTopics?.['service:chapel'];
@@ -817,7 +817,7 @@
       return {html:choices.join('')+button(`qmode:${id}:off`,'Back to small talk',{mark:'‹'}),only:true};
     }
 
-    // ---------- Notes case page ----------
+    // ---------- case page (shown in the bedside cupboard) ----------
     function dots(st,id){
       const s=st.sisters[id],bar=joinBar(st,id);
       let out='';
@@ -888,12 +888,12 @@
         const slotRow=slot=>`<p><b>${slotNames[slot]}</b></p><div class="chapel-row">${recruited.map(id=>`<button class="chapel-btn ${st.draft[slot]===id?'on':''}" data-chapel-choice="slot:${slot}:${id}">${esc(firstName(id))}</button>`).join('')}<button class="chapel-btn ${st.draft[slot]?'':'on'}" data-chapel-choice="slot:${slot}:none">Nobody</button></div>`;
         vigilHtml=`${recruited.length?'':'<p>No Sister has agreed to stand with you yet.</p>'}${SLOTS.map(slotRow).join('')}<p>Voices gathered: ${voices(st)}</p><p><b>Chapel</b></p><div class="chapel-row">${placeButtons('vplace')}</div><p><b>Night</b></p><div class="chapel-row"><button class="chapel-btn" data-chapel-choice="vnight:-">−</button><span>${esc(relDays(today()+st.draft.nights))}</span><button class="chapel-btn" data-chapel-choice="vnight:+">+</button></div><button class="notes-call" data-chapel-choice="vigil-send">✝ Send word to the Sisters</button>${st.vigilError?`<p class="chapel-danger">${esc(st.vigilError)}</p>`:''}`;
       }
-      const sisterIntro=st.introduced?'':'<p>Call St Brigid\'s Chapel (number in Notes) and ask about the crescent marks to be introduced.</p>';
+      const sisterIntro=st.introduced?'':'<p>Call St Brigid\'s Chapel (number in Contacts) and ask about the crescent marks to be introduced.</p>';
       const danger=st.marks>0&&!st.outcome?'<p class="chapel-danger">Victoria knows who you are.</p>':'';
       const walkAway=st.outcome||st.withdrawn?'':walkAwayArmed?
         '<p class="chapel-danger">Walk away for good? The Sisters will not wait for you.</p><div class="chapel-row"><button class="chapel-btn warn" data-chapel-choice="walk-away-confirm">Yes, walk away</button><button class="chapel-btn" data-chapel-choice="walk-away-cancel">Stay on the case</button></div>':
         '<button class="chapel-btn warn" data-chapel-choice="walk-away">Walk away from all this</button>';
-      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Back to Notes</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${danger}`+
+      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${danger}`+
         `<h4>Decipher: where?</h4><div class="paper">${list(whereClues)}${lore.length?`<p><b>Chapel lore</b></p>${list(lore)}`:''}<div class="chapel-row">${placeButtons('where')}</div></div>`+
         `<h4>Decipher: when?</h4><div class="paper">${list(whenClues)}${whenButtons?`<div class="chapel-row">${whenButtons}</div>`:''}</div>`+
         `<h4>The goth crowd</h4><div class="paper">${[VICTORIA,...GOTHS].map(id=>personLine(st,id)).join('')}</div>`+
@@ -905,7 +905,7 @@
       const st=sync();
       if(!st)return;
       caseOpen=true;
-      const el=api.$('opened');
+      const el=api.caseRoot?api.caseRoot():api.$('opened'); // the host decides where the case page lives
       el.innerHTML=caseHtml(st);
       api.hydrate(el);
     }
@@ -940,7 +940,7 @@
       if(st.dead&&kind!=='close-case')return;
       switch(kind){
         case 'open-case':caseOpen=true;walkAwayArmed=false;renderCase();return;
-        case 'close-case':caseOpen=false;api.openApp('notes');return;
+        case 'close-case':caseOpen=false;if(api.closeCase)api.closeCase();else api.openApp('notes');return;
         case 'msg':message(st,a);return;
         case 'qmode':if(b==='on')questMode.add(a);else questMode.delete(a);api.rerender();return;
         case 'g':gothAct(st,a,b);return;
@@ -987,9 +987,9 @@
       const st=state();
       if(!st)return false;
       if(!st.active)activate(st);
-      api.status('The Chapel at Midnight is open. Victoria has messaged you; the case page is in Notes.');
+      api.status('The Chapel at Midnight is open. Victoria has messaged you; the case file is in your bedside cupboard.');
       caseOpen=false;
-      api.openApp('notes');
+      if(api.showCase)api.showCase();else api.openApp('notes');
       return true;
     }
     // Workbench shortcut: play Victoria's attack now, in the room's current
@@ -1007,6 +1007,7 @@
     if(previewButton&&previewButton.addEventListener)previewButton.addEventListener('click',()=>{if(!state()?.dead)previewNow();});
 
     return {
+      statusLine:()=>{const st=sync();return st?statusText(st):'';},
       onNewDay,afterDayStart,decorateEdition,optionsFor,choose,notesEntry,renderCase,afterLoad,reset,previewNow,previewAttack,
       isCaseOpen:()=>caseOpen,
       hasData:()=>!!data,

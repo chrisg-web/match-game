@@ -4,8 +4,8 @@
  * The player never leaves their bedroom. Everything happens through the phone:
  *   - Hinge chats   (topics depend on her faction; some named women have their own lines)
  *   - Phone calls   (University Office, newsroom and police lines that already exist,
- *                    plus numbers discovered during the quest, listed in Notes)
- *   - Voicemails    (people ring back with news, saved in the Notes case file)
+ *                    plus numbers discovered during the quest, listed in Contacts)
+ *   - Voicemails    (people ring back with news, in the Calls app's Voicemail tab)
  *   - The newspaper (the existing Vale stories, plus stories and classifieds this quest prints)
  *   - The room      (parcels on the doorstep, the desk where the device is built,
  *                    and the bedroom sequences for arrests and deaths)
@@ -115,15 +115,15 @@
     },
 
     lines: {
-      opened: 'Something about Professor Vale’s “accidents” doesn’t add up. A case file is open in Notes.',
-      autoOpened: 'The Sunfall Daily has run two Professor Vale “accidents” in a row. A case file is open in Notes.',
+      opened: 'Something about Professor Vale’s “accidents” doesn’t add up. A case file is in your bedside cupboard.',
+      autoOpened: 'The Sunfall Daily has run two Professor Vale “accidents” in a row. A case file is in your bedside cupboard.',
       newsLearned: { car: 'Noted: the brakes failed the day after Camille Paglia’s lecture.', fire: 'Noted: the fire came the day after the Houellebecq evening.', debate: 'Noted: Nathan Cofnas speaks at Founders’ Hall on Day {T}.' },
       ruleLearned: 'Two “accidents”, each the day after one of Vale’s guests came to campus. That isn’t luck.',
       unavailable: 'That isn’t possible right now.',
       over: 'This case is closed.',
       exposureWarn: 'Your questions are getting around campus. Ask fewer for a day or two before the Back Row decides you’re a problem.',
       heatWarn: 'A patrol car has driven down your road twice today.',
-      voicemail: 'New voicemail. It’s saved in your case file in Notes.',
+      voicemail: 'New voicemail. Check the Voicemail tab in Calls.',
       walkAway: 'You close the case file. Whatever happens to Professor Vale now, it happens without you.',
       searchRoom: 'Under the bed, behind the box of cables you swore you’d sort out, there’s an old reel of wire from when you were going to put up fairy lights. It has seen better decades.',
       assembleStart: 'You clear your desk, shut the curtains, lay the three things out and unfold Vanessa’s note.',
@@ -135,7 +135,7 @@
       deviceOnDesk: 'Don’t ring the number on the masking tape while the device is still at your house.',
       quietDay: 'Another day without a knock at the door.',
       wrongManNextDay: 'Vanessa won’t answer. Nobody from the Back Row will.',
-      classifiedsRead: 'You copy the three circled numbers into your Notes.'
+      classifiedsRead: 'You copy the three circled numbers into your Contacts.'
     },
 
     // Things that appear in, or leave, the player's room overnight. Shown as a caption over the bedroom.
@@ -951,7 +951,7 @@
       }
     }
 
-    // ----- things done in the player's own room (buttons in the Notes case file) -----
+    // ----- things done in the player's own room (buttons in the case file in the bedside cupboard) -----
     function roomActions(s) {
       const out = [];
       if (s.stage === 'open') out.push({ id: 'walk_away', label: 'Walk away from the case', desc: 'Stop asking. Vale is on his own.', confirm: true });
@@ -995,7 +995,7 @@
       return ok(s, orderOk ? L.assembleShaky : L.assembleWrong, null, { success: false });
     }
 
-    // ----- Notes case-file view -----
+    // ----- case-file view (the host shows it in the bedside cupboard) -----
     function knownRole(s, id) {
       const c = D.cast[id];
       const knows = { vanessa: has(s, 'vanessa'), allison: has(s, 'car_plan') || s.stage === 'backrow', rosa: s.rosaTrust >= TH.rosaVanessa || s.stage === 'backrow', jennifer: has(s, 'jennifer_clear'), rebecca: has(s, 'back_row') };
@@ -1115,7 +1115,7 @@
       return r;
     }
 
-    // ----- Notes case page -----
+    // ----- case page -----
     function renderNotesPage(el) { pageEl = el; injectCss(); render(); }
     function render() {
       if (!pageEl || !doc || !pageEl.isConnected) return;
@@ -1125,10 +1125,10 @@
       const btn = (id, label, desc, enabled, confirm) => `<button class="pv-btn${confirm ? ' pv-final' : ''}${armed === id ? ' pv-armed' : ''}" data-pv-room="${esc(id)}" ${enabled ? '' : 'disabled'}>${esc(armed === id ? 'Tap again to confirm' : label)}${desc ? `<small>${esc(desc)}</small>` : ''}</button>`;
       let h = `<div class="pv-case"><h3>${esc(v.title)}</h3><div class="pv-sub">${esc(v.routeName)} · Day ${v.day}${v.debateDay ? ` · Cofnas lecture Day ${v.debateDay}` : ''}${v.attackDay ? ` · Attack Day ${v.attackDay}` : ''}</div>`;
       if (lastText) h += `<div class="pv-last">${esc(lastText)}</div>`;
-      if (v.meters.length) h += `<div class="pv-meters">${v.meters.map(m => `<div class="pv-meter${m.danger ? ' pv-danger' : ''}"><span>${esc(m.label)}</span><i><b style="width:${m.value}%"></b></i><em>${m.value}</em><small>${esc(m.hint)}</small></div>`).join('')}</div>`;
-      if (v.todo.length) h += `<h4>Next</h4><ul class="pv-list">${v.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
-      if (v.voicemails.length) h += `<h4>Voicemail</h4>${v.voicemails.map(m => `<div class="pv-vm"><b>Day ${m.day} · ${esc(m.from)}</b><br>${esc(m.text)}</div>`).join('')}`;
-      if (v.numbers.length) h += `<h4>Numbers</h4>${v.numbers.map(n => `<p class="contact-entry"><b>${esc(n.name)}</b><br><button class="notes-call" data-note-dial="${esc(n.number)}">${esc(n.number)} ☎</button></p>`).join('')}`;
+      if (v.meters.length && !(host.elsewhere && host.elsewhere.meters)) h += `<div class="pv-meters">${v.meters.map(m => `<div class="pv-meter${m.danger ? ' pv-danger' : ''}"><span>${esc(m.label)}</span><i><b style="width:${m.value}%"></b></i><em>${m.value}</em><small>${esc(m.hint)}</small></div>`).join('')}</div>`;
+      if (v.todo.length && !(host.elsewhere && host.elsewhere.todo)) h += `<h4>Next</h4><ul class="pv-list">${v.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
+      if (v.voicemails.length && !(host.elsewhere && host.elsewhere.voicemails)) h += `<h4>Voicemail</h4>${v.voicemails.map(m => `<div class="pv-vm"><b>Day ${m.day} · ${esc(m.from)}</b><br>${esc(m.text)}</div>`).join('')}`;
+      if (v.numbers.length && !(host.elsewhere && host.elsewhere.numbers)) h += `<h4>Numbers</h4>${v.numbers.map(n => `<p class="contact-entry"><b>${esc(n.name)}</b><br><button class="notes-call" data-note-dial="${esc(n.number)}">${esc(n.number)} ☎</button></p>`).join('')}`;
       if (v.inventory.length) h += `<h4>On your desk</h4><div class="pv-inv">${v.inventory.map(i => `<div class="pv-item pv-${esc(i.status)}"><img src="${esc(asset(i.image))}" alt="" onerror="this.remove()"><span>${esc(i.label)}</span><small>${esc({ none: 'need', ordered: 'arriving', have: 'here' }[i.status])}</small></div>`).join('')}<div class="pv-item"><span>Device</span><small>${esc({ none: 'not built', assembled: 'on your desk', waiting: 'on the doorstep', collected: 'with Allison', detonated: 'gone' }[v.device])}</small></div></div>`;
       if (v.actions.length) h += `<h4>In your room</h4>${v.actions.map(a => btn(a.id, a.label, a.desc, a.enabled, a.confirm)).join('')}`;
       if (v.people.length) h += `<h4>People</h4><ul class="pv-list">${v.people.map(p => `<li><b>${esc(p.name)}</b>: ${esc(p.role)}</li>`).join('')}</ul>`;
@@ -1193,6 +1193,25 @@
           if (placed.length === 3) { if (placed.every((x, i) => x === cfg.order[i])) startSteady(); else finish(false); }
         }
       });
+      // Parts already connected in the order chosen elsewhere (the host's bedside cupboard).
+      if (cfg.presetOrder) {
+        cfg.presetOrder.forEach((id, i) => { placed.push(id); const it = cfg.items.find(x => x.id === id); if (slots[i] && it) slots[i].textContent = `${it.symbol} ${it.label}`; });
+        ov.querySelectorAll('.pv-tool').forEach(x => { x.disabled = true; });
+        if (typeof requestAnimationFrame === 'function') startSteady();
+      }
+    }
+    // Build the device from parts connected in the host's cupboard, in the order chosen there.
+    // The wrong order is an assembly mistake, exactly as at the desk; the right order goes
+    // straight to the steady-hands tap.
+    function assembleFromParts(order) {
+      const s = state();
+      const r = E.roomAction(s, 'assemble', day());
+      if (!r || !r.workbench) return after(r);
+      const right = Array.isArray(order) && order.length === 3 && order.every((x, i) => x === r.workbench.order[i]);
+      if (!right) return after(E.assembleResult(s, day(), { order: order || [], steady: false }));
+      if (host.status && r.text) host.status(r.text);
+      openWorkbench(Object.assign({}, r.workbench, { presetOrder: order }));
+      return r;
     }
 
     // ----- endings -----
@@ -1288,7 +1307,7 @@ body>.pv-overlay{position:fixed}
     }
 
     return {
-      engine: E, state, render, renderNotesPage,
+      engine: E, state, render, renderNotesPage, assembleFromParts,
       onNewDay, onNewsRead, newsFor,
       hingeTopics, chooseHingeTopic,
       serviceTopics, chooseServiceTopic, contactForNumber,

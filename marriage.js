@@ -15,7 +15,7 @@
  *   2. Her examination: five correct answers in a row. A wrong answer resets the
  *      count and starts a new attempt; no question repeats within an attempt.
  *      Passing is permanent and recorded separately for each Sister.
- *   3. Ring one of five Scottsdale jewellers (numbers in Notes). Each has a
+ *   3. Ring one of five Scottsdale jewellers (numbers in Contacts once you begin an examination). Each has a
  *      different conversation that ends with a free wedding ring, which then
  *      appears on the desk. There is no inventory: the ring is one saved flag.
  *   4. Propose in her chat. Without a ring: "Wait, without a ring?". With one:
@@ -23,7 +23,11 @@
  */
 (function(root){
   'use strict';
+  // The five Sisters with their own written lines and wedding art. Every other Sister of
+  // Mercy in the roster can be married too (sisterIds below), using shared lines and, until
+  // her own wedding pictures exist, her own photographs in the slideshow.
   const SISTERS=['MATCH-007','MATCH-055','MATCH-056','MATCH-057','MATCH-066'];
+  const SISTER_ID=/^MATCH-\d{3}$/;
   const JEWELLERS=['agnes','rafael','clara','joseph','sofia'];
   const LETTERS=['A','B','C','D'];
   const lineId=id=>'service:jeweller-'+id;
@@ -83,10 +87,10 @@
       if(!raw||typeof raw!=='object'||raw.v!==1)return out;
       const int=v=>(Number.isInteger(v)?v:null);
       const ids=new Set((data?.questions||[]).map(q=>q.id));
-      for(const id of SISTERS){
-        const s=raw.sisters?.[id];
+      for(const id of Object.keys(raw.sisters||{}).filter(key=>SISTER_ID.test(key))){
+        const s=raw.sisters[id];
         if(!s||typeof s!=='object')continue;
-        const o=out.sisters[id];
+        const o=out.sisters[id]||(out.sisters[id]=freshSister());
         for(const key of ['started','passed','active'])o[key]=s[key]===true;
         for(const key of ['streak','attempts','draws','best','proposedWithoutRing'])o[key]=Math.max(0,int(s[key])||0);
         o.asked=Array.isArray(s.asked)?[...new Set(s.asked.filter(q=>ids.has(q)))].slice(-10):[];
@@ -106,7 +110,8 @@
         o.orderedDay=int(j.orderedDay);
       }
       if(raw.numbers&&typeof raw.numbers==='object')for(const id of JEWELLERS)if(typeof raw.numbers[id]==='string'&&/^\d{7}$/.test(raw.numbers[id]))out.numbers[id]=raw.numbers[id];
-      if(raw.married&&SISTERS.includes(raw.married.id))out.married={id:raw.married.id,day:int(raw.married.day)};
+      // Only a Sister of Mercy (with her own lines, or any Sister in the roster) can be the bride.
+      if(raw.married&&SISTER_ID.test(String(raw.married.id))&&sister(raw.married.id))out.married={id:raw.married.id,day:int(raw.married.day)};
       return out;
     }
     function state(){
@@ -117,7 +122,24 @@
       return world.marriage;
     }
     const today=()=>api.world().day;
-    const sister=id=>data?.sisters?.[id]||null;
+    // Every Sister of Mercy: her own lines if she has them, otherwise shared ones.
+    const sister=id=>data?.sisters?.[id]||sharedSister(id);
+    const sharedCache=new Map();
+    function sharedSister(id){
+      if(sharedCache.has(id))return sharedCache.get(id);
+      const profile=api.profile?.(id),pool=data?.sharedSister;
+      if(!profile||profile.factionId!=='sisters_of_mercy'||!pool)return null;
+      const rnd=seeded(`sister:${id}`);
+      const one=list=>list[Math.floor(rnd()*list.length)];
+      const some=(list,count)=>{const left=list.slice(),out=[];while(out.length<count&&left.length)out.push(left.splice(Math.floor(rnd()*left.length),1)[0]);return out;};
+      const first=profile.name.split(' ')[0];
+      const made={name:profile.name,slug:profile.slug,shared:true,start:one(pool.start),player:fill(one(pool.player),{first}),intro:one(pool.intro),resume:one(pool.resume),pause:one(pool.pause),
+        correct:some(pool.correct,4),wrong:some(pool.wrong,4),pass:one(pool.pass),noRing:one(pool.noRing),accept:one(pool.accept)};
+      sharedCache.set(id,made);
+      return made;
+    }
+    function sisterIds(){return [...new Set([...Object.keys(data?.sisters||{}),...(api.sisterIds?.()||[])])].filter(id=>sister(id));}
+    const sisterState=(st,id)=>st.sisters[id]||(st.sisters[id]=freshSister());
     const firstName=id=>(sister(id)?.name||'her').split(' ')[0];
     const question=qid=>data.questions.find(q=>q.id===qid);
     const threadOf=id=>api.threads().get(id);
@@ -135,7 +157,7 @@
     function optionsFor(thread){
       const st=state();
       if(!st||!thread||!sister(thread.id))return null;
-      const id=thread.id,s=st.sisters[id];
+      const id=thread.id,s=sisterState(st,id);
       if(st.married)return {html:tag(st.married.id===id?'Married. God bless you both.':'You are already married.'),only:true};
       if(s.active&&s.current!==null){
         const q=question(s.current);
@@ -164,7 +186,7 @@
       return true;
     }
     function draw(st,id){
-      const s=st.sisters[id];
+      const s=sisterState(st,id);
       const pool=data.questions.filter(q=>!s.asked.includes(q.id));
       const rnd=seeded(`${api.world().seed||'match'}:marriage:${id}:${s.draws}`);
       s.draws++;
@@ -173,7 +195,7 @@
       return q;
     }
     function start(st,id){
-      const s=st.sisters[id],sis=sister(id);
+      const s=sisterState(st,id),sis=sister(id);
       if(s.passed||st.married)return;
       const opening=s.started?sis.resume:sis.intro;
       const firstTime=!s.started;
@@ -185,7 +207,7 @@
       });
     }
     function answer(st,id,index){
-      const s=st.sisters[id],sis=sister(id);
+      const s=sisterState(st,id),sis=sister(id);
       if(!s.active||s.current===null||!(index>=0&&index<4))return;
       const q=question(s.current);
       const correct=index===q.correctAnswerIndex;
@@ -210,12 +232,12 @@
       });
     }
     function pause(st,id){
-      const s=st.sisters[id];
+      const s=sisterState(st,id);
       if(!s.active)return;
       converse(id,'Can we stop there for now?',[sister(id).pause],()=>{s.active=false;});
     }
     function propose(st,id){
-      const s=st.sisters[id],sis=sister(id);
+      const s=sisterState(st,id),sis=sister(id);
       if(!s.passed||st.married)return;
       if(!st.ring){
         s.proposedWithoutRing++;
@@ -259,7 +281,7 @@
       return {id:lineId(id),name:`${j.name}, ${j.shop}`,portrait:j.portrait,greeting:j.greeting};
     }
     function matchedSisters(){
-      return SISTERS.filter(id=>{const thread=threadOf(id);return thread&&!thread.blocked&&!thread.fumbled;});
+      return sisterIds().filter(id=>{const thread=threadOf(id);return thread&&!thread.blocked&&!thread.fumbled;});
     }
     function topic(id,key,extra){return {id:key,label:extra?.label||data.jewellerTalk[id][key].label,marriage:true};}
     // Topics for a jeweller's line, plus Rafaela Ortega's favour (key 'rafael') on the chapel line.
@@ -331,14 +353,24 @@
       }
     }
 
-    // ---------- Notes ----------
-    function notesEntry(){
+    // ---------- the Wedding box (bedside cupboard) and Contacts ----------
+    // The jewellers' numbers reach Contacts once you've begun any Sister's examination
+    // (she tells you to find a ring), or once you have the ring.
+    function jewellersKnown(st){return !!(st&&(st.ring||Object.values(st.sisters||{}).some(s=>s&&s.started)));}
+    function jewellerContacts(){
+      const st=state();
+      if(!jewellersKnown(st))return [];
+      ensureNumbers(st);
+      return JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,number:st.numbers[id],portrait:data.jewellers[id].portrait}));
+    }
+    function jewellerName(id){return data?.jewellers?.[id]?.name||'';}
+    function notesEntry(options={}){
       const st=state();
       if(!st)return '';
       ensureNumbers(st);
-      const ring=st.ring?`On your desk, a gift from ${data.jewellers[st.ring.from].name}.`:'Not yet. Ring a jeweller below.';
-      const exams=SISTERS.filter(id=>threadOf(id)).map(id=>{
-        const s=st.sisters[id];
+      const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. The jewellers are in your Contacts.':'Not yet.';
+      const exams=sisterIds().filter(id=>threadOf(id)).map(id=>{
+        const s=sisterState(st,id);
         const status=st.married?.id===id?'married ♥':s.passed?'passed her examination. You may propose.':s.started?`examination in progress (${s.streak} in a row)`:'not asked yet';
         return `<p>• ${esc(sister(id).name)}: ${esc(status)}</p>`;
       }).join('')||'<p>Match with a Sister of Mercy in Hinge and ask whether she would ever marry you.</p>';
@@ -346,7 +378,7 @@
         const j=data.jewellers[id];
         return `<p class="contact-entry"><b>${esc(j.name)}</b>, ${esc(j.shop)}<br><small>${esc(j.role)} · ${esc(j.location)}</small><br><button class="notes-call" data-note-dial="${st.numbers[id]}">${st.numbers[id]} ☎</button></p>`;
       }).join('');
-      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win: pass her examination (five correct answers in a row), get a wedding ring, then propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}<p><b>Scottsdale jewellers</b></p>${shops}</div>`;
+      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win: pass her examination (five correct answers in a row), get a wedding ring, then propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Scottsdale jewellers</b></p>${shops}`}</div>`;
     }
 
     // ---------- desk, wedding slideshow and victory screen ----------
@@ -388,6 +420,18 @@
       const slug=sister(id).slug;
       return data.art.weddingScenes.map(scene=>`assets/marriage/weddings/${slug}-${scene.key}.png`);
     }
+    // A Sister without her own wedding pictures yet: the slideshow falls back to her own
+    // photographs. Once her pictures are saved at the usual paths they are used instead.
+    function fallbackFrame(id,index){
+      if(data?.sisters?.[id])return null;
+      const gallery=api.profile?.(id)?.gallery||[];
+      return gallery.length?gallery[index%gallery.length]:null;
+    }
+    function setFrame(img,id,index,src){
+      const fallback=fallbackFrame(id,index);
+      img.onerror=fallback?()=>{img.onerror=null;img.src=api.assetUrl(fallback);}:null;
+      img.src=api.assetUrl(src);
+    }
     function refreshDesk(){
       mount();
       const st=state();
@@ -411,7 +455,7 @@
       showing.index++;
       if(showing.index>=showing.frames.length){finishWedding();return;}
       const img=showImages[showing.index%2],other=showImages[(showing.index+1)%2];
-      img.src=api.assetUrl(showing.frames[showing.index]);
+      setFrame(img,showing.id,showing.index,showing.frames[showing.index]);
       img.alt=data.art.weddingScenes[showing.index].title;
       img.classList.remove('on');void img.offsetWidth;img.classList.add('on');
       other.classList.remove('on');
@@ -429,6 +473,9 @@
       const day=preview?today():st?.married?.day;
       const frames=weddingFrames(id);
       win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(data.art.victoryBackdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(frames[3]))}" alt="${esc(sister(id).name)} on her wedding day"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(v.subtitle)}</p><p class="line">${esc(fill(v.line,{name:sister(id).name,day}))}</p>${preview?'<p class="note">Testing preview. Your run is unchanged.</p><button data-marriage-win="close">Close preview</button>':`<button data-marriage-win="new">${esc(v.newGame)}</button>`}</div>`;
+      const portrait=win.querySelector?.('.frame img');
+      const fallback=fallbackFrame(id,3);
+      if(portrait&&fallback)portrait.onerror=()=>{portrait.onerror=null;portrait.src=api.assetUrl(fallback);}; // her own photo until her wedding portrait exists
       win.classList.add('visible');
       api.playUiSound(660);
     }
@@ -465,9 +512,17 @@
 
     mount();
     return {
-      optionsFor,choose,notesEntry,contactForNumber,serviceTopics,chooseServiceTopic,
+      optionsFor,choose,notesEntry,jewellerContacts,jewellerName,contactForNumber,serviceTopics,chooseServiceTopic,
       reset,afterLoad,refreshDesk,previewWedding,
       hasData:()=>!!data,
+      // A Sister may ring and test you over the phone: one of the examination questions, chosen
+      // by a key so it is the same on reload. Phone answers don't count towards her examination.
+      phoneQuestion:(key,exclude=[])=>{
+        const pool=(data?.questions||[]).filter(q=>!exclude.includes(q.id));
+        if(!pool.length)return null;
+        const q=pool[Math.floor(seeded(`${api.world().seed||'match'}:phone:${key}`)()*pool.length)];
+        return {id:q.id,question:q.question,answers:[...q.answers],correctAnswerIndex:q.correctAnswerIndex};
+      },
       isWon:()=>!!state()?.married,
       // Read-only helpers for tests and debugging.
       state:()=>state(),frames:id=>weddingFrames(id),

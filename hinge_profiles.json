@@ -1,11 +1,11 @@
 {
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
-  "note": "187 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 71,
-  "imageCount": 215,
-  "publicImageCount": 122,
-  "privateImageCount": 93,
+  "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
+  "characterCount": 89,
+  "imageCount": 408,
+  "publicImageCount": 184,
+  "privateImageCount": 224,
   "characters": [
     {
       "id": "MATCH-001",
@@ -32,6 +32,12 @@
           "src": "assets/hinge/private_expansion/anna_voss_lingerie_a.webp",
           "description": "Anna in blue lingerie standing at her bedroom mirror, holding a silver compact camera beside her face",
           "camera": "standing bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/anna_voss_private_01.webp",
+          "description": "Anna Voss: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -137,6 +143,12 @@
           "src": "assets/hinge/private_expansion/beatrice_hale_lingerie_b.webp",
           "description": "Beatrice standing at a warm hotel bathroom mirror in champagne satin lingerie",
           "camera": "standing bathroom mirror photo with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/beatrice_hale_private_01.webp",
+          "description": "Beatrice Hale: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -466,6 +478,18 @@
           "description": "Emily crouching by a bedroom mirror in a pink camisole and denim shorts, smiling gently while holding her silver camera near her face",
           "camera": "low-angle wardrobe mirror selfie with silver compact camera",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/emily_fairchild_private_01.webp",
+          "description": "Emily Fairchild: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/emily_fairchild_private_02.webp",
+          "description": "Emily Fairchild: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -524,6 +548,12 @@
           "description": "Madison's over-the-shoulder bedroom mirror selfie in a black halterneck top and red mini skirt, blonde hair piled in a messy bun, silver compact camera raised",
           "camera": "silver compact camera in a bedroom mirror",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/madison_pike_private_01.webp",
+          "description": "Madison Pike: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -542,6 +572,18 @@
           "src": "assets/hinge/private_additions/olivia_reid_black_bikini_over_shoulder.webp",
           "description": "Olivia in a black two-piece swimsuit with thong-cut bottoms, turned away from the bedroom mirror and looking back over one shoulder while holding a silver camera",
           "camera": "rear-facing resort bedroom mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/olivia_reid_private_01.webp",
+          "description": "Olivia Reid: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/olivia_reid_private_02.webp",
+          "description": "Olivia Reid: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -562,6 +604,18 @@
           "description": "Sarah leaning diagonally into a wardrobe mirror in a red halterneck top and denim shorts, smiling through glasses with her camera raised high",
           "camera": "high-angle mirror selfie with silver compact camera",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sarah_whitcomb_private_01.webp",
+          "description": "Sarah Whitcomb: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sarah_whitcomb_private_02.webp",
+          "description": "Sarah Whitcomb: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -580,6 +634,18 @@
           "src": "assets/hinge/private_additions/tiffany_nash_turquoise_bikini_over_shoulder.webp",
           "description": "Tiffany in a turquoise two-piece swimsuit with thong-cut bottoms, taking a rear three-quarter mirror selfie with a raised digital camera in a Scottsdale hotel room",
           "camera": "over-the-shoulder resort mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tiffany_nash_private_01.webp",
+          "description": "Tiffany Nash: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tiffany_nash_private_02.webp",
+          "description": "Tiffany Nash: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -600,6 +666,18 @@
           "description": "Private camera-roll photograph of Lauren Bishop, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lauren_bishop_private_01.webp",
+          "description": "Lauren Bishop: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lauren_bishop_private_02.webp",
+          "description": "Lauren Bishop: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -618,6 +696,18 @@
           "src": "assets/hinge/portraits/heather_collins_2.webp",
           "description": "Private camera-roll photograph of Heather Collins, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/heather_collins_private_01.webp",
+          "description": "Heather Collins: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/heather_collins_private_02.webp",
+          "description": "Heather Collins: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -639,6 +729,18 @@
           "description": "Private camera-roll photograph of Chloe Farrow, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/chloe_farrow_private_01.webp",
+          "description": "Chloe Farrow: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/chloe_farrow_private_02.webp",
+          "description": "Chloe Farrow: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -657,6 +759,18 @@
           "src": "assets/hinge/portraits/julia_mercer_2.webp",
           "description": "Private camera-roll photograph of Julia Mercer, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/julia_mercer_private_01.webp",
+          "description": "Julia Mercer: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/julia_mercer_private_02.webp",
+          "description": "Julia Mercer: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -678,6 +792,18 @@
           "description": "Private camera-roll photograph of Rachel Lowe, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rachel_lowe_private_01.webp",
+          "description": "Rachel Lowe: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rachel_lowe_private_02.webp",
+          "description": "Rachel Lowe: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -698,6 +824,18 @@
           "description": "Private camera-roll photograph of Megan O'Keefe, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/megan_okeefe_private_01.webp",
+          "description": "Megan O'Keefe: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/megan_okeefe_private_02.webp",
+          "description": "Megan O'Keefe: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -716,6 +854,18 @@
           "src": "assets/hinge/portraits/emma_frost_2.webp",
           "description": "Private camera-roll photograph of Emma Frost, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/emma_frost_private_01.webp",
+          "description": "Emma Frost: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/emma_frost_private_02.webp",
+          "description": "Emma Frost: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -736,6 +886,18 @@
           "description": "Private camera-roll photograph of Paige Dalton, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paige_dalton_private_01.webp",
+          "description": "Paige Dalton: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paige_dalton_private_02.webp",
+          "description": "Paige Dalton: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -754,6 +916,18 @@
           "src": "assets/hinge/portraits/nicole_ashbury_2.webp",
           "description": "Private camera-roll photograph of Nicole Ashbury, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nicole_ashbury_private_01.webp",
+          "description": "Nicole Ashbury: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nicole_ashbury_private_02.webp",
+          "description": "Nicole Ashbury: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -774,6 +948,18 @@
           "description": "Private camera-roll photograph of Audrey King, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/audrey_king_private_01.webp",
+          "description": "Audrey King: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/audrey_king_private_02.webp",
+          "description": "Audrey King: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -792,6 +978,18 @@
           "src": "assets/hinge/portraits/bethany_price_2.webp",
           "description": "Private camera-roll photograph of Bethany Price, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bethany_price_private_01.webp",
+          "description": "Bethany Price: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bethany_price_private_02.webp",
+          "description": "Bethany Price: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -812,6 +1010,18 @@
           "description": "Private camera-roll photograph of Erin Doyle, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/erin_doyle_private_01.webp",
+          "description": "Erin Doyle: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/erin_doyle_private_02.webp",
+          "description": "Erin Doyle: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -830,6 +1040,18 @@
           "src": "assets/hinge/portraits/kimberly_brooks_2.webp",
           "description": "Private camera-roll photograph of Kimberly Brooks, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/kimberly_brooks_private_01.webp",
+          "description": "Kimberly Brooks: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/kimberly_brooks_private_02.webp",
+          "description": "Kimberly Brooks: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -850,6 +1072,18 @@
           "description": "Private camera-roll photograph of Grace Wheeler, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/grace_wheeler_private_01.webp",
+          "description": "Grace Wheeler: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/grace_wheeler_private_02.webp",
+          "description": "Grace Wheeler: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -868,6 +1102,18 @@
           "src": "assets/hinge/portraits/isabel_morales_2.webp",
           "description": "Private camera-roll photograph of Isabel Morales, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/isabel_morales_private_01.webp",
+          "description": "Isabel Morales: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/isabel_morales_private_02.webp",
+          "description": "Isabel Morales: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -888,6 +1134,18 @@
           "description": "Private camera-roll photograph of Elena Vargas, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/elena_vargas_private_01.webp",
+          "description": "Elena Vargas: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/elena_vargas_private_02.webp",
+          "description": "Elena Vargas: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -906,6 +1164,18 @@
           "src": "assets/hinge/portraits/camila_reyes_2.webp",
           "description": "Private camera-roll photograph of Camila Reyes, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/camila_reyes_private_01.webp",
+          "description": "Camila Reyes: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/camila_reyes_private_02.webp",
+          "description": "Camila Reyes: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -926,6 +1196,18 @@
           "description": "Private camera-roll photograph of Marisol Fuentes, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marisol_fuentes_private_01.webp",
+          "description": "Marisol Fuentes: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marisol_fuentes_private_02.webp",
+          "description": "Marisol Fuentes: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -944,6 +1226,18 @@
           "src": "assets/hinge/portraits/daniela_cruz_2.webp",
           "description": "Private camera-roll photograph of Daniela Cruz, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daniela_cruz_private_01.webp",
+          "description": "Daniela Cruz: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daniela_cruz_private_02.webp",
+          "description": "Daniela Cruz: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -964,6 +1258,18 @@
           "description": "Private camera-roll photograph of Hana Park, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hana_park_private_01.webp",
+          "description": "Hana Park: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hana_park_private_02.webp",
+          "description": "Hana Park: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -982,6 +1288,18 @@
           "src": "assets/hinge/portraits/mei_chen_2.webp",
           "description": "Private camera-roll photograph of Mei Chen, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mei_chen_private_01.webp",
+          "description": "Mei Chen: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mei_chen_private_02.webp",
+          "description": "Mei Chen: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1002,6 +1320,18 @@
           "description": "Private camera-roll photograph of Nia Walker, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nia_walker_private_01.webp",
+          "description": "Nia Walker: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nia_walker_private_02.webp",
+          "description": "Nia Walker: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1020,6 +1350,18 @@
           "src": "assets/hinge/portraits/alice_beaumont_2.webp",
           "description": "Private camera-roll photograph of Alice Beaumont, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alice_beaumont_private_01.webp",
+          "description": "Alice Beaumont: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alice_beaumont_private_02.webp",
+          "description": "Alice Beaumont: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1040,6 +1382,18 @@
           "description": "Private camera-roll photograph of Caroline Prescott, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/caroline_prescott_private_01.webp",
+          "description": "Caroline Prescott: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/caroline_prescott_private_02.webp",
+          "description": "Caroline Prescott: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1058,6 +1412,18 @@
           "src": "assets/hinge/portraits/phoebe_sutton_2.webp",
           "description": "Private camera-roll photograph of Phoebe Sutton, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/phoebe_sutton_private_01.webp",
+          "description": "Phoebe Sutton: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/phoebe_sutton_private_02.webp",
+          "description": "Phoebe Sutton: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1078,6 +1444,18 @@
           "description": "Private camera-roll photograph of Sofia Delgado, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sofia_delgado_private_01.webp",
+          "description": "Sofia Delgado: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sofia_delgado_private_02.webp",
+          "description": "Sofia Delgado: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1096,6 +1474,18 @@
           "src": "assets/hinge/portraits/yumi_tanaka_2.webp",
           "description": "Private camera-roll photograph of Yumi Tanaka, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yumi_tanaka_private_01.webp",
+          "description": "Yumi Tanaka: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yumi_tanaka_private_02.webp",
+          "description": "Yumi Tanaka: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1116,6 +1506,18 @@
           "description": "Private camera-roll photograph of Abigail Porter, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/abigail_porter_private_01.webp",
+          "description": "Abigail Porter: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/abigail_porter_private_02.webp",
+          "description": "Abigail Porter: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1134,6 +1536,18 @@
           "src": "assets/hinge/portraits/helen_markham_2.webp",
           "description": "Private camera-roll photograph of Helen Markham, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/helen_markham_private_01.webp",
+          "description": "Helen Markham: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/helen_markham_private_02.webp",
+          "description": "Helen Markham: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1154,6 +1568,18 @@
           "description": "Private camera-roll photograph of Maria Vega, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maria_vega_private_01.webp",
+          "description": "Maria Vega: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maria_vega_private_02.webp",
+          "description": "Maria Vega: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1172,6 +1598,18 @@
           "src": "assets/hinge/portraits/keiko_nakamura_2.webp",
           "description": "Private camera-roll photograph of Keiko Nakamura, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/keiko_nakamura_private_01.webp",
+          "description": "Keiko Nakamura: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/keiko_nakamura_private_02.webp",
+          "description": "Keiko Nakamura: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1192,6 +1630,18 @@
           "description": "Private camera-roll photograph of Jennifer Tate, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jennifer_tate_private_01.webp",
+          "description": "Jennifer Tate: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jennifer_tate_private_02.webp",
+          "description": "Jennifer Tate: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1210,6 +1660,18 @@
           "src": "assets/hinge/portraits/vanessa_greer_2.webp",
           "description": "Private camera-roll photograph of Vanessa Greer, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/vanessa_greer_private_01.webp",
+          "description": "Vanessa Greer: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/vanessa_greer_private_02.webp",
+          "description": "Vanessa Greer: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1230,6 +1692,18 @@
           "description": "Private camera-roll photograph of Allison Kent, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/allison_kent_private_01.webp",
+          "description": "Allison Kent: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/allison_kent_private_02.webp",
+          "description": "Allison Kent: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1248,6 +1722,18 @@
           "src": "assets/hinge/portraits/rosa_gutierrez_2.webp",
           "description": "Private camera-roll photograph of Rosa Gutierrez, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosa_gutierrez_private_01.webp",
+          "description": "Rosa Gutierrez: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosa_gutierrez_private_02.webp",
+          "description": "Rosa Gutierrez: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1325,6 +1811,18 @@
           "description": "Private camera-roll photograph of Hannah Webb, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hannah_webb_private_01.webp",
+          "description": "Hannah Webb: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hannah_webb_private_02.webp",
+          "description": "Hannah Webb: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1350,6 +1848,12 @@
           "description": "Fiona sitting on her bed with her auburn hair down for once, in a white lace-trim camisole and pink satin shorts, silver compact camera raised to the mirror",
           "camera": "silver compact camera on a wrist strap, bedroom mirror",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/fiona_blake_private_01.webp",
+          "description": "Fiona Blake: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1368,6 +1872,18 @@
           "src": "assets/hinge/portraits/linh_tran_2.webp",
           "description": "Private camera-roll photograph of Linh Tran, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/linh_tran_private_01.webp",
+          "description": "Linh Tran: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/linh_tran_private_02.webp",
+          "description": "Linh Tran: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1388,6 +1904,18 @@
           "description": "Private camera-roll photograph of Alice Wren, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alice_wren_private_01.webp",
+          "description": "Alice Wren: a late-night bedroom mirror selfie in silky sleepwear or lingerie",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alice_wren_private_02.webp",
+          "description": "Alice Wren: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1406,6 +1934,18 @@
           "src": "assets/hinge/portraits/piper_nocturne_2.webp",
           "description": "Private camera-roll photograph of Piper Nocturne, held back from the public Hinge gallery",
           "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/piper_nocturne_private_01.webp",
+          "description": "Piper Nocturne: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/piper_nocturne_private_02.webp",
+          "description": "Piper Nocturne: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
           "era": "2005–2010"
         }
       ]
@@ -1426,6 +1966,18 @@
           "description": "Private camera-roll photograph of Zara Brooks, held back from the public Hinge gallery",
           "camera": "period digital photograph",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/zara_brooks_private_01.webp",
+          "description": "Zara Brooks: a playful bedroom mirror selfie in a going-out dress, a silver digital compact camera in her hand",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/zara_brooks_private_02.webp",
+          "description": "Zara Brooks: a sunny snapshot in a swimsuit beside a pool, taken by a friend",
+          "camera": "late-2000s silver digital compact",
+          "era": "2005–2010"
         }
       ]
     },
@@ -1439,7 +1991,26 @@
       "gallery": [
         "assets/hinge/roster_expansion/maya_serrano_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/maya_serrano_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Maya Serrano, consistent Olive skin, dark curls in a high ponytail, teal scrubs and a white zip hoodie",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maya_serrano_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Maya Serrano, consistent Olive skin, dark curls in a high ponytail, teal scrubs and a white zip hoodie",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maya_serrano_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Maya Serrano, consistent Olive skin, dark curls in a high ponytail, teal scrubs and a white zip hoodie",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Quick-witted, reassuring and forthright",
       "personalGoal": "convince her sister to open a small neighbourhood café",
       "privatePicturePolicy": "optional later, only if trust develops"
@@ -1454,7 +2025,26 @@
       "gallery": [
         "assets/hinge/roster_expansion/jocelyn_reed_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/jocelyn_reed_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Jocelyn Reed, consistent Dark skin, cropped natural curls, royal-blue blazer and a tiny blue ribbon",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jocelyn_reed_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Jocelyn Reed, consistent Dark skin, cropped natural curls, royal-blue blazer and a tiny blue ribbon",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jocelyn_reed_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Jocelyn Reed, consistent Dark skin, cropped natural curls, royal-blue blazer and a tiny blue ribbon",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Measured, diplomatic and quietly suspicious",
       "personalGoal": "audit the foundation without losing her career",
       "privatePicturePolicy": "optional later, trust-gated"
@@ -1484,7 +2074,26 @@
       "gallery": [
         "assets/hinge/roster_expansion/inez_morales_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/inez_morales_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Inez Morales, consistent Amber skin, wavy chestnut bob, turquoise eyeshadow, corduroy jacket and vintage band T-shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/inez_morales_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Inez Morales, consistent Amber skin, wavy chestnut bob, turquoise eyeshadow, corduroy jacket and vintage band T-shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/inez_morales_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Inez Morales, consistent Amber skin, wavy chestnut bob, turquoise eyeshadow, corduroy jacket and vintage band T-shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Impatient, witty and fiercely loyal",
       "personalGoal": "save a student housing co-operative",
       "privatePicturePolicy": "optional later, relationship-gated"
@@ -1499,7 +2108,26 @@
       "gallery": [
         "assets/hinge/roster_expansion/rowan_pike_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/rowan_pike_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Rowan Pike, consistent Pale skin, silver-black undercut, grey-green eyes, subtle tattoos and crescent jewellery",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rowan_pike_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Rowan Pike, consistent Pale skin, silver-black undercut, grey-green eyes, subtle tattoos and crescent jewellery",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rowan_pike_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Rowan Pike, consistent Pale skin, silver-black undercut, grey-green eyes, subtle tattoos and crescent jewellery",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Dry, independent and disarmingly direct",
       "personalGoal": "keep the studio independent of a predatory investor",
       "privatePicturePolicy": "optional later, trust-gated"
@@ -1514,7 +2142,26 @@
       "gallery": [
         "assets/hinge/roster_expansion/camille_baptiste_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/camille_baptiste_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Camille Baptiste, consistent Deep brown skin, dark locs tied in a scarf, olive utility jacket and silver compact-camera strap",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/camille_baptiste_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Camille Baptiste, consistent Deep brown skin, dark locs tied in a scarf, olive utility jacket and silver compact-camera strap",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/camille_baptiste_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Camille Baptiste, consistent Deep brown skin, dark locs tied in a scarf, olive utility jacket and silver compact-camera strap",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Observant, ironic and relentlessly curious",
       "personalGoal": "publish an independent photo essay about the city",
       "privatePicturePolicy": "optional later, no duplicates from her public work"
@@ -1535,6 +2182,24 @@
           "description": "Tessa kneeling on a shaggy bedroom rug in a cream ribbed crop top and grey drawstring shorts, copper hair loose for once, smiling up at the camera",
           "camera": "compact camera on a self-timer, propped on the dresser",
           "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tessa_larkin_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Tessa Larkin, consistent Freckled fair skin, copper-red braids, bright coral top and faded jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tessa_larkin_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Tessa Larkin, consistent Freckled fair skin, copper-red braids, bright coral top and faded jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tessa_larkin_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Tessa Larkin, consistent Freckled fair skin, copper-red braids, bright coral top and faded jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
         }
       ],
       "personality": "Cheerfully chaotic, honest and patient with animals",
@@ -1551,11 +2216,459 @@
       "gallery": [
         "assets/hinge/roster_expansion/nadia_okafor_01.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nadia_okafor_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nadia Okafor, consistent Dark skin, shoulder-length box braids, burgundy shirt and simple watch",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nadia_okafor_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nadia Okafor, consistent Dark skin, shoulder-length box braids, burgundy shirt and simple watch",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nadia_okafor_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nadia Okafor, consistent Dark skin, shoulder-length box braids, burgundy shirt and simple watch",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "Composed, principled and very funny when she relaxes",
       "personalGoal": "qualify as a full forensic investigator",
       "privatePicturePolicy": "optional later, private life separate from work"
+    },
+    {
+      "id": "MATCH-072",
+      "slug": "marianne_keene",
+      "name": "Marianne Keene",
+      "age": 40,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/marianne_keene_01.webp",
+        "assets/hinge/roster_expansion/marianne_keene_02.webp",
+        "assets/hinge/roster_expansion/marianne_keene_03.webp",
+        "assets/hinge/roster_expansion/marianne_keene_04.webp",
+        "assets/hinge/roster_expansion/marianne_keene_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/marianne_keene_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Marianne Keene, consistent Dark skin, layered caramel shoulder-length hair, tortoiseshell glasses, emerald wrap dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marianne_keene_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Marianne Keene, consistent Dark skin, layered caramel shoulder-length hair, tortoiseshell glasses, emerald wrap dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marianne_keene_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Marianne Keene, consistent Dark skin, layered caramel shoulder-length hair, tortoiseshell glasses, emerald wrap dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and collecting odd roadside souvenirs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-074",
+      "slug": "elise_harrow",
+      "name": "Elise Harrow",
+      "age": 22,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/elise_harrow_01.webp",
+        "assets/hinge/roster_expansion/elise_harrow_02.webp",
+        "assets/hinge/roster_expansion/elise_harrow_04.webp",
+        "assets/hinge/roster_expansion/elise_harrow_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/elise_harrow_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Elise Harrow, consistent Warm brown skin, chin-length raven bob with a fringe, amber eyes, cream blazer over a silk camisole",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and singing in a small local choir.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-075",
+      "slug": "francesca_quinn",
+      "name": "Francesca Quinn",
+      "age": 32,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/francesca_quinn_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and collecting unusual cookbooks.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-102",
+      "slug": "danica_holt",
+      "name": "Danica Holt",
+      "age": 22,
+      "factionId": "police",
+      "canonicalOccupation": "Crime scene photographer",
+      "gallery": [
+        "assets/hinge/roster_expansion/danica_holt_01.webp",
+        "assets/hinge/roster_expansion/danica_holt_02.webp",
+        "assets/hinge/roster_expansion/danica_holt_03.webp",
+        "assets/hinge/roster_expansion/danica_holt_04.webp",
+        "assets/hinge/roster_expansion/danica_holt_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/danica_holt_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Danica Holt, consistent Deep brown skin, golden-brown ringlets, a silver ear cuff, windbreaker over a sports top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/danica_holt_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Danica Holt, consistent Deep brown skin, golden-brown ringlets, a silver ear cuff, windbreaker over a sports top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/danica_holt_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Danica Holt, consistent Deep brown skin, golden-brown ringlets, a silver ear cuff, windbreaker over a sports top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing crime scene photographer and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-104",
+      "slug": "imani_harper",
+      "name": "Imani Harper",
+      "age": 23,
+      "factionId": "police",
+      "canonicalOccupation": "Evidence archive assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/imani_harper_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing evidence archive assistant and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-129",
+      "slug": "adriana_ponce",
+      "name": "Adriana Ponce",
+      "age": 40,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/adriana_ponce_01.webp",
+        "assets/hinge/roster_expansion/adriana_ponce_02.webp",
+        "assets/hinge/roster_expansion/adriana_ponce_03.webp",
+        "assets/hinge/roster_expansion/adriana_ponce_04.webp",
+        "assets/hinge/roster_expansion/adriana_ponce_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/adriana_ponce_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Adriana Ponce, consistent Golden-tan skin, chin-length raven bob with a fringe, a beauty mark above her lip, overalls and a bandana",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/adriana_ponce_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Adriana Ponce, consistent Golden-tan skin, chin-length raven bob with a fringe, a beauty mark above her lip, overalls and a bandana",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/adriana_ponce_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Adriana Ponce, consistent Golden-tan skin, chin-length raven bob with a fringe, a beauty mark above her lip, overalls and a bandana",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and playing five-a-side football.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-131",
+      "slug": "nora_hadley",
+      "name": "Nora Hadley",
+      "age": 22,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/nora_hadley_01.webp",
+        "assets/hinge/roster_expansion/nora_hadley_02.webp",
+        "assets/hinge/roster_expansion/nora_hadley_03.webp",
+        "assets/hinge/roster_expansion/nora_hadley_04.webp",
+        "assets/hinge/roster_expansion/nora_hadley_05.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and trying to learn Italian.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-158",
+      "slug": "agnes_castillo",
+      "name": "Agnes Castillo",
+      "age": 34,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Garden co-ordinator",
+      "gallery": [
+        "assets/hinge/roster_expansion/agnes_castillo_01.webp",
+        "assets/hinge/roster_expansion/agnes_castillo_02.webp",
+        "assets/hinge/roster_expansion/agnes_castillo_03.webp",
+        "assets/hinge/roster_expansion/agnes_castillo_04.webp",
+        "assets/hinge/roster_expansion/agnes_castillo_05.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing garden co-ordinator and learning ballroom dancing.",
+      "privatePicturePolicy": "never requests or sends intimate photographs"
+    },
+    {
+      "id": "MATCH-159",
+      "slug": "eliza_montoya",
+      "name": "Eliza Montoya",
+      "age": 25,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Food pantry volunteer",
+      "gallery": [
+        "assets/hinge/roster_expansion/eliza_montoya_01.webp",
+        "assets/hinge/roster_expansion/eliza_montoya_02.webp",
+        "assets/hinge/roster_expansion/eliza_montoya_03.webp",
+        "assets/hinge/roster_expansion/eliza_montoya_04.webp",
+        "assets/hinge/roster_expansion/eliza_montoya_05.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing food pantry volunteer and learning to repair watches.",
+      "privatePicturePolicy": "never requests or sends intimate photographs"
+    },
+    {
+      "id": "MATCH-160",
+      "slug": "rosalie_kemp",
+      "name": "Rosalie Kemp",
+      "age": 35,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Chapel archivist",
+      "gallery": [
+        "assets/hinge/roster_expansion/rosalie_kemp_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing chapel archivist and running an informal book club.",
+      "privatePicturePolicy": "never requests or sends intimate photographs"
+    },
+    {
+      "id": "MATCH-161",
+      "slug": "bernadette_flores",
+      "name": "Bernadette Flores",
+      "age": 26,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Museum conservator",
+      "gallery": [
+        "assets/hinge/roster_expansion/bernadette_flores_01.webp",
+        "assets/hinge/roster_expansion/bernadette_flores_02.webp",
+        "assets/hinge/roster_expansion/bernadette_flores_03.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "sceptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum conservator and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "never requests or sends intimate photographs"
+    },
+    {
+      "id": "MATCH-163",
+      "slug": "odette_price",
+      "name": "Odette Price",
+      "age": 31,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Local radio researcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/odette_price_01.webp",
+        "assets/hinge/roster_expansion/odette_price_02.webp",
+        "assets/hinge/roster_expansion/odette_price_03.webp",
+        "assets/hinge/roster_expansion/odette_price_04.webp",
+        "assets/hinge/roster_expansion/odette_price_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/odette_price_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Odette Price, consistent Olive skin, black space buns, amber eyes, rolled-sleeve oxford shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/odette_price_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Odette Price, consistent Olive skin, black space buns, amber eyes, rolled-sleeve oxford shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/odette_price_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Odette Price, consistent Olive skin, black space buns, amber eyes, rolled-sleeve oxford shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing local radio researcher and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-164",
+      "slug": "arielle_brooks",
+      "name": "Arielle Brooks",
+      "age": 22,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Archive researcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/arielle_brooks_01.webp",
+        "assets/hinge/roster_expansion/arielle_brooks_02.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing archive researcher and desert stargazing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-166",
+      "slug": "delia_maher",
+      "name": "Delia Maher",
+      "age": 23,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Investigative reporter",
+      "gallery": [
+        "assets/hinge/roster_expansion/delia_maher_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing investigative reporter and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-191",
+      "slug": "sable_marlow",
+      "name": "Sable Marlow",
+      "age": 37,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/sable_marlow_01.webp",
+        "assets/hinge/roster_expansion/sable_marlow_02.webp",
+        "assets/hinge/roster_expansion/sable_marlow_03.webp",
+        "assets/hinge/roster_expansion/sable_marlow_04.webp",
+        "assets/hinge/roster_expansion/sable_marlow_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/sable_marlow_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Sable Marlow, consistent Light olive skin, dark French braid, a beauty mark above her lip, black lace corset top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sable_marlow_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Sable Marlow, consistent Light olive skin, dark French braid, a beauty mark above her lip, black lace corset top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sable_marlow_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Sable Marlow, consistent Light olive skin, dark French braid, a beauty mark above her lip, black lace corset top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and playing five-a-side football.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-192",
+      "slug": "lenore_vale",
+      "name": "Lenore Vale",
+      "age": 28,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewellery maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/lenore_vale_01.webp",
+        "assets/hinge/roster_expansion/lenore_vale_02.webp",
+        "assets/hinge/roster_expansion/lenore_vale_03.webp",
+        "assets/hinge/roster_expansion/lenore_vale_04.webp",
+        "assets/hinge/roster_expansion/lenore_vale_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lenore_vale_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lenore Vale, consistent Golden-tan skin, sandy shag with a fringe, strong dark brows, studded leather jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lenore_vale_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lenore Vale, consistent Golden-tan skin, sandy shag with a fringe, strong dark brows, studded leather jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewellery maker and teaching herself the drums.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-222",
+      "slug": "brittany_hale",
+      "name": "Brittany Hale",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Florist",
+      "gallery": [
+        "assets/hinge/roster_expansion/brittany_hale_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing florist and collecting odd roadside souvenirs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-223",
+      "slug": "nina_petrov",
+      "name": "Nina Petrov",
+      "age": 39,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/roster_expansion/nina_petrov_01.webp",
+        "assets/hinge/roster_expansion/nina_petrov_03.webp",
+        "assets/hinge/roster_expansion/nina_petrov_04.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and practising watercolour landscapes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],
-  "plannedCharacterCount": 250
+  "plannedCharacterCount": 275
 }
