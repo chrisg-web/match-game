@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-build="331fafd8e5">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -545,11 +545,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js"></script>
+  <script src="chapel_at_midnight.js?v=331fafd8e5"></script>
   <!-- Marriage: the Sisters of Mercy and the only victory. The standalone build inlines it. -->
-  <script src="marriage.js"></script>
+  <script src="marriage.js?v=331fafd8e5"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js"></script>
+  <script src="quests/professor-vale.js?v=331fafd8e5"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -725,6 +725,10 @@
     let world=newWorld('Scottsdale-'+Date.now());
     let chapel=null; // Task 2: Chapel at Midnight engine, created at the end of this script
     let marriage=null; // Marriage: Sisters of Mercy engine (the only victory), created at the end of this script
+    // Online editions stamp <html data-build> with the build's version (build-editions.mjs);
+    // data files are then fetched with ?v=<stamp> so a new page never reads old cached data.
+    const BUILD_STAMP=document.documentElement?.getAttribute?.('data-build')||'';
+    const stamped=file=>BUILD_STAMP?`${file}?v=${BUILD_STAMP}`:file;
     let PV=null; // Professor Vale quest (quests/professor-vale.js), mounted at the end of this script
     function gameRandom(){
       let x=world.rngState>>>0;
@@ -1472,7 +1476,8 @@
       const serviceTopics=activeGenericCall?serviceTopicsFor(activeGenericCall.id):[];
       const caseConfirm=activeGenericCall?caseConfirmTopic(serviceTopics):null; // [Blue Ribbon] irreversible choices ask first
       const asking=callSpeechState==='options'||!!caseConfirm;
-      const speech=caseConfirm?caseConfirm.confirm:asking?'What would you like to ask next?':latest;
+      const nothingLeft=asking&&!caseConfirm&&!thread&&!serviceTopics.length;
+      const speech=caseConfirm?caseConfirm.confirm:nothingLeft?'That’s everything for now. Thanks for calling.':asking?'What would you like to ask next?':latest;
       const buttons=caseConfirm?caseConfirmButtons(caseConfirm):asking?(thread?(hingeDialogue?.callTopics||[]).map(topic=>`<button data-call-topic="${topic.id}">${esc(topic.label)}</button>`).join('')+(wireAskable(thread,profile)?'<button data-call-topic="vale-wire">Ask if she has any wire</button>':''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
       $('call-bubble').innerHTML=`<img src="${profile?.gallery[0]||called.portrait}" alt="${esc(called.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(called.name)}</strong><p class="speech" aria-live="off">${esc(speech)}</p><div class="call-bubble-buttons">${buttons}<button data-call-hangup>End</button></div></div>`;
       $('call-bubble').classList.add('visible');
@@ -1597,7 +1602,7 @@
     let hingeDialogue=window.MATCH_HINGE_DIALOGUES||null;
     // The character database (character_database.json): each woman's personality type.
     let characterDB=window.MATCH_CHARACTER_DB||null,personalityIndex=null;
-    if(!characterDB&&typeof fetch==='function')fetch('character_database.json').then(r=>r.json()).then(db=>{characterDB=db;personalityIndex=null;}).catch(()=>{});
+    if(!characterDB&&typeof fetch==='function')fetch(stamped('character_database.json')).then(r=>r.json()).then(db=>{characterDB=db;personalityIndex=null;}).catch(()=>{});
     function personalityOf(profile){
       if(!characterDB||!profile)return null;
       if(!personalityIndex){const types=new Map(characterDB.types.map(type=>[type.id,type]));personalityIndex=new Map(characterDB.women.map(woman=>[woman.id,types.get(woman.type)]));}
@@ -1776,7 +1781,7 @@
     }
     function matchingAvatar(profile){return assetUrl(profile?.gallery?.[0]||'assets/icons/hinge.png');}
     if(!hingeProfiles.length && typeof fetch==='function'){
-      Promise.all([fetch('hinge_profiles.json').then(r=>r.json()),fetch('hinge_dialogue_tree.json').then(r=>r.json())])
+      Promise.all([fetch(stamped('hinge_profiles.json')).then(r=>r.json()),fetch(stamped('hinge_dialogue_tree.json')).then(r=>r.json())])
         .then(([roster,dialogue])=>{
           hingeProfiles=roster.characters;hingeDialogue=dialogue;setupHingeDeck();
           if(currentApp==='hinge')renderHinge();
@@ -1924,7 +1929,7 @@
       if(['boundaries','distract','visit','ignore'].includes(id)&&(!thread.topics.includes('where')||thread.topics.some(t=>['boundaries','distract','visit','ignore'].includes(t))))return;
       const scenes={
         honey:{player:'Is that really a jar of honey in your picture?',reply:'Grrrr. Yes. I also like picnic baskets and front porches.',affinity:1},
-        where:{player:'Are you actually anywhere near Scottsdale?',reply:'Very near. I can smell your kitchen from here.',affinity:2},
+        where:{player:'Are you actually anywhere near Sunfall?',reply:'Very near. I can smell your kitchen from here.',affinity:2},
         boundaries:{player:'I never share my address with strangers.',reply:'Grrrr… The desert has many doors. I can wait.',affinity:2},
         distract:{player:'There is a delicious jar of honey by the front path.',reply:'HONEY? Grrr. I will follow the smell.',affinity:2},
         ignore:{player:'[You stop replying.]',reply:'Grrr. Seen. I can hear your phone buzzing.',affinity:2},
@@ -3096,7 +3101,7 @@
     }
     indexBlueRibbon();
     if(!BR&&typeof fetch==='function'){
-      fetch('blue_ribbon_ledger.json',{cache:'no-cache'}).then(response=>response.json()).then(data=>{
+      fetch(stamped('blue_ribbon_ledger.json'),{cache:'no-cache'}).then(response=>response.json()).then(data=>{
         BR=data;indexBlueRibbon();
         if(currentApp==='notes')renderNotes();
       }).catch(()=>{});

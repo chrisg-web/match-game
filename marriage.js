@@ -15,7 +15,7 @@
  *   2. Her examination: five correct answers in a row. A wrong answer resets the
  *      count and starts a new attempt; no question repeats within an attempt.
  *      Passing is permanent and recorded separately for each Sister.
- *   3. Ring one of five Scottsdale jewellers (match with her on Hinge and ask for her number). Each has a
+ *   3. Ring one of five Sunfall jewellers (match with her on Hinge and ask for her number). Each has a
  *      different conversation that ends with a free wedding ring, which then
  *      appears on the desk. There is no inventory: the ring is one saved flag.
  *   4. Propose in her chat. Without a ring: "Wait, without a ring?". With one:
@@ -74,7 +74,8 @@
     let deskRing=null,show=null,showImages=[],win=null;
     if(!data&&typeof root.fetch==='function'){
       // The linked-asset preview.html loads the JSON; the standalone build inlines it.
-      root.fetch('marriage.json').then(response=>response.json()).then(json=>{data=json;afterLoad();}).catch(()=>{});
+      const stamp=root.document?.documentElement?.getAttribute?.('data-build'); // online editions: this build's version
+      root.fetch('marriage.json'+(stamp?`?v=${stamp}`:'')).then(response=>response.json()).then(json=>{data=json;afterLoad();}).catch(()=>{});
     }
 
     // ---------- state ----------
@@ -397,7 +398,7 @@
         const j=data.jewellers[id];
         return `<p class="contact-entry"><b>${esc(j.name)}</b>, ${esc(j.shop)}<br><small>${esc(j.role)} · ${esc(j.location)}</small><br><button class="notes-call" data-note-dial="${st.numbers[id]}">${st.numbers[id]} ☎</button></p>`;
       }).join('');
-      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win: pass her examination (five correct answers in a row), get a wedding ring, then propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Scottsdale jewellers</b></p>${shops}`}</div>`;
+      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win: pass her examination (five correct answers in a row), get a wedding ring, then propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Sunfall jewellers</b></p>${shops}`}</div>`;
     }
 
     // ---------- desk, wedding slideshow and victory screen ----------

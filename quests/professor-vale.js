@@ -102,7 +102,8 @@
       diary_leak: 'The newsroom thinks someone in Vale’s own department is leaking his diary.',
       allison: 'Allison Kent, Vale’s research assistant, keeps his diary.',
       car_bay: 'The day after anything public, Vale leaves his car in the faculty car park, bay fourteen.',
-      car_plan: 'The plan: Vale’s car, faculty car park, bay fourteen, on Day {A}, the day after the Cofnas lecture.'
+      car_plan: 'The plan: Vale’s car, faculty car park, bay fourteen, on Day {A}, the day after the Cofnas lecture.',
+      codeword: 'Vanessa’s code word for the Semtex: ring Lenny on the garden-shed number and ask for a garden shed clearance. Never say Semtex on the phone.'
     },
     deduction: { needs: ['rule', 'debate', 'allison', 'car_bay'], text: 'You put it together: the day after the Cofnas lecture, his car, bay fourteen, and Allison Kent knows exactly where he’ll be. Day {A}.' },
     hints: {
@@ -268,7 +269,8 @@
         { id: 'pv_r_calm', label: 'Calm Rosa down', reply: 'Could anyone else get hurt? Tell me nobody else could get hurt. You tell her nobody who matters. She doesn’t like that answer, but she stops crying.' }
       ],
       'pv:vanessa': [
-        { id: 'pv_v_join', label: 'Join the Back Row (final)', reply: 'Good. You build it, at your place, because nobody is watching your place. I’ve circled what you need in today’s classifieds, and I’m sending you a note. Allison collects it from your doorstep when it’s ready. Then you make one phone call.' },
+        { id: 'pv_v_join', label: 'Join the Back Row (final)', reply: 'Good. You build it, at your place, because nobody is watching your place. I’ve circled what you need in today’s classifieds, and I’m sending you a note. For the Semtex, ring Lenny on the garden-shed number and ask for a garden shed clearance. That’s the code word. Never say what it really is. Allison collects it from your doorstep when it’s ready. Then you make one phone call.' },
+        { id: 'pv_v_semtex', label: 'Ask Vanessa how to get the Semtex', reply: 'Lenny. The garden-shed number in your Contacts. Ask for a garden shed clearance, nothing else. If you say the real word on the phone, he hangs up, and so do I.' },
         { id: 'pv_v_refuse', label: 'Refuse (final)', reply: 'Shame. Forget this call. I’d forget it really hard, if I were you.' },
         { id: 'pv_v_stall', label: 'Ask for a day to think', reply: 'One day. I don’t like people who think too long.' },
         { id: 'pv_v_phone', label: 'Ask Vanessa to send you a phone', reply: 'Can’t you do anything yourself? A sigh. It’ll be through your letterbox tomorrow.' },
@@ -281,13 +283,19 @@
         { id: 'pv_a_car', label: 'Ask about Vale’s car, and who drives it' }
       ],
       'pv:lenny': [
-        { id: 'pv_l_order', label: 'Order a garden shed clearance', reply: 'Two days. Doorstep. Don’t open it in the street. Click.' }
+        { id: 'pv_l_order', label: 'Say the code word: a garden shed clearance', reply: 'Two days. Doorstep. Don’t open it in the street. Click.' },
+        { id: 'pv_l_ask', label: 'Ask Lenny for Semtex', reply: 'Never heard of it. You want to talk like that, ring someone else. Click.' },
+        { id: 'pv_l_chat', label: 'Ask Lenny how business is', reply: 'Booming. Don’t ring me unless you’re buying.' }
       ],
       'pv:hendry': [
-        { id: 'pv_h_order', label: 'Order a reel of wire for delivery', reply: 'Lovely! That’ll be with you tomorrow. Can I interest you in light bulbs?' }
+        { id: 'pv_h_order', label: 'Order a reel of wire for delivery', reply: 'Lovely! That’ll be with you tomorrow. Can I interest you in light bulbs?' },
+        { id: 'pv_h_semtex', label: 'Ask if they sell Semtex', reply: 'This is a hardware shop, love. Rope, glue and garden gnomes. Whatever that is, we don’t do it. Try the garden shed clearance in the classifieds, he sells all sorts.' },
+        { id: 'pv_h_offers', label: 'Ask about their spring offers', reply: 'Two light bulbs for the price of one, and a very good price on garden gnomes. We deliver!' }
       ],
       'pv:phones': [
-        { id: 'pv_ph_order', label: 'Order a cheap pay-as-you-go phone', reply: 'Cash on the doorstep. Tomorrow. Click.' }
+        { id: 'pv_ph_order', label: 'Order a cheap pay-as-you-go phone', reply: 'Cash on the doorstep. Tomorrow. Click.' },
+        { id: 'pv_ph_semtex', label: 'Ask for Semtex', reply: 'We sell phones. You want sheds, ring Lenny, and learn some manners. Click.' },
+        { id: 'pv_ph_chat', label: 'Ask what phones they have', reply: 'Cheap ones. Cash. No names. That’s the whole catalogue.' }
       ],
       'pv:device': [
         { id: 'pv_d_call', label: 'Let it ring' }
@@ -829,6 +837,7 @@
             if (s.offerState === 'waiting') add('pv_v_stall', label('pv_v_stall'));
           }
           if (s.stage === 'backrow') {
+            if (s.inv.semtex === 'none') add('pv_v_semtex', label('pv_v_semtex'));
             if (s.inv.phone === 'none') add('pv_v_phone', label('pv_v_phone'));
             if (s.device === 'assembled') add('pv_v_ready', label('pv_v_ready'));
             if (s.invited) { add('pv_v_yes', label('pv_v_yes')); add('pv_v_later', label('pv_v_later')); }
@@ -836,9 +845,20 @@
           }
           break;
         case 'allison': if (s.stage === 'backrow' && !s.carIntel) add('pv_a_car', label('pv_a_car')); break;
-        case 'lenny': if (s.stage === 'backrow' && s.inv.semtex === 'none') add('pv_l_order', label('pv_l_order')); break;
-        case 'hendry': if (s.stage === 'backrow' && s.inv.wire === 'none') add('pv_h_order', label('pv_h_order')); break;
-        case 'phones': if (s.stage === 'backrow' && s.inv.phone === 'none') add('pv_ph_order', label('pv_ph_order')); break;
+        case 'lenny':
+          if (s.stage === 'backrow' && s.inv.semtex === 'none') { add('pv_l_order', label('pv_l_order')); add('pv_l_ask', label('pv_l_ask')); }
+          else add('pv_l_chat', label('pv_l_chat'));
+          break;
+        case 'hendry':
+          if (s.stage === 'backrow' && s.inv.wire === 'none') add('pv_h_order', label('pv_h_order'));
+          if (s.stage === 'backrow' && s.inv.semtex === 'none') add('pv_h_semtex', label('pv_h_semtex'));
+          add('pv_h_offers', label('pv_h_offers'));
+          break;
+        case 'phones':
+          if (s.stage === 'backrow' && s.inv.phone === 'none') add('pv_ph_order', label('pv_ph_order'));
+          if (s.stage === 'backrow' && s.inv.semtex === 'none') add('pv_ph_semtex', label('pv_ph_semtex'));
+          add('pv_ph_chat', label('pv_ph_chat'));
+          break;
         case 'device': if (s.stage === 'backrow') add('pv_d_call', label('pv_d_call')); break;
         case 'alice': if (s.stage === 'resolved' && s.aliceCall) { add('pv_al_yes', label('pv_al_yes')); add('pv_al_later', label('pv_al_later')); } break;
         default: break;
@@ -908,12 +928,13 @@
           if (id === 'pv_v_join') {
             s.stage = 'backrow'; s.offerState = 'joined'; s.joinedDay = day;
             s.conf = 30; s.heat = 0; s.rosaFear = 20;
-            learn(s, 'vanessa'); learn(s, 'allison'); learn(s, 'car_bay'); learn(s, 'car_plan');
+            learn(s, 'vanessa'); learn(s, 'allison'); learn(s, 'car_bay'); learn(s, 'car_plan'); learn(s, 'codeword');
             ['allison', 'rosa', 'lenny', 'hendry', 'phones'].forEach(n => giveNumber(s, n));
             return ok(s, t.reply);
           }
           if (id === 'pv_v_refuse') { s.offerState = 'refused'; risk(s, 15, day); return ok(s, t.reply); }
           if (id === 'pv_v_stall') { s.offerState = 'stalled'; s.stallDay = day; return ok(s, t.reply); }
+          if (id === 'pv_v_semtex') { learn(s, 'codeword'); return ok(s, t.reply); }
           if (id === 'pv_v_phone') { s.inv.phone = 'ordered'; s.due.phone = day + 1; bump(s, 'conf', -5); return ok(s, t.reply); }
           if (id === 'pv_v_ready') {
             if (day > s.attackDay - 1) return ok(s, t.late);
@@ -931,9 +952,16 @@
         case 'allison':
           s.carIntel = true; bump(s, 'conf', 5);
           return ok(s, s.pemberton ? D.allisonLines.pemberton : D.allisonLines.alone);
-        case 'lenny': s.inv.semtex = 'ordered'; s.due.semtex = day + 2; bump(s, 'heat', 12); return ok(s, T(id).reply);
-        case 'hendry': s.inv.wire = 'ordered'; s.due.wire = day + 1; bump(s, 'heat', 4); return ok(s, T(id).reply);
-        case 'phones': s.inv.phone = 'ordered'; s.due.phone = day + 1; bump(s, 'heat', 8); return ok(s, T(id).reply);
+        case 'lenny':
+          if (id === 'pv_l_chat') return ok(s, T(id).reply);
+          if (id === 'pv_l_ask') { bump(s, 'heat', 6); return ok(s, T(id).reply); } // saying it on the phone is careless
+          s.inv.semtex = 'ordered'; s.due.semtex = day + 2; bump(s, 'heat', 12); return ok(s, T(id).reply);
+        case 'hendry':
+          if (id !== 'pv_h_order') return ok(s, T(id).reply);
+          s.inv.wire = 'ordered'; s.due.wire = day + 1; bump(s, 'heat', 4); return ok(s, T(id).reply);
+        case 'phones':
+          if (id !== 'pv_ph_order') return ok(s, T(id).reply);
+          s.inv.phone = 'ordered'; s.due.phone = day + 1; bump(s, 'heat', 8); return ok(s, T(id).reply);
         case 'device': {
           const DL = D.deviceLines;
           if (s.device === 'assembled' || s.device === 'waiting') { news(s, day + 1, 'house_blast'); end(s, 'own_device', day); return ok(s, DL.notCollected); }

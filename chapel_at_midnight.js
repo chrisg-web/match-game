@@ -87,7 +87,8 @@
     const questMode=new Set();
     if(!data&&typeof root.fetch==='function'){
       // The linked-asset preview.html loads the JSON; the standalone build inlines it.
-      root.fetch('chapel_at_midnight.json').then(response=>response.json()).then(json=>{data=json;}).catch(()=>{});
+      const stamp=root.document?.documentElement?.getAttribute?.('data-build'); // online editions: this build's version
+      root.fetch('chapel_at_midnight.json'+(stamp?`?v=${stamp}`:'')).then(response=>response.json()).then(json=>{data=json;}).catch(()=>{});
     }
 
     // ---------- state ----------
