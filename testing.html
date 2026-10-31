@@ -1809,6 +1809,7 @@
       let body='';
       const current=hingeDeck[hingeIndex];
       if(hingeView==='discover'){
+        addJewellersToDeck(); // the marriage data may arrive after the first deck was dealt
         if(!hingeDeck.length){
           body='<div class="hinge-empty">Loading the character gallery…</div>';
         }else if(hingeSwipesToday>=10){

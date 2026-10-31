@@ -535,7 +535,7 @@
       reset,afterLoad,refreshDesk,previewWedding,
       hasData:()=>!!data,
       // The five jewellers as Hinge cards (preview.html puts them in the swipe deck).
-      jewellerCards:()=>JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,role:data.jewellers[id].role,portrait:data.jewellers[id].portrait})),
+      jewellerCards:()=>!data?[]:JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,role:data.jewellers[id].role,portrait:data.jewellers[id].portrait})),
       // You matched with her and asked for her number: her shop line goes in your Contacts.
       meetJeweller:id=>{
         const st=state();
