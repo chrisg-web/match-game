@@ -3,7 +3,7 @@
   "id": "thunderbirds_blue_ribbon_conspiracy",
   "title": "The Blue Ribbon Ledger",
   "faction": "Thunderbirds",
-  "timeRule": "Time advances only through simulated days via Start Another Day. Evidence carries in-game day stamps such as 'Day 1', never weekdays, calendar dates or clock times. Delayed events fire after a number of simulated days, never at a set hour.",
+  "timeRule": "Time advances only through simulated days via Start Another Day. Evidence carries in-game day stamps such as Day 1, never weekdays, calendar dates or clock times. Delayed events fire after a number of simulated days, never at a set hour.",
   "narrativeGuardrail": "Wholly fictional charity, people and crimes. The investigation stays abstract and non-instructional, and the home invasion implies rather than depicts violence.",
   "cast": [
     {"id": "cross", "name": "Elena Cross", "role": "Blue Ribbon organiser, missing since gala night (Day 1)"},
@@ -102,8 +102,8 @@
       "reliability": 3, "reliabilityNote": "A published photograph, but the caption leaves someone out.",
       "lanyard": "D. KE…",
       "caption": "Treasurer Augustus Pell with organiser Elena Cross as the benefit closed (Day 1). Door security: Officer A. Porter.",
-      "column": "…Mr Pell said he left early and did not see Ms Cross again that night. 'All Scholarship Drive payments were frozen on Day 2,' he added…",
-      "facts": ["Day 1", "Augustus Pell", "Officer A. Porter", "Elena Cross", "Lanyard 'D. KE…'", "Payments frozen on Day 2", "Pell 'left early'"],
+      "column": "…Mr Pell said he left early and did not see Ms Cross again that night. All Scholarship Drive payments were frozen on Day 2, he added…",
+      "facts": ["Day 1", "Augustus Pell", "Officer A. Porter", "Elena Cross", "Lanyard D. KE…", "Payments frozen on Day 2", "Pell left early"],
       "hint": "Read the Day 2 Sunfall Daily in full and clip the gala photograph.",
       "home": {"x": 4, "y": 39, "rot": -3},
       "artSize": [1536, 1024],
@@ -134,7 +134,7 @@
       "source": "rumour", "apparentSource": "rumour",
       "reliability": 1, "reliabilityNote": "Forwarded third-hand. Nobody in the chain saw it.",
       "handwriting": "Everyone's saying Elena ran off with a married donor after the gala!! Someone saw her get into a really nice car.",
-      "facts": ["Elena Cross", "A car", "A 'married donor'"],
+      "facts": ["Elena Cross", "A car", "A married donor"],
       "hint": "Gossip travels through group chats.",
       "home": {"x": 68, "y": 38, "rot": -8},
       "artSize": [1254, 1254],
@@ -158,14 +158,14 @@
     {"id": "c_ticket_ledger_ap", "a": "tb_gala_ticket", "b": "tb_charity_ledger", "type": "identity", "valid": true,
       "text": "A.P. approved the unlisted seat and also signed the Halcyon Ridge payments."},
     {"id": "c_ticket_ledger_table", "a": "tb_gala_ticket", "b": "tb_charity_ledger", "type": "detail", "valid": true,
-      "text": "The unlisted Table 9 seat was paid for as 'Table 9 hospitality'."},
+      "text": "The unlisted Table 9 seat was paid for as Table 9 hospitality."},
     {"id": "c_ticket_slip_table", "a": "tb_gala_ticket", "b": "tb_phone_slip", "type": "detail", "valid": true,
       "text": "Someone from Table 9 was in the grey sedan with D.K."},
     {"id": "c_ticket_photo_porter", "a": "tb_gala_ticket", "b": "tb_news_photo", "type": "identity", "valid": false,
-      "text": "The 'A.P.' who seated the unlisted guest is Officer A. Porter from the door.",
-      "hint": "Officer Porter worked the door and logged arrivals. Check who actually signs things off before you pin 'A.P.' on her."},
+      "text": "The A.P. who seated the unlisted guest is Officer A. Porter from the door.",
+      "hint": "Officer Porter worked the door and logged arrivals. Check who actually signs things off before you pin A.P. on her."},
     {"id": "c_ticket_photo_pell", "a": "tb_gala_ticket", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "The 'A.P.' who seated the unlisted guest is Treasurer Augustus Pell."},
+      "text": "The A.P. who seated the unlisted guest is Treasurer Augustus Pell."},
     {"id": "c_ticket_statement_treasurer", "a": "tb_gala_ticket", "b": "tb_witness_statement", "type": "identity", "valid": true,
       "text": "The treasurer the witness saw arguing is the A.P. who placed the unlisted guest."},
     {"id": "c_ledger_slip_dk", "a": "tb_charity_ledger", "b": "tb_phone_slip", "type": "identity", "valid": true,
@@ -178,17 +178,17 @@
     {"id": "c_ledger_photo_frozen", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "date", "valid": true,
       "text": "Pell says payments were frozen on Day 2, yet A.P. signed a Day 2 payment to Halcyon Ridge."},
     {"id": "c_ledger_photo_lanyard", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "D.K. in the ledger is the man in the 'D. KE…' lanyard, cropped out of the caption."},
+      "text": "D.K. in the ledger is the man in the D. KE… lanyard, cropped out of the caption."},
     {"id": "c_ledger_statement_invoice", "a": "tb_charity_ledger", "b": "tb_witness_statement", "type": "detail", "valid": true,
-      "text": "The witness's late-service invoice is D.K.'s 'Late service' entry."},
+      "text": "The witness's late-service invoice is D.K.'s Late service entry."},
     {"id": "c_ledger_statement_kell", "a": "tb_charity_ledger", "b": "tb_witness_statement", "type": "identity", "valid": true,
-      "text": "The 'Mr K…' in the statement is the D.K. who signs the ledger."},
+      "text": "The Mr K… in the statement is the D.K. who signs the ledger."},
     {"id": "c_slip_photo_lanyard", "a": "tb_phone_slip", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "The driver D.K. is the man in the 'D. KE…' lanyard left out of the caption."},
+      "text": "The driver D.K. is the man in the D. KE… lanyard left out of the caption."},
     {"id": "c_slip_photo_cross", "a": "tb_phone_slip", "b": "tb_news_photo", "type": "weak", "valid": true,
       "text": "Elena Cross is named on both."},
     {"id": "c_slip_statement_same", "a": "tb_phone_slip", "b": "tb_witness_statement", "type": "same_source", "valid": true,
-      "text": "R.M. on the slip and the redacted 'R. M…' are the same catering supervisor."},
+      "text": "R.M. on the slip and the redacted R. M… are the same catering supervisor."},
     {"id": "c_slip_statement_two", "a": "tb_phone_slip", "b": "tb_witness_statement", "type": "detail", "valid": false,
       "text": "Two separate witnesses saw the grey sedan at the old junction.",
       "hint": "Read the slip and the statement side by side. Are you sure they come from two different people?"},
@@ -244,7 +244,7 @@
     "progressives": [
       {"id": "br_gossip", "label": "Ask what people are saying about Elena", "requires": ["case"],
         "player": "What's the group chat saying about Elena Cross?",
-        "reply": "The group chat says she ran off with a married donor. Someone 'saw her get into a nice car'. I'd take it with a pinch of salt.",
+        "reply": "The group chat says she ran off with a married donor. Someone saw her get into a nice car. I'd take it with a pinch of salt.",
         "scrap": "tb_rumour_donor", "suspicion": 0}
     ],
     "goth_girls": [
@@ -289,7 +289,7 @@
       {"id": "br_f_table", "label": "Ask who sat at Table 9", "suspicion": 12, "suspicionReason": "You asked the Foundation about the treasurer's table.",
         "reply": "Table 9 is the treasurer's own table. Why would you want to know that?",
         "clue": "Foundation office: Table 9 was Treasurer Pell's own table."},
-      {"id": "br_f_accounts", "label": "Pose as a donor and ask for the accounts", "suspicion": 15, "suspicionReason": "A 'donor' asked the Foundation for its disbursement records.",
+      {"id": "br_f_accounts", "label": "Pose as a donor and ask for the accounts", "suspicion": 15, "suspicionReason": "A donor asked the Foundation for its disbursement records.",
         "scrap": "tb_charity_ledger",
         "reply": "Of course, we value our donors. I'll photograph the disbursement sheet for you… oh dear, it's half torn. I'll send what I have."},
       {"id": "br_f_accuse", "label": "Accuse the treasurer to his own office", "needsScrap": "tb_charity_ledger", "accuse": "pell", "channel": "foundation",
@@ -308,32 +308,32 @@
   },
   "news": {
     "warning": {"section": "Around town", "image": "police_roadblock", "title": "RESIDENTS REPORT CAR CIRCLING QUIET STREETS", "summary": "A grey sedan has been seen idling on residential streets.", "body": "Neighbours say the same car has parked near several homes on your side of town. Police urge residents to report anything unusual and to keep doors locked."},
-    "witnessGone": {"section": "Missing", "image": "missing_03", "title": "CATERING WORKER IN CHARITY CASE LEAVES SUNFALL", "summary": "A late-service supervisor has left the city and withdrawn her statement.", "body": "Friends say she packed in a hurry after 'too many people started asking about her'. Police confirm a witness statement in the Blue Ribbon case has been withdrawn."},
+    "witnessGone": {"section": "Missing", "image": "missing_03", "title": "CATERING WORKER IN CHARITY CASE LEAVES SUNFALL", "summary": "A late-service supervisor has left the city and withdrawn her statement.", "body": "Friends say she packed in a hurry after too many people started asking about her. Police confirm a witness statement in the Blue Ribbon case has been withdrawn."},
     "outcomes": {
       "success": [
-        {"offset": 1, "section": "Investigation", "image": "police_evidence", "title": "FEDERAL OFFICIALS REVIEW BLUE RIBBON RECORDS", "summary": "Investigators have taken the Scholarship Drive's books after a resident submitted a dossier.", "body": "A federal spokesperson called the file 'unusually well corroborated'. The source and the witness involved are being protected."},
-        {"offset": 2, "section": "Investigation", "image": "police_interview", "title": "TREASURER AND EVENTS DIRECTOR QUESTIONED OVER CHARITY PAYMENTS", "summary": "Augustus Pell and Dorian Kell were interviewed about transfers to the Halcyon Ridge Trust.", "body": "The food bank and scholarships will continue under independent trustees. 'Most of our volunteers did nothing wrong,' a new trustee said."},
-        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "ELENA CROSS FOUND SAFE AFTER HIDING FROM THREATS", "summary": "The organiser contacted investigators once the inquiry became public.", "body": "Ms Cross says she went into hiding on gala night after being threatened near the old junction. She thanked 'whoever kept asking the right questions'."},
+        {"offset": 1, "section": "Investigation", "image": "police_evidence", "title": "FEDERAL OFFICIALS REVIEW BLUE RIBBON RECORDS", "summary": "Investigators have taken the Scholarship Drive's books after a resident submitted a dossier.", "body": "A federal spokesperson called the file unusually well corroborated. The source and the witness involved are being protected."},
+        {"offset": 2, "section": "Investigation", "image": "police_interview", "title": "TREASURER AND EVENTS DIRECTOR QUESTIONED OVER CHARITY PAYMENTS", "summary": "Augustus Pell and Dorian Kell were interviewed about transfers to the Halcyon Ridge Trust.", "body": "The food bank and scholarships will continue under independent trustees. Most of our volunteers did nothing wrong, a new trustee said."},
+        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "ELENA CROSS FOUND SAFE AFTER HIDING FROM THREATS", "summary": "The organiser contacted investigators once the inquiry became public.", "body": "Ms Cross says she went into hiding on gala night after being threatened near the old junction. She thanked whoever kept asking the right questions."},
         {"offset": 5, "section": "Community", "image": "religion_benefit", "title": "BLUE RIBBON VOLUNTEERS RETURN TO THE FOOD BANK", "summary": "The charity's legitimate work carries on under new trustees.", "body": "Volunteers who had no part in the Halcyon Ridge payments say they are relieved. Scholarships already promised will be honoured."}
       ],
       "failed_report": [
-        {"offset": 1, "section": "Investigation", "image": "police_station", "title": "FEDERAL OFFICE DECLINES BLUE RIBBON COMPLAINT", "summary": "Officials call a resident's dossier 'speculative and partly contradicted by records'.", "body": "A spokesperson said the file relied on theories that could not be corroborated. No inquiry will be opened."},
-        {"offset": 2, "section": "Public life", "image": "political_briefing", "title": "FOUNDATION WELCOMES 'END TO RUMOURS'", "summary": "Treasurer Augustus Pell says the charity will 'move on'.", "body": "Payments to the Halcyon Ridge Trust have quietly resumed. Elena Cross remains missing."},
+        {"offset": 1, "section": "Investigation", "image": "police_station", "title": "FEDERAL OFFICE DECLINES BLUE RIBBON COMPLAINT", "summary": "Officials call a resident's dossier speculative and partly contradicted by records.", "body": "A spokesperson said the file relied on theories that could not be corroborated. No inquiry will be opened."},
+        {"offset": 2, "section": "Public life", "image": "political_briefing", "title": "FOUNDATION WELCOMES END TO RUMOURS", "summary": "Treasurer Augustus Pell says the charity will move on.", "body": "Payments to the Halcyon Ridge Trust have quietly resumed. Elena Cross remains missing."},
         {"offset": 4, "section": "Missing", "image": "missing_02", "title": "BLUE RIBBON CASE GOES COLD", "summary": "Police say there are no new lines of inquiry.", "body": "Volunteers who once spoke to the newspaper now decline to comment."}
       ],
       "failed_accusation": [
-        {"offset": 1, "section": "Public life", "image": "political_briefing", "title": "RESIDENT ACCUSES BLUE RIBBON TREASURER", "summary": "A caller to this newspaper named Augustus Pell in the Elena Cross case.", "body": "The claims were made before any official inquiry. The Foundation called them 'reckless and defamatory'."},
+        {"offset": 1, "section": "Public life", "image": "political_briefing", "title": "RESIDENT ACCUSES BLUE RIBBON TREASURER", "summary": "A caller to this newspaper named Augustus Pell in the Elena Cross case.", "body": "The claims were made before any official inquiry. The Foundation called them reckless and defamatory."},
         {"offset": 2, "section": "Public life", "image": "police_station", "title": "PELL DENIES CLAIMS AS FOUNDATION THREATENS LEGAL ACTION", "summary": "Lawyers for the treasurer demand a retraction.", "body": "Several volunteers who had spoken privately about the gala have stopped answering calls."},
-        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "KEY WITNESS WITHDRAWS STATEMENT IN CHARITY CASE", "summary": "Police confirm a statement in the Blue Ribbon case has been withdrawn.", "body": "Investigators say the public accusation 'made a difficult case much harder'."},
+        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "KEY WITNESS WITHDRAWS STATEMENT IN CHARITY CASE", "summary": "Police confirm a statement in the Blue Ribbon case has been withdrawn.", "body": "Investigators say the public accusation made a difficult case much harder."},
         {"offset": 5, "section": "Investigation", "image": "police_evidence", "title": "FEDERAL REVIEW OF BLUE RIBBON CLOSED WITHOUT CHARGES", "summary": "Officials cite insufficient evidence after witnesses withdrew.", "body": "Elena Cross remains missing. The Scholarship Drive continues under its existing board."}
       ],
       "failed_wrong_accusation": [
         {"offset": 1, "section": "Crime", "image": "police_station", "title": "RESIDENT ACCUSES OFFICER OVER MISSING ORGANISER", "summary": "A caller claimed Officer A. Porter drove Elena Cross from the benefit.", "body": "The police department said the claim was 'false and contradicted by the officer's own records'."},
-        {"offset": 2, "section": "Crime", "image": "police_interview", "title": "POLICE: OFFICER FLAGGED UNLISTED GALA GUEST; CLAIM DISMISSED", "summary": "Officer Porter reported the unlisted Table 9 guest on gala night.", "body": "Detectives say the false accusation cost the inquiry several days. The Foundation thanked police for 'clearing the air'."},
+        {"offset": 2, "section": "Crime", "image": "police_interview", "title": "POLICE: OFFICER FLAGGED UNLISTED GALA GUEST; CLAIM DISMISSED", "summary": "Officer Porter reported the unlisted Table 9 guest on gala night.", "body": "Detectives say the false accusation cost the inquiry several days. The Foundation thanked police for clearing the air."},
         {"offset": 4, "section": "Missing", "image": "missing_02", "title": "BLUE RIBBON CASE STALLS", "summary": "The inquiry into Elena Cross's disappearance has no new leads.", "body": "Witnesses have stopped talking. Payments to the Halcyon Ridge Trust continue."}
       ],
       "withdrawn": [
-        {"offset": 1, "section": "Community", "image": "charity_volunteers", "title": "BLUE RIBBON INQUIRY GOES QUIET", "summary": "Few new questions are being asked about the gala.", "body": "Volunteers say the atmosphere at the Foundation has 'settled down'."},
+        {"offset": 1, "section": "Community", "image": "charity_volunteers", "title": "BLUE RIBBON INQUIRY GOES QUIET", "summary": "Few new questions are being asked about the gala.", "body": "Volunteers say the atmosphere at the Foundation has settled down."},
         {"offset": 3, "section": "Community", "image": "religion_benefit", "title": "SCHOLARSHIP DRIVE BREAKS FUNDRAISING RECORD", "summary": "Treasurer Augustus Pell thanked donors at a crowded reception.", "body": "Payments to the Halcyon Ridge Trust were not discussed."},
         {"offset": 6, "section": "Missing", "image": "missing_02", "title": "ELENA CROSS CASE MARKED UNRESOLVED", "summary": "Police have scaled back the search for the missing organiser.", "body": "Her family continues to appeal for information."}
       ]
@@ -348,6 +348,6 @@
   "invasion": [
     {"scene": "room", "caption": "Headlights sweep across the ceiling. A grey sedan stops outside and its engine cuts out."},
     {"scene": "room-open", "caption": "The bedroom door swings open. Someone wearing a blue ribbon pin steps inside."},
-    {"scene": "figure", "caption": "\"You were told to stop asking.\""}
+    {"scene": "figure", "caption": "You were told to stop asking."}
   ]
 }

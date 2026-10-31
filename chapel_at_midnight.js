@@ -1,4 +1,4 @@
-/* MATCH, Task 2: "The Chapel at Midnight" quest engine.
+/* MATCH, Task 2: "The Chapel at Midnight" quest engine (version 2, the simple one).
  *
  * preview.html loads this file before its own script and creates one engine
  * with MATCH_CHAPEL_ENGINE.create(api). The game then calls a few hooks, all
@@ -6,34 +6,38 @@
  * skipped and the game runs as before.
  *
  * All quest state lives in world.chapel, so it is saved, loaded and reset
- * with the rest of the run. Narrative text and tuning numbers live in
- * chapel_at_midnight.json.
+ * with the rest of the run. Text and tuning numbers live in chapel_at_midnight.json.
  *
- * Core loops (deliberately different from the Blue Ribbon evidence board):
- *  - a countdown in simulated days that careless questions bring forward
- *  - deciphering coded phrases against news and chapel lore
- *  - reading which goths are innocent, sympathetic or dangerous
- *  - per-Sister trust built through respectful talk, favours and promises
- *  - a vigil roster: prayer leader, keys, door watch, voices, place and night
+ * The quest, in short:
+ *  - It happens in about half of runs. It starts when you match with Victoria
+ *    Blackwood on Hinge or open a paper carrying her flyer. You can only talk to
+ *    Victoria once you've matched with her.
+ *  - The rite is seven nights later. Everyone knows when. The puzzle is WHERE:
+ *    one of three old chapels, described in the case file.
+ *  - Clues come from goth girls you've befriended (the three on the flyer, and any
+ *    goth you match with), from Victoria if she trusts you, and from the paper.
+ *  - You answer by sending word to the Sisters of Mercy (a Sister on Hinge, St
+ *    Brigid's line or the case file once you can reach them).
+ *  - Victoria hears things. Criticise her to the wrong girl, ask too many people,
+ *    tell the wrong girl about the Sisters, confront her, back out on her, go to her
+ *    rite alone, or let the rite happen once she knows you: she comes for you.
+ *    Nothing tells you how close she is.
  */
 (function(root){
   'use strict';
   const LIGHTING={'bedroom-dusk':'dusk','bedroom-night':'night','bedroom-morning':'morning','bedroom-afternoon':'afternoon'};
   const STAGES=['threshold','charge','lunge'];
-  const VICTORIA='MATCH-003',MARGARET='MATCH-055',TERESA='MATCH-056',SOPHIA='MATCH-007',EVELYN='MATCH-057';
-  const GOTHS=['MATCH-061','MATCH-062','MATCH-063'];
-  const SISTERS=[MARGARET,TERESA,SOPHIA,EVELYN];
-  const CHAPELS=['old_mission','cemetery_chapel','st_brigid'];
-  const PLACES=[...CHAPELS,'lantern_vault'];
-  const ROLES=['innocent','sympathetic','dangerous'];
-  const GOTH_ACTS=['show','crescent','help','warn','tell','accuse'];
-  const VICTORIA_ACTS=['show','crescent','accept','backout','confront'];
+  const VICTORIA='MATCH-003';
+  const FLYER_GOTHS=['MATCH-061','MATCH-062','MATCH-063'];
+  const PLACES=['old_mission','cemetery_chapel','st_brigid'];
+  const ROLES=['loyal','gossip','fedup'];
+  const GOTH_ACTS=['rite','where','criticize','sisters'];
+  const VICTORIA_ACTS=['rite','where','come','backout','confront'];
   const QUEST_CHANCE=0.5; // share of runs in which the Chapel at Midnight happens
-  const SLOTS=['prayer','keys','watch'];
-  const FATAL=['confront','marked_twice','ritual_marked','watch_broken','went_alone'];
-  const OUTCOMES=['vigil_success','vigil_reconciled','vigil_partial','vigil_failed','wrong_place','too_late','ignored','withdrawn'];
-  const SURVIVED_RITE=['vigil_success','vigil_reconciled','vigil_partial'];
-  const FRAGMENTS=['show','skywatch','heritage','aftershow','lore','diary','allyPhrase','zaraLie','allyWarning'];
+  const FATAL=['confront','reported','went_alone','remembered','betrayed'];
+  const OUTCOMES=['stopped','reconciled','wrong_place','ignored'];
+  const STOPPED=['stopped','reconciled'];
+  const CLUE_KINDS=['flyer','chalk','riddle','never','victoria'];
   // Milliseconds from the start of the attack: crescent premonition, then
   // the three room frames, the blackout and finally the death screen.
   const ATTACK={frames:[1500,2450,3400],devour:4000,death:4900};
@@ -49,21 +53,17 @@
     @keyframes chapelDevour{0%{transform:scale(1);filter:brightness(1)}45%{transform:scale(1.12);filter:brightness(.6) hue-rotate(-20deg)}85%,100%{transform:scale(1.3);filter:brightness(0)}}
     .hinge-options{max-height:56%;overflow-y:auto}
     .hinge-chat-choice.chapel-choice{color:#4b2d63;background:#f6efff;border-color:#b79bd3}
-    .hinge-chat-choice.chapel-choice.risky{color:#8d2c47;background:#fff;border-color:#d9a0b3}
     .hinge-chat-choice.chapel-entry{color:#f5ecff;background:#3b2a52;border-color:#8f74b3}
     .chapel-case h3{margin-top:4px}
     .chapel-case h4{margin:14px 0 5px;font:bold 11px -apple-system,Arial,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:#7b4f9c}
     .chapel-case p,.chapel-case li{font-size:calc(11px * var(--reading-scale));line-height:1.45;margin:4px 0;color:#333b48}
     .chapel-case ul{margin:3px 0;padding-left:15px}
     .chapel-case .chapel-status{padding:7px;border:1px solid #c7b1dc;border-radius:5px;background:#f8f2ff;color:#3b2752}
-    .chapel-case .chapel-danger{color:#a3263f;font-weight:bold}
     .chapel-row{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}
     .chapel-btn{cursor:pointer;border:1px solid #a996bd;border-radius:4px;background:#fff;color:#3b2c4c;padding:5px 6px;font:bold calc(10px * var(--reading-scale)) -apple-system,Arial,sans-serif}
     .chapel-btn.on{background:#4b3466;color:#fff;border-color:#4b3466}
-    .chapel-btn.warn{color:#a3263f;border-color:#d79aaa}
     .chapel-person{border-top:1px dashed #d8c9e6;padding:5px 0}
     .chapel-person small{display:block;color:#6b6075;font-size:calc(10px * var(--reading-scale))}
-    .chapel-dots{letter-spacing:1px;color:#7b4f9c;font-family:ui-monospace,Consolas,monospace}
     .chapel-back{margin-bottom:4px}
     @media (prefers-reduced-motion: reduce){.chapel-attack.jolt img,.chapel-attack.devouring img{animation:none}}
   `;
@@ -82,7 +82,7 @@
 
   function create(api){
     let data=root.MATCH_CHAPEL_DATA||null;
-    let caseOpen=false,walkAwayArmed=false,attackTimers=[],warnTimer=null;
+    let caseOpen=false,attackTimers=[];
     let overlay=null,overlayImage=null,overlayCaption=null,fatalBackground=null;
     const questMode=new Set();
     if(!data&&typeof root.fetch==='function'){
@@ -92,30 +92,23 @@
 
     // ---------- state ----------
     function freshState(world){
-      const rnd=seeded(`${world.seed||'match'}:chapel`);
-      const location=CHAPELS[Math.floor(rnd()*CHAPELS.length)];
-      const others=CHAPELS.filter(place=>place!==location);
-      const decoyPlace=others[Math.floor(rnd()*others.length)];
+      const seed=world.seed||'match';
+      const rnd=seeded(`${seed}:chapel`);
+      const location=PLACES[Math.floor(rnd()*PLACES.length)];
+      const wrong=PLACES.filter(place=>place!==location);
+      const chalkOther=wrong[Math.floor(rnd()*wrong.length)];
       const order=[...ROLES];
       for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
-      const [low,high]=data.rules.ritualSpanDays;
       // Victoria's scheme doesn't happen every run: decided once, from the run's seed.
-      const enabled=seeded(`${world.seed||'match'}:chapel:on`)()<(data.rules.chance??QUEST_CHANCE);
+      const enabled=seeded(`${seed}:chapel:on`)()<(data.rules.chance??QUEST_CHANCE);
       return {
-        v:1,enabled,active:false,activatedDay:null,location,decoyPlace,chalkTrueFirst:rnd()<.5,
-        roles:Object.fromEntries(GOTHS.map((id,i)=>[id,order[i]])),
-        span:low+Math.floor(rnd()*(high-low+1)),
-        ritualDay:null,originalRitualDay:null,showDay:null,
-        alerts:0,marks:0,warnedMarks:0,warningPending:false,
-        attackDueDay:null,attackReason:null,attackPending:false,attackRunning:false,attackPhase:null,dead:false,death:null,
-        wentAlone:false,withdrawn:false,introduced:false,
-        fragments:{},reading:{where:null,when:null},reads:{},
-        goths:Object.fromEntries(GOTHS.map(id=>[id,{asked:[],closed:false,ally:false,warned:false,accused:false,told:false}])),
-        victoria:{asked:[]},
-        sisters:Object.fromEntries(SISTERS.map(id=>[id,{trust:data.sisters[id].startTrust,done:[],revealed:[],recruited:false,promise:false,promiseBroken:false,favour:null,lost:false}])),
-        allyJoins:false,pendingAllyWarning:false,queue:[],
-        draft:{place:null,nights:1,prayer:null,keys:null,watch:null},
-        vigil:null,lastVigil:null,vigilsHeld:0,refuseVigils:false,vigilError:null,
+        v:2,enabled,active:false,startDay:null,riteDay:null,startedBy:null,
+        location,chalkOther,chalkTrueFirst:rnd()<.5,
+        roles:Object.fromEntries(FLYER_GOTHS.map((id,i)=>[id,order[i]])),
+        heat:0,whispers:0,
+        attackDueDay:null,attackReason:null,attackPending:false,attackRunning:false,attackPhase:null,dead:false,death:null,deathKind:null,
+        clues:[],goths:{},victoria:{asked:[],told:false,going:false,whereDay:null},
+        warned:null,warnedDay:null,fedupJoins:false,fedupId:null,
         outcome:null,outcomeDay:null,ritualCompleted:false,resultText:null,notice:null,journal:[]
       };
     }
@@ -123,63 +116,44 @@
       if(!data)return null;
       const world=api.world();
       if(!world)return null;
-      if(!world.chapel||world.chapel.v!==1)world.chapel=freshState(world);
+      if(!world.chapel||world.chapel.v!==2)world.chapel=freshState(world);
       return world.chapel;
     }
     // Saved games are untrusted input: keep only known keys of the right type.
+    // Saves from the old, longer quest (v1) start this one fresh.
     function normalize(raw,world){
       const base=freshState(world);
-      if(!raw||typeof raw!=='object'||raw.v!==1)return base;
+      if(!raw||typeof raw!=='object'||raw.v!==2)return base;
       const out={...base};
       const int=value=>Number.isInteger(value)?value:null;
-      for(const key of ['active','dead','wentAlone','withdrawn','introduced','allyJoins','pendingAllyWarning','attackPending','attackRunning','warningPending','refuseVigils','ritualCompleted','chalkTrueFirst'])out[key]=!!raw[key];
-      for(const key of ['activatedDay','ritualDay','originalRitualDay','showDay','attackDueDay','outcomeDay'])out[key]=int(raw[key]);
-      for(const key of ['alerts','marks','warnedMarks','vigilsHeld'])out[key]=Math.max(0,int(raw[key])||0);
-      if(Number.isInteger(raw.span))out.span=raw.span;
-      if(CHAPELS.includes(raw.location))out.location=raw.location;
-      out.decoyPlace=CHAPELS.includes(raw.decoyPlace)&&raw.decoyPlace!==out.location?raw.decoyPlace:CHAPELS.find(place=>place!==out.location);
-      if(raw.roles&&GOTHS.every(id=>ROLES.includes(raw.roles[id]))&&new Set(GOTHS.map(id=>raw.roles[id])).size===3)out.roles={...raw.roles};
+      const isId=value=>typeof value==='string'&&/^MATCH-\d{3}$/.test(value);
+      for(const key of ['active','dead','attackPending','attackRunning','ritualCompleted','chalkTrueFirst','fedupJoins'])out[key]=!!raw[key];
+      for(const key of ['startDay','riteDay','attackDueDay','outcomeDay','warnedDay'])out[key]=int(raw[key]);
+      for(const key of ['heat','whispers'])out[key]=Math.max(0,Math.min(99,int(raw[key])||0));
       if(typeof raw.enabled==='boolean')out.enabled=raw.enabled;
       if(out.active)out.enabled=true; // a case already open carries on
+      if(out.active&&(out.startDay===null||out.riteDay===null)){out.active=false;out.startDay=null;out.riteDay=null;}
+      out.startedBy=['match','flyer','workbench'].includes(raw.startedBy)?raw.startedBy:null;
+      if(PLACES.includes(raw.location))out.location=raw.location;
+      out.chalkOther=PLACES.includes(raw.chalkOther)&&raw.chalkOther!==out.location?raw.chalkOther:PLACES.find(place=>place!==out.location);
+      if(raw.roles&&FLYER_GOTHS.every(id=>ROLES.includes(raw.roles[id]))&&new Set(FLYER_GOTHS.map(id=>raw.roles[id])).size===3)out.roles={...raw.roles};
       out.attackReason=FATAL.includes(raw.attackReason)?raw.attackReason:null;
       out.death=FATAL.includes(raw.death)?raw.death:null;
+      out.deathKind=['chapel-ritual','chapel-victoria'].includes(raw.deathKind)?raw.deathKind:null;
       out.attackPhase=LIGHTING[raw.attackPhase]?raw.attackPhase:null;
       out.outcome=OUTCOMES.includes(raw.outcome)?raw.outcome:null;
+      out.warned=PLACES.includes(raw.warned)?raw.warned:null;
+      out.fedupId=isId(raw.fedupId)?raw.fedupId:null;
       out.resultText=typeof raw.resultText==='string'?raw.resultText.slice(0,500):null;
-      out.fragments={};
-      for(const key of FRAGMENTS){
-        const item=raw.fragments?.[key];
-        if(!item||!Number.isInteger(item.day))continue;
-        out.fragments[key]={day:item.day};
-        for(const extra of ['moonlessDay','ritualDay'])if(Number.isInteger(item[extra]))out.fragments[key][extra]=item[extra];
-        if(GOTHS.includes(item.source)||SISTERS.includes(item.source))out.fragments[key].source=item.source;
+      out.clues=Array.isArray(raw.clues)?raw.clues.filter(c=>c&&CLUE_KINDS.includes(c.kind)&&Number.isInteger(c.day)&&typeof c.text==='string')
+        .map(c=>({kind:c.kind,day:c.day,text:c.text.slice(0,300),...(isId(c.source)?{source:c.source}:{})})).slice(0,20):[];
+      out.goths={};
+      if(raw.goths&&typeof raw.goths==='object')for(const [id,g] of Object.entries(raw.goths).slice(0,40)){
+        if(!isId(id)||id===VICTORIA||!g||typeof g!=='object')continue;
+        out.goths[id]={asked:Array.isArray(g.asked)?[...new Set(g.asked.filter(act=>GOTH_ACTS.includes(act)))]:[],opened:!!g.opened,told:!!g.told,whereDay:int(g.whereDay)};
       }
-      const when=raw.reading?.when;
-      out.reading={where:PLACES.includes(raw.reading?.where)?raw.reading.where:null,
-        when:when&&['show','moonless','ally'].includes(when.source)&&Number.isInteger(when.day)?{source:when.source,day:when.day}:null};
-      out.reads={};
-      for(const id of GOTHS)if(ROLES.includes(raw.reads?.[id]))out.reads[id]=raw.reads[id];
-      for(const id of GOTHS){
-        const g=raw.goths?.[id]||{};
-        out.goths[id]={asked:Array.isArray(g.asked)?g.asked.filter(act=>GOTH_ACTS.includes(act)):[],
-          closed:!!g.closed,ally:!!g.ally,warned:!!g.warned,accused:!!g.accused,told:!!g.told};
-      }
-      out.victoria={asked:Array.isArray(raw.victoria?.asked)?raw.victoria.asked.filter(act=>VICTORIA_ACTS.includes(act)):[]};
-      for(const id of SISTERS){
-        const s=raw.sisters?.[id]||{};
-        const favour=s.favour&&Number.isInteger(s.favour.due)&&['offered','done','broken'].includes(s.favour.state)?{due:s.favour.due,state:s.favour.state}:null;
-        out.sisters[id]={trust:Number.isInteger(s.trust)?Math.max(0,Math.min(data.rules.trustMax,s.trust)):base.sisters[id].trust,
-          done:Array.isArray(s.done)?s.done.filter(x=>typeof x==='string'):[],
-          revealed:Array.isArray(s.revealed)?s.revealed.filter(x=>typeof x==='string'):[],
-          recruited:!!s.recruited,promise:!!s.promise,promiseBroken:!!s.promiseBroken,lost:!!s.lost,favour};
-      }
-      out.queue=Array.isArray(raw.queue)?raw.queue.filter(m=>m&&Number.isInteger(m.day)&&(SISTERS.includes(m.id)||GOTHS.includes(m.id)||m.id===VICTORIA)&&typeof m.text==='string').slice(0,20):[];
-      const draft=raw.draft||{};
-      out.draft={place:PLACES.includes(draft.place)?draft.place:null,nights:Number.isInteger(draft.nights)?Math.max(1,Math.min(9,draft.nights)):1};
-      for(const slot of SLOTS)out.draft[slot]=SISTERS.includes(draft[slot])?draft[slot]:null;
-      const vigil=value=>value&&PLACES.includes(value.place)&&Number.isInteger(value.day)?
-        {place:value.place,day:value.day,setOn:int(value.setOn),...Object.fromEntries(SLOTS.map(slot=>[slot,SISTERS.includes(value[slot])?value[slot]:null]))}:null;
-      out.vigil=vigil(raw.vigil);out.lastVigil=vigil(raw.lastVigil);
+      const v=raw.victoria||{};
+      out.victoria={asked:Array.isArray(v.asked)?[...new Set(v.asked.filter(act=>VICTORIA_ACTS.includes(act)))]:[],told:!!v.told,going:!!v.going,whereDay:int(v.whereDay)};
       out.journal=Array.isArray(raw.journal)?raw.journal.filter(j=>j&&Number.isInteger(j.day)&&typeof j.text==='string').slice(-40):[];
       return out;
     }
@@ -192,34 +166,40 @@
     const esc=value=>api.esc(value);
     const placeName=key=>data.places[key]?.name||'an unknown place';
     const placeShort=key=>data.places[key]?.short||'unknown';
-    const holder=(st,role)=>GOTHS.find(id=>st.roles[id]===role);
     const threadOf=id=>api.threads().get(id)||null;
     const isClosed=id=>{const thread=threadOf(id);return !!(thread&&(thread.blocked||thread.fumbled));};
     const cap=text=>text.charAt(0).toUpperCase()+text.slice(1);
-    function relDays(target){
+    const holder=(st,role)=>FLYER_GOTHS.find(id=>st.roles[id]===role);
+    const isGoth=profile=>!!profile&&profile.factionId==='goth_girls'&&profile.id!==VICTORIA;
+    const isSister=profile=>!!profile&&profile.factionId==='sisters_of_mercy';
+    const warmth=id=>{const thread=threadOf(id);if(api.warmth)return api.warmth(id);return Number.isFinite(thread?.warmth)?thread.warmth:0;};
+    function relNights(target){
       const n=target-today();
-      if(n<=0)return 'already past';
-      if(n===1)return 'tomorrow';
-      return `in ${n} days`;
+      if(n<0)return 'already over';
+      if(n===0)return 'tonight';
+      if(n===1)return 'tomorrow night';
+      return `in ${n} nights`;
     }
     function fill(text,extra={}){
       const st=state();
-      const chalk=st.chalkTrueFirst?[st.location,st.decoyPlace]:[st.decoyPlace,st.location];
-      const vars={phrase:data.places[st.location].phrase,place:placeName(st.location),Place:cap(placeName(st.location)),
-        PLACE:placeName(st.location).toUpperCase(),decoyPlace:placeName(st.decoyPlace),
-        chalkA:placeName(chalk[0]),chalkB:placeName(chalk[1]),
-        innocent:nameOf(holder(st,'innocent')),sympathetic:nameOf(holder(st,'sympathetic')),dangerous:nameOf(holder(st,'dangerous')),
-        vigilPlace:placeName(st.lastVigil?.place),...extra};
+      const chalk=st.chalkTrueFirst?[st.location,st.chalkOther]:[st.chalkOther,st.location];
+      const vars={place:placeName(st.location),Place:cap(placeName(st.location)),PLACE:placeName(st.location).toUpperCase(),
+        short:placeShort(st.location),chalkA:placeName(chalk[0]),chalkB:placeName(chalk[1]),
+        warnedPlace:placeName(st.warned),riddle:data.places[st.location].riddle,
+        fedup:nameOf(st.fedupId||holder(st,'fedup')),gossip:nameOf(holder(st,'gossip')),
+        when:st.riteDay===null?'soon':relNights(st.riteDay),...extra};
       return String(text).replace(/\{(\w+)\}/g,(match,key)=>vars[key]!==undefined?String(vars[key]):match);
     }
+    // A number between 0 and 1 for one chancy moment, fixed by the run's seed.
+    function chance(st,key){return seeded(`${api.world().seed}:${key}:${today()}:${st.whispers}:${st.heat}`)();}
     function journal(st,text){
       st.journal.push({day:today(),text});
       if(st.journal.length>40)st.journal.splice(0,st.journal.length-40);
     }
-    function clue(st,text){api.recordClue(text);journal(st,text);}
-    function addFragment(st,key,extra={},replace=false){
-      if(st.fragments[key]&&!replace)return false;
-      st.fragments[key]={day:today(),...extra};
+    function addClue(st,kind,text,source=null){
+      if(st.clues.some(c=>c.kind===kind&&(c.source||null)===source))return false;
+      st.clues.push({kind,day:today(),text,...(source?{source}:{})});
+      api.recordClue(text);
       return true;
     }
     function deliver(id,text){
@@ -229,7 +209,6 @@
       thread.log.push({who:'her',text});
       return true;
     }
-    function queueMessage(st,id,text){st.queue.push({day:today()+1,id,text});}
     function refresh(){if(caseOpen)renderCase();else api.rerender();}
     // Shows the player's line, a typing bubble, then her reply.
     function converse(id,playerText,replyText,after){
@@ -238,7 +217,6 @@
       const seed=api.world().seed;
       thread.log.push({who:'you',text:playerText});
       thread.pending=true;
-      questMode.add(id);
       refresh();
       api.later(()=>{
         thread.pending=false;
@@ -251,387 +229,234 @@
       return true;
     }
 
-    // ---------- trust, roster, coven attention ----------
-    function threshold(st){return st.sisters[MARGARET].recruited?rules().persuadedThreshold:rules().trustThreshold;}
-    function joinBar(st,id){return id===MARGARET?rules().trustThreshold:threshold(st);}
-    function revalidate(st){
-      for(let pass=0;pass<2;pass++){
-        for(const id of SISTERS){
-          const s=st.sisters[id];
-          if(isClosed(id)){
-            if(!s.lost){s.lost=true;if(s.recruited)journal(st,`${nameOf(id)} closed the conversation and left the vigil.`);}
-            s.recruited=false;continue;
-          }
-          if(s.recruited&&s.trust<joinBar(st,id)){s.recruited=false;journal(st,`${nameOf(id)} no longer trusts you enough to stand at the vigil.`);}
-        }
+    // ---------- what Victoria hears ----------
+    // Heat is how much Victoria has heard about you. Nothing on screen shows it.
+    function raiseHeat(st,amount){
+      if(!amount||st.outcome)return;
+      st.heat+=amount;
+      if(st.heat>=rules().heatToAttack&&st.attackDueDay===null){
+        st.attackDueDay=today()+1+(chance(st,'night')<.5?0:1); // one night or two: you never know which
+        st.attackReason='reported';
       }
-      for(const slot of SLOTS)if(st.draft[slot]&&!st.sisters[st.draft[slot]]?.recruited)st.draft[slot]=null;
     }
-    function changeTrust(st,id,delta){
-      const s=st.sisters[id];
-      if(!s||s.lost||!delta)return;
-      s.trust=Math.max(0,Math.min(rules().trustMax,s.trust+delta));
-      revalidate(st);
+    // The scene is small: every question about the rite is talked about somewhere.
+    function whisper(st){
+      st.whispers++;
+      if(rules().whisperSteps.includes(st.whispers))raiseHeat(st,1);
     }
-    function allyId(st){
-      const id=GOTHS.find(goth=>st.goths[goth].ally);
-      return id&&!isClosed(id)?id:null;
-    }
-    // Careless questions reach Victoria and bring the rite forward.
-    function alertCoven(st,shift,why){
-      st.alerts++;
-      const before=st.ritualDay;
-      st.ritualDay=Math.max(today()+1,st.ritualDay-shift);
-      journal(st,why);
-      if(st.ritualDay!==before&&allyId(st))st.pendingAllyWarning=true;
-    }
-    // One mark brings a warning; a second brings Victoria.
-    function addMark(st,why){
-      st.marks++;
-      journal(st,why);
-      if(st.marks>=2&&st.attackDueDay===null){st.attackDueDay=today()+1;st.attackReason='marked_twice';}
-    }
-    function breakEvelynPromise(st){
-      const evelyn=st.sisters[EVELYN];
-      if(!evelyn.promise||evelyn.promiseBroken)return;
-      evelyn.promiseBroken=true;
-      changeTrust(st,EVELYN,-4);
-      queueMessage(st,EVELYN,data.sisters[EVELYN].promiseBroken);
-      journal(st,'You broke your promise to Evelyn Rosales.');
-    }
-    const canTell=st=>SISTERS.some(id=>st.sisters[id].recruited)||!!st.vigil;
 
-    // ---------- activation ----------
-    function activate(st){
-      st.active=true;
-      st.activatedDay=today();
-      st.showDay=st.activatedDay+rules().showOffsetDays;
-      st.originalRitualDay=st.activatedDay+st.span;
-      st.ritualDay=st.originalRitualDay;
-      const victoria=api.profile(VICTORIA);
-      if(victoria&&!isClosed(VICTORIA)){
-        let thread=threadOf(VICTORIA);
-        if(!thread){thread=api.ensureThread(victoria);thread.log=[];}
-        deliver(VICTORIA,data.victoria.opening);
-      }
-      ensureServiceTopic(true);
+    // ---------- starting the case ----------
+    function start(st,how){
+      if(!st||st.active||st.enabled===false||st.dead)return false;
+      st.active=true;st.startDay=today();st.riteDay=today()+rules().riteAfterDays;st.startedBy=how;
+      ensureServiceTopics(true);
       const edition=(api.world().editions||[]).find(item=>item.day===today());
       if(edition)decorateEdition(edition);
-      journal(st,'Case opened. Victoria Blackwood messaged you about her Midnight Show.');
-      st.notice='☾ Victoria Blackwood messaged you. A new case file is in your bedside cupboard.';
+      journal(st,how==='match'?'You matched with Victoria Blackwood. Her Midnight Rite is in seven nights, and the flyers are everywhere.':
+        'Victoria Blackwood’s Midnight Rite flyer is in the paper: one night only, seven nights from today.');
+      api.status('☾ A new case file is in your bedside cupboard: the Chapel at Midnight.');
+      return true;
     }
-    function ensureServiceTopic(on){
-      const list=api.serviceTopics?.['service:chapel'];
-      if(!list||!data)return;
-      const index=list.findIndex(topic=>topic.id==='chapel_crescent');
-      if(on&&index<0)list.push({id:'chapel_crescent',label:data.chapelCall.label,flag:'chapelCrescentCall',reply:data.chapelCall.reply,clue:data.chapelCall.clue,onChoose:()=>{sync();}});
-      if(!on&&index>=0)list.splice(index,1);
+    // Hinge calls this after every match. Only a match with Victoria starts anything.
+    function onMatch(id){
+      if(id!==VICTORIA)return false;
+      return start(state(),'match');
     }
-    function syncIntro(st){
-      if(!st.active||st.introduced||!api.world().flags?.chapelCrescentCall)return;
-      st.introduced=true;
-      for(const id of SISTERS){
-        const profile=api.profile(id);
-        if(!profile||isClosed(id))continue;
-        let thread=threadOf(id);
-        if(!thread){thread=api.ensureThread(profile);thread.log=[];}
-        deliver(id,fill(data.sisters[id].intro));
-      }
-      journal(st,'Margaret Holloway introduced you to the Sisters of Mercy. Their chats are in Hinge.');
+    // preview.html calls this when the player opens the News app.
+    function onPaperOpened(){
+      const st=state();
+      if(!st)return;
+      if(!st.active&&st.enabled!==false&&!st.dead&&today()>=rules().activationDay)start(st,'flyer');
+      if(st.active)syncNews(st,true);
     }
-    function syncNews(st){
+    function syncNews(st,openedToday=false){
       const world=api.world(),seen=world.seenArticles||[];
       for(const edition of world.editions||[]){
         for(const item of edition.items||[]){
-          if(!item.chapelFragment||!seen.includes(`${edition.day}:${item.id}`))continue;
-          if(addFragment(st,item.chapelFragment,{...(item.chapelData||{}),day:edition.day}))journal(st,`News, day ${edition.day}: ${item.clue||item.title}`);
+          if(!item.chapelFragment)continue;
+          if(!seen.includes(`${edition.day}:${item.id}`)&&!(openedToday&&edition.day===today()))continue;
+          if(item.chapelFragment==='flyer')addClue(st,'flyer',`Paper, day ${edition.day}: the Midnight Rite is one night only, seven nights from the day the flyer appeared. Venue by word of mouth only.`);
+          if(item.chapelFragment==='chalk')addClue(st,'chalk',`Paper, day ${edition.day}: ${fill(data.chalkPlaces)}`);
         }
       }
     }
     function sync(){
       const st=state();
       if(!st)return null;
-      syncNews(st);syncIntro(st);revalidate(st);
+      // A match made before this engine knew about it (an old save, say) still counts.
+      if(!st.active&&st.enabled!==false&&!st.dead&&threadOf(VICTORIA))start(st,'match');
+      if(st.active)syncNews(st);
       return st;
     }
+    function ensureServiceTopics(on){
+      const list=api.serviceTopics?.['service:chapel'];
+      if(!list||!data)return;
+      for(let i=list.length-1;i>=0;i--)if(String(list[i].id).startsWith('chapel_'))list.splice(i,1);
+      if(!on)return;
+      for(const place of PLACES)list.push({id:`chapel_warn_${place}`,label:fill(data.sisterTalk.callLabel,{short:placeShort(place)}),
+        reply:fill(data.sisterTalk.callReply,{place:placeName(place)}),onChoose:()=>{const st=state();if(st&&canReachSisters(st,true))warn(st,place);}});
+    }
 
-    // ---------- goths ----------
-    function gothAvailable(st,id){
-      const g=st.goths[id];
+    // ---------- the goth crowd ----------
+    // The three girls on the flyer are one of each: loyal to Victoria, a gossip, and
+    // fed up with her. Any other goth you match with is one of the three too.
+    function roleOf(st,id){
+      if(st.roles[id])return st.roles[id];
+      const weights=rules().otherGothRoles,roll=seeded(`${api.world().seed}:goth:${id}`)();
+      return roll<weights.loyal?'loyal':roll<weights.loyal+weights.gossip?'gossip':'fedup';
+    }
+    function gothState(st,id){return st.goths[id]||(st.goths[id]={asked:[],opened:false,told:false,whereDay:null});}
+    function isFriend(st,id){
+      const g=gothState(st,id);
+      return warmth(id)>=(roleOf(st,id)==='fedup'&&g.opened?1:rules().friendWarmth);
+    }
+    // The wrong chapel a gossip rules out. The flyer gossip rules out the chapel the paper
+    // got wrong, so her word and the chalk story together give the answer.
+    function neverPlace(st,id){
+      if(FLYER_GOTHS.includes(id))return st.chalkOther;
+      const wrong=PLACES.filter(place=>place!==st.location);
+      return wrong[Math.floor(seeded(`${api.world().seed}:never:${id}`)()*wrong.length)];
+    }
+    function gothChoices(st,id){
+      const g=gothState(st,id);
       return GOTH_ACTS.filter(act=>{
-        if(act==='accuse')return true;
-        if(g.asked.includes(act))return false;
-        if(act==='help'&&g.ally)return false;
-        if(act==='tell'&&!canTell(st))return false;
-        return true;
+        if(act==='where')return !g.told&&g.whereDay!==today();
+        if(act==='sisters'&&!st.warned)return false;
+        return !g.asked.includes(act);
       });
     }
     function gothAct(st,id,act){
-      const g=st.goths[id],role=st.roles[id];
-      if(!g||g.closed||isClosed(id)||st.outcome||st.withdrawn||!gothAvailable(st,id).includes(act))return;
-      g.asked.push(act);
-      converse(id,data.gothActions[act].player,fill(data.gothRoles[role][act]),(st)=>gothEffect(st,id,role,act));
-    }
-    function gothEffect(st,id,role,act){
-      const g=st.goths[id],name=nameOf(id);
-      if(act==='show'&&role==='dangerous')addFragment(st,'zaraLie',{source:id});
-      if(act==='crescent'){
-        if(role==='innocent'&&addFragment(st,'diary',{source:id}))clue(st,`${name} mentioned a line in Victoria's booking diary: "${data.diaryPhrase}"`);
-        if(role==='dangerous')alertCoven(st,1,`${name} reacted badly to your question about the crescent. Word will reach Victoria.`);
-      }
-      if(act==='help'){
-        if(role==='sympathetic'){
-          g.ally=true;
-          addFragment(st,'allyPhrase',{source:id});
-          if(addFragment(st,'diary',{source:id}))clue(st,`${name} says the rite is "${data.places[st.location].phrase}", "when the moon closes her eye".`);
-          journal(st,`${name} wants out and promised to warn you if the plan changes.`);
+      const profile=api.profile(id);
+      if(!isGoth(profile)||isClosed(id)||st.outcome||!gothChoices(st,id).includes(act))return;
+      const role=roleOf(st,id),g=gothState(st,id),lines=data.gothRoles[role];
+      let reply=lines[act],after=null;
+      if(act==='where'){
+        g.whereDay=today();
+        const friend=isFriend(st,id);
+        if(role==='loyal'){
+          reply=friend?lines.whereFriend:lines.whereStranger;
+          after=st=>{whisper(st);if(!friend||chance(st,`loyal:${id}`)<rules().loyalFriendReportChance)raiseHeat(st,1);};
+        }else if(!friend){
+          reply=lines.whereStranger;
+          after=st=>whisper(st);
+        }else if(role==='gossip'){
+          const not=neverPlace(st,id);
+          g.told=true;
+          reply=fill(lines.whereFriend,{notPlace:placeName(not),never:data.places[not].never});
+          after=st=>{whisper(st);addClue(st,'never',`${firstName(id)} says it’s not ${placeName(not)}. ${data.places[not].never}`,id);};
+        }else{
+          g.told=true;
+          reply=fill(lines.whereFriend);
+          after=st=>{whisper(st);addClue(st,'riddle',`${firstName(id)} says Victoria only ever calls it the place ${data.places[st.location].riddle}.`,id);};
         }
-        if(role==='dangerous'){alertCoven(st,2,`${name} is passing your question straight to Victoria.`);addMark(st,`${name} knows you want to stop the rite.`);}
+      }else{
+        g.asked.push(act);
+        if(act==='criticize')after=st=>{
+          whisper(st);
+          if(role==='loyal')raiseHeat(st,2);
+          else if(role==='gossip'){if(chance(st,`gossip:${id}`)<rules().gossipReportChance)raiseHeat(st,1);}
+          else{gothState(st,id).opened=true;api.warmBy?.(id,1);}
+        };
+        if(act==='sisters')after=st=>{
+          if(role==='loyal')raiseHeat(st,2);
+          else if(role==='gossip')raiseHeat(st,1);
+          else{st.fedupJoins=true;st.fedupId=id;journal(st,`${nameOf(id)} will stand with the Sisters on the night.`);}
+        };
       }
-      if(act==='warn'){
-        if(role==='dangerous')alertCoven(st,1,`${name} told Victoria that someone is warning people off.`);
-        else{g.warned=true;journal(st,`You warned ${name} to skip the after-party.`);}
-      }
-      if(act==='tell'){
-        g.told=true;
-        breakEvelynPromise(st);
-        if(role==='sympathetic'){st.allyJoins=true;journal(st,`${name} will stand with the Sisters at the vigil.`);}
-        if(role==='innocent')alertCoven(st,1,`${name} joked about the Sisters' vigil in a group chat. Victoria will have seen it.`);
-        if(role==='dangerous'){alertCoven(st,2,`${name} now knows about the vigil.`);addMark(st,`${name} knows the Sisters are coming, and who sent them.`);}
-      }
-      if(act==='accuse'){
-        g.closed=true;g.accused=true;
-        const thread=threadOf(id);
-        if(thread)thread.fumbled=true;
-        if(role==='innocent'){
-          alertCoven(st,1,`${name} is telling everyone you accused her. Victoria will hear.`);
-          changeTrust(st,TERESA,-3);
-          queueMessage(st,TERESA,fill(data.sisters[TERESA].accusedFriend));
-        }
-        if(role==='sympathetic'){g.ally=false;st.allyJoins=false;alertCoven(st,1,`${name} panicked and told Victoria that someone knows.`);}
-        if(role==='dangerous'){alertCoven(st,2,`${name} went straight to Victoria.`);addMark(st,`${name} has marked you as a threat.`);}
-      }
+      converse(id,data.gothActions[act].player,fill(reply),after);
     }
-    function victoriaAvailable(st){
-      const asked=st.victoria.asked,out=[];
-      if(!asked.includes('show'))out.push('show');
-      if(!asked.includes('crescent'))out.push('crescent');
-      if(!st.wentAlone&&!asked.includes('accept'))out.push('accept');
-      if(st.wentAlone)out.push('backout');
+
+    // ---------- Victoria (only once you've matched) ----------
+    function victoriaChoices(st){
+      const v=st.victoria,out=[];
+      if(!v.asked.includes('rite'))out.push('rite');
+      if(!v.told&&v.whereDay!==today())out.push('where');
+      out.push(v.going?'backout':'come');
       out.push('confront');
       return out;
     }
     function victoriaAct(st,act){
-      if(isClosed(VICTORIA)||st.outcome||!victoriaAvailable(st).includes(act))return;
+      if(!threadOf(VICTORIA)||isClosed(VICTORIA)||st.outcome||!victoriaChoices(st).includes(act))return;
       const line=data.victoria.actions[act];
-      st.victoria.asked.push(act);
-      converse(VICTORIA,line.player,line.reply,(st,thread)=>{
-        if(act==='crescent'){addMark(st,'Victoria noticed your interest in the crescent.');alertCoven(st,1,'Victoria is bringing her plans forward.');}
-        if(act==='accept'){st.wentAlone=true;journal(st,'You told Victoria you would come to the after-party alone.');}
-        if(act==='backout'){st.wentAlone=false;addMark(st,'You backed out of Victoria\'s invitation. She will remember you.');}
-        if(act==='confront'){
-          thread.fumbled=true;
-          if(st.attackDueDay===null){st.attackDueDay=today()+1;st.attackReason='confront';}
-          journal(st,'You told Victoria you knew what she was planning.');
-        }
-      });
+      let reply=line.reply,after=null;
+      if(act==='rite')st.victoria.asked.push('rite');
+      if(act==='where'){
+        st.victoria.whereDay=today();
+        const trusted=warmth(VICTORIA)>=rules().victoriaWarmth;
+        reply=fill(trusted?line.friend:line.stranger);
+        after=st=>{
+          whisper(st);
+          if(trusted){st.victoria.told=true;addClue(st,'victoria',`Victoria told you herself: ${placeName(st.location)}. Come alone, she said.`);}
+          else if(chance(st,'victoria-ask')<rules().victoriaAskReportChance)raiseHeat(st,1);
+        };
+      }
+      if(act==='come')after=st=>{st.victoria.going=true;journal(st,'You told Victoria you would come to her rite, alone.');};
+      if(act==='backout')after=st=>{st.victoria.going=false;raiseHeat(st,1);journal(st,'You told Victoria you are not coming after all.');};
+      if(act==='confront')after=(st,thread)=>{
+        thread.fumbled=true;
+        if(st.attackDueDay===null||st.attackDueDay>today()+1){st.attackDueDay=today()+1;st.attackReason='confront';}
+        journal(st,'You told Victoria you know what she is planning.');
+      };
+      converse(VICTORIA,line.player,reply,after);
     }
 
-    // ---------- Sisters ----------
-    function topicOpen(st,id,topic){
-      const s=st.sisters[id];
-      if(s.done.includes(topic.id))return false;
-      if(topic.group&&data.sisters[id].topics.some(other=>other.group===topic.group&&s.done.includes(other.id)))return false;
+    // ---------- the Sisters of Mercy ----------
+    function sisterThreads(){
+      return [...api.threads().values()].filter(thread=>isSister(api.profile(thread.id))&&!thread.blocked&&!thread.fumbled);
+    }
+    // You can send word once you know St Brigid's number or have a Sister to tell.
+    function canReachSisters(st,onCall=false){return onCall||!!api.serviceKnown?.('chapel')||sisterThreads().length>0;}
+    function warn(st,place){
+      if(!PLACES.includes(place)||!st.active||st.outcome)return false;
+      const changed=!!st.warned&&st.warned!==place;
+      if(st.warned===place)return true;
+      st.warned=place;st.warnedDay=today();
+      journal(st,changed?`You sent word again: the Sisters will keep watch at ${placeName(place)} instead.`:
+        `You sent word: the Sisters will keep watch at ${placeName(place)} on the night of the rite.`);
       return true;
     }
-    function sisterAct(st,id,key){
-      const s=st.sisters[id],def=data.sisters[id];
-      if(!s||!def||s.lost||isClosed(id)||st.outcome||st.withdrawn)return;
-      if(key==='favour-offer')return favourOffer(st,id);
-      if(key==='favour-do')return favourDo(st,id);
-      if(key==='recruit')return recruit(st,id);
-      const topic=def.topics.find(item=>item.id===key);
-      if(!topic||!topicOpen(st,id,topic))return;
-      let reply=topic.reply,delta=topic.trust||0;
-      if(topic.effect==='evidence'){
-        const known=(st.reading.where?1:0)+(st.reading.when?1:0);
-        const result=topic.results[known===2?'full':known===1?'half':'none'];
-        reply=result.reply;delta=result.trust;
-        if(known===2)s.done.push(topic.id);
-        else if(s.done.includes('evidence_tried'))delta=Math.max(0,delta);
-        if(!s.done.includes('evidence_tried'))s.done.push('evidence_tried');
-      }else s.done.push(topic.id);
-      for(const revealed of topic.reveals||[])if(!s.revealed.includes(revealed))s.revealed.push(revealed);
-      converse(id,topic.player,fill(reply),(st)=>{
-        changeTrust(st,id,delta);
-        if(topic.effect==='lore'&&addFragment(st,'lore',{source:id}))journal(st,`${nameOf(id)} explained which chapel has the cracked bell, the angels and the cloak.`);
-        if(topic.effect==='promise'){st.sisters[id].promise=true;journal(st,'You promised Evelyn not to tell the goth crowd about the Sisters.');}
-      });
-    }
-    function favourOffer(st,id){
-      const s=st.sisters[id],favour=data.sisters[id].favour;
-      if(!favour||s.favour)return;
-      s.favour={due:today()+1,state:'offered'};
-      converse(id,favour.offerPlayer,favour.offerReply,(st)=>journal(st,`You promised ${nameOf(id)} your help tomorrow.`));
-    }
-    function favourDo(st,id){
-      const s=st.sisters[id],favour=data.sisters[id].favour;
-      if(!favour||s.favour?.state!=='offered'||today()!==s.favour.due)return;
-      s.favour.state='done';
-      converse(id,favour.doPlayer,favour.doReply,(st)=>{changeTrust(st,id,favour.trust);journal(st,`You kept your word to ${nameOf(id)}.`);});
-    }
-    function expireFavours(st){
-      for(const id of SISTERS){
-        const s=st.sisters[id],favour=data.sisters[id].favour;
-        if(!favour||s.favour?.state!=='offered'||today()<=s.favour.due)continue;
-        s.favour.state='broken';
-        deliver(id,favour.brokenReply);
-        changeTrust(st,id,favour.brokenTrust);
-        journal(st,`You broke your promise to ${nameOf(id)}.`);
-      }
-    }
-    function recruit(st,id){
-      const s=st.sisters[id],lines=data.sisters[id].recruit;
-      if(s.recruited)return;
-      if(st.refuseVigils){converse(id,lines.player,data.messages.refuseVigils);return;}
-      const accepted=s.trust>=joinBar(st,id);
-      converse(id,lines.player,accepted?lines.yes:lines.no,(st)=>{
-        const sister=st.sisters[id];
-        if(accepted){sister.recruited=true;journal(st,`${nameOf(id)} will stand at the vigil.`);revalidate(st);}
-        else if(sister.trust<threshold(st)-2)changeTrust(st,id,-1);
-      });
+    function sisterAct(st,id,place){
+      if(!isSister(api.profile(id))||isClosed(id)||st.outcome||!PLACES.includes(place))return;
+      const talk=data.sisterTalk,changed=!!st.warned&&st.warned!==place;
+      const vars={place:placeName(place),Place:cap(placeName(place)),short:placeShort(place)};
+      converse(id,fill(talk.player,vars),fill(changed?talk.changed:talk.reply,vars),st=>warn(st,place));
     }
 
-    // ---------- deciphering ----------
-    function whenOptions(st){
-      const options=[];
-      if(st.fragments.show)options.push({key:'show',day:st.showDay,label:'The night of the Midnight Show'});
-      if(st.fragments.skywatch)options.push({key:'moonless',day:st.fragments.skywatch.moonlessDay??st.originalRitualDay,label:'The moonless night'});
-      if(st.fragments.allyWarning)options.push({key:'ally',day:st.fragments.allyWarning.ritualDay,label:`${firstName(st.fragments.allyWarning.source||allyId(st)||GOTHS[0])}'s warning`});
-      return options;
-    }
-    function setWhere(st,place){
-      if(!PLACES.includes(place))return;
-      st.reading.where=place;
-      if(!st.vigil)st.draft.place=place;
-    }
-    function setWhen(st,key){
-      const option=whenOptions(st).find(item=>item.key===key);
-      if(!option)return;
-      st.reading.when={source:key,day:option.day};
-      if(!st.vigil)st.draft.nights=Math.max(1,Math.min(9,option.day-today()));
-    }
-
-    // ---------- vigil ----------
-    const recruitedSisters=st=>SISTERS.filter(id=>st.sisters[id].recruited&&!isClosed(id));
-    function allyStands(st){const id=holder(st,'sympathetic');return st.allyJoins&&!!id&&!isClosed(id)&&!st.goths[id].closed;}
-    function voices(st){
-      const recruited=recruitedSisters(st);
-      return recruited.length+recruited.reduce((sum,id)=>sum+(data.sisters[id].abilities.extraVoices||0),0)+(allyStands(st)?1:0);
-    }
-    function assignSlot(st,slot,id){
-      if(!SLOTS.includes(slot)||st.vigil)return;
-      if(id==='none'){st.draft[slot]=null;return;}
-      if(!st.sisters[id]?.recruited)return;
-      for(const other of SLOTS)if(st.draft[other]===id)st.draft[other]=null;
-      st.draft[slot]=id;
-    }
-    function sendVigil(st){
-      st.vigilError=null;
-      if(st.refuseVigils||st.outcome||st.withdrawn)return;
-      if(!recruitedSisters(st).length){st.vigilError='Recruit at least one Sister first.';return;}
-      if(!st.draft.place){st.vigilError='Choose a chapel first.';return;}
-      st.vigil={place:st.draft.place,day:today()+st.draft.nights,setOn:today(),prayer:st.draft.prayer,keys:st.draft.keys,watch:st.draft.watch};
-      journal(st,`You sent word: a vigil at ${placeName(st.vigil.place)}, ${relDays(st.vigil.day)}.`);
-    }
-    function earlyVigil(st){
-      const place=st.vigil.place;
-      st.lastVigil=st.vigil;st.vigil=null;st.vigilsHeld++;
-      for(const id of recruitedSisters(st)){deliver(id,data.messages.earlyVigil);changeTrust(st,id,-rules().earlyVigilTrustLoss);}
-      journal(st,`The vigil at ${placeName(place)} was held on a quiet night. Nothing came, and the Sisters lost faith.`);
-      if(st.vigilsHeld>=rules().maxVigils){st.refuseVigils=true;journal(st,data.messages.refuseVigils);}
-    }
-    function evaluateVigil(st,vigil){
-      const present=id=>!!id&&st.sisters[id]?.recruited&&!isClosed(id);
-      const can=id=>data.sisters[id].abilities;
-      if(!present(vigil.watch)||!can(vigil.watch).watch)return {outcome:'vigil_failed',fatal:'watch_broken'};
-      const prayer=present(vigil.prayer)?can(vigil.prayer).prayer:'none';
-      const prayerOk=prayer==='full'||(prayer==='partial'&&st.alerts===0);
-      const keysOk=present(vigil.keys)&&can(vigil.keys).keys;
-      if(!prayerOk||!keysOk)return {outcome:'vigil_failed',fatal:null};
-      const needed=st.alerts>0?rules().voicesNeededAlerted:rules().voicesNeeded,have=voices(st);
-      if(have>=needed)return {outcome:allyStands(st)?'vigil_reconciled':'vigil_success',fatal:null};
-      if(have===needed-1)return {outcome:'vigil_partial',fatal:null};
-      return {outcome:'vigil_failed',fatal:null};
-    }
-    function resolveRitual(st){
-      const vigil=st.vigil&&st.vigil.day===st.ritualDay?st.vigil:null;
-      let outcome,fatal=null;
-      if(vigil){
-        if(vigil.place!==st.location)outcome='wrong_place';
-        else ({outcome,fatal}=evaluateVigil(st,vigil));
-      }else if(st.withdrawn)outcome='withdrawn';
-      else if(st.vigil&&st.vigil.day>st.ritualDay)outcome='too_late';
-      else outcome='ignored';
-      const completed=!SURVIVED_RITE.includes(outcome);
-      if(!fatal&&st.wentAlone)fatal='went_alone';
-      if(!fatal&&completed&&st.marks>0)fatal='ritual_marked';
-      if(st.vigil)st.lastVigil=st.vigil;
-      st.vigil=null;
+    // ---------- the night of the rite ----------
+    function resolveRite(st){
+      const stopped=st.warned===st.location;
+      const fedupStands=st.fedupJoins&&!!st.fedupId&&!isClosed(st.fedupId);
+      const outcome=stopped?(fedupStands?'reconciled':'stopped'):st.warned?'wrong_place':'ignored';
+      const completed=!stopped;
+      let fatal=null;
+      if(st.victoria.going&&completed)fatal='went_alone';
+      else if(completed&&st.heat>=1)fatal='remembered';
+      else if(stopped&&st.victoria.told&&chance(st,'betrayed')<rules().betrayalChance)fatal='betrayed';
       st.outcome=outcome;st.outcomeDay=today();st.ritualCompleted=completed;
       st.resultText=fill(data.outcomes[outcome]);
-      clue(st,st.resultText);
-      for(const id of SISTERS){
-        if(st.sisters[id].lost||!threadOf(id))continue;
-        if(st.sisters[id].recruited||st.lastVigil)deliver(id,data.sisters[id].after[completed?'failure':'success']);
+      api.recordClue(st.resultText);journal(st,st.resultText);
+      ensureServiceTopics(false);
+      if(stopped&&st.fedupId)deliver(st.fedupId,data.messages.fedupAfter);
+      if(completed)deliver(VICTORIA,data.victoria.afterCompleted);
+      else if(st.victoria.told)deliver(VICTORIA,data.victoria.afterStopped);
+      const gossip=holder(st,'gossip');
+      if(completed&&gossip&&threadOf(gossip)){
+        const thread=threadOf(gossip);thread.ghosted=true;thread.awaiting=true;
+        journal(st,fill(data.messages.gossipMissing));
       }
-      const ally=allyId(st);
-      if(ally&&!completed)deliver(ally,data.messages.allyAfterSuccess);
-      const innocent=holder(st,'innocent');
-      if(completed&&innocent&&!st.goths[innocent].warned){
-        const thread=threadOf(innocent);
-        if(thread){thread.ghosted=true;thread.awaiting=true;}
-        journal(st,fill(data.messages.innocentMissing));
-      }
-      if(fatal&&st.attackDueDay===null){st.attackDueDay=today();st.attackReason=fatal;}
-      st.notice=completed?'☾ Something happened in the night. Read today\'s paper.':'✝ The vigil held. Read today\'s paper.';
+      if(fatal&&(st.attackDueDay===null||st.attackDueDay>today())){st.attackDueDay=today();st.attackReason=fatal;}
+      st.notice=completed?'☾ Something happened in the night. Read today’s paper.':'✝ The Sisters kept watch all night. Read today’s paper.';
     }
 
     // ---------- day hooks ----------
-    function deliverQueue(st){
-      const keep=[];
-      // A message waits until she has a chat with you; a closed chat drops it.
-      for(const message of st.queue){
-        if(message.day>today()||(!threadOf(message.id)&&!isClosed(message.id)))keep.push(message);
-        else deliver(message.id,message.text);
-      }
-      st.queue=keep;
-    }
-    function deliverAllyWarning(st){
-      st.pendingAllyWarning=false;
-      const id=allyId(st);
-      if(!id)return;
-      const n=st.ritualDay-today();
-      deliver(id,n<=1?data.allyWarningTomorrow:fill(data.allyWarning,{n}));
-      addFragment(st,'allyWarning',{ritualDay:st.ritualDay,source:id},true);
-      clue(st,`${nameOf(id)} warned you that the rite has been moved: it is now ${relDays(st.ritualDay)}.`);
-    }
     // Called once per "Start another day", after world.day has advanced and
     // before the new newspaper is printed.
     function onNewDay(){
       const st=state();
-      if(!st||st.dead)return;
-      if(!st.active){if(st.enabled!==false&&today()>=rules().activationDay)activate(st);return;}
+      if(!st||st.dead||!st.active)return;
       sync();
-      deliverQueue(st);
-      expireFavours(st);
-      if(st.pendingAllyWarning)deliverAllyWarning(st);
-      if(!st.outcome){
-        if(st.vigil&&st.vigil.day<=today()&&st.vigil.day<st.ritualDay)earlyVigil(st);
-        if(today()>=st.ritualDay)resolveRitual(st);
-      }
+      if(!st.outcome&&today()>st.riteDay)resolveRite(st);
       if(!st.attackPending&&st.attackDueDay!==null&&today()>=st.attackDueDay)st.attackPending=true;
-      if(!st.attackPending&&st.marks>st.warnedMarks){st.warningPending=true;st.warnedMarks=st.marks;}
     }
     // Called after the day transition finishes. Returns true when Victoria's
     // attack has taken over the room.
@@ -640,35 +465,35 @@
       if(!st)return false;
       if(st.notice){api.status(st.notice);st.notice=null;}
       if(st.attackPending&&!st.dead){startAttack(st.attackReason);return true;}
-      if(st.warningPending){st.warningPending=false;showWarning(st);}
       return false;
     }
 
     // ---------- news ----------
-    function story(template,fragment,extra={},chapelData=null){
+    function story(template,fragment,extra={}){
       const item={id:template.id,section:template.section,title:fill(template.title,extra),summary:fill(template.summary,extra),body:fill(template.body,extra),questStory:true};
       if(template.clue)item.clue=fill(template.clue,extra);
       if(fragment)item.chapelFragment=fragment;
-      if(chapelData)item.chapelData=chapelData;
       return item;
     }
     function outcomeVars(st){
-      const innocent=holder(st,'innocent');
-      const missing=innocent&&!st.goths[innocent].warned?data.news.outcomes.missingInnocent:data.news.outcomes.missingStranger;
+      const gossip=holder(st,'gossip');
+      const missing=gossip&&threadOf(gossip)?data.news.outcomes.missingGoth:data.news.outcomes.missingStranger;
       return {vigilNote:st.outcome==='wrong_place'?fill(data.news.outcomes.vigilElsewhere):'',missingBody:fill(missing)};
     }
     function storyFor(st,day){
-      if(!st.active)return null;
+      if(!st.active){
+        // Until the case starts, the flyer runs in the paper every day from day two.
+        return st.enabled!==false&&!st.dead&&day>=rules().activationDay?story(data.news.flyer,'flyer'):null;
+      }
       if(st.outcome&&day>=st.outcomeDay){
-        const key={vigil_success:'success',vigil_reconciled:'reconciled',vigil_partial:'partial'}[st.outcome]||'completed';
+        const key=st.outcome==='reconciled'?'reconciled':st.outcome==='stopped'?'stopped':'completed';
         const template=data.news.outcomes[key][day-st.outcomeDay];
         return template?story(template,null,outcomeVars(st)):null;
       }
-      const offset=day-st.activatedDay;
-      if(offset===0)return story(data.news.show,'show');
-      if(offset===1){const n=st.originalRitualDay-day;return story(data.news.skywatch,'skywatch',{n,day},{moonlessDay:st.originalRitualDay});}
-      if(offset===2)return story(data.news.heritage,'heritage');
-      if(offset===3)return story(data.news.aftershow,'aftershow');
+      const offset=day-st.startDay;
+      if(offset===0)return story(data.news.flyer,'flyer');
+      if(offset===2)return story(data.news.chalk,'chalk');
+      if(day===st.riteDay-2)return story(data.news.reminder,'reminder');
       return null;
     }
     // The quest story takes the third (local filler) tile unless another quest
@@ -709,20 +534,8 @@
     function clearTimers(){
       for(const id of attackTimers)api.cancel(id);
       attackTimers=[];
-      if(warnTimer!==null){api.cancel(warnTimer);warnTimer=null;}
     }
     function hideOverlay(){overlay?.classList.remove('visible','jolt','devouring');}
-    function showWarning(st){
-      mount();
-      deliver(VICTORIA,data.victoria.warning);
-      clue(st,data.messages.markWarningClue);
-      api.setDoor(true);
-      overlayImage.src=api.assetUrl(data.death.warningImage);
-      overlayCaption.textContent=data.death.warningCaption;
-      overlay.classList.add('visible');
-      api.playUiSound(150);api.vibrate([200,80,200]);
-      warnTimer=api.later(()=>{warnTimer=null;if(!state()?.attackRunning)hideOverlay();},2600);
-    }
     // Always fatal: premonition, threshold, charge, lunge, blackout, death.
     function startAttack(reason){
       const st=state();
@@ -754,21 +567,19 @@
       },ATTACK.devour));
       attackTimers.push(api.later(()=>{const st=state();if(st?.attackRunning)showDeath(deathKind(st));},ATTACK.death));
     }
-    // 'chapel-ritual': the goths' rite succeeded (the player failed to stop it).
-    // 'chapel-victoria': Victoria came for the player before or despite the rite.
+    // 'chapel-ritual': the rite went ahead. 'chapel-victoria': she came for you first,
+    // or despite the Sisters.
     function deathKind(st){return st.ritualCompleted?'chapel-ritual':'chapel-victoria';}
-    // THE ONE DEATH HOOK for every fatal Chapel outcome. It uses the game's
-    // death screen: the red fatal overlay, its pixel "YOU WERE … BY …" title
-    // and the death-shadow backdrop. To give Chapel deaths their own screen
-    // later, pass a function as api.showDeath in preview.html; it receives the
-    // kind above and is used instead (return false to fall back to this one).
+    // THE ONE DEATH HOOK for every fatal Chapel outcome. It uses the game's death
+    // screen. The caption never says why: deaths in MATCH stay unexplained.
     function showDeath(kind){
       const st=state();
       if(!st)return;
       clearTimers();
       st.attackRunning=false;st.dead=true;st.death=st.attackReason||'confront';st.deathKind=kind;
       hideOverlay();
-      const text=fill(data.death.reasons[st.death]);
+      const captions=data.death.captions;
+      const text=captions[Math.floor(seeded(`${api.world().seed}:caption`)()*captions.length)];
       if(typeof api.showDeath==='function'&&api.showDeath(kind,{reason:st.death,text})!==false)return;
       api.drawDeathTitle(data.death.cause,data.death.verb);
       const fatal=api.$('fatal-overlay');
@@ -786,125 +597,78 @@
     }
 
     // ---------- Hinge options ----------
-    function button(action,label,{risky=false,mark='☾',extra=''}={}){
-      return `<button class="hinge-chat-choice chapel-choice ${risky?'risky':''} ${extra}" data-chapel-choice="${esc(action)}">${mark} ${esc(label)}</button>`;
+    function button(action,label,{mark='☾',extra=''}={}){
+      return `<button class="hinge-chat-choice chapel-choice ${extra}" data-chapel-choice="${esc(action)}">${mark} ${esc(label)}</button>`;
     }
     // Returns {html, only}. With only=true the quest choices replace the
     // ordinary small-talk topics, keeping the list short on small phones.
     function optionsFor(thread){
       const st=sync();
       if(!st||!st.active||st.dead||!thread)return null;
-      const id=thread.id;
-      const involved=id===VICTORIA||GOTHS.includes(id)||SISTERS.includes(id);
-      if(!involved)return null;
-      if(st.outcome||st.withdrawn)return {html:`<div class="story-tag">${esc(st.outcome?'The night at the chapel is over.':'You walked away from the chapel case.')}</div>`,only:false};
-      const mark=SISTERS.includes(id)?'✝':'☾';
-      let choices=[];
-      if(id===VICTORIA)choices=victoriaAvailable(st).map(act=>button(`v:${act}`,data.victoria.actions[act].label,{risky:act==='confront'||act==='accept'||act==='crescent'}));
-      else if(GOTHS.includes(id)){
-        if(st.goths[id].closed)return null;
-        choices=gothAvailable(st,id).map(act=>button(`g:${id}:${act}`,data.gothActions[act].label,{risky:act==='accuse'}));
+      const id=thread.id,profile=api.profile(id);
+      const kind=id===VICTORIA?'victoria':isGoth(profile)?'goth':isSister(profile)?'sister':null;
+      if(!kind||isClosed(id))return null;
+      if(st.outcome)return kind==='sister'?null:{html:'<div class="story-tag">The night of the rite is over.</div>',only:false};
+      const mark=kind==='sister'?'✝':'☾';
+      let choices=[],entry='';
+      if(kind==='victoria'){
+        choices=victoriaChoices(st).map(act=>button(`v:${act}`,data.victoria.actions[act].label));
+        entry='Talk about her Midnight Rite';
+      }else if(kind==='goth'){
+        choices=gothChoices(st,id).map(act=>button(`g:${id}:${act}`,data.gothActions[act].label));
+        entry='Talk about Victoria’s rite';
       }else{
-        const s=st.sisters[id],def=data.sisters[id];
-        if(s.lost)return null;
-        choices=def.topics.filter(topic=>topicOpen(st,id,topic)).map(topic=>button(`s:${id}:${topic.id}`,topic.label,{risky:!!topic.risky,mark}));
-        if(def.favour&&!s.favour)choices.push(button(`s:${id}:favour-offer`,def.favour.offerLabel,{mark}));
-        if(def.favour&&s.favour?.state==='offered'){
-          if(today()===s.favour.due)choices.push(button(`s:${id}:favour-do`,def.favour.doLabel,{mark}));
-          else choices.push(`<div class="story-tag">Promised for tomorrow: ${esc(def.favour.doLabel)}</div>`);
-        }
-        choices.push(s.recruited?`<div class="story-tag">✝ ${esc(firstName(id))} will stand at the vigil.</div>`:button(`s:${id}:recruit`,def.recruit.label,{mark}));
+        choices=PLACES.map(place=>button(`s:${id}:${place}`,fill(data.sisterTalk.label,{short:placeShort(place)}),{mark}));
+        entry=data.sisterTalk.entry;
       }
-      if(!questMode.has(id)){
-        const label=SISTERS.includes(id)?'Talk about the crescent marks and the vigil':'Talk about the Midnight Show';
-        return {html:button(`qmode:${id}:on`,label,{mark,extra:'chapel-entry'}),only:false};
-      }
+      if(!choices.length)return null;
+      if(!questMode.has(id))return {html:button(`qmode:${id}:on`,entry,{mark,extra:'chapel-entry'}),only:false};
       return {html:choices.join('')+button(`qmode:${id}:off`,'Back to small talk',{mark:'‹'}),only:true};
     }
 
     // ---------- case page (shown in the bedside cupboard) ----------
-    function dots(st,id){
-      const s=st.sisters[id],bar=joinBar(st,id);
-      let out='';
-      for(let i=1;i<=rules().trustMax;i++)out+=i<=s.trust?'●':(i===bar?'◇':'○');
-      return out;
+    function otherGoths(){
+      return [...api.threads().values()].map(thread=>thread.id).filter(id=>!FLYER_GOTHS.includes(id)&&isGoth(api.profile(id)));
     }
     function personLine(st,id){
       const profile=api.profile(id);
       if(!profile)return '';
-      let status='';
-      if(id===VICTORIA)status=isClosed(VICTORIA)?'Not speaking to you.':st.wentAlone?'You promised to come to her after-party.':'Hosts the Midnight Show.';
-      else{
+      const thread=threadOf(id),closed=isClosed(id);
+      let status,canMessage;
+      if(id===VICTORIA){
+        canMessage=!!thread&&!closed;
+        status=!thread?'Hosts the rite. You haven’t matched with her.':closed?'Not speaking to you.':st.victoria.going?'Hosts the rite. You said you would come.':'Hosts the rite.';
+      }else{
         const g=st.goths[id];
-        status=g.closed||isClosed(id)?'Not speaking to you.':[g.ally?'Wants out and will warn you.':'',g.warned?'Warned.':'',g.told?'Knows about the vigil.':''].filter(Boolean).join(' ')||'No read yet.';
+        canMessage=!closed&&(FLYER_GOTHS.includes(id)||!!thread);
+        status=[FLYER_GOTHS.includes(id)?data.flyerGoths[id].credit+'.':'On Hinge.',closed?'Not speaking to you.':'',g?.told?'Told you what she knows.':''].filter(Boolean).join(' ');
       }
-      const reads=id===VICTORIA?'':`<div class="chapel-row">${['innocent','sympathetic','dangerous'].map(role=>`<button class="chapel-btn ${st.reads[id]===role?'on':''}" data-chapel-choice="read:${id}:${role}">${cap(role)}</button>`).join('')}</div>`;
-      return `<div class="chapel-person"><b>${esc(profile.name)}</b> <button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button><small>${esc(status)}</small>${reads}</div>`;
-    }
-    function sisterLine(st,id){
-      const profile=api.profile(id),s=st.sisters[id],def=data.sisters[id];
-      if(!profile)return '';
-      const known=s.done.length>0;
-      const abilityNames={prayer:def.abilities.prayer==='full'?'Knows the whole Watch of Mercy':def.abilities.prayer==='partial'?'Can lead the prayer on a quiet night':'Cannot lead the prayer',keys:def.abilities.keys?'Carries the chapel keys':'No keys',watch:def.abilities.watch?'Can hold the door':'Should not keep watch',voices:def.abilities.extraVoices?`Brings ${def.abilities.extraVoices} extra voices`:'One voice'};
-      const learnt=s.revealed.map(key=>abilityNames[key]).filter(Boolean);
-      let status;
-      if(s.lost||isClosed(id))status='Will not speak to you.';
-      else if(s.recruited)status='✓ Will stand at the vigil.';
-      else status=s.trust>=joinBar(st,id)?'Trusts you enough to ask.':`Needs ${joinBar(st,id)-s.trust} more trust.`;
-      const favour=s.favour?.state==='offered'?(s.favour.due===today()?'You promised to help her today.':'You promised to help her tomorrow.'):s.favour?.state==='done'?'Favour kept.':s.favour?.state==='broken'?'Favour broken.':'';
-      const canMessage=!!threadOf(id)||st.introduced;
-      return `<div class="chapel-person"><b>${esc(profile.name)}</b> ${canMessage?`<button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button>`:''}<small><span class="chapel-dots" aria-label="Trust ${s.trust} of ${rules().trustMax}">${dots(st,id)}</span> ${esc(status)}</small>${known?`<small>Values: ${esc(def.values)} Doubts: ${esc(def.doubts)}</small>`:''}${learnt.length?`<small>${esc(learnt.join('. '))}.</small>`:''}${favour||s.promise?`<small>${esc([favour,s.promise?(s.promiseBroken?'Promise broken.':'Promise made.'):''].filter(Boolean).join(' '))}</small>`:''}</div>`;
+      return `<div class="chapel-person"><b>${esc(profile.name)}</b> ${canMessage?`<button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button>`:''}<small>${esc(status)}</small></div>`;
     }
     function statusText(st){
-      if(st.dead)return 'Victoria found you.';
+      if(st.dead)return 'The case is closed.';
       if(st.outcome)return `${st.resultText} Case closed.`;
-      if(st.withdrawn)return 'You walked away. The rite will go ahead without you.';
-      const when=st.reading.when,where=st.reading.where;
-      if(when)return `Your reading: the rite is ${relDays(when.day)}${where?` at ${placeName(where)}`:''}.`;
-      if(where)return `Your reading: the rite is at ${placeName(where)}. You don't know when yet.`;
-      return 'You don\'t yet know where or when the rite will happen.';
+      const told=st.warned?` The Sisters will keep watch at ${placeName(st.warned)}.`:'';
+      return `Victoria Blackwood’s Midnight Rite is ${relNights(st.riteDay)}. Nobody will say where.${told}`;
     }
     function caseHtml(st){
-      const f=st.fragments,ally=f.allyPhrase?.source;
-      const whereClues=[];
-      if(f.show)whereClues.push(`Flyer margin: “Afterwards, ${data.places[st.location].phrase}.”`);
-      if(f.allyPhrase)whereClues.push(`${firstName(ally)}: “It's afterwards, ${data.places[st.location].phrase}.”`);
-      if(f.zaraLie)whereClues.push(`${firstName(f.zaraLie.source)}: “The after-party's at the Lantern Vault.”`);
-      if(f.aftershow)whereClues.push(fill('Chalk crescents appeared on {chalkA} and {chalkB}.'));
-      const lore=f.lore||f.heritage?CHAPELS.map(key=>data.places[key].lore):[];
-      const whenClues=[];
-      if(f.diary)whenClues.push(`Victoria's diary: “${data.diaryPhrase}”`);
-      if(f.show)whenClues.push(`The Midnight Show is ${relDays(st.showDay)}.`);
-      if(f.skywatch)whenClues.push(`The moon disappears completely ${relDays(f.skywatch.moonlessDay??st.originalRitualDay)}.`);
-      if(f.allyWarning)whenClues.push(`${firstName(f.allyWarning.source)} warned that the rite is now ${relDays(f.allyWarning.ritualDay)}.`);
-      const list=items=>items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:'<p>Nothing yet. Read the news and talk to people.</p>';
-      const placeButtons=action=>PLACES.map(key=>`<button class="chapel-btn ${(action==='where'?st.reading.where:st.draft.place)===key?'on':''}" data-chapel-choice="${action}:${key}">${esc(placeShort(key))}</button>`).join('');
-      const whenButtons=whenOptions(st).map(option=>`<button class="chapel-btn ${st.reading.when?.source===option.key?'on':''}" data-chapel-choice="when:${option.key}">${esc(option.label)}</button>`).join('');
-      const recruited=recruitedSisters(st);
-      const slotNames={prayer:'Leads the prayer',keys:'Holds the keys',watch:'Keeps watch at the door'};
-      let vigilHtml;
-      if(st.outcome)vigilHtml='<p>The vigil is over.</p>';
-      else if(st.withdrawn)vigilHtml='<p>You walked away. There will be no vigil.</p>';
-      else if(st.refuseVigils&&!st.vigil)vigilHtml=`<p class="chapel-danger">${esc(data.messages.refuseVigils)}</p>`;
-      else if(st.vigil){
-        const v=st.vigil;
-        vigilHtml=`<p>Word sent: <b>${esc(placeName(v.place))}</b>, ${esc(relDays(v.day))}.</p><ul>${SLOTS.map(slot=>`<li>${slotNames[slot]}: ${esc(v[slot]?nameOf(v[slot])+(st.sisters[v[slot]].recruited?'':' (no longer coming)'):'nobody')}</li>`).join('')}</ul><p>Voices gathered: ${voices(st)}</p><button class="chapel-btn warn" data-chapel-choice="vigil-cancel">Call off the vigil</button>`;
-      }else{
-        const slotRow=slot=>`<p><b>${slotNames[slot]}</b></p><div class="chapel-row">${recruited.map(id=>`<button class="chapel-btn ${st.draft[slot]===id?'on':''}" data-chapel-choice="slot:${slot}:${id}">${esc(firstName(id))}</button>`).join('')}<button class="chapel-btn ${st.draft[slot]?'':'on'}" data-chapel-choice="slot:${slot}:none">Nobody</button></div>`;
-        vigilHtml=`${recruited.length?'':'<p>No Sister has agreed to stand with you yet.</p>'}${SLOTS.map(slotRow).join('')}<p>Voices gathered: ${voices(st)}</p><p><b>Chapel</b></p><div class="chapel-row">${placeButtons('vplace')}</div><p><b>Night</b></p><div class="chapel-row"><button class="chapel-btn" data-chapel-choice="vnight:-">−</button><span>${esc(relDays(today()+st.draft.nights))}</span><button class="chapel-btn" data-chapel-choice="vnight:+">+</button></div><button class="notes-call" data-chapel-choice="vigil-send">✝ Send word to the Sisters</button>${st.vigilError?`<p class="chapel-danger">${esc(st.vigilError)}</p>`:''}`;
+      const list=items=>`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
+      const heard=st.clues.length?list(st.clues.map(c=>c.text)):'<p>Nothing yet. Make friends with the goth crowd, and read the paper.</p>';
+      let sisters;
+      if(st.outcome)sisters=`<p>${esc(st.resultText)}</p>`;
+      else{
+        const now=st.warned?`<p>The Sisters will keep watch at <b>${esc(placeName(st.warned))}</b> on the night.</p>`:'<p>You haven’t told the Sisters anything yet.</p>';
+        const send=canReachSisters(st)?
+          `<p><b>${st.warned?'Change your answer':'Send word: the rite is at'}</b></p><div class="chapel-row">${PLACES.map(place=>`<button class="chapel-btn ${st.warned===place?'on':''}" data-chapel-choice="warn:${place}">${esc(placeShort(place))}</button>`).join('')}</div>`:
+          '<p>You need a way to reach them. Any Sister of Mercy will give you St Brigid’s number if you ask her.</p>';
+        sisters=now+send;
       }
-      const sisterIntro=st.introduced?'':'<p>Call St Brigid\'s Chapel and ask about the crescent marks to be introduced. Any Sister of Mercy will give you the parish office\'s number if you ask her.</p>';
-      const danger=st.marks>0&&!st.outcome?'<p class="chapel-danger">Victoria knows who you are.</p>':'';
-      const walkAway=st.outcome||st.withdrawn?'':walkAwayArmed?
-        '<p class="chapel-danger">Walk away for good? The Sisters will not wait for you.</p><div class="chapel-row"><button class="chapel-btn warn" data-chapel-choice="walk-away-confirm">Yes, walk away</button><button class="chapel-btn" data-chapel-choice="walk-away-cancel">Stay on the case</button></div>':
-        '<button class="chapel-btn warn" data-chapel-choice="walk-away">Walk away from all this</button>';
-      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${danger}`+
-        `<h4>Decipher: where?</h4><div class="paper">${list(whereClues)}${lore.length?`<p><b>Chapel lore</b></p>${list(lore)}`:''}<div class="chapel-row">${placeButtons('where')}</div></div>`+
-        `<h4>Decipher: when?</h4><div class="paper">${list(whenClues)}${whenButtons?`<div class="chapel-row">${whenButtons}</div>`:''}</div>`+
-        `<h4>The goth crowd</h4><div class="paper">${[VICTORIA,...GOTHS].map(id=>personLine(st,id)).join('')}</div>`+
-        `<h4>Sisters of Mercy</h4><div class="paper">${sisterIntro}${SISTERS.map(id=>sisterLine(st,id)).join('')}</div>`+
-        `<h4>The vigil</h4><div class="paper">${vigilHtml}</div>`+
-        `<h4>Case journal</h4><div class="paper">${list(st.journal.slice(-6).reverse().map(entry=>`Day ${entry.day}: ${entry.text}`))}</div>${walkAway}</div>`;
+      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>`+
+        `<h4>Where?</h4><div class="paper"><p>It will be in one of the city’s three old chapels.</p>${list(PLACES.map(place=>data.places[place].guide))}</div>`+
+        `<h4>What you’ve heard</h4><div class="paper">${heard}</div>`+
+        `<h4>The Sisters of Mercy</h4><div class="paper">${sisters}</div>`+
+        `<h4>The goth crowd</h4><div class="paper">${[VICTORIA,...FLYER_GOTHS,...otherGoths()].map(id=>personLine(st,id)).join('')}</div>`+
+        `<h4>Case journal</h4><div class="paper">${st.journal.length?list(st.journal.slice(-6).reverse().map(entry=>`Day ${entry.day}: ${entry.text}`)):'<p>Nothing yet.</p>'}</div></div>`;
     }
     function renderCase(){
       const st=sync();
@@ -915,7 +679,7 @@
       api.hydrate(el);
     }
     function notesEntry(){
-      caseOpen=false;walkAwayArmed=false;
+      caseOpen=false;
       const st=sync();
       if(!st||!st.active)return '';
       return `<h3>Cases</h3><div class="paper"><button class="notes-call" data-chapel-choice="open-case">☾ The Chapel at Midnight ›</button><p>${esc(statusText(st))}</p></div>`;
@@ -926,16 +690,14 @@
       const profile=api.profile(id);
       if(!profile)return;
       let thread=threadOf(id);
-      if(!thread&&SISTERS.includes(id)&&!st.introduced)return;
-      if(!thread){thread=api.ensureThread(profile);thread.log=[];}
-      if(!thread.log.length){
-        if(GOTHS.includes(id))thread.log.push({who:'you',text:data.goths[id].contactPlayer},{who:'her',text:data.goths[id].contactReply});
-        else if(SISTERS.includes(id))thread.log.push({who:'her',text:fill(data.sisters[id].intro)});
-        else thread.log.push({who:'her',text:data.victoria.opening});
+      if(id===VICTORIA&&!thread)return; // you have to match with her first
+      if(!thread){
+        if(!FLYER_GOTHS.includes(id))return;
+        thread=api.ensureThread(profile);thread.log=[];
       }
+      if(!thread.log.length&&FLYER_GOTHS.includes(id))thread.log.push({who:'you',text:data.flyerGoths[id].contactPlayer},{who:'her',text:data.flyerGoths[id].contactReply});
       if(!thread.blocked&&!thread.fumbled){thread.awaiting=false;thread.ghosted=false;}
       caseOpen=false;
-      questMode.add(id);
       api.openChat(id);
     }
     function choose(action){
@@ -944,26 +706,14 @@
       const [kind,a,b]=String(action).split(':');
       if(st.dead&&kind!=='close-case')return;
       switch(kind){
-        case 'open-case':caseOpen=true;walkAwayArmed=false;renderCase();return;
+        case 'open-case':caseOpen=true;renderCase();return;
         case 'close-case':caseOpen=false;if(api.closeCase)api.closeCase();else api.openApp('notes');return;
-        case 'msg':message(st,a);return;
+        case 'msg':if(st.active)message(st,a);return;
         case 'qmode':if(b==='on')questMode.add(a);else questMode.delete(a);api.rerender();return;
         case 'g':gothAct(st,a,b);return;
         case 'v':victoriaAct(st,a);return;
         case 's':sisterAct(st,a,b);return;
-        case 'read':if(GOTHS.includes(a)&&ROLES.includes(b)){if(st.reads[a]===b)delete st.reads[a];else st.reads[a]=b;}break;
-        case 'where':setWhere(st,a);break;
-        case 'when':setWhen(st,a);break;
-        case 'slot':assignSlot(st,a,b);break;
-        case 'vplace':if(PLACES.includes(a)&&!st.vigil)st.draft.place=a;break;
-        case 'vnight':if(!st.vigil)st.draft.nights=Math.max(1,Math.min(9,st.draft.nights+(a==='+'?1:-1)));break;
-        case 'vigil-send':sendVigil(st);break;
-        case 'vigil-cancel':if(st.vigil&&!st.outcome){journal(st,'You called off the vigil.');st.vigil=null;}break;
-        case 'walk-away':walkAwayArmed=true;break;
-        case 'walk-away-cancel':walkAwayArmed=false;break;
-        case 'walk-away-confirm':
-          if(!st.outcome&&!st.withdrawn){st.withdrawn=true;st.vigil=null;walkAwayArmed=false;journal(st,'You walked away from the chapel case.');}
-          break;
+        case 'warn':if(canReachSisters(st))warn(st,a);break;
         default:return;
       }
       refresh();
@@ -972,34 +722,32 @@
     // ---------- run lifecycle ----------
     function reset(){
       clearTimers();hideOverlay();restoreFatalBackground();
-      caseOpen=false;walkAwayArmed=false;questMode.clear();
-      ensureServiceTopic(false);
+      caseOpen=false;questMode.clear();
+      ensureServiceTopics(false);
     }
     function afterLoad(){
       clearTimers();hideOverlay();restoreFatalBackground();
-      caseOpen=false;walkAwayArmed=false;questMode.clear();
+      caseOpen=false;questMode.clear();
       const world=api.world();
       if(!data||!world)return;
       world.chapel=normalize(world.chapel,world);
       const st=state();
-      ensureServiceTopic(st.active);
-      if(st.dead){showDeath(deathKind(st));return;}
-      if(st.attackRunning||st.attackPending){startAttack(st.attackReason);return;}
-      if(st.warningPending){st.warningPending=false;showWarning(st);}
+      ensureServiceTopics(st.active&&!st.outcome);
+      if(st.dead){showDeath(st.deathKind||deathKind(st));return;}
+      if(st.attackRunning||st.attackPending)startAttack(st.attackReason);
     }
-    // Workbench shortcut: open the case today instead of waiting for day two.
+    // Workbench shortcut: open the case today.
     function previewNow(){
       const st=state();
       if(!st)return false;
-      if(!st.active){st.enabled=true;activate(st);} // the testing shortcut always opens the case
-      api.status('The Chapel at Midnight is open. Victoria has messaged you; the case file is in your bedside cupboard.');
+      if(!st.active){st.enabled=true;start(st,'workbench');} // the testing shortcut always opens the case
+      api.status('The Chapel at Midnight is open. The case file is in your bedside cupboard.');
       caseOpen=false;
       if(api.showCase)api.showCase();else api.openApp('notes');
       return true;
     }
     // Workbench shortcut: play Victoria's attack now, in the room's current
-    // lighting, like the bear preview. Always fatal. The game starts a fresh
-    // run first if the player is already dead.
+    // lighting, like the bear preview. Always fatal.
     function previewAttack(){
       const st=state();
       if(!st||st.dead||st.attackRunning)return false;
@@ -1014,13 +762,14 @@
     return {
       statusLine:()=>{const st=sync();return st?statusText(st):'';},
       onNewDay,afterDayStart,decorateEdition,optionsFor,choose,notesEntry,renderCase,afterLoad,reset,previewNow,previewAttack,
+      onMatch,onPaperOpened,
       isCaseOpen:()=>caseOpen,
       hasData:()=>!!data,
       // Read-only helpers for tests and debugging.
-      state:()=>sync(),voices:()=>{const st=state();return st?voices(st):0;},threshold:()=>{const st=state();return st?threshold(st):null;},
+      state:()=>sync(),roleOf:id=>{const st=state();return st?roleOf(st,id):null;},
       overlay:()=>({image:overlayImage?.src||'',caption:overlayCaption?.textContent||'',visible:!!overlay?.classList.contains('visible')})
     };
   }
 
-  root.MATCH_CHAPEL_ENGINE={create,attackFrame,LIGHTING,STAGES,ids:{VICTORIA,MARGARET,TERESA,SOPHIA,EVELYN,GOTHS,SISTERS}};
+  root.MATCH_CHAPEL_ENGINE={create,attackFrame,LIGHTING,STAGES,ids:{VICTORIA,FLYER_GOTHS,PLACES}};
 })(typeof window!=='undefined'?window:globalThis);

@@ -1,327 +1,247 @@
 {
-  "version": 1,
+  "version": 2,
   "id": "goths_ritual_against_sisters",
   "title": "The Chapel at Midnight",
-  "summary": "A clique in the goth scene is preparing a rite in one of the city's old chapels. Work out where and when, read which goths can be trusted, win the Sisters of Mercy over one by one and assemble a vigil before the countdown runs out.",
-  "timeRule": "Time only moves when the player starts another day. Every reference is relative: 'tomorrow', 'in three days'. No weekdays, dates or clock times.",
+  "summary": "Victoria Blackwood is holding a rite in one of the city's three old chapels, seven nights after you first cross her path. Everyone knows when. Nobody will say where. Befriend the goth crowd (or Victoria herself), piece together which chapel it is, and send word to the Sisters of Mercy before the night comes.",
+  "timeRule": "Time only moves when the player starts another day. Every reference is relative: tomorrow night, in three nights. No weekdays, dates or clock times.",
   "rules": {
+    "chance": 0.5,
     "activationDay": 2,
-    "ritualSpanDays": [7, 9],
-    "showOffsetDays": 3,
-    "trustMax": 10,
-    "trustThreshold": 6,
-    "persuadedThreshold": 5,
-    "voicesNeeded": 3,
-    "voicesNeededAlerted": 5,
-    "maxVigils": 2,
-    "earlyVigilTrustLoss": 2
+    "riteAfterDays": 7,
+    "friendWarmth": 2,
+    "victoriaWarmth": 3,
+    "heatToAttack": 2,
+    "whisperSteps": [
+      4,
+      7
+    ],
+    "betrayalChance": 0.5,
+    "gossipReportChance": 0.5,
+    "loyalFriendReportChance": 0.5,
+    "victoriaAskReportChance": 0.5,
+    "otherGothRoles": {
+      "loyal": 0.35,
+      "gossip": 0.45,
+      "fedup": 0.2
+    }
   },
   "places": {
     "old_mission": {
       "name": "the Old Mission Chapel",
       "short": "Old Mission",
-      "phrase": "where the bell forgot its voice",
-      "lore": "The Old Mission's bell cracked long ago and has not rung since."
+      "guide": "The Old Mission Chapel: its bell cracked long ago and has never rung since.",
+      "riddle": "where the bell forgot its voice",
+      "never": "She says the Old Mission is too far out for the cars."
     },
     "cemetery_chapel": {
       "name": "the Cemetery Chapel of Rest",
       "short": "Cemetery Chapel",
-      "phrase": "where the angels turn their backs on the city",
-      "lore": "At the Cemetery Chapel of Rest the stone angels face the desert, with their backs to the city."
+      "guide": "The Cemetery Chapel of Rest: its stone angels face the desert, with their backs to the city.",
+      "riddle": "where the angels turn their backs on the city",
+      "never": "She says the Cemetery Chapel has too many security lights now."
     },
     "st_brigid": {
       "name": "St Brigid's Chapel",
       "short": "St Brigid's",
-      "phrase": "beneath the saint's cloak",
-      "lore": "St Brigid's keeps a copy of the saint's cloak above the altar."
-    },
-    "lantern_vault": {
-      "name": "the Lantern Vault under the old viaduct",
-      "short": "Lantern Vault",
-      "decoy": true,
-      "lore": "The Lantern Vault is the basement venue hosting the Midnight Show."
+      "guide": "St Brigid's Chapel: a copy of the saint's cloak hangs above the altar.",
+      "riddle": "beneath the saint's cloak",
+      "never": "She says St Brigid's is crawling with Sisters."
     }
   },
-  "diaryPhrase": "Not the show. When the moon closes her eye.",
-  "victoria": {
-    "id": "MATCH-003",
-    "opening": "I saw you looking at my flyer. ☾ You should come to the show. Come alone.",
-    "warning": "☾ I know which door is yours.",
-    "actions": {
-      "show": { "label": "Ask about the Midnight Show", "player": "What actually happens at your show?", "reply": "Music. Then something older than music. Come alone. Bring nothing holy. ☾" },
-      "crescent": { "label": "Ask what the crescent means", "player": "What does the crescent on your flyer mean?", "reply": "It means a door is opening. Why is a little lamb asking?" },
-      "accept": { "label": "Say you'll come to the after-party", "player": "I'll come to the after-party. Alone.", "reply": "Good. I'll find you when it starts." },
-      "backout": { "label": "Back out of Victoria's invitation", "player": "Actually, I'm not coming.", "reply": "Nobody backs out of my invitations. I'll remember you." },
-      "confront": { "label": "Tell her you know what she's planning", "player": "I know what you're planning in that chapel. Call it off.", "reply": "Then you know too much to keep. Sleep well." }
-    }
-  },
-  "goths": {
+  "flyerGoths": {
     "MATCH-061": {
-      "contactPlayer": "Hi, I saw your name on the Midnight Show flyer.",
-      "contactReply": "Ha, that's me, early set. Two hours of records nobody's heard of. What's up?"
+      "credit": "DJ on the flyer",
+      "contactPlayer": "Hi, I saw your name on the Midnight Rite flyer.",
+      "contactReply": "Ha, that's me. Two hours of records nobody's heard of, then Victoria takes over. What's up?"
     },
     "MATCH-062": {
-      "contactPlayer": "Hi, the flyer says tickets come from you?",
-      "contactReply": "Yep, from the shop. Last few left. Buying, or just curious about the flyer?"
+      "credit": "Sells the tickets at the Black Lace shop",
+      "contactPlayer": "Hi, the flyer says the tickets come from you?",
+      "contactReply": "From the shop, yeah. Except it's not really tickets. It's invitations. Victoria decides. Why?"
     },
     "MATCH-063": {
-      "contactPlayer": "Hi, did you draw the crescent on the Midnight Show flyer?",
+      "credit": "Drew the crescent on the flyer",
+      "contactPlayer": "Hi, did you draw the crescent on the Midnight Rite flyer?",
       "contactReply": "Took me all night. People keep staring at it. Like you, apparently."
     }
   },
   "gothActions": {
-    "show": { "label": "Ask about the Midnight Show", "player": "So what's the Midnight Show actually like?" },
-    "crescent": { "label": "Ask what the crescent mark means", "player": "What does the crescent on the flyer mean?" },
-    "help": { "label": "Ask her to help you stop it", "player": "I think something bad is planned after the show. Will you help me stop it?" },
-    "warn": { "label": "Warn her to skip the after-party", "player": "Do me a favour and skip the after-party. Please." },
-    "tell": { "label": "Tell her the Sisters are planning a vigil", "player": "The Sisters of Mercy are planning a vigil against whatever this is." },
-    "accuse": { "label": "Accuse her of being part of it", "player": "I know you're part of whatever Victoria is planning." }
+    "rite": {
+      "label": "Ask about the Midnight Rite",
+      "player": "So what actually happens at Victoria's Midnight Rite?"
+    },
+    "where": {
+      "label": "Ask where it's being held",
+      "player": "Where is it actually being held? The flyer doesn't say."
+    },
+    "criticize": {
+      "label": "Say what you really think of Victoria",
+      "player": "Honestly? Victoria seems like bad news. I don't trust her."
+    },
+    "sisters": {
+      "label": "Tell her the Sisters will be waiting",
+      "player": "The Sisters of Mercy know about the rite. They'll be waiting at the chapel."
+    }
   },
   "gothRoles": {
-    "innocent": {
-      "show": "Honestly it's just a gig. Bad lighting, good records, sticky floor. People get weird about the after-party, but I never stay for it.",
-      "crescent": "It's the logo this month, it's on everything. Victoria wrote something odd in the booking diary though: 'Not the show. When the moon closes her eye.' Dramatic, right?",
-      "help": "Stop what? You're starting to scare me. I just play records.",
-      "warn": "Weird thing to say to someone you've never met. But fine. I wasn't staying anyway.",
-      "tell": "Nuns with candles? That's adorable. I'm telling the group chat.",
-      "accuse": "Are you serious? I'm telling everyone what a creep you are. Don't message me again."
+    "loyal": {
+      "rite": "It's Victoria's night. If you're meant to know more, she'll tell you herself.",
+      "whereStranger": "Why do you want to know? Who's asking for you?",
+      "whereFriend": "You're sweet. But if she wants you there, she'll tell you where. That's how it works.",
+      "criticize": "Huh. I'll remember you said that.",
+      "sisters": "The Sisters? How sweet. I'm sure she'd love to hear that."
     },
-    "sympathetic": {
-      "show": "It's... a gig. Mostly. Can we not talk about the after-party on here?",
-      "crescent": "Please don't ask about that. Not on here.",
-      "help": "Okay. I want out. It isn't at the show. It's afterwards, {phrase}. And not on the show night either: when the moon closes her eye. If anything changes, I'll tell you.",
-      "warn": "You know, don't you. Thank you. I'll try to stay away.",
-      "tell": "If the Sisters are really doing that, I'll stand with them. Somebody from our side should.",
-      "accuse": "I can't do this. I can't. Don't message me again."
+    "gossip": {
+      "rite": "Everyone's talking about it. Well, everyone she invites. Seven nights of Victoria being insufferable, then one night of her being worse.",
+      "whereStranger": "I barely know you! Ask me again when we're actually friends.",
+      "whereFriend": "Okay, I don't know where exactly. But it's not {notPlace}, I know that much. {never}",
+      "criticize": "Ha! Don't let her hear you say that. Honestly though, same.",
+      "sisters": "Nuns with candles? That is going straight in the group chat."
     },
-    "dangerous": {
-      "show": "It's more than a show. The after-party's at the Lantern Vault, everyone knows that. Come and see for yourself.",
-      "crescent": "Who told you to ask about that?",
-      "help": "Stop it? Oh, sweetheart. I'll pass that along.",
-      "warn": "Skip it? I'm working the door.",
-      "tell": "A vigil? How sweet. Which chapel?",
-      "accuse": "You've just made a very big mistake."
+    "fedup": {
+      "rite": "Can we not? It's not a party, whatever she tells people. That's all I'm saying.",
+      "whereStranger": "Not on here. I don't know you well enough for that.",
+      "whereFriend": "Okay. I want out, so I'll tell you. She said it's {riddle}. That's all she ever calls it.",
+      "criticize": "Oh thank God. I thought it was just me. Everyone else acts like she hung the moon.",
+      "sisters": "Then I'll stand with them. Somebody from our side should."
     }
   },
-  "allyWarning": "She's moved it. Victoria won't wait for the dark moon now. It's in {n} days.",
-  "allyWarningTomorrow": "She's moved it. Victoria won't wait for the dark moon now. It's tomorrow.",
-  "chapelCall": {
-    "label": "Ask about crescent marks on chapel doors",
-    "reply": "Yes, the Sisters have seen those marks. Margaret Holloway coordinates our volunteers. I'll pass on your name and she'll message you.",
-    "clue": "St Brigid's passed your name to Margaret Holloway and the Sisters of Mercy."
-  },
-  "sisters": {
-    "MATCH-055": {
-      "role": "Organiser. Persuades the others to join.",
-      "startTrust": 2,
-      "values": "Order, responsibility and people who follow through.",
-      "doubts": "Suspects you are a thrill-seeker.",
-      "conditions": "Show her real deciphered evidence and keep your word.",
-      "abilities": { "prayer": "partial", "keys": false, "watch": true, "extraVoices": 0, "persuades": true },
-      "intro": "The office said you rang about crescent marks on chapel doors. I'm Margaret Holloway. I coordinate the parish volunteers. Before I take this seriously, tell me why you care.",
-      "topics": [
-        { "id": "why_help", "group": "why", "label": "Say you want to help, whatever it costs", "player": "I just want to help. Whatever it costs.", "reply": "Plenty of people want to help until it costs them something. We'll see.", "trust": 1 },
-        { "id": "why_thrill", "group": "why", "risky": true, "label": "Say it's the most exciting thing all year", "player": "Honestly? This is the most exciting thing that's happened all year.", "reply": "This is not entertainment. People's safety is not your hobby.", "trust": -2 },
-        { "id": "evidence", "effect": "evidence", "label": "Show her what you have deciphered", "player": "Here's what I've worked out so far.",
-          "results": {
-            "full": { "reply": "Where and when. That's careful work. All right. I'm listening.", "trust": 3 },
-            "half": { "reply": "Half an answer. Come back when you know where and when.", "trust": 0 },
-            "none": { "reply": "Come back when you have more than a feeling.", "trust": -1 }
-          } },
-        { "id": "prayers", "reveals": ["prayer", "voices"], "label": "Ask whether she knows the old vigil prayers", "player": "Do you know the old vigil prayers?", "reply": "Some of them. Enough to lead on a quiet night, if three of us stand together. If they know we're coming, we'll need Teresa, who knows the whole office, and at least five voices.", "trust": 0 },
-        { "id": "door", "reveals": ["watch"], "label": "Ask who could hold the chapel door", "player": "If they come to the chapel, who could hold the door?", "reply": "Me, if it comes to that. I've stared down a bishop. I can stare down a girl in eyeliner. Evelyn would do too.", "trust": 0 }
-      ],
-      "favour": {
-        "offerLabel": "Offer to help with the parish rota",
-        "offerPlayer": "Is there anything I can do for the parish?",
-        "offerReply": "Tomorrow I need someone to carry the vigil candles to the care home. Can I count on you?",
-        "doLabel": "Carry the candles to the care home",
-        "doPlayer": "Candles delivered to the care home, as promised.",
-        "doReply": "You came on the day you said you would. That matters to me.",
-        "trust": 3,
-        "brokenReply": "You said you would carry the candles. I carried them myself.",
-        "brokenTrust": -3
+  "victoria": {
+    "actions": {
+      "rite": {
+        "label": "Ask about her Midnight Rite",
+        "player": "Tell me about your Midnight Rite.",
+        "reply": "Music, then something older than music. Seven nights. Bring nothing holy. ☾"
       },
-      "recruit": {
-        "label": "Ask her to organise a vigil",
-        "player": "Will you organise a vigil with me?",
-        "yes": "Then we do it properly. I'll talk to the others. They listen to me.",
-        "no": "Not yet. I need to know you'll follow through."
+      "where": {
+        "label": "Ask where it's being held",
+        "player": "Where's the rite actually going to be?",
+        "stranger": "Somewhere holy. You'll be told if you're chosen. Are you hoping to be chosen?",
+        "friend": "Since it's you: {place}. Come alone. Tell no one. ☾"
       },
-      "after": {
-        "success": "We sang until the candles burned down. Thank you for not giving up on us.",
-        "failure": "We were not where we needed to be. I keep thinking about it."
+      "come": {
+        "label": "Say you'll come",
+        "player": "I'll come to the rite. Alone, like you said.",
+        "reply": "Good. I'll find you when it starts."
+      },
+      "backout": {
+        "label": "Say you're not coming after all",
+        "player": "Actually, I don't think I'm coming.",
+        "reply": "Nobody backs out of my invitations. But fine."
+      },
+      "confront": {
+        "label": "Tell her you know what she's planning",
+        "player": "I know what you're planning in that chapel. Call it off.",
+        "reply": "Then you know too much to keep. Sleep well."
       }
     },
-    "MATCH-056": {
-      "role": "Knows the old counter-prayer, the Watch of Mercy.",
-      "startTrust": 3,
-      "values": "Learning, tradition and honesty.",
-      "doubts": "Worries that you are mocking her faith.",
-      "conditions": "Be honest with her and never treat this as a joke.",
-      "abilities": { "prayer": "full", "keys": false, "watch": false, "extraVoices": 0, "persuades": false },
-      "intro": "Margaret says you've been asking about the old chapels. I teach history to ten-year-olds, so I warn you: I will over-explain.",
-      "topics": [
-        { "id": "lore", "effect": "lore", "label": "Ask about the city's old chapels", "player": "What can you tell me about the city's old chapels?", "reply": "There are three. The Old Mission's bell cracked long ago and has not rung since. At the Cemetery Chapel of Rest the stone angels face the desert, with their backs to the city. And St Brigid's keeps a copy of the saint's cloak above the altar.", "trust": 1 },
-        { "id": "rite", "reveals": ["prayer"], "label": "Ask if there's a prayer against something like this", "player": "Is there a prayer against something like this?", "reply": "There is an old office called the Watch of Mercy, sung through the night by candlelight. Very few people still know it. I do.", "trust": 1 },
-        { "id": "honest", "group": "tone", "label": "Admit you're frightened", "player": "Honestly, I'm frightened.", "reply": "Good. Fear is honest. We can work with honest.", "trust": 2 },
-        { "id": "mock", "group": "tone", "risky": true, "label": "Ask if she really believes in all this", "player": "Do you really believe in all this stuff?", "reply": "I believe in it enough to be offended. Goodnight.", "trust": -3 },
-        { "id": "door", "reveals": ["watch"], "label": "Ask if she could hold the door", "player": "Could you hold the chapel door if they come?", "reply": "Me? I'd faint. Put me at the altar with a book and I'm brave. Put me at a door and I'm useless.", "trust": 0 },
-        { "id": "crowd", "label": "Ask what she makes of the goth crowd", "player": "What do you make of the goth crowd?", "reply": "Most of them are harmless. I've known {innocent} since school. Loud, never wicked. The others I don't know.", "trust": 0 }
-      ],
-      "recruit": {
-        "label": "Ask her to lead the prayer at a vigil",
-        "player": "Would you lead the Watch of Mercy at a vigil?",
-        "yes": "I'll bring the book. And candles. So many candles.",
-        "no": "I need to know you're not making fun of us first."
-      },
-      "accusedFriend": "You accused {innocent}? She rang me in tears. She has never hurt anyone.",
-      "after": {
-        "success": "I've never sung the whole office through before. I don't think I'll ever forget it.",
-        "failure": "I keep reading the office over and over, wondering what I got wrong."
-      }
-    },
-    "MATCH-007": {
-      "role": "Carries the parish keys to every chapel.",
-      "startTrust": 3,
-      "values": "Kindness and practical help.",
-      "doubts": "Afraid that an unsanctioned vigil will give the bishop an excuse to close the Sisters down.",
-      "conditions": "Show up for her with practical help and take her fear seriously.",
-      "abilities": { "prayer": "none", "keys": true, "watch": false, "extraVoices": 0, "persuades": false },
-      "intro": "Hello! Margaret mentioned you. I'm Sophia, I do the outreach rounds. Is everything all right?",
-      "topics": [
-        { "id": "keys", "reveals": ["keys"], "label": "Ask who looks after the old chapels", "player": "Who looks after the old chapels?", "reply": "Our outreach group does. I carry the whole ring: the Mission, the Cemetery Chapel and St Brigid's. My handbag weighs a tonne.", "trust": 1 },
-        { "id": "bishop", "label": "Ask how the bishop's review is affecting her", "player": "How is the bishop's review affecting you?", "reply": "If the bishop hears we held a vigil without permission, it could be the excuse he needs to shut us down. I'm frightened of that.", "trust": 1 },
-        { "id": "door", "reveals": ["watch"], "label": "Ask if she'd stand guard at the door", "player": "Would you stand guard at the door?", "reply": "I'd let anyone in who said please. That's rather my problem.", "trust": 0 }
-      ],
-      "favour": {
-        "offerLabel": "Offer to help at the food pantry",
-        "offerPlayer": "Can I help at the pantry?",
-        "offerReply": "Would you? Tomorrow we're short of hands. Come and sort tins with me?",
-        "doLabel": "Sort tins at the pantry with Sophia",
-        "doPlayer": "I'm at the pantry. Where do the tins go?",
-        "doReply": "You came! The pantry has never been so organised. Thank you.",
-        "trust": 3,
-        "brokenReply": "We missed you at the pantry. I suppose something came up.",
-        "brokenTrust": -3
-      },
-      "recruit": {
-        "label": "Ask her to bring the keys to a vigil",
-        "player": "Would you bring the keys to a vigil?",
-        "yes": "I'll bring the keys. All of them, just in case.",
-        "no": "I want to help, I really do. I'm just scared. Give me a little time?"
-      },
-      "after": {
-        "success": "The bishop can say what he likes. We did the right thing.",
-        "failure": "I locked up afterwards and my hands wouldn't stop shaking."
-      }
-    },
-    "MATCH-057": {
-      "role": "Brings two steady volunteers from the parish council and can hold a door.",
-      "startTrust": 1,
-      "values": "Practical caution and protecting people.",
-      "doubts": "Thinks provoking the goths will get somebody hurt.",
-      "conditions": "Promise not to tell any of the goth crowd about the Sisters, and keep that promise.",
-      "abilities": { "prayer": "none", "keys": false, "watch": true, "extraVoices": 2, "persuades": false },
-      "intro": "Evelyn Rosales. I keep the parish accounts. Margaret forwarded your name. I'll be honest: I think poking at those girls will get somebody hurt.",
-      "topics": [
-        { "id": "concern", "label": "Ask why she's so wary", "player": "Why are you so wary of all this?", "reply": "Because I've seen what happens when people poke at things they don't understand. Somebody always gets hurt, and it's never the one who poked.", "trust": 1 },
-        { "id": "promise", "effect": "promise", "label": "Promise not to tell the goth crowd about the Sisters", "player": "I promise I won't tell any of the goth crowd about the Sisters.", "reply": "Then I'll hold you to that. Small city. I'll know.", "trust": 2 },
-        { "id": "parish", "reveals": ["voices", "watch"], "label": "Ask how many people she could bring", "player": "How many people could you bring?", "reply": "If I'm in, I bring two from the parish council. Steady people. And I'll hold a door against anyone.", "trust": 0 },
-        { "id": "scare", "risky": true, "label": "Tell her the goths are planning a murder", "player": "They're planning a murder. I'm sure of it.", "reply": "If you're going to frighten me with stories, do it somewhere else.", "trust": -2 }
-      ],
-      "favour": {
-        "offerLabel": "Offer to help count the charity tins",
-        "offerPlayer": "Could you use help counting the charity tins?",
-        "offerReply": "Tomorrow, then. Bring a calculator and patience.",
-        "doLabel": "Count charity tins with Evelyn",
-        "doPlayer": "Calculator charged. Let's count.",
-        "doReply": "You turned up and you can count. Rare qualities.",
-        "trust": 2,
-        "brokenReply": "You didn't come. I counted them alone. Noted.",
-        "brokenTrust": -3
-      },
-      "recruit": {
-        "label": "Ask her to stand with the vigil",
-        "player": "Will you stand with us at the vigil?",
-        "yes": "Fine. I'm in. I'll bring two from the council.",
-        "no": "No. Not until I trust you."
-      },
-      "promiseBroken": "You told one of them about us. I said I'd know. Don't count on me.",
-      "after": {
-        "success": "Nobody got hurt. That's all I ever wanted.",
-        "failure": "This is what I was afraid of."
-      }
-    }
+    "afterStopped": "You did that, didn't you. ☾",
+    "afterCompleted": "It's done. You missed it. ☾"
   },
-  "messages": {
-    "earlyVigil": "Nothing came. We kept watch all night in the cold, and nothing came.",
-    "refuseVigils": "We've stood in the cold twice now. The Sisters won't gather again.",
-    "markWarningClue": "A silver crescent pendant was left outside your door. The coven knows who you are.",
-    "allyAfterSuccess": "It's over. She's gone quiet. Thank you for listening to me.",
-    "innocentMissing": "{innocent} hasn't answered anyone since the night of the rite."
+  "sisterTalk": {
+    "entry": "Warn her about Victoria's rite",
+    "label": "Tell her it's at {short}",
+    "player": "Victoria Blackwood's rite is at {place}, {when}. Please, the Sisters have to be there.",
+    "reply": "Then we'll be at {place} with every candle in the parish. Thank you for telling me.",
+    "changed": "Then we'll move. {Place} it is. I hope you're sure this time.",
+    "callLabel": "Warn them: Victoria's rite is at {short}",
+    "callReply": "Thank you. I'll tell Sister Margaret. The Sisters will keep watch at {place}."
   },
+  "chalkPlaces": "Chalk crescents appeared on the doors of {chalkA} and {chalkB}.",
   "news": {
-    "show": {
-      "id": "crime_underground", "section": "Nightlife",
-      "title": "MIDNIGHT SHOW FLYERS APPEAR ACROSS THE OLD QUARTER",
-      "summary": "A basement gig under the old viaduct promises one night only, in three days.",
-      "body": "The flyers carry a hand-drawn crescent and credits for DJ Alice Wren, tickets from Piper Nocturne at the Black Lace shop and artwork by Zara Brooks. The host signs only as V.B. In the margin of one flyer someone has added, in silver ink: 'Afterwards, {phrase}.'",
-      "clue": "Midnight Show flyer, silver ink in the margin: 'Afterwards, {phrase}.'"
+    "flyer": {
+      "id": "crime_underground",
+      "section": "Nightlife",
+      "title": "MIDNIGHT RITE FLYERS APPEAR ACROSS THE OLD QUARTER",
+      "summary": "One night only, seven nights from today. The venue is a secret.",
+      "body": "The flyers carry a hand-drawn crescent and three names: DJ Alice Wren, invitations from Piper Nocturne at the Black Lace shop, artwork by Zara Brooks. The host signs only as V.B. The rite is seven nights from today. Where it will be, the flyer does not say: by word of mouth only.",
+      "clue": "Midnight Rite flyer: one night only, seven nights from the day it appeared. Venue by word of mouth only."
     },
-    "skywatch": {
-      "id": "local_storm", "section": "Weather",
-      "title": "STORM CLEARS FOR THE DARKEST NIGHT OF THE SEASON",
-      "summary": "Forecasters say the sky will be moonless in {n} days.",
-      "body": "Once the dry storm front passes, the moon will thin to nothing. Stargazers are planning trips into the desert for the moonless night, due in {n} days.",
-      "clue": "Weather page: the moon disappears completely in {n} days (counted from day {day})."
+    "chalk": {
+      "id": "religion_chapel",
+      "section": "Faith",
+      "title": "CHALK CRESCENTS DRAWN ON TWO CHAPEL DOORS",
+      "summary": "Parish volunteers scrubbed the marks off overnight.",
+      "body": "Chalk crescents appeared overnight on the doors of {chalkA} and {chalkB}. Volunteers from the Sisters of Mercy scrubbed them off by morning. Nobody has claimed responsibility.",
+      "clue": "Paper: chalk crescents appeared on the doors of {chalkA} and {chalkB}."
     },
-    "heritage": {
-      "id": "religion_chapel", "section": "Heritage",
-      "title": "SURVEY RECORDS THE CITY'S THREE OLD CHAPELS",
-      "summary": "A cracked bell, stone angels and a famous cloak make the heritage list.",
-      "body": "Volunteers have catalogued the city's three oldest chapels. The Old Mission's bell cracked long ago and has not rung since. The stone angels at the Cemetery Chapel of Rest face the desert, with their backs to the city. St Brigid's keeps a copy of the saint's cloak above its altar.",
-      "clue": "Heritage survey: the Old Mission has the cracked bell, the Cemetery Chapel has the angels facing away from the city, St Brigid's has the cloak."
-    },
-    "aftershow": {
-      "id": "crime_underground", "section": "Nightlife",
-      "title": "LATE SHOW ENDS QUIETLY, BUT CHALK MARKS APPEAR",
-      "summary": "Crowds left the Lantern Vault peacefully. Two chapel doors were marked overnight.",
-      "body": "Neighbours say the Midnight Show ended without trouble. By morning, chalk crescents had appeared on the doors of {chalkA} and {chalkB}. Parish volunteers scrubbed them off.",
-      "clue": "After the show, chalk crescents appeared on {chalkA} and {chalkB}."
+    "reminder": {
+      "id": "crime_underground",
+      "section": "Nightlife",
+      "title": "NIGHT BUSES ADDED AS MIDNIGHT RITE NEARS",
+      "summary": "The secret event is in two nights. Nobody will say where.",
+      "body": "Bus drivers report being asked about the rite all week. The event is in two nights. Asked where it will be, regulars at the Black Lace shop smile and change the subject."
     },
     "outcomes": {
-      "success": [
-        { "id": "religion_chapel", "section": "Faith", "title": "SISTERS' VIGIL ENDS A NIGHT OF DISTURBANCES AT {PLACE}", "summary": "Neighbours describe candles, singing and a group in black leaving quietly.", "body": "A vigil at {place} lasted through the night. Police say nobody was hurt. One neighbour said the air 'felt lighter' by morning." },
-        { "id": "crime_underground", "section": "Nightlife", "title": "LANTERN VAULT CLOSES ITS DOORS", "summary": "The basement venue under the viaduct has gone dark.", "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers have been torn down." }
+      "stopped": [
+        {
+          "id": "religion_chapel",
+          "section": "Faith",
+          "title": "SISTERS' VIGIL ENDS A NIGHT OF DISTURBANCES AT {PLACE}",
+          "summary": "Neighbours describe candles, singing and a group in black leaving quietly.",
+          "body": "A vigil at {place} lasted through the night. Police say nobody was hurt. One neighbour said the air felt lighter by morning."
+        },
+        {
+          "id": "crime_underground",
+          "section": "Nightlife",
+          "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
+          "summary": "The crescent flyers have been torn down.",
+          "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+        }
       ],
       "reconciled": [
-        { "id": "religion_chapel", "section": "Faith", "title": "UNLIKELY ALLIES SHARE A CANDLELIT VIGIL", "summary": "Chapel volunteers and nightlife regulars stood together at {place}.", "body": "Parish volunteers were joined by {sympathetic}, a regular at the Lantern Vault. 'Somebody from our side had to,' she said. Nobody was hurt." },
-        { "id": "crime_underground", "section": "Nightlife", "title": "LANTERN VAULT CLOSES ITS DOORS", "summary": "The basement venue under the viaduct has gone dark.", "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers have been torn down." }
-      ],
-      "partial": [
-        { "id": "local_storm", "section": "Local", "title": "LIGHTS FAIL ACROSS OLD QUARTER DURING CHAPEL VIGIL", "summary": "A vigil at {place} ended in darkness and conflicting accounts.", "body": "Power failed for several streets while a small vigil prayed at {place}. Some witnesses describe a red glow, others nothing at all. The rite, if there was one, was not finished." },
-        { "id": "crime_missing", "section": "Investigation", "title": "QUESTIONS REMAIN AFTER NIGHT AT {PLACE}", "summary": "The host of the Midnight Show has vanished.", "body": "Nobody has seen the organiser known as V.B. since the blackout. A chalk crescent keeps reappearing on the chapel door, however often it is scrubbed away." }
+        {
+          "id": "religion_chapel",
+          "section": "Faith",
+          "title": "UNLIKELY ALLIES SHARE A CANDLELIT VIGIL",
+          "summary": "Chapel volunteers and nightlife regulars stood together at {place}.",
+          "body": "Parish volunteers were joined by {fedup}, a regular on the goth scene. Somebody from our side had to, she said. Nobody was hurt."
+        },
+        {
+          "id": "crime_underground",
+          "section": "Nightlife",
+          "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
+          "summary": "The crescent flyers have been torn down.",
+          "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+        }
       ],
       "completed": [
-        { "id": "crime_underground", "section": "Investigation", "title": "STRANGE LIGHTS REPORTED NEAR {PLACE}", "summary": "Residents describe a red glow and chanting.", "body": "By the time police arrived, {place} was empty and its door was scorched with a crescent.{vigilNote}" },
-        { "id": "crime_missing", "section": "Missing", "title": "CONCERT-GOER MISSING AFTER NIGHT IN THE OLD QUARTER", "summary": "Friends are appealing for information.", "body": "{missingBody}" },
-        { "id": "crime_blood", "section": "Crime", "title": "CHAPEL CLOSED AFTER VANDALISM; PARISH 'SHAKEN'", "summary": "The diocese has locked {place} indefinitely.", "body": "Detectives describe the scene as 'deeply unpleasant' but will not say more. The Sisters of Mercy declined to comment." }
+        {
+          "id": "crime_underground",
+          "section": "Investigation",
+          "title": "STRANGE LIGHTS REPORTED NEAR {PLACE}",
+          "summary": "Residents describe a red glow and chanting.",
+          "body": "By the time police arrived, {place} was empty and its door was scorched with a crescent.{vigilNote}"
+        },
+        {
+          "id": "crime_missing",
+          "section": "Missing",
+          "title": "CONCERT-GOER MISSING AFTER NIGHT IN THE OLD QUARTER",
+          "summary": "Friends are appealing for information.",
+          "body": "{missingBody}"
+        },
+        {
+          "id": "crime_blood",
+          "section": "Crime",
+          "title": "CHAPEL CLOSED AFTER VANDALISM; PARISH SHAKEN",
+          "summary": "The diocese has locked {place} indefinitely.",
+          "body": "Detectives describe the scene as deeply unpleasant but will not say more. The Sisters of Mercy declined to comment."
+        }
       ],
-      "missingInnocent": "Friends of {innocent} say she has not answered her phone since the night of the rite. Her car was found on the desert road.",
-      "missingStranger": "Police are searching for a young man last seen near {place}. Friends say he 'followed the crowd' after the show.",
-      "vigilElsewhere": " Across town, a small vigil had gathered at {vigilPlace}."
+      "missingGoth": "Friends of {gossip} say she has not answered her phone since the night of the rite. Her car was found on the desert road.",
+      "missingStranger": "Police are searching for a young man last seen near {place}. Friends say he followed the crowd after the music stopped.",
+      "vigilElsewhere": " Across town, a small vigil had gathered at {warnedPlace}."
     }
   },
   "outcomes": {
-    "vigil_success": "The vigil held. The Watch of Mercy was sung through the night at {place} and the rite was never finished.",
-    "vigil_reconciled": "The vigil held, and {sympathetic} stood with the Sisters. The rite was never finished, and some of the goth crowd turned away from it.",
-    "vigil_partial": "The vigil was too thin. The lights failed and the rite stalled, but it was not stopped. Victoria has vanished, and the mystery is unresolved.",
-    "vigil_failed": "The vigil at {place} fell apart. The prayer had no shape and the Sisters scattered. The rite was completed.",
-    "wrong_place": "The Sisters kept watch at {vigilPlace}, but the rite was at {place}. It was completed.",
-    "too_late": "The rite was completed at {place} before your vigil was due.",
-    "ignored": "Nobody stood against it. The rite was completed at {place}.",
-    "withdrawn": "You walked away. The rite was completed at {place}."
+    "stopped": "The Sisters kept watch at {place} all night, singing. The rite never happened, and Victoria Blackwood has left town.",
+    "reconciled": "The Sisters kept watch at {place}, and {fedup} stood with them. The rite never happened, and half the goth crowd walked away from Victoria.",
+    "wrong_place": "The Sisters kept watch at {warnedPlace}. The rite was at {place}.",
+    "ignored": "Nobody stood against it. The rite happened at {place}."
+  },
+  "messages": {
+    "fedupAfter": "It's over. She's gone. Thank you for listening to me.",
+    "gossipMissing": "{gossip} hasn't answered anyone since the night of the rite."
   },
   "death": {
     "cause": "VICTORIA BLACKWOOD",
@@ -329,12 +249,11 @@
     "background": "assets/variants/iphone-standard/death-shadow.webp",
     "warningImage": "assets/events/goth_warning.png",
     "warningCaption": "A crescent pendant lies in the hallway…",
-    "reasons": {
-      "confront": "You told Victoria you knew. She came through your door the next night.",
-      "marked_twice": "The coven marked your door twice. Victoria came to collect.",
-      "ritual_marked": "The rite was completed at {place}. Victoria remembered who tried to stop it.",
-      "watch_broken": "Nobody held the chapel door. Victoria walked in, saw your face and followed you home.",
-      "went_alone": "You went to Victoria's after-party alone."
-    }
+    "captions": [
+      "The door was open when the lights went out. It had been locked.",
+      "Somebody was humming in the hallway.",
+      "Every candle in the flat went out at once.",
+      "There was a crescent drawn on the inside of the door."
+    ]
   }
 }

@@ -159,7 +159,7 @@
       "resume": "Welcome back to the reading room. Your place is bookmarked.",
       "pause": "I'll bookmark your page. Come back when you've done some reading.",
       "correct": [
-        "Correct! Filed under ‘promising’.",
+        "Correct! Filed under promising.",
         "Yes. You've clearly done the reading.",
         "I see somebody has been paying attention at Mass.",
         "Right again. I may have to give you a reader's card for life."
@@ -934,7 +934,7 @@
     }
   ],
   "sharedSister": {
-    "note": "Lines for any Sister of Mercy without her own entry in \"sisters\" (Sisters who join the roster later). Each Sister gets her own fixed pick from these lists, so two Sisters rarely sound the same. A Sister's own entry always wins.",
+    "note": "Lines for any Sister of Mercy without her own entry in sisters (Sisters who join the roster later). Each Sister gets her own fixed pick from these lists, so two Sisters rarely sound the same. A Sister's own entry always wins.",
     "start": [
       "Ask whether she would ever marry you",
       "Ask her, seriously, about marriage",

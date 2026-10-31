@@ -55,7 +55,7 @@
       { path: 'assets/quests/professor/alice-line.png', placeholder: false, use: 'Call portrait: Alice Beaumont (her existing Hinge photo style), blue ribbon brooch.' },
       { path: 'assets/quests/professor/lenny.png', placeholder: false, use: 'Call portrait: a garden shed with the door half open. Lenny is never seen.' },
       { path: 'assets/quests/professor/hendry.png', placeholder: false, use: 'Call portrait: Hendry’s Hardware shopfront sign.' },
-      { path: 'assets/quests/professor/phones.png', placeholder: false, use: 'Call portrait: a small phone-shop sign, “PHONES – unlocked – delivered”.' },
+      { path: 'assets/quests/professor/phones.png', placeholder: false, use: 'Call portrait: a small phone-shop sign, PHONES – unlocked – delivered.' },
       { path: 'assets/quests/professor/item-semtex.png', placeholder: false, use: 'Desk item: a plain block wrapped in brown tape inside a garden-centre bag. No labels, no detail.' },
       { path: 'assets/quests/professor/item-wire.png', placeholder: false, use: 'Desk item: a reel of ordinary household wire.' },
       { path: 'assets/quests/professor/item-phone.png', placeholder: false, use: 'Desk item: a cheap early-2000s pay-as-you-go phone with a number on masking tape.' },
@@ -85,17 +85,17 @@
       rebecca: { name: 'Rebecca Shaw', profileId: 'MATCH-008', faction: 'progressives', role: 'Organises the peaceful protests. Innocent.', blurb: 'Student organiser. Her name is on every protest flyer.' },
       jennifer: { name: 'Jennifer Tate', profileId: 'MATCH-051', faction: 'progressives', role: 'Campus organiser. Loud, theatrical and innocent.', blurb: 'Campus organiser. Loud, theatrical, owns a megaphone.' },
       alice: { name: 'Alice Beaumont', profileId: 'MATCH-042', faction: 'thunderbirds', role: 'Thunderbird event chair. Booked Vale for the gala. The one person he listens to.' },
-      graves: { name: 'Detective Eleanor Graves', profileId: 'MATCH-002', faction: 'police', role: 'Detective. Has read every Vale “accident” report and believes none of them.' },
+      graves: { name: 'Detective Eleanor Graves', profileId: 'MATCH-002', faction: 'police', role: 'Detective. Has read every Vale accident report and believes none of them.' },
       pemberton: { name: 'Dr Hal Pemberton', role: 'Vale’s colleague. Has never owned a working car. Borrows Vale’s.' }
     },
     cell: ['vanessa', 'allison'],
 
     facts: {
-      car_story: 'Paper: Vale’s brakes “failed” the day after he hosted Camille Paglia on campus.',
+      car_story: 'Paper: Vale’s brakes failed the day after he hosted Camille Paglia on campus.',
       fire_story: 'Paper: a fire at Vale’s house, the day after his evening with Michel Houellebecq.',
-      rule: 'Pattern: each “accident” came the day after one of Vale’s invited speakers came to campus.',
+      rule: 'Pattern: each accident came the day after one of Vale’s invited speakers came to campus.',
       debate: 'Vale’s next guest: Nathan Cofnas, at Founders’ Hall on Day {T}.',
-      back_row: 'A clique called the Back Row sits behind the protests against Vale’s speakers and calls them “a hobby”.',
+      back_row: 'A clique called the Back Row sits behind the protests against Vale’s speakers and calls them a hobby.',
       jennifer: 'Jennifer Tate organised the loud protests against Vale’s speakers. Very public. Very obvious.',
       jennifer_clear: 'People who know Jennifer swear she’s all noise. She once held a funeral for a pigeon.',
       vanessa: 'Vanessa Greer runs the Back Row.',
@@ -115,17 +115,17 @@
     },
 
     lines: {
-      opened: 'Something about Professor Vale’s “accidents” doesn’t add up. A case file is in your bedside cupboard.',
-      autoOpened: 'The Sunfall Daily has run two Professor Vale “accidents” in a row. A case file is in your bedside cupboard.',
+      opened: 'Something about Professor Vale’s accidents doesn’t add up. A case file is in your bedside cupboard.',
+      autoOpened: 'The Sunfall Daily has run two Professor Vale accidents in a row. A case file is in your bedside cupboard.',
       newsLearned: { car: 'Noted: the brakes failed the day after Camille Paglia’s lecture.', fire: 'Noted: the fire came the day after the Houellebecq evening.', debate: 'Noted: Nathan Cofnas speaks at Founders’ Hall on Day {T}.' },
-      ruleLearned: 'Two “accidents”, each the day after one of Vale’s guests came to campus. That isn’t luck.',
+      ruleLearned: 'Two accidents, each the day after one of Vale’s guests came to campus. That isn’t luck.',
       unavailable: 'That isn’t possible right now.',
       over: 'This case is closed.',
       exposureWarn: 'Your questions are getting around campus. Ask fewer for a day or two before the Back Row decides you’re a problem.',
       heatWarn: 'A patrol car has driven down your road twice today.',
       voicemail: 'New voicemail. Check the Voicemail tab in Calls.',
       walkAway: 'You close the case file. Whatever happens to Professor Vale now, it happens without you.',
-      searchRoom: 'Under the bed, behind the box of cables you swore you’d sort out, there’s an old reel of wire from when you were going to put up fairy lights. It has seen better decades.',
+      wireFriend: '{name} will drop a reel of wire round tomorrow. No receipt, no questions.',
       assembleStart: 'You clear your desk, shut the curtains, lay the three things out and unfold Vanessa’s note.',
       assembleOk: 'It takes the whole evening. When it’s done it looks like nothing much: a phone, some wire, a block wrapped in tape, back in the garden-centre bag. That’s the worst part.',
       assembleWrong: 'Nothing. It’s dead. You’ve got Vanessa’s note wrong somewhere. You take it all apart again, very slowly. Try again another day.',
@@ -142,17 +142,18 @@
     room: {
       semtex: 'There’s a parcel on your doorstep, heavier than it looks, wrapped in a garden-centre bag. Lenny doesn’t do receipts. You carry it up to your room.',
       wire: 'A small box from Hendry’s Hardware on the doorstep: one reel of wire, and a leaflet about their spring offers.',
+      wireGift: 'A carrier bag on the doorstep from {name}: one reel of wire, and a note saying you owe her a drink.',
       phone: 'A cheap phone has come through your letterbox, still in its blister pack, with a number written on masking tape.',
-      collected: 'The garden-centre bag has gone from your doorstep. In its place: a note in Allison Kent’s neat handwriting. “Day {A}. Wait for my text.”'
+      collected: 'The garden-centre bag has gone from your doorstep. In its place: a note in Allison Kent’s neat handwriting. Day {A}. Wait for my text.'
     },
 
     voicemails: {
-      rosa: { from: 'rosa', text: '“It’s Rosa. Rosa Gutierrez. You’ve been asking about the Back Row. I can’t text about it. Call me back on this number. Please don’t tell anyone it was me.”' },
-      vanessa: { from: 'vanessa', text: '“This is Vanessa Greer. You keep asking about Vale. So do we. Call me back. Don’t text.”' },
-      gravesArrest: { from: 'graves', text: '“Detective Graves. We had people at bay fourteen on Day {A}, and we got them with it in their hands. Somebody gave us a name and a day. Ring me back on this line.”' },
-      alice: { from: 'alice', text: '“Alice Beaumont. Adrian is alive, sulking, and staying in our guest room. Somebody warned us, and I know it was you. The Thunderbirds would like you as guest of honour at the gala. Do call.”' },
-      vanessaInvite: { from: 'vanessa', text: '“It’s Vanessa. Days now, and nobody has knocked on your door. You did what three of us couldn’t. Call me.”' },
-      rosaPanic: { from: 'rosa', text: '“It’s Rosa. I can’t sleep. I keep thinking about walking into the police station. Please call me.”' }
+      rosa: { from: 'rosa', text: 'It’s Rosa. Rosa Gutierrez. You’ve been asking about the Back Row. I can’t text about it. Call me back on this number. Please don’t tell anyone it was me.' },
+      vanessa: { from: 'vanessa', text: 'This is Vanessa Greer. You keep asking about Vale. So do we. Call me back. Don’t text.' },
+      gravesArrest: { from: 'graves', text: 'Detective Graves. We had people at bay fourteen on Day {A}, and we got them with it in their hands. Somebody gave us a name and a day. Ring me back on this line.' },
+      alice: { from: 'alice', text: 'Alice Beaumont. Adrian is alive, sulking, and staying in our guest room. Somebody warned us, and I know it was you. The Thunderbirds would like you as guest of honour at the gala. Do call.' },
+      vanessaInvite: { from: 'vanessa', text: 'It’s Vanessa. Days now, and nobody has knocked on your door. You did what three of us couldn’t. Call me.' },
+      rosaPanic: { from: 'rosa', text: 'It’s Rosa. I can’t sleep. I keep thinking about walking into the police station. Please call me.' }
     },
 
     // ----- Hinge chat topics, keyed by the woman's factionId. `as` overrides a topic for one named
@@ -160,168 +161,168 @@
     hinge: {
       progressives: [
         { id: 'pv_protests', label: 'Ask about the protests against Vale’s guest speakers', stage: ['open'],
-          player: 'Are you protesting Vale’s speakers? Someone said his “accidents” weren’t accidents.',
-          reply: '“First Paglia, then Houellebecq, and now he’s bringing Nathan Cofnas to Founders’ Hall on Day {T}. We protest because those people shouldn’t get a university stage, not because we want anyone hurt. The brakes and the fire weren’t us. There’s a lot at the back of his lectures, the Back Row, who call our protests a hobby.”',
+          player: 'Are you protesting Vale’s speakers? Someone said his accidents weren’t accidents.',
+          reply: 'First Paglia, then Houellebecq, and now he’s bringing Nathan Cofnas to Founders’ Hall on Day {T}. We protest because those people shouldn’t get a university stage, not because we want anyone hurt. The brakes and the fire weren’t us. There’s a lot at the back of his lectures, the Back Row, who call our protests a hobby.',
           learn: ['back_row', 'debate'],
           as: {
-            'MATCH-051': { reply: '“YES, I organised them! Paglia, Houellebecq, and now Cofnas at Founders’ Hall on Day {T}? We will be LOUD. Peaceful! With banners! I’d never hurt anyone, I just want Vale to stop inviting them. Do you want a banner? I have spare banners.”', learn: ['jennifer', 'debate'] },
-            'MATCH-052': { reply: '“Petitions didn’t stop Paglia. Placards didn’t stop Houellebecq. They won’t stop Cofnas.” A long pause. “You keep asking about Vale. So do I. I’ll call you.”', learn: ['back_row'], exposure: 10, effect: 'vanessaCalls' },
-            'MATCH-053': { reply: '“I work for him. Research assistant. I keep his diary and I type up his speaker invitations. Every single one.” Her next message takes a long time to arrive. “Somebody has to.”', learn: ['allison'], exposure: 10 },
-            'MATCH-054': { reply: '“I sit at the back of his lectures. That’s all.” Then, a minute later: “Not over text. I’ll call you.”', learn: ['back_row'], effect: 'rosaCalls' }
+            'MATCH-051': { reply: 'YES, I organised them! Paglia, Houellebecq, and now Cofnas at Founders’ Hall on Day {T}? We will be LOUD. Peaceful! With banners! I’d never hurt anyone, I just want Vale to stop inviting them. Do you want a banner? I have spare banners.', learn: ['jennifer', 'debate'] },
+            'MATCH-052': { reply: 'Petitions didn’t stop Paglia. Placards didn’t stop Houellebecq. They won’t stop Cofnas. A long pause. You keep asking about Vale. So do I. I’ll call you.', learn: ['back_row'], exposure: 10, effect: 'vanessaCalls' },
+            'MATCH-053': { reply: 'I work for him. Research assistant. I keep his diary and I type up his speaker invitations. Every single one. Her next message takes a long time to arrive. Somebody has to.', learn: ['allison'], exposure: 10 },
+            'MATCH-054': { reply: 'I sit at the back of his lectures. That’s all. Then, a minute later: Not over text. I’ll call you.', learn: ['back_row'], effect: 'rosaCalls' }
           } },
         { id: 'pv_backrow', label: 'Ask who runs the Back Row', stage: ['open'], needs: ['back_row'], until: ['vanessa'],
           player: 'Who actually runs the Back Row?',
-          reply: '“Vanessa Greer. Everyone knows and nobody says. Delete this chat.”', learn: ['vanessa'], exposure: 10,
+          reply: 'Vanessa Greer. Everyone knows and nobody says. Delete this chat.', learn: ['vanessa'], exposure: 10,
           as: {
-            'MATCH-052': { reply: '“You’re talking to her. Expect a call.”', learn: ['vanessa'], exposure: 10, effect: 'vanessaCalls' },
-            'MATCH-053': { reply: '“Never heard of it.” She doesn’t reply to anything after that.', learn: [], exposure: 15 },
-            'MATCH-054': { reply: '“Please. Not here. I’ll call you.”', learn: [], exposure: 0, effect: 'rosaCalls' },
-            'MATCH-051': { reply: '“Ugh. Vanessa Greer’s lot. They think chanting is beneath them. They’re the ones you should be asking about, not me.”', learn: ['vanessa'], exposure: 5 }
+            'MATCH-052': { reply: 'You’re talking to her. Expect a call.', learn: ['vanessa'], exposure: 10, effect: 'vanessaCalls' },
+            'MATCH-053': { reply: 'Never heard of it. She doesn’t reply to anything after that.', learn: [], exposure: 15 },
+            'MATCH-054': { reply: 'Please. Not here. I’ll call you.', learn: [], exposure: 0, effect: 'rosaCalls' },
+            'MATCH-051': { reply: 'Ugh. Vanessa Greer’s lot. They think chanting is beneath them. They’re the ones you should be asking about, not me.', learn: ['vanessa'], exposure: 5 }
           } },
         { id: 'pv_jen', label: 'Ask whether Jennifer Tate could be behind it', stage: ['open'], needs: ['jennifer'], until: ['jennifer_clear'],
           player: 'Could Jennifer Tate be behind what’s happening to Vale?',
-          reply: '“Jen? Jen is all megaphone. She held a funeral for a pigeon. Look at the people who never come to the protests, the ones who say the Cofnas invitation is the last one he gets.”', learn: ['jennifer_clear'],
-          as: { 'MATCH-051': { reply: '“ME? I held a FUNERAL for a PIGEON.”' } } }
+          reply: 'Jen? Jen is all megaphone. She held a funeral for a pigeon. Look at the people who never come to the protests, the ones who say the Cofnas invitation is the last one he gets.', learn: ['jennifer_clear'],
+          as: { 'MATCH-051': { reply: 'ME? I held a FUNERAL for a PIGEON.' } } }
       ],
       police: [
-        { id: 'pv_police', label: 'Ask whether the police believe Vale’s “accidents”', stage: ['open', 'resolved'],
+        { id: 'pv_police', label: 'Ask whether the police believe Vale’s accidents', stage: ['open', 'resolved'],
           player: 'Does anyone at the station think Professor Vale’s accidents were accidents?',
-          reply: '“Detective Eleanor Graves doesn’t. If you know something real, ring the station and ask for her. She wants a name and a day, not a theory.”', flag: 'gravesKnown',
-          as: { 'MATCH-002': { reply: '“I don’t. If you ever know something real, I want a name and a day. Here’s my direct line.”', effect: 'gravesLine' } } }
+          reply: 'Detective Eleanor Graves doesn’t. If you know something real, ring the station and ask for her. She wants a name and a day, not a theory.', flag: 'gravesKnown',
+          as: { 'MATCH-002': { reply: 'I don’t. If you ever know something real, I want a name and a day. Here’s my direct line.', effect: 'gravesLine' } } }
       ],
       fourth_estate: [
         { id: 'pv_press', label: 'Ask what the paper knows about Professor Vale', stage: ['open', 'resolved'],
-          player: 'What does the paper actually know about Professor Vale’s “accidents”?',
-          reply: '“Off the record? The brakes went the day after Paglia, the fire the day after Houellebecq, and Cofnas is next. Our reporter thinks someone in his own department is leaking his diary.”', learn: ['rule', 'diary_leak'] }
+          player: 'What does the paper actually know about Professor Vale’s accidents?',
+          reply: 'Off the record? The brakes went the day after Paglia, the fire the day after Houellebecq, and Cofnas is next. Our reporter thinks someone in his own department is leaking his diary.', learn: ['rule', 'diary_leak'] }
       ],
       thunderbirds: [
         { id: 'pv_tb_vale', label: 'Ask about Professor Vale', stage: ['open', 'resolved'],
           player: 'Do the Thunderbirds know Professor Vale?',
-          reply: '“Adrian? We adore him. He brings the most marvellous speakers, and the students throw tantrums. He’s speaking at our next gala. Alice Beaumont looks after him. If anything ever worries you about him, tell me and I’ll tell Alice.”', flag: 'tbLinked',
-          as: { 'MATCH-042': { reply: '“Adrian? He’s a dear. Paglia, Houellebecq, Cofnas: he invites everyone the students are frightened of, and I adore him for it. I booked him for our gala. If anything ever worries you about him, you tell me.”' } } },
+          reply: 'Adrian? We adore him. He brings the most marvellous speakers, and the students throw tantrums. He’s speaking at our next gala. Alice Beaumont looks after him. If anything ever worries you about him, tell me and I’ll tell Alice.', flag: 'tbLinked',
+          as: { 'MATCH-042': { reply: 'Adrian? He’s a dear. Paglia, Houellebecq, Cofnas: he invites everyone the students are frightened of, and I adore him for it. I booked him for our gala. If anything ever worries you about him, you tell me.' } } },
         { id: 'pv_tb_warn', label: 'Warn her that Vale is in danger the day after the Cofnas lecture', stage: ['open'], needs: ['debate'], needsAny: ['fact:rule', 'fact:car_plan'], needsFlag: 'tbLinked', effect: 'warnThunderbirds',
-          player: 'Every “accident” has come the day after one of his guests spoke. Cofnas is on Day {T}. Keep Vale away from his car the day after.',
-          reply: '“The day after each guest… yes, I see it. I’m ringing Alice now. He’ll stay with the Beaumonts and his car stays exactly where it is. He’ll sulk. Let him.”',
-          replyPlan: '“His car. Of course it’s his car. Right. I’m ringing Alice now. After the Cofnas lecture he stays with the Beaumonts, and nobody touches that car. He’ll hate it. Good.”' }
+          player: 'Every accident has come the day after one of his guests spoke. Cofnas is on Day {T}. Keep Vale away from his car the day after.',
+          reply: 'The day after each guest… yes, I see it. I’m ringing Alice now. He’ll stay with the Beaumonts and his car stays exactly where it is. He’ll sulk. Let him.',
+          replyPlan: 'His car. Of course it’s his car. Right. I’m ringing Alice now. After the Cofnas lecture he stays with the Beaumonts, and nobody touches that car. He’ll hate it. Good.' }
       ],
       goth_girls: [
         { id: 'pv_rumour', label: 'Ask if she’s heard about Professor Vale', stage: ['open'],
           player: 'Have you heard what keeps happening to Professor Vale?',
-          reply: '“Ask the girl with the megaphone. Or don’t. Honestly, Houellebecq was the best night campus has had in years. It’s the quiet ones at the back you should worry about.”', learn: ['jennifer'] }
+          reply: 'Ask the girl with the megaphone. Or don’t. Honestly, Houellebecq was the best night campus has had in years. It’s the quiet ones at the back you should worry about.', learn: ['jennifer'] }
       ],
       sisters_of_mercy: [
         { id: 'pv_rumour', label: 'Ask if she’s heard about Professor Vale', stage: ['open'],
           player: 'Have you heard what keeps happening to Professor Vale?',
-          reply: '“We pray for him. We pray for the people who hate him too. They need it more.”' }
+          reply: 'We pray for him. We pray for the people who hate him too. They need it more.' }
       ],
       normie_girls: [
         { id: 'pv_rumour', label: 'Ask if she’s heard about Professor Vale', stage: ['open'],
           player: 'Have you heard what keeps happening to Professor Vale?',
-          reply: '“Isn’t he the one who keeps nearly dying? My cousin says it’s a curse.”' }
+          reply: 'Isn’t he the one who keeps nearly dying? My cousin says it’s a curse.' }
       ]
     },
 
     // ----- Phone lines. 'service:*' lines already exist in the game; 'pv:*' are quest numbers.
     contacts: {
-      graves: { name: 'Detective Graves (direct line)', portrait: 'assets/quests/professor/graves-line.png', greeting: '“Graves.”' },
-      rosa: { name: 'Rosa Gutierrez', portrait: 'assets/quests/professor/unknown-caller.png', greeting: '“Hello? …Is this you? Okay. Okay.”' },
-      vanessa: { name: 'Vanessa Greer', portrait: 'assets/quests/professor/unknown-caller.png', greeting: '“Vanessa.”' },
-      allison: { name: 'Allison Kent', portrait: 'assets/quests/professor/unknown-caller.png', greeting: '“Allison. Be brief.”' },
-      lenny: { name: 'Garden Shed Clearance (Lenny)', portrait: 'assets/quests/professor/lenny.png', greeting: '“Yeah?”' },
-      hendry: { name: 'Hendry’s Hardware', portrait: 'assets/quests/professor/hendry.png', greeting: '“Hendry’s Hardware, we deliver! How can I help?”' },
-      phones: { name: 'Phones – Unlocked – Delivered', portrait: 'assets/quests/professor/phones.png', greeting: '“Phones. What do you want?”' },
+      graves: { name: 'Detective Graves (direct line)', portrait: 'assets/quests/professor/graves-line.png', greeting: 'Graves.' },
+      rosa: { name: 'Rosa Gutierrez', portrait: 'assets/quests/professor/unknown-caller.png', greeting: 'Hello? …Is this you? Okay. Okay.' },
+      vanessa: { name: 'Vanessa Greer', portrait: 'assets/quests/professor/unknown-caller.png', greeting: 'Vanessa.' },
+      allison: { name: 'Allison Kent', portrait: 'assets/quests/professor/unknown-caller.png', greeting: 'Allison. Be brief.' },
+      lenny: { name: 'Garden Shed Clearance (Lenny)', portrait: 'assets/quests/professor/lenny.png', greeting: 'Yeah?' },
+      hendry: { name: 'Hendry’s Hardware', portrait: 'assets/quests/professor/hendry.png', greeting: 'Hendry’s Hardware, we deliver! How can I help?' },
+      phones: { name: 'Phones – Unlocked – Delivered', portrait: 'assets/quests/professor/phones.png', greeting: 'Phones. What do you want?' },
       device: { name: 'The number on the masking tape', portrait: 'assets/quests/professor/item-phone.png', greeting: 'It’s ringing.' },
-      alice: { name: 'Alice Beaumont', portrait: 'assets/quests/professor/alice-line.png', greeting: '“Alice Beaumont. Oh, it’s you. Darling.”' }
+      alice: { name: 'Alice Beaumont', portrait: 'assets/quests/professor/alice-line.png', greeting: 'Alice Beaumont. Oh, it’s you. Darling.' }
     },
-    vanessaPitch: '“You called back. Good. Paglia, then Houellebecq, and now he’s bringing Cofnas onto our campus. The brakes, the fire: rehearsals, and we were bad at them. The Cofnas lecture is the last one he hosts. Third time we do it properly, and we need someone nobody is watching. You. Choose carefully. There’s no taking it back.”',
+    vanessaPitch: 'You called back. Good. Paglia, then Houellebecq, and now he’s bringing Cofnas onto our campus. The brakes, the fire: rehearsals, and we were bad at them. The Cofnas lecture is the last one he hosts. Third time we do it properly, and we need someone nobody is watching. You. Choose carefully. There’s no taking it back.',
 
     calls: {
       'service:university': [
         { id: 'pv_u_talk', label: 'Ask about Professor Vale’s next guest speaker', stage: ['open'], until: ['debate'],
-          reply: '“Professor Vale is hosting Nathan Cofnas at Founders’ Hall on Day {T}. We have had… a great many complaints. Tickets are free.”', learn: ['debate'] },
+          reply: 'Professor Vale is hosting Nathan Cofnas at Founders’ Hall on Day {T}. We have had… a great many complaints. Tickets are free.', learn: ['debate'] },
         { id: 'pv_u_diary', label: 'Ask who keeps Professor Vale’s diary', stage: ['open'], until: ['allison'],
-          reply: '“His research assistant, Allison Kent. She sends out all his speaker invitations. Shall I put you through? …She’s stepped out. She steps out a lot lately.”', learn: ['allison'], exposure: 8 },
+          reply: 'His research assistant, Allison Kent. She sends out all his speaker invitations. Shall I put you through? …She’s stepped out. She steps out a lot lately.', learn: ['allison'], exposure: 8 },
         { id: 'pv_u_car', label: 'Ask where Professor Vale parks', stage: ['open'], needs: ['debate'], until: ['car_bay'],
-          reply: '“Faculty car park, bay fourteen, the day after every one of his guests. He likes to come in and read the complaints. Why do you ask?”', learn: ['car_bay'], exposure: 10 }
+          reply: 'Faculty car park, bay fourteen, the day after every one of his guests. He likes to come in and read the complaints. Why do you ask?', learn: ['car_bay'], exposure: 10 }
       ],
       'service:newsroom': [
         { id: 'pv_n_link', label: 'Ask whether Vale’s brakes and the fire are connected', stage: ['open'], until: ['rule'],
-          reply: '“The brakes failed the day after Paglia. The fire came the day after Houellebecq. We can’t print a pattern without a source.”', learn: ['rule'] },
+          reply: 'The brakes failed the day after Paglia. The fire came the day after Houellebecq. We can’t print a pattern without a source.', learn: ['rule'] },
         { id: 'pv_n_groups', label: 'Ask whether any campus group has threatened Vale', stage: ['open'], until: ['back_row'],
-          reply: '“The organisers protesting his speakers are loud but harmless. There’s a smaller lot people call the Back Row. Nobody will go on record about them.”', learn: ['back_row'], exposure: 5 }
+          reply: 'The organisers protesting his speakers are loud but harmless. There’s a smaller lot people call the Back Row. Nobody will go on record about them.', learn: ['back_row'], exposure: 5 }
       ],
       'service:police': [
         { id: 'pv_p_graves', label: 'Ask for Detective Eleanor Graves', stage: ['open', 'resolved', 'backrow'], needsAny: ['flag:gravesKnown', 'fact:rule', 'fact:car_plan'], unlessNumber: 'graves',
-          reply: '“Graves. Make it quick. …Fine. Here’s my direct line. Use it when you have a name and a day.”', effect: 'gravesLine' }
+          reply: 'Graves. Make it quick. …Fine. Here’s my direct line. Use it when you have a name and a day.', effect: 'gravesLine' }
       ],
       'pv:graves': [
         { id: 'tip', label: 'Tell Graves: it’s {name}' },
         { id: 'pv_g_tell', label: 'Tell her you were the one who called it in (ending)' },
-        { id: 'pv_g_thanks', label: 'Just say you’re glad he’s safe', reply: '“So am I. Ring me if you ever fancy telling me how you knew.” She hangs up before you can.' },
+        { id: 'pv_g_thanks', label: 'Just say you’re glad he’s safe', reply: 'So am I. Ring me if you ever fancy telling me how you knew. She hangs up before you can.' },
         { id: 'pv_g_confess', label: 'Tell Detective Graves everything (ends the game)' },
-        { id: 'pv_g_case', label: 'Ask how the Vale case is going', reply: '“It’s going. Don’t make me regret giving you this number.”' }
+        { id: 'pv_g_case', label: 'Ask how the Vale case is going', reply: 'It’s going. Don’t make me regret giving you this number.' }
       ],
       'pv:rosa': [
         { id: 'pv_r_reassure', label: 'Talk to her gently about the Back Row' },
         { id: 'pv_r_press', label: 'Press her for names (risky)' },
-        { id: 'pv_r_calm', label: 'Calm Rosa down', reply: '“Could anyone else get hurt? Tell me nobody else could get hurt.” You tell her nobody who matters. She doesn’t like that answer, but she stops crying.' }
+        { id: 'pv_r_calm', label: 'Calm Rosa down', reply: 'Could anyone else get hurt? Tell me nobody else could get hurt. You tell her nobody who matters. She doesn’t like that answer, but she stops crying.' }
       ],
       'pv:vanessa': [
-        { id: 'pv_v_join', label: 'Join the Back Row (final)', reply: '“Good. You build it, at your place, because nobody is watching your place. I’ve circled what you need in today’s classifieds, and I’m sending you a note. Allison collects it from your doorstep when it’s ready. Then you make one phone call.”' },
-        { id: 'pv_v_refuse', label: 'Refuse (final)', reply: '“Shame. Forget this call. I’d forget it really hard, if I were you.”' },
-        { id: 'pv_v_stall', label: 'Ask for a day to think', reply: '“One day. I don’t like people who think too long.”' },
-        { id: 'pv_v_phone', label: 'Ask Vanessa to send you a phone', reply: '“Can’t you do anything yourself?” A sigh. “It’ll be through your letterbox tomorrow.”' },
-        { id: 'pv_v_ready', label: 'Tell her it’s ready to collect', reply: '“Leave the bag on your doorstep tonight. Don’t watch.”', late: '“Too late. Don’t call me again.”' },
-        { id: 'pv_v_out', label: 'Tell her you want out', early: '“You were never really in. Don’t make me remember you.” You’re back on the outside, and the Back Row knows your name.', late: '“Nobody leaves the Back Row,” Vanessa says, quite kindly. Then she hangs up.' },
+        { id: 'pv_v_join', label: 'Join the Back Row (final)', reply: 'Good. You build it, at your place, because nobody is watching your place. I’ve circled what you need in today’s classifieds, and I’m sending you a note. Allison collects it from your doorstep when it’s ready. Then you make one phone call.' },
+        { id: 'pv_v_refuse', label: 'Refuse (final)', reply: 'Shame. Forget this call. I’d forget it really hard, if I were you.' },
+        { id: 'pv_v_stall', label: 'Ask for a day to think', reply: 'One day. I don’t like people who think too long.' },
+        { id: 'pv_v_phone', label: 'Ask Vanessa to send you a phone', reply: 'Can’t you do anything yourself? A sigh. It’ll be through your letterbox tomorrow.' },
+        { id: 'pv_v_ready', label: 'Tell her it’s ready to collect', reply: 'Leave the bag on your doorstep tonight. Don’t watch.', late: 'Too late. Don’t call me again.' },
+        { id: 'pv_v_out', label: 'Tell her you want out', early: 'You were never really in. Don’t make me remember you. You’re back on the outside, and the Back Row knows your name.', late: 'Nobody leaves the Back Row, Vanessa says, quite kindly. Then she hangs up.' },
         { id: 'pv_v_yes', label: 'Say yes (ending)' },
-        { id: 'pv_v_later', label: 'Not tonight', reply: '“Suit yourself. The offer stands.”' }
+        { id: 'pv_v_later', label: 'Not tonight', reply: 'Suit yourself. The offer stands.' }
       ],
       'pv:allison': [
         { id: 'pv_a_car', label: 'Ask about Vale’s car, and who drives it' }
       ],
       'pv:lenny': [
-        { id: 'pv_l_order', label: 'Order a “garden shed clearance”', reply: '“Two days. Doorstep. Don’t open it in the street.” Click.' }
+        { id: 'pv_l_order', label: 'Order a garden shed clearance', reply: 'Two days. Doorstep. Don’t open it in the street. Click.' }
       ],
       'pv:hendry': [
-        { id: 'pv_h_order', label: 'Order a reel of wire for delivery', reply: '“Lovely! That’ll be with you tomorrow. Can I interest you in light bulbs?”' }
+        { id: 'pv_h_order', label: 'Order a reel of wire for delivery', reply: 'Lovely! That’ll be with you tomorrow. Can I interest you in light bulbs?' }
       ],
       'pv:phones': [
-        { id: 'pv_ph_order', label: 'Order a cheap pay-as-you-go phone', reply: '“Cash on the doorstep. Tomorrow.” Click.' }
+        { id: 'pv_ph_order', label: 'Order a cheap pay-as-you-go phone', reply: 'Cash on the doorstep. Tomorrow. Click.' }
       ],
       'pv:device': [
         { id: 'pv_d_call', label: 'Let it ring' }
       ],
       'pv:alice': [
         { id: 'pv_al_yes', label: 'Accept her invitation to the gala (ending)' },
-        { id: 'pv_al_later', label: 'Say you’re just glad he’s safe', reply: '“Modest. How very un-Thunderbird of you. The invitation stands, darling.”' }
+        { id: 'pv_al_later', label: 'Say you’re just glad he’s safe', reply: 'Modest. How very un-Thunderbird of you. The invitation stands, darling.' }
       ]
     },
     // Topics that need a second tap to confirm (they are final).
     finalTopics: ['tip', 'pv_g_tell', 'pv_g_confess', 'pv_v_join', 'pv_v_refuse', 'pv_v_ready', 'pv_v_out', 'pv_v_yes', 'pv_d_call', 'pv_al_yes', 'pv_date'],
 
     rosaLines: {
-      low: '“I don’t know what you mean. I sit at the back because the seats are better.” She’s scared. Ring her again tomorrow.',
-      closer: '“I can’t. Not yet.” She’s close to telling you more. Ring her again tomorrow.',
-      vanessa: '“Okay. Vanessa Greer runs it. She calls the brakes and the fire ‘rehearsals’. I thought she was joking. She doesn’t joke.” Ring her again tomorrow.',
-      plan: '“Allison Kent keeps his diary. She tells Vanessa where he’ll be. The day after the Cofnas lecture, Day {A}, they’re doing something to his car. Faculty car park, bay fourteen. Please don’t say it came from me.”',
-      pressPrefix: '“Stop pushing! People are listening!” Then, very quietly: ',
-      burned: '“You gave my name to the police. Don’t ever call me again.” Click.'
+      low: 'I don’t know what you mean. I sit at the back because the seats are better. She’s scared. Ring her again tomorrow.',
+      closer: 'I can’t. Not yet. She’s close to telling you more. Ring her again tomorrow.',
+      vanessa: 'Okay. Vanessa Greer runs it. She calls the brakes and the fire rehearsals. I thought she was joking. She doesn’t joke. Ring her again tomorrow.',
+      plan: 'Allison Kent keeps his diary. She tells Vanessa where he’ll be. The day after the Cofnas lecture, Day {A}, they’re doing something to his car. Faculty car park, bay fourteen. Please don’t say it came from me.',
+      pressPrefix: 'Stop pushing! People are listening! Then, very quietly: ',
+      burned: 'You gave my name to the police. Don’t ever call me again. Click.'
     },
     gravesLines: {
-      tipPlan: '“{name}. Faculty car park, bay fourteen, Day {A}.” Graves writes it down without a word. “We’ll be there. Don’t you be.”',
-      tipNoPlan: '“{name}? On what? Bring me when and where.” Graves brings her in for questioning anyway and lets her go by evening. By morning the Back Row knows somebody pointed at them.',
-      tipEvidence: '“{name}. With the device from Vale’s car, that’s enough.” The Back Row is in cells by nightfall.',
-      tipInnocent: '“We’ll speak to her.” By the next day everyone on campus knows {name} was questioned, and nobody will look at you.'
+      tipPlan: '{name}. Faculty car park, bay fourteen, Day {A}. Graves writes it down without a word. We’ll be there. Don’t you be.',
+      tipNoPlan: '{name}? On what? Bring me when and where. Graves brings her in for questioning anyway and lets her go by evening. By morning the Back Row knows somebody pointed at them.',
+      tipEvidence: '{name}. With the device from Vale’s car, that’s enough. The Back Row is in cells by nightfall.',
+      tipInnocent: 'We’ll speak to her. By the next day everyone on campus knows {name} was questioned, and nobody will look at you.'
     },
     allisonLines: {
-      alone: '“He leaves it in bay fourteen on Day {A}. He drives himself everywhere, alone, singing opera badly at the lights. Don’t ring me again.”',
-      pemberton: '“Bay fourteen, Day {A}. But Pemberton borrows it that day and brings it back. I’ll text you when he’s gone. Wait for my text. Don’t ring me again.”'
+      alone: 'He leaves it in bay fourteen on Day {A}. He drives himself everywhere, alone, singing opera badly at the lights. Don’t ring me again.',
+      pemberton: 'Bay fourteen, Day {A}. But Pemberton borrows it that day and brings it back. I’ll text you when he’s gone. Wait for my text. Don’t ring me again.'
     },
     deviceLines: {
       notCollected: 'Somewhere very close, at your own house, a phone starts to ring.',
       tooEarly: 'It rings and rings. Allison hasn’t put it in place yet. You hang up, sweating.',
       success: 'It rings twice. Then, across town, very far away and very close, there is a sound you will hear for the rest of your life.',
-      waited: 'You wait for Allison’s text: “Pemberton’s gone. Now.” It rings twice. Then, across town, there is a sound you will hear for the rest of your life.',
+      waited: 'You wait for Allison’s text: Pemberton’s gone. Now. It rings twice. Then, across town, there is a sound you will hear for the rest of your life.',
       wrong: 'It rings twice. Across town, there is a sound you will hear for the rest of your life. You didn’t know Dr Pemberton had borrowed the car. Nobody told you, because you never asked.',
       done: 'The number is dead. It always will be.'
     },
@@ -344,12 +345,12 @@
       arrested: [
         { scene: 'room', caption: 'Blue lights sweep across your ceiling.' },
         { scene: 'room-open', caption: 'The bedroom door opens. Detective Eleanor Graves.' },
-        { scene: 'figure', caption: '“You know why I’m here.”' }
+        { scene: 'figure', caption: 'You know why I’m here.' }
       ],
       arrestedHandover: [
         { scene: 'room', caption: 'Car doors outside. Too many of them.' },
         { scene: 'room-open', caption: 'Detective Graves, holding the garden-centre bag Allison was carrying.' },
-        { scene: 'figure', caption: '“Hands where I can see them.”' }
+        { scene: 'figure', caption: 'Hands where I can see them.' }
       ],
       confessed: [
         { scene: 'room', caption: 'You put the phone down. It takes a long time for anyone to come.' },
@@ -368,33 +369,33 @@
 
     // Newspaper stories. image = file name in assets/newspapers/ (no extension).
     news: {
-      debate_notice: { section: 'Campus', headline: 'Fury as Professor Vale Invites Controversial Race and Intelligence Researcher', summary: 'Student organisations demand Vale’s resignation ahead of Nathan Cofnas’s lecture at Founders’ Hall on Day {T}.', body: 'Professor Adrian Vale has refused to withdraw his invitation to philosopher Nathan Cofnas, whose writing on intelligence, heredity and group differences is strongly disputed by many researchers. Student organiser Rebecca Shaw called the invitation “a platform for scientific racism” and delivered a petition demanding Vale’s dismissal. Campus security will be doubled at Founders’ Hall on Day {T}. Organiser Jennifer Tate promised “banners, chanting and absolutely no violence”. Professor Vale said contested claims “should be examined in daylight, not banned in the dark”.', image: 'professor_campus', readKey: 'debate' },
+      debate_notice: { section: 'Campus', headline: 'Fury as Professor Vale Invites Controversial Race and Intelligence Researcher', summary: 'Student organisations demand Vale’s resignation ahead of Nathan Cofnas’s lecture at Founders’ Hall on Day {T}.', body: 'Professor Adrian Vale has refused to withdraw his invitation to philosopher Nathan Cofnas, whose writing on intelligence, heredity and group differences is strongly disputed by many researchers. Student organiser Rebecca Shaw called the invitation a platform for scientific racism and delivered a petition demanding Vale’s dismissal. Campus security will be doubled at Founders’ Hall on Day {T}. Organiser Jennifer Tate promised banners, chanting and absolutely no violence. Professor Vale said contested claims should be examined in daylight, not banned in the dark.', image: 'professor_campus', readKey: 'debate' },
       classifieds: { section: 'Classifieds', headline: 'Classifieds', summary: 'GARDEN SHED CLEARANCE, ask for Lenny · HENDRY’S HARDWARE, we deliver · PHONES, unlocked, delivered', body: 'GARDEN SHED CLEARANCE. Old stock, cash only, no questions. Ask for Lenny.\nHENDRY’S HARDWARE. Wire, bulbs, fixings. We deliver!\nPHONES. Unlocked, pay as you go, delivered to your door.', image: 'classifieds', readKey: 'classifieds' },
-      innocent_questioned: { section: 'Local', headline: 'Student Questioned Over Professor Incidents', summary: 'Police released {name} without charge. Friends call it “a witch hunt”.', body: 'A student was questioned and released without charge over the recent incidents involving Professor Adrian Vale. Friends of {name} say she has been “hounded off campus”.', image: 'police_interview' },
-      arrest: { section: 'Front page', headline: 'Back Row Held Over Plot Against Professor', summary: 'Arrests in the faculty car park on Day {A}, the day after the Cofnas lecture.', body: 'Detective Eleanor Graves confirmed arrests in the faculty car park on Day {A} and thanked “a member of the public who wouldn’t let it go”. Professor Vale called the plot “amateurish”, asked whether his car would be returned washed, and confirmed his next guest will be the novelist Bret Easton Ellis.', image: 'police_station' },
-      device_found: { section: 'Front page', headline: 'Device Found Under Professor’s Car', summary: 'Professor Vale was staying with Thunderbird friends when a volunteer found a suspicious package.', body: 'A Thunderbird volunteer collecting Professor Adrian Vale’s car the day after the Cofnas lecture found a suspicious package taped beneath it. Police are hunting those responsible. Professor Vale said he was “unbearably safe” and that his speaker series would continue.', image: 'professor_device_found' },
-      cell_arrested_late: { section: 'Front page', headline: 'Campus Clique Arrested After Car Device Find', summary: 'Police arrested members of the group known as the Back Row.', body: 'Detectives arrested members of a fringe campus group calling itself the Back Row. Mainstream protest organisers said they had “never wanted anything to do with them”.', image: 'police_station' },
-      vale_dead: { section: 'Front page', headline: 'Professor Killed in Car Blast', summary: 'Professor Adrian Vale died on Day {A}, the day after hosting Nathan Cofnas.', body: 'Professor Adrian Vale, the university’s most controversial academic, died on Day {A} in an explosion in the faculty car park, the day after hosting philosopher Nathan Cofnas. Police are treating his death as murder and have linked it to two earlier “accidents”. The university has suspended his speaker series.', image: 'professor_car_blast' },
-      appeal: { section: 'Local', headline: 'Police Appeal for Witnesses After Car Blast', summary: 'Detectives want to hear from anyone who saw a garden-centre bag near the faculty car park.', body: 'Detective Eleanor Graves appealed for witnesses. “Somebody carried it in there,” she said. “Somebody saw them.”', image: 'police_evidence' },
-      memorial: { section: 'Campus', headline: 'Campus Holds Vigil for Professor Vale', summary: 'Supporters and opponents stood side by side.', body: 'Hundreds gathered outside Founders’ Hall with candles. Protest organiser Rebecca Shaw said: “We fought every one of his invitations. We argued with him every week. Nobody wanted this.”', image: 'professor_memorial' },
+      innocent_questioned: { section: 'Local', headline: 'Student Questioned Over Professor Incidents', summary: 'Police released {name} without charge. Friends call it a witch hunt.', body: 'A student was questioned and released without charge over the recent incidents involving Professor Adrian Vale. Friends of {name} say she has been hounded off campus.', image: 'police_interview' },
+      arrest: { section: 'Front page', headline: 'Back Row Held Over Plot Against Professor', summary: 'Arrests in the faculty car park on Day {A}, the day after the Cofnas lecture.', body: 'Detective Eleanor Graves confirmed arrests in the faculty car park on Day {A} and thanked a member of the public who wouldn’t let it go. Professor Vale called the plot amateurish, asked whether his car would be returned washed, and confirmed his next guest will be the novelist Bret Easton Ellis.', image: 'police_station' },
+      device_found: { section: 'Front page', headline: 'Device Found Under Professor’s Car', summary: 'Professor Vale was staying with Thunderbird friends when a volunteer found a suspicious package.', body: 'A Thunderbird volunteer collecting Professor Adrian Vale’s car the day after the Cofnas lecture found a suspicious package taped beneath it. Police are hunting those responsible. Professor Vale said he was unbearably safe and that his speaker series would continue.', image: 'professor_device_found' },
+      cell_arrested_late: { section: 'Front page', headline: 'Campus Clique Arrested After Car Device Find', summary: 'Police arrested members of the group known as the Back Row.', body: 'Detectives arrested members of a fringe campus group calling itself the Back Row. Mainstream protest organisers said they had never wanted anything to do with them.', image: 'police_station' },
+      vale_dead: { section: 'Front page', headline: 'Professor Killed in Car Blast', summary: 'Professor Adrian Vale died on Day {A}, the day after hosting Nathan Cofnas.', body: 'Professor Adrian Vale, the university’s most controversial academic, died on Day {A} in an explosion in the faculty car park, the day after hosting philosopher Nathan Cofnas. Police are treating his death as murder and have linked it to two earlier accidents. The university has suspended his speaker series.', image: 'professor_car_blast' },
+      appeal: { section: 'Local', headline: 'Police Appeal for Witnesses After Car Blast', summary: 'Detectives want to hear from anyone who saw a garden-centre bag near the faculty car park.', body: 'Detective Eleanor Graves appealed for witnesses. Somebody carried it in there, she said. Somebody saw them.', image: 'police_evidence' },
+      memorial: { section: 'Campus', headline: 'Campus Holds Vigil for Professor Vale', summary: 'Supporters and opponents stood side by side.', body: 'Hundreds gathered outside Founders’ Hall with candles. Protest organiser Rebecca Shaw said: We fought every one of his invitations. We argued with him every week. Nobody wanted this.', image: 'professor_memorial' },
       wrong_man: { section: 'Front page', headline: 'Lecturer Killed in Blast Meant for Colleague', summary: 'Dr Hal Pemberton died on Day {A} in a car borrowed from Professor Vale.', body: 'Dr Hal Pemberton, a well-liked lecturer, died on Day {A} in a car borrowed from Professor Adrian Vale. Police believe Professor Vale was the intended target.', image: 'professor_car_blast' },
-      player_arrested: { section: 'Front page', headline: 'Local Resident Charged Over Professor Plot', summary: 'Police charged a local resident after a tip-off.', body: 'Detective Eleanor Graves charged a local resident in connection with the plot against Professor Vale. Neighbours described them as “quiet, always on their phone”.', image: 'police_station' },
-      inquiry_stalls: { section: 'Local', headline: 'Vale Inquiry Stalls, Police Admit', summary: 'No arrests yet in the Vale case.', body: 'Detectives admitted the inquiry into Professor Vale’s death had “stalled”. Detective Graves said the case would stay open “for as long as it takes”.', image: 'police_roadblock' },
+      player_arrested: { section: 'Front page', headline: 'Local Resident Charged Over Professor Plot', summary: 'Police charged a local resident after a tip-off.', body: 'Detective Eleanor Graves charged a local resident in connection with the plot against Professor Vale. Neighbours described them as quiet, always on their phone.', image: 'police_station' },
+      inquiry_stalls: { section: 'Local', headline: 'Vale Inquiry Stalls, Police Admit', summary: 'No arrests yet in the Vale case.', body: 'Detectives admitted the inquiry into Professor Vale’s death had stalled. Detective Graves said the case would stay open for as long as it takes.', image: 'police_roadblock' },
       house_blast: { section: 'Front page', headline: 'Blast Destroys Bedroom on Quiet Road', summary: 'Police found the remains of a desk.', body: 'An explosion destroyed an upstairs bedroom on a quiet residential road. Police found the remains of a desk and a garden-centre bag.', image: 'police_evidence' },
       parcel_blast: { section: 'Front page', headline: 'Resident Killed by Parcel Left on Doorstep', summary: 'The parcel was wrapped in a garden-centre bag.', body: 'A resident was killed by a parcel left on their doorstep. Police linked it to the campus group known as the Back Row.', image: 'police_evidence' },
       informant: { section: 'Front page', headline: 'Informant Foils Plot Against Professor', summary: 'A member of a campus clique turned themselves in.', body: 'A plot against Professor Adrian Vale was foiled when a member of the group rang police and confessed. Other members were arrested.', image: 'police_station' },
-      bin_fire: { section: 'Local', headline: 'Professor Unhurt as Bin Fire Ends Fourth “Accident”', summary: 'Arrests after a bin caught fire near Professor Vale’s car.', body: 'Professor Adrian Vale was unhurt when a bin caught fire near his car, the fourth “accident” so far. Arrests were made at the scene, one suspect still holding the matches.', image: 'professor_fire' }
+      bin_fire: { section: 'Local', headline: 'Professor Unhurt as Bin Fire Ends Fourth Accident', summary: 'Arrests after a bin caught fire near Professor Vale’s car.', body: 'Professor Adrian Vale was unhurt when a bin caught fire near his car, the fourth accident so far. Arrests were made at the scene, one suspect still holding the matches.', image: 'professor_fire' }
     },
 
     endings: {
       hero_police: { kind: 'complete', title: 'The Detective’s Number', image: 'assets/quests/professor/ending-graves.png',
-        text: 'A long silence on the line. “You? Do you know how many people ring me with theories? You were the one who was right.” Another silence. “Dinner. Not a debrief. Dinner.”\n\nThe Sunfall Daily runs Vale’s face on the front page for days. He gives a lecture about it, then announces his next guest, Bret Easton Ellis, and the campus erupts all over again. You don’t go. You’re busy.',
+        text: 'A long silence on the line. You? Do you know how many people ring me with theories? You were the one who was right. Another silence. Dinner. Not a debrief. Dinner.\n\nThe Sunfall Daily runs Vale’s face on the front page for days. He gives a lecture about it, then announces his next guest, Bret Easton Ellis, and the campus erupts all over again. You don’t go. You’re busy.',
         dateText: '{name} says yes before you’ve finished typing. Everyone at the station knows who saved Professor Vale, and she wants the whole story, slowly, over dinner.' },
       hero_thunderbirds: { kind: 'complete', title: 'Guest of Honour', image: 'assets/quests/professor/ending-thunderbirds.png',
-        text: '“Marvellous.” Alice Beaumont sends a car for you. At the gala you sit at the top table between Alice and a professor who spends the whole dinner pretending he didn’t need saving and telling everyone that Adam Curtis has said yes. Every Thunderbird in Sunfall knows your name now.',
+        text: 'Marvellous. Alice Beaumont sends a car for you. At the gala you sit at the top table between Alice and a professor who spends the whole dinner pretending he didn’t need saving and telling everyone that Adam Curtis has said yes. Every Thunderbird in Sunfall knows your name now.',
         dateText: '{name} says yes before you’ve finished typing. At the next Thunderbird gala she walks you to the top table on her arm, and every Thunderbird in Sunfall raises a glass to the person who saved Professor Vale.' },
       back_row_forever: { kind: 'complete', title: 'One of Us', image: 'assets/quests/professor/ending-vanessa.png',
-        text: '“Then come over.” Vanessa’s flat is all candles and books with cracked spines. She pours two glasses and doesn’t say his name once. “The university has cancelled his speaker series,” she says. “Ellis, Curtis, all of them. The papers will call it unsolved. Let them.” The Back Row has a new seat at the front.' },
+        text: 'Then come over. Vanessa’s flat is all candles and books with cracked spines. She pours two glasses and doesn’t say his name once. The university has cancelled his speaker series, she says. Ellis, Curtis, all of them. The papers will call it unsolved. Let them. The Back Row has a new seat at the front.' },
       vale_dies: { kind: 'failure', title: 'The Professor Disappeared',
         text: 'The Back Row got it right the third time. The Sunfall Daily runs Vale’s photograph with a black border, and the university quietly cancels the rest of his speakers. You knew, and it wasn’t enough.',
         variants: { walked: 'You walked away, and the Back Row got it right the third time. The Sunfall Daily runs Vale’s photograph with a black border. You’ll always wonder.' } },
@@ -402,7 +403,7 @@
         text: 'The device never reached the car. Vanessa tried it herself the day after the Cofnas lecture, badly: a fourth failure, a smouldering bin, Vale untouched and arrests by nightfall. Vanessa never says your name to the police. You’ll never know why.' },
       confessed: { kind: 'gameover', title: 'Turned Yourself In', sequence: 'confessed',
         text: 'You tell Detective Graves everything: the voicemail, Lenny, the note, the desk. The Back Row is in cells by nightfall and Professor Vale never learns your name. You get a very long time to think.',
-        death: { verb: 'ARRESTED', cause: 'YOUR CONSCIENCE', line: 'Sunfall Daily, Day {n}: “Informant Foils Plot Against Professor.”' } },
+        death: { verb: 'ARRESTED', cause: 'YOUR CONSCIENCE', line: 'Sunfall Daily, Day {n}: Informant Foils Plot Against Professor.' } },
       arrested_handover: { kind: 'gameover', title: 'The Doorstep', sequence: 'arrestedHandover',
         text: 'The police had been watching your house. They took Allison on your doorstep, holding the bag. It took them a minute to come upstairs.',
         death: { verb: 'ARRESTED', cause: 'DETECTIVE GRAVES', line: 'Arrested at home on Day {n}. The bag was still on the doorstep.' } },
@@ -413,16 +414,16 @@
           rosa: 'Rosa Gutierrez walked into the police station and told Detective Graves everything. Your name came first.',
           confessed: 'You tell Graves everything. She listens to it twice. It doesn’t bring anyone back.'
         },
-        death: { verb: 'ARRESTED', cause: 'DETECTIVE GRAVES', line: 'Sunfall Daily, Day {n}: “Local Resident Charged Over Professor Plot.”' } },
+        death: { verb: 'ARRESTED', cause: 'DETECTIVE GRAVES', line: 'Sunfall Daily, Day {n}: Local Resident Charged Over Professor Plot.' } },
       wrong_man: { kind: 'gameover', title: 'The Wrong Man', sequence: 'arrested',
         text: 'Dr Hal Pemberton had borrowed Vale’s car. Vale is alive. Pemberton isn’t. Vanessa won’t answer, and two days later Detective Graves is at your bedroom door.',
-        death: { verb: 'ARRESTED', cause: 'DETECTIVE GRAVES', line: 'Sunfall Daily, Day {n}: “Local Resident Charged Over Lecturer’s Death.”' } },
+        death: { verb: 'ARRESTED', cause: 'DETECTIVE GRAVES', line: 'Sunfall Daily, Day {n}: Local Resident Charged Over Lecturer’s Death.' } },
       own_device: { kind: 'death', title: 'The Desk', sequence: 'ownDevice',
         text: 'Something on the desk goes wrong all at once.',
-        death: { verb: 'KILLED', cause: 'YOUR OWN DEVICE', line: 'Sunfall Daily, Day {n}: “Blast Destroys Bedroom on Quiet Road.”' } },
+        death: { verb: 'KILLED', cause: 'YOUR OWN DEVICE', line: 'Sunfall Daily, Day {n}: Blast Destroys Bedroom on Quiet Road.' } },
       silenced: { kind: 'death', title: 'A Parcel on the Doorstep', sequence: 'silenced',
         text: 'You don’t remember ordering anything.',
-        death: { verb: 'SILENCED', cause: 'THE BACK ROW', line: 'Sunfall Daily, Day {n}: “Resident Killed by Parcel Left on Doorstep.”' } }
+        death: { verb: 'SILENCED', cause: 'THE BACK ROW', line: 'Sunfall Daily, Day {n}: Resident Killed by Parcel Left on Doorstep.' } }
     }
   };
 
@@ -473,7 +474,7 @@
         cellArrested: false, cellAtLarge: false, silencedDay: null, attackResolved: false,
         favour: { thunderbirds: false, police: false }, arrestCall: false, aliceCall: false,
         joinedDay: null, conf: 0, heat: 0, rosaFear: 0, rosaPanicked: false,
-        carIntel: false, oldWire: false,
+        carIntel: false, oldWire: false, wireFrom: null,
         inv: { semtex: 'none', wire: 'none', phone: 'none' }, due: { semtex: null, wire: null, phone: null },
         device: 'none', assemblyFails: 0, handoverDay: null, detonatedDay: null, wrongMan: false, invited: false,
         news: [], log: [],
@@ -508,7 +509,7 @@
           case 'news': s.news = Array.isArray(val) ? val.filter(n => n && Number.isInteger(n.day) && D.news[n.key]).slice(0, 60).map(n => ({ day: n.day, key: n.key, vars: n.vars && typeof n.vars.name === 'string' ? { name: n.vars.name.slice(0, 60) } : {} })) : []; break;
           case 'log': s.log = Array.isArray(val) ? val.filter(x => typeof x === 'string').slice(-40).map(x => x.slice(0, 700)) : []; break;
           case 'ending': s.ending = ENDING_IDS.includes(val) ? val : null; break;
-          case 'endingVariant': case 'endingName': s[k] = typeof val === 'string' ? val.slice(0, 60) : null; break;
+          case 'endingVariant': case 'endingName': case 'wireFrom': s[k] = typeof val === 'string' ? val.slice(0, 60) : null; break;
           default: {
             const base = s[k];
             if (typeof base === 'boolean') s[k] = val === true;
@@ -641,7 +642,7 @@
       if (s.stage === 'dormant') return out;
 
       // Deliveries arrive overnight.
-      for (const it of ITEMS) if (s.inv[it] === 'ordered' && s.due[it] !== null && day >= s.due[it]) { s.inv[it] = 'have'; s.due[it] = null; roomEvent(D.room[it]); }
+      for (const it of ITEMS) if (s.inv[it] === 'ordered' && s.due[it] !== null && day >= s.due[it]) { s.inv[it] = 'have'; s.due[it] = null; roomEvent(it === 'wire' && s.wireFrom ? fill(D.room.wireGift, { name: s.wireFrom }) : D.room[it]); }
 
       // The Back Row deals with people who know too much.
       if (s.silencedDay !== null && day >= s.silencedDay && !s.cellArrested) { news(s, day + 1, 'parcel_blast'); end(s, 'silenced', day); return finish(); }
@@ -956,7 +957,6 @@
       const out = [];
       if (s.stage === 'open') out.push({ id: 'walk_away', label: 'Walk away from the case', desc: 'Stop asking. Vale is on his own.', confirm: true });
       if (s.stage === 'backrow') {
-        if (s.inv.wire === 'none') out.push({ id: 'search_room', label: 'Search your room for wire', desc: 'Free and untraceable. Old wire makes assembly harder.' });
         if (s.device === 'none') out.push({ id: 'assemble', label: 'Assemble it at your desk', desc: allItems(s) ? 'Two mistakes and it’s over. One try a day.' : 'You need the Semtex, the wire and the phone first.', enabled: allItems(s) });
       }
       return out.map(a => Object.assign({ enabled: true, confirm: false }, a));
@@ -966,9 +966,18 @@
       const a = roomActions(s).find(x => x.id === id);
       if (!a || !a.enabled) return no(L.unavailable);
       if (id === 'walk_away') { s.stage = 'withdrawn'; return ok(s, L.walkAway); }
-      if (id === 'search_room') { s.inv.wire = 'have'; s.oldWire = true; return ok(s, L.searchRoom); }
       if (usedToday(s, 'assemble', day)) return no(L.assembleRested);
       return { ok: true, workbench: workbenchConfig(s), text: say(s, L.assembleStart) };
+    }
+
+    // A woman whose job gives her wire (a florist, a jewellery maker, a sound engineer...) drops a
+    // reel round. It arrives tomorrow like an order, but there's no receipt, so no police heat.
+    function wireNeeded(s) { return !s.ending && s.stage === 'backrow' && s.inv.wire === 'none'; }
+    function wireFromFriend(s, name, day) {
+      if (s.ending) return no(L.over);
+      if (!wireNeeded(s)) return no(L.unavailable);
+      s.inv.wire = 'ordered'; s.due.wire = day + 1; s.wireFrom = String(name || 'A friend').slice(0, 60);
+      return ok(s, fill(L.wireFriend, { name: s.wireFrom }));
     }
 
     // ----- workbench -----
@@ -1029,7 +1038,7 @@
       }
       if (s.stage === 'backrow' && s.device !== 'detonated') {
         const need = ITEMS.filter(i => s.inv[i] !== 'have').map(i => D.workbench.items[i].label + (s.inv[i] === 'ordered' ? ' (arriving soon)' : ''));
-        if (need.length) todo.push('Still need: ' + need.join(', ') + '. Ring the circled numbers, or search your room.');
+        if (need.length) todo.push('Still need: ' + need.join(', ') + '. Ring the circled numbers, or a friend whose job gives her wire.');
         if (!need.length && s.device === 'none') todo.push('Assemble it at your desk.');
         if (!s.carIntel) todo.push('Ring Allison Kent about Vale’s car.');
         if (s.device === 'assembled') todo.push(`Ring Vanessa: tell her it’s ready, by Day ${s.attackDay - 1}.`);
@@ -1063,7 +1072,7 @@
       fresh, normalize, newDay, onNewsRead, newsFor,
       hingeTopics, chooseHinge, dateTopicFor, askOnDate,
       contactForNumber, knownLines, lineTopics, chooseLine,
-      roomActions, roomAction, workbenchConfig, assembleResult,
+      roomActions, roomAction, workbenchConfig, assembleResult, wireNeeded, wireFromFriend,
       caseFile, endingInfo,
       profileToPerson: profileId => PEOPLE.find(p => D.cast[p].profileId === profileId) || null
     };
@@ -1308,6 +1317,8 @@ body>.pv-overlay{position:fixed}
 
     return {
       engine: E, state, render, renderNotesPage, assembleFromParts,
+      wireNeeded: () => E.wireNeeded(state()),
+      wireFromFriend: name => after(E.wireFromFriend(state(), name, day())),
       onNewDay, onNewsRead, newsFor,
       hingeTopics, chooseHingeTopic,
       serviceTopics, chooseServiceTopic, contactForNumber,

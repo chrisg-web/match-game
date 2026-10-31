@@ -999,7 +999,7 @@
         talkNewDay(); // warm women message you first
         // Runs before today's paper is printed so delayed case stories appear in it.
         const caseEvent=blueRibbonNewDay();
-        chapel?.onNewDay(); // Task 2: countdown, favours, vigil and ritual night
+        chapel?.onNewDay(); // Task 2: the night of the rite, and Victoria's visits
         const valeDay=PV?.onNewDay(world.day); // Professor Vale: voicemails, deliveries, Day A; before the paper prints
         getNewsEdition(world.day);
         randomiseRoomLook();
@@ -1015,7 +1015,7 @@
         if(caseEvent==='invasion'){startHomeInvasion();return;}
         if(caseEvent==='warning')showGameNotice('A grey sedan is idling outside your home.');
         if(enforceUnansweredBearAtNight())return;
-        if(chapel?.afterDayStart())return; // Task 2: Victoria's warning or attack
+        if(chapel?.afterDayStart())return; // Task 2: Victoria's attack
         if((bearState==='tracking'||bearState==='night')&&!world.bearAwaitingResponse){scheduleBearReveal();return;}
         if(currentApp==='hinge')renderHinge();
         else if(currentApp==='news')renderNews();
@@ -1473,13 +1473,42 @@
       const caseConfirm=activeGenericCall?caseConfirmTopic(serviceTopics):null; // [Blue Ribbon] irreversible choices ask first
       const asking=callSpeechState==='options'||!!caseConfirm;
       const speech=caseConfirm?caseConfirm.confirm:asking?'What would you like to ask next?':latest;
-      const buttons=caseConfirm?caseConfirmButtons(caseConfirm):asking?(thread?(hingeDialogue?.callTopics||[]).map(topic=>`<button data-call-topic="${topic.id}">${esc(topic.label)}</button>`).join(''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
+      const buttons=caseConfirm?caseConfirmButtons(caseConfirm):asking?(thread?(hingeDialogue?.callTopics||[]).map(topic=>`<button data-call-topic="${topic.id}">${esc(topic.label)}</button>`).join('')+(wireAskable(thread,profile)?'<button data-call-topic="vale-wire">Ask if she has any wire</button>':''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
       $('call-bubble').innerHTML=`<img src="${profile?.gallery[0]||called.portrait}" alt="${esc(called.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(called.name)}</strong><p class="speech" aria-live="off">${esc(speech)}</p><div class="call-bubble-buttons">${buttons}<button data-call-hangup>End</button></div></div>`;
       $('call-bubble').classList.add('visible');
       hydrateInlineImages($('call-bubble'));
       startCallTypewriter(speech);
     }
+    // Professor Vale: while the Back Row still needs wire, you can ring a woman whose job gives
+    // her wire and ask for a reel. Only these jobs; the reel is on your doorstep tomorrow.
+    const WIRE_JOBS=[
+      [/florist/i,'Florist wire? I’ve got more of it than flowers. I’ll drop a reel round tomorrow.'],
+      [/jewell?ery maker|jeweller/i,'Silver, copper, every gauge going. I’ll bring you a reel tomorrow. Don’t ask me to make it pretty.'],
+      [/music venue|sound engineer|\bdj\b/i,'There’s a crate of speaker cable at work that nobody remembers buying. I’ll leave a reel on your doorstep tomorrow.'],
+      [/conservator/i,'Picture-hanging wire, museum grade. I’ll bring a reel round tomorrow. Please don’t hang anything ugly with it.'],
+      [/garden/i,'Garden wire, the green stuff for the trellises. I’ll drop a roll round tomorrow.'],
+      [/park ranger|horse trainer/i,'Fence wire I can do. There’s a whole roll in the truck. Tomorrow, on your doorstep.'],
+      [/art student/i,'Armature wire from the sculpture studio? Easy. I’ll bring it tomorrow.'],
+      [/wildlife rescue/i,'We’ve got half a roll left over from the new aviary. It’s yours tomorrow.']
+    ];
+    function wireJobLine(profile){
+      const job=String(hingeJobs[profile?.id]||profile?.canonicalOccupation||'');
+      return WIRE_JOBS.find(([pattern])=>pattern.test(job))?.[1]||null;
+    }
+    function wireAskable(thread,profile){
+      return !!(thread&&profile&&!thread.blocked&&!thread.fumbled&&PV?.wireNeeded?.()&&wireJobLine(profile));
+    }
+    function askHerForWire(){
+      const thread=hingeThreads.get(activeCallId),profile=hingeProfile(activeCallId);
+      if(!wireAskable(thread,profile))return;
+      thread.callLog.push({who:'you',text:'Odd question, but do you have any wire? A reel would do. It’s for a project.'});
+      if(warmthOf(thread)<0)thread.callLog.push({who:'her',text:'After the way you’ve talked to me? Buy your own wire.'});
+      else{thread.callLog.push({who:'her',text:wireJobLine(profile)});PV.wireFromFriend(profile.name);}
+      callSpeechState='line';
+      renderConnectedCall();
+    }
     function chooseCallTopic(id){
+      if(id==='vale-wire')return askHerForWire(); // Professor Vale
       const thread=hingeThreads.get(activeCallId),profile=hingeProfile(activeCallId);
       const topic=hingeDialogue?.callTopics?.find(item=>item.id===id);
       if(!thread||!profile||!topic)return;
@@ -1653,7 +1682,7 @@
     const icebreakers={
       thunderbirds:[
         'I have just escaped an argument about which donor gets the window seat. How is your evening?',
-        'Quick question: if someone says a benefit is “small”, how many hundred guests would you expect?',
+        'Quick question: if someone says a benefit is small, how many hundred guests would you expect?',
         'I went to buy flowers for a gala and accidentally came home with eight centrepieces.',
         'My weekend appears to have been sold to a charity auction. Do you have a rescue plan?',
         'There is a woman on the committee who has colour-coded the entire town. Help.'
@@ -1669,7 +1698,7 @@
         'Is it possible to organise a meeting about having fewer meetings? Asking for an entire committee.',
         'My start-up currently has a pitch deck, three tote bags and no product. How is your week?',
         'I have written a mission statement so ambitious I cannot fit it in my dating bio.',
-        'Someone called our campus group “too online” and honestly they had a point.',
+        'Someone called our campus group too online and honestly they had a point.',
         'Hi! I need an opinion on something more consequential than our group-chat drama.'
       ],
       sisters_of_mercy:[
@@ -1867,6 +1896,7 @@
               const responseMode=hingeLikes===1?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               hingeToast=profile.name+' matched with you!';
+              chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
             }
           }
           if(hingeToast)window.setTimeout(()=>{hingeToast='';if(currentApp==='hinge')renderHinge();},900);
@@ -1932,6 +1962,14 @@
         if(profile.factionId==='sisters_of_mercy'){
           thread.blocked=true;
           thread.log.push({who:'her',text:'That is completely inappropriate. Do not contact me again.',block:true});
+          renderHinge();
+          flashBlocked();
+          return;
+        }
+        // A woman over fifty is scandalised to be asked, and blocks you on the spot.
+        if((profile.age||0)>OLDER_WOMAN_AGE){
+          thread.blocked=true;
+          thread.log.push({who:'her',text:gamePick(OLDER_WOMAN_LINES),block:true});
           renderHinge();
           flashBlocked();
           return;
@@ -2042,6 +2080,8 @@
       if(tone()==='truecel')risk+=.15;
       return Math.max(0,Math.min(1,risk));
     }
+    const OLDER_WOMAN_AGE=50;
+    const OLDER_WOMAN_LINES=['You’re a disgusting young man.'];
     const PUSH_BLOCK_LINES=['I said no. Stop asking.','Wow. I’ve told you no. Blocked.','No means no. Goodbye.','I’m not doing this again. Blocked.'];
     // Her private pictures already in this chat. Worked out from the chat itself, so
     // older saves need nothing new, and only pictures from her private set count.
@@ -2830,7 +2870,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;renderNews();return;} // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
@@ -3265,10 +3305,10 @@
       }
       if(channel==='foundation'){
         brAddSuspicion(35,'You accused the treasurer to his own office.');
-        if(dossier.strong)return 'A long silence. “The treasurer will want to thank you personally.” The line goes dead.';
+        if(dossier.strong)return 'A long silence. The treasurer will want to thank you personally. The line goes dead.';
         silenceWitness();
         brSetOutcome('failed_accusation',['You accused the treasurer to his own office before investigators were involved.','Witnesses withdrew once the Foundation knew what you were claiming.']);
-        return '“We will be in touch.” The line goes dead.';
+        return 'We will be in touch. The line goes dead.';
       }
       if(dossier.strong){
         brAddSuspicion(10,'You told the newsroom you could prove the treasurer was involved.');
@@ -3294,7 +3334,7 @@
         brSetOutcome('success',['At least three genuinely independent sources backed each other up.','No rumours or contradicted theories in the file.','Your witness stayed protected.']);
         return {status:'success',reply:'This is well corroborated. We are opening an inquiry and arranging protection for your witness. Watch the papers over the next few days.'};
       }
-      const reasons=dossier.wrong.map(claim=>`Contradicted or unsupported: “${claim.text}”`);
+      const reasons=dossier.wrong.map(claim=>`Contradicted or unsupported: ${claim.text}`);
       if(dossier.trueIndependent<dossier.required)reasons.push(`Only ${dossier.trueIndependent} of ${dossier.required} needed links come from genuinely independent sources.`);
       if(dossier.repeatedSource)reasons.push('The phone slip and the police statement come from the same witness, so they only count once.');
       if(s.witness==='exposed')reasons.push('Your witness was exposed and withdrew her statement.');
@@ -3441,7 +3481,7 @@
       const s=brState();
       drawDeathTitle('THE BLUE RIBBON','SILENCED');
       const days=s.warnedDay?Math.max(1,world.day-s.warnedDay):(BR?.suspicion?.retaliationDelayDays||2);
-      $('fatal-overlay').querySelector('p').textContent=`They came ${days} day${days===1?'':'s'} after the first warning. Sunfall Daily, Day ${world.day+1}: “${BR?.news?.deathHeadline||'Resident found dead at home.'}”`;
+      $('fatal-overlay').querySelector('p').textContent=`They came ${days} day${days===1?'':'s'} after the first warning. Sunfall Daily, Day ${world.day+1}: ${BR?.news?.deathHeadline||'Resident found dead at home.'}`;
       $('fatal-overlay').classList.add('visible');
     }
     // Police-game-over rule: three formally reported crimes that the available
@@ -3872,7 +3912,6 @@
       const items=[];
       const m=world.marriage;
       if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweller'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
-      if(chapel?.state?.()?.marks>0)items.push({id:'pendant',label:'Crescent pendant',short:'Pendant',image:'assets/items/crescent-pendant.png',text:'A silver crescent pendant on a black cord, left outside your door. The coven knows who you are.',file:'chapel'});
       if(BR){
         const s=brState();
         for(const scrap of BR.scraps)if(s.found[scrap.id])items.push({id:'br:'+scrap.id,label:scrap.title,short:SCRAP_SHORT[scrap.id],image:scrap.image||null,
@@ -4361,6 +4400,7 @@
     chapel=window.MATCH_CHAPEL_ENGINE?window.MATCH_CHAPEL_ENGINE.create({
       document,$,esc,assetUrl,hydrate:hydrateInlineImages,recordClue,fit,setLowered,drawDeathTitle,playUiSound,openApp,
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,ensureThread:profile=>ensureHingeThread(profile,'now'),
+      warmth:id=>warmthOf(hingeThreads.get(id)),warmBy:(id,delta)=>{const thread=hingeThreads.get(id);if(thread)warmBy(thread,delta);},serviceKnown,
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
       setDoor:open=>{$('door').checked=open;fit();},
       openChat:id=>{closeCupboard();setLowered(false);hingeView='thread';activeChatId=id;openApp('hinge');},

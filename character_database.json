@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "MATCH character database. \"types\" are personality types adapted from free sources (public-domain novels; the CC BY 4.0 webcomic Pepper&Carrot by David Revoy). Personalities only: no names, likenesses or text are copied. Edit a woman's \"type\" or \"notes\", or any type, then rebuild the game. Re-running build-character-database.mjs keeps your edits.",
+  "about": "MATCH character database. types are personality types adapted from free sources (public-domain novels; the CC BY 4.0 webcomic Pepper&Carrot by David Revoy). Personalities only: no names, likenesses or text are copied. Edit a woman's type or notes, or any type, then rebuild the game. Re-running build-character-database.mjs keeps your edits.",
   "fields": {
     "bigFive": "Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism, each 1 to 5",
     "speed": "multiplies her reply delay; below 1 is faster",
@@ -18,7 +18,7 @@
     "roots": "the story behind her opinions (love, faith, world): told when you ask why she thinks that",
     "talk": "the conversation engine: faction likes and dislikes, questions she asks you, moods, callbacks, town asides, reputation, news follow-ups and Easter eggs",
     "talk.calls": "women who really like you ring you: openers, flirting, what they let slip, and the Sisters’ marriage questions",
-    "talk.daily": "“How was your day?”: her mood, her life in Sunfall, and what she asks back",
+    "talk.daily": "How was your day?: her mood, her life in Sunfall, and what she asks back",
     "talk.morning": "messages warm women send first on a new day",
     "talk.dates": "how she answers an invitation for coffee"
   },
@@ -544,13 +544,13 @@
       "traits": "Methodical, loyal and quietly fearless; keeps notes on everything; first to act in a crisis.",
       "first": {
         "mogger": "I already wrote you into my diary. Favourably.",
-        "normie": "I keep notes on everyone I meet. So far yours just says “promising”.",
-        "truecel": "My notes on you so far: “unclear”. Let’s improve that."
+        "normie": "I keep notes on everyone I meet. So far yours just says promising.",
+        "truecel": "My notes on you so far: unclear. Let’s improve that."
       },
       "another": "Noted, and sent.",
       "out": "That’s everything in the folder.",
       "refuse": "Later. I have notes to finish.",
-      "unasked": "Filed under “things you’ll like”.",
+      "unasked": "Filed under things you’ll like.",
       "voice": {
         "open": [
           "For the record, ",
@@ -563,11 +563,11 @@
       },
       "reactions": {
         "warm": [
-          "Good answer. You’re going in the “promising” column.",
+          "Good answer. You’re going in the promising column.",
           "That’s sensible. I like sensible."
         ],
         "cool": [
-          "That goes in the “concerns” column.",
+          "That goes in the concerns column.",
           "Hmm. I’ll make a note."
         ]
       },
@@ -923,7 +923,7 @@
       },
       "roots": {
         "love": "I fell down the rabbit hole of a terrible relationship once, and everything was upside down. Now I question everything, especially feelings.",
-        "faith": "I asked “why” so often at church that the priest started giving me books instead of answers. Best thing anyone ever did for me.",
+        "faith": "I asked why so often at church that the priest started giving me books instead of answers. Best thing anyone ever did for me.",
         "world": "When everyone agrees, I get suspicious. When everyone’s angry, I get curious."
       }
     },
@@ -1072,7 +1072,7 @@
         ]
       },
       "roots": {
-        "love": "My dad’s a lawyer and raised me on “evidence before conclusions”. It turns out that’s terrible advice for falling in love.",
+        "love": "My dad’s a lawyer and raised me on evidence before conclusions. It turns out that’s terrible advice for falling in love.",
         "faith": "I like mysteries with answers. Faith is a mystery that doesn’t hand you one. I’m still working on that.",
         "world": "I found a lost dog when I was eight by asking every neighbour the same three questions. I’ve never stopped asking questions."
       }
@@ -1454,7 +1454,7 @@
           },
           {
             "id": "accidents",
-            "label": "Ask about the Vale “accidents”",
+            "label": "Ask about the Vale accidents",
             "player": "Do you think the Vale accidents are connected?",
             "needsWarmth": 2,
             "reply": "Two isn’t a pattern. Three would be. If you hear anything with a day and a place attached, you call me, not the switchboard.",
@@ -1542,7 +1542,7 @@
             "id": "story",
             "label": "Ask what she’s working on",
             "player": "What are you working on right now?",
-            "reply": "I can tell you it involves a charity, a seating plan and a man who says “no comment” beautifully. That’s all you get."
+            "reply": "I can tell you it involves a charity, a seating plan and a man who says no comment beautifully. That’s all you get."
           },
           {
             "id": "sources",
@@ -1614,8 +1614,8 @@
             "label": "Ask about her seminar",
             "player": "Anyone interesting in your classes?",
             "needsWarmth": 2,
-            "reply": "There’s a girl in my seminar who works for Professor Vale. Types his letters, keeps his diary. She keeps leaving early for “meetings” and comes back pale. I’m a psych student. That’s data.",
-            "note": "Clara says a girl in her seminar works for Vale, keeps his diary, and leaves for secret “meetings”."
+            "reply": "There’s a girl in my seminar who works for Professor Vale. Types his letters, keeps his diary. She keeps leaving early for meetings and comes back pale. I’m a psych student. That’s data.",
+            "note": "Clara says a girl in her seminar works for Vale, keeps his diary, and leaves for secret meetings."
           }
         ],
         "views": {
@@ -1786,7 +1786,7 @@
             "id": "plants",
             "label": "Ask about her plants",
             "player": "How are the plants doing?",
-            "reply": "I have eleven. Six are alive. Two are “resting”. I talk to them every morning and I think it’s helping. Them, not me."
+            "reply": "I have eleven. Six are alive. Two are resting. I talk to them every morning and I think it’s helping. Them, not me."
           },
           {
             "id": "dream",
@@ -1898,7 +1898,7 @@
             "id": "frame",
             "label": "Ask what she caught on camera",
             "player": "Did you photograph the gala?",
-            "reply": "From across the road. One frame shows a grey sedan with its lights off, idling by the kitchen door. My editor said it was “nothing”.",
+            "reply": "From across the road. One frame shows a grey sedan with its lights off, idling by the kitchen door. My editor said it was nothing.",
             "needsWarmth": 1,
             "note": "Natalie Cross photographed a grey sedan idling by the gala kitchen door with its lights off."
           }
@@ -1999,7 +1999,7 @@
             "id": "marketing",
             "label": "Ask about marketing",
             "player": "What’s marketing actually like?",
-            "reply": "We sell feelings to people who are too tired to feel them. Today I wrote “elevate your hydration journey” about a water bottle. I need a shower."
+            "reply": "We sell feelings to people who are too tired to feel them. Today I wrote elevate your hydration journey about a water bottle. I need a shower."
           },
           {
             "id": "honest",
@@ -2040,9 +2040,9 @@
             "id": "booth",
             "label": "Ask what she overheard",
             "player": "Do you overhear things at the diner?",
-            "reply": "Everything. The night of the gala, two men in suits sat in the back booth and one said, “She’s not coming back, so stop asking.”",
+            "reply": "Everything. The night of the gala, two men in suits sat in the back booth and one said, She’s not coming back, so stop asking.",
             "needsWarmth": 2,
-            "note": "Madison Pike overheard two men at the Lucky Cactus on gala night: “She’s not coming back, so stop asking.”"
+            "note": "Madison Pike overheard two men at the Lucky Cactus on gala night: She’s not coming back, so stop asking."
           }
         ],
         "views": {}
@@ -2069,8 +2069,8 @@
           {
             "id": "lies",
             "label": "Ask about estate-agent language",
-            "player": "What does “characterful” mean in a listing?",
-            "reply": "Haunted or damp. “Cosy” means you can touch both walls. “Up-and-coming” means bring a dog."
+            "player": "What does characterful mean in a listing?",
+            "reply": "Haunted or damp. Cosy means you can touch both walls. Up-and-coming means bring a dog."
           },
           {
             "id": "sale",
@@ -2354,7 +2354,7 @@
             "id": "first",
             "label": "Ask about her first love",
             "player": "Who was your first love?",
-            "reply": "A boy who wrote me a poem that rhymed “Megan” with “vegan”. I married him in my head for three years."
+            "reply": "A boy who wrote me a poem that rhymed Megan with vegan. I married him in my head for three years."
           },
           {
             "id": "grind",
@@ -2396,7 +2396,7 @@
             "id": "future",
             "label": "Ask what she’s scared of",
             "player": "What scares you about leaving college?",
-            "reply": "That I’ll get a job I hate, a flat I can’t afford, and nobody to come home to. Everyone says “you have time”. Do I?",
+            "reply": "That I’ll get a job I hate, a flat I can’t afford, and nobody to come home to. Everyone says you have time. Do I?",
             "needsWarmth": 1
           }
         ],
@@ -2567,7 +2567,7 @@
             "id": "influencers",
             "label": "Ask about influencers at the pool",
             "player": "Do influencers come to the pool?",
-            "reply": "Every day. They film themselves “living their best life” for forty minutes and never touch the water."
+            "reply": "Every day. They film themselves living their best life for forty minutes and never touch the water."
           },
           {
             "id": "nightswim",
@@ -2751,7 +2751,7 @@
             "id": "romance",
             "label": "Ask about her love life",
             "player": "Are you a romantic?",
-            "reply": "Completely. I want flowers, a slow dance and someone who looks at me like I’m the only person in the room. Apparently that’s “a lot”.",
+            "reply": "Completely. I want flowers, a slow dance and someone who looks at me like I’m the only person in the room. Apparently that’s a lot.",
             "needsWarmth": 1
           }
         ],
@@ -2846,7 +2846,7 @@
             "id": "design",
             "label": "Ask about design work",
             "player": "What do you design?",
-            "reply": "Logos for companies that don’t exist yet and won’t exist next year. Currently: a “disruptive” sandwich app."
+            "reply": "Logos for companies that don’t exist yet and won’t exist next year. Currently: a disruptive sandwich app."
           },
           {
             "id": "ugly",
@@ -2858,9 +2858,9 @@
             "id": "logo",
             "label": "Ask about a strange commission",
             "player": "Have you had a strange commission?",
-            "reply": "Someone paid me to design a crescent symbol for “an exclusive social club”. No name, cash. I recognised it later on a gig poster.",
+            "reply": "Someone paid me to design a crescent symbol for an exclusive social club. No name, cash. I recognised it later on a gig poster.",
             "needsWarmth": 1,
-            "note": "Hana Park designed a crescent symbol for an anonymous “exclusive social club”, later seen on a gig poster."
+            "note": "Hana Park designed a crescent symbol for an anonymous exclusive social club, later seen on a gig poster."
           }
         ],
         "views": {}
@@ -2894,9 +2894,9 @@
             "id": "dyed",
             "label": "Ask about a client",
             "player": "Has a client said anything worrying?",
-            "reply": "A woman from the foundation had me dye her hair dark the morning after the gala. Very dark. She said she “needed to look different for a while”.",
+            "reply": "A woman from the foundation had me dye her hair dark the morning after the gala. Very dark. She said she needed to look different for a while.",
             "needsWarmth": 2,
-            "note": "Mei Chen dyed a foundation woman’s hair very dark the morning after the gala because she “needed to look different”."
+            "note": "Mei Chen dyed a foundation woman’s hair very dark the morning after the gala because she needed to look different."
           }
         ],
         "views": {}
@@ -2930,7 +2930,7 @@
             "id": "casting",
             "label": "Ask about the director",
             "player": "What’s your director like?",
-            "reply": "He cast me “for diversity” and said so out loud. I wanted the part because I’m good. Both of those things can be true, and only one was his business.",
+            "reply": "He cast me for diversity and said so out loud. I wanted the part because I’m good. Both of those things can be true, and only one was his business.",
             "needsWarmth": 1
           }
         ],
@@ -2998,7 +2998,7 @@
             "id": "drive",
             "label": "Ask what drives her",
             "player": "What gets you out of bed in the morning?",
-            "reply": "Winning. Targets, tennis, auctions. I don’t do “taking part”. Taking part is what losers call it."
+            "reply": "Winning. Targets, tennis, auctions. I don’t do taking part. Taking part is what losers call it."
           },
           {
             "id": "women",
@@ -3070,7 +3070,7 @@
             "id": "liaison",
             "label": "Ask what a community liaison does",
             "player": "What does a community liaison do?",
-            "reply": "I translate. Rich people say “outreach” and poor people say “rent”. I stand in the middle and make sure nobody gets slapped."
+            "reply": "I translate. Rich people say outreach and poor people say rent. I stand in the middle and make sure nobody gets slapped."
           },
           {
             "id": "matchmaking",
@@ -3147,7 +3147,7 @@
             "id": "photo",
             "label": "Ask about the gala photo",
             "player": "I saw you in the gala photo in the paper.",
-            "reply": "I was on duty, in a dress, because the board wanted security that “blended in”. The caption makes it look like I was a guest. I wasn’t. I was watching the door.",
+            "reply": "I was on duty, in a dress, because the board wanted security that blended in. The caption makes it look like I was a guest. I wasn’t. I was watching the door.",
             "note": "Officer Porter was on duty at the gala, watching the door, not attending as a guest."
           },
           {
@@ -3413,7 +3413,7 @@
             "id": "thesis",
             "label": "Ask about her thesis",
             "player": "What’s your thesis on?",
-            "reply": "Water rights in the desert. Who owns the rain. It sounds boring until you realise the answer is “whoever got there first with a lawyer”."
+            "reply": "Water rights in the desert. Who owns the rain. It sounds boring until you realise the answer is whoever got there first with a lawyer."
           },
           {
             "id": "nerves",
@@ -3464,7 +3464,7 @@
             "id": "guitars",
             "label": "Ask about the guitar dispute",
             "player": "What’s really going on with the bishop and the guitars?",
-            "reply": "The bishop wants to “modernise” us. We have sung the same Mass in that chapel since before he was born. I have written him four letters. He has replied to none."
+            "reply": "The bishop wants to modernise us. We have sung the same Mass in that chapel since before he was born. I have written him four letters. He has replied to none."
           },
           {
             "id": "notmarried",
@@ -3518,7 +3518,7 @@
             "player": "What’s the story of the old chapel outside town?",
             "needsWarmth": 1,
             "reply": "The old mission chapel lost its bell in a storm, long ago. The old women say it was the night the bell forgot its voice. Children dare each other to go there.",
-            "note": "Teresa says the old mission chapel is the one whose bell “forgot its voice”."
+            "note": "Teresa says the old mission chapel is the one whose bell forgot its voice."
           },
           {
             "id": "saint",
@@ -3770,7 +3770,7 @@
             "id": "judged",
             "label": "Ask how people treat her",
             "player": "Do people judge you for how you look?",
-            "reply": "Every day. The same people who say “be yourself” cross the road when I am."
+            "reply": "Every day. The same people who say be yourself cross the road when I am."
           },
           {
             "id": "mark",
@@ -3950,7 +3950,7 @@
             "id": "investor",
             "label": "Ask about the investor",
             "player": "Someone wants to buy your studio?",
-            "reply": "A “wellness brand” wants to turn it into a chain. Tattoos as self-care. I’d rather burn it down."
+            "reply": "A wellness brand wants to turn it into a chain. Tattoos as self-care. I’d rather burn it down."
           },
           {
             "id": "key",
@@ -4100,9 +4100,9 @@
             "id": "envelope",
             "label": "Ask what she overheard",
             "player": "You look like you overheard something you shouldn’t have.",
-            "reply": "Two board members arguing in the cloakroom on gala night over a sealed envelope. One said, “It burns tonight or we all do.” I was holding someone’s mink at the time.",
+            "reply": "Two board members arguing in the cloakroom on gala night over a sealed envelope. One said, It burns tonight or we all do. I was holding someone’s mink at the time.",
             "needsWarmth": 2,
-            "note": "Marianne Keene overheard two board members on gala night arguing over a sealed envelope that had to “burn tonight”."
+            "note": "Marianne Keene overheard two board members on gala night arguing over a sealed envelope that had to burn tonight."
           }
         ],
         "views": {}
@@ -4916,7 +4916,7 @@
             "id": "italian",
             "label": "Ask about learning Italian",
             "player": "You’re learning Italian?",
-            "reply": "Badly. I want to read Dante in the original before I die. Ambitious, for someone who still says “grazie” wrong."
+            "reply": "Badly. I want to read Dante in the original before I die. Ambitious, for someone who still says grazie wrong."
           },
           {
             "id": "witness",
@@ -5398,7 +5398,7 @@
             "id": "letter",
             "label": "Ask about the letter",
             "player": "Is something worrying you?",
-            "reply": "An unsigned letter came to my flat. It said “stop asking about the junction”. I hadn’t asked about the junction yet.",
+            "reply": "An unsigned letter came to my flat. It said stop asking about the junction. I hadn’t asked about the junction yet.",
             "needsWarmth": 1,
             "note": "Odette Price got an unsigned letter telling her to stop asking about the junction."
           }
@@ -5422,7 +5422,7 @@
             "id": "archive",
             "label": "Ask about the newspaper archive",
             "player": "What do you find in the Sunfall Daily archive?",
-            "reply": "A hundred years of the town lying to itself in very nice fonts. My favourite headline is from the drought years: “Rain Expected Any Day Now”. It wasn’t."
+            "reply": "A hundred years of the town lying to itself in very nice fonts. My favourite headline is from the drought years: Rain Expected Any Day Now. It wasn’t."
           },
           {
             "id": "stars",
@@ -5434,9 +5434,9 @@
             "id": "favour",
             "label": "Ask about the favour",
             "player": "Has someone asked you for a favour?",
-            "reply": "An old friend wants me to “lose” a box of clippings about the old chapel’s last caretaker. She’s never asked me for anything before. That’s what worries me.",
+            "reply": "An old friend wants me to lose a box of clippings about the old chapel’s last caretaker. She’s never asked me for anything before. That’s what worries me.",
             "needsWarmth": 1,
-            "note": "Arielle Brooks was asked by an old friend to “lose” archive clippings about the old chapel’s last caretaker."
+            "note": "Arielle Brooks was asked by an old friend to lose archive clippings about the old chapel’s last caretaker."
           }
         ],
         "views": {}
@@ -5481,9 +5481,9 @@
             "id": "recording",
             "label": "Ask about the ruined recording",
             "player": "What’s on the recording you’re restoring?",
-            "reply": "A voicemail from the night of the gala. Half of it is static. The other half is a woman saying “not Table 9, the kitchen”.",
+            "reply": "A voicemail from the night of the gala. Half of it is static. The other half is a woman saying not Table 9, the kitchen.",
             "needsWarmth": 2,
-            "note": "Delia Maher is restoring a gala-night voicemail: a woman says “not Table 9, the kitchen”."
+            "note": "Delia Maher is restoring a gala-night voicemail: a woman says not Table 9, the kitchen."
           }
         ],
         "views": {}
@@ -7412,7 +7412,7 @@
           ],
           "progressives": [
             -1,
-            "“Argue back.” We did. They called it censorship. What exactly is left?"
+            "Argue back. We did. They called it censorship. What exactly is left?"
           ],
           "sisters_of_mercy": [
             1,
@@ -7509,7 +7509,7 @@
         ],
         "progressives": [
           "Paglia tells young women their trauma is weakness, Houellebecq writes women as furniture, and Vale calls it brave. It isn’t brave to punch down.",
-          "“Woke” is just a sneer for caring whether people get treated like dirt. These speakers sell contempt and call it courage."
+          "Woke is just a sneer for caring whether people get treated like dirt. These speakers sell contempt and call it courage."
         ],
         "sisters_of_mercy": [
           "Houellebecq writes like a man who knows the West has lost God and can’t find the way back. On that, at least, he’s right.",
@@ -7588,7 +7588,7 @@
           ],
           "progressives": [
             -1,
-            "Nobody gets arrested for saying we differ. People object when it turns into “so women should be quiet”."
+            "Nobody gets arrested for saying we differ. People object when it turns into so women should be quiet."
           ],
           "sisters_of_mercy": [
             2,
@@ -7890,7 +7890,7 @@
           ],
           "progressives": [
             -2,
-            "“Always was” is what people say when they don’t want anything to change."
+            "Always was is what people say when they don’t want anything to change."
           ],
           "sisters_of_mercy": [
             0,
@@ -7957,7 +7957,7 @@
           "Same basics: safety, respect, someone to come home to. Different order, though."
         ],
         "progressives": [
-          "Most of the “differences” are things we were taught as toddlers. Pink aisle, blue aisle.",
+          "Most of the differences are things we were taught as toddlers. Pink aisle, blue aisle.",
           "We want the same things: respect, freedom, and a partner who washes up without being asked."
         ],
         "sisters_of_mercy": [
@@ -8019,7 +8019,7 @@
           ],
           "progressives": [
             -1,
-            "Different, sure. The trouble starts when “different” becomes “so you don’t get the promotion”."
+            "Different, sure. The trouble starts when different becomes so you don’t get the promotion."
           ],
           "sisters_of_mercy": [
             2,
@@ -8103,8 +8103,8 @@
     },
     {
       "id": "woke",
-      "label": "Ask what “woke” even means",
-      "player": "Everyone in Sunfall keeps saying “woke”. What does it actually mean?",
+      "label": "Ask what woke even means",
+      "player": "Everyone in Sunfall keeps saying woke. What does it actually mean?",
       "category": "faith",
       "views": {
         "thunderbirds": [
@@ -8117,7 +8117,7 @@
         ],
         "progressives": [
           "It means being awake to how people get treated. That’s it. The people sneering at it would rather you stayed asleep.",
-          "Honestly? We get things wrong. We spent a whole meeting deciding if “brainstorm” was offensive. But the people mocking us never turn up to the food bank."
+          "Honestly? We get things wrong. We spent a whole meeting deciding if brainstorm was offensive. But the people mocking us never turn up to the food bank."
         ],
         "sisters_of_mercy": [
           "It’s a church without confession. Everyone’s a sinner, nobody can be forgiven, and the sermon never ends.",
@@ -8247,7 +8247,7 @@
           ],
           "fourth_estate": [
             1,
-            "I’m stealing that. Credit to “a man on Hinge”."
+            "I’m stealing that. Credit to a man on Hinge."
           ],
           "goth_girls": [
             2,
@@ -8605,7 +8605,7 @@
           "Very much. A family is the one place you’re loved for being, not doing."
         ],
         "fourth_estate": [
-          "I keep saying “after the next big story”. There’s always a next big story.",
+          "I keep saying after the next big story. There’s always a next big story.",
           "Yes. I want someone to read the paper to me when I’m old. Even the sports pages."
         ],
         "goth_girls": [
@@ -8800,42 +8800,42 @@
     {
       "id": "therapy",
       "label": "Ask about all the therapy talk",
-      "player": "Everyone talks like a therapist now. “Boundaries”, “trauma”, “toxic”. What do you make of it?",
+      "player": "Everyone talks like a therapist now. Boundaries, trauma, toxic. What do you make of it?",
       "category": "faith",
       "views": {
         "thunderbirds": [
-          "My friends don’t have problems any more. They have “trauma responses”. One called being late a trauma response.",
-          "My grandmother had a word for most of it. The word was “life”."
+          "My friends don’t have problems any more. They have trauma responses. One called being late a trauma response.",
+          "My grandmother had a word for most of it. The word was life."
         ],
         "police": [
-          "I see real trauma at work. When someone calls a rude email “trauma”, I want to show them a crime scene.",
-          "Some people need help, badly. Others just want a word that means “not my fault”."
+          "I see real trauma at work. When someone calls a rude email trauma, I want to show them a crime scene.",
+          "Some people need help, badly. Others just want a word that means not my fault."
         ],
         "progressives": [
           "Therapy saved my life. People mock the language because they’re scared of the feelings.",
-          "Fine, “toxic” is overused. But men of my dad’s generation needed some of these words and never had them."
+          "Fine, toxic is overused. But men of my dad’s generation needed some of these words and never had them."
         ],
         "sisters_of_mercy": [
           "We used to call it confession. It was free, and it ended with forgiveness. Therapy never quite gets to the forgiveness.",
           "There’s wisdom in it. But the self is a poor god. It can’t absolve you."
         ],
         "fourth_estate": [
-          "The language spread faster than the help did. Everyone can say “boundaries”. Not everyone can see a counsellor.",
-          "It’s become a way to win arguments. “You’re gaslighting me” ends a conversation faster than any fact."
+          "The language spread faster than the help did. Everyone can say boundaries. Not everyone can see a counsellor.",
+          "It’s become a way to win arguments. You’re gaslighting me ends a conversation faster than any fact."
         ],
         "goth_girls": [
           "Everyone wants a diagnosis like it’s an accessory. I just have a personality.",
           "Pain used to make art. Now it makes captions."
         ],
         "normie_girls": [
-          "My friend says I have an “anxious attachment style”. I think I just like texting.",
+          "My friend says I have an anxious attachment style. I think I just like texting.",
           "I tried therapy. She was nice. I mostly talked about my mum."
         ]
       },
       "follow": {
         "question": [
           "Have you ever been to therapy?",
-          "Are you a “boundaries” man?"
+          "Are you a boundaries man?"
         ],
         "options": {
           "warm": {
@@ -8861,8 +8861,8 @@
       "big": true,
       "views": {
         "thunderbirds": [
-          "Men used to build railways. Now they build “personal brands”. I blame the brands.",
-          "My father ran a business and a household and never once said the word “self-care”. He was miserable, but competent."
+          "Men used to build railways. Now they build personal brands. I blame the brands.",
+          "My father ran a business and a household and never once said the word self-care. He was miserable, but competent."
         ],
         "police": [
           "I arrest a lot of young men with nothing to do and nothing to lose. That isn’t a crisis of masculinity. It’s a crisis of purpose.",
@@ -8877,7 +8877,7 @@
           "A man with a vocation is a happy man. Fatherhood, a craft, the priesthood. Something to give his life to."
         ],
         "fourth_estate": [
-          "Every paper has run the “crisis of men” piece. None of them asked men. I did. They said they were lonely.",
+          "Every paper has run the crisis of men piece. None of them asked men. I did. They said they were lonely.",
           "The numbers are real: fewer degrees, fewer friends, fewer marriages. The explanations are where everyone starts shouting."
         ],
         "goth_girls": [
@@ -8941,7 +8941,7 @@
           ],
           "fourth_estate": [
             1,
-            "That matches my interviews. They said “useless” more than “angry”."
+            "That matches my interviews. They said useless more than angry."
           ],
           "goth_girls": [
             2,
@@ -8971,7 +8971,7 @@
           ],
           "fourth_estate": [
             0,
-            "That’s a slogan. What would “better” look like?"
+            "That’s a slogan. What would better look like?"
           ],
           "goth_girls": [
             -1,
@@ -9022,7 +9022,7 @@
       "views": {
         "thunderbirds": [
           "Of course it matters. Look at the new civic centre: a beige box with a slogan. Our grandparents built cathedrals.",
-          "Beauty is a discipline. Everyone wants to be “comfortable” instead. Comfortable is how you end up in leggings at the opera."
+          "Beauty is a discipline. Everyone wants to be comfortable instead. Comfortable is how you end up in leggings at the opera."
         ],
         "police": [
           "I don’t think about it much. But the old courthouse makes people stand up straighter. The new one makes them shout.",
@@ -9210,7 +9210,7 @@
         ],
         "goth_girls": [
           "He took me to a haunted house and screamed louder than the actors.",
-          "He said he was “into dark stuff”. He meant energy drinks."
+          "He said he was into dark stuff. He meant energy drinks."
         ],
         "normie_girls": [
           "He showed me his car’s engine for forty minutes.",
@@ -9267,7 +9267,7 @@
         ],
         "goth_girls": [
           "A musician. He wrote three songs about me. All bad.",
-          "He moved to the coast to “find himself”. He found a yoga teacher."
+          "He moved to the coast to find himself. He found a yoga teacher."
         ],
         "normie_girls": [
           "Five years. He never proposed. Then he married the next girl within six months.",
@@ -9353,7 +9353,7 @@
             "He’s speaking at our gala next season, if anyone lets him live that long. That’s not a joke, actually."
           ],
           "police": [
-            "Two “accidents” to one man is a coincidence. Three is a pattern. I’m counting.",
+            "Two accidents to one man is a coincidence. Three is a pattern. I’m counting.",
             "People keep asking me if it’s connected. I keep not answering."
           ],
           "progressives": [
@@ -9813,7 +9813,7 @@
               "seeking"
             ],
             "told": "you used to pray",
-            "pos": "“Used to” is a door left open.",
+            "pos": "Used to is a door left open.",
             "neg": "Used to. Like most things."
           },
           {
@@ -10072,7 +10072,7 @@
             ],
             "told": "you’re not the marrying kind",
             "pos": "At least you’re upfront.",
-            "neg": "Noted. Moving you to the “fun for now” column."
+            "neg": "Noted. Moving you to the fun for now column."
           },
           {
             "id": "dinner",
@@ -10321,13 +10321,13 @@
           },
           {
             "id": "first",
-            "label": "Say you said “I love you” first",
-            "player": "Said “I love you” first, and meant it.",
+            "label": "Say you said I love you first",
+            "player": "Said I love you first, and meant it.",
             "tags": [
               "romance",
               "honest"
             ],
-            "told": "you once said “I love you” first",
+            "told": "you once said I love you first",
             "pos": "Oh, that’s the bravest one there is.",
             "neg": "And how did that go?"
           },
@@ -10513,7 +10513,7 @@
     "reputation": {
       "thunderbirds": {
         "liked": "The committee approves of you, apparently. Don’t ask me how they know.",
-        "disliked": "Someone at the club says you’re “very campus”. I’m reserving judgement."
+        "disliked": "Someone at the club says you’re very campus. I’m reserving judgement."
       },
       "police": {
         "liked": "You’ve got a reputation for being straight with people. I checked. Habit.",
@@ -10521,7 +10521,7 @@
       },
       "progressives": {
         "liked": "My friends say you’re one of the good ones. Don’t let it go to your head.",
-        "disliked": "Heads up: you have a nickname in our group chat. “The Paglia guy.” Not a compliment."
+        "disliked": "Heads up: you have a nickname in our group chat. The Paglia guy. Not a compliment."
       },
       "sisters_of_mercy": {
         "liked": "Some of the ladies at the parish have heard about you. Good things.",
@@ -10807,7 +10807,7 @@
           "Don’t ask. Okay, you asked.",
           "Irritating from start to finish.",
           "Everyone has been wrong about everything all day.",
-          "If one more person says “circle back”, I’ll scream.",
+          "If one more person says circle back, I’ll scream.",
           "Grumpy. Talk me down."
         ],
         "giddy": [
@@ -10820,11 +10820,11 @@
       },
       "life": {
         "thunderbirds": [
-          "The auction committee spent an hour on napkin colours. We chose “champagne”, which is beige with ambition.",
-          "I met a donor who gives millions to “awareness” and nothing to anything you can actually touch.",
+          "The auction committee spent an hour on napkin colours. We chose champagne, which is beige with ambition.",
+          "I met a donor who gives millions to awareness and nothing to anything you can actually touch.",
           "Lunch at the club. Everyone talked about the Elena Cross business without once saying her name.",
           "I wrote forty thank-you cards by hand. Civilisation is mostly stationery.",
-          "A girl at the foundation asked how to be “authentic” at galas. I told her to stop trying.",
+          "A girl at the foundation asked how to be authentic at galas. I told her to stop trying.",
           "Our new intern has a ring light and no handwriting. That’s the generation gap in one sentence."
         ],
         "police": [
@@ -10832,15 +10832,15 @@
           "Paperwork. Most of police work is paperwork about the five minutes that weren’t.",
           "I took a statement from a kid who filmed a crash instead of helping. Everyone has a camera. Nobody has a free hand.",
           "Quiet shift. Quiet shifts make me nervous.",
-          "Training day. A consultant told us to “centre our feelings”. I centred my coffee.",
+          "Training day. A consultant told us to centre our feelings. I centred my coffee.",
           "I drove past the old interstate junction twice. That place still bothers me."
         ],
         "progressives": [
           "We spent the meeting writing a statement about another statement. Then someone cried. Productive, really.",
           "I ran the food drive. Twelve volunteers, eleven Instagram posts, one van. Guess which one mattered.",
-          "A student called my politics “cringe”. He’s nineteen and runs a crypto newsletter.",
+          "A student called my politics cringe. He’s nineteen and runs a crypto newsletter.",
           "I read a long thread about burnout and then burnt out reading it.",
-          "Campus housing is a scandal. Kids sleeping in cars while the university builds a “wellness pavilion”.",
+          "Campus housing is a scandal. Kids sleeping in cars while the university builds a wellness pavilion.",
           "Someone called me woke as an insult and I said thank you. He looked so confused."
         ],
         "sisters_of_mercy": [
@@ -10853,23 +10853,23 @@
         ],
         "fourth_estate": [
           "I chased a quote for hours. It came from a parody account. That’s journalism now, in one sentence.",
-          "The editor wants “engagement”. I want facts. We compromised on a bear story.",
-          "I interviewed a councillor who answered every question with “that’s a great question”.",
+          "The editor wants engagement. I want facts. We compromised on a bear story.",
+          "I interviewed a councillor who answered every question with that’s a great question.",
           "I fact-checked a viral post. False. Fifty thousand shares. My correction has nine.",
           "A source finally rang back, then asked me not to print anything. Classic.",
           "Someone sent us an anonymous tip about the gala, written entirely in capitals. I’m taking it seriously anyway."
         ],
         "goth_girls": [
           "I slept through the daylight like a civilised person and woke up for the good part.",
-          "A tourist asked if I was “in costume”. I said yes, the costume is me.",
+          "A tourist asked if I was in costume. I said yes, the costume is me.",
           "We held a candlelit wake for the record shop’s old turntable. People wept. I did not. Much.",
-          "I read Baudelaire in the cemetery and a groundskeeper asked me to stop “loitering beautifully”.",
+          "I read Baudelaire in the cemetery and a groundskeeper asked me to stop loitering beautifully.",
           "A man at the bar tried to explain my own music to me. Brave of him.",
           "Everyone online is performing being sad. I’m just sad, quietly, in a nice coat."
         ],
         "normie_girls": [
           "Work, gym, cereal for dinner. Living the dream.",
-          "My manager sent a “quick question” that took four hours.",
+          "My manager sent a quick question that took four hours.",
           "I spent my lunch break looking at houses I can’t afford. It’s a hobby now.",
           "My friend got engaged and posted it before she told her mum. Drama.",
           "I tried a recipe from a video. It looked nothing like the video.",
@@ -11134,7 +11134,7 @@
             "note": "Someone on campus is passing round Professor Vale’s timetable."
           },
           {
-            "line": "The housing office keeps “losing” complaints from the motel strip. I’m keeping copies.",
+            "line": "The housing office keeps losing complaints from the motel strip. I’m keeping copies.",
             "note": "A Progressive is keeping copies of housing complaints the university keeps losing."
           }
         ],
