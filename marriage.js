@@ -15,7 +15,7 @@
  *   2. Her examination: five correct answers in a row. A wrong answer resets the
  *      count and starts a new attempt; no question repeats within an attempt.
  *      Passing is permanent and recorded separately for each Sister.
- *   3. Ring one of five Scottsdale jewellers (numbers in Contacts once you begin an examination). Each has a
+ *   3. Ring one of five Scottsdale jewellers (match with her on Hinge and ask for her number). Each has a
  *      different conversation that ends with a free wedding ring, which then
  *      appears on the desk. There is no inventory: the ring is one saved flag.
  *   4. Propose in her chat. Without a ring: "Wait, without a ring?". With one:
@@ -30,6 +30,7 @@
   const SISTER_ID=/^MATCH-\d{3}$/;
   const JEWELLERS=['agnes','rafael','clara','joseph','sofia'];
   const LETTERS=['A','B','C','D'];
+  const QUESTIONS_PER_DAY_MAX=5;
   const lineId=id=>'service:jeweller-'+id;
   const SLIDE_MS=5200;
   const STYLE=`
@@ -54,6 +55,7 @@
     .marriage-win .note{margin:0;font:11px/1.3 'Trebuchet MS',Tahoma,sans-serif;color:#d9c39b}
     @keyframes marriageWinIn{from{opacity:0}to{opacity:1}}
     .marriage-choice.propose{border-color:#e6c066!important}
+    .marriage-choice.marriage-waiting{opacity:.55;cursor:default;filter:grayscale(.6)}
     @media (prefers-reduced-motion: reduce){.marriage-show img{transition:none}.marriage-show img.on{animation:none}.marriage-win.visible{animation:none}}
   `;
 
@@ -76,8 +78,8 @@
     }
 
     // ---------- state ----------
-    function freshSister(){return {started:false,passed:false,active:false,streak:0,asked:[],current:null,attempts:0,draws:0,best:0,proposedWithoutRing:0};}
-    function freshJeweller(){return {asked:false,church:false,favourAsked:false,chapelTold:false,orderedDay:null,ready:false};}
+    function freshSister(){return {started:false,passed:false,active:false,streak:0,asked:[],current:null,attempts:0,draws:0,best:0,proposedWithoutRing:0,day:null,todayCount:0};}
+    function freshJeweller(){return {asked:false,church:false,favourAsked:false,chapelTold:false,orderedDay:null,ready:false,met:false};}
     function freshState(){
       return {v:1,sisters:Object.fromEntries(SISTERS.map(id=>[id,freshSister()])),
         ring:null,jewellers:Object.fromEntries(JEWELLERS.map(id=>[id,freshJeweller()])),numbers:{},married:null};
@@ -93,6 +95,8 @@
         const o=out.sisters[id]||(out.sisters[id]=freshSister());
         for(const key of ['started','passed','active'])o[key]=s[key]===true;
         for(const key of ['streak','attempts','draws','best','proposedWithoutRing'])o[key]=Math.max(0,int(s[key])||0);
+        o.day=int(s.day)!==null&&s.day>0?s.day:null;
+        o.todayCount=Math.min(QUESTIONS_PER_DAY_MAX,Math.max(0,int(s.todayCount)||0));
         o.asked=Array.isArray(s.asked)?[...new Set(s.asked.filter(q=>ids.has(q)))].slice(-10):[];
         o.current=ids.has(s.current)?s.current:null;
         // Each right answer in this attempt is a question already asked, so a streak that is
@@ -106,7 +110,7 @@
         const j=raw.jewellers?.[id];
         if(!j||typeof j!=='object')continue;
         const o=out.jewellers[id];
-        for(const key of ['asked','church','favourAsked','chapelTold','ready'])o[key]=j[key]===true;
+        for(const key of ['asked','church','favourAsked','chapelTold','ready','met'])o[key]=j[key]===true;
         o.orderedDay=int(j.orderedDay);
       }
       if(raw.numbers&&typeof raw.numbers==='object')for(const id of JEWELLERS)if(typeof raw.numbers[id]==='string'&&/^\d{7}$/.test(raw.numbers[id]))out.numbers[id]=raw.numbers[id];
@@ -142,6 +146,12 @@
     const sisterState=(st,id)=>st.sisters[id]||(st.sisters[id]=freshSister());
     const firstName=id=>(sister(id)?.name||'her').split(' ')[0];
     const question=qid=>data.questions.find(q=>q.id===qid);
+    // At most two examination questions a day for each Sister (data.rules.questionsPerDay).
+    const perDay=()=>Math.max(1,Math.min(QUESTIONS_PER_DAY_MAX,data?.rules?.questionsPerDay||2));
+    const askedToday=s=>s.day===today()?s.todayCount:0;
+    const canAsk=s=>askedToday(s)<perDay();
+    function countAnswer(s){if(s.day!==today()){s.day=today();s.todayCount=0;}s.todayCount++;}
+    const dayDoneLine=(id,key)=>pick(data?.rules?.dayDone||['That’s enough for today. Ask me again tomorrow.'],key+':done');
     const threadOf=id=>api.threads().get(id);
     const esc=value=>api.esc(value);
     const fill=(text,vars)=>String(text||'').replace(/\{(\w+)\}/g,(match,key)=>vars&&vars[key]!=null?String(vars[key]):match);
@@ -165,6 +175,7 @@
         return {html:tag(`Her examination · ${s.streak} of ${data.rules.streakToPass} in a row`)+answers+button(`pause:${id}`,'Ask to stop for now',{mark:'‹'}),only:true};
       }
       if(s.passed)return {html:button(`propose:${id}`,`Propose to ${firstName(id)}`,{extra:'propose'}),only:false};
+      if(s.started&&!canAsk(s))return {html:`<button class="hinge-chat-choice marriage-choice marriage-waiting" disabled>💍 ${esc(firstName(id))}’s next questions tomorrow (${s.streak} in a row)</button>`,only:false};
       const label=s.started?`Continue her examination (${s.streak} in a row)`:sister(id).start;
       return {html:button(`start:${id}`,label),only:false};
     }
@@ -196,7 +207,7 @@
     }
     function start(st,id){
       const s=sisterState(st,id),sis=sister(id);
-      if(s.passed||st.married)return;
+      if(s.passed||st.married||!canAsk(s))return;
       const opening=s.started?sis.resume:sis.intro;
       const firstTime=!s.started;
       const q=s.current!==null?question(s.current):null;
@@ -214,6 +225,7 @@
       const key=`${id}:${s.draws}:${s.attempts}`;
       converse(id,`${LETTERS[index]}. ${q.answers[index]}`,[],()=>{
         const thread=threadOf(id);
+        countAnswer(s);
         if(correct){
           s.streak++;s.best=Math.max(s.best,s.streak);
           if(s.streak>=data.rules.streakToPass){
@@ -227,6 +239,12 @@
         }else{
           s.streak=0;s.asked=[];s.attempts++;
           thread.log.push({who:'her',text:pick(sis.wrong,key+':w')});
+        }
+        if(!canAsk(s)){ // that's her two for today
+          s.active=false;s.current=null;
+          thread.log.push({who:'her',text:dayDoneLine(id,key)});
+          api.save();
+          return;
         }
         thread.log.push({who:'her',text:draw(st,id).question});
       });
@@ -275,7 +293,7 @@
       const st=state();
       if(!st)return null;
       ensureNumbers(st);
-      const id=JEWELLERS.find(key=>st.numbers[key]===String(number));
+      const id=JEWELLERS.find(key=>st.numbers[key]===String(number)&&st.jewellers[key]?.met);
       if(!id)return null;
       const j=data.jewellers[id];
       return {id:lineId(id),name:`${j.name}, ${j.shop}`,portrait:j.portrait,greeting:j.greeting};
@@ -356,19 +374,20 @@
     // ---------- the Wedding box (bedside cupboard) and Contacts ----------
     // The jewellers' numbers reach Contacts once you've begun any Sister's examination
     // (she tells you to find a ring), or once you have the ring.
-    function jewellersKnown(st){return !!(st&&(st.ring||Object.values(st.sisters||{}).some(s=>s&&s.started)));}
+    // A jeweller is in your Contacts only once you've matched with her on Hinge and asked for her number.
+    function jewellersKnown(st){return !!(st&&JEWELLERS.some(id=>st.jewellers[id]?.met));}
     function jewellerContacts(){
       const st=state();
       if(!jewellersKnown(st))return [];
       ensureNumbers(st);
-      return JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,number:st.numbers[id],portrait:data.jewellers[id].portrait}));
+      return JEWELLERS.filter(id=>st.jewellers[id].met).map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,number:st.numbers[id],portrait:data.jewellers[id].portrait}));
     }
     function jewellerName(id){return data?.jewellers?.[id]?.name||'';}
     function notesEntry(options={}){
       const st=state();
       if(!st)return '';
       ensureNumbers(st);
-      const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. The jewellers are in your Contacts.':'Not yet.';
+      const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. Ring a jeweller from your Contacts.':'Not yet. Find a jeweller on Hinge and ask for her number.';
       const exams=sisterIds().filter(id=>threadOf(id)).map(id=>{
         const s=sisterState(st,id);
         const status=st.married?.id===id?'married ♥':s.passed?'passed her examination. You may propose.':s.started?`examination in progress (${s.streak} in a row)`:'not asked yet';
@@ -515,6 +534,45 @@
       optionsFor,choose,notesEntry,jewellerContacts,jewellerName,contactForNumber,serviceTopics,chooseServiceTopic,
       reset,afterLoad,refreshDesk,previewWedding,
       hasData:()=>!!data,
+      // The five jewellers as Hinge cards (preview.html puts them in the swipe deck).
+      jewellerCards:()=>JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,role:data.jewellers[id].role,portrait:data.jewellers[id].portrait})),
+      // You matched with her and asked for her number: her shop line goes in your Contacts.
+      meetJeweller:id=>{
+        const st=state();
+        if(!st||!JEWELLERS.includes(id))return null;
+        ensureNumbers(st);
+        st.jewellers[id].met=true;
+        api.save();
+        return st.numbers[id];
+      },
+      // A Sister who rings you may ask one of today's two examination questions over the phone.
+      // It counts like one asked in the chat. Returns null if her examination hasn't started,
+      // is passed, or today's questions are used up.
+      phoneExam:id=>{
+        const st=state();
+        if(!st||st.married||!sister(id))return null;
+        const s=sisterState(st,id);
+        if(!s.started||s.passed||!canAsk(s))return null;
+        const q=s.current!==null?question(s.current):draw(st,id);
+        s.active=false; // the phone has the question now; the chat waits
+        return {id:q.id,question:q.question,answers:[...q.answers]};
+      },
+      phoneAnswer:(id,index)=>{
+        const st=state();
+        if(!st||!sister(id))return null;
+        const s=sisterState(st,id);
+        if(s.current===null||!(index>=0&&index<4))return null;
+        const q=question(s.current),correct=index===q.correctAnswerIndex,sis=sister(id);
+        countAnswer(s);
+        let passed=false;
+        if(correct){
+          s.streak++;s.best=Math.max(s.best,s.streak);
+          if(s.streak>=data.rules.streakToPass){passed=true;s.passed=true;s.asked=[];s.streak=0;api.status(`${sis.name} says you passed. You may now propose to her.`);}
+        }else{s.streak=0;s.asked=[];s.attempts++;}
+        s.current=null;s.active=false;
+        api.save();
+        return {correct,passed,streak:s.streak,answer:q.answers[q.correctAnswerIndex],pass:passed?sis.pass:null};
+      },
       // A Sister may ring and test you over the phone: one of the examination questions, chosen
       // by a key so it is the same on reload. Phone answers don't count towards her examination.
       phoneQuestion:(key,exclude=[])=>{

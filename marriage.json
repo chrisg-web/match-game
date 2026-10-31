@@ -9,7 +9,14 @@
     "streakToPass": 5,
     "noRingReply": "Wait, without a ring?",
     "ringArrived": "A small velvet box has been delivered. The wedding ring is on your desk.",
-    "alreadyHaveRing": "You already have a wedding ring on your desk."
+    "alreadyHaveRing": "You already have a wedding ring on your desk.",
+    "questionsPerDay": 2,
+    "dayDone": [
+      "That’s enough for today. Ask me again tomorrow, and keep studying.",
+      "Two is plenty for one day. Come back to me tomorrow.",
+      "Let’s stop there for today. I’ll have more questions for you tomorrow.",
+      "That will do for today. Pray on it, and we’ll carry on tomorrow."
+    ]
   },
   "art": {
     "ring": "assets/marriage/wedding-ring.png",

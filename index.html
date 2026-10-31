@@ -159,12 +159,7 @@
     .mini-app.news-mode h3 { font-family: Arial,Helvetica,sans-serif; font-weight: 900; letter-spacing: -.6px; border-bottom: 4px solid #ae2030; color: #101c35; padding-bottom: 7px; }
     .news-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 5px 0 9px; }
     .news-actions h3 { margin: 0; font-size: 17px; flex: 1; }
-    .news-reroll { flex: none; padding: 5px 6px; font: bold 10px Arial,sans-serif; border: 1px solid #a1a5af; border-radius: 4px; color: #182138; background: #e1e5ec; cursor: pointer; }
-    .news-reroll:active { background: #adc8ed; transform: translateY(1px); }
     .news-day { color: #6f7280; font: bold 9px Arial,sans-serif; margin: 2px 0 8px; }
-    .news-archive { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 7px; margin-bottom: 6px; }
-    .news-archive button { flex: none; cursor: pointer; color: #283547; background: #e6e2d8; border: 1px solid #a6a199; border-radius: 3px; padding: 5px; font: 9px Arial,sans-serif; }
-    .news-archive button.active { background: #24334a; color: white; }
     .news-detail { margin-top: 5px; padding: 7px; color: #3d3c34; background: #f2eadc; border-left: 3px solid #ae2030; font: calc(11px * var(--reading-scale))/1.5 Georgia,serif; }
     .news-read { border: 0; background: transparent; color: #a32939; cursor: pointer; font: bold 10px Arial,sans-serif; padding: 3px 0 7px; }
     .notes-call { cursor: pointer; background: #e8efe8; border: 1px solid #819983; border-radius: 3px; color: #175742; font: bold calc(11px * var(--reading-scale)) ui-monospace,monospace; padding: 3px 5px; margin-top: 3px; }
@@ -494,11 +489,11 @@
     .cupboard-body { flex: 1; min-height: 0; overflow: auto; container-type: inline-size; /* the notebook's lines are measured in its width */ font-size: calc(11px * var(--reading-scale)); line-height: 1.4; color: #f3e6cc; }
     .cupboard-body h4 { margin: 8px 0 5px; color: #e8c98e; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
     .cup-cabinet { position: relative; width: 100%; aspect-ratio: 2 / 3; background: url('assets/cupboard/cupboard-open.png') center / 100% 100% no-repeat, linear-gradient(90deg,#2b1b11,#3a2617 20%,#33200f 50%,#3a2617 80%,#2b1b11); image-rendering: pixelated; container-type: inline-size; touch-action: none; }
-    .cup-drawer { position: absolute; left: 19%; top: 17.6%; width: 71%; height: 10.4%; display: flex; align-items: center; justify-content: center; gap: 1.5%; }
-    .cup-file { position: relative; flex: 0 1 19%; height: 92%; padding: 0; border: 0; background: url('assets/cupboard/folder.png') center / contain no-repeat; color: #f6ead2; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; font: bold max(8px, 2.7cqw)/1.15 Arial,sans-serif; filter: drop-shadow(0 2px 2px #000a); }
+    .cup-files { position: absolute; left: 0; right: 0; top: 41%; height: 24%; display: flex; align-items: flex-end; justify-content: center; gap: 2%; pointer-events: none; } /* the middle shelf */
+    .cup-file { position: relative; flex: 0 1 19%; min-width: 0; height: 100%; overflow: hidden; pointer-events: auto; padding: 0; border: 0; background: url('assets/cupboard/folder.png') center / contain no-repeat; color: #f6ead2; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; font: bold max(7px, 2.3cqw)/1.15 Arial,sans-serif; filter: drop-shadow(0 2px 2px #000a); }
     /* Every label in the cupboard sits on a see-through dark backing, so it reads over the wood and paper. */
-    .cup-tag { display: block; max-width: 100%; padding: 1px 4px 2px; border-radius: 3px; background: #120b06b8; }
-    .cup-file small { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: max(7px, 2.1cqw)/1.15 Arial,sans-serif; color: #e2d2b3; }
+    .cup-tag { display: block; max-width: 100%; padding: 1px 3px 2px; border-radius: 3px; background: #120b06b8; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .cup-file small { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: max(6px, 1.8cqw)/1.15 Arial,sans-serif; color: #e2d2b3; }
     .cup-file[data-cup-open="notebook"] { background-image: url('assets/cupboard/notebook.png'); }
     .cup-file.new::after { content: ''; position: absolute; top: 4%; right: 8%; width: 2cqw; height: 2cqw; border-radius: 50%; background: #ffd978; box-shadow: 0 0 6px #ffd978; }
     .cup-shelf { position: absolute; left: 21%; top: 29%; width: 68%; height: 41.5%; }
@@ -522,6 +517,8 @@
     .cup-inspect .cup-act { display: block; width: 100%; margin-top: 6px; padding: 7px; border: 1px solid #b08a5a; border-radius: 5px; background: #4a2e1a; color: #fff; font: bold 11px Arial,sans-serif; cursor: pointer; }
     /* Case pages shown inside the cupboard keep their own look, on paper. */
     .cupboard-body .case-page,.cupboard-body .chapel-case,.cupboard-body .pv-case,.cupboard-body .cup-paper { margin: 0 8px 10px; color: #2e2a26; background: #fbf4e2; border-radius: 4px; padding: 8px; }
+    /* The page-wide grey for paragraphs (line 16) is for the text beside the phone. In the cupboard, words take the ink of the page they are on: dark on paper, cream on wood. Kept at the same weight as that rule, so coloured text such as warnings keeps its colour. */
+    :where(.cupboard-body .case-page,.cupboard-body .chapel-case,.cupboard-body .pv-case,.cupboard-body .cup-paper,.cupboard-body .cup-inspect) :is(p,li,small) { color: inherit; }
     /* The notebook: handwriting on the ruled lines of assets/cupboard/notebook-page.png. */
     .cupboard-body .cup-notebook { min-height: 150cqw; margin: 0; padding: 7.6cqw 6cqw 8cqw 14.5cqw; border-radius: 0; background: url('assets/cupboard/notebook-page.png') top / 100% auto repeat-y, repeating-linear-gradient(to bottom,#fbf4e2 0,#fbf4e2 21px,#d9e3ea 22px,#fbf4e2 23px); color: #24305e; font: 3.3cqw/4.72cqw 'Segoe Print','Bradley Hand','Comic Sans MS',cursive; }
     .cupboard-body .cup-notebook h3,.cupboard-body .cup-notebook h4,.cupboard-body .cup-notebook p { margin: 0; font: inherit; line-height: 4.72cqw; color: #24305e; }
@@ -705,6 +702,8 @@
     const $ = id => document.getElementById(id);
     let selectedDifficulty='normie';
     const matchRates={truecel:.18,normie:.42,mogger:.72};
+    // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
+    const MATCH_RARITY={'MATCH-003':.5};
     const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.'};
     const SAVE_KEY='matchGameRunV3';
     function hashSeed(input){
@@ -797,11 +796,10 @@
       'hand-two-shirt':  { image:'hands-edge-shirt-v2', width: 114, left: -7, bottom: -4, crop:'both' }
     };
     const wardrobeAssets=['jeans-legs','legs-pyjamas','legs-shorts','legs-boxers','legs-white-shorts','legs-cargo-2000s','legs-tracksuit-2000s','legs-chinos-2000s','legs-basketball-shorts','legs-boxer-briefs'];
-    const handMasks={
-      both:'linear-gradient(to right,#000 0 22%,transparent 22% 78%,#000 78% 100%)',
-      left:'linear-gradient(to right,#000 0 22%,transparent 22% 100%)',
-      right:'linear-gradient(to right,transparent 0 78%,#000 78% 100%)'
-    };
+    // The hands sit in front of the phone, thumbs over the screen, like a real grip. (They used to be
+    // masked out across the middle, which made the thumbs look tucked behind the screen.) They
+    // ignore taps, so buttons under a thumb still work.
+    const handMasks={both:'none',left:'none',right:'none'};
     const phonePositions = [
       { width: 90, top: 50, angle: -1.2 },
       { width: 92, top: 50.5, angle: 0.5 },
@@ -1117,17 +1115,6 @@
       if(!edition){edition=makeNewsEdition(day);chapel?.decorateEdition(edition);/* Task 2 */world.editions.push(edition);world.editions.sort((a,b)=>a.day-b.day);}
       return edition;
     }
-    function rerollNewsPreview(){
-      const edition=getNewsEdition();
-      if(edition.items[2]?.locked){updateRunStatus('Today’s third story belongs to an ongoing case and cannot be swapped.');return;}
-      if(edition.items[2]?.questStory){visibleNewsDay=world.day;renderNews();return;} // Task 2: never reroll a quest story
-      const old=edition.items[2]?.id;
-      const alternatives=fillerNews.filter(item=>item.id!==old);
-      const filler=gamePick(alternatives.length?alternatives:fillerNews);
-      edition.items[2]=storyArticle(filler.id,{body:`${filler.summary} Reports from around town suggest the story is still developing.`});
-      visibleNewsDay=world.day;
-      renderNews();
-    }
     function readNewsStory(articleId){
       const edition=getNewsEdition(visibleNewsDay||world.day);
       const item=edition.items.find(article=>article.id===articleId);
@@ -1138,9 +1125,6 @@
       if(item.clue)recordClue(item.clue);
       // Contacts: every edition prints the newsroom tip line and the police number;
       // Vale's stories name the University Office, the faith pages St Brigid's Chapel.
-      learnService('newsroom','police');
-      if(/^professor_/.test(articleId)||item.pvReadKey)learnService('university');
-      if(['bishop_guitars','religion_chapel'].includes(articleId))learnService('chapel');
       // Professor Vale: reading a Vale story opens the case; quest stories carry their own key.
       const valeStory={professor_car:'car',professor_fire:'fire',professor_campus:'campus'}[articleId];
       if(valeStory)PV?.onNewsRead(valeStory);
@@ -1162,10 +1146,11 @@
       if(currentApp==='news')renderNews();
     }
     function renderNews(){
-      const day=visibleNewsDay||world.day;
+      // Only today's paper. Yesterday's is gone once the day moves on, so read it while you can.
+      const day=world.day;
+      visibleNewsDay=day;
       const edition=getNewsEdition(day);
-      const archive=world.editions.map(item=>`<button data-news-day="${item.day}" class="${item.day===day?'active':''}" aria-label="Read day ${item.day} newspaper">Day ${item.day}</button>`).join('');
-      $('opened').innerHTML=`<div class="news-actions"><h3>Sunfall Daily</h3>${day===world.day?'<button class="news-reroll" id="news-reroll" aria-label="Randomise the local story">↻ Randomise</button>':'<button class="news-reroll" data-news-day="'+world.day+'">Today</button>'}</div><div class="news-day">SUNFALL EDITION · DAY ${day} · ${['ONE','TWO','THREE','FOUR','FIVE','SIX'][edition.items.length-1]||edition.items.length} STOR${edition.items.length===1?'Y':'IES'}</div><div class="news-archive" aria-label="Previous editions">${archive}</div>${edition.items.map(item=>{
+      $('opened').innerHTML=`<div class="news-actions"><h3>Sunfall Daily</h3></div><div class="news-day">SUNFALL EDITION · DAY ${day} · ${['ONE','TWO','THREE','FOUR','FIVE','SIX'][edition.items.length-1]||edition.items.length} STOR${edition.items.length===1?'Y':'IES'}</div>${edition.items.map(item=>{
         const key=day+':'+item.id;
         const open=expandedNews.has(key);
         const clip=open?newsClipFor(day,item):null;
@@ -1173,7 +1158,6 @@
         return `<article class="paper"><p style="font-size:9px;color:#a22938;text-transform:uppercase;letter-spacing:1px;margin:2px 0">${esc(item.section)}</p><p><b>${esc(item.title)}</b></p><img class="news-thumb" src="assets/newspapers/${esc(item.image||item.id)}.png" alt="${esc(item.title)}"><p>${esc(item.summary)}</p><button class="news-read" data-news-read="${esc(item.id)}">${open?'Hide story':'Read full story'} ▸</button>${open?`<div class="news-detail">${esc(item.body||item.summary)}${foundationLine}</div>`:''}${clip?`<button class="news-clip" data-news-clip="${clip}">✂ Clip the gala photograph for your Evidence Sheet</button>`:''}</article>`;
       }).join('')}`;
       hydrateInlineImages($('opened'));
-      if($('news-reroll'))$('news-reroll').onclick=rerollNewsPreview;
     }
     // Calls has two tabs: the keypad and voicemail. Voicemails are messages people left
     // overnight (the Professor Vale case), newest first, with a way to ring back.
@@ -1204,6 +1188,8 @@
       $('dial-call').onclick=()=>{
         if(dialledNumber.includes('*')||dialledNumber.includes('#')){dialStatus='Service code entered. No service in demo.';updateDialDisplay();return;}
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
+        const shopLine=marriage?.contactForNumber(dialledNumber); // a jeweller's number rings her shop
+        if(shopLine){startSimulatedCall({...shopLine,generic:true});return;}
         const matchedThread=[...hingeThreads.values()].find(thread=>thread.number===dialledNumber);
         if(matchedThread){
           const woman=hingeProfile(matchedThread.id);
@@ -1624,13 +1610,40 @@
       }
       hingeIndex=0;
       hingeSwipesToday=0;
+      addJewellersToDeck();
       hingeJobs=Object.fromEntries(hingeProfiles.map(profile=>{
         const jobs=jobPools[profile.factionId]||jobPools.normie_girls;
         const selected=gameRandom()<.24?profile.canonicalOccupation:gamePick(jobs);
         return [profile.id,selected];
       }));
     }
-    function hingeProfile(id){return id===bearHingeCard.id?bearHingeCard:hingeProfiles.find(profile=>profile.id===id);}
+    function hingeProfile(id){return id===bearHingeCard.id?bearHingeCard:String(id).startsWith(JEWELLER_PREFIX)?jewellerCards().find(card=>card.id===id):hingeProfiles.find(profile=>profile.id===id);}
+    // The five jewellers are in the Hinge deck like anyone else. Match with one and ask for her
+    // number to get her shop line in Contacts: that's how you get a wedding ring.
+    const JEWELLER_PREFIX='JEWELLER-';
+    const JEWELLER_AGES={agnes:58,rafael:41,clara:47,joseph:34,sofia:29};
+    const JEWELLER_HELLO={
+      agnes:'Good evening. My daughters made me join this app. I sell antique rings, mostly to people who cry in my shop.',
+      rafael:'Hi! I fix watches and broken engagement rings. Business is booming, which says something about Sunfall.',
+      clara:'Hello. I deal in estate jewellery: other people’s heirlooms, beautifully priced.',
+      joseph:'Hey. I make rings by hand in a workshop by the canal. Mostly I make sawdust and tea.',
+      sofia:'Ciao! I sell bridal jewellery, so I’m professionally obsessed with weddings. Fair warning.'
+    };
+    let jewellerCardCache=null;
+    function jewellerCards(){
+      if(jewellerCardCache)return jewellerCardCache;
+      const list=marriage?.jewellerCards?.();
+      if(!list?.length)return [];
+      return jewellerCardCache=list.map(j=>({id:JEWELLER_PREFIX+j.id,slug:'jeweller_'+j.id,name:j.name,age:JEWELLER_AGES[j.id]||40,factionId:'normie_girls',canonicalOccupation:`${j.role}, ${j.shop}`,gallery:[j.portrait],privatePhotos:[],jeweller:j.id}));
+    }
+    // Shuffle the jewellers into what's left of the deck (places fixed by the run's seed).
+    function addJewellersToDeck(){
+      for(const card of jewellerCards()){
+        if(hingeDeck.some(item=>item.id===card.id)||hingeThreads.has(card.id))continue;
+        const left=Math.max(1,hingeDeck.length-hingeIndex);
+        hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|'+card.id)%left),0,card);
+      }
+    }
     function nextPublicPhoto(){
       const profile=hingeDeck[hingeIndex];
       if(!profile||!profile.gallery?.length)return;
@@ -1689,6 +1702,7 @@
       ]
     };
     function introFor(profile){
+      if(profile.jeweller)return JEWELLER_HELLO[profile.jeweller]||'Hello!';
       const messages=hingeDialogue?.initialMessages||{};
       const specific=hingeDialogue?.characterLines?.[profile.id]?.intro;
       const personality=personalityOf(profile);
@@ -1700,7 +1714,7 @@
     function ensureHingeThread(profile,responseMode='now'){
       if(hingeThreads.has(profile.id))return hingeThreads.get(profile.id);
       const awaiting=responseMode==='tomorrow'||responseMode==='ghost';
-      const thread={id:profile.id,topics:[],number:null,pending:false,fumbled:false,blocked:false,photoRequests:0,
+      const thread={id:profile.id,topics:[],number:null,pending:false,fumbled:false,blocked:false,photoRequests:0,photoRefusals:0,
         warmth:0,followUp:null,deeper:null,talk:sanitizeTalk(null),
         awaiting,replyOnDay:responseMode==='tomorrow'?world.day+1:null,ghosted:responseMode==='ghost',
         log:awaiting?[]:[{who:'her',text:introFor(profile)}],callLog:[]};
@@ -1770,6 +1784,7 @@
       const result=talkTopicsFor(thread,profileNow).map(topic=>`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`);
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))result.unshift(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`);
       if(newsTalkAvailable(thread))result.push(`<button class="hinge-chat-choice" data-hinge-topic="news">📰 ${esc(characterDB.newsTalk.label)}</button>`);
+      for(const key of Object.keys(SERVICE_ASKS))if(serviceAskable(key,thread,profileNow))result.push(`<button class="hinge-chat-choice" data-hinge-topic="svc:${key}">☎ ${esc(SERVICE_ASKS[key].label)}</button>`);
       if(realEggAvailable(thread,profileNow))result.push(`<button class="hinge-chat-choice" data-hinge-topic="egg:real">${esc(talkKit().eggs.real.label)}</button>`);
       const caseTopic=(hingeDialogue?.topics||[]).find(topic=>topic.id==='case');
       if(caseTopic&&world.day>=2&&!thread.topics.includes('case'))result.push(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`);
@@ -1846,7 +1861,8 @@
             recordClue('A suspiciously large bear appeared in the dating feed.');
           }else{
             hingeLikes++;
-            if(hingeLikes===1||gameRandom()<matchRates[selectedDifficulty]){
+            const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
+            if((hingeLikes===1&&rarity===1)||gameRandom()<matchRates[selectedDifficulty]*rarity){
               const responseMode=hingeLikes===1?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               hingeToast=profile.name+' matched with you!';
@@ -1930,12 +1946,23 @@
           const needs={eager:0,teasing:1,'after-trust':2,reluctant:3,never:99}[personality?.pictures]??1;
           const talked=thread.topics.length+warmthOf(thread); // warmth counts, and a cold woman needs more talk
           const willing=tone()==='mogger'||(tone()==='normie'?talked>=needs:talked>=needs+2&&gameRandom()<.5);
+          const refused=thread.photoRefusals||0; // how many times she has already said no
+          if(unseen.length&&!willing&&refused>=1&&gameRandom()<pushRisk(refused,warmthOf(thread))){
+            // Pushed past no, without the rapport to get away with it: she blocks you.
+            thread.blocked=true;thread.pending=false;
+            thread.log.push({who:'her',text:gamePick(PUSH_BLOCK_LINES),block:true});
+            if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
+            flashBlocked();
+            return;
+          }
           if(unseen.length&&willing){
+            thread.photoRefusals=0;
             const picture=gamePick(unseen);
             const line=another?(personality?.another||gamePick(['Greedy! Okay, one more.','Here’s another. Don’t say I never spoil you.','Fine, but this one’s just for you.','Since you asked so nicely…']))
               :gamePick(['All right, here you go. What do you think?','Found this on my camera roll. Be nice!','Fine, but now you owe me a better conversation.']);
             thread.log.push({who:'her',text:line,image:picture.src});
           }else if(unseen.length||!another){
+            if(unseen.length)thread.photoRefusals=refused+1;
             const refusal=personality?.refuse||choose(['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.']);
             thread.log.push({who:'her',text:tone()==='truecel'?choose(['Lol, no. ','Ew, no. ','Why would I? ','Absolutely not. '])+refusal:refusal});
           }else{
@@ -1958,8 +1985,8 @@
           talkState(thread).numberRefusedDay=world.day;
           reply=gamePick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.']);
         }else{
-          if(!thread.number)thread.number=unusedContactNumber();
-          reply=(hingeDialogue?.phoneNumber?.reply||'My number is {number}.').replace('{number}',thread.number);
+          if(!thread.number)thread.number=profile.jeweller?(marriage?.meetJeweller?.(profile.jeweller)||unusedContactNumber()):unusedContactNumber();
+          reply=profile.jeweller?`That’s my shop line: ${thread.number}. If you ever need a ring, you know who to call.`:(hingeDialogue?.phoneNumber?.reply||'My number is {number}.').replace('{number}',thread.number);
           if(warmthOf(thread)>=3)ensureCallSchedule(); // she really likes you: she may ring today
         }
       }else{
@@ -1996,7 +2023,7 @@
       if(tone()==='mogger'||warmth>=3){
         const yes=seededPick(dates.yes[faction]||dates.yes.normie_girls,profile.id);
         if(thread.number)return yes;
-        thread.number=unusedContactNumber();
+        thread.number=profile.jeweller?(marriage?.meetJeweller?.(profile.jeweller)||unusedContactNumber()):unusedContactNumber();
         return `${yes} ${fillIn(dates.number,{number:thread.number})}`;
       }
       // Not a yes: the question can come back on a later day.
@@ -2005,6 +2032,16 @@
       if(warmth<=-1)return seededPick(dates.no[faction]||dates.no.normie_girls,profile.id);
       return notYet;
     }
+    // Asking again after she's said no: the chance she blocks you. No rapport: 35% after one no,
+    // 70% after two, certain after three. Some rapport (warmth 1-2) or real rapport (3+) buys
+    // more patience; on Truecel she has less.
+    function pushRisk(refused,warmth){
+      let risk=refused*.35;
+      if(warmth>=3)risk-=.5;else if(warmth>=1)risk-=.2;else if(warmth<=-1)risk+=.15;
+      if(tone()==='truecel')risk+=.15;
+      return Math.max(0,Math.min(1,risk));
+    }
+    const PUSH_BLOCK_LINES=['I said no. Stop asking.','Wow. I’ve told you no. Blocked.','No means no. Goodbye.','I’m not doing this again. Blocked.'];
     // Her private pictures already in this chat. Worked out from the chat itself, so
     // older saves need nothing new, and only pictures from her private set count.
     function picturesSent(thread,profile){
@@ -2076,7 +2113,7 @@
       const memory=Object.fromEntries(Object.entries(src.memory&&typeof src.memory==='object'?src.memory:{}).filter(([,value])=>typeof value==='string').slice(0,80));
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
-        dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),
+        dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
         used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
     }
@@ -2153,7 +2190,8 @@
       return choices.map(choice=>`<button class="hinge-chat-choice follow-choice" data-hinge-topic="follow:${esc(choice.id)}">${esc(choice.label)}</button>`).join('');
     }
     function newsTalkAvailable(thread){
-      return !!characterDB?.newsTalk&&!!talkKit()&&thread.topics.length>=1&&talkState(thread).newsDay!==world.day;
+      // Only once you've read today's paper (opened the News app today).
+      return !!characterDB?.newsTalk&&!!talkKit()&&world.paperDay===world.day&&thread.topics.length>=1&&talkState(thread).newsDay!==world.day;
     }
     function realEggAvailable(thread,profile){
       return !!talkKit()?.eggs?.real&&!thread.topics.includes('egg:real')&&warmthOf(thread)>=3&&hashSeed(world.seed+'|real|'+profile.id)%3===0;
@@ -2261,7 +2299,7 @@
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,delayKey));
     }
-    const isTalkTopic=id=>/^(own|world|follow|egg):/.test(id)||id==='news'||id==='deeper'||id==='daily';
+    const isTalkTopic=id=>/^(own|world|follow|egg|svc):/.test(id)||id==='news'||id==='deeper'||id==='daily';
     function chooseTalk(id,thread,profile){
       const kit=talkKit();
       if(!characterDB||!kit)return;
@@ -2339,6 +2377,17 @@
         lines.push(personalityOf(profile).roots[category]);
         warmBy(thread,1); // she opened up to you
         maybeHerQuestion(thread,profile,lines);
+      }else if(id.startsWith('svc:')){
+        // Asking her for a service's number. Gone cold, she won't give it today.
+        const key=id.slice(4),ask=SERVICE_ASKS[key];
+        if(!serviceAskable(key,thread,profile))return;
+        thread.followUp=null;
+        thread.log.push({who:'you',text:ask.player});
+        if(warmthOf(thread)<=-2&&tone()!=='mogger'){state.svcRefusedDay=world.day;lines.push(seededPick(SERVICE_REFUSALS,profile.id+key));}
+        else{
+          lines.push(fillIn(seededPick(ask.reply,profile.id+key),{number:contactNumbers[key]}));
+          after=()=>{learnService(key);updateRunStatus(`${SERVICE_CONTACTS[key][0]} saved to Contacts.`);};
+        }
       }else if(id==='egg:real'){
         if(!realEggAvailable(thread,profile))return;
         thread.followUp=null;thread.topics.push('egg:real');
@@ -2617,18 +2666,31 @@
       const you=text=>thread.callLog.push({who:'you',text});
       if(call.kind==='sister'){
         if(call.step==='open'){
-          const asked=convo().phoneAsked||(convo().phoneAsked=[]);
-          const exam=marriage?.phoneQuestion?.(`${call.id}:${world.day}`,asked);
           you('Of course. Ask me.');
-          if(exam){asked.push(exam.id);call.exam=exam;call.step='exam';say(`${seededPick(kit.sister.examIntro,call.id+world.day)} ${exam.question}`);}
+          // Her examination has begun: one of today's two questions, and it counts.
+          let exam=marriage?.phoneExam?.(call.id);
+          if(exam)exam.counts=true;
+          else if(!marriage?.state?.()?.sisters?.[call.id]?.started){ // not begun yet: a practice question
+            const asked=convo().phoneAsked||(convo().phoneAsked=[]);
+            exam=marriage?.phoneQuestion?.(`${call.id}:${world.day}`,asked);
+            if(exam)asked.push(exam.id);
+          }
+          if(exam){call.exam=exam;call.step='exam';say(`${seededPick(kit.sister.examIntro,call.id+world.day)} ${exam.question}`);}
           else{call.ask=pickSisterAsk(call);call.step=call.ask?'ask':'bye';say(call.ask?call.ask.ask:seededPick(kit.sister.bye,call.id));}
         }else if(call.step==='exam'){
-          const index=Number(choice.split(':')[1]),right=index===call.exam.correctAnswerIndex;
+          const index=Number(choice.split(':')[1]);
           you(`${'ABCD'[index]}. ${call.exam.answers[index]}`);
+          let right,answer,extra='';
+          if(call.exam.counts){ // a real examination question: the marriage engine marks it
+            const result=marriage.phoneAnswer(call.id,index);
+            right=!!result?.correct;answer=result?.answer;
+            if(result?.passed)extra=' '+result.pass;
+            else if(right)extra=` That’s ${result.streak} in a row.`;
+          }else{right=index===call.exam.correctAnswerIndex;answer=call.exam.answers[call.exam.correctAnswerIndex];}
           if(right)warmBy(thread,1);
-          const verdict=right?seededPick(kit.sister.right,call.id+world.day):fillIn(seededPick(kit.sister.wrong,call.id+world.day),{answer:call.exam.answers[call.exam.correctAnswerIndex]});
+          const verdict=right?seededPick(kit.sister.right,call.id+world.day):fillIn(seededPick(kit.sister.wrong,call.id+world.day),{answer});
           call.ask=pickSisterAsk(call);call.step=call.ask?'ask':'bye';
-          say(`${verdict} ${call.ask?call.ask.ask:seededPick(kit.sister.bye,call.id)}`);
+          say(`${verdict}${extra} ${call.ask?call.ask.ask:seededPick(kit.sister.bye,call.id)}`);
         }else if(call.step==='ask'){
           const answer=call.ask.answers.find(item=>'ask:'+item.id===choice);
           you(answer.player);
@@ -2767,7 +2829,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;renderNews();return;}
+      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;renderNews();return;} // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
@@ -2801,8 +2863,6 @@
       if(callsTab){callsView=callsTab.dataset.callsView;renderCalls();return;}
       const noteNumber=event.target.closest('[data-note-dial]');
       if(noteNumber&&!noteNumber.disabled){dialledNumber=noteNumber.dataset.noteDial;dialStatus=currentApp==='calls'?'Ready to ring back.':'Number copied from Contacts.';callsView='keypad';openApp('calls');return;}
-      const newsDay=event.target.closest('[data-news-day]');
-      if(newsDay){visibleNewsDay=Number(newsDay.dataset.newsDay);renderNews();return;}
       const story=event.target.closest('[data-news-read]');
       if(story){readNewsStory(story.dataset.newsRead);return;}
       const swipe=event.target.closest('[data-swipe]');
@@ -3899,13 +3959,15 @@
         cupboardView='shelf';
         const files=cupboardFiles(),items=cupboardItems(),pos=cupboardState().pos;
         const tools=items.length>=2?`<div class="cup-tools">${cupboardSelecting?`<button data-cup-act="connect"${cupboardPicked.length<2?' disabled':''}>🔗 Connect${cupboardPicked.length?` (${cupboardPicked.length})`:''}</button><button data-cup-act="cancel-select">Cancel</button>`:'<button data-cup-act="select">🔗 Select things to connect</button>'}</div>`:'';
-        const hint=!files.length&&!items.length?'':cupboardSelecting?'Tap the things to connect, in order. Then press Connect.':items.length?'Drag things along the shelves. Tap one to look closer. Drop one on another to connect them.':'Your files are in the drawer.';
-        // The cabinet itself: files in the open drawer, things standing on the three shelves.
+        const hint=!files.length&&!items.length?'':cupboardSelecting?'Tap the things to connect, in order. Then press Connect.':items.length?'Drag things along the shelves. Tap one to look closer. Drop one on another to connect them.':'Tap a file to open it.';
+        // The cabinet itself: case files on the middle shelf, things on the top and bottom shelves.
+        const itemWidth=shelfItemWidth(items.length);
         body.innerHTML=`<div class="cup-cabinet" id="cup-cabinet">`+
-          (files.length?`<div class="cup-drawer">${files.map(file=>`<button class="cup-file" data-cup-open="${esc(file.id)}" title="${esc(`${file.title} · ${file.detail}`)}" aria-label="${esc(`${file.title}. ${file.detail}`)}"><span class="cup-tag">${esc(CUP_FILE_NAMES[file.id]||file.title)}<small>${esc(file.detail)}</small></span></button>`).join('')}</div>`:'')+
-          `<div class="cup-shelf" id="cup-shelf">${items.map((item,index)=>{
+          `<div class="cup-shelf" id="cup-shelf">`+
+          (files.length?`<div class="cup-files">${files.map(file=>`<button class="cup-file" data-cup-open="${esc(file.id)}" title="${esc(`${file.title} · ${file.detail}`)}" aria-label="${esc(`${file.title}. ${file.detail}`)}"><span class="cup-tag">${esc(CUP_FILE_NAMES[file.id]||file.title)}<small>${esc(file.detail)}</small></span></button>`).join('')}</div>`:'')+
+          `${items.map((item,index)=>{
             const spot=shelfSpot(pos[item.id],index,items.length),pick=cupboardPicked.indexOf(item.id);
-            return `<button class="cup-item${pick>=0?' picked':''}" data-cup-item="${esc(item.id)}" aria-label="${esc(item.label)}" style="left:${spot.x}%;top:${SHELF_TOPS[spot.s]}%">${pick>=0?`<b class="cup-order">${pick+1}</b>`:''}${item.image?`<img src="${esc(item.image)}" alt="">`:''}<span>${esc(item.short||shelfName(item.label))}</span></button>`;
+            return `<button class="cup-item${pick>=0?' picked':''}" data-cup-item="${esc(item.id)}" aria-label="${esc(item.label)}" style="left:${spot.x}%;top:${SHELF_TOPS[spot.s]}%;width:${itemWidth}%">${pick>=0?`<b class="cup-order">${pick+1}</b>`:''}${item.image?`<img src="${esc(item.image)}" alt="">`:''}<span>${esc(item.short||shelfName(item.label))}</span></button>`;
           }).join('')}</div>`+
           (!files.length&&!items.length?'<p class="cup-empty">Nothing in here yet.<br>Things you find, and your case files, will be kept here.</p>':'')+
           `<div class="cup-rug">${tools}${hint?`<p class="cup-hint">${hint}</p>`:''}</div></div>`;
@@ -3913,13 +3975,17 @@
       hydrateInlineImages(body);
       if(cupboardView==='shelf')wireShelfDrag();
     }
-    // Where things stand: three shelves (tops as % of the shelf area), five places on each.
-    const SHELF_TOPS=[11.5,44,76.6],SHELF_MAX_X=82.4;
+    // Where things stand: the top and bottom shelves (tops as % of the shelf area). The middle
+    // shelf holds the case files. Five things to a shelf; with more, they shrink to fit.
+    const SHELF_TOPS=[11.5,44,76.6],ITEM_SHELVES=[0,2],SHELF_MAX_X=82.4;
+    const perShelfFor=count=>Math.max(5,Math.ceil(count/ITEM_SHELVES.length));
+    const shelfItemWidth=count=>Math.min(17.6,96/perShelfFor(count));
     const CUP_FILE_NAMES={notebook:'Notebook',br:'Ledger',chapel:'Chapel',vale:'Vale',wedding:'Wedding'};
     function shelfSpot(saved,index,count){
-      if(saved&&Number.isInteger(saved.s)&&saved.s>=0&&saved.s<SHELF_TOPS.length&&Number.isFinite(saved.x))return {x:Math.max(0,Math.min(SHELF_MAX_X,saved.x)),s:saved.s};
-      const perShelf=count>12?5:4;
-      return {x:(index%perShelf)*(SHELF_MAX_X/(perShelf-1)),s:Math.min(SHELF_TOPS.length-1,Math.floor(index/perShelf))};
+      const maxX=100-shelfItemWidth(count);
+      if(saved&&ITEM_SHELVES.includes(saved.s)&&Number.isFinite(saved.x))return {x:Math.max(0,Math.min(maxX,saved.x)),s:saved.s};
+      const perShelf=perShelfFor(count);
+      return {x:(index%perShelf)*(maxX/(perShelf-1)),s:ITEM_SHELVES[Math.min(ITEM_SHELVES.length-1,Math.floor(index/perShelf))]};
     }
     // On the shelf a thing wears a short name (its first two words); tap it for the full one.
     // Shelf names for the Blue Ribbon scraps (their full titles show when you look closer).
@@ -3940,7 +4006,7 @@
           const dx=e.clientX-start.x,dy=e.clientY-start.y;
           if(!moved&&Math.hypot(dx,dy)<5)return;
           moved=true;item.classList.add('dragging');
-          item.style.left=`${Math.max(0,Math.min(SHELF_MAX_X,start.left+dx/rect.width*100))}%`;
+          item.style.left=`${Math.max(0,Math.min(100-parseFloat(item.style.width||17.6),start.left+dx/rect.width*100))}%`;
           item.style.top=`${Math.max(-10,Math.min(SHELF_TOPS[SHELF_TOPS.length-1],start.top+dy/rect.height*100))}%`;
         };
         const up=()=>{
@@ -3955,7 +4021,7 @@
               return;
             }
             const top=parseFloat(item.style.top);
-            const s=SHELF_TOPS.reduce((best,shelfTop,index)=>Math.abs(shelfTop-top)<Math.abs(SHELF_TOPS[best]-top)?index:best,0);
+            const s=ITEM_SHELVES.reduce((best,shelf)=>Math.abs(SHELF_TOPS[shelf]-top)<Math.abs(SHELF_TOPS[best]-top)?shelf:best,ITEM_SHELVES[0]);
             item.style.top=SHELF_TOPS[s]+'%';
             cupboardState().pos[item.dataset.cupItem]={x:parseFloat(item.style.left),s};
             saveRun(true);
@@ -4008,12 +4074,25 @@
     // and the police number; Vale's stories, the university; the faith pages or the
     // Chapel case, St Brigid's). Saves from before Contacts existed list all four.
     const SERVICE_CONTACTS={police:['Sunfall Police','Emergencies and reports'],newsroom:['Sunfall Daily newsroom','Tip line'],chapel:['St Brigid’s Chapel','Parish office'],university:['University Office','Campus switchboard']};
+    // Police (911) is always in Contacts. The others you have to ask for: a reporter for the
+    // newsroom, a Sister for St Brigid's, someone on campus for the University Office.
     function serviceKnown(key){
+      if(key==='police')return true;
       const known=world.contactsKnown;
-      if(!known||known[key])return true;
-      if(key==='university')return !!PV?.isOpen();
-      if(key==='chapel')return !!chapel?.state?.()?.active;
-      return false;
+      return !known||!!known[key]; // saves from before Contacts know everything
+    }
+    const SERVICE_ASKS={
+      newsroom:{who:profile=>profile.factionId==='fourth_estate',label:'Ask for the newsroom’s number',player:'Could I get the Sunfall Daily newsroom’s number? I might have a tip.',
+        reply:['The tip line is {number}. Ask for me by name, or don’t, and see who picks up.','{number}. It rings on the desk next to mine. If it’s good, I want the byline.','Here: {number}. Off the record, the night desk is friendlier.']},
+      chapel:{who:profile=>profile.factionId==='sisters_of_mercy',label:'Ask for St Brigid’s number',player:'Could I have the number for St Brigid’s parish office?',
+        reply:['Of course. The parish office is {number}. If Margaret answers, be polite: she remembers everything.','{number}. Ring after Mass, when someone’s there. God bless.','It’s {number}. I’m glad you want to call. Truly.']},
+      university:{who:profile=>profile.factionId==='progressives'||/universit|lectur|campus|college|research|student|professor/i.test(`${profile.canonicalOccupation} ${hingeJobs[profile.id]||''}`),label:'Ask for the University Office number',player:'Do you have the number for the University Office?',
+        reply:['The campus switchboard is {number}. Good luck getting past the hold music.','{number}. Ask for the dean’s office if you want anyone to actually listen.','Sure: {number}. Don’t tell them I gave it to you.']}
+    };
+    const SERVICE_REFUSALS=['Look it up yourself.','I don’t think I’ll be giving you numbers, sorry.','Ask someone who likes you.'];
+    function serviceAskable(key,thread,profile){
+      const ask=SERVICE_ASKS[key];
+      return !!ask&&!serviceKnown(key)&&ask.who(profile)&&thread.topics.length>=1&&talkState(thread).svcRefusedDay!==world.day;
     }
     function learnService(...keys){
       if(!world.contactsKnown)return;
@@ -4028,7 +4107,7 @@
       for(const thread of hingeThreads.values()){
         if(!thread.number)continue;
         const profile=hingeProfile(thread.id);
-        if(!profile)continue;
+        if(!profile||profile.jeweller)continue; // a jeweller is listed by her shop below
         const unavailable=!!(thread.fumbled||thread.blocked);
         list.push({key:thread.id,name:profile.name,detail:unavailable?(thread.blocked?'Blocked you':'Won’t take your calls'):'Hinge match',number:thread.number,portrait:profile.gallery?.[0]||'assets/icons/hinge.png',unavailable});
       }
@@ -4047,7 +4126,7 @@
     function announceNewContacts(){
       if(!world.contactsKnown)return;
       const seen=world.contactsSeen||(world.contactsSeen=[]);
-      const fresh=contactEntries().filter(entry=>!seen.includes(entry.key));
+      const fresh=contactEntries().filter(entry=>entry.key!=='service:police'&&!seen.includes(entry.key)); // 911 is always there: nothing to announce
       if(!fresh.length)return;
       for(const entry of fresh)seen.push(entry.key);
       showGameNotice(fresh.length===1?`${fresh[0].name} saved to Contacts`:`${fresh.length} new numbers saved to Contacts`);
@@ -4173,6 +4252,7 @@
         if(!saved||saved.version!==3||saved.world?.version!==3||!Number.isInteger(saved.world.day)||saved.world.day<1)throw new Error('No compatible save');
         const ids=new Map(hingeProfiles.map(profile=>[profile.id,profile]));
         ids.set(bearHingeCard.id,bearHingeCard);
+        for(const card of jewellerCards())ids.set(card.id,card);
         const deck=(saved.hingeDeckIds||[]).map(id=>ids.get(id)).filter(Boolean);
         if(!deck.length)throw new Error('Character deck missing');
         world={...newWorld(saved.world.seed||'Scottsdale'),...saved.world,
@@ -4181,6 +4261,7 @@
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
+        world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(3,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
         world.policeArrestPhase=dayPhases.includes(saved.world.policeArrestPhase)?saved.world.policeArrestPhase:null;
@@ -4202,7 +4283,7 @@
           const allowedImages=new Set([...profile.gallery,...(profile.privatePhotos||[]).map(photo=>photo.src)]);
           const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{})})):[];
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
-            pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),
+            pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
             followUp:raw.followUp&&['topic','question','news','day'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
@@ -4241,6 +4322,7 @@
         if(['visible','warning','attack'].includes(bearState)){bearState='tracking';beginBearWarning();}
         chapel?.afterLoad(); // Task 2: checks quest state; old saves start the quest fresh
         marriage?.afterLoad(); // Marriage: restores examinations, the desk ring and a won game
+        addJewellersToDeck(); // saves from before the jewellers joined Hinge
         openApp('hinge');return true;
       }catch{
         updateRunStatus('No compatible local save found. Your current run is unchanged.');
@@ -4308,6 +4390,7 @@
       rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;
+    addJewellersToDeck(); // the first deck was built before the jewellers were known
     // Professor Vale: "The Professor Who Won't Disappear" (quests/professor-vale.js).
     // Phone-only. Its best endings are CASE CLOSED, never a win: marriage stays the only
     // victory. This is the full list of game functions the quest is allowed to use.

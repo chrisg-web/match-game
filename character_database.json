@@ -4211,7 +4211,32 @@
       "look": "Olive skin, dirty-blonde ponytail, a tiny scar through one eyebrow, white linen trouser suit",
       "status": "awaiting portrait",
       "type": "meddling-matchmaker",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "compliance",
+            "label": "Ask about her job at the foundation",
+            "player": "What does a compliance administrator do all day?",
+            "reply": "I make sure the right forms exist so that, if anyone ever asks, the right forms exist. It’s theatre, darling, with staples."
+          },
+          {
+            "id": "watches",
+            "label": "Ask about repairing watches",
+            "player": "You repair watches?",
+            "reply": "Old ones. Wind-up, no batteries, nothing that talks to your phone. A watch that keeps time without being told to is the most honest thing in this town."
+          },
+          {
+            "id": "envelope",
+            "label": "Ask what she overheard",
+            "player": "You look like you overheard something.",
+            "reply": "Gala night, the back corridor: two board members arguing over a sealed envelope that had to be gone by morning. One of them saw me. Neither of them has looked at me since.",
+            "needsWarmth": 2,
+            "note": "Bianca Roth heard two board members on gala night arguing over a sealed envelope that had to be gone by morning."
+          }
+        ],
+        "views": {}
+      }
     },
     {
       "id": "MATCH-078",
@@ -6210,7 +6235,32 @@
       "look": "Deep brown skin, honey-blonde beach waves, a silver ear cuff, mint polo shirt",
       "status": "awaiting portrait",
       "type": "earnest-heart",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "museum",
+            "label": "Ask about the museum",
+            "player": "What’s it like working at the museum?",
+            "reply": "Quiet, cool and full of things people loved enough to keep. I tell school groups not to touch, and then I let the shy kids touch one thing."
+          },
+          {
+            "id": "cookbooks",
+            "label": "Ask about her cookbooks",
+            "player": "I hear you collect strange cookbooks?",
+            "reply": "A church fundraiser book from the fifties with eleven recipes for jelly salad. Every family in it is listed by name. It’s the best history of Sunfall I own."
+          },
+          {
+            "id": "witness",
+            "label": "Ask what’s worrying her",
+            "player": "Something on your mind?",
+            "reply": "A woman who used to clean at the museum saw something on the gala night and told me. Now she tells everyone she was home all night. People don’t forget like that. They get frightened like that.",
+            "needsWarmth": 1,
+            "note": "Alana Brooks says a museum cleaner who saw something on gala night now claims she was home all night."
+          }
+        ],
+        "views": {}
+      }
     },
     {
       "id": "MATCH-226",

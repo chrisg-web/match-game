@@ -28,6 +28,7 @@
   const ROLES=['innocent','sympathetic','dangerous'];
   const GOTH_ACTS=['show','crescent','help','warn','tell','accuse'];
   const VICTORIA_ACTS=['show','crescent','accept','backout','confront'];
+  const QUEST_CHANCE=0.5; // share of runs in which the Chapel at Midnight happens
   const SLOTS=['prayer','keys','watch'];
   const FATAL=['confront','marked_twice','ritual_marked','watch_broken','went_alone'];
   const OUTCOMES=['vigil_success','vigil_reconciled','vigil_partial','vigil_failed','wrong_place','too_late','ignored','withdrawn'];
@@ -98,8 +99,10 @@
       const order=[...ROLES];
       for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
       const [low,high]=data.rules.ritualSpanDays;
+      // Victoria's scheme doesn't happen every run: decided once, from the run's seed.
+      const enabled=seeded(`${world.seed||'match'}:chapel:on`)()<(data.rules.chance??QUEST_CHANCE);
       return {
-        v:1,active:false,activatedDay:null,location,decoyPlace,chalkTrueFirst:rnd()<.5,
+        v:1,enabled,active:false,activatedDay:null,location,decoyPlace,chalkTrueFirst:rnd()<.5,
         roles:Object.fromEntries(GOTHS.map((id,i)=>[id,order[i]])),
         span:low+Math.floor(rnd()*(high-low+1)),
         ritualDay:null,originalRitualDay:null,showDay:null,
@@ -136,6 +139,8 @@
       if(CHAPELS.includes(raw.location))out.location=raw.location;
       out.decoyPlace=CHAPELS.includes(raw.decoyPlace)&&raw.decoyPlace!==out.location?raw.decoyPlace:CHAPELS.find(place=>place!==out.location);
       if(raw.roles&&GOTHS.every(id=>ROLES.includes(raw.roles[id]))&&new Set(GOTHS.map(id=>raw.roles[id])).size===3)out.roles={...raw.roles};
+      if(typeof raw.enabled==='boolean')out.enabled=raw.enabled;
+      if(out.active)out.enabled=true; // a case already open carries on
       out.attackReason=FATAL.includes(raw.attackReason)?raw.attackReason:null;
       out.death=FATAL.includes(raw.death)?raw.death:null;
       out.attackPhase=LIGHTING[raw.attackPhase]?raw.attackPhase:null;
@@ -616,7 +621,7 @@
     function onNewDay(){
       const st=state();
       if(!st||st.dead)return;
-      if(!st.active){if(today()>=rules().activationDay)activate(st);return;}
+      if(!st.active){if(st.enabled!==false&&today()>=rules().activationDay)activate(st);return;}
       sync();
       deliverQueue(st);
       expireFavours(st);
@@ -888,7 +893,7 @@
         const slotRow=slot=>`<p><b>${slotNames[slot]}</b></p><div class="chapel-row">${recruited.map(id=>`<button class="chapel-btn ${st.draft[slot]===id?'on':''}" data-chapel-choice="slot:${slot}:${id}">${esc(firstName(id))}</button>`).join('')}<button class="chapel-btn ${st.draft[slot]?'':'on'}" data-chapel-choice="slot:${slot}:none">Nobody</button></div>`;
         vigilHtml=`${recruited.length?'':'<p>No Sister has agreed to stand with you yet.</p>'}${SLOTS.map(slotRow).join('')}<p>Voices gathered: ${voices(st)}</p><p><b>Chapel</b></p><div class="chapel-row">${placeButtons('vplace')}</div><p><b>Night</b></p><div class="chapel-row"><button class="chapel-btn" data-chapel-choice="vnight:-">−</button><span>${esc(relDays(today()+st.draft.nights))}</span><button class="chapel-btn" data-chapel-choice="vnight:+">+</button></div><button class="notes-call" data-chapel-choice="vigil-send">✝ Send word to the Sisters</button>${st.vigilError?`<p class="chapel-danger">${esc(st.vigilError)}</p>`:''}`;
       }
-      const sisterIntro=st.introduced?'':'<p>Call St Brigid\'s Chapel (number in Contacts) and ask about the crescent marks to be introduced.</p>';
+      const sisterIntro=st.introduced?'':'<p>Call St Brigid\'s Chapel and ask about the crescent marks to be introduced. Any Sister of Mercy will give you the parish office\'s number if you ask her.</p>';
       const danger=st.marks>0&&!st.outcome?'<p class="chapel-danger">Victoria knows who you are.</p>':'';
       const walkAway=st.outcome||st.withdrawn?'':walkAwayArmed?
         '<p class="chapel-danger">Walk away for good? The Sisters will not wait for you.</p><div class="chapel-row"><button class="chapel-btn warn" data-chapel-choice="walk-away-confirm">Yes, walk away</button><button class="chapel-btn" data-chapel-choice="walk-away-cancel">Stay on the case</button></div>':
@@ -986,7 +991,7 @@
     function previewNow(){
       const st=state();
       if(!st)return false;
-      if(!st.active)activate(st);
+      if(!st.active){st.enabled=true;activate(st);} // the testing shortcut always opens the case
       api.status('The Chapel at Midnight is open. Victoria has messaged you; the case file is in your bedside cupboard.');
       caseOpen=false;
       if(api.showCase)api.showCase();else api.openApp('notes');

@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 89,
-  "imageCount": 408,
-  "publicImageCount": 184,
-  "privateImageCount": 224,
+  "characterCount": 91,
+  "imageCount": 424,
+  "publicImageCount": 194,
+  "privateImageCount": 230,
   "characters": [
     {
       "id": "MATCH-001",
@@ -2319,6 +2319,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-077",
+      "slug": "bianca_roth",
+      "name": "Bianca Roth",
+      "age": 33,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/bianca_roth_01.webp",
+        "assets/hinge/roster_expansion/bianca_roth_02.webp",
+        "assets/hinge/roster_expansion/bianca_roth_03.webp",
+        "assets/hinge/roster_expansion/bianca_roth_04.webp",
+        "assets/hinge/roster_expansion/bianca_roth_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/bianca_roth_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Bianca Roth, consistent Olive skin, dirty-blonde ponytail, a tiny scar through one eyebrow, white linen trouser suit",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bianca_roth_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Bianca Roth, consistent Olive skin, dirty-blonde ponytail, a tiny scar through one eyebrow, white linen trouser suit",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bianca_roth_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Bianca Roth, consistent Olive skin, dirty-blonde ponytail, a tiny scar through one eyebrow, white linen trouser suit",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-102",
       "slug": "danica_holt",
       "name": "Danica Holt",
@@ -2667,6 +2705,44 @@
       "privatePhotos": [],
       "personality": "restless, ambitious and charming",
       "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and practising watercolour landscapes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-225",
+      "slug": "alana_brooks",
+      "name": "Alana Brooks",
+      "age": 40,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Museum attendant",
+      "gallery": [
+        "assets/hinge/roster_expansion/alana_brooks_01.webp",
+        "assets/hinge/roster_expansion/alana_brooks_02.webp",
+        "assets/hinge/roster_expansion/alana_brooks_03.webp",
+        "assets/hinge/roster_expansion/alana_brooks_04.webp",
+        "assets/hinge/roster_expansion/alana_brooks_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/alana_brooks_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Alana Brooks, consistent Deep brown skin, honey-blonde beach waves, a silver ear cuff, mint polo shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alana_brooks_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Alana Brooks, consistent Deep brown skin, honey-blonde beach waves, a silver ear cuff, mint polo shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alana_brooks_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Alana Brooks, consistent Deep brown skin, honey-blonde beach waves, a silver ear cuff, mint polo shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum attendant and collecting unusual cookbooks.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],
