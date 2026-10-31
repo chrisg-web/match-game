@@ -1,0 +1,1561 @@
+{
+  "version": 3,
+  "source": "63 original MATCH characters plus new illustrated roster entrants",
+  "note": "187 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
+  "characterCount": 71,
+  "imageCount": 215,
+  "publicImageCount": 122,
+  "privateImageCount": 93,
+  "characters": [
+    {
+      "id": "MATCH-001",
+      "slug": "anna_voss",
+      "name": "Anna Voss",
+      "age": 26,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity volunteer",
+      "gallery": [
+        "assets/hinge/portraits/anna_voss_1.webp",
+        "assets/hinge/portraits/anna_voss_2.webp",
+        "assets/hinge/portraits/anna_voss_bonus.webp",
+        "assets/hinge/portraits/anna_voss_added.webp",
+        "assets/hinge/gallery_additions/anna_voss_gala_balcony.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/selfies/anna_voss_compact.webp",
+          "description": "Private blue-bikini mirror photograph in a Scottsdale hotel bathroom, silver compact camera visible",
+          "camera": "silver digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/anna_voss_lingerie_a.webp",
+          "description": "Anna in blue lingerie standing at her bedroom mirror, holding a silver compact camera beside her face",
+          "camera": "standing bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-002",
+      "slug": "eleanor_graves",
+      "name": "Eleanor Graves",
+      "age": 31,
+      "factionId": "police",
+      "canonicalOccupation": "Detective",
+      "gallery": [
+        "assets/hinge/portraits/eleanor_graves_1.webp",
+        "assets/hinge/portraits/eleanor_graves_2.webp",
+        "assets/hinge/gallery_additions/eleanor_graves_barbecue.webp",
+        "assets/hinge/gallery_additions/eleanor_graves_desert_hike.webp",
+        "assets/hinge/gallery_additions/eleanor_graves_pub_quiz.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/eleanor_graves_black_dress_mirror.webp",
+          "description": "Eleanor taking a bedroom mirror photo in a black wrap dress, one leg forward and a faint playful smile, her red hair loosened from her usual work style",
+          "camera": "full-length bedroom mirror selfie with silver digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eleanor_graves_lingerie_a.webp",
+          "description": "Off-duty Eleanor kneeling comfortably in navy-blue lingerie in front of a wardrobe mirror",
+          "camera": "kneeling full-length mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eleanor_graves_lingerie_b.webp",
+          "description": "Eleanor standing sideways in an ivory camisole and coordinating underwear at her bedroom mirror",
+          "camera": "sideways bedroom mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-003",
+      "slug": "victoria_blackwood",
+      "name": "Victoria Blackwood",
+      "age": 28,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Record-store regular",
+      "gallery": [
+        "assets/hinge/portraits/victoria_blackwood_1.webp",
+        "assets/hinge/portraits/victoria_blackwood_2.webp",
+        "assets/hinge/portraits/victoria_blackwood_3.webp",
+        "assets/hinge/portraits/victoria_blackwood_bonus.webp",
+        "assets/hinge/portraits/victoria_blackwood_added.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/selfies/victoria_blackwood_compact.webp",
+          "description": "Private black-lace outfit mirror selfie with magenta backstage lighting, silver compact camera visible",
+          "camera": "silver digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/victoria_blackwood_black_crop_mirror.webp",
+          "description": "Victoria's over-the-shoulder bedroom mirror selfie in a black ribbed crop top and laced black denim shorts, studded choker and cross earrings, candles and crescent-moon posters behind her",
+          "camera": "black digital camera raised to a bedroom mirror",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/victoria_blackwood_lingerie_a.webp",
+          "description": "Victoria sitting on her heels in black gothic lingerie beneath purple bedroom lighting",
+          "camera": "seated antique-mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/victoria_blackwood_lingerie_b.webp",
+          "description": "Victoria in dark plum satin sleepwear turning back towards her antique mirror",
+          "camera": "three-quarter rear-view bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-004",
+      "slug": "beatrice_hale",
+      "name": "Beatrice Hale",
+      "age": 29,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Local reporter",
+      "gallery": [
+        "assets/hinge/portraits/beatrice_hale_1.webp",
+        "assets/hinge/portraits/beatrice_hale_2.webp",
+        "assets/hinge/portraits/beatrice_hale_3.webp",
+        "assets/hinge/gallery_additions/beatrice_hale_sedona.webp",
+        "assets/hinge/gallery_additions/beatrice_hale_newsroom.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/beatrice_hale_backless_black_dress.webp",
+          "description": "Beatrice in a backless black evening dress in a hotel mirror, face in near-profile as she looks over her shoulder at her reflection",
+          "camera": "rear three-quarter mirror selfie with silver digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/beatrice_hale_lingerie_b.webp",
+          "description": "Beatrice standing at a warm hotel bathroom mirror in champagne satin lingerie",
+          "camera": "standing bathroom mirror photo with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-005",
+      "slug": "clara_weiss",
+      "name": "Clara Weiss",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "University student",
+      "gallery": [
+        "assets/hinge/portraits/clara_weiss_1.webp",
+        "assets/hinge/portraits/clara_weiss_2.webp",
+        "assets/hinge/portraits/clara_weiss_3.webp",
+        "assets/hinge/portraits/clara_weiss_bonus.webp",
+        "assets/hinge/gallery_additions/clara_weiss_record_shop.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/selfies/clara_weiss_compact.webp",
+          "description": "Private turquoise-bikini mirror selfie beside a sandstone bathroom counter, silver compact camera visible",
+          "camera": "silver digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/clara_weiss_lingerie_a.webp",
+          "description": "Clara standing in turquoise lingerie before a bedroom mirror, with her silver compact camera raised",
+          "camera": "standing wardrobe-mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/clara_weiss_lingerie_b.webp",
+          "description": "Clara seated cross-legged on her bed in a black satin camisole and matching short sleepwear",
+          "camera": "seated bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-006",
+      "slug": "catherine_bell",
+      "name": "Catherine Bell",
+      "age": 27,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Fundraising organiser",
+      "gallery": [
+        "assets/hinge/portraits/catherine_bell_1.webp",
+        "assets/hinge/gallery_additions/catherine_bell_tennis.webp",
+        "assets/hinge/gallery_additions/catherine_bell_rooftop_gala.webp",
+        "assets/hinge/gallery_additions/catherine_bell_food_truck.webp",
+        "assets/hinge/gallery_additions/catherine_bell_desert_walk.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/catherine_bell_white_shirt_mirror.webp",
+          "description": "Catherine taking a relaxed bedroom mirror selfie in an open white linen shirt over an opaque fitted top and white shorts, smiling to one side",
+          "camera": "handheld bedroom mirror selfie with digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/catherine_bell_lingerie_a.webp",
+          "description": "Catherine standing sideways at a bathroom mirror in a rose-pink lingerie set",
+          "camera": "sideways bathroom mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/catherine_bell_lingerie_b.webp",
+          "description": "Catherine on the edge of a hotel bed in an ivory satin camisole and matching sleep shorts",
+          "camera": "seated hotel mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-007",
+      "slug": "sophia_moretti",
+      "name": "Sophia Moretti",
+      "age": 25,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Parish outreach volunteer",
+      "gallery": [
+        "assets/hinge/portraits/sophia_moretti_1.webp",
+        "assets/hinge/portraits/sophia_moretti_2.webp",
+        "assets/hinge/gallery_additions/sophia_moretti_bookshop.webp",
+        "assets/hinge/gallery_additions/sophia_moretti_flower_market.webp",
+        "assets/hinge/gallery_additions/sophia_moretti_bake_sale.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/sophia_moretti_bonus.webp",
+          "description": "Private camera-roll photograph of Sophia Moretti, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-008",
+      "slug": "rebecca_shaw",
+      "name": "Rebecca Shaw",
+      "age": 30,
+      "factionId": "progressives",
+      "canonicalOccupation": "Student organiser",
+      "gallery": [
+        "assets/hinge/portraits/rebecca_shaw_1.webp",
+        "assets/hinge/portraits/rebecca_shaw_2.webp",
+        "assets/hinge/gallery_additions/rebecca_shaw_record_shop.webp",
+        "assets/hinge/gallery_additions/rebecca_shaw_makerspace.webp",
+        "assets/hinge/gallery_additions/rebecca_shaw_broccoli_protest.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/rebecca_shaw_burgundy_robe_mirror.webp",
+          "description": "Private hotel-bathroom mirror selfie of Rebecca in a burgundy satin robe open over an opaque black lace-trim bodysuit, short teal-streaked hair and glasses, silver compact camera visible",
+          "camera": "self-shot reflection in hotel mirror, silver 2007 digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rebecca_shaw_lingerie_a.webp",
+          "description": "Rebecca in burgundy lingerie with her familiar glasses and teal-streaked hair, reflected in her bedroom mirror",
+          "camera": "standing bedroom mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rebecca_shaw_lingerie_b.webp",
+          "description": "Rebecca seated sideways by a window wearing a navy satin camisole and coordinating sleepwear",
+          "camera": "window-seat mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-009",
+      "slug": "amelia_hart",
+      "name": "Amelia Hart",
+      "age": 23,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Retail assistant",
+      "gallery": [
+        "assets/hinge/portraits/amelia_hart_1.webp",
+        "assets/hinge/portraits/amelia_hart_2.webp",
+        "assets/hinge/portraits/amelia_hart_bonus.webp",
+        "assets/hinge/gallery_additions/amelia_hart_backyard_party.webp",
+        "assets/hinge/gallery_additions/amelia_hart_vintage_market.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/amelia_hart_pink_cami_denim_skirt.webp",
+          "description": "Amelia seated sideways on a bedroom ottoman in a butterfly-print pink camisole and denim mini-skirt, smiling down in near-profile at a compact camera",
+          "camera": "sideways seated full-length mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/amelia_hart_lingerie_a.webp",
+          "description": "Amelia standing beside a wardrobe mirror in pale pink lingerie, with her blonde hairstyle intact",
+          "camera": "standing wardrobe-mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/amelia_hart_lingerie_b.webp",
+          "description": "Amelia seated on a bedroom carpet in a lilac satin camisole and matching shorts",
+          "camera": "low seated bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-010",
+      "slug": "diana_moore",
+      "name": "Diana Moore",
+      "age": 32,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity donor",
+      "gallery": [
+        "assets/hinge/portraits/diana_moore_1.webp",
+        "assets/hinge/portraits/diana_moore_2.webp",
+        "assets/hinge/gallery_additions/diana_moore_gallery_opening.webp",
+        "assets/hinge/gallery_additions/diana_moore_horse_ranch.webp",
+        "assets/hinge/gallery_additions/diana_moore_resort_breakfast.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/gallery_additions/diana_moore_mirror.webp",
+          "description": "Private camera-roll photograph of Diana Moore, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/diana_moore_lingerie_a.webp",
+          "description": "Diana standing in a warm hotel mirror wearing emerald lingerie and holding a silver compact camera",
+          "camera": "standing hotel-room mirror photograph with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/diana_moore_lingerie_b.webp",
+          "description": "Diana in a cropped champagne satin camisole and matching short satin bottoms, seated with anatomically natural legs and a black velvet collar",
+          "camera": "seated armchair mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-011",
+      "slug": "lucy_bennett",
+      "name": "Lucy Bennett",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "University lecturer",
+      "gallery": [
+        "assets/hinge/portraits/lucy_bennett_1.webp",
+        "assets/hinge/gallery_additions/lucy_bennett_cafe.webp",
+        "assets/hinge/gallery_additions/lucy_bennett_book_fair.webp",
+        "assets/hinge/gallery_additions/lucy_bennett_desert_garden.webp",
+        "assets/hinge/gallery_additions/lucy_bennett_compact_mirror.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/lucy_bennett_red_satin_seated.webp",
+          "description": "Private bedroom mirror selfie of Lucy seated on a maroon ottoman in a red satin camisole and matching lounge shorts, silver compact camera in hand",
+          "camera": "self-shot seated full-length mirror picture with a silver digital point-and-shoot",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lucy_bennett_lingerie_a.webp",
+          "description": "Lucy standing sideways in a blue lingerie set, taking a bedroom mirror photograph",
+          "camera": "sideways wardrobe-mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lucy_bennett_lingerie_b.webp",
+          "description": "Lucy seated on her bed wearing a pale gold satin camisole and coordinating shorts",
+          "camera": "seated bedroom mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-012",
+      "slug": "natalie_cross",
+      "name": "Natalie Cross",
+      "age": 29,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Photojournalist",
+      "gallery": [
+        "assets/hinge/portraits/natalie_cross_1.webp",
+        "assets/hinge/portraits/natalie_cross_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/gallery_additions/natalie_cross_balcony.webp",
+          "description": "Private camera-roll photograph of Natalie Cross, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/natalie_cross_black_lounge_reclining.webp",
+          "description": "Natalie lying on her stomach across a bed in a black satin lounge set, looking sideways towards the bedside mirror with her digital camera raised",
+          "camera": "reclining bedroom mirror photo with a silver compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/natalie_cross_black_lounge_seated.webp",
+          "description": "Natalie sitting cross-legged on an unmade bed in a black satin lounge set, facing her mirror with a relaxed, direct gaze and compact camera",
+          "camera": "seated mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/natalie_cross_lingerie_a.webp",
+          "description": "Natalie standing in red lingerie in a hotel wardrobe mirror, wearing her distinctive long braids",
+          "camera": "standing hotel wardrobe-mirror photo with silver digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/natalie_cross_lingerie_b.webp",
+          "description": "Natalie seated in ivory satin sleepwear in a softly lit bedroom",
+          "camera": "seated ottoman mirror selfie with silver digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-013",
+      "slug": "megan_torres",
+      "name": "Megan Torres",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Shop assistant",
+      "gallery": [
+        "assets/hinge/portraits/megan_torres_1.webp",
+        "assets/hinge/portraits/megan_torres_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/megan_torres_green_swimsuit_sarong.webp",
+          "description": "Megan by a resort wardrobe mirror in a green swimsuit and colourful sarong, turning to one side while taking a playful pink-camera selfie",
+          "camera": "standing mirror selfie using pink digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/megan_torres_lingerie_a.webp",
+          "description": "Megan in a green lingerie set taking a warm resort bathroom mirror photograph",
+          "camera": "standing resort mirror selfie with pink digital compact",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/megan_torres_lingerie_b.webp",
+          "description": "Megan seated on a hotel bed in coral satin sleepwear, holding a pink compact camera",
+          "camera": "seated bedroom mirror photograph with pink digital compact",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-014",
+      "slug": "emily_fairchild",
+      "name": "Emily Fairchild",
+      "age": 25,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Nurse",
+      "gallery": [
+        "assets/hinge/portraits/emily_fairchild_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/emily_fairchild_pink_cami_crouch.webp",
+          "description": "Emily crouching by a bedroom mirror in a pink camisole and denim shorts, smiling gently while holding her silver camera near her face",
+          "camera": "low-angle wardrobe mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-015",
+      "slug": "brooke_chandler",
+      "name": "Brooke Chandler",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Marketing assistant",
+      "gallery": [
+        "assets/hinge/portraits/brooke_chandler_1.webp",
+        "assets/hinge/portraits/brooke_chandler_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/brooke_chandler_black_corset_wardrobe.webp",
+          "description": "Brooke posing in a fitted black corset-style outfit, opaque tights and shorts before a wardrobe mirror, shoulders at a different angle and camera visible",
+          "camera": "full-length wardrobe mirror selfie with compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/brooke_chandler_black_lace_over_shoulder.webp",
+          "description": "Brooke glancing back over her shoulder in a lamp-lit bedroom, in a black lace-trim camisole and matching briefs, sunglasses pushed up into her streaky brown hair and silver hoops in her ears",
+          "camera": "over-the-shoulder shot taken with a self-timer",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/brooke_chandler_white_offshoulder_bed.webp",
+          "description": "Brooke lying back across her bed in a white off-shoulder crop top and pale blue lounge shorts, holding a silver compact camera out at arm's length",
+          "camera": "silver compact camera held at arm's length",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-016",
+      "slug": "madison_pike",
+      "name": "Madison Pike",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Diner waitress",
+      "gallery": [
+        "assets/hinge/portraits/madison_pike_1.webp",
+        "assets/hinge/portraits/madison_pike_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/gallery_additions/madison_pike_bikini_mirror.webp",
+          "description": "Private pink-bikini mirror selfie in a motel pool changing room, silver compact camera visible",
+          "camera": "silver digital compact camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/madison_pike_red_mini_mirror.webp",
+          "description": "Madison's over-the-shoulder bedroom mirror selfie in a black halterneck top and red mini skirt, blonde hair piled in a messy bun, silver compact camera raised",
+          "camera": "silver compact camera in a bedroom mirror",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-017",
+      "slug": "olivia_reid",
+      "name": "Olivia Reid",
+      "age": 27,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Estate agent",
+      "gallery": [
+        "assets/hinge/portraits/olivia_reid_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/olivia_reid_black_bikini_over_shoulder.webp",
+          "description": "Olivia in a black two-piece swimsuit with thong-cut bottoms, turned away from the bedroom mirror and looking back over one shoulder while holding a silver camera",
+          "camera": "rear-facing resort bedroom mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-018",
+      "slug": "sarah_whitcomb",
+      "name": "Sarah Whitcomb",
+      "age": 30,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Accountant",
+      "gallery": [
+        "assets/hinge/portraits/sarah_whitcomb_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/sarah_whitcomb_red_halter_denim_shorts.webp",
+          "description": "Sarah leaning diagonally into a wardrobe mirror in a red halterneck top and denim shorts, smiling through glasses with her camera raised high",
+          "camera": "high-angle mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-019",
+      "slug": "tiffany_nash",
+      "name": "Tiffany Nash",
+      "age": 23,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Party promoter",
+      "gallery": [
+        "assets/hinge/portraits/tiffany_nash_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/tiffany_nash_turquoise_bikini_over_shoulder.webp",
+          "description": "Tiffany in a turquoise two-piece swimsuit with thong-cut bottoms, taking a rear three-quarter mirror selfie with a raised digital camera in a Scottsdale hotel room",
+          "camera": "over-the-shoulder resort mirror selfie with silver compact camera",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-020",
+      "slug": "lauren_bishop",
+      "name": "Lauren Bishop",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Fitness instructor",
+      "gallery": [
+        "assets/hinge/portraits/lauren_bishop_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/lauren_bishop_2.webp",
+          "description": "Private camera-roll photograph of Lauren Bishop, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-021",
+      "slug": "heather_collins",
+      "name": "Heather Collins",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Primary-school teacher",
+      "gallery": [
+        "assets/hinge/portraits/heather_collins_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/heather_collins_2.webp",
+          "description": "Private camera-roll photograph of Heather Collins, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-022",
+      "slug": "chloe_farrow",
+      "name": "Chloe Farrow",
+      "age": 21,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Art student",
+      "gallery": [
+        "assets/hinge/portraits/chloe_farrow_1.webp",
+        "assets/hinge/portraits/chloe_farrow_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/gallery_additions/chloe_farrow_studio.webp",
+          "description": "Private camera-roll photograph of Chloe Farrow, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-023",
+      "slug": "julia_mercer",
+      "name": "Julia Mercer",
+      "age": 32,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/portraits/julia_mercer_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/julia_mercer_2.webp",
+          "description": "Private camera-roll photograph of Julia Mercer, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-024",
+      "slug": "rachel_lowe",
+      "name": "Rachel Lowe",
+      "age": 25,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Veterinary assistant",
+      "gallery": [
+        "assets/hinge/portraits/rachel_lowe_1.webp",
+        "assets/hinge/portraits/rachel_lowe_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/rachel_lowe_bonus.webp",
+          "description": "Private camera-roll photograph of Rachel Lowe, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-025",
+      "slug": "megan_okeefe",
+      "name": "Megan O'Keefe",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Dental hygienist",
+      "gallery": [
+        "assets/hinge/portraits/megan_okeefe_1.webp",
+        "assets/hinge/portraits/megan_okeefe_2.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/megan_okeefe_bonus.webp",
+          "description": "Private camera-roll photograph of Megan O'Keefe, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-026",
+      "slug": "emma_frost",
+      "name": "Emma Frost",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "College senior",
+      "gallery": [
+        "assets/hinge/portraits/emma_frost_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/emma_frost_2.webp",
+          "description": "Private camera-roll photograph of Emma Frost, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-027",
+      "slug": "paige_dalton",
+      "name": "Paige Dalton",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Cinema cashier",
+      "gallery": [
+        "assets/hinge/portraits/paige_dalton_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/paige_dalton_2.webp",
+          "description": "Private camera-roll photograph of Paige Dalton, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-028",
+      "slug": "nicole_ashbury",
+      "name": "Nicole Ashbury",
+      "age": 33,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Events planner",
+      "gallery": [
+        "assets/hinge/portraits/nicole_ashbury_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/nicole_ashbury_2.webp",
+          "description": "Private camera-roll photograph of Nicole Ashbury, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-029",
+      "slug": "audrey_king",
+      "name": "Audrey King",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Rodeo ticket seller",
+      "gallery": [
+        "assets/hinge/portraits/audrey_king_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/audrey_king_2.webp",
+          "description": "Private camera-roll photograph of Audrey King, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-030",
+      "slug": "bethany_price",
+      "name": "Bethany Price",
+      "age": 27,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Librarian",
+      "gallery": [
+        "assets/hinge/portraits/bethany_price_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/bethany_price_2.webp",
+          "description": "Private camera-roll photograph of Bethany Price, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-031",
+      "slug": "erin_doyle",
+      "name": "Erin Doyle",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Lifeguard",
+      "gallery": [
+        "assets/hinge/portraits/erin_doyle_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/erin_doyle_2.webp",
+          "description": "Private camera-roll photograph of Erin Doyle, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-032",
+      "slug": "kimberly_brooks",
+      "name": "Kimberly Brooks",
+      "age": 31,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Office administrator",
+      "gallery": [
+        "assets/hinge/portraits/kimberly_brooks_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/kimberly_brooks_2.webp",
+          "description": "Private camera-roll photograph of Kimberly Brooks, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-033",
+      "slug": "grace_wheeler",
+      "name": "Grace Wheeler",
+      "age": 23,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Ice-cream vendor",
+      "gallery": [
+        "assets/hinge/portraits/grace_wheeler_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/grace_wheeler_2.webp",
+          "description": "Private camera-roll photograph of Grace Wheeler, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-034",
+      "slug": "isabel_morales",
+      "name": "Isabel Morales",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Horse trainer",
+      "gallery": [
+        "assets/hinge/portraits/isabel_morales_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/isabel_morales_2.webp",
+          "description": "Private camera-roll photograph of Isabel Morales, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-035",
+      "slug": "elena_vargas",
+      "name": "Elena Vargas",
+      "age": 25,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Florist",
+      "gallery": [
+        "assets/hinge/portraits/elena_vargas_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/elena_vargas_2.webp",
+          "description": "Private camera-roll photograph of Elena Vargas, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-036",
+      "slug": "camila_reyes",
+      "name": "Camila Reyes",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Cosmetology student",
+      "gallery": [
+        "assets/hinge/portraits/camila_reyes_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/camila_reyes_2.webp",
+          "description": "Private camera-roll photograph of Camila Reyes, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-037",
+      "slug": "marisol_fuentes",
+      "name": "Marisol Fuentes",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Park ranger",
+      "gallery": [
+        "assets/hinge/portraits/marisol_fuentes_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/marisol_fuentes_2.webp",
+          "description": "Private camera-roll photograph of Marisol Fuentes, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-038",
+      "slug": "daniela_cruz",
+      "name": "Daniela Cruz",
+      "age": 32,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Boutique owner",
+      "gallery": [
+        "assets/hinge/portraits/daniela_cruz_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/daniela_cruz_2.webp",
+          "description": "Private camera-roll photograph of Daniela Cruz, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-039",
+      "slug": "hana_park",
+      "name": "Hana Park",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Graphic designer",
+      "gallery": [
+        "assets/hinge/portraits/hana_park_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/hana_park_2.webp",
+          "description": "Private camera-roll photograph of Hana Park, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-040",
+      "slug": "mei_chen",
+      "name": "Mei Chen",
+      "age": 30,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Hairdresser",
+      "gallery": [
+        "assets/hinge/portraits/mei_chen_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/mei_chen_2.webp",
+          "description": "Private camera-roll photograph of Mei Chen, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-041",
+      "slug": "nia_walker",
+      "name": "Nia Walker",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Community theatre actor",
+      "gallery": [
+        "assets/hinge/portraits/nia_walker_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/nia_walker_2.webp",
+          "description": "Private camera-roll photograph of Nia Walker, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-042",
+      "slug": "alice_beaumont",
+      "name": "Alice Beaumont",
+      "age": 29,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity event chair",
+      "gallery": [
+        "assets/hinge/portraits/alice_beaumont_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/alice_beaumont_2.webp",
+          "description": "Private camera-roll photograph of Alice Beaumont, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-043",
+      "slug": "caroline_prescott",
+      "name": "Caroline Prescott",
+      "age": 34,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Fundraiser",
+      "gallery": [
+        "assets/hinge/portraits/caroline_prescott_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/caroline_prescott_2.webp",
+          "description": "Private camera-roll photograph of Caroline Prescott, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-044",
+      "slug": "phoebe_sutton",
+      "name": "Phoebe Sutton",
+      "age": 25,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Volunteer coordinator",
+      "gallery": [
+        "assets/hinge/portraits/phoebe_sutton_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/phoebe_sutton_2.webp",
+          "description": "Private camera-roll photograph of Phoebe Sutton, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-045",
+      "slug": "sofia_delgado",
+      "name": "Sofia Delgado",
+      "age": 27,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Community liaison",
+      "gallery": [
+        "assets/hinge/portraits/sofia_delgado_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/sofia_delgado_2.webp",
+          "description": "Private camera-roll photograph of Sofia Delgado, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-046",
+      "slug": "yumi_tanaka",
+      "name": "Yumi Tanaka",
+      "age": 30,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Non-profit accountant",
+      "gallery": [
+        "assets/hinge/portraits/yumi_tanaka_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/yumi_tanaka_2.webp",
+          "description": "Private camera-roll photograph of Yumi Tanaka, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-047",
+      "slug": "abigail_porter",
+      "name": "Abigail Porter",
+      "age": 33,
+      "factionId": "police",
+      "canonicalOccupation": "Homicide detective",
+      "gallery": [
+        "assets/hinge/portraits/abigail_porter_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/abigail_porter_2.webp",
+          "description": "Private camera-roll photograph of Abigail Porter, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-048",
+      "slug": "helen_markham",
+      "name": "Helen Markham",
+      "age": 37,
+      "factionId": "police",
+      "canonicalOccupation": "Police sergeant",
+      "gallery": [
+        "assets/hinge/portraits/helen_markham_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/helen_markham_2.webp",
+          "description": "Private camera-roll photograph of Helen Markham, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-049",
+      "slug": "maria_vega",
+      "name": "Maria Vega",
+      "age": 28,
+      "factionId": "police",
+      "canonicalOccupation": "Undercover detective",
+      "gallery": [
+        "assets/hinge/portraits/maria_vega_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/maria_vega_2.webp",
+          "description": "Private camera-roll photograph of Maria Vega, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-050",
+      "slug": "keiko_nakamura",
+      "name": "Keiko Nakamura",
+      "age": 31,
+      "factionId": "police",
+      "canonicalOccupation": "Police analyst",
+      "gallery": [
+        "assets/hinge/portraits/keiko_nakamura_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/keiko_nakamura_2.webp",
+          "description": "Private camera-roll photograph of Keiko Nakamura, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-051",
+      "slug": "jennifer_tate",
+      "name": "Jennifer Tate",
+      "age": 24,
+      "factionId": "progressives",
+      "canonicalOccupation": "Campus organiser",
+      "gallery": [
+        "assets/hinge/portraits/jennifer_tate_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/jennifer_tate_2.webp",
+          "description": "Private camera-roll photograph of Jennifer Tate, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-052",
+      "slug": "vanessa_greer",
+      "name": "Vanessa Greer",
+      "age": 27,
+      "factionId": "progressives",
+      "canonicalOccupation": "Political activist",
+      "gallery": [
+        "assets/hinge/portraits/vanessa_greer_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/vanessa_greer_2.webp",
+          "description": "Private camera-roll photograph of Vanessa Greer, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-053",
+      "slug": "allison_kent",
+      "name": "Allison Kent",
+      "age": 30,
+      "factionId": "progressives",
+      "canonicalOccupation": "Research assistant",
+      "gallery": [
+        "assets/hinge/portraits/allison_kent_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/allison_kent_2.webp",
+          "description": "Private camera-roll photograph of Allison Kent, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-054",
+      "slug": "rosa_gutierrez",
+      "name": "Rosa Gutierrez",
+      "age": 26,
+      "factionId": "progressives",
+      "canonicalOccupation": "Graduate student",
+      "gallery": [
+        "assets/hinge/portraits/rosa_gutierrez_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/rosa_gutierrez_2.webp",
+          "description": "Private camera-roll photograph of Rosa Gutierrez, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-055",
+      "slug": "margaret_holloway",
+      "name": "Margaret Holloway",
+      "age": 35,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Parish coordinator",
+      "gallery": [
+        "assets/hinge/portraits/margaret_holloway_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/margaret_holloway_2.webp",
+          "description": "Private camera-roll photograph of Margaret Holloway, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-056",
+      "slug": "teresa_bellamy",
+      "name": "Teresa Bellamy",
+      "age": 28,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Religious-school teacher",
+      "gallery": [
+        "assets/hinge/portraits/teresa_bellamy_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/teresa_bellamy_2.webp",
+          "description": "Private camera-roll photograph of Teresa Bellamy, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-057",
+      "slug": "evelyn_rosales",
+      "name": "Evelyn Rosales",
+      "age": 31,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Charity secretary",
+      "gallery": [
+        "assets/hinge/portraits/evelyn_rosales_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/evelyn_rosales_2.webp",
+          "description": "Private camera-roll photograph of Evelyn Rosales, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-058",
+      "slug": "hannah_webb",
+      "name": "Hannah Webb",
+      "age": 28,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Investigative reporter",
+      "gallery": [
+        "assets/hinge/portraits/hannah_webb_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/hannah_webb_2.webp",
+          "description": "Private camera-roll photograph of Hannah Webb, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-059",
+      "slug": "fiona_blake",
+      "name": "Fiona Blake",
+      "age": 32,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Editor",
+      "gallery": [
+        "assets/hinge/portraits/fiona_blake_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/fiona_blake_navy_satin_sapphires.webp",
+          "description": "Fiona's dressing-room mirror selfie in a navy satin camisole and black wrap skirt, wearing a sapphire necklace and earrings, auburn hair pinned up in her usual messy updo",
+          "camera": "silver compact camera in a bulb-lit dressing-room mirror",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_additions/fiona_blake_white_cami_pink_shorts.webp",
+          "description": "Fiona sitting on her bed with her auburn hair down for once, in a white lace-trim camisole and pink satin shorts, silver compact camera raised to the mirror",
+          "camera": "silver compact camera on a wrist strap, bedroom mirror",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-060",
+      "slug": "linh_tran",
+      "name": "Linh Tran",
+      "age": 26,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Freelance photojournalist",
+      "gallery": [
+        "assets/hinge/portraits/linh_tran_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/linh_tran_2.webp",
+          "description": "Private camera-roll photograph of Linh Tran, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-061",
+      "slug": "alice_wren",
+      "name": "Alice Wren",
+      "age": 25,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Nightclub DJ",
+      "gallery": [
+        "assets/hinge/portraits/alice_wren_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/alice_wren_2.webp",
+          "description": "Private camera-roll photograph of Alice Wren, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-062",
+      "slug": "piper_nocturne",
+      "name": "Piper Nocturne",
+      "age": 23,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Alternative shop assistant",
+      "gallery": [
+        "assets/hinge/portraits/piper_nocturne_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/piper_nocturne_2.webp",
+          "description": "Private camera-roll photograph of Piper Nocturne, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-063",
+      "slug": "zara_brooks",
+      "name": "Zara Brooks",
+      "age": 29,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Tattoo artist",
+      "gallery": [
+        "assets/hinge/portraits/zara_brooks_1.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/portraits/zara_brooks_2.webp",
+          "description": "Private camera-roll photograph of Zara Brooks, held back from the public Hinge gallery",
+          "camera": "period digital photograph",
+          "era": "2005–2010"
+        }
+      ]
+    },
+    {
+      "id": "MATCH-064",
+      "slug": "maya_serrano",
+      "name": "Maya Serrano",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Emergency department nurse",
+      "gallery": [
+        "assets/hinge/roster_expansion/maya_serrano_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Quick-witted, reassuring and forthright",
+      "personalGoal": "convince her sister to open a small neighbourhood café",
+      "privatePicturePolicy": "optional later, only if trust develops"
+    },
+    {
+      "id": "MATCH-065",
+      "slug": "jocelyn_reed",
+      "name": "Jocelyn Reed",
+      "age": 34,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity compliance officer",
+      "gallery": [
+        "assets/hinge/roster_expansion/jocelyn_reed_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Measured, diplomatic and quietly suspicious",
+      "personalGoal": "audit the foundation without losing her career",
+      "privatePicturePolicy": "optional later, trust-gated"
+    },
+    {
+      "id": "MATCH-066",
+      "slug": "priya_nair",
+      "name": "Priya Nair",
+      "age": 27,
+      "factionId": "sisters_of_mercy",
+      "canonicalOccupation": "Community librarian",
+      "gallery": [
+        "assets/hinge/roster_expansion/priya_nair_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Compassionate, scholarly and stubborn about principle",
+      "personalGoal": "keep the parish reading room open",
+      "privatePicturePolicy": "never requests or sends intimate photographs"
+    },
+    {
+      "id": "MATCH-067",
+      "slug": "inez_morales",
+      "name": "Inez Morales",
+      "age": 25,
+      "factionId": "progressives",
+      "canonicalOccupation": "University housing organiser",
+      "gallery": [
+        "assets/hinge/roster_expansion/inez_morales_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Impatient, witty and fiercely loyal",
+      "personalGoal": "save a student housing co-operative",
+      "privatePicturePolicy": "optional later, relationship-gated"
+    },
+    {
+      "id": "MATCH-068",
+      "slug": "rowan_pike",
+      "name": "Rowan Pike",
+      "age": 32,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Tattoo studio owner",
+      "gallery": [
+        "assets/hinge/roster_expansion/rowan_pike_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Dry, independent and disarmingly direct",
+      "personalGoal": "keep the studio independent of a predatory investor",
+      "privatePicturePolicy": "optional later, trust-gated"
+    },
+    {
+      "id": "MATCH-069",
+      "slug": "camille_baptiste",
+      "name": "Camille Baptiste",
+      "age": 30,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Photojournalist",
+      "gallery": [
+        "assets/hinge/roster_expansion/camille_baptiste_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Observant, ironic and relentlessly curious",
+      "personalGoal": "publish an independent photo essay about the city",
+      "privatePicturePolicy": "optional later, no duplicates from her public work"
+    },
+    {
+      "id": "MATCH-070",
+      "slug": "tessa_larkin",
+      "name": "Tessa Larkin",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Wildlife rescue volunteer",
+      "gallery": [
+        "assets/hinge/roster_expansion/tessa_larkin_01.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_additions/tessa_larkin_cream_crop_rug.webp",
+          "description": "Tessa kneeling on a shaggy bedroom rug in a cream ribbed crop top and grey drawstring shorts, copper hair loose for once, smiling up at the camera",
+          "camera": "compact camera on a self-timer, propped on the dresser",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "Cheerfully chaotic, honest and patient with animals",
+      "personalGoal": "find a permanent home for the rescue centre",
+      "privatePicturePolicy": "optional later, cheerful outdoor camera-roll photos"
+    },
+    {
+      "id": "MATCH-071",
+      "slug": "nadia_okafor",
+      "name": "Nadia Okafor",
+      "age": 28,
+      "factionId": "police",
+      "canonicalOccupation": "Forensic evidence technician",
+      "gallery": [
+        "assets/hinge/roster_expansion/nadia_okafor_01.webp"
+      ],
+      "privatePhotos": [],
+      "personality": "Composed, principled and very funny when she relaxes",
+      "personalGoal": "qualify as a full forensic investigator",
+      "privatePicturePolicy": "optional later, private life separate from work"
+    }
+  ],
+  "plannedCharacterCount": 250
+}

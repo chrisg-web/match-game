@@ -1,0 +1,929 @@
+{
+  "version": 1,
+  "id": "sisters_of_mercy_marriage",
+  "title": "Marriage: the Sisters of Mercy",
+  "summary": "The only way to win MATCH. Pass a Sister of Mercy's traditional Catholic examination (five correct answers in a row), get a free wedding ring from one of five Scottsdale jewellers, then propose.",
+  "fellowship": "The Sisters of Mercy are a lay fellowship of traditional Catholic women in Scottsdale, not a vowed religious congregation. Every member is free to marry.",
+  "timeRule": "Time advances only through Start Another Day. No weekdays, calendar dates or clock times are needed to play.",
+  "rules": {
+    "streakToPass": 5,
+    "noRingReply": "Wait, without a ring?",
+    "ringArrived": "A small velvet box has been delivered. The wedding ring is on your desk.",
+    "alreadyHaveRing": "You already have a wedding ring on your desk."
+  },
+  "art": {
+    "ring": "assets/marriage/wedding-ring.png",
+    "victoryBackdrop": "assets/marriage/victory-backdrop.png",
+    "victoryBackdropFinal": true,
+    "weddingsFinal": true,
+    "weddingScenes": [
+      {
+        "key": "1-wedding-day",
+        "title": "The Wedding Day"
+      },
+      {
+        "key": "2-aisle",
+        "title": "Walking Down the Aisle"
+      },
+      {
+        "key": "3-side-altar",
+        "title": "A Quiet Moment Together"
+      },
+      {
+        "key": "4-portrait",
+        "title": "The Wedding Portrait"
+      }
+    ]
+  },
+  "victory": {
+    "title": "JUST MARRIED",
+    "subtitle": "You found your perfect match.",
+    "line": "You and {name} · St Brigid’s Chapel · Day {day}",
+    "newGame": "Start a new game"
+  },
+  "sisters": {
+    "MATCH-007": {
+      "name": "Sophia Moretti",
+      "slug": "sophia_moretti",
+      "temperament": "cheerful and romantic",
+      "start": "Ask whether she would ever marry you",
+      "player": "Sophia… would you ever consider marrying someone like me?",
+      "intro": "Marry you? Oh my goodness. Well, darling, if you really expect me to consider marrying you, I suppose we ought to establish whether you know anything about the Catholic faith. Five right in a row. Nonna would insist.",
+      "resume": "Back for more? Wonderful. Where were we…",
+      "pause": "Of course, darling. I'll keep your place. Go and pray about it!",
+      "correct": [
+        "Oh! You actually knew that one!",
+        "Yes! Nonna would be so proud of you.",
+        "Look at you, paying attention at Mass!",
+        "Correct! I might have to start practising a new surname."
+      ],
+      "wrong": [
+        "Oh no, darling. Back to the start, I'm afraid.",
+        "Sweetheart, that's quite embarrassing. Shall we begin again?",
+        "Somewhere, Nonna just fainted. From the top!",
+        "Not quite! I still like you, though. Again!"
+      ],
+      "pass": "FIVE! Five in a row! I think I just squealed in the parish office. You know your faith… and I think you know my heart a little, too.",
+      "noRing": "A girl does need a ring, darling! Go and see a jeweller. I'll wait. Probably.",
+      "accept": "A ring?! Yes! Yes, yes, a hundred times yes! I'm calling Nonna. No, I'm calling Father first. No… NONNA!"
+    },
+    "MATCH-055": {
+      "name": "Margaret Holloway",
+      "slug": "margaret_holloway",
+      "temperament": "stern and organised",
+      "start": "Ask whether she would ever consider marriage",
+      "player": "Margaret, I'd like to ask you something serious. Would you ever consider marrying me?",
+      "intro": "Marriage is a serious undertaking, and I never begin anything without proper preparation. Five correct answers in a row. One mistake and we begin again. Shall we?",
+      "resume": "Very well. We continue exactly where we left off.",
+      "pause": "Stopping halfway. I'll note it. Don't make a habit of it.",
+      "correct": [
+        "Correct. Next.",
+        "Good. Don't get comfortable.",
+        "Five minutes with you and I'm almost impressed.",
+        "That's right. I've made a note."
+      ],
+      "wrong": [
+        "No. We begin again.",
+        "Perhaps you ought to spend another evening with your missal.",
+        "Incorrect. I did warn you.",
+        "I think we had better start again. From the very beginning."
+      ],
+      "pass": "Five in a row. I… did not expect that. Very well. You follow through, and that matters to me more than I usually admit.",
+      "noRing": "A proposal without a ring is a plan without preparation. Come back when it's done properly.",
+      "accept": "With a ring, and on your word. Yes. I accept. I'll draw up the guest list tonight, and you will be on time."
+    },
+    "MATCH-056": {
+      "name": "Teresa Bellamy",
+      "slug": "teresa_bellamy",
+      "temperament": "a teacher who is demanding about religious knowledge",
+      "start": "Ask whether she would ever marry you",
+      "player": "Teresa, would you ever think about marrying me?",
+      "intro": "Oh, I warn you, I'm a teacher. I set examinations for ten-year-olds and I mark them ruthlessly. Five correct in a row, no repeats, no hints. Ready? Pencils down… well, phones up.",
+      "resume": "Back to class! Let's pick up where we left off.",
+      "pause": "Break time. But the examination will still be here, and so will I.",
+      "correct": [
+        "Correct! Gold star.",
+        "Yes! I could give you a whole lesson on that one, but I won't. Not now, anyway.",
+        "Very good. My class would be jealous.",
+        "Right again. I'm running out of gold stars."
+      ],
+      "wrong": [
+        "Ah. No. That one's a classic mistake. Back to the beginning!",
+        "I'd have to mark that wrong, I'm afraid. From the top.",
+        "Oh dear. I had rather hoped you'd know that.",
+        "Detention! I'm joking. Mostly. Start again."
+      ],
+      "pass": "Five out of five, in a row! Full marks. I'm telling my grandmother. She's been asking whether I'd ever meet a man who knew his Ember days.",
+      "noRing": "Without a ring? My grandmother would never let me hear the end of it. She sells them, you know. Bellamy & Daughters, in Old Town.",
+      "accept": "Yes! Yes, of course yes. Oh, Granny is going to cry all over the display cases."
+    },
+    "MATCH-057": {
+      "name": "Evelyn Rosales",
+      "slug": "evelyn_rosales",
+      "temperament": "reserved, cautious and exact",
+      "start": "Ask whether she would ever consider marrying you",
+      "player": "Evelyn, I'll be direct. Would you ever consider marrying me?",
+      "intro": "I keep the parish accounts, so I check everything twice. If you're serious, let's see whether you know the faith. Five correct answers, consecutively. I'll be keeping a tally.",
+      "resume": "Reopening the ledger. Your tally stands where you left it.",
+      "pause": "Ledger closed for now. Nothing's been written off.",
+      "correct": [
+        "Correct. One more tick in the column.",
+        "That balances.",
+        "Right. I'm still checking your figures.",
+        "Correct. I'm cautiously impressed."
+      ],
+      "wrong": [
+        "That doesn't add up. Back to zero.",
+        "Wrong. I'm resetting the tally.",
+        "Oh dear. Let's audit that again from the beginning.",
+        "No. I'd have had to send that back with a note."
+      ],
+      "pass": "Five consecutive. I checked twice. You actually know this. I don't say it often: I trust you.",
+      "noRing": "No ring? I can't approve an unfunded proposal. Even a free ring would do.",
+      "accept": "A ring, a proper proposal and five correct answers. Everything reconciles. Yes. I'll marry you."
+    },
+    "MATCH-066": {
+      "name": "Priya Nair",
+      "slug": "priya_nair",
+      "temperament": "scholarly, warm and stubborn about principle",
+      "start": "Ask whether she would ever marry you",
+      "player": "Priya, would you ever consider marrying me?",
+      "intro": "You want to marry a librarian? Then you'll be examined. Five questions in a row, from the stacks of my memory. No skimming.",
+      "resume": "Welcome back to the reading room. Your place is bookmarked.",
+      "pause": "I'll bookmark your page. Come back when you've done some reading.",
+      "correct": [
+        "Correct! Filed under ‘promising’.",
+        "Yes. You've clearly done the reading.",
+        "I see somebody has been paying attention at Mass.",
+        "Right again. I may have to give you a reader's card for life."
+      ],
+      "wrong": [
+        "Overdue! Back to the beginning.",
+        "Not quite. I'm re-shelving you at the start.",
+        "Oh, sweetheart. Wrong footnote. Begin again.",
+        "Mm, no. Perhaps another evening with the catechism?"
+      ],
+      "pass": "Five in a row. I've catalogued a thousand books and I've never read anything quite as lovely as you getting that last one right.",
+      "noRing": "Without a ring? That's a hymn book without a binding. Lovely, but it'll fall apart. Come back with one.",
+      "accept": "Yes. With all my heart, yes. I'm going to write this down in the most beautiful hand I have."
+    }
+  },
+  "jewellers": {
+    "agnes": {
+      "name": "Agnes Bellamy",
+      "shop": "Bellamy & Daughters Antiques",
+      "role": "Antique jeweller",
+      "location": "Main Street, Old Town Scottsdale",
+      "personality": "Elderly, sentimental and fond of traditional marriages. Teresa Bellamy's grandmother.",
+      "portrait": "assets/marriage/jewellers/agnes_bellamy.png",
+      "greeting": "Bellamy & Daughters, Agnes speaking. Speak up, dear, the cuckoo clocks are going.",
+      "portraitFinal": true
+    },
+    "rafael": {
+      "name": "Rafaela Ortega",
+      "shop": "Ortega Watch & Jewelry Repair",
+      "role": "Jewellery repair specialist",
+      "location": "Scottsdale Road, beside the laundromat",
+      "personality": "Practical, friendly and quietly generous.",
+      "portrait": "assets/marriage/jewellers/rafaela_ortega.png",
+      "greeting": "Ortega Repair, Rafaela speaking. What's broken?",
+      "portraitFinal": true
+    },
+    "clara": {
+      "name": "Clara Whitmore",
+      "shop": "Whitmore Estate Jewels",
+      "role": "Estate jewellery dealer",
+      "location": "Fifth Avenue, in the gallery district",
+      "personality": "Elegant, discerning and fascinated by family history. A Thunderbird: she wears the blue swallow brooch.",
+      "portrait": "assets/marriage/jewellers/clara_whitmore.png",
+      "greeting": "Whitmore Estate Jewels. Clara Whitmore speaking. If this is about the Thunderbird gala, the brooches are spoken for.",
+      "portraitFinal": true
+    },
+    "joseph": {
+      "name": "Josephine Mercer",
+      "shop": "Mercer Rings",
+      "role": "Independent ring maker",
+      "location": "A workshop beside the Arizona Canal",
+      "personality": "Reserved, meticulous and proud of her craftsmanship.",
+      "portrait": "assets/marriage/jewellers/josephine_mercer.png",
+      "greeting": "Mercer.",
+      "portraitFinal": true
+    },
+    "sofia": {
+      "name": "Sofia Rinaldi",
+      "shop": "Rinaldi Bridal Boutique",
+      "role": "Boutique jeweller",
+      "location": "Scottsdale Quarter",
+      "personality": "Cheerful, romantic and enthusiastic about weddings. A Thunderbird: she wears the blue swallow brooch.",
+      "portrait": "assets/marriage/jewellers/sofia_rinaldi.png",
+      "greeting": "Rinaldi Bridal! Sofia here, still glittery from the Thunderbird gala! Are you getting MARRIED?",
+      "portraitFinal": true
+    }
+  },
+  "jewellerTalk": {
+    "agnes": {
+      "ask": {
+        "label": "Ask about wedding rings",
+        "reply": "A wedding ring! Oh, how lovely. Now tell me, dear: is it to be a proper wedding? In church, with a veil and the old Mass?"
+      },
+      "discount": {
+        "label": "Ask whether she does discounts",
+        "reply": "Discounts! Young man, a wedding ring is not a tin of beans."
+      },
+      "church": {
+        "label": "Tell her it will be a proper church wedding",
+        "reply": "Oh, that's what I like to hear. My Walter and I married at St Brigid's fifty-one years ago. Shall I tell you about it? Everyone hangs up when I start.",
+        "teresa": " My granddaughter Teresa is a Sister of Mercy, you know. Clever girl. Far too clever for most boys."
+      },
+      "listen": {
+        "label": "Stay on the line and listen to her story",
+        "reply": "…and Walter dropped the ring in the font, and Father fished it out with the aspergillum, and we laughed all the way through the Gloria. Oh, I've talked for ages and you listened to every word. There's a plain gold band in my window that's been waiting for someone like you. No, put your wallet away. It's free. Walter would haunt me. It's on its way to you now."
+      }
+    },
+    "rafael": {
+      "ask": {
+        "label": "Ask whether she has a plain wedding band",
+        "reply": "I fix rings, I don't sell many. But there's a plain gold band in my drawer that nobody ever came back for. Tell you what, do me a favour. St Brigid's sacristy clock has been ready for weeks and nobody's collected it. Call the chapel and let them know?"
+      },
+      "waiting": {
+        "label": "Ask about the band again",
+        "reply": "Deal's still on the table. Call St Brigid's about their clock first."
+      },
+      "done": {
+        "label": "Tell Rafaela the chapel got her message",
+        "reply": "They already rang me. The clock's going home, so the ring's going to you. No charge. It was never going to do anyone any good in a drawer. My nephew's dropping it off now."
+      },
+      "chapelTopic": {
+        "label": "Tell them Rafaela Ortega has finished the sacristy clock",
+        "reply": "Oh, thank goodness. We've been ringing the bell by guesswork for weeks. We'll send someone round. God bless Rafaela."
+      }
+    },
+    "clara": {
+      "ask": {
+        "label": "Ask about estate wedding bands",
+        "reply": "Every ring here has a family history. I only part with them to people who intend to start one. Who is she?"
+      },
+      "noOne": {
+        "label": "Admit you haven't asked anyone yet",
+        "reply": "Then call me back when there's a name, darling. Rings remember."
+      },
+      "bride": {
+        "label": "Tell her you hope to marry {name}",
+        "reply": "{history} There's a plain gold band here from a couple married at St Brigid's who had sixty years together. It should go back to that church. I won't take a cent for it. My courier is on his way."
+      },
+      "history": {
+        "MATCH-007": "Moretti? The Morettis ran the bakery on Brown Avenue for three generations. They baked the bread for every parish picnic.",
+        "MATCH-055": "Holloway? Her great-grandparents gave St Brigid's its organ.",
+        "MATCH-056": "Bellamy? Agnes Bellamy's granddaughter! Agnes and I have been rivals for forty years. Oh, I would love to beat her to this.",
+        "MATCH-057": "Rosales? Her grandmother sewed the altar linens at St Brigid's for half a century.",
+        "MATCH-066": "Nair? Her family endowed the parish reading room. She's the one keeping it open, isn't she?"
+      }
+    },
+    "joseph": {
+      "order": {
+        "label": "Ask her to make a plain gold band",
+        "reply": "One ring at a time. Plain gold, polished. Two days. Call back then."
+      },
+      "notReady": {
+        "label": "Ask whether the ring is ready",
+        "reply": "Not yet. Good work takes the days it takes."
+      },
+      "ready": {
+        "label": "Ask whether the ring is ready",
+        "reply": "It's done. Before it leaves the bench: is it for a marriage, or for a gesture?"
+      },
+      "gesture": {
+        "label": "Tell her it's to impress someone",
+        "reply": "Then buy her flowers. This ring is for a marriage."
+      },
+      "marriage": {
+        "label": "Tell her it's for a marriage, for life",
+        "reply": "Then it isn't for sale. I don't sell the first ring I make after a quiet month. I give it. Polish it once a year. It's on its way."
+      }
+    },
+    "sofia": {
+      "ask": {
+        "label": "Tell her you're hoping to get married",
+        "reply": "AAAH! Tell me everything! How are you going to propose?"
+      },
+      "app": {
+        "label": "Say you'll propose by message on a dating app",
+        "reply": "On an APP? No, no, no, absolutely not. Try again, tesoro."
+      },
+      "drive": {
+        "label": "Say you'll propose with mariachis at a drive-through",
+        "reply": "Ha! Bold. Wrong. Try again."
+      },
+      "knee": {
+        "label": "Say you'll go down on one knee after Mass",
+        "reply": "On one knee, after Mass?! I'm crying. Okay, this month's Most Romantic Proposal prize is a free wedding band, and it's YOURS. Send me a photo from the wedding! I'm couriering it now."
+      }
+    },
+    "haveRing": {
+      "label": "Tell them you already have your ring",
+      "reply": "Then what are you doing on the phone with me? Go and ask her!"
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "Darling, before you ask my father for my hand, can you tell me the precise date Bishop François Charrière established the Society of Saint Pius X?",
+      "answers": [
+        "1 November 1970",
+        "18 February 1971",
+        "21 November 1974",
+        "30 June 1988"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 2,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "A gentleman really ought to know his bishops. Who authorised the SSPX's original foundation in Lausanne, Geneva and Fribourg?",
+      "answers": [
+        "Pierre Mamie",
+        "François Charrière",
+        "Nestor Adam",
+        "John Joseph Wright"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 3,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "You suggest a romantic visit to Écône. Lovely! Now, which Swiss canton would you actually be taking me to?",
+      "answers": [
+        "Vaud",
+        "Aargau",
+        "Valais",
+        "Fribourg"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 4,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "When our future children ask about Archbishop Lefebvre's missionary life, which African archdiocese will you tell them he led?",
+      "answers": [
+        "Abidjan",
+        "Dakar",
+        "Algiers",
+        "Yaoundé"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 5,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "I do hope my future husband remembers the great missionary congregations. Which one elected Lefebvre Superior General in 1962?",
+      "answers": [
+        "Society of African Missions",
+        "Missionaries of Africa",
+        "Congregation of the Holy Spirit",
+        "Congregation of the Mission"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 6,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "I've saved a place for you beside me at our Lefebvre reading evening. On what exact date did he issue his famous declaration?",
+      "answers": [
+        "21 November 1974",
+        "11 November 1974",
+        "6 May 1975",
+        "29 August 1976"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 7,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "If you're to impress my family at Sunday lunch, can you name the SSPX Superior General serving in October 2026?",
+      "answers": [
+        "Bernard Fellay",
+        "Davide Pagliarani",
+        "Franz Schmidberger",
+        "Alfonso de Galarreta"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 8,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "Before I even consider trusting you with our family history timeline, on which date were the four original SSPX bishops consecrated?",
+      "answers": [
+        "29 June 1988",
+        "1 July 1988",
+        "30 June 1988",
+        "2 July 1988"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 9,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "We are looking at photographs of the 1988 consecrations. Which retired Brazilian bishop was standing with Lefebvre?",
+      "answers": [
+        "Antônio de Castro Mayer",
+        "Geraldo de Proença Sigaud",
+        "Hélder Câmara",
+        "Eugênio de Araújo Sales"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 10,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "I expect my future husband to keep up with the news. Following July 2026, how many bishops served the SSPX as of October that year?",
+      "answers": [
+        "Two",
+        "Four",
+        "Six",
+        "Eight"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 11,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "If I give you four new episcopal names to remember, which is the complete group consecrated at Écône on 1 July 2026?",
+      "answers": [
+        "Schreiber, Goldade, Poinsinet de Sivry and Hanappier",
+        "Schreiber, Goldade, Fellay and Tissier de Mallerais",
+        "Goldade, Pagliarani, Schreiber and Williamson",
+        "Hanappier, Bouchacourt, Schmidberger and Poinsinet de Sivry"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 12,
+      "category": "SSPX and Archbishop Marcel Lefebvre",
+      "question": "Now, sweetheart, which of the four bishops consecrated in July 2026 comes from the United States?",
+      "answers": [
+        "Pascal Schreiber",
+        "Michel Poinsinet de Sivry",
+        "Marc Hanappier",
+        "Michael Goldade"
+      ],
+      "correctAnswerIndex": 3
+    },
+    {
+      "id": 13,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "I adore a man who knows the roots of the liturgical revival. Who restored Benedictine life at Solesmes in 1833?",
+      "answers": [
+        "Dom Lambert Beauduin",
+        "Dom Prosper Guéranger",
+        "Dom Paul Delatte",
+        "Dom Columba Marmion"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 14,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "If I tell you that the international Una Voce story began with a lady's appeal in 1964, can you name her?",
+      "answers": [
+        "Maria Montessori",
+        "Madeleine Delbrêl",
+        "Borghild Krane",
+        "Adrienne von Speyr"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 15,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "On our bookshop date, which English traditionalist writer should you recognise as a former president of the international Una Voce federation?",
+      "answers": [
+        "Michael Davies",
+        "Evelyn Waugh",
+        "Hilaire Belloc",
+        "Ronald Knox"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 16,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "You have spotted the famous 1969 'Ottaviani Intervention' on my shelf. Which pair of cardinals presented the critical study to Paul VI?",
+      "answers": [
+        "Ottaviani and Bea",
+        "Siri and Bacci",
+        "Ottaviani and Bacci",
+        "Suenens and Lercaro"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 17,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "I want you to know that traditional liturgical life extends beyond one Society. Who was the FSSP's co-founder and first Superior General?",
+      "answers": [
+        "Josef Bisig",
+        "Gilles Wach",
+        "John Berg",
+        "Franz Schmidberger"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 18,
+      "category": "Famous Traditional Catholic Figures",
+      "question": "If I tuck a little Marian book into your travelling bag, which saint wrote the Treatise on True Devotion to the Blessed Virgin?",
+      "answers": [
+        "Alphonsus Liguori",
+        "Francis de Sales",
+        "Bernard of Clairvaux",
+        "Louis-Marie Grignion de Montfort"
+      ],
+      "correctAnswerIndex": 3
+    },
+    {
+      "id": 19,
+      "category": "Our Lady of Fatima",
+      "question": "Before we travel to Fatima together, can you tell me the precise place where Our Lady first appeared to the three shepherd children in May 1917?",
+      "answers": [
+        "Valinhos",
+        "Cova da Iria",
+        "Loca do Cabeço",
+        "Pontevedra"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 20,
+      "category": "Our Lady of Fatima",
+      "question": "I want our family to know the prayers taught before the Marian apparitions. In which year did the Angel of Peace appear to the three children?",
+      "answers": [
+        "1915",
+        "1916",
+        "1917",
+        "1918"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 21,
+      "category": "Our Lady of Fatima",
+      "question": "My darling, the devotion of the Five First Saturdays has a history. In which Spanish city did Our Lady speak to Lucia on 10 December 1925?",
+      "answers": [
+        "Tuy",
+        "Santiago de Compostela",
+        "Pontevedra",
+        "Ávila"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 22,
+      "category": "Our Lady of Fatima",
+      "question": "You know the children were detained on 13 August 1917. At which place did the fourth apparition occur on 19 August instead?",
+      "answers": [
+        "Aljustrel's parish church",
+        "Valinhos",
+        "Cova da Iria",
+        "The well at Cabeço"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 23,
+      "category": "Our Lady of Fatima",
+      "question": "If our children ask what the first part of the July 1917 Secret concerned, what will you gently and accurately tell them?",
+      "answers": [
+        "A vision of hell",
+        "The future fall of the Papal States",
+        "The discovery of a hidden chapel",
+        "An angel holding the Eucharistic host"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 24,
+      "category": "Our Lady of Fatima",
+      "question": "We would certainly say the Rosary before visiting the shrine. On which date in 1917 did the Miracle of the Sun take place?",
+      "answers": [
+        "13 July",
+        "19 August",
+        "13 September",
+        "13 October"
+      ],
+      "correctAnswerIndex": 3
+    },
+    {
+      "id": 25,
+      "category": "Our Lady of Fatima",
+      "question": "Last Fatima question, sweetheart: how many consecutive First Saturdays and how long a meditation are requested in the devotion?",
+      "answers": [
+        "Three Saturdays and 30 minutes",
+        "Five Saturdays and 15 minutes",
+        "Seven Saturdays and 15 minutes",
+        "Nine Saturdays and 20 minutes"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 26,
+      "category": "Traditional Latin Mass",
+      "question": "If we're to share a missal every Sunday, sweetheart, you'd better know which pope issued the 1962 edition used by the SSPX.",
+      "answers": [
+        "Pius XII",
+        "Paul VI",
+        "John XXIII",
+        "Pius X"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 27,
+      "category": "Traditional Latin Mass",
+      "question": "I whisper 'Judica me' and ask you a tiny question at the right moment: during which season does the 1962 Mass omit Psalm 42?",
+      "answers": [
+        "Advent",
+        "Passiontide",
+        "Epiphanytide",
+        "Time after Pentecost"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 28,
+      "category": "Traditional Latin Mass",
+      "question": "If the priest says 'Introibo ad altare Dei', what must my well-trained future husband know to answer as his server?",
+      "answers": [
+        "Deo gratias",
+        "Ad Deum qui laetificat juventutem meam",
+        "Et cum spiritu tuo",
+        "Suscipiat Dominus sacrificium"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 29,
+      "category": "Traditional Latin Mass",
+      "question": "Easter has arrived and I have my best chapel veil ready. Which antiphon replaces 'Asperges me' at the sprinkling?",
+      "answers": [
+        "Regina caeli",
+        "Veni Creator",
+        "Vidi aquam",
+        "Attende Domine"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 30,
+      "category": "Traditional Latin Mass",
+      "question": "I give you a gentle nudge after 'Orate, fratres'. What response should you know by heart at the Offertory?",
+      "answers": [
+        "Et cum spiritu tuo",
+        "Habemus ad Dominum",
+        "Deo gratias",
+        "Suscipiat Dominus sacrificium de manibus tuis"
+      ],
+      "correctAnswerIndex": 3
+    },
+    {
+      "id": 31,
+      "category": "Traditional Latin Mass",
+      "question": "You may be very good at washing the teacups, but from which Vulgate Psalm does the priest say the 'Lavabo' verses?",
+      "answers": [
+        "Psalm 25",
+        "Psalm 42",
+        "Psalm 50",
+        "Psalm 115"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 32,
+      "category": "Traditional Latin Mass",
+      "question": "While I follow the prayers in my lovely old missal, where should I find the 'Secret' in the order of Mass?",
+      "answers": [
+        "Immediately before the readings",
+        "After the Offertory and before the Preface",
+        "After the Pater Noster",
+        "Between the Last Gospel and the Leonine Prayers"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 33,
+      "category": "Traditional Latin Mass",
+      "question": "You tell me you know the Roman Canon almost by heart. How does it begin, in its first two Latin words?",
+      "answers": [
+        "Te igitur",
+        "Quam oblationem",
+        "Nobis quoque",
+        "Supplices te"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 34,
+      "category": "Traditional Latin Mass",
+      "question": "My ideal gentleman notices every syllable of the sacred liturgy. Where do the words 'Mysterium fidei' occur in the 1962 Canon?",
+      "answers": [
+        "In the Gloria",
+        "In the words over the chalice",
+        "In the Secret prayer",
+        "In the Last Gospel"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 35,
+      "category": "Traditional Latin Mass",
+      "question": "When we pray for our departed grandparents at Mass, which opening words mark the Canon's commemoration of the dead?",
+      "answers": [
+        "Communicantes",
+        "Memento, Domine",
+        "Memento etiam, Domine",
+        "Hanc igitur"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 36,
+      "category": "Traditional Latin Mass",
+      "question": "I'll be listening carefully towards the end of Mass. Which Gospel passage ordinarily opens the Last Gospel?",
+      "answers": [
+        "Luke 1:26",
+        "Matthew 5:1",
+        "John 1:1",
+        "Mark 16:1"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 37,
+      "category": "Traditional Latin Mass",
+      "question": "Before you promise to observe the Ember days with me, please tell me which three weekdays belong to an Ember observance.",
+      "answers": [
+        "Monday, Wednesday and Friday",
+        "Tuesday, Thursday and Saturday",
+        "Wednesday, Friday and Saturday",
+        "Thursday, Friday and Sunday"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 38,
+      "category": "Traditional Latin Mass",
+      "question": "I'd love to plan an October outing around the feast of Christ the King. When does it fall in the 1962 calendar?",
+      "answers": [
+        "Last Sunday of October",
+        "Last Sunday before Advent",
+        "First Sunday of November",
+        "Sunday within the Octave of Corpus Christi"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 39,
+      "category": "Traditional Latin Mass",
+      "question": "Suppose our courtship begins in Septuagesima. What happens to the Alleluia in the traditional Roman liturgy?",
+      "answers": [
+        "It is sung twice before each Gospel",
+        "It is omitted until Easter",
+        "It is replaced by 'Gloria in excelsis'",
+        "It is used only on Ember Saturdays"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 40,
+      "category": "Catholic Doctrine and Church History",
+      "question": "If you hope to inherit my grandfather's old hand missal, which pope must you associate with 'Quo primum' in 1570?",
+      "answers": [
+        "Pius IV",
+        "Gregory XIII",
+        "Pius V",
+        "Sixtus V"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 41,
+      "category": "Catholic Doctrine and Church History",
+      "question": "I might forgive a forgotten birthday, but can you tell me who published 'Pascendi Dominici Gregis' against Modernism in 1907?",
+      "answers": [
+        "Leo XIII",
+        "Pius X",
+        "Benedict XV",
+        "Pius XI"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 42,
+      "category": "Catholic Doctrine and Church History",
+      "question": "If Christ is to reign in our home, what great truth was the subject of Pius XI's encyclical 'Quas Primas'?",
+      "answers": [
+        "The kingship of Christ",
+        "The Sacred Heart of Jesus",
+        "The Christian family",
+        "The social reign of Mary"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 43,
+      "category": "Catholic Doctrine and Church History",
+      "question": "I have flowers ready for Our Lady's Assumption. Which apostolic constitution solemnly defined that dogma in 1950?",
+      "answers": [
+        "Ineffabilis Deus",
+        "Ad Caeli Reginam",
+        "Munificentissimus Deus",
+        "Mystici Corporis Christi"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 44,
+      "category": "Catholic Doctrine and Church History",
+      "question": "Before you choose a Marian name for our future daughter, which document defined the Immaculate Conception in 1854?",
+      "answers": [
+        "Ineffabilis Deus",
+        "Quanta Cura",
+        "Ubi Primum",
+        "Fulgens Corona"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 45,
+      "category": "Catholic Doctrine and Church History",
+      "question": "If we ever chant the Divine Office together, you'll need this: what did Saint Pius X's 'Divino Afflatu' principally reform?",
+      "answers": [
+        "The Rite of Confirmation",
+        "The distribution of the Psalter in the Divine Office",
+        "The words of Eucharistic consecration",
+        "The calendar of the Easter Triduum"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 46,
+      "category": "Catholic Doctrine and Church History",
+      "question": "Before I trust you to teach our children their catechism, tell me precisely what changes in transubstantiation.",
+      "answers": [
+        "Only the bread's symbolic meaning",
+        "The visible accidents of bread and wine",
+        "The whole substance of bread and wine, while their appearances remain",
+        "The faith of the congregation without any change in the gifts"
+      ],
+      "correctAnswerIndex": 2
+    },
+    {
+      "id": 47,
+      "category": "Catholic Doctrine and Church History",
+      "question": "Suppose our future teenager asks an earnest question about mortal sin. Which three conditions would you explain?",
+      "answers": [
+        "Grave matter, full knowledge and deliberate consent",
+        "Temptation, emotion and repetition",
+        "Public scandal, a warning and persistence",
+        "Mortal consequences, negligence and secrecy"
+      ],
+      "correctAnswerIndex": 0
+    },
+    {
+      "id": 48,
+      "category": "Catholic Doctrine and Church History",
+      "question": "When I ask you to pray for the holy souls in purgatory, can you explain what an indulgence actually remits?",
+      "answers": [
+        "Guilt for sins not yet confessed",
+        "Eternal punishment before repentance",
+        "All consequences of future sin",
+        "Temporal punishment for sins whose guilt is already forgiven"
+      ],
+      "correctAnswerIndex": 3
+    },
+    {
+      "id": 49,
+      "category": "Catholic Doctrine and Church History",
+      "question": "I want our children well catechised. Which three sacraments leave an indelible spiritual character?",
+      "answers": [
+        "Baptism, Eucharist and Penance",
+        "Baptism, Confirmation and Holy Orders",
+        "Confirmation, Matrimony and Penance",
+        "Holy Orders, Matrimony and Anointing"
+      ],
+      "correctAnswerIndex": 1
+    },
+    {
+      "id": 50,
+      "category": "Catholic Doctrine and Church History",
+      "question": "One final question, darling, before you ask for my hand: which session of Trent taught on the Sacrifice of the Mass in September 1562?",
+      "answers": [
+        "Session XIII",
+        "Session XIV",
+        "Session XXII",
+        "Session XXV"
+      ],
+      "correctAnswerIndex": 2
+    }
+  ]
+}

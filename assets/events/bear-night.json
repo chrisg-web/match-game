@@ -1,0 +1,12 @@
+{
+  "id": "bear-night",
+  "trigger": "swipe_right_on_special-bear-001",
+  "rarity": "rare",
+  "steps": [
+    { "when": "matched", "screen": "dating", "image": "assets/events/bear-profile.png", "text": "It's a bear." },
+    { "when": "night_before_death", "screen": "bedroom", "image": "assets/source/bedroom-night-open.png", "doorOpen": true, "text": null },
+    { "when": "sleep", "screen": "bedroom", "image": "assets/source/bedroom-night-bear.png", "screenShake": "brief" },
+    { "when": "death", "screen": "death", "image": "assets/source/death-red.png", "text": "You were killed by a bear.", "requiresNewGame": true }
+  ],
+  "notes": ["The bear is not one of the 250 fictional women.", "The open door is a foreshadowing clue for this and other conditional danger scenes.", "This is non-graphic horror and dark comedy."]
+}
