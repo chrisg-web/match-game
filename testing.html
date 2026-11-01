@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="0633f11663">
+<html lang="en" data-build="6a8719bf38">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=0633f11663"></script>
+  <script src="chapel_at_midnight.js?v=6a8719bf38"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=0633f11663"></script>
+  <script src="marriage.js?v=6a8719bf38"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=0633f11663"></script>
+  <script src="quests/professor-vale.js?v=6a8719bf38"></script>
 </head>
 <body>
   <main class="workbench">
@@ -903,6 +903,10 @@
       return !coarse&&window.innerWidth>=900;
     }
     window.addEventListener('resize',()=>{if(handsBig!==null&&bigScreen()!==handsBig)setGrip();});
+    // The computer-size hands (assets/ui/hands/*/…-large.png) arrived in art pack 111 but draw too
+    // small and too low at the phone's grip settings; until their placement is tuned, computers use
+    // the difficulty's phone-size hands, which line up.
+    var BIG_HANDS_READY=false;
     function setGrip() {
       const pose=$('hand-pose').value;
       const g=gripGeometry[pose];
@@ -911,7 +915,7 @@
       // Hands match the difficulty (wiry and small for Truecel, absurdly muscular for Mogger), and a
       // computer gets a bigger set. Each new picture is tried first; until it exists, the game falls
       // back one step at a time to today's hands (NEW_IMAGE_REQUESTS.md lists the pictures).
-      const name=g.image.replace(/-v2$/,''),large=bigScreen();
+      const name=g.image.replace(/-v2$/,''),large=BIG_HANDS_READY&&bigScreen();
       const tries=[...(large?[`assets/ui/hands/${selectedDifficulty}/${name}-large.png`]:[]),
         ...(selectedDifficulty!=='normie'?[`assets/ui/hands/${selectedDifficulty}/${name}.png`]:[]),
         `assets/ui/${g.image}.png`];
