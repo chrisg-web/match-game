@@ -51,18 +51,26 @@
   "flyerGoths": {
     "MATCH-061": {
       "credit": "DJ on the flyer",
-      "contactPlayer": "Hi, I saw your name on the Midnight Rite flyer.",
-      "contactReply": "Ha, that's me. Two hours of records nobody's heard of, then Victoria takes over. What's up?"
+      "unknown": "The DJ on the flyer",
+      "numberNote": "Bookings line on the flyer",
+      "lineName": "DJ Wren, bookings",
+      "greeting": "Alice Wren, bookings. If it’s a party, I’m full until spring.",
+      "askLabel": "Ask about the Midnight Rite",
+      "askReply": "I play the records and Victoria does the rest. I don’t talk about her nights with a voice on the phone. I’m on Hinge, if you want to say hello properly."
     },
     "MATCH-062": {
-      "credit": "Sells the tickets at the Black Lace shop",
-      "contactPlayer": "Hi, the flyer says the tickets come from you?",
-      "contactReply": "From the shop, yeah. Except it's not really tickets. It's invitations. Victoria decides. Why?"
+      "credit": "Sells the invitations at the Black Lace shop",
+      "unknown": "Whoever sells the invitations at the Black Lace shop",
+      "numberNote": "The Black Lace shop’s number, from the flyer",
+      "lineName": "Black Lace shop",
+      "greeting": "Black Lace, Piper speaking. We shut at six.",
+      "askLabel": "Ask about the invitations",
+      "askReply": "They come through the shop, but Victoria decides who gets one, and she doesn’t know you. Neither do I. I’m on Hinge, if you’re curious."
     },
     "MATCH-063": {
       "credit": "Drew the crescent on the flyer",
-      "contactPlayer": "Hi, did you draw the crescent on the Midnight Rite flyer?",
-      "contactReply": "Took me all night. People keep staring at it. Like you, apparently."
+      "unknown": "Whoever drew the crescent on the flyer",
+      "numberNote": ""
     }
   },
   "gothActions": {
@@ -163,7 +171,7 @@
       "section": "Nightlife",
       "title": "MIDNIGHT RITE FLYERS APPEAR ACROSS THE OLD QUARTER",
       "summary": "One night only: the next moonless night. The venue is a secret.",
-      "body": "The flyers carry a hand-drawn crescent and three names: DJ Alice Wren, invitations from Piper Nocturne at the Black Lace shop, artwork by Zara Brooks. The host signs only as V.B. The rite is on the next moonless night. Which night that is, and where, the flyer does not say: by word of mouth only.",
+      "body": "The flyers carry a hand-drawn crescent and three credits: music by DJ Wren (bookings {djNumber}), invitations from the Black Lace shop ({shopNumber}) and artwork signed with a small Z. The host signs only as V.B. The rite is on the next moonless night. Which night that is, and where, the flyer does not say: by word of mouth only.",
       "clue": "Midnight Rite flyer: one night only, on the next moonless night. Venue by word of mouth only."
     },
     "chalk": {

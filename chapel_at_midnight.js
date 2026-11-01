@@ -29,6 +29,7 @@
   const STAGES=['threshold','charge','lunge'];
   const VICTORIA='MATCH-003';
   const FLYER_GOTHS=['MATCH-061','MATCH-062','MATCH-063'];
+  const FLYER_NUMBERS=['MATCH-061','MATCH-062']; // the DJ's bookings line and the Black Lace shop are printed on the flyer
   const PLACES=['old_mission','cemetery_chapel','st_brigid'];
   const ROLES=['loyal','gossip','fedup'];
   const GOTH_ACTS=['rite','moon','where','criticize','sisters'];
@@ -113,7 +114,7 @@
         heat:0,whispers:0,
         attackDueDay:null,attackReason:null,attackPending:false,attackRunning:false,attackPhase:null,dead:false,death:null,deathKind:null,
         nightKnown:false, // which night is the moonless one: someone has to tell you
-        clues:[],goths:{},victoria:{asked:[],told:false,going:false,whereDay:null},
+        clues:[],goths:{},numbers:{},victoria:{asked:[],told:false,going:false,whereDay:null},
         warned:null,warnedDay:null,fedupJoins:false,fedupId:null,
         outcome:null,outcomeDay:null,ritualCompleted:false,resultText:null,notice:null,journal:[]
       };
@@ -157,8 +158,10 @@
       out.goths={};
       if(raw.goths&&typeof raw.goths==='object')for(const [id,g] of Object.entries(raw.goths).slice(0,40)){
         if(!isId(id)||id===VICTORIA||!g||typeof g!=='object')continue;
-        out.goths[id]={asked:Array.isArray(g.asked)?[...new Set(g.asked.filter(act=>GOTH_ACTS.includes(act)))]:[],opened:!!g.opened,told:!!g.told,whereDay:int(g.whereDay)};
+        out.goths[id]={asked:Array.isArray(g.asked)?[...new Set(g.asked.filter(act=>GOTH_ACTS.includes(act)))]:[],opened:!!g.opened,told:!!g.told,whereDay:int(g.whereDay),named:!!g.named,rang:!!g.rang};
       }
+      out.numbers={};
+      if(raw.numbers&&typeof raw.numbers==='object')for(const id of FLYER_NUMBERS)if(/^\d{7}$/.test(String(raw.numbers[id]||'')))out.numbers[id]=String(raw.numbers[id]);
       const v=raw.victoria||{};
       out.victoria={asked:Array.isArray(v.asked)?[...new Set(v.asked.filter(act=>VICTORIA_ACTS.includes(act)))]:[],told:!!v.told,going:!!v.going,whereDay:int(v.whereDay)};
       out.journal=Array.isArray(raw.journal)?raw.journal.filter(j=>j&&Number.isInteger(j.day)&&typeof j.text==='string').slice(-40):[];
@@ -195,9 +198,24 @@
         short:placeShort(st.location),chalkA:placeName(chalk[0]),chalkB:placeName(chalk[1]),
         warnedPlace:placeName(st.warned),riddle:data.places[st.location].riddle,
         fedup:nameOf(st.fedupId||holder(st,'fedup')),gossip:nameOf(holder(st,'gossip')),
+        djNumber:flyerNumber(st,FLYER_NUMBERS[0]),shopNumber:flyerNumber(st,FLYER_NUMBERS[1]),
         when:st.riteDay===null?'soon':st.nightKnown?relNights(st.riteDay):'on the moonless night',night:st.riteDay===null?'soon':relNights(st.riteDay),...extra};
       return String(text).replace(/\{(\w+)\}/g,(match,key)=>vars[key]!==undefined?String(vars[key]):match);
     }
+    // The numbers printed on the flyer, made once per run (the game hands out unused ones).
+    function flyerNumber(st,id){
+      if(!st.numbers)st.numbers={};
+      if(!st.numbers[id]){
+        const made=api.newNumber?String(api.newNumber()):'';
+        st.numbers[id]=/^\d{7}$/.test(made)?made:String(5550100+Math.floor(seeded(`${api.world().seed}:flyer:${id}`)()*9800));
+      }
+      return st.numbers[id];
+    }
+    const flyerRead=st=>st.clues.some(c=>c.kind==='flyer'); // you've seen the flyer in the paper
+    // What you know about a woman: her number (from the flyer, or she gave it you), whether you've
+    // matched on Hinge, and her name (a match shows it; so does ringing her).
+    function knowsNumber(st,id){return (FLYER_NUMBERS.includes(id)&&flyerRead(st))||!!threadOf(id)?.number;}
+    function knowsName(st,id){return id===VICTORIA||!!threadOf(id)||!!st.goths[id]?.named;}
     // A number between 0 and 1 for one chancy moment, fixed by the run's seed.
     function chance(st,key){return seeded(`${api.world().seed}:${key}:${today()}:${st.whispers}:${st.heat}`)();}
     function journal(st,text){
@@ -313,7 +331,7 @@
       const weights=rules().otherGothRoles,roll=seeded(`${api.world().seed}:goth:${id}`)();
       return roll<weights.loyal?'loyal':roll<weights.loyal+weights.gossip?'gossip':'fedup';
     }
-    function gothState(st,id){return st.goths[id]||(st.goths[id]={asked:[],opened:false,told:false,whereDay:null});}
+    function gothState(st,id){return st.goths[id]||(st.goths[id]={asked:[],opened:false,told:false,whereDay:null,named:false,rang:false});}
     function isFriend(st,id){
       const g=gothState(st,id);
       return warmth(id)>=(roleOf(st,id)==='fedup'&&g.opened?1:rules().friendWarmth);
@@ -655,20 +673,28 @@
     function otherGoths(){
       return [...api.threads().values()].map(thread=>thread.id).filter(id=>!FLYER_GOTHS.includes(id)&&isGoth(api.profile(id)));
     }
+    // One line per person. You can only message a woman you've matched with on Hinge, and a girl
+    // from the flyer goes by what the flyer credits her with until you know her name. The tags say
+    // how you can reach her: (number), (Hinge), or both.
     function personLine(st,id){
       const profile=api.profile(id);
       if(!profile)return '';
-      const thread=threadOf(id),closed=isClosed(id);
-      let status,canMessage;
+      const thread=threadOf(id),closed=isClosed(id),flyer=FLYER_GOTHS.includes(id);
+      if(flyer&&!thread&&!flyerRead(st)&&!st.goths[id]?.named)return ''; // you haven't seen the flyer that credits her
+      const canMessage=!!thread&&!closed;
+      const number=knowsNumber(st,id),flyerLine=FLYER_NUMBERS.includes(id)&&flyerRead(st)?flyerNumber(st,id):null;
+      const tags=[number?'number':'',thread?'Hinge':''].filter(Boolean);
+      const name=knowsName(st,id)?profile.name:(data.flyerGoths[id]?.unknown||'Someone');
+      let status;
       if(id===VICTORIA){
-        canMessage=!!thread&&!closed;
         status=!thread?'Hosts the rite. You haven’t matched with her.':closed?'Not speaking to you.':st.victoria.going?'Hosts the rite. You said you would come.':'Hosts the rite.';
       }else{
         const g=st.goths[id];
-        canMessage=!closed&&(FLYER_GOTHS.includes(id)||!!thread);
-        status=[FLYER_GOTHS.includes(id)?data.flyerGoths[id].credit+'.':'On Hinge.',closed?'Not speaking to you.':'',g?.told?'Told you what she knows.':''].filter(Boolean).join(' ');
+        status=[flyer&&knowsName(st,id)?data.flyerGoths[id].credit+'.':'',!flyer?'On Hinge.':'',flyerLine?`${data.flyerGoths[id].numberNote}: ${flyerLine}.`:'',
+          flyer&&!thread?'You haven’t matched with her.':'',closed?'Not speaking to you.':'',g?.told?'Told you what she knows.':''].filter(Boolean).join(' ');
       }
-      return `<div class="chapel-person"><b>${esc(profile.name)}</b> ${canMessage?`<button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button>`:''}<small>${esc(status)}</small></div>`;
+      const call=flyerLine&&!closed?`<button class="chapel-btn" data-note-dial="${esc(flyerLine)}">☎ Call</button>`:'';
+      return `<div class="chapel-person"><b>${esc(name)}</b>${tags.length?` <small>(${tags.join(', ')})</small>`:''} ${canMessage?`<button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button>`:''}${call}<small>${esc(status)}</small></div>`;
     }
     // One short hint: a nudge from what you've heard, never the answer, never about danger.
     function hintFor(st){
@@ -725,16 +751,40 @@
     function message(st,id){
       const profile=api.profile(id);
       if(!profile)return;
-      let thread=threadOf(id);
-      if(id===VICTORIA&&!thread)return; // you have to match with her first
-      if(!thread){
-        if(!FLYER_GOTHS.includes(id))return;
-        thread=api.ensureThread(profile);thread.log=[];
-      }
-      if(!thread.log.length&&FLYER_GOTHS.includes(id))thread.log.push({who:'you',text:data.flyerGoths[id].contactPlayer},{who:'her',text:data.flyerGoths[id].contactReply});
+      const thread=threadOf(id);
+      if(!thread)return; // you have to match with her on Hinge first, Victoria and the flyer girls alike
       if(!thread.blocked&&!thread.fumbled){thread.awaiting=false;thread.ghosted=false;}
       caseOpen=false;
       api.openChat(id);
+    }
+    // Dialling the DJ's bookings line or the Black Lace shop: she answers with her name. Ask about
+    // the rite and she won't discuss it with a stranger, but she's on Hinge: she turns up in your
+    // deck soon and likes you back. Asking still gets talked about (a whisper).
+    function dialFlyer(number){
+      const st=sync();
+      if(!st||!st.active||st.dead||st.outcome||!flyerRead(st))return null;
+      const id=FLYER_NUMBERS.find(key=>st.numbers?.[key]===String(number));
+      const profile=id&&api.profile(id),info=id&&data.flyerGoths[id];
+      if(!profile||!info)return null;
+      const g=gothState(st,id);
+      if(!g.named){g.named=true;journal(st,`You rang the number on the flyer. It was ${profile.name}.`);}
+      const key=`service:chapel-goth:${id}`;
+      if(api.serviceTopics){
+        api.serviceTopics[key]=g.rang||threadOf(id)?[]:[{id:`chapel_ring_${id}`,label:info.askLabel,reply:info.askReply,onChoose:()=>{
+          const now=state();if(!now)return;
+          const girl=gothState(now,id);
+          if(girl.rang)return;
+          girl.rang=true;whisper(now);
+          journal(now,`${profile.name} wouldn’t talk about the rite on the phone. She’s on Hinge.`);
+          if(api.toDeck)api.toDeck(id);
+        }}];
+      }
+      return {id:key,name:profile.name,portrait:profile.gallery?.[0]||'assets/icons/calls.png',generic:true,greeting:info.greeting};
+    }
+    // Hinge asks this on a swipe: a flyer girl you've rung likes you back.
+    function likesYou(id){
+      const st=sync();
+      return !!(st&&st.active&&FLYER_GOTHS.includes(id)&&st.goths[id]?.rang&&!threadOf(id));
     }
     function choose(action){
       const st=sync();
@@ -805,7 +855,7 @@
     return {
       statusLine:()=>{const st=sync();return st?statusText(st):'';},
       onNewDay,afterDayStart,decorateEdition,optionsFor,choose,notesEntry,renderCase,afterLoad,reset,previewNow,previewAttack,
-      onMatch,onPaperOpened,
+      onMatch,onPaperOpened,dialFlyer,likesYou,
       // A friend finds out which night the moon goes dark (a favour in preview.html). Returns the night, or null.
       tellNight:who=>{const st=sync();if(!st||!st.active||st.nightKnown||st.outcome||st.dead||st.riteDay===null)return null;learnNight(st,who);return relNights(st.riteDay);},
       isCaseOpen:()=>caseOpen,
