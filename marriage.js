@@ -167,7 +167,7 @@
     // ordinary chat topics until she has asked her question and you have answered.
     function optionsFor(thread){
       const st=state();
-      if(!st||!thread||!sister(thread.id))return null;
+      if(!st||!thread||!sister(thread.id)||thread.blocked||thread.fumbled)return null; // she blocked you: no examination
       const id=thread.id,s=sisterState(st,id);
       if(st.married)return {html:tag(st.married.id===id?'Married. God bless you both.':'You are already married.'),only:true};
       if(s.active&&s.current!==null){
@@ -389,7 +389,7 @@
       if(!st)return '';
       ensureNumbers(st);
       const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. Ring a jeweller from your Contacts.':'Not yet. Find a jeweller on Hinge and ask for her number.';
-      const exams=sisterIds().filter(id=>threadOf(id)).map(id=>{
+      const exams=matchedSisters().map(id=>{ // a Sister who blocked you is out of the running
         const s=sisterState(st,id);
         const status=st.married?.id===id?'married ♥':s.passed?'passed her examination. You may propose.':s.started?`examination in progress (${s.streak} in a row)`:'not asked yet';
         return `<p>• ${esc(sister(id).name)}: ${esc(status)}</p>`;

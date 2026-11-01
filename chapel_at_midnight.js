@@ -38,6 +38,7 @@
   const OUTCOMES=['stopped','reconciled','wrong_place','ignored'];
   const STOPPED=['stopped','reconciled'];
   const CLUE_KINDS=['flyer','chalk','riddle','never','victoria'];
+  const OLD_OPENINGS=['I saw you looking at my flyer. ☾ You should come to the show. Come alone.'];
   // Milliseconds from the start of the attack: crescent premonition, then
   // the three room frames, the blackout and finally the death screen.
   const ATTACK={frames:[1500,2450,3400],devour:4000,death:4900};
@@ -59,6 +60,7 @@
     .chapel-case p,.chapel-case li{font-size:calc(11px * var(--reading-scale));line-height:1.45;margin:4px 0;color:#333b48}
     .chapel-case ul{margin:3px 0;padding-left:15px}
     .chapel-case .chapel-status{padding:7px;border:1px solid #c7b1dc;border-radius:5px;background:#f8f2ff;color:#3b2752}
+    .chapel-case .chapel-hint{padding:5px 7px;border-left:3px solid #8f74b3;background:#f4edfb;color:#3b2752;font-style:italic}
     .chapel-row{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}
     .chapel-btn{cursor:pointer;border:1px solid #a996bd;border-radius:4px;background:#fff;color:#3b2c4c;padding:5px 6px;font:bold calc(10px * var(--reading-scale)) -apple-system,Arial,sans-serif}
     .chapel-btn.on{background:#4b3466;color:#fff;border-color:#4b3466}
@@ -101,7 +103,9 @@
       const order=[...ROLES];
       for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]];}
       // Victoria's scheme doesn't happen every run: decided once, from the run's seed.
-      const enabled=seeded(`${seed}:chapel:on`)()<(data.rules.chance??QUEST_CHANCE);
+      // Whether Victoria's scheme is in this run: the game's quest roster decides (one or two
+      // quests a run); without one, a coin toss from the run's seed.
+      const enabled=api.questDay?api.questDay()!==null:seeded(`${seed}:chapel:on`)()<(data.rules.chance??QUEST_CHANCE);
       return {
         v:2,enabled,active:false,startDay:null,riteDay:null,startedBy:null,
         location,chalkOther,chalkTrueFirst:rnd()<.5,
@@ -161,6 +165,7 @@
 
     // ---------- helpers ----------
     const rules=()=>data.rules;
+    const startDay=()=>api.questDay?.()??rules().activationDay; // the first day her flyer can appear
     const today=()=>api.world().day;
     const nameOf=id=>api.profile(id)?.name||'someone';
     const firstName=id=>nameOf(id).split(' ')[0];
@@ -267,7 +272,7 @@
     function onPaperOpened(){
       const st=state();
       if(!st)return;
-      if(!st.active&&st.enabled!==false&&!st.dead&&today()>=rules().activationDay)start(st,'flyer');
+      if(!st.active&&st.enabled!==false&&!st.dead&&today()>=startDay())start(st,'flyer');
       if(st.active)syncNews(st,true);
     }
     function syncNews(st,openedToday=false){
@@ -442,7 +447,7 @@
       else if(st.victoria.told)deliver(VICTORIA,data.victoria.afterStopped);
       const gossip=holder(st,'gossip');
       if(completed&&gossip&&threadOf(gossip)){
-        const thread=threadOf(gossip);thread.ghosted=true;thread.awaiting=true;
+        const thread=threadOf(gossip);thread.ghosted=true;thread.awaiting=true;thread.missing=true;
         journal(st,fill(data.messages.gossipMissing));
       }
       if(fatal&&(st.attackDueDay===null||st.attackDueDay>today())){st.attackDueDay=today();st.attackReason=fatal;}
@@ -484,7 +489,7 @@
     function storyFor(st,day){
       if(!st.active){
         // Until the case starts, the flyer runs in the paper every day from day two.
-        return st.enabled!==false&&!st.dead&&day>=rules().activationDay?story(data.news.flyer,'flyer'):null;
+        return st.enabled!==false&&!st.dead&&day>=startDay()?story(data.news.flyer,'flyer'):null;
       }
       if(st.outcome&&day>=st.outcomeDay){
         const key=st.outcome==='reconciled'?'reconciled':st.outcome==='stopped'?'stopped':'completed';
@@ -646,6 +651,15 @@
       }
       return `<div class="chapel-person"><b>${esc(profile.name)}</b> ${canMessage?`<button class="chapel-btn" data-chapel-choice="msg:${id}">Message</button>`:''}<small>${esc(status)}</small></div>`;
     }
+    // One short hint: a nudge from what you've heard, never the answer, never about danger.
+    function hintFor(st){
+      if(st.outcome||st.dead||st.warned)return null;
+      const kinds=new Set(st.clues.map(c=>c.kind));
+      if(kinds.has('riddle')||kinds.has('victoria'))return canReachSisters(st)?'The Sisters can’t keep watch everywhere.':'A Sister of Mercy can put you in touch.';
+      if(kinds.has('never')&&kinds.has('chalk'))return 'Two clues, three chapels.';
+      if(kinds.has('never')||kinds.has('chalk'))return 'That rules one chapel out. Somebody else knows more.';
+      return 'The girls on the flyer know more than the flyer does.';
+    }
     function statusText(st){
       if(st.dead)return 'The case is closed.';
       if(st.outcome)return `${st.resultText} Case closed.`;
@@ -664,7 +678,7 @@
           '<p>You need a way to reach them. Any Sister of Mercy will give you St Brigid’s number if you ask her.</p>';
         sisters=now+send;
       }
-      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>`+
+      return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${hintFor(st)?`<p class="chapel-hint">Hint: ${esc(hintFor(st))}</p>`:''}`+
         `<h4>Where?</h4><div class="paper"><p>It will be in one of the city’s three old chapels.</p>${list(PLACES.map(place=>data.places[place].guide))}</div>`+
         `<h4>What you’ve heard</h4><div class="paper">${heard}</div>`+
         `<h4>The Sisters of Mercy</h4><div class="paper">${sisters}</div>`+
@@ -731,6 +745,12 @@
       caseOpen=false;questMode.clear();
       const world=api.world();
       if(!data||!world)return;
+      // The old, longer quest had Victoria message you unasked. Now you must match with her
+      // first, so an old save loses that uninvited chat (a real match starts with her hello).
+      if(world.chapel&&world.chapel.v===1){
+        const victoria=threadOf(VICTORIA);
+        if(victoria&&OLD_OPENINGS.includes(victoria.log?.[0]?.text))api.threads().delete(VICTORIA);
+      }
       world.chapel=normalize(world.chapel,world);
       const st=state();
       ensureServiceTopics(st.active&&!st.outcome);

@@ -1008,6 +1008,24 @@
       return ok(s, fill(L.wireFriend, { name: s.wireFrom }));
     }
 
+    // One short hint for the case file: a nudge, never the answer.
+    function hintFor(s) {
+      if (s.ending || s.stage === 'dormant' || s.stage === 'withdrawn' || s.stage === 'resolved') return null;
+      if (s.stage === 'backrow') {
+        if (s.device !== 'none') return s.device === 'assembled' ? 'Vanessa will want to know.' : null;
+        if (s.inv.semtex === 'none') return 'Vanessa gave you a word to say.';
+        if (s.inv.wire === 'none') return 'Some jobs come with a reel of wire.';
+        if (s.inv.phone === 'none') return 'Somebody in the classifieds sells phones.';
+        return allItems(s) ? 'Your desk is waiting.' : null;
+      }
+      if (!has(s, 'rule')) return 'Two accidents. Look at what happened the day before each.';
+      if (!has(s, 'debate')) return 'Who is Vale bringing to campus next?';
+      if (!has(s, 'allison')) return 'Somebody keeps Vale’s diary.';
+      if (!has(s, 'car_bay')) return 'Where does his car spend the day after?';
+      if (has(s, 'car_plan')) return 'A detective wants a name and a day.';
+      return null;
+    }
+
     // ----- workbench -----
     function workbenchConfig(s) {
       const W = D.workbench;
@@ -1091,6 +1109,7 @@
         inventory: s.stage === 'backrow' ? ITEMS.map(i => ({ id: i, label: D.workbench.items[i].label, status: s.inv[i], image: D.workbench.items[i].image })) : [],
         device: s.device,
         actions: roomActions(s),
+        hint: hintFor(s),
         log: s.log.slice(-5),
         ending: endingInfo(s)
       };
@@ -1162,6 +1181,7 @@
       const btn = (id, label, desc, enabled, confirm) => `<button class="pv-btn${confirm ? ' pv-final' : ''}${armed === id ? ' pv-armed' : ''}" data-pv-room="${esc(id)}" ${enabled ? '' : 'disabled'}>${esc(armed === id ? 'Tap again to confirm' : label)}${desc ? `<small>${esc(desc)}</small>` : ''}</button>`;
       let h = `<div class="pv-case"><h3>${esc(v.title)}</h3><div class="pv-sub">${esc(v.routeName)} · Day ${v.day}${v.debateDay ? ` · Cofnas lecture Day ${v.debateDay}` : ''}${v.attackDay ? ` · Attack Day ${v.attackDay}` : ''}</div>`;
       if (lastText) h += `<div class="pv-last">${esc(lastText)}</div>`;
+      if (v.hint) h += `<div class="pv-hint">Hint: ${esc(v.hint)}</div>`;
       if (v.meters.length && !(host.elsewhere && host.elsewhere.meters)) h += `<div class="pv-meters">${v.meters.map(m => `<div class="pv-meter${m.danger ? ' pv-danger' : ''}"><span>${esc(m.label)}</span><i><b style="width:${m.value}%"></b></i><em>${m.value}</em><small>${esc(m.hint)}</small></div>`).join('')}</div>`;
       if (v.todo.length && !(host.elsewhere && host.elsewhere.todo)) h += `<h4>Next</h4><ul class="pv-list">${v.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
       if (v.voicemails.length && !(host.elsewhere && host.elsewhere.voicemails)) h += `<h4>Voicemail</h4>${v.voicemails.map(m => `<div class="pv-vm"><b>Day ${m.day} · ${esc(m.from)}</b><br>${esc(m.text)}</div>`).join('')}`;
@@ -1313,7 +1333,7 @@
       st.id = 'pv-css';
       st.textContent = `
 .pv-case{padding:10px 12px;line-height:1.35;font-size:12px}
-.pv-case h3{margin:0 0 2px}.pv-case h4{margin:12px 0 4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.pv-case .pv-hint{margin:8px 0;padding:6px 8px;border-left:3px solid #b8892a;background:#fff4d6;color:#4a3410;font-style:italic}.pv-case h3{margin:0 0 2px}.pv-case h4{margin:12px 0 4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
 .pv-sub,.pv-muted{opacity:.7;font-size:11px}
 .pv-last{margin:8px 0;padding:7px 9px;border-left:3px solid #e35349;background:rgba(227,83,73,.1)}
 .pv-btn{display:block;width:100%;margin:6px 0 0;padding:8px 9px;border-radius:7px;border:1px solid rgba(127,127,127,.5);background:rgba(127,127,127,.14);color:inherit;font:inherit;text-align:left;cursor:pointer}
