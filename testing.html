@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="9dc15308a0">
+<html lang="en" data-build="3a37a4a6b4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=9dc15308a0"></script>
+  <script src="chapel_at_midnight.js?v=3a37a4a6b4"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=9dc15308a0"></script>
+  <script src="marriage.js?v=3a37a4a6b4"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=9dc15308a0"></script>
+  <script src="quests/professor-vale.js?v=3a37a4a6b4"></script>
 </head>
 <body>
   <main class="workbench">
@@ -3286,7 +3286,9 @@
     }
     function glowLine(number){
       const g=glowState();
-      return g.number&&g.number===String(number)&&g.stage!=='none'?{id:'service:lpc',name:'LPC Laboratories',portrait:'assets/icons/calls.png',generic:true,greeting:GLOW.greeting}:null;
+      if(!g.number||g.number!==String(number))return null;
+      if(g.stage==='none'&&glowAdRunning(world.day)){g.stage='advertised';g.adDay=g.adDay??world.day;} // the ad is in today's paper: its number answers
+      return g.stage!=='none'?{id:'service:lpc',name:'LPC Laboratories',portrait:'assets/icons/calls.png',generic:true,greeting:GLOW.greeting}:null;
     }
     function glowTopics(){
       const g=glowState();
@@ -7212,7 +7214,7 @@
       testOn('truecel');
       const g=glowState();
       if(!['none','advertised'].includes(g.stage)){startNewRun(true);}
-      glowState().adDay=world.day;
+      Object.assign(glowState(),{adDay:world.day,stage:'advertised'}); // the ad runs today and its number answers
       const edition=getNewsEdition(),ad=glowAdItem(world.day);
       if(ad&&!edition.items.some(item=>item.glowAd))edition.items.push(ad);
       setLowered(false);openApp('news');
