@@ -7115,13 +7115,15 @@
     randomiseRoomLook();
     // Resume the saved run once the women, the talk and the quests have loaded (they arrive after
     // this script runs); until then nothing is saved, so a half-loaded page never overwrites the run.
-    // A first visit, or a save that can't be read, starts by choosing a difficulty.
+    // A first visit, or a save that can't be read, starts a Normie game straight away, with no
+    // choice: the three difficulties only appear when you start a New game (Chris's rule).
     holdSaves=true;
     const resumeWhenReady=(tries=0)=>{
       const ready=hingeProfiles.length&&characterDB&&BR&&jewellerCards().length;
       if(!ready&&tries<80){setTimeout(()=>resumeWhenReady(tries+1),100);return;}
       holdSaves=false;
-      try { if(!(localStorage.getItem(SAVE_KEY)&&loadRun())) pickDifficulty(); } catch { pickDifficulty(); }
+      const firstGame=()=>{setDifficulty('normie');startNewRun(true);};
+      try { if(!(localStorage.getItem(SAVE_KEY)&&loadRun())) firstGame(); } catch { firstGame(); }
     };
     resumeWhenReady();
     const choosing=()=>$('difficulty-pick').classList.contains('visible'); // nothing to keep until a difficulty is chosen
