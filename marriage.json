@@ -201,9 +201,9 @@
       "shop": "Whitmore Estate Jewels",
       "role": "Estate jewellery dealer",
       "location": "Fifth Avenue, in the gallery district",
-      "personality": "Elegant, discerning and fascinated by family history. A Thunderbird: she wears the blue swallow brooch.",
+      "personality": "Elegant, discerning and fascinated by family history. A Bluebird: she wears the blue swallow brooch.",
       "portrait": "assets/marriage/jewellers/clara_whitmore.png",
-      "greeting": "Whitmore Estate Jewels. Clara Whitmore speaking. If this is about the Thunderbird gala, the brooches are spoken for.",
+      "greeting": "Whitmore Estate Jewels. Clara Whitmore speaking. If this is about the Bluebird gala, the brooches are spoken for.",
       "portraitFinal": true
     },
     "joseph": {
@@ -221,9 +221,9 @@
       "shop": "Rinaldi Bridal Boutique",
       "role": "Boutique jeweller",
       "location": "Sunfall Quarter",
-      "personality": "Cheerful, romantic and enthusiastic about weddings. A Thunderbird: she wears the blue swallow brooch.",
+      "personality": "Cheerful, romantic and enthusiastic about weddings. A Bluebird: she wears the blue swallow brooch.",
       "portrait": "assets/marriage/jewellers/sofia_rinaldi.png",
-      "greeting": "Rinaldi Bridal! Sofia here, still glittery from the Thunderbird gala! Are you getting MARRIED?",
+      "greeting": "Rinaldi Bridal! Sofia here, still glittery from the Bluebird gala! Are you getting MARRIED?",
       "portraitFinal": true
     }
   },
@@ -998,7 +998,7 @@
     ]
   },
   "thunderbirds": {
-    "status": "You married {name}. The Thunderbirds have a new member. You won MATCH.",
+    "status": "You married {name}. The Bluebirds have a new member. You won MATCH.",
     "backdrop": "assets/marriage/thunderbirds/victory-backdrop.png",
     "scenes": [
       {
@@ -1020,8 +1020,8 @@
     ],
     "victory": {
       "title": "JUST MARRIED",
-      "subtitle": "Welcome to the Thunderbirds. Welcome to the family.",
-      "line": "You and {name} · The Thunderbird Club · Day {day}",
+      "subtitle": "Welcome to the Bluebirds. Welcome to the family.",
+      "line": "You and {name} · The Bluebird Club · Day {day}",
       "newGame": "Start a new game"
     }
   }

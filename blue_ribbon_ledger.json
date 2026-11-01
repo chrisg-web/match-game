@@ -2,7 +2,7 @@
   "version": 1,
   "id": "thunderbirds_blue_ribbon_conspiracy",
   "title": "The Blue Ribbon Ledger",
-  "faction": "Thunderbirds",
+  "faction": "Bluebirds",
   "timeRule": "Time advances only through simulated days via Start Another Day. Evidence carries in-game day stamps such as Day 1, never weekdays, calendar dates or clock times. Delayed events fire after a number of simulated days, never at a set hour.",
   "narrativeGuardrail": "Wholly fictional charity, people and crimes. The investigation stays abstract and non-instructional, and the home invasion implies rather than depicts violence.",
   "cast": [
@@ -213,7 +213,7 @@
       {"id": "br_table", "label": "Ask what she saw at Table 9", "requires": ["case"],
         "player": "You mentioned the gala. Did anything odd happen around Table 9?",
         "reply": "Table 9 was the treasurer's table. I found this torn ticket when we cleared it. There was no name for that seat on the plan. Please don't tell the committee I sent it.",
-        "scrap": "tb_gala_ticket", "suspicion": 8, "suspicionReason": "A Thunderbirds volunteer mentioned your Table 9 questions to the committee."},
+        "scrap": "tb_gala_ticket", "suspicion": 8, "suspicionReason": "A Bluebirds volunteer mentioned your Table 9 questions to the committee."},
       {"id": "br_books", "label": "Ask who keeps the Scholarship Drive books", "requires": ["case"],
         "player": "Who keeps the Scholarship Drive accounts?",
         "reply": "The treasurer and the events director sign everything. I tidied the office and found a torn page in the shredding bag. Here. Delete this chat.",
@@ -221,7 +221,7 @@
       {"id": "br_rm", "label": "Ask whether she knows an R.M. from catering", "requires": ["case"], "needsWitness": true,
         "player": "Do you know someone called R.M. who worked catering at the gala?",
         "reply": "R.M.? That must be Ruth from late service. Why? The committee has been asking about her too…",
-        "exposes": true, "suspicion": 12, "suspicionReason": "You asked a Thunderbirds volunteer to identify your witness."}
+        "exposes": true, "suspicion": 12, "suspicionReason": "You asked a Bluebirds volunteer to identify your witness."}
     ],
     "police": [
       {"id": "br_witness", "label": "Ask whether a witness came forward", "requires": ["case"],

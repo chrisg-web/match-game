@@ -3,9 +3,9 @@
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
   "characterCount": 123,
-  "imageCount": 686,
-  "publicImageCount": 357,
-  "privateImageCount": 329,
+  "imageCount": 696,
+  "publicImageCount": 362,
+  "privateImageCount": 334,
   "characters": [
     {
       "id": "MATCH-001",
@@ -2327,13 +2327,26 @@
         "assets/hinge/roster_expansion/elise_harrow_01.webp",
         "assets/hinge/roster_expansion/elise_harrow_02.webp",
         "assets/hinge/roster_expansion/elise_harrow_04.webp",
-        "assets/hinge/roster_expansion/elise_harrow_05.webp"
+        "assets/hinge/roster_expansion/elise_harrow_05.webp",
+        "assets/hinge/roster_expansion/elise_harrow_03.webp"
       ],
       "privatePhotos": [
         {
           "src": "assets/hinge/private_expansion/elise_harrow_private_01.webp",
           "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Elise Harrow, consistent Warm brown skin, chin-length raven bob with a fringe, amber eyes, cream blazer over a silk camisole",
           "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/elise_harrow_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Elise Harrow, consistent Warm brown skin, chin-length raven bob with a fringe, amber eyes, cream blazer over a silk camisole",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/elise_harrow_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Elise Harrow, consistent Warm brown skin, chin-length raven bob with a fringe, amber eyes, cream blazer over a silk camisole",
+          "camera": "2008 compact camera with flash",
           "era": "2005–2010"
         }
       ],
@@ -2592,9 +2605,32 @@
       "factionId": "police",
       "canonicalOccupation": "Evidence archive assistant",
       "gallery": [
-        "assets/hinge/roster_expansion/imani_harper_01.webp"
+        "assets/hinge/roster_expansion/imani_harper_01.webp",
+        "assets/hinge/roster_expansion/imani_harper_02.webp",
+        "assets/hinge/roster_expansion/imani_harper_03.webp",
+        "assets/hinge/roster_expansion/imani_harper_04.webp",
+        "assets/hinge/roster_expansion/imani_harper_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/imani_harper_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Imani Harper, consistent Pale skin, layered caramel shoulder-length hair, freckles across her nose, windbreaker over a sports top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/imani_harper_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Imani Harper, consistent Pale skin, layered caramel shoulder-length hair, freckles across her nose, windbreaker over a sports top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/imani_harper_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Imani Harper, consistent Pale skin, layered caramel shoulder-length hair, freckles across her nose, windbreaker over a sports top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "poised and fiercely independent",
       "personalGoal": "Make a life for herself in Sunfall while balancing evidence archive assistant and keeping an indoor cactus garden.",
       "privatePicturePolicy": "optional later, only after mutual trust"

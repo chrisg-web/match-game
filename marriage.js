@@ -1,5 +1,5 @@
 /* MATCH: marriage, the way to win. Marry a Sister of Mercy, or be married off by the
- * Thunderbirds at the end of Professor Vale (thunderbirdWedding below).
+ * Bluebirds at the end of Professor Vale (thunderbirdWedding below).
  *
  * preview.html loads this file before its own script and creates one engine with
  * MATCH_MARRIAGE_ENGINE.create(api). The game calls a few hooks, all marked
@@ -8,7 +8,7 @@
  *
  * All state lives in world.marriage (saved, loaded and reset with the run). The
  * win itself is recorded in world.victory, which nothing else in the game sets.
- * world.marriage.tb holds the Thunderbird wedding; one wedding per run, either kind.
+ * world.marriage.tb holds the Bluebird wedding; one wedding per run, either kind.
  * Text, the five Sisters' lines, the jewellers and all 50 examination questions
  * live in marriage.json.
  *
@@ -119,7 +119,7 @@
       if(raw.numbers&&typeof raw.numbers==='object')for(const id of JEWELLERS)if(typeof raw.numbers[id]==='string'&&/^\d{7}$/.test(raw.numbers[id]))out.numbers[id]=raw.numbers[id];
       // Only a Sister of Mercy (with her own lines, or any Sister in the roster) can be the bride.
       if(raw.married&&SISTER_ID.test(String(raw.married.id))&&sister(raw.married.id))out.married={id:raw.married.id,day:int(raw.married.day)};
-      // The Thunderbird wedding: only a Thunderbird, and only if there was no Sister's wedding.
+      // The Bluebird wedding: only a Bluebird, and only if there was no Sister's wedding.
       else if(raw.tb&&SISTER_ID.test(String(raw.tb.id))&&api.profile?.(raw.tb.id)?.factionId==='thunderbirds')out.tb={id:raw.tb.id,day:int(raw.tb.day)};
       return out;
     }
@@ -281,7 +281,7 @@
       api.save();
       playWedding(id,false);
     }
-    // Professor Vale's Thunderbird ending: the gala ball, a vote, a wedding. The other way to win.
+    // Professor Vale's Bluebird ending: the gala ball, a vote, a wedding. The other way to win.
     function thunderbirdWedding(id){
       const st=state();
       if(!st||wed(st)||sister(id)||api.profile?.(id)?.factionId!=='thunderbirds')return false;
@@ -517,7 +517,7 @@
       const fallback=fallbackFrame(id,3);
       if(portrait&&fallback)portrait.onerror=()=>{portrait.onerror=null;portrait.src=api.assetUrl(fallback);}; // her own photo until her wedding portrait exists
       const back=win.querySelector?.('.backdrop');
-      if(back&&tb)back.onerror=()=>{back.onerror=null;back.src=api.assetUrl(data.art.victoryBackdrop);}; // the Sisters' backdrop until the Thunderbirds' exists
+      if(back&&tb)back.onerror=()=>{back.onerror=null;back.src=api.assetUrl(data.art.victoryBackdrop);}; // the Sisters' backdrop until the Bluebirds' exists
       win.classList.add('visible');
       api.playUiSound(660);
     }
@@ -548,7 +548,7 @@
     let previewIndex=0;
     function previewWedding(id){
       if(!data)return false;
-      const bride=sister(id)||api.profile?.(id)?.factionId==='thunderbirds'?id:SISTERS[previewIndex++%SISTERS.length]; // a Thunderbird id previews her Thunderbird wedding
+      const bride=sister(id)||api.profile?.(id)?.factionId==='thunderbirds'?id:SISTERS[previewIndex++%SISTERS.length]; // a Bluebird id previews her Bluebird wedding
       playWedding(bride,true);
       return bride;
     }

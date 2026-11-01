@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="8eb799f036">
+<html lang="en" data-build="a2d87aa4a8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -516,6 +516,16 @@
     .cupboard-spot:focus-visible { outline: 2px solid #ffd978; }
     .stage.lowered .cupboard-spot { z-index: 7; } /* with the phone down, the cabinet is reachable even where the phone overlaps it */
     .cupboard-spot.new { animation: cupboardGlow 2.4s ease-in-out infinite; }
+    .floor-items { position: absolute; inset: 0; z-index: 4; pointer-events: none; --floor-light: .8; }
+    .stage.lowered .floor-items { z-index: 7; } /* like the cupboard: reachable with the phone down */
+    .floor-item { position: absolute; box-sizing: content-box; padding: 9px; border: 0; background: none; transform: translate(-50%,-100%); pointer-events: auto; cursor: pointer; animation: floorGlow 2.4s ease-in-out infinite; }
+    .floor-item img { display: block; width: 100%; height: auto; image-rendering: pixelated; filter: brightness(var(--floor-light)); }
+    .floor-item.parcel::before,.floor-item.letter::before { content: ''; display: block; width: 100%; aspect-ratio: 3 / 2; border: 1px solid #3a2614; filter: brightness(var(--floor-light)); }
+    .floor-item.parcel::before { background: linear-gradient(90deg,transparent 45%,#e6d7b2 45% 55%,transparent 55%),#a5784a; }
+    .floor-item.letter::before { background: radial-gradient(circle at 50% 60%,#8f1f22 0 12%,transparent 13%),#e4d8c0; transform: scaleY(.6); }
+    .floor-item:focus-visible { outline: 2px solid #ffd978; }
+    @keyframes floorGlow { 0%,100% { filter: none; } 50% { filter: drop-shadow(0 0 5px #ffd978); } }
+    @media (prefers-reduced-motion: reduce) { .floor-item { animation: none; filter: drop-shadow(0 0 3px #ffd978); } }
     @keyframes cupboardGlow { 0%,100% { box-shadow: inset 0 0 0 0 #ffd97800; } 50% { box-shadow: inset 0 0 14px 3px #ffd97899; } }
     .cupboard { display: none; position: absolute; z-index: 9; inset: 0; /* above the phone; below room notices, the Evidence Sheet, calls and death scenes */ align-items: center; justify-content: center; padding: 4%; background: #0a0605d9; }
     .cupboard.open { display: flex; }
@@ -586,11 +596,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=8eb799f036"></script>
-  <!-- Marriage: the Sisters of Mercy (and the Thunderbird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=8eb799f036"></script>
+  <script src="chapel_at_midnight.js?v=a2d87aa4a8"></script>
+  <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
+  <script src="marriage.js?v=a2d87aa4a8"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=8eb799f036"></script>
+  <script src="quests/professor-vale.js?v=a2d87aa4a8"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -682,6 +692,7 @@
           <img class="prop" id="prop" src="assets/props/instant-noodles.png" alt="An empty pot noodle">
           <img class="desk-ring" id="desk-ring" src="assets/marriage/wedding-ring.png" alt="A gold wedding band on your desk"><!-- Marriage: shown once a jeweller gives you the ring -->
           <button class="cupboard-spot" id="cupboard-spot" aria-label="Open your bedside cupboard"></button><!-- Bedside cupboard: tap area over the cabinet in the room art -->
+          <div class="floor-items" id="floor-items"></div><!-- Things left at your door: on the floor until you pick them up -->
           <div class="cupboard" id="cupboard" aria-hidden="true"><div class="cupboard-frame" role="dialog" aria-label="Bedside cupboard"><div class="cupboard-head"><b>Bedside cupboard</b><button data-cup-close aria-label="Close the cupboard">✕ Close</button></div><div class="cupboard-body" id="cupboard-body"></div></div></div>
           <img class="leg-layer hidden" id="leg-layer" src="assets/ui/jeans-legs.png" alt="First-person knees in jeans">
           <div class="phone-wrap" id="phone">
@@ -777,7 +788,7 @@
     const questOn=id=>{const start=questStart(id);return start!==null&&world.day>=start;};
     function newWorld(seed){
       const text=String(seed);
-      return {version:3,seed:text,quests:pickQuests(text),contactsKnown:{},cupboard:{pos:{},seen:[]},rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
+      return {version:3,seed:text,quests:pickQuests(text),contactsKnown:{},cupboard:{pos:{},seen:[],picked:[]},rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
     }
     // Blue Ribbon Ledger progress lives inside world, so it travels with the
     // existing version-3 save. Older saves without it load a fresh case.
@@ -788,7 +799,7 @@
     }
     let world=newWorld('Scottsdale-'+Date.now());
     let chapel=null; // Task 2: Chapel at Midnight engine, created at the end of this script
-    let marriage=null; // Marriage: Sisters of Mercy and Thunderbird weddings (the only victories), created at the end of this script
+    let marriage=null; // Marriage: Sisters of Mercy and Bluebird weddings (the only victories), created at the end of this script
     // Online editions stamp <html data-build> with the build's version (build-editions.mjs);
     // data files are then fetched with ?v=<stamp> so a new page never reads old cached data.
     const BUILD_STAMP=document.documentElement?.getAttribute?.('data-build')||'';
@@ -806,7 +817,7 @@
     function updateRunStatus(message){
       $('run-status').textContent=message||`Day ${world.day} · ${Math.max(0,10-hingeSwipesToday)} swipes available · ${selectedDifficulty.toUpperCase()}`;
       // Most changes in the game pass through here: note new contacts and new things in the cupboard.
-      try{announceNewContacts();updateCupboardHint();}catch{}
+      try{announceNewContacts();updateCupboardHint();renderFloor();}catch{}
       // The phone shows the simulated day rather than a clock time.
       const statusDay=$('status-day');
       if(statusDay)statusDay.textContent=`Day ${world.day}`;
@@ -1130,7 +1141,7 @@
     $('raised').onclick=()=>setLowered(false);
     $('lowered').onclick=()=>setLowered(true);
     const newsArticles = [
-      {id:'charity_gala',section:'Community',title:'THUNDERBIRDS ANNOUNCE CHARITY EVENING',summary:'The annual benefit will raise funds for local families.'},
+      {id:'charity_gala',section:'Community',title:'BLUEBIRDS ANNOUNCE CHARITY EVENING',summary:'The annual benefit will raise funds for local families.'},
       {id:'professor_fire',section:'Investigation',title:'PROFESSOR ESCAPES HOUSE FIRE',summary:'Investigators have not yet established the cause of the blaze.'},
       {id:'professor_car',section:'Campus',title:'BRAKE FAILURE RATTLES CONTROVERSIAL ACADEMIC',summary:'Professor Adrian Vale has called for an independent inquiry.'},
       {id:'professor_campus',section:'Education',title:'LECTURE DRAWS STANDING-ROOM CROWD',summary:'A visiting scholar sparks fresh arguments over academic freedom.'},
@@ -1648,7 +1659,7 @@
       if(!thread||!profile||!topic)return;
       thread.callLog.push({who:'you',text:topic.player},{who:'her',text:replyFor(topic,profile)});
       if(id==='connections'){
-        if(profile.factionId==='thunderbirds'){world.flags.galaRumour=true;recordClue(`${profile.name} mentioned tensions at the Blue Ribbon gala.`);brAddSuspicion(4,`You quizzed ${profile.name} (Thunderbirds) about who she knows.`);}
+        if(profile.factionId==='thunderbirds'){world.flags.galaRumour=true;recordClue(`${profile.name} mentioned tensions at the Blue Ribbon gala.`);brAddSuspicion(4,`You quizzed ${profile.name} (Bluebirds) about who she knows.`);}
         if(profile.factionId==='police'){world.flags.policeLead=true;recordClue(`${profile.name} said officers were checking the old interstate junction.`);}
         if(profile.factionId==='fourth_estate'){world.flags.reporterLead=true;recordClue(`${profile.name} suggested the newspaper had withheld part of a witness statement.`);}
       }
@@ -2239,7 +2250,7 @@
         thread.log.push({who:'you',text:topic.player});
         reply=id==='date'?dateReply(thread,profile,replyFor(topic,profile)):toned(replyFor(topic,profile),profile,id+'|'+world.day);
         if(id==='case'){
-          if(profile.factionId==='thunderbirds'){recordClue(`${profile.name} said the Blue Ribbon committee had a dispute before Elena Cross disappeared.`);world.flags.galaRumour=true;brAddSuspicion(5,`You asked ${profile.name} (Thunderbirds) about Elena Cross.`);}
+          if(profile.factionId==='thunderbirds'){recordClue(`${profile.name} said the Blue Ribbon committee had a dispute before Elena Cross disappeared.`);world.flags.galaRumour=true;brAddSuspicion(5,`You asked ${profile.name} (Bluebirds) about Elena Cross.`);}
           else if(profile.factionId==='fourth_estate'){recordClue(`${profile.name} says the newsroom is checking a witness near the interstate junction.`);world.flags.reporterLead=true;}
           else if(profile.factionId==='police'){world.flags.policeLead=true;}
         }
@@ -2320,8 +2331,9 @@
     const warmEnough=(warmth,topic)=>!topic.needsWarmth||warmth>=topic.needsWarmth;
     // A woman's own topic about a quest (Vale, the gala, Victoria's rite) waits until that quest
     // has started in this run, and never shows in a run without it. Victoria's own topics are hers.
-    const OWN_QUEST_RX={vale:/Vale|Back Row|Cofnas/,br:/Blue Ribbon|gala|Elena Cross|Augustus Pell|Dorian Kell|Table 9|Scholarship Drive/i,chapel:/Victoria|crescent|Midnight Rite|Midnight Show/i};
+    const OWN_QUEST_RX={vale:/\bVale\b|Back Row|Cofnas/,br:/Blue Ribbon|\bgala\b|Elena Cross|Augustus Pell|Dorian Kell|Table 9|Scholarship Drive/i,chapel:/Victoria|crescent|Midnight Rite|Midnight Show/i};
     function ownTopicInRun(item,profile){
+      if(item.fromDay&&world.day<item.fromDay)return false; /* what happens at this year's gala (Day 1 night) or after it */
       if(profile?.id==='MATCH-003')return true;
       const text=`${item.label} ${item.player} ${item.reply} ${item.note||''}`;
       return Object.entries(OWN_QUEST_RX).every(([quest,pattern])=>!pattern.test(text)||questOn(quest));
@@ -2669,7 +2681,7 @@
         lines.push(talkOpener(thread,profile,null));
         lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
-        const informed=about.informed?.[profile.factionId];
+        const informed=about.informed?.[profile.factionId]?.fromDay>world.day?null:about.informed?.[profile.factionId]; /* gala gossip only once the gala has happened */
         const chance={mogger:1,normie:warmthOf(thread)>=1?1:.5,truecel:warmthOf(thread)>=1?.5:.2}[tone()];
         let note=null;
         if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);lines.push(seededPick(informed.lines,profile.id));note=informed.note;}
@@ -3024,7 +3036,7 @@
       greeting:'LPC Laboratories. This line is recorded.',
       order:'One pot. On your doorstep tomorrow. One tablet, at night. Not two. Never two.',
       what:'Confidence. Presence. A certain gravity. The side effects are temporary. So are the effects.',
-      delivered:'A small unmarked parcel on your doorstep: a white pot labelled LPC-A365, and a leaflet in very small print.',
+      delivered:'A small unmarked parcel just inside your door: a white pot labelled LPC-A365, and a leaflet in very small print.',
       item:'A white pot with a blue lid. LPC-A365. The leaflet says one tablet at night, then sleep. It smells faintly of expensive cologne.',
       scene:[{image:'assets/events/glow-pot.png',caption:'LPC-A365. One tablet at night.'},{image:'assets/events/glow-pill.png',caption:'One small white tablet. It smells like a department store.'},{image:'assets/events/glow-swallow.png',caption:'Down it goes.'},{image:'assets/events/glow-selfie.png',caption:'You take a selfie. The flash goes off. For a second you look like somebody else.',flash:true}],
       awake:'You wake up and something is different. Your reflection is standing up straighter than you are.',
@@ -3199,7 +3211,7 @@
       {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will ring you.']},
       {title:'The paper',points:['A new paper arrives every day. Tap a story to read it.','Stories are where things start. Read them, and you’ll know what to ask about.','Read the classifieds too. People sell things you might need: ring the number in the ad.']},
       {title:'Calls and Contacts',points:['Dial a number on the keypad. 911 always answers.','Numbers you learn go in Contacts: from the paper, and from women who know the right people.','Missed a call? Look in Voicemail.']},
-      {title:'Your room',points:['Put the phone down to look around your room. Things in it can be tapped.','Your bedside cupboard keeps what you find: things people give you, case files and your notebook.','Open a case file to lay out what you’ve found, and connect the pieces that belong together.','Your notebook keeps everything you’ve been told.']},
+      {title:'Your room',points:['Put the phone down to look around your room. Things in it can be tapped.','Things people leave you come through your door and land on the floor. Tap them to pick them up.','Your bedside cupboard keeps what you pick up and find: things people give you, case files and your notebook.','Open a case file to lay out what you’ve found, and connect the pieces that belong together.','Your notebook keeps everything you’ve been told.']},
       {title:'A connected world',points:['We live in a very connected world. The best way to get anything done is to find the right people on Hinge, talk to them and ask.','Ask for information, for numbers, for favours, and sometimes for things you need.','Some women have something going on in their lives. Help, and they may owe you a favour.','Keep an eye on everything: the paper, the classifieds, what women tell you. Everything ends up being useful.']}
     ];
     var tutorialPage=0;
@@ -3387,7 +3399,7 @@
       order:'Oh, thank goodness. My grandson will bring it round tomorrow. Please don’t tell me what it’s for.',
       what:'It was Harold’s, from his years on the force. He never fired it, he always said. I never asked.',
       when:'Tomorrow, love. He’s a good boy. He’ll leave it on the step.',
-      delivered:'A shoebox on your doorstep, wrapped in a tea towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
+      delivered:'A shoebox just inside your door, wrapped in a tea towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
       item:'Harold Oakley’s service revolver, in its box, wrapped in a tea towel. Loaded. Mrs Oakley’s note says: please don’t tell me what it’s for.'
     };
     // Three women at the university. Each knows your face from his profile, one thing about him,
@@ -4280,7 +4292,7 @@
     // ----- strangers who ring: the husband, the man who wants his envelope, Constance Ashworth
     function miniCallCard(id){
       const kit=miniKit(),which=MINI_CALLERS[id],st=ms(which);
-      const portrait={husband:'assets/contacts/dale.png',watch:'assets/contacts/constance.png'}[which]||'assets/icons/calls.png';
+      const portrait={husband:'assets/contacts/wade.png',watch:'assets/contacts/constance.png'}[which]||'assets/icons/calls.png';
       const known=which==='husband'?st?.calls>=1:which==='watch'?st?.calls>=1:false;
       return {id,name:known?kit[which].name:'Unknown number',gallery:[portrait],banner:portrait,ringName:'Unknown number',sub:'Mobile'};
     }
@@ -4364,11 +4376,11 @@
       const kit=miniKit(),out=[];
       if(!kit)return out;
       const p=ms('pills'),c=ms('cleaner'),e=ms('envelope'),w=ms('watch');
-      if(p?.has&&!p.flushed)out.push({id:'mini:pills',label:kit.pills.item.label,short:'Pills',image:'assets/items/pills-bag.png',text:miniFill(kit.pills.item.text,'pills'),actions:[{id:'mini:pills:take',label:kit.pills.take.label},{id:'mini:pills:flush',label:kit.pills.flush.label}]});
-      if(c?.has&&!c.handed)out.push({id:'mini:cleaner',label:kit.cleaner.item.label,short:'Ring',image:'assets/items/stolen-ring.png',text:miniFill(kit.cleaner.item.text,'cleaner')});
-      if(e?.has)out.push({id:'mini:envelope',label:kit.envelope.item.label,short:'Envelope',image:'assets/items/envelope.png',text:kit.envelope.item.text+(e.took?kit.envelope.took:''),actions:e.took?[]:[{id:'mini:envelope:take',label:kit.envelope.take.label}]});
-      if(e?.gift)out.push({id:'mini:whisky',label:kit.envelope.gift.label,short:'Whisky',image:'assets/items/whisky.png',text:kit.envelope.gift.text});
-      if(w?.page)out.push({id:'mini:watch',label:kit.watch.pageItem.label,short:'Watch file',image:'assets/items/watch-page.png',text:kit.watch.pageItem.text});
+      if(p?.has&&!p.flushed)out.push({id:'mini:pills',door:true,floor:'parcel',label:kit.pills.item.label,short:'Pills',image:'assets/items/pills-bag.png',text:miniFill(kit.pills.item.text,'pills'),actions:[{id:'mini:pills:take',label:kit.pills.take.label},{id:'mini:pills:flush',label:kit.pills.flush.label}]});
+      if(c?.has&&!c.handed)out.push({id:'mini:cleaner',door:true,floor:'parcel',label:kit.cleaner.item.label,short:'Ring',image:'assets/items/stolen-ring.png',text:miniFill(kit.cleaner.item.text,'cleaner')});
+      if(e?.has)out.push({id:'mini:envelope',door:true,floor:'envelope',label:kit.envelope.item.label,short:'Envelope',image:'assets/items/envelope.png',text:kit.envelope.item.text+(e.took?kit.envelope.took:''),actions:e.took?[]:[{id:'mini:envelope:take',label:kit.envelope.take.label}]});
+      if(e?.gift)out.push({id:'mini:whisky',door:true,floor:'parcel',label:kit.envelope.gift.label,short:'Whisky',image:'assets/items/whisky.png',text:kit.envelope.gift.text});
+      if(w?.page)out.push({id:'mini:watch',door:true,floor:'letter',label:kit.watch.pageItem.label,short:'Watch file',image:'assets/items/watch-page.png',text:kit.watch.pageItem.text});
       return out;
     }
     function miniCupAct(act){
@@ -4433,7 +4445,7 @@
       const a=arcsState(),id=`arc:${profile.id}:${n}`;
       if(a.items.some(entry=>entry.id===id))return;
       a.items.push({id,label:item.label,text:`${arcFill(item.text,profile)} From ${profile.name}.`});
-      showGameNotice(`${firstName(profile)} gave you something: ${item.label}`);
+      showGameNotice(`${firstName(profile)} dropped something round for you: ${item.label}`);
     }
     // Her friend: a match, and she says hello. You hear her name first.
     function arcFriend(thread,profile){
@@ -5184,7 +5196,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;if(questOn('br'))world.flags.brPaperSeen=true;if(questOn('vale'))world.flags.valePaperSeen=true;/* reading the paper gives you a reason to ask about a case */renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; /* the Day 1 paper only announces the benefit; Elena is missing from Day 2 */if(questOn('vale'))world.flags.valePaperSeen=true;/* reading the paper gives you a reason to ask about a case */renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
@@ -5406,7 +5418,7 @@
       $('difficulty-pick').classList.remove('visible');
       startNewRun(true);
     }));
-    // ===== The Blue Ribbon Ledger: Thunderbirds investigation =====
+    // ===== The Blue Ribbon Ledger: Bluebirds investigation =====
     // Narrative data lives in blue_ribbon_ledger.json (inlined by the standalone
     // build). Every delay is counted in simulated days, never clock time.
     let BR=window.MATCH_BLUE_RIBBON||null;
@@ -6245,10 +6257,10 @@
       const fionnLines=fionnNotes();if(fionnLines.length)groups.push({title:fionnState().clues.includes('name')?'Theon':'The verses',lines:fionnLines}); // Theon
       return groups;
     }
-    function cupboardItems(){
+    function bedsideItems(){ /* everything you have: in the cupboard, or still on the floor (door:true) */
       const items=[];
-      if(glowState().stage==='delivered')items.push({id:'lpc',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
-      if(fionnRevolver())items.push({id:'revolver',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
+      if(glowState().stage==='delivered')items.push({id:'lpc',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
+      if(fionnRevolver())items.push({id:'revolver',door:true,floor:'shoebox',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
       const m=world.marriage;
       if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweller'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
       if(BR){
@@ -6259,13 +6271,73 @@
       if(PV?.isOpen()){
         const file=PV.engine.caseFile(world.professorVale,world.day),v=world.professorVale;
         const symbols=window.ProfessorVale?.DATA?.workbench?.symbols||{};
-        for(const thing of file.inventory)if(thing.status==='have')items.push({id:'pv:'+thing.id,label:`${symbols[thing.id]||''} ${thing.label}`.trim(),image:thing.image,text:`${thing.label}, with a sticker marked ${symbols[thing.id]||'?'}. Delivered to your door for the Back Row.`,file:'vale'});
+        for(const thing of file.inventory)if(thing.status==='have')items.push({id:'pv:'+thing.id,door:true,floor:'parcel',label:`${symbols[thing.id]||''} ${thing.label}`.trim(),image:thing.image,text:`${thing.label}, with a sticker marked ${symbols[thing.id]||'?'}. Delivered to your door for the Back Row.`,file:'vale'});
         if(v.stage==='backrow')items.push({id:'pv:note',label:'Vanessa’s note',image:'assets/quests/professor/vanessa-note.png',text:`Vanessa’s folded note: ${(v.noteOrder||[]).map(id=>symbols[id]).join('  ')}. Connect the three parts in that order, matching each part’s sticker.`,file:'vale'});
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
       items.push(...miniItems()); // mini quests: on your doorstep
-      for(const item of arcsState().items)items.push({id:item.id,label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
+      for(const item of arcsState().items)items.push({id:item.id,door:true,floor:/card|postcard|letter|note|photo|ticket/i.test(item.label)?'letter':'parcel',label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
+    }
+    // ---------- Things left at your door ----------
+    // Anything delivered (a parcel, an envelope through the letterbox, a present she drops round)
+    // lands on the floor just inside your door. Tap it to pick it up: only then is it in the bedside
+    // cupboard. A save from before the floor keeps what it already had in the cupboard.
+    const FLOOR_SPOT={x:.585,y:.522,w:.07}; /* on the room art: the floorboards inside the door */
+    const FLOOR_ART={letter:'assets/items/floor-letter.png',envelope:'assets/items/floor-envelope.png',shoebox:'assets/items/floor-shoebox.png',parcel:'assets/items/floor-parcel.png'};
+    const FLOOR_LIGHT={'bedroom-morning':1,'bedroom-afternoon':.95,'bedroom-dusk':.78,'bedroom-night':.55};
+    function sanitizeFloor(c){
+      if(c&&typeof c==='object'&&'picked' in c){if(Array.isArray(c.picked))c.picked=c.picked.filter(id=>typeof id==='string').slice(-300);else delete c.picked;}
+      return c;
+    }
+    function floorPicked(){
+      const c=cupboardState();
+      if(!Array.isArray(c.picked))c.picked=bedsideItems().filter(item=>item.door).map(item=>item.id); /* a save from before the floor */
+      return c.picked;
+    }
+    function cupboardItems(){const picked=new Set(floorPicked());return bedsideItems().filter(item=>!item.door||picked.has(item.id));}
+    function floorItems(){const picked=new Set(floorPicked());return bedsideItems().filter(item=>item.door&&!picked.has(item.id));}
+    function pickUpFloorItem(id){
+      if(dayTransitionInFlight||!floorItems().some(item=>item.id===id))return false;
+      floorPicked().push(id);
+      playUiSound(300);
+      renderFloor();updateCupboardHint();saveRun(true);
+      return true;
+    }
+    let floorShown=null;
+    function renderFloor(){
+      const layer=$('floor-items');
+      if(!layer)return;
+      const items=floorItems(),shown=items.slice(0,4),key=shown.map(item=>item.id).join('|');
+      if(key!==floorShown){
+        floorShown=key;
+        layer.innerHTML=shown.map(item=>{
+          const shape=item.floor||'parcel',art=FLOOR_ART[shape]||FLOOR_ART.parcel;
+          return `<button type="button" class="floor-item" data-floor="${esc(item.id)}" aria-label="Pick up: ${esc(item.label)}" title="${esc(item.label)}"><img alt="" src="${esc(assetUrl(art))}" onerror="this.parentElement.classList.add('${shape==='letter'||shape==='envelope'?'letter':'parcel'}');this.remove()"></button>`;
+        }).join('');
+        placeFloor();
+      }
+      if(!items.length||dayTransitionInFlight||['warning','attack'].includes(bearState))return;
+      const state=cupboardState(),fresh=items.filter(item=>!state.notified.includes('floor:'+item.id));
+      if(!fresh.length)return;
+      state.notified.push(...fresh.map(item=>'floor:'+item.id));
+      showGameNotice('Something’s on the floor by your door.');
+    }
+    // Placed on the room art itself, so it stays on the floorboards whatever the window's shape.
+    function placeFloor(){
+      const layer=$('floor-items'),bg=$('background');
+      if(!layer)return;
+      layer.style.setProperty('--floor-light',String(FLOOR_LIGHT[$('time').value]??.8));
+      const buttons=[...layer.querySelectorAll('.floor-item')];
+      if(!buttons.length)return;
+      const W=stage.offsetWidth,H=stage.offsetHeight,nw=bg.naturalWidth||1179,nh=bg.naturalHeight||2556;
+      const scale=Math.max(W/nw,H/nh),dw=nw*scale,dh=nh*scale,ox=(W-dw)/2,oy=(H-dh)/2;
+      buttons.forEach((button,n)=>{
+        const [dx,dy]=[[0,0],[-.075,.004],[.075,.004],[-.035,.012]][n]||[0,0];
+        button.style.left=`${ox+(FLOOR_SPOT.x+dx)*dw}px`;
+        button.style.top=`${oy+(FLOOR_SPOT.y+dy)*dh+9}px`;
+        button.style.width=`${FLOOR_SPOT.w*dw}px`;
+      });
     }
     function cupboardSignature(){return [...cupboardFiles().map(file=>'file:'+file.id),...cupboardItems().map(item=>'item:'+item.id)];}
     // The cabinet glows while something new is inside; each new thing is mentioned once.
@@ -6422,6 +6494,9 @@
     $('day-no').onclick=()=>{$('day-dialog').hidden=true;};
     $('day-dialog').hidden=true;
     $('cupboard-spot').addEventListener('click',()=>openCupboard());
+    $('floor-items').addEventListener('click',event=>{const button=event.target?.closest?.('[data-floor]');if(button){event.stopPropagation();pickUpFloorItem(button.dataset.floor);}});
+    window.addEventListener('resize',()=>window.requestAnimationFrame?window.requestAnimationFrame(placeFloor):placeFloor());
+    $('background').addEventListener('load',placeFloor);
     $('cupboard-preview').onclick=()=>openCupboard(); // testing menu
     $('cupboard').addEventListener('click',event=>{
       const target=event.target;
@@ -6649,7 +6724,7 @@
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
@@ -6718,7 +6793,7 @@
         if(['visible','warning','attack'].includes(bearState)){bearState='tracking';beginBearWarning();}
         chapel?.afterLoad(); // Task 2: checks quest state; old saves start the quest fresh
         marriage?.afterLoad(); // Marriage: restores examinations, the desk ring and a won game
-        valeWeddingDue(); // the Thunderbirds were about to marry you off
+        valeWeddingDue(); // the Bluebirds were about to marry you off
         addJewellersToDeck(); // saves from before the jewellers joined Hinge
         openApp('hinge');return true;
       }catch(error){
@@ -6793,9 +6868,9 @@
     }):null;
     addJewellersToDeck(); // the first deck was built before the jewellers were known
     // Professor Vale: "The Professor Who Won't Disappear" (quests/professor-vale.js).
-    // Phone-only. Its best endings are CASE CLOSED. The Thunderbird one goes on to a wedding,
+    // Phone-only. Its best endings are CASE CLOSED. The Bluebird one goes on to a wedding,
     // which marriage.js records as a win. This is the full list of game functions the quest is allowed to use.
-    // The Thunderbirds marry you off: to the Thunderbird you asked out, or else Alice Beaumont simply takes you.
+    // The Bluebirds marry you off: to the Bluebird you asked out, or else Alice Beaumont simply takes you.
     function thunderbirdBride(preferred){
       const fit=id=>{const profile=hingeProfile(id),thread=hingeThreads.get(id);return profile&&profile.factionId==='thunderbirds'&&!(thread&&(thread.blocked||thread.fumbled))?profile:null;};
       const bride=(preferred?fit(preferred):null)||hingeProfile('MATCH-042');

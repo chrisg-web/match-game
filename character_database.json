@@ -1409,7 +1409,8 @@
             "player": "Did you know Elena Cross?",
             "reply": "A bit. She was the only one who learned the volunteers’ names. The night of the gala she asked me to swap name badges with someone. I didn’t think anything of it at the time.",
             "needsWarmth": 1,
-            "note": "Anna Voss says Elena Cross asked her to swap name badges with someone on the night of the gala."
+            "note": "Anna Voss says Elena Cross asked her to swap name badges with someone on the night of the gala.",
+            "fromDay": 2
           },
           {
             "id": "heirs",
@@ -1935,7 +1936,8 @@
             "player": "Did you photograph the gala?",
             "reply": "From across the road. One frame shows a grey sedan with its lights off, idling by the kitchen door. My editor said it was nothing.",
             "needsWarmth": 1,
-            "note": "Natalie Cross photographed a grey sedan idling by the gala kitchen door with its lights off."
+            "note": "Natalie Cross photographed a grey sedan idling by the gala kitchen door with its lights off.",
+            "fromDay": 2
           },
           {
             "id": "nophoto",
@@ -2020,7 +2022,8 @@
             "player": "Is there a patient you can’t forget?",
             "reply": "A woman came in the night of the gala with a cut hand and a blue dress, gave a false name, and left before the doctor saw her.",
             "needsWarmth": 2,
-            "note": "Emily Fairchild treated a woman in a blue dress on gala night who gave a false name and left early."
+            "note": "Emily Fairchild treated a woman in a blue dress on gala night who gave a false name and left early.",
+            "fromDay": 2
           },
           {
             "id": "nightshift",
@@ -2105,7 +2108,8 @@
             "player": "Do you overhear things at the diner?",
             "reply": "Everything. The night of the gala, two men in suits sat in the back booth and one said, She’s not coming back, so stop asking.",
             "needsWarmth": 2,
-            "note": "Madison Pike overheard two men at the Lucky Cactus on gala night: She’s not coming back, so stop asking."
+            "note": "Madison Pike overheard two men at the Lucky Cactus on gala night: She’s not coming back, so stop asking.",
+            "fromDay": 2
           },
           {
             "id": "tips",
@@ -2233,7 +2237,8 @@
             "player": "Did you run the gala after-party?",
             "reply": "I did the after-party. A charity man paid me double to keep one room off the guest list. I spent the money. I didn’t ask.",
             "needsWarmth": 1,
-            "note": "Tiffany Nash was paid double by a charity man to keep one room off the gala after-party guest list."
+            "note": "Tiffany Nash was paid double by a charity man to keep one room off the gala after-party guest list.",
+            "fromDay": 2
           },
           {
             "id": "tired",
@@ -2488,7 +2493,8 @@
             "player": "Who in Sunfall grinds their teeth the worst?",
             "reply": "Can’t say names. But a certain foundation treasurer has cracked two crowns since the gala.",
             "needsWarmth": 1,
-            "note": "Megan O’Keefe says the foundation treasurer has cracked two crowns grinding his teeth since the gala."
+            "note": "Megan O’Keefe says the foundation treasurer has cracked two crowns grinding his teeth since the gala.",
+            "fromDay": 4
           },
           {
             "id": "smile",
@@ -2615,7 +2621,8 @@
             "player": "Did you work on the gala?",
             "reply": "I set up the tables. Table 9 was moved twice on the day, closer to the kitchen. Nobody would tell me why.",
             "needsWarmth": 1,
-            "note": "Nicole Ashbury says Table 9 was moved closer to the kitchen twice on gala day."
+            "note": "Nicole Ashbury says Table 9 was moved closer to the kitchen twice on gala day.",
+            "fromDay": 2
           },
           {
             "id": "ownday",
@@ -2743,7 +2750,8 @@
             "player": "Does anyone swim at night?",
             "reply": "The club pool. On the gala night someone threw a phone in the deep end. I fished it out the next morning. It’s in the lost property box. Nobody’s claimed it.",
             "needsWarmth": 2,
-            "note": "Erin Doyle found a phone thrown in the club pool on gala night; it’s unclaimed in lost property."
+            "note": "Erin Doyle found a phone thrown in the club pool on gala night; it’s unclaimed in lost property.",
+            "fromDay": 2
           },
           {
             "id": "save",
@@ -3127,7 +3135,8 @@
             "player": "Has a client said anything worrying?",
             "reply": "A woman from the foundation had me dye her hair dark the morning after the gala. Very dark. She said she needed to look different for a while.",
             "needsWarmth": 2,
-            "note": "Mei Chen dyed a foundation woman’s hair very dark the morning after the gala because she needed to look different."
+            "note": "Mei Chen dyed a foundation woman’s hair very dark the morning after the gala because she needed to look different.",
+            "fromDay": 2
           },
           {
             "id": "chair",
@@ -3300,7 +3309,8 @@
             "player": "Were you working the night of the gala?",
             "reply": "I did the rota. Two volunteers were swapped off Table 9 at the last minute and replaced by people I’d never met. The order came from upstairs.",
             "needsWarmth": 1,
-            "note": "Phoebe Sutton says two volunteers were swapped off Table 9 at the last minute on orders from upstairs."
+            "note": "Phoebe Sutton says two volunteers were swapped off Table 9 at the last minute on orders from upstairs.",
+            "fromDay": 2
           },
           {
             "id": "notice",
@@ -3421,7 +3431,8 @@
             "label": "Ask about the gala photo",
             "player": "I saw you in the gala photo in the paper.",
             "reply": "I was on duty, in a dress, because the board wanted security that blended in. The caption makes it look like I was a guest. I wasn’t. I was watching the door.",
-            "note": "Officer Porter was on duty at the gala, watching the door, not attending as a guest."
+            "note": "Officer Porter was on duty at the gala, watching the door, not attending as a guest.",
+            "fromDay": 2
           },
           {
             "id": "door",
@@ -3429,7 +3440,8 @@
             "player": "Did you see anything at the gala door?",
             "reply": "A man in a charity lanyard left by the kitchen, not the front. People who belong use the front.",
             "needsWarmth": 2,
-            "note": "Abigail Porter saw a man in a charity lanyard leave the gala through the kitchen."
+            "note": "Abigail Porter saw a man in a charity lanyard leave the gala through the kitchen.",
+            "fromDay": 2
           },
           {
             "id": "cases",
@@ -3514,7 +3526,8 @@
             "player": "Where have you been working lately?",
             "reply": "The motel strip. A room there was paid for in cash on the night of the gala by a man who used a fake name. I can’t say more. I’ve said too much.",
             "needsWarmth": 2,
-            "note": "Maria Vega says a motel room was paid for in cash under a fake name on the night of the gala."
+            "note": "Maria Vega says a motel room was paid for in cash under a fake name on the night of the gala.",
+            "fromDay": 2
           },
           {
             "id": "self",
@@ -3913,7 +3926,8 @@
             "player": "What are your sources saying about the gala?",
             "reply": "That the money went missing before Elena did. Follow the money and you find the person. That’s always the order.",
             "needsWarmth": 1,
-            "note": "Hannah Webb’s sources say the money went missing before Elena Cross did."
+            "note": "Hannah Webb’s sources say the money went missing before Elena Cross did.",
+            "fromDay": 2
           },
           {
             "id": "matters",
@@ -3956,7 +3970,8 @@
             "player": "Did you spike a story about the gala?",
             "reply": "I spiked a photo. A board member rang me at home that night. I told myself it was legal advice. I don’t sleep well.",
             "needsWarmth": 2,
-            "note": "Fiona Blake admits she spiked a gala photo after a board member rang her at home."
+            "note": "Fiona Blake admits she spiked a gala photo after a board member rang her at home.",
+            "fromDay": 2
           },
           {
             "id": "front",
@@ -3999,7 +4014,8 @@
             "player": "You photograph the motel strip?",
             "reply": "For a project. In one shot from the gala night, there’s a woman in a blue dress in Room 12’s window. Elena wore blue.",
             "needsWarmth": 2,
-            "note": "Linh Tran has a photo from gala night of a woman in a blue dress in a motel window. Elena wore blue."
+            "note": "Linh Tran has a photo from gala night of a woman in a blue dress in a motel window. Elena wore blue.",
+            "fromDay": 2
           },
           {
             "id": "freedom",
@@ -4386,7 +4402,8 @@
             "player": "What did you see in your gala photographs?",
             "reply": "A face at Table 9 who isn’t on the official guest list. Not a waiter, not a guest. Someone who wasn’t meant to be remembered.",
             "needsWarmth": 2,
-            "note": "Camille Baptiste photographed someone at Table 9 who isn’t on the official guest list."
+            "note": "Camille Baptiste photographed someone at Table 9 who isn’t on the official guest list.",
+            "fromDay": 2
           },
           {
             "id": "lens",
@@ -4472,7 +4489,8 @@
             "player": "Something at work bothering you?",
             "reply": "The chain-of-custody log for the gala evidence has a gap. Two hours where nobody signed for the bag. Nobody else seems to care.",
             "needsWarmth": 2,
-            "note": "Nadia Okafor found a two-hour gap in the custody log for the gala evidence."
+            "note": "Nadia Okafor found a two-hour gap in the custody log for the gala evidence.",
+            "fromDay": 3
           },
           {
             "id": "proof",
@@ -4515,7 +4533,8 @@
             "player": "You look like you overheard something you shouldn’t have.",
             "reply": "Two board members arguing in the cloakroom on gala night over a sealed envelope. One said, It burns tonight or we all do. I was holding someone’s mink at the time.",
             "needsWarmth": 2,
-            "note": "Marianne Keene overheard two board members on gala night arguing over a sealed envelope that had to burn tonight."
+            "note": "Marianne Keene overheard two board members on gala night arguing over a sealed envelope that had to burn tonight.",
+            "fromDay": 2
           },
           {
             "id": "forty",
@@ -4642,7 +4661,8 @@
             "player": "Is something missing at work?",
             "reply": "One receipt. Gala night, a large cash withdrawal, signed off by someone who wasn’t there. I keep checking the drawer as if it’ll come back.",
             "needsWarmth": 1,
-            "note": "Francesca Quinn says a large cash withdrawal from gala night was signed off by someone who wasn’t there."
+            "note": "Francesca Quinn says a large cash withdrawal from gala night was signed off by someone who wasn’t there.",
+            "fromDay": 2
           },
           {
             "id": "recipe",
@@ -4726,7 +4746,8 @@
             "player": "You look like you overheard something.",
             "reply": "Gala night, the back corridor: two board members arguing over a sealed envelope that had to be gone by morning. One of them saw me. Neither of them has looked at me since.",
             "needsWarmth": 2,
-            "note": "Bianca Roth heard two board members on gala night arguing over a sealed envelope that had to be gone by morning."
+            "note": "Bianca Roth heard two board members on gala night arguing over a sealed envelope that had to be gone by morning.",
+            "fromDay": 2
           },
           {
             "id": "time",
@@ -5093,7 +5114,8 @@
             "player": "Something missing at work?",
             "reply": "The key to the filing cabinet with the gala photographs. It was there, then it wasn’t, and the sign-out sheet is blank. Somebody in our own building wanted those prints.",
             "needsWarmth": 2,
-            "note": "Danica Holt says the key to the cabinet holding the gala crime-scene photographs went missing inside the police station."
+            "note": "Danica Holt says the key to the cabinet holding the gala crime-scene photographs went missing inside the police station.",
+            "fromDay": 5
           },
           {
             "id": "colour",
@@ -5716,7 +5738,8 @@
             "player": "Something on your mind?",
             "reply": "A woman from our march saw something on gala night. She told me, then a week later she told the police the exact opposite. Someone got to her.",
             "needsWarmth": 1,
-            "note": "Nora Hadley says a witness changed her story about gala night after someone got to her."
+            "note": "Nora Hadley says a witness changed her story about gala night after someone got to her.",
+            "fromDay": 6
           },
           {
             "id": "heresy2",
@@ -6474,7 +6497,8 @@
             "player": "What’s on the recording you’re restoring?",
             "reply": "A voicemail from the night of the gala. Half of it is static. The other half is a woman saying not Table 9, the kitchen.",
             "needsWarmth": 2,
-            "note": "Delia Maher is restoring a gala-night voicemail: a woman says not Table 9, the kitchen."
+            "note": "Delia Maher is restoring a gala-night voicemail: a woman says not Table 9, the kitchen.",
+            "fromDay": 2
           },
           {
             "id": "young2",
@@ -7575,7 +7599,8 @@
             "label": "Ask what’s confusing her",
             "player": "Is something confusing you?",
             "reply": "Two people told me completely different stories about the same night of the gala. One of them is lying, and they both bought peonies.",
-            "needsWarmth": 1
+            "needsWarmth": 1,
+            "fromDay": 3
           },
           {
             "id": "petals",
@@ -7702,7 +7727,8 @@
             "player": "Something on your mind?",
             "reply": "A woman who used to clean at the museum saw something on the gala night and told me. Now she tells everyone she was home all night. People don’t forget like that. They get frightened like that.",
             "needsWarmth": 1,
-            "note": "Alana Brooks says a museum cleaner who saw something on gala night now claims she was home all night."
+            "note": "Alana Brooks says a museum cleaner who saw something on gala night now claims she was home all night.",
+            "fromDay": 6
           },
           {
             "id": "kept2",
@@ -8609,8 +8635,8 @@
     },
     {
       "id": "thunderbirds",
-      "label": "Ask what she thinks of the Thunderbirds",
-      "player": "What’s your take on the Thunderbirds and all their charity stuff?",
+      "label": "Ask what she thinks of the Bluebirds",
+      "player": "What’s your take on the Bluebirds and all their charity stuff?",
       "views": {
         "thunderbirds": [
           "We do real good. Scholarships, food banks. People only notice when something goes wrong.",
@@ -10863,13 +10889,15 @@
             "lines": [
               "Between us, the treasurer left the gala early and came back without his tie. Nobody’s asked why."
             ],
-            "note": "A Thunderbird says Treasurer Pell left the gala early and came back without his tie."
+            "note": "A Bluebird says Treasurer Pell left the gala early and came back without his tie.",
+            "fromDay": 2
           },
           "fourth_estate": {
             "lines": [
               "Our photographer had a shot of Table 9 that the editor spiked. Make of that what you like."
             ],
-            "note": "A reporter says a photo of Table 9 from the gala was dropped by the editor."
+            "note": "A reporter says a photo of Table 9 from the gala was dropped by the editor.",
+            "fromDay": 2
           }
         }
       },
@@ -11163,13 +11191,15 @@
             "lines": [
               "Between us, a witness from the gala night has gone very quiet. Scared quiet."
             ],
-            "note": "A police officer says a witness from the gala night has gone quiet out of fear."
+            "note": "A police officer says a witness from the gala night has gone quiet out of fear.",
+            "fromDay": 2
           },
           "fourth_estate": {
             "lines": [
               "The catering staff from the gala know more than anyone. Nobody asks the catering staff."
             ],
-            "note": "A reporter says the gala’s catering staff know more than anyone has asked."
+            "note": "A reporter says the gala’s catering staff know more than anyone has asked.",
+            "fromDay": 2
           }
         }
       },
@@ -13264,15 +13294,15 @@
         "thunderbirds": [
           {
             "line": "Between us, Dorian Kell has been very quiet since the gala. Dorian is never quiet.",
-            "note": "A Thunderbird says Dorian Kell has gone unusually quiet since the gala."
+            "note": "A Bluebird says Dorian Kell has gone unusually quiet since the gala."
           },
           {
             "line": "The foundation hired a new accountant straight after the gala. Nobody voted on it.",
-            "note": "A Thunderbird says the foundation hired a new accountant after the gala without a vote."
+            "note": "A Bluebird says the foundation hired a new accountant after the gala without a vote."
           },
           {
             "line": "Professor Vale is invited to our next dinner. Half the committee wants him there; the other half wants police at the door.",
-            "note": "Professor Vale is invited to a Thunderbirds dinner, and half the committee wants police there."
+            "note": "Professor Vale is invited to a Bluebirds dinner, and half the committee wants police there."
           }
         ],
         "police": [
@@ -15001,7 +15031,7 @@
         "player": "You need to stop before someone gets hurt.",
         "reply": "Says the man who can’t sleep. Fine. Maybe."
       },
-      "delivered": "A paper bag from Desert Rx on your doorstep, folded over twice. Inside: a brown bottle with no label.",
+      "delivered": "A paper bag from Desert Rx, folded over twice, pushed through your letterbox. Inside: a brown bottle with no label.",
       "item": {
         "label": "A bag from Desert Rx",
         "text": "A brown bottle with no label, in a paper bag from Desert Rx. {first} sold it to you."
@@ -15042,11 +15072,11 @@
       "friend": "Did you report {first}? Everyone in our group is saying it was you."
     },
     "husband": {
-      "name": "Dale",
-      "clue": "{name} is married. Her husband, Dale, has your number.",
-      "open": "Is this the man who keeps texting my wife? I’m {first}’s husband. Dale.",
+      "name": "Wade",
+      "clue": "{name} is married. Her husband, Wade, has your number.",
+      "open": "Is this the man who keeps texting my wife? I’m {first}’s husband. Wade.",
       "again": [
-        "It’s Dale again. I’ve read more of them now.",
+        "It’s Wade again. I’ve read more of them now.",
         "You think I don’t know where she goes on her phone?",
         "I’ve got your number. I can get the rest.",
         "She says you’re just a friend. Are you just a friend?"
@@ -15061,8 +15091,8 @@
       "friends": "Friends don’t text her in the middle of the night.",
       "truth": "Hinge. She told me she deleted it. A long silence. Right.",
       "voicemail": [
-        "This is Dale. You know who I am. Pick up.",
-        "Dale again. I’m not going to stop ringing.",
+        "This is Wade. You know who I am. Pick up.",
+        "Wade again. I’m not going to stop ringing.",
         "I found your profile. Nice room."
       ],
       "ask": {
@@ -15106,11 +15136,11 @@
       ]
     },
     "envelope": {
-      "arrive": "A padded envelope on your doorstep, addressed to R. Vance, who lived here before you. Inside: a thick fold of cash and a cheap phone.",
-      "clue": "An envelope of cash for R. Vance, the last tenant, was left on your doorstep. Someone wants it back.",
+      "arrive": "A padded envelope comes through your letterbox, addressed to T. Kessler, who had this room years ago. Inside: a thick fold of cash and a cheap phone.",
+      "clue": "An envelope of cash for T. Kessler, who had your room years ago, was left on your doorstep. Someone wants it back.",
       "item": {
-        "label": "An envelope for R. Vance",
-        "text": "A thick fold of cash and a cheap phone, addressed to R. Vance, who lived here before you."
+        "label": "An envelope for T. Kessler",
+        "text": "A thick fold of cash and a cheap phone, addressed to T. Kessler, who had this room years ago."
       },
       "take": {
         "label": "💵 Take some of the cash",
@@ -15131,14 +15161,14 @@
       },
       "stepReply": "Good. Tonight. Then you forget this number.",
       "policeReply": "No, you haven’t. If you had, you wouldn’t still have it.",
-      "gone": "The envelope has gone from the step. In its place: a bottle of good whisky. No note.",
+      "gone": "The envelope has gone from the step. Someone has left a bottle of good whisky in a paper bag, just inside your door. No note.",
       "gift": {
         "label": "A bottle of whisky",
-        "text": "Good whisky, left on your doorstep where the envelope was. No note."
+        "text": "Good whisky in a paper bag, left at your door where the envelope had been. No note."
       },
       "short": "The envelope has gone from the step. Your phone rings once in the night. Nobody speaks.",
       "tip": {
-        "label": "Report an envelope of cash left for the last tenant",
+        "label": "Report an envelope of cash left for an old tenant",
         "reply": "Don’t touch it, and don’t answer that phone. An officer will collect it tonight."
       },
       "collected": "An officer collected the envelope overnight. Doreen says thank you.",
@@ -15159,8 +15189,8 @@
       ]
     },
     "cleaner": {
-      "hook": "I clean three houses up on the ridge. Thunderbird houses. You would not believe what rich people leave lying around.",
-      "clue": "{name} steals from the Thunderbird houses she cleans on the ridge.",
+      "hook": "I clean three houses up on the ridge. Bluebird houses. You would not believe what rich people leave lying around.",
+      "clue": "{name} steals from the Bluebird houses she cleans on the ridge.",
       "ask": {
         "label": "Ask what they leave lying around",
         "player": "Like what?",
@@ -15176,7 +15206,7 @@
         "player": "You’re going to get caught.",
         "reply": "Nobody counts. That’s the whole point of being rich."
       },
-      "delivered": "A small velvet pouch under your doormat. Inside: an old diamond ring, far too good to be cheap.",
+      "delivered": "A small velvet pouch, pushed under your door. Inside: an old diamond ring, far too good to be cheap.",
       "item": {
         "label": "A diamond ring (don’t ask)",
         "text": "An old diamond ring in a velvet pouch, from {first}. Far too good to be cheap."
@@ -15232,7 +15262,7 @@
       "ask": "Constance Ashworth. Well? Tell me something about one of your girls.",
       "tellLabel": "Tell her what {first} told you",
       "nothingLabel": "Tell her nothing today",
-      "took": "How interesting. Thank you. The Thunderbirds will hear good things about you.",
+      "took": "How interesting. Thank you. The Bluebirds will hear good things about you.",
       "nothing": "Nothing? I do hope that isn’t becoming a habit.",
       "page": "A cream envelope through your letterbox, with the Ashworth crest. Inside: one typed page from the Watch file. It’s about you.",
       "pageItem": {
