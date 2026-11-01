@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a5a98bf55d">
+<html lang="en" data-build="3283b4fcb9">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a5a98bf55d"></script>
+  <script src="chapel_at_midnight.js?v=3283b4fcb9"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a5a98bf55d"></script>
+  <script src="marriage.js?v=3283b4fcb9"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a5a98bf55d"></script>
+  <script src="quests/professor-vale.js?v=3283b4fcb9"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1998,8 +1998,8 @@
       const profileNow=hingeProfile(thread.id);
       // Every choice gets a rank (lower matters more). At most MAX_CHAT_CHOICES are shown, in
       // their usual order; when there are more, the least important are left out for now.
-      // 0 quests in progress · 1 case questions · 2 first small talk, numbers · 3 picture, paper,
-      // deeper, her family · 4 Easter egg, the gala, the marriage question · 5 extra small talk (she still has it next time).
+      // 0 quests in progress · 1 case questions, and the Blue Ribbon question after the paper · 2 first small talk, numbers · 3 picture, paper,
+      // deeper, her family · 4 Easter egg, the marriage question · 5 extra small talk (she still has it next time).
       const choices=[];
       const add=(html,rank)=>choices.push({html,rank,order:choices.length});
       if(marriageOptions?.html)add(marriageOptions.html,0); // Marriage
@@ -2018,7 +2018,7 @@
       if(realEggAvailable(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="egg:real">${esc(talkKit().eggs.real.label)}</button>`,4);
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]>0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her family; the marriage question
       const caseTopic=(hingeDialogue?.topics||[]).find(topic=>topic.id==='case');
-      if(caseTopic&&questOn('br')&&brKnown()&&world.day>=questStart('br')+1&&!thread.topics.includes('case'))add(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,4);
+      if(caseTopic&&caseTopicOpen(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,1); // straight after talking about the paper, so never the one left out
       for(const topic of brHingeTopicsFor(hingeProfile(thread.id))){
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
@@ -2030,7 +2030,9 @@
       }
       // Always offered. After her first picture it becomes "Another one?".
       add(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">♡ ${picturesSent(thread,hingeProfile(thread.id)).length?'Another one?':'Ask for a picture'}</button>`,3);
-      const shown=[...choices].sort((a,b)=>a.rank-b.rank||a.order-b.order).slice(0,MAX_CHAT_CHOICES).sort((a,b)=>a.order-b.order).map(choice=>choice.html);
+      const done=doneForToday(thread); // a few questions a day: after that, only story events
+      const shown=(done?choices.filter(choice=>choice.rank===0):[...choices]).sort((a,b)=>a.rank-b.rank||a.order-b.order).slice(0,MAX_CHAT_CHOICES).sort((a,b)=>a.order-b.order).map(choice=>choice.html);
+      if(done)shown.push(`<div class="story-tag">${esc(talkKit()?.dayDoneNote||'She’s done talking for today. Try her again tomorrow.')}</div>`);
       if(thread.number)shown.push(`<div style="font:9px Verdana,sans-serif;color:#a8e8bc;text-align:center">Number saved: ${thread.number}</div>`);
       return shown.join('');
     }
@@ -2063,6 +2065,7 @@
         const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
         if(!thread||!profile){hingeView='chats';return renderHinge();}
         if(thread.id!==bearHingeCard.id)talkState(thread).unread=false;
+        signOffIfDone(thread); // a few questions a day
         body=`<div class="hinge-chat-head"><button data-chat-back>‹</button><button class="face-button" data-profile-open="${profile.id}" aria-label="View ${esc(profile.name)}'s pictures"><img src="${profile.gallery[0]}" alt="${esc(profile.name)}"></button><strong data-name-tap>${esc(profile.name)} · Tap photo for profile</strong></div><div class="hinge-messages" id="hinge-messages">${thread.log.map(line=>line.shot?shotChatBubble(line):line.evidence?evidenceChatBubble(line):line.image?`<div class="hinge-bubble her image-message"><img src="${line.image}" data-chat-selfie alt="Picture sent by ${esc(profile.name)}"><small>${esc(line.text)}</small></div>`:`<div class="hinge-bubble ${line.who}${line.block?' block-message':''}">${esc(line.text)}</div>`).join('')}${thread.pending?'<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>':''}</div><div class="hinge-options">${thread.pending?'':hingeOptionsFor(thread)}</div>`;
       }else if(hingeView==='profile'){
         const profile=hingeProfile(activeProfileId);
@@ -2164,6 +2167,7 @@
     function chooseHingeTopic(id){
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked||thread.quiet)return;
+      if(!freeAsk(thread,profile,id)){if(doneForToday(thread))return;countAsk(thread,id);} // a few questions a day
       {const ts=talkState(thread),days=ts.days||(ts.days=[]);if(!days.includes(world.day))days.push(world.day);} /* one conversation a day */
       if(isTalkTopic(id))return chooseTalk(id,thread,profile);
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
@@ -2253,6 +2257,7 @@
       }else{
         const topic=hingeDialogue?.topics?.find(item=>item.id===id);
         if(!topic||thread.topics.includes(id))return;
+        if(id==='case'&&!caseTopicOpen(thread))return; // the paper first
         thread.followUp=null;
         thread.topics.push(id);
         thread.log.push({who:'you',text:topic.player});
@@ -2420,7 +2425,7 @@
       const memory=Object.fromEntries(Object.entries(src.memory&&typeof src.memory==='object'?src.memory:{}).filter(([,value])=>typeof value==='string').slice(0,80));
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
-        dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),
+        dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
         days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,callTold:words(src.callTold),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
         used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
@@ -2531,6 +2536,29 @@
       return Object.values(minisState().st||{}).some(st=>st&&st.host===profile.id&&st.stage&&st.stage!=='done');
     }
     const chatsUsed=thread=>(talkState(thread).days||[]).filter(day=>day<world.day).length;
+    // A few questions a day: she answers 3 of your questions a day, 4 once she likes you, then signs
+    // off until tomorrow. Answering her questions and story events (her family, a favour, Theon, the
+    // marriage examination, the Chapel) never count. Jewellers, the bear and the girl who keeps
+    // calling aren't ordinary chats. Tests switch it off with MATCH_ENDLESS_CHAT.
+    const ASK_FREE=/^(follow:|coffee:|caller:|mini:|leak:|dad:|fionn:)/;
+    const freeAsk=(thread,profile,id)=>ASK_FREE.test(String(id))||(String(id).startsWith('arc:')&&arcChoices(thread,profile).some(entry=>entry[0]===id&&entry[2]===0)); // her story under way is free; asking about her family is a question
+    const dailyAskCap=thread=>warmthOf(thread)>=2?4:3;
+    const asksToday=thread=>{const ts=talkState(thread);return ts.askDay===world.day?ts.asks||0:0;};
+    function doneForToday(thread){
+      if(window.MATCH_ENDLESS_CHAT||!thread||thread.id===bearHingeCard.id||thread.id===CALLER_ID||hingeProfile(thread.id)?.jeweller)return false;
+      return asksToday(thread)>=dailyAskCap(thread);
+    }
+    function countAsk(thread,id){
+      const ts=talkState(thread);
+      if(ts.askDay!==world.day){ts.askDay=world.day;ts.asks=0;}
+      ts.asks++;
+    }
+    function signOffIfDone(thread){ // after her last answer today, and after you've answered anything she asked back
+      const ts=talkState(thread),lines=talkKit()?.dayDone;
+      if(!lines?.length||!doneForToday(thread)||thread.pending||thread.followUp||thread.quiet||ts.signOffDay===world.day)return;
+      ts.signOffDay=world.day;
+      thread.log.push({who:'her',text:variedPick(lines,thread.id+'|done|'+world.day)});
+    }
     function quietNewDay(){ // the morning after her last conversation she says goodbye
       const lines=talkKit()?.quiet;
       if(!lines?.length)return;
@@ -2614,8 +2642,15 @@
     }
     // She talks about the story closest to her world: one her faction knows more about, if
     // today's paper has one she hasn't told you about yet, otherwise the front page.
+    // The Blue Ribbon question follows talk about today's paper: ask her what she made of it
+    // first, on a day the paper carries a Blue Ribbon story (every day from Day 2 while the case runs).
+    function paperHasBlueRibbon(day=world.day){return (getNewsEdition(day).items||[]).some(item=>storyKind(item)==='charity');}
+    function caseTopicOpen(thread){
+      return !!thread&&questOn('br')&&brKnown()&&world.day>=questStart('br')+1&&!thread.topics.includes('case')&&talkState(thread).newsDay===world.day&&paperHasBlueRibbon();
+    }
     function newsStoryFor(thread,profile){
       const kinds=(getNewsEdition(world.day).items||[]).map(storyKind);
+      if(questOn('br')&&world.day>=questStart('br')+1&&!thread.topics.includes('case')&&kinds.includes('charity'))return 'charity'; // until you've asked her about it, the Blue Ribbon story is the one she talks about
       const informed=characterDB.newsTalk.kinds||{};
       const told=talkState(thread).informed;
       return kinds.find(kind=>informed[kind]?.informed?.[profile.factionId]&&!told.includes(kind))||kinds[0]||'local';
@@ -5903,7 +5938,8 @@
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!PV||!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
       const topic=PV.hingeTopics(profile).find(item=>item.id===id);
-      if(!topic)return;
+      if(!topic||doneForToday(thread))return;
+      countAsk(thread,'pv:'+id);
       const result=PV.chooseHingeTopic(profile,id);
       if(!result?.ok)return;
       thread.log.push({who:'you',text:result.player});
@@ -6008,7 +6044,8 @@
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
       const topic=brHingeTopicsFor(profile).find(item=>item.id===id);
-      if(!topic||!brTopicAvailable(topic,thread))return;
+      if(!topic||!brTopicAvailable(topic,thread)||doneForToday(thread))return;
+      countAsk(thread,'br:'+id);
       if(!thread.topics.includes(id))thread.topics.push(id);
       thread.log.push({who:'you',text:topic.player});
       thread.pending=true;renderHinge();

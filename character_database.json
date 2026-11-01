@@ -18697,7 +18697,18 @@
       "Don’t repeat this.",
       "You’re easy to talk to, so here it is.",
       "I’ve been sitting on this all day."
-    ]
+    ],
+    "dayDone": [
+      "I have to go. Talk tomorrow?",
+      "That’s me done for today. Message me tomorrow.",
+      "I’m being summoned. Tomorrow, yes?",
+      "Right, I need to get on. Same time tomorrow?",
+      "My battery’s dying and so am I. Tomorrow.",
+      "Enough of me for one day. Talk tomorrow.",
+      "I have to run. Don’t be a stranger tomorrow.",
+      "Okay, phone down. I’ll talk to you tomorrow."
+    ],
+    "dayDoneNote": "She’s done talking for today. Try her again tomorrow."
   },
   "minis": {
     "pills": {
