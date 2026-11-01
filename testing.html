@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3283b4fcb9">
+<html lang="en" data-build="0633f11663">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3283b4fcb9"></script>
+  <script src="chapel_at_midnight.js?v=0633f11663"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3283b4fcb9"></script>
+  <script src="marriage.js?v=0633f11663"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3283b4fcb9"></script>
+  <script src="quests/professor-vale.js?v=0633f11663"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2184,7 +2184,7 @@
         if(profile.factionId==='sisters_of_mercy'){
           thread.blocked=true;
           thread.log.push({who:'her',text:'That is completely inappropriate. Do not contact me again.',block:true});
-          maybeReported(profile,.3); // Truecel: asking a Sister of Mercy
+          maybeReported(profile,.3,'sister'); // Truecel: asking a Sister of Mercy
           renderHinge();
           flashBlocked();
           return;
@@ -2193,7 +2193,7 @@
         if((profile.age||0)>OLDER_WOMAN_AGE){
           thread.blocked=true;
           thread.log.push({who:'her',text:gamePick(OLDER_WOMAN_LINES),block:true});
-          maybeReported(profile,.3); // Truecel: asking a woman over fifty
+          maybeReported(profile,.3,'older'); // Truecel: asking a woman over fifty
           renderHinge();
           flashBlocked();
           return;
@@ -2214,7 +2214,7 @@
             // Pushed past no, without the rapport to get away with it: she blocks you.
             thread.blocked=true;thread.pending=false;
             thread.log.push({who:'her',text:gamePick(PUSH_BLOCK_LINES),block:true});
-            maybeReported(profile,.3); // Truecel: pushing past no
+            maybeReported(profile,.3,'pushing'); // Truecel: pushing past no
             if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
             flashBlocked();
             return;
@@ -2227,7 +2227,7 @@
             thread.log.push({who:'her',text:line,image:picture.src});
           }else if(unseen.length||!another){
             if(unseen.length)thread.photoRefusals=refused+1;
-            maybeReported(profile,.05); // Truecel: asking at all can be enough
+            maybeReported(profile,.05,'asking'); // Truecel: asking at all can be enough
             const refusal=personality?.refuse||choose(['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.']);
             thread.log.push({who:'her',text:tone()==='truecel'?choose(['Lol, no. ','Ew, no. ','Why would I? ','Absolutely not. '])+refusal:refusal});
           }else{
@@ -3331,7 +3331,7 @@
         deliverTalk(thread,profile,[variedPick(LEAK.guilty,thread.id)],'talk',()=>{unmatchForEvent(thread);if(tipster){tipster.log.push({who:'her',text:LEAK.solved});warmBy(tipster,2);}},true);
       }else{
         leak.stage='wrong';
-        deliverTalk(thread,profile,[variedPick(LEAK.innocent,thread.id)],'talk',()=>{unmatchForEvent(thread);if(tipster)tipster.log.push({who:'her',text:LEAK.wrong});maybeReported(profile,.25);},true);
+        deliverTalk(thread,profile,[variedPick(LEAK.innocent,thread.id)],'talk',()=>{unmatchForEvent(thread);if(tipster)tipster.log.push({who:'her',text:LEAK.wrong});maybeReported(profile,.25,'accused');},true);
       }
     }
 
@@ -3614,6 +3614,7 @@
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
+      if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -3624,6 +3625,7 @@
     }
     // Which of them is due to ring today: her dad once, Theon once a day.
     function strangerDue(){
+      if(policeWarningDue())return 'x:police'; // Truecel: the police warning comes first
       const d=dadState();
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
       const f=fionnState();
@@ -3632,7 +3634,8 @@
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
-      if(id==='x:dad')dadState().called=true;
+      if(id==='x:police')policeWarnState().called=true;
+      else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
     }
     function strangerVoicemail(from,text,number=null){
@@ -3646,6 +3649,7 @@
     // Not answered, or declined: they leave a message. Her dad, when it's about the messages, comes anyway.
     function strangerMissed(id){
       if(MINI_CALLERS[id]){miniMissed(id);return;}
+      if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
         const d=dadState();
         strangerVoicemail('Unknown number',d.variant?DAD.vmCreepy:DAD.vmOpen);
@@ -3658,6 +3662,7 @@
     }
     function strangerAnswer(id){
       if(MINI_CALLERS[id])return miniAnswer(id);
+      if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
       f.calls++;
@@ -3667,6 +3672,7 @@
     }
     function strangerChoices(call){
       if(call.kind==='mini')return miniCallChoices(call);
+      if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
         return [{id:'d:yes',label:'Yes, sir.'},{id:'d:adult',label:'She’s an adult. It’s her choice.'},{id:'d:hang',label:'Hang up'}];
@@ -3682,11 +3688,12 @@
     }
     function chooseStrangerCall(call,choice){
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
-      if(choice==='d:hang'||choice==='f:hang'){
+      if(choice==='d:hang'||choice==='f:hang'||choice==='p:hang'){
         if(choice==='d:hang'&&dadState().variant)dadState().deadline=world.day+1;
         endHerCall();return;
       }
-      if(call.kind==='dad'){
+      if(call.kind==='police')call.said=choice==='p:sorry'?POLICE_WARN.sorry:POLICE_WARN.deny;
+      else if(call.kind==='dad'){
         const d=dadState(),f=fionnState(),has=c=>f.clues.includes(c);
         if(choice==='d:yes')call.said=DAD.yes;
         else if(choice==='d:adult')call.said=DAD.adult;
@@ -4060,10 +4067,43 @@
 
     // ===== Truecel: she might report you =====
     // The police come the next morning. Nothing tells you how close it was.
-    function maybeReported(profile,chance){
+    // Truecel: the first time a woman reports you, the police ring the next day with a warning that
+    // says what she reported. Only a second report brings the arrest. A report can't land while a
+    // warning is still on its way, so you're always warned first.
+    const POLICE_WARN={
+      reasons:{
+        pushing:'A young woman on a dating app says you kept asking her for pictures after she told you no.',
+        asking:'A young woman on a dating app says your messages made her feel unsafe.',
+        sister:'A woman from the Sisters of Mercy says you asked her for pictures of herself.',
+        older:'A woman old enough to be your mother says you asked her for pictures.',
+        accused:'A young woman says you accused her of spreading your messages round a group chat, and kept on at her.'
+      },
+      open:'Sunfall Police, the duty sergeant speaking. We’ve had a complaint about you. {reason} Nobody’s coming round tonight. This is your warning.',
+      sorry:'Good. Keep it that way. If your name crosses my desk again, we come to your door.',
+      deny:'Maybe so. It’s on file all the same. One more complaint and we come to your door, and we won’t ring first.',
+      voicemail:'Sunfall Police, for you. We’ve had a complaint. {reason} Consider this your warning. One more and we come to your door.',
+      clue:'The police rang with a warning. {reason} One more complaint and they arrest you.'
+    };
+    function policeWarnState(){
+      const w=world.policeWarn;
+      if(!w||typeof w!=='object'||!['none','due','warned'].includes(w.stage))world.policeWarn={stage:'none',day:null,reason:null,called:false};
+      return world.policeWarn;
+    }
+    function policeWarnText(key){return POLICE_WARN[key].replace('{reason}',POLICE_WARN.reasons[policeWarnState().reason]||POLICE_WARN.reasons.asking);}
+    function policeWarned(){ // answered or missed, either way you've been told
+      const w=policeWarnState();
+      if(w.stage==='warned')return;
+      w.stage='warned';
+      recordClue(policeWarnText('clue'));
+    }
+    function policeWarningDue(){const w=policeWarnState();return w.stage==='due'&&Number.isInteger(w.day)&&world.day>=w.day&&!w.called&&tone()==='truecel';}
+    function maybeReported(profile,chance,reason='asking'){
       if(tone()!=='truecel'||!profile||profile.id===bearHingeCard.id||Number.isInteger(world.reportedDay))return false;
+      const w=policeWarnState();
+      if(w.stage==='due')return false; // the warning is still on its way
       if(gameRandom()>=chance)return false;
-      world.reportedDay=world.day+1;
+      if(w.stage==='none'){w.stage='due';w.day=world.day+1;w.reason=POLICE_WARN.reasons[reason]?reason:'asking';w.called=false;return true;} // first time: a warning call tomorrow
+      world.reportedDay=world.day+1; // you were warned: this time they come
       return true;
     }
     function reportedAfterDayStart(){
