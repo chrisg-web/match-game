@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="abda5b484b">
+<html lang="en" data-build="1307353708">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -567,11 +567,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=abda5b484b"></script>
+  <script src="chapel_at_midnight.js?v=1307353708"></script>
   <!-- Marriage: the Sisters of Mercy and the only victory. The standalone build inlines it. -->
-  <script src="marriage.js?v=abda5b484b"></script>
+  <script src="marriage.js?v=1307353708"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=abda5b484b"></script>
+  <script src="quests/professor-vale.js?v=1307353708"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1741,6 +1741,9 @@
       return arr;
     };
     const bearHingeCard={id:'__bear__',slug:'literal_bear',name:'Bear',age:9,factionId:'wildlife',canonicalOccupation:'Professional picnic inspector',gallery:['assets/events/bear-profile.png','assets/events/bear-pool.webp','assets/events/bear-porch.webp'],privatePhotos:[]};
+    // What her card says she does. (Cards used to show a random job from her group's list, which
+    // clashed with her own topics and could change mid-game.)
+    function realJobs(){return Object.fromEntries(hingeProfiles.map(profile=>[profile.id,profile.canonicalOccupation]));}
     function setupHingeDeck(){
       hingeDeck=gameShuffleList(hingeProfiles);
       if(!world.bearOffered&&gameRandom()<.07){
@@ -1750,11 +1753,7 @@
       hingeIndex=0;
       hingeSwipesToday=0;
       addJewellersToDeck();
-      hingeJobs=Object.fromEntries(hingeProfiles.map(profile=>{
-        const jobs=jobPools[profile.factionId]||jobPools.normie_girls;
-        const selected=gameRandom()<.24?profile.canonicalOccupation:gamePick(jobs);
-        return [profile.id,selected];
-      }));
+      hingeJobs=realJobs(); // her own job, always: her topics talk about it
     }
     function hingeProfile(id){return id===bearHingeCard.id?bearHingeCard:String(id).startsWith(JEWELLER_PREFIX)?jewellerCards().find(card=>card.id===id):hingeProfiles.find(profile=>profile.id===id);}
     // The five jewellers are in the Hinge deck like anyone else. Match with one and ask for her
@@ -4153,7 +4152,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -4191,6 +4190,7 @@
         try{navigator.clipboard.writeText(BITCOIN_ADDRESS).then(()=>{copyBtc.textContent='Copied';},selectIt);}catch{selectIt();}
         return;
       }
+      if(event.target.closest('[data-settings-newgame]')){pickDifficulty(true);return;} // a new game, any time: choose a difficulty
       const settingsNav=event.target.closest('[data-settings-view]');
       if(settingsNav){settingsView=settingsNav.dataset.settingsView;renderSettings();$('opened').scrollTop=0;return;}
       const settingWallpaper=event.target.closest('[data-setting-wallpaper]');
@@ -5593,7 +5593,9 @@
         fontScale,wallpaperLocked
       };
     }
+    var holdSaves=false; // the online game holds saves until it has resumed the saved run (build-editions.mjs)
     function saveRun(silent=false){
+      if(holdSaves)return false;
       if([...hingeThreads.values()].some(thread=>thread.pending)){
         if(!silent)updateRunStatus('A reply is still typing. Save in a moment.');
         return false;
@@ -5638,7 +5640,7 @@
         hingeIndex=Math.max(0,Math.min(deck.length,Number(saved.hingeIndex)||0));
         hingeSwipesToday=Math.max(0,Math.min(10,Number(saved.hingeSwipesToday)||0));
         hingeLikes=Math.max(0,Number(saved.hingeLikes)||0);
-        hingeJobs=saved.hingeJobs&&typeof saved.hingeJobs==='object'?saved.hingeJobs:{};
+        hingeJobs=realJobs(); // older saves held made-up jobs that didn't match her topics
         hingeGalleryIndex=saved.hingeGalleryIndex&&typeof saved.hingeGalleryIndex==='object'?saved.hingeGalleryIndex:{};
         const entries=Array.isArray(saved.threads)?saved.threads.filter(entry=>Array.isArray(entry)&&ids.has(entry[0])):[];
         hingeThreads=new Map(entries.map(([id,raw])=>{
@@ -5692,7 +5694,8 @@
         marriage?.afterLoad(); // Marriage: restores examinations, the desk ring and a won game
         addJewellersToDeck(); // saves from before the jewellers joined Hinge
         openApp('hinge');return true;
-      }catch{
+      }catch(error){
+        console.warn('MATCH: the saved run could not be loaded',error); // so the cause is visible
         updateRunStatus('No compatible local save found. Your current run is unchanged.');
         return false;
       }
@@ -5824,9 +5827,20 @@
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
     randomiseRoomLook();
-    try { if(localStorage.getItem(SAVE_KEY)) loadRun(); } catch {}
-    window.addEventListener('pagehide',()=>saveRun(true));
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)saveRun(true);});
+    // Resume the saved run once the women, the talk and the quests have loaded (they arrive after
+    // this script runs); until then nothing is saved, so a half-loaded page never overwrites the run.
+    // A first visit, or a save that can't be read, starts by choosing a difficulty.
+    holdSaves=true;
+    const resumeWhenReady=(tries=0)=>{
+      const ready=hingeProfiles.length&&characterDB&&BR&&jewellerCards().length;
+      if(!ready&&tries<80){setTimeout(()=>resumeWhenReady(tries+1),100);return;}
+      holdSaves=false;
+      try { if(!(localStorage.getItem(SAVE_KEY)&&loadRun())) pickDifficulty(); } catch { pickDifficulty(); }
+    };
+    resumeWhenReady();
+    const choosing=()=>$('difficulty-pick').classList.contains('visible'); // nothing to keep until a difficulty is chosen
+    window.addEventListener('pagehide',()=>{if(!choosing())saveRun(true);});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&!choosing())saveRun(true);});
     fit();
   </script>
 </body>
