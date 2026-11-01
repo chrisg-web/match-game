@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="180f34c851">
+<html lang="en" data-build="c9245cb733">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -299,7 +299,7 @@
     .call-bubble .speaker { font: bold calc(13px * var(--reading-scale)) 'Trebuchet MS',Tahoma,sans-serif; letter-spacing: .055em; color: #a6eee2; }
     .call-bubble .speech { min-height: 49px; margin: 5px 0 9px; color: #f5fff9; font: 700 calc(15px * var(--reading-scale))/1.42 'Trebuchet MS',Tahoma,Arial,sans-serif; letter-spacing: .025em; }
     .call-bubble .speech::after { content: '▮'; color: #8cdbcb; opacity: .7; margin-left: 2px; }
-    .call-bubble .speech { white-space: pre-line; } /* Fionn speaks in verse: one line per line */
+    .call-bubble .speech { white-space: pre-line; } /* Theon speaks in verse: one line per line */
     .call-bubble-content { min-width: 0; flex: 1; }
     .call-bubble-buttons { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
     .call-bubble-buttons button { cursor: pointer; border: 1px solid #76b5bb; background: #19435a; color: #e3fcf9; border-radius: 3px; padding: 7px 9px; font: bold calc(11px * var(--reading-scale)) 'Trebuchet MS',Tahoma,sans-serif; }
@@ -457,14 +457,17 @@
     .home-invasion p { position: absolute; left: 6%; right: 6%; bottom: 9%; margin: 0; padding: 10px; border: 2px solid #b8343f; border-radius: 4px; background: #0d0a10e8; color: #ffe1d6; text-align: center; font: bold calc(14px * var(--reading-scale))/1.45 'Trebuchet MS',Tahoma,sans-serif; transition: opacity .8s steps(5,end); }
     .home-invasion.blackout img,.home-invasion.blackout p { opacity: 0; }
     .home-invasion.flash { background: #fff; } .home-invasion.flash img { opacity: 0; } /* Professor Vale: a white flash */
-    /* Fionn: the quick-time shot, then where the body goes */
+    /* Theon: the quick-time shot, then where the body goes */
     .home-invasion .qte { position: absolute; left: 0; right: 0; top: 30%; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .home-invasion .qte[hidden] { display: none; }
+    .home-invasion .invasion-hands { position: absolute; inset: 0; opacity: 0; pointer-events: none; filter: none; } /* Theon's hands, from behind you */
+    .home-invasion.hands .invasion-hands { opacity: 1; transition: opacity .35s; }
+    .shot-card .shot-her { display: block; margin: 0 0 6px auto; max-width: 80%; padding: 5px 8px; border-radius: 9px; background: #2c3138; color: #d6dbe0; font-style: normal; text-align: right; }
     .home-invasion .qte button { padding: 14px 30px; border: 3px solid #ffe1d6; border-radius: 6px; background: #b8343f; color: #fff; font: bold calc(22px * var(--reading-scale)) Verdana,sans-serif; letter-spacing: .12em; cursor: pointer; animation: qtePulse .45s steps(2,end) infinite; }
     .home-invasion .qte.choices button { width: 80%; padding: 10px; font-size: calc(13px * var(--reading-scale)); letter-spacing: 0; background: #1b1420ee; animation: none; }
     @keyframes qtePulse { 50% { transform: scale(1.1); } }
     @media (prefers-reduced-motion: reduce) { .home-invasion .qte button { animation: none; } }
-    /* Fionn's messages, shown to you by the women he sent them to */
+    /* Theon's messages, shown to you by the women he sent them to */
     .hinge-bubble.shot-message { max-width: 88%; }
     .shot-img { display: block; width: 100%; margin-top: 6px; border-radius: 8px; image-rendering: pixelated; }
     .shot-card { display: block; margin-top: 6px; padding: 8px 9px; border-radius: 10px; background: #121417; border: 1px solid #3a3f47; color: #e9ecef; font: italic calc(11px * var(--reading-scale))/1.45 Georgia,'Times New Roman',serif; text-align: left; }
@@ -567,11 +570,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=180f34c851"></script>
+  <script src="chapel_at_midnight.js?v=c9245cb733"></script>
   <!-- Marriage: the Sisters of Mercy and the only victory. The standalone build inlines it. -->
-  <script src="marriage.js?v=180f34c851"></script>
+  <script src="marriage.js?v=c9245cb733"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=180f34c851"></script>
+  <script src="quests/professor-vale.js?v=c9245cb733"></script>
 </head>
 <body>
   <main class="workbench">
@@ -703,7 +706,7 @@
             <div class="bear-alert-options"><button data-bear-reaction="lock">Lock the door</button><button data-bear-reaction="hide">Hide and stay silent</button><button data-bear-reaction="honey">Throw the honey</button><button data-bear-reaction="peek">Look outside</button></div>
           </div>
           <div class="bear-attack" id="bear-attack" role="img" aria-label="Animated bear charge across the bedroom"><img id="bear-attack-image" src="assets/events/bear-threshold.webp" alt=""></div>
-          <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
+          <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose a difficulty for the new game"><div class="pick-cards"><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button></div></div><!-- New game: tap a face -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
@@ -742,7 +745,7 @@
     function pickQuests(seed){
       if(window.MATCH_ALL_QUESTS)return {...LEGACY_QUESTS};
       const h=n=>hashSeed(seed+'|quests|'+n);
-      const pool=selectedDifficulty==='mogger'?[...QUEST_IDS,'fionn']:[...QUEST_IDS]; // Fionn only steals a Mogger's pictures
+      const pool=selectedDifficulty==='mogger'?[...QUEST_IDS,'fionn']:[...QUEST_IDS]; // Theon only steals a Mogger's pictures
       const chosen=pool.sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
       chosen.sort((a,b)=>(b==='br')-(a==='br')); // the gala happened on day 1: the Ledger always comes first
       const out={br:null,vale:null,chapel:null,fionn:null};
@@ -1094,7 +1097,7 @@
         if(caseEvent==='warning')showGameNotice('A grey sedan is idling outside your home.');
         if(reportedAfterDayStart())return; // Truecel: she reported you
         if(dadAfterDayStart())return; // Mogger: her dad comes round
-        if(fionnAfterDayStart())return; // Fionn: he comes, or the police do
+        if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
         if(toneNotice){showGameNotice(toneNotice);toneNotice=null;} // Mogger: someone liked you first
@@ -1202,8 +1205,11 @@
       }
       const lpcAd=glowAdItem(day); // Truecel, rarely: LPC-A365
       if(lpcAd)items.push(lpcAd);
-      const fionnStory=fionnNewsItem(day); // Fionn: how it ended
+      const fionnStory=fionnNewsItem(day); // Theon: how it ended
       if(fionnStory)items.push(fionnStory);
+      const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Pemberton's ad
+      if(campus)items.push(campus);
+      if(gunAd)items.push(gunAd);
       return {day,items};
     }
     function getNewsEdition(day=world.day){
@@ -1251,7 +1257,7 @@
         const open=expandedNews.has(key);
         const clip=open?newsClipFor(day,item):null;
         const foundationLine=open&&day===1&&item.id==='charity_gala'&&world.blueRibbon?.foundationKnown?`<p class="news-number">Blue Ribbon Foundation office: ${esc(brNumber('foundation'))}</p>`:'';
-        return `<article class="paper"><p style="font-size:9px;color:#a22938;text-transform:uppercase;letter-spacing:1px;margin:2px 0">${esc(item.section)}</p><p><b>${esc(item.title)}</b></p><img class="news-thumb" src="assets/newspapers/${esc(item.image||item.id)}.png" alt="${esc(item.title)}"><p>${esc(item.summary)}</p><button class="news-read" data-news-read="${esc(item.id)}">${open?'Hide story':'Read full story'} ▸</button>${open?`<div class="news-detail">${esc(item.body||item.summary)}${foundationLine}</div>`:''}${clip?`<button class="news-clip" data-news-clip="${clip}">✂ Clip the gala photograph for your Evidence Sheet</button>`:''}</article>`;
+        return `<article class="paper"><p style="font-size:9px;color:#a22938;text-transform:uppercase;letter-spacing:1px;margin:2px 0">${esc(item.section)}</p><p><b>${esc(item.title)}</b></p><img class="news-thumb" src="assets/newspapers/${esc(item.image||item.id)}.png" alt="${esc(item.title)}"${item.fallbackImage?` onerror="this.onerror=null;this.src='${assetUrl(`assets/newspapers/${item.fallbackImage}.png`)}'"`:''}><p>${esc(item.summary)}</p><button class="news-read" data-news-read="${esc(item.id)}">${open?'Hide story':'Read full story'} ▸</button>${open?`<div class="news-detail">${esc(item.body||item.summary)}${foundationLine}</div>`:''}${clip?`<button class="news-clip" data-news-clip="${clip}">✂ Clip the gala photograph for your Evidence Sheet</button>`:''}</article>`;
       }).join('')}`;
       hydrateInlineImages($('opened'));
     }
@@ -1259,7 +1265,7 @@
     // overnight (the Professor Vale case), newest first, with a way to ring back.
     var callsView='keypad';
     function voicemailEntries(){
-      const strangers=strangerVoicemails(); // Fionn, her dad
+      const strangers=strangerVoicemails(); // Theon, her dad
       if(!PV?.isOpen())return strangers;
       const file=PV.engine.caseFile(world.professorVale,world.day);
       return [...strangers,...file.voicemails.map(message=>({...message,number:file.numbers.find(line=>line.name.split(' ')[0]===String(message.from).split(' ')[0])?.number||null})).reverse()].sort((a,b)=>(b.day||0)-(a.day||0));
@@ -1286,6 +1292,8 @@
         if(dialledNumber.includes('*')||dialledNumber.includes('#')){dialStatus='Service code entered. No service in demo.';updateDialDisplay();return;}
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
+        const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Pemberton
+        if(gunLine){startSimulatedCall(gunLine);return;}
         if(lpcLine){startSimulatedCall(lpcLine);return;}
         const momLine=callerMomLine(dialledNumber); // Mogger: Moira's mother
         if(momLine){startSimulatedCall(momLine);return;}
@@ -1648,8 +1656,9 @@
       const quest=(questOn('br')?BR?.serviceTopics?.[serviceId]||[]:[]).filter(brServiceTopicAvailable).map(topic=>({...topic,quest:true}));
       if(serviceId==='service:caller-mom')return callerMomTopics(); // Mogger: Moira's mother
       if(serviceId==='service:lpc')return glowTopics(); // Truecel: LPC-A365
+      if(serviceId==='service:pemberton')return fionnGunTopics(); // Theon: the revolver
       return [...(serviceCallTopics[serviceId]||[]).filter(topic=>questOn('br')||!['newsroomQuestion','chapelGala'].includes(topic.flag)), // the gala questions only in a Ledger run
-...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Fionn
+...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
     // ringing the device) get the same "Yes / Not yet" check as the Blue Ribbon.
@@ -1669,7 +1678,7 @@
       let reply=topic.reply;
       if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
-      else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Fionn
+      else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
       else if(topic.pv)reply=chooseValeServiceTopic(topic); // Professor Vale
       else if(topic.quest)reply=brHandleServiceTopic(topic,activeGenericCall);
@@ -1872,7 +1881,7 @@
     const LATE_REPLIES=['Sorry, I vanished for a few days.','Sorry! My week ate me alive.','I saw your message and then life happened. Sorry.','Okay, I’m finally answering. Hi.'];
     function mustReply(profile){
       const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA,...window.MATCH_CHAPEL_ENGINE.ids.FLYER_GOTHS]:[];
-      return !!(profile.jeweller||profile.factionId==='sisters_of_mercy'||chapelIds.includes(profile.id)||PV?.engine?.profileToPerson?.(profile.id));
+      return !!(profile.jeweller||profile.factionId==='sisters_of_mercy'||chapelIds.includes(profile.id)||PV?.engine?.profileToPerson?.(profile.id)||fionnGirlNow(profile.id)); // Theon's three, while he's at large
     }
     function deliverNextDayMessages(){
       for(const thread of hingeThreads.values()){
@@ -1943,7 +1952,7 @@
       if(chapelOptions?.html)add(chapelOptions.html,0); // Task 2
       for(const [id,label] of leakChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: the group chat
       for(const [id,label] of callerFriendChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: ask her friend about Moira
-      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Fionn
+      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
@@ -2027,9 +2036,10 @@
           }else{
             hingeLikes++;
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
-            if((hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
-              const responseMode=hingeLikes===1?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
+            if(fionnGirlNow(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
+              const responseMode=hingeLikes===1||fionnGirlNow(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
+              fionnGirlMatched(profile.id); // Theon: she knows your face
               hingeToast=profile.name+' matched with you!';
               chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
             }
@@ -2094,7 +2104,7 @@
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
-      if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Fionn
+      if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
@@ -3098,17 +3108,17 @@
       }
     }
 
-    // ===== Mogger: her dad, and Fionn =====
+    // ===== Mogger: her dad, and Theon =====
     // Two men who aren't on Hinge. They ring you (their ids start x:) and you can't ring them back.
-    // Fionn is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
-    // Mogger event, and Fionn's women can set him on you too.
+    // Theon is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
+    // Mogger event, and Theon's women can set him on you too.
     var DAD={
       portrait:'assets/events/dad-portrait.webp',
       open:'Is this the lad who’s been messaging my daughter? I’m her father, and I’m a police officer. Get your hands off my daughter. Unmatch her. Tonight.',
       yes:'Good. I’ll know if you don’t.',
       adult:'She’s my daughter. Unmatch her, son.',
       creepy:'Is this the lad who’s been sending creepy messages to my daughter? I’m her father. I’m a police officer. I’ve read every one of them.',
-      believe:'Fionn. Right. Leave it with me, son.',
+      believe:'Theon. Right. Leave it with me, son.',
       half:'Orsino? Then you’d better find him before I find you.',
       doubt:'That’s what they all say.',
       sorry:'Sorry.',
@@ -3133,7 +3143,7 @@
       ]
     };
     var FIONN={
-      portrait:'assets/contacts/fionn.png',
+      portrait:'assets/contacts/theon.png',
       fake:'Orsino',
       // His first call. Each speech is four lines, holds one picture and keeps the ordinary thing in sight.
       open:'You keep a crown inside the drawer of your phone,\nAdmire it by lamplight, then put it back.\nI found it lying there. I tried it on.\nTonight three women think a king has written.',
@@ -3153,8 +3163,8 @@
         'You search the paper for your name, the way\nA ghost might search the parish book for proof.\nIt isn’t there. I’m making it worth the ink.\nSoon Sunfall will know your face. Leave that to me.',
         'You wait on a single word as if it were bread\nAnd you a beggar at a convent door.\nI have a hundred words, and none is please.\nGive me your password. Sleep. I’ll keep the watch.'
       ],
-      name:'Then you shall have the poet’s name as well.\nFionn. Say it the way a mirror says it back.',
-      lure:'You ask the thief to dinner. Then I’ll come,\nNot through the window but by the door,\nThe way a player enters a darkened house.\nLeave it unlocked. I’ll know which room is yours.',
+      name:'Then you shall have the poet’s name as well.\nTheon. Say it the way a mirror says it back.',
+      lure:'So she has gone to you. The lamp I walk beneath,\nThe window I have read by every night.\nI’ll come for her, and for my face as well.\nLeave the door on the latch. I know the way.',
       stop:['No.','Never.','Pitiful.','Why?','Mine.'],
       voicemail:['You didn’t answer. That’s all right. I answered for you.','I wrote to another one tonight. She liked your smile. I’m getting better at it.','Pick up, or don’t. Either way, you’re speaking.','Silence suits you. It always has.','I’m wearing your face to bed. Goodnight.'],
       // What he sends women with your face on it. The screenshots are pictures once they're made.
@@ -3168,66 +3178,163 @@
         'Unlace thyself of all this modesty. It does not suit a woman of thy years, whose ripeness has so plainly begun to turn.',
         'Thou art the seventh I have written to tonight, and the plainest, and yet my hunger keeps returning to thee as a dog returns to what it should not eat.',
         'I would make a feast of thee and leave the bones for thy next suitor. Thy laugh I shall not need. Leave it at the door.',
-        'Thy lips are a red sin I would commit nightly, if only the rest of thee were quieter.'
+        'Thy lips are a red sin I would commit nightly, if only the rest of thee were quieter.',
+        // short conversations: what she said, and what he answered as you
+        {her:'Hi! How was your day?',him:'Dull as thy third photograph. Yet I would spend the night upon thee, as a tired man spends himself upon a cheap inn.'},
+        {her:'Haha what do you do for fun?',him:'I picture thee unbuttoned, slowly, by candlelight, and then I picture a prettier girl. Both are fun.'},
+        {her:'Do you want to get a drink sometime?',him:'Bring thy lips and leave thy conversation. I have read thy profile. It is a tragedy in one act.'},
+        {her:'You seem nice!',him:'Nice? I would be a tempest in thy bed and a stranger at thy breakfast.'},
+        {her:'What are you looking for on here?',him:'A body to write my sonnets on, and a mouth that knows when to close.'},
+        {her:'Lol okay that’s a bit much',him:'Thou art a bit much thyself, about the middle. I forgive it. I would still undo thee like a ribbon.'},
+        {her:'Are you always this intense?',him:'Only when a woman of such modest beauty gives me leave to dream of her undone.'},
+        {her:'Goodnight!',him:'Sleep, then, and dream of me at the foot of thy bed. I shall be dreaming of the rest of thee.'}
       ],
       profileCard:'Orsino, 34. Drama, Sunfall University (unfinished). Five photographs, all of them you. About me: I speak only in verse, and only to the deserving.',
       complaint:['Why have you been sending me such creepy messages?','What is this? Why would you send me this?','I screenshotted it so you can see how disgusting you sound.','Is this a joke? Because it’s vile.','Someone with your face sent me this. Explain.'],
       orsino:'Then who’s Orsino? He has your face. Look.',
       believe:['That’s horrible. I’m sorry. I hope you find him.','Okay. I believe you, weirdly. Find him.','Ugh. Poor you. And poor us. Find him.'],
       disbelieve:['Sure it wasn’t.','Right. Bye.','That’s what a creep would say.'],
+      shown:['Oh. Oh no. That isn’t you at all, is it. That’s horrible.','Okay, that’s actually terrifying. I believe you. I’m sorry I shouted.','Wait, he stole your face? I’m so sorry. I’ll tell the others it isn’t you.'],
+      heard:['I’ve seen the messages you’ve been sending to girls.','My friend showed me what you sent her. Don’t ever message me.','Everyone in my group chat has seen these. Blocked.','So this is what you’re really like.'],
       sorryNo:['Sorry won’t unsend it.','Don’t message me again.'],
       gone:['I’m not waiting for an explanation. Bye.','Nothing to say for yourself? Fine.'],
       look:'Give me a minute. Okay, found him. Reverse image search, takes seconds. He’s calling himself Orsino.',
-      goth:'A man who writes like that? Long fair hair, a beard, a black cloak with a big round brooch. Reads poetry to the graves at the old cemetery. Everyone knows him. Fionn. Don’t ever let him read to you.',
+      goth:'A man who writes like that? Long fair hair, a beard, a black cloak with a big round brooch. Reads poetry to the graves at the old cemetery. Everyone knows him. Theon. Don’t ever let him read to you.',
       police:'You didn’t hear this from me. He rents the flat above the old Rialto. Don’t go round there.',
-      sort:{police:'Leave it with me. Some of the lads owe me a favour.',goth_girls:'My brothers have been waiting for an excuse to visit the Rialto.',thunderbirds:'Daddy has people for this sort of thing. Consider it done.'},
-      uni:'We can’t discuss students. Although if you mean Fionn, he isn’t one any more. He was asked to leave the drama course. He wouldn’t stop speaking in verse in his exams.',
-      paper:'Fionn? He has sent us forty letters to the editor, every one of them in verse. They all have the same return address: the flat above the old Rialto.',
+      sort:{police:'Leave it with me. Some of the lads owe me a favour.',goth_girls:'My brothers have been waiting for an excuse to visit the Rialto.',thunderbirds:'Daddy has people for this sort of thing. Consider it done.',fourth_estate:'I know a few men who owe me a story. Leave it with me.'},
+      uni:'We can’t discuss students. Although if you mean Theon, he isn’t one any more. He was asked to leave the drama course. He wouldn’t stop speaking in verse in his exams.',
+      paper:'Theon? He has sent us forty letters to the editor, every one of them in verse. They all have the same return address: the flat above the old Rialto.',
       policeYes:'A profile, a name and an address. That we can use. Officers will call on him tonight.',
       policeProfile:'We can’t arrest a profile picture. Bring us a name and an address.',
       policeNothing:'So these messages were sent with your photographs. Interesting. We’ll make a note.',
       caughtNotice:'Sunfall Police arrested a man at the flat above the old Rialto. The verses have stopped.',
       sortedNotice:'Your phone is quiet. Nobody has written to anyone in verse.',
       quiet:'Your phone is quiet. No more calls in verse.',
-      arrive:[
-        {image:'assets/events/fionn-door.png',stand:'room-open',caption:'Three soft knocks. Then the front door opens by itself.'},
-        {image:'assets/events/fionn-stairs.png',stand:'room-open',caption:'Something heavy comes up the stairs, one slow step at a time.'},
-        {image:'assets/events/fionn-hand.png',stand:'room-open',caption:'A pale hand with long, long fingernails curls round your bedroom door.'},
-        {image:'assets/events/fionn-doorway.png',stand:'shadow',caption:'Fionn, in your doorway, in a black cloak. He is wearing your smile.'}
-      ],
-      qteCaption:'Good evening, Majesty.',
-      shot:[{flash:true,caption:'BANG.'},{image:'assets/events/fionn-down.png',stand:'shadow',caption:'A heap of black cloak on your bedroom floor. Very still.'}],
-      missed:[{image:'assets/events/fionn-lunge.png',stand:'shadow',caption:'He is very fast for someone his size.'}],
+      // He only comes in the evening or at night. Four stages, drawn for each (NEW_IMAGE_REQUESTS.md).
+      approach:{
+        door:'Your bedroom door opens a hand’s width. Fingers first. Long ones.',
+        side:'He slides in sideways, too smoothly, as if the floor were carrying him.',
+        close:'He doesn’t walk towards you. He is simply nearer every time you look.',
+        face:'He is right in front of you, close enough to smell the cloak. Good evening, Majesty, he whispers.',
+        hands:'Then there are hands on your face. His hands. From behind.'
+      },
+      shot:[{flash:true,caption:'BANG.'},{image:'assets/events/theon-down.png',stand:'shadow',caption:'A heap of black cloak on your bedroom floor. Very still.'}],
       hideAsk:'Where does he go?',
       hide:[
-        {id:'desert',label:'The desert, out past the drive-in',image:'assets/events/fionn-desert.png',done:'It takes all night. The sand is very patient.'},
-        {id:'canyon',label:'Over the rail on the canyon road',image:'assets/events/fionn-canyon.png',done:'Into the dark. You never hear him land.'},
-        {id:'bins',label:'The bins behind the Lucky Cactus',image:'assets/events/fionn-bins.png',done:'The lid comes down. The bins go out in the morning.'},
+        {id:'desert',label:'The desert, out past the drive-in',image:'assets/events/theon-desert.png',done:'It takes all night. The sand is very patient.'},
+        {id:'canyon',label:'Over the rail on the canyon road',image:'assets/events/theon-canyon.png',done:'Into the dark. You never hear him land.'},
+        {id:'bins',label:'The bins behind the Lucky Cactus',image:'assets/events/theon-bins.png',done:'The lid comes down. The bins go out in the morning.'},
         {id:'911',label:'☎ Call 911'}
       ],
       deaths:['He kept your face. He always meant to.','By morning there were two of you on Hinge, and one of them was smiling.','The messages kept coming for weeks. Everyone said they sounded just like you.'],
-      notes:{start:'Someone is writing to women in verse, with your face on it.',profile:'A profile called Orsino, 34, uses your photographs. Drama, Sunfall University (unfinished).',name:'His name is Fionn.',home:'He lives in the flat above the old Rialto.',
+      notes:{start:'Someone is writing to women in verse, with your face on it.',profile:'A profile called Orsino, 34, uses your photographs. Drama, Sunfall University (unfinished).',name:'His name is Theon.',home:'He lives in the flat above the old Rialto.',
         over:{caught:'The police took him away.',sorted:'Somebody dealt with him.',hidden:'He won’t be writing to anyone again.',shot:'He won’t be writing to anyone again.'}},
-      hints:{none:'Hint: the women he writes to have seen more of him than you have.',profile:'Hint: a man who writes like that learned it somewhere, or performs it somewhere.',name:'Hint: a man who writes this much has written to someone who keeps the envelopes.',home:'Hint: you know where he lives now. So could someone with a badge, or someone with friends.'},
-      revolver:'Your grandad’s revolver, in a shoebox under some old birthday cards. It has always been loaded. Nobody ever said why.',
+      hints:{none:'Hint: men like him leave a trail. Read the paper.',profile:'Hint: he has been seen on campus. Someone there knows him better than she’d like.',name:'Hint: a man who writes this much has written to someone who keeps the envelopes.',home:'Hint: you know where he lives now. So could someone with a badge, or someone with friends.'},
       news:{
-        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested a former drama student at a flat above the old Rialto. Neighbours called him polite and said he spoke in verse. Police thanked a member of the public.'},
-        sorted:{section:'Around town',title:'MAN FOUND TIED TO RIALTO RAILINGS, RECITING',summary:'He would not say who had put him there.',body:'A passer-by found a heavy-set man in a black cloak tied to the railings of the old Rialto theatre. He recited until the fire brigade arrived and declined to press charges.'},
+        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested Theon, a former drama student, at a flat above the old Rialto. Neighbours called him polite and said he spoke in verse. Police thanked a member of the public.'},
+        sorted:{section:'Crime',title:'MAN FOUND DEAD ON RAILWAY LINE',summary:'Police name him as Theon, a university dropout known to them for stalking.',body:'A man in a black cloak was found tied to the railway line outside Sunfall. Police named him as Theon, who dropped out of Sunfall University, and said he had been known to them for stalking women for several years. Nobody has come forward.',image:'theon_tracks',fallbackImage:'crime_motel'},
         hidden:{section:'Missing',title:'LOCAL POET NOT SEEN FOR DAYS',summary:'His landlord says the rent was paid in advance.',body:'Friends of a former drama student say nobody has seen him at the old cemetery, where he read to the graves. He leaves a wardrobe of black cloaks and forty unpublished sonnets.'}
       }
     };
+    // --- Theon: the revolver (from the paper) and the women he stalks at the university ---
+    var GUN={
+      ad:{section:'Classifieds',title:'ESTATE SALE: A SERVICE REVOLVER',summary:'A widow is clearing her late husband’s study. Delivered to your door.',body:'Mrs Margaret Pemberton is selling her late husband Harold’s service revolver, in its box, cleaned and loaded. She would rather not have it in the house. Ring {number}. Her grandson will drop it round.'},
+      greeting:'Pemberton residence. Is this about Harold’s gun?',
+      order:'Oh, thank goodness. My grandson will bring it round tomorrow. Please don’t tell me what it’s for.',
+      what:'It was Harold’s, from his years on the force. He never fired it, he always said. I never asked.',
+      when:'Tomorrow, love. He’s a good boy. He’ll leave it on the step.',
+      delivered:'A shoebox on your doorstep, wrapped in a tea towel. Inside is Harold Pemberton’s revolver, and a note: please don’t tell me.',
+      item:'Harold Pemberton’s service revolver, in its box, wrapped in a tea towel. Loaded. Mrs Pemberton’s note says: please don’t tell me what it’s for.'
+    };
+    // Three women at the university. Each knows your face from his profile, one thing about him,
+    // and how to bring him to you.
+    var FIONN_GIRL_IDS=['MATCH-005','MATCH-022','MATCH-054'];
+    FIONN.girls={
+      'MATCH-005':{gives:['name'], // Clara Weiss, university student
+        open:'Wait. Is this actually you? A man calling himself Orsino has your face on his profile, and he’s been leaving poems under my windscreen wiper at the university for weeks.',
+        about:'His name is Theon. He was on the drama course until they threw him out. He sits at the back of the library in that cloak and writes about me in the margins of the books.',
+        lure:'He goes wherever he thinks I am. Every time. Tell him I’m staying at yours and he’ll be on your doorstep that night.'},
+      'MATCH-022':{gives:['home'], // Chloe Farrow, art student
+        open:'Oh my God, you’re the real one. Someone’s using your photos. He sits outside the art block every day in a black cloak and draws me. Badly.',
+        about:'I followed him home once, to see. The flat above the old Rialto. He has drawings of me stuck all over the window. I wish I hadn’t looked.',
+        lure:'If he thought I was at your place, he’d come. He always comes when he thinks I’m on my own.'},
+      'MATCH-054':{gives:['name'], // Rosa Gutierrez, graduate student
+        open:'You have his face. Sorry, he has yours. The man in the cloak who reads poems outside my seminar room signs them Orsino, and his picture is you.',
+        about:'He was on my course before they asked him to leave. Theon. He speaks to the porters in verse. Campus security say there’s nothing they can do.',
+        lure:'He can’t bear not knowing where I am. Tell him I’m at yours. He’ll come that night. He won’t be able to help himself.'}
+    };
+    function fionnGirls(){
+      const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA,...window.MATCH_CHAPEL_ENGINE.ids.FLYER_GOTHS]:[];
+      const valeOn=questStart('vale')!=null; // Professor Vale's people only matter when his case is in this game
+      return FIONN_GIRL_IDS.filter(id=>hingeProfile(id)&&!chapelIds.includes(id)&&!(valeOn&&PV?.engine?.profileToPerson?.(id))); // never someone another quest needs
+    }
+    function fionnGirlNow(id){return fionnActive()&&fionnGirls().includes(id);}
+    // When he starts, the three come up in your Hinge deck soon (and like you back).
+    function fionnGirlsToDeck(){
+      const h=n=>hashSeed(world.seed+'|fionngirl|'+n);
+      for(const id of fionnGirls()){
+        if(hingeThreads.has(id))continue;
+        const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===id);
+        if(at>=0&&at<hingeIndex+8)continue;
+        if(at>=0)hingeDeck.splice(at,1);
+        const card=hingeProfile(id);
+        if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+h(id)%6),0,card);
+      }
+    }
+    // She tells you about him: as her first message when you match, or the day after his first call.
+    function fionnGirlOpens(thread){
+      const f=fionnState(),girl=FIONN.girls[thread.id];
+      if(!girl||f.girlsTold[thread.id]!==undefined)return;
+      thread.followUp=null;thread.awaiting=false;thread.ghosted=false;
+      if(thread.log.length<=1)thread.log=[];
+      thread.log.push({who:'her',text:girl.open});
+      talkState(thread).unread=true;
+      f.girlsTold[thread.id]=world.day;
+      fionnClue('profile');
+    }
+    function fionnGirlMatched(id){
+      if(!fionnGirlNow(id))return;
+      const thread=hingeThreads.get(id);
+      if(thread)fionnGirlOpens(thread);
+    }
+    // The paper: a campus story the day after his first call, and the widow's ad until you buy.
+    function fionnCampusItem(day){
+      const f=fionnState(),girls=fionnGirls();
+      if(!fionnActive()||!Number.isInteger(f.startDay)||day!==f.startDay+1||!girls.length)return null;
+      const names=girls.map(id=>firstName(hingeProfile(id)));
+      const list=names.length>1?`${names.slice(0,-1).join(', ')} and ${names.at(-1)}`:names[0];
+      const count=['One student says','Two students say','Three students say'][names.length-1];
+      return {id:'fionn_campus_'+day,section:'Campus',title:'STUDENTS REPORT MAN IN CLOAK ON CAMPUS',summary:`${count} a man in a black cloak follows them and leaves them poems.`,
+        body:`${list}, at Sunfall University, ${names.length>1?'say':'says'} a man in a black cloak has followed them for weeks, leaving poems under windscreen wipers and outside seminar rooms. Campus security say no crime has been committed.`,image:'professor_campus',locked:true};
+    }
+    function fionnAdItem(day){
+      const f=fionnState();
+      if(!fionnActive()||!Number.isInteger(f.startDay)||day<=f.startDay||f.gun!=='none')return null;
+      if(!f.gunNumber)f.gunNumber=unusedContactNumber();
+      return {id:'gun_ad_'+day,section:GUN.ad.section,title:GUN.ad.title,summary:GUN.ad.summary,body:fillIn(GUN.ad.body,{number:f.gunNumber}),image:'classifieds',locked:true,fionnAd:true};
+    }
+    function fionnGunLine(number){
+      const f=fionnState();
+      return f.gunNumber&&f.gunNumber===String(number)?{id:'service:pemberton',name:'Mrs Pemberton',portrait:'assets/icons/calls.png',generic:true,greeting:GUN.greeting}:null;
+    }
+    function fionnGunTopics(){
+      const gun=fionnState().gun;
+      if(gun==='none')return [{id:'gun_buy',label:'Ask to buy the revolver',fionn:true},{id:'gun_what',label:'Ask whose it was',fionn:true}];
+      if(gun==='ordered')return [{id:'gun_when',label:'Ask when it will come',fionn:true}];
+      return [{id:'gun_what',label:'Ask whose it was',fionn:true}];
+    }
     function isStranger(id){return typeof id==='string'&&id.startsWith('x:');}
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
-      if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Fionn':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
+      if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
     }
     // Until a caller's portrait is drawn, the phone icon stands in.
     function fallbackFaces(root){
       root?.querySelectorAll('img').forEach(img=>{img.onerror=()=>{img.onerror=null;img.src=assetUrl('assets/icons/calls.png');};});
     }
-    // Which of them is due to ring today: her dad once, Fionn once a day.
+    // Which of them is due to ring today: her dad once, Theon once a day.
     function strangerDue(){
       const d=dadState();
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
@@ -3276,7 +3383,9 @@
       if(call.phase==='where')return [{id:'f:tell',label:'Tell him where you live'},{id:'f:lie',label:'Give him the motel’s address'},{id:'f:hang',label:'Hang up'}];
       const out=[];
       if(!fionnState().clues.includes('name'))out.push({id:'f:flatter',label:'Tell him the verse is beautiful'});
-      out.push({id:'f:lure',label:'Tell him to come and say it to your face'},{id:'f:stop',label:'Tell him to leave them alone'},{id:'f:hang',label:'Hang up'});
+      const bait=fionnState().bait;
+      if(bait)out.push({id:'f:bait',label:`Tell him ${firstName(hingeProfile(bait))} is staying at yours`}); // she told you how
+      out.push({id:'f:stop',label:'Tell him to leave them alone'},{id:'f:hang',label:'Hang up'});
       return out;
     }
     function chooseStrangerCall(call,choice){
@@ -3300,7 +3409,7 @@
         else if(choice==='f:tell'){f.knowsHome=true;if(!Number.isInteger(f.visitDay))f.visitDay=world.day+2+hashSeed(world.seed+'|fionnvisit')%2;call.said=FIONN.told;} // he'll come, one night soon
         else if(choice==='f:lie')call.said=FIONN.lied;
         else if(choice==='f:flatter'){fionnClue('name');call.said=FIONN.name;}
-        else if(choice==='f:lure'){f.stage='lured';f.invited=true;f.visitDay=world.day+1;call.said=FIONN.lure;}
+        else if(choice==='f:bait'){f.stage='lured';f.invited=true;f.visitDay=world.day+1;call.said=FIONN.lure;}
       }
       call.step='bye';
       saveRun(true);
@@ -3317,8 +3426,8 @@
       const profile=hingeProfile(thread.id);
       return !!profile&&eventReady(thread)&&!mustReply(profile)&&thread.topics.length>=2&&warmthOf(thread)>=1&&![CALLER_ID,LAVINIA_ID].includes(thread.id);
     }
-    // About one Mogger game in three, from day 3 to 7: a woman's father rings. Not in a Fionn
-    // game (Fionn's women bring him). The test suites switch it off with MATCH_ALL_QUESTS.
+    // About one Mogger game in three, from day 3 to 7: a woman's father rings. Not in a Theon
+    // game (Theon's women bring him). The test suites switch it off with MATCH_ALL_QUESTS.
     function dadNewDay(){
       const d=dadState();
       if(d.stage==='warned'&&!d.called&&world.day>=d.deadline){d.callDay=world.day;d.deadline=world.day+1;return;} // he never got through: he tries again
@@ -3345,7 +3454,7 @@
       if(d.stage!=='warned'||!Number.isInteger(d.deadline)||world.day<d.deadline||!d.called)return false;
       const thread=hingeThreads.get(d.daughter),f=fionnState();
       if(!d.variant&&(!thread||thread.blocked||thread.fumbled||thread.left||thread.unmatched)){d.stage='safe';return false;}
-      if(d.variant&&(!fionnActive()||f.pendingEnd)){d.stage='safe';return false;} // Fionn is already dealt with
+      if(d.variant&&(!fionnActive()||f.pendingEnd)){d.stage='safe';return false;} // Theon is already dealt with
       d.stage='coming';saveRun(true);
       playScene(DAD.steps.map(step=>({...step,caption:d.variant&&step.creepy?step.creepy:step.caption})),dadDeath);
       return true;
@@ -3364,23 +3473,27 @@
       updateRunStatus('Game over.');
     }
 
-    // --- Fionn ---
+    // --- Theon ---
     function fionnState(){
       const f=world.fionn;
       if(!f||typeof f!=='object'||!['none','active','lured','shot','hidden','caught','sorted','dead','jailed'].includes(f.stage))
-        world.fionn={stage:'none',startDay:null,calls:0,callDay:null,clues:[],complained:[],waiting:{},shots:0,knowsHome:false,invited:false,visitDay:null,pendingEnd:null,endDay:null,hideAt:null,hideDay:null,foundDay:null};
+        world.fionn={stage:'none',startDay:null,calls:0,callDay:null,clues:[],complained:[],waiting:{},shots:0,knowsHome:false,invited:false,visitDay:null,pendingEnd:null,endDay:null,hideAt:null,hideDay:null,foundDay:null,girlsTold:{},asked:[],bait:null,gun:'none',gunNumber:null,gunDay:null,gunSeen:false};
       const s=world.fionn;
       if(!Array.isArray(s.clues))s.clues=[];
       if(!Array.isArray(s.complained))s.complained=[];
       if(!s.waiting||typeof s.waiting!=='object'||Array.isArray(s.waiting))s.waiting={};
       if(!Number.isInteger(s.calls)||s.calls<0)s.calls=0;
       if(!Number.isInteger(s.shots)||s.shots<0)s.shots=0;
+      if(!s.girlsTold||typeof s.girlsTold!=='object'||Array.isArray(s.girlsTold))s.girlsTold={};
+      if(!Array.isArray(s.asked))s.asked=[];
+      if(!['none','ordered','delivered'].includes(s.gun))s.gun='none';
       return s;
     }
     function fionnActive(){return ['active','lured'].includes(fionnState().stage);}
     function fionnClue(clue){const f=fionnState();if(!f.clues.includes(clue))f.clues.push(clue);}
     var fionnNotices=[],qteOpen=false,qteTimer=null;
     // Women he can write to: talking to you, not closed, not a Sister, not one the quests need.
+    function blockForEvent(thread){if(!mustReply(hingeProfile(thread.id)))thread.blocked=true;}
     function fionnTarget(thread){
       const profile=hingeProfile(thread.id);
       return !!profile&&eventReady(thread)&&!mustReply(profile)&&thread.topics.length>=1;
@@ -3398,39 +3511,56 @@
     }
     function fionnNewDay(){
       const f=fionnState();
-      if(f.stage==='none'&&questOn('fionn')){f.stage='active';f.startDay=world.day;}
+      if(f.gun==='ordered'&&world.day>=f.gunDay){f.gun='delivered';fionnNotices.push(GUN.delivered);} // Mrs Pemberton's grandson
+      if(f.stage==='none'&&questOn('fionn')){f.stage='active';f.startDay=world.day;fionnGirlsToDeck();}
       if(!fionnActive())return;
       if(f.pendingEnd){ // the police took him, or a friend's friends did
         f.stage=f.pendingEnd;f.pendingEnd=null;f.endDay=world.day;
         fionnNotices.push(f.stage==='caught'?FIONN.caughtNotice:FIONN.sortedNotice);
         return;
       }
+      fionnGirlsToDeck(); // keep the three students near the front of your deck
       // Women who showed you a message and heard nothing back unmatch you.
       for(const [id,day] of Object.entries(f.waiting)){
         if(day>=world.day)continue;
         const thread=hingeThreads.get(id);
         delete f.waiting[id];
-        if(thread&&!thread.blocked&&!thread.unmatched){thread.log.push({who:'her',text:FIONN.gone[world.day%FIONN.gone.length]});unmatchForEvent(thread);}
+        if(thread&&!thread.blocked&&!thread.unmatched){thread.log.push({who:'her',text:FIONN.gone[world.day%FIONN.gone.length]});blockForEvent(thread);}
       }
       const n=world.day-f.startDay;
       if(n<1)return;
+      for(const id of fionnGirls()){const t=hingeThreads.get(id);if(t&&!t.blocked&&!t.fumbled&&!t.unmatched)fionnGirlOpens(t);} // already matched: she tells you
       const pool=[...hingeThreads.values()].filter(t=>fionnTarget(t)&&!f.complained.includes(t.id)).sort((a,b)=>hashSeed(world.seed+'|fionnw|'+a.id)-hashSeed(world.seed+'|fionnw|'+b.id));
-      if(n===4&&dadState().stage==='none'&&pool.length){ // one of them has a father in the police
-        const thread=fionnComplaint(pool.shift(),DAD.daughterTold);
-        Object.assign(dadState(),{stage:'warned',daughter:thread.id,callDay:world.day,deadline:world.day+1,variant:true,called:false});
+      if(n===3&&dadState().stage==='none'){ // one of them has a father in the police
+        const daughter=pool.shift()||[...hingeThreads.values()].find(t=>f.waiting[t.id]!==undefined&&fionnTarget(t));
+        if(daughter){fionnComplaint(daughter,DAD.daughterTold);Object.assign(dadState(),{stage:'warned',daughter:daughter.id,callDay:world.day,deadline:world.day+1,variant:true,called:false});}
       }
-      for(const thread of pool.slice(0,n>=3?2:1))fionnComplaint(thread);
+      for(const thread of pool.splice(0,Math.min(3,n)))fionnComplaint(thread); // one, then two, then three a day
+      if(n>=3)for(const thread of pool.splice(0,n-2)){ // word gets round: women he never wrote to have seen them too
+        const index=f.shots++%FIONN.messages.length;
+        thread.followUp=null;
+        thread.log.push({who:'her',text:FIONN.heard[(index+world.day)%FIONN.heard.length],shot:'msg:'+index});
+        talkState(thread).unread=true;blockForEvent(thread);
+        if(!f.complained.includes(thread.id))f.complained.push(thread.id);
+      }
+      // Every woman has blocked you, or is waiting to: tomorrow the police come.
+      if(n>=2&&!Number.isInteger(f.ruinedDay)&&f.complained.length>=3&&![...hingeThreads.values()].some(t=>fionnTarget(t)&&f.waiting[t.id]===undefined))f.ruinedDay=world.day;
     }
     // Chat choices: answer a woman who showed you a message, or ask a friend for help.
     function fionnChoices(thread,profile){
-      const f=fionnState(),out=[];
+      const f=fionnState(),out=[],has=clue=>f.clues.includes(clue);
       if(!fionnActive()||!profile)return out;
-      if(f.waiting[thread.id]!==undefined)return [['fionn:notme','It wasn’t me. Someone’s using my pictures.'],['fionn:sorry','Apologise']];
-      const warmth=warmthOf(thread),has=clue=>f.clues.includes(clue),faction=profile.factionId;
+      if(FIONN.girls[thread.id]&&f.girlsTold[thread.id]!==undefined){ // the women he's stalking
+        if(!f.asked.includes(thread.id+':about'))out.push(['fionn:g:about','Ask what she knows about him']);
+        if(!f.asked.includes(thread.id+':lure'))out.push(['fionn:g:lure','Ask how you could get him to come to you']);
+        return out;
+      }
+      if(f.waiting[thread.id]!==undefined)return [...(has('profile')?[['fionn:show','Show her his profile: it’s not you']]:[]),['fionn:notme','It wasn’t me. Someone’s using my pictures.'],['fionn:sorry','Apologise']];
+      const warmth=warmthOf(thread),faction=profile.factionId;
       if(faction==='fourth_estate'&&warmth>=2&&!has('profile'))out.push(['fionn:look','Ask her to find who’s using your pictures']);
       if(faction==='goth_girls'&&warmth>=2&&has('profile')&&!has('name'))out.push(['fionn:verse','Ask if she knows a man who writes in verse']);
-      if(faction==='police'&&warmth>=3&&has('name')&&!has('home'))out.push(['fionn:run','Ask her to look up a man called Fionn']);
-      if(FIONN.sort[faction]&&warmth>=3&&has('home'))out.push(['fionn:sort','Ask her to have someone deal with Fionn',true]);
+      if(faction==='police'&&warmth>=3&&has('name')&&!has('home'))out.push(['fionn:run','Ask her to look up a man called Theon']);
+      if(FIONN.sort[faction]&&warmth>=2&&has('home'))out.push(['fionn:sort','Ask her to have someone deal with Theon',true]);
       return out;
     }
     function fionnReply(thread,profile,entries,after){
@@ -3447,11 +3577,14 @@
       const f=fionnState();
       const choice=fionnChoices(thread,profile).find(([key])=>key===id);
       if(!choice)return;
-      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Fionn? He’s using my pictures.','fionn:sort':'Fionn lives above the old Rialto. Could someone have a word with him?'}[id]});
+      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Theon? He’s using my pictures.','fionn:sort':'Theon lives above the old Rialto. Could someone have a word with him?','fionn:g:about':'What do you know about him?','fionn:show':'Look. This is the profile he’s using. That’s my face, but it isn’t me.','fionn:g:lure':'How would I get him to come to me?'}[id]});
+      if(id==='fionn:g:about'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':about');girl.gives.forEach(fionnClue);warmBy(thread,1);return fionnReply(thread,profile,[{text:girl.about}]);}
+      if(id==='fionn:g:lure'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':lure');if(!f.bait)f.bait=thread.id;return fionnReply(thread,profile,[{text:girl.lure}]);}
+      if(id==='fionn:show'){delete f.waiting[thread.id];warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.shown[world.day%FIONN.shown.length]}]);} // proof: she believes you
       if(id==='fionn:notme'){
         delete f.waiting[thread.id];
         if(!f.clues.includes('profile')){fionnClue('profile');warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.orsino,shot:'profile'}]);}
-        if(gameRandom()<.6){warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.believe[world.day%FIONN.believe.length]}]);}
+        if(gameRandom()<.5){warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.believe[world.day%FIONN.believe.length]}]);}
         return fionnReply(thread,profile,[{text:FIONN.disbelieve[world.day%FIONN.disbelieve.length]}],()=>unmatchForEvent(thread));
       }
       if(id==='fionn:sorry'){delete f.waiting[thread.id];return fionnReply(thread,profile,[{text:FIONN.sorryNo[world.day%FIONN.sorryNo.length]}],()=>unmatchForEvent(thread));}
@@ -3462,14 +3595,15 @@
     }
     // The screenshot she shows you: the picture once it's made, his words until then.
     function fionnShot(key){
-      if(key==='profile')return {image:'assets/fionn/profile-shot.png',from:'Orsino, 34',text:FIONN.profileCard};
-      const index=Number(String(key).split(':')[1]);
-      return Number.isInteger(index)&&FIONN.messages[index]?{image:`assets/fionn/shot-${String(index+1).padStart(2,'0')}.png`,from:FIONN.fake,text:FIONN.messages[index]}:null;
+      if(key==='profile')return {image:'assets/theon/profile-shot.png',from:'Orsino, 34',text:FIONN.profileCard};
+      const index=Number(String(key).split(':')[1]),message=FIONN.messages[index];
+      if(!Number.isInteger(index)||!message)return null;
+      return {image:`assets/theon/shot-${String(index+1).padStart(2,'0')}.png`,from:FIONN.fake,text:message.him||message,her:message.her||null};
     }
     function shotChatBubble(line){
       const shot=fionnShot(line.shot);
       if(!shot)return `<div class="hinge-bubble her">${esc(line.text)}</div>`;
-      return `<div class="hinge-bubble her shot-message">${line.text?`${esc(line.text)}`:''}<img class="shot-img" src="${esc(shot.image)}" alt="Screenshot" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="shot-card"><b>${esc(shot.from)}</b>${esc(shot.text)}</div></div>`;
+      return `<div class="hinge-bubble ${line.who==='you'?'you':'her'} shot-message">${line.text?`${esc(line.text)}`:''}<img class="shot-img" src="${esc(shot.image)}" alt="Screenshot" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="shot-card">${shot.her?`<i class="shot-her">${esc(shot.her)}</i>`:''}<b>${esc(shot.from)}</b>${esc(shot.text)}</div></div>`;
     }
     // Phone lines: the university and the paper know him; the police need all three things.
     function fionnServiceTopics(serviceId){
@@ -3477,11 +3611,14 @@
       const has=clue=>fionnState().clues.includes(clue);
       if(serviceId==='service:police')return [{id:'fionn_report',label:'Report someone using your pictures',fionn:true}];
       if(serviceId==='service:university'&&has('profile')&&!has('name'))return [{id:'fionn_uni',label:'Ask about a drama student who writes in verse',fionn:true}];
-      if(serviceId==='service:newsroom'&&has('name')&&!has('home'))return [{id:'fionn_paper',label:'Ask if they’ve heard of a man called Fionn',fionn:true}];
+      if(serviceId==='service:newsroom'&&has('name')&&!has('home'))return [{id:'fionn_paper',label:'Ask if they’ve heard of a man called Theon',fionn:true}];
       return [];
     }
     function chooseFionnServiceTopic(id){
       const f=fionnState(),has=clue=>f.clues.includes(clue);
+      if(id==='gun_buy'){if(f.gun==='none'){f.gun='ordered';f.gunDay=world.day+1;}return GUN.order;}
+      if(id==='gun_what')return GUN.what;
+      if(id==='gun_when')return GUN.when;
       if(id==='fionn_uni'){fionnClue('name');return FIONN.uni;}
       if(id==='fionn_paper'){fionnClue('home');return FIONN.paper;}
       if(id==='fionn_report'){
@@ -3495,16 +3632,17 @@
       if(f.stage==='none')return [];
       const has=clue=>f.clues.includes(clue),lines=[FIONN.notes.start];
       for(const clue of ['profile','name','home'])if(has(clue))lines.push(FIONN.notes[clue]);
+      if(f.bait)lines.push(`He goes wherever he thinks ${firstName(hingeProfile(f.bait))} is.`);
       if(fionnActive())lines.push(FIONN.hints[has('home')?'home':has('name')?'name':has('profile')?'profile':'none']);
       else if(FIONN.notes.over[f.stage])lines.push(FIONN.notes.over[f.stage]);
       return lines;
     }
-    function fionnRevolver(){return fionnActive()||fionnState().stage==='shot';}
+    function fionnRevolver(){const f=fionnState();return f.gun==='delivered'&&(fionnActive()||f.stage==='shot');}
     function fionnNewsItem(day){
       const f=fionnState();
       const kind=(f.stage==='caught'||f.stage==='sorted')&&f.endDay===day?f.stage:Number.isInteger(f.hideDay)&&day===f.hideDay+1?'hidden':null;
       if(!kind)return null;
-      return {id:`fionn_${kind}_${day}`,...FIONN.news[kind],image:'crime_motel',locked:true};
+      return {id:`fionn_${kind}_${day}`,image:'crime_motel',...FIONN.news[kind],locked:true};
     }
     // The night he comes: invited (you told him to), or not (you told him where you live).
     function fionnAfterDayStart(){
@@ -3512,22 +3650,40 @@
       for(const note of fionnNotices)showGameNotice(note);fionnNotices=[];
       if(f.stage==='hidden'&&Number.isInteger(f.foundDay)&&world.day>=f.foundDay){f.stage='jailed';startPoliceArrest('body');return true;} // somebody found him
       if(!fionnActive())return false;
-      if(Number.isInteger(f.visitDay)&&world.day>=f.visitDay){fionnArrive(f.invited);return true;}
-      if(world.day>=f.startDay+7){f.stage='jailed';startPoliceArrest('fionn');return true;} // nobody stopped him
+      if(Number.isInteger(f.visitDay)&&world.day>=f.visitDay&&['bedroom-dusk','bedroom-night'].includes(time.value)){fionnArrive(f.invited);return true;} // only in the evening or at night
+      if(Number.isInteger(f.ruinedDay)&&world.day>f.ruinedDay){f.stage='jailed';startPoliceArrest('fionn');return true;} // every woman has blocked you
+      if(world.day>=f.startDay+7&&f.stage!=='lured'){f.stage='jailed';startPoliceArrest('fionn');return true;} // nobody stopped him
       return false;
     }
     function fionnArrive(invited){
       const f=fionnState();
       f.visitDay=null;f.arriving=true;saveRun(true);
-      playScene(FIONN.arrive,()=>fionnQteOpen(invited?2600:1500),{keep:true});
+      const armed=fionnRevolver(); // nothing in the cupboard, nothing to stop him
+      playScene([theonFrame('door')],()=>{
+        showSceneStep(theonFrame('side'),1); // the sidestep: if you have the revolver, now's your chance
+        if(armed)fionnQteOpen(invited?3800:2200);
+        invasionTimers.push(window.setTimeout(()=>showSceneStep(theonFrame('close'),2),1900));
+        if(!armed)invasionTimers.push(window.setTimeout(theonFinal,3800));
+      },{keep:true});
     }
-    // A quick-time moment: the button is only there for a moment.
+    var THEON_STAND={door:'room-open',side:'room-open',close:'shadow',face:'shadow'}; // your room stands in until he's drawn
+    function theonFrame(stage){
+      const phase=time.value==='bedroom-night'?'night':'dusk';
+      return {image:`assets/events/theon-${phase}-${stage}.png`,stand:THEON_STAND[stage],caption:FIONN.approach[stage]};
+    }
+    // Face to face; then his hands come round from behind you.
+    function theonFinal(){
+      fionnState().arriving=false;
+      playScene([theonFrame('face'),{...theonFrame('face'),hands:true,caption:FIONN.approach.hands}],fionnDeath);
+    }
+    // A quick-time moment: the button is only there for a moment, and it moves the way he does.
     function fionnQteOpen(ms){
       const q=$('qte');
       qteOpen=true;
       q.className='qte';q.hidden=false;
-      q.innerHTML='<button data-qte-shoot>SHOOT</button>';
-      $('invasion-caption').textContent=FIONN.qteCaption;
+      q.innerHTML='<button data-qte-shoot>SHOOT</button>'; // the caption stays: watch how he moves
+      const button=q.querySelector('button'),drift=['-34%','18%','-12%','30%','-26%','8%'];
+      if(button){button.style.position='relative';for(let i=1;i*420<ms;i++)invasionTimers.push(window.setTimeout(()=>{button.style.left=drift[i%drift.length];},i*420));}
       window.clearTimeout(qteTimer);
       qteTimer=window.setTimeout(fionnQteMissed,ms);
       invasionTimers.push(qteTimer);
@@ -3547,8 +3703,8 @@
     }
     function fionnQteMissed(){
       if(!qteOpen)return;
-      closeQte();fionnState().arriving=false;
-      playScene(FIONN.missed,fionnDeath);
+      closeQte();
+      theonFinal();
     }
     function fionnHideChoices(){
       const q=$('qte');
@@ -3573,7 +3729,7 @@
     }
     function fionnDeathScreen(){
       stopRinging();herCall=null;
-      drawDeathTitle('FIONN','KILLED');
+      drawDeathTitle('THEON','KILLED');
       $('fatal-overlay').querySelector('p').textContent=FIONN.deaths[hashSeed(world.seed+'|fionndeath')%FIONN.deaths.length];
       $('fatal-overlay').classList.add('visible');
       setLowered(true);fit();
@@ -3581,22 +3737,28 @@
     }
     // A short scene in the room overlay: each step a picture (your room stands in until it's
     // drawn) and a caption. keep leaves the overlay up for what comes next.
+    // One step of a scene: its picture (or your room until it's drawn), its caption, and his hands if asked.
+    function showSceneStep(step,index){
+      const overlay=$('home-invasion'),img=$('invasion-image'),hands=$('invasion-hands');
+      overlay.classList.add('visible');
+      overlay.classList.toggle('flash',!!step.flash);
+      if(!step.flash){img.onerror=()=>{img.onerror=null;img.src=assetUrl(invasionFrame(step.stand||'room'));};img.src=assetUrl(step.image);}
+      $('invasion-caption').textContent=step.caption;
+      overlay.classList.toggle('lights',!!step.lights);
+      if(hands){
+        if(step.hands){hands.onerror=()=>{hands.onerror=null;overlay.classList.remove('hands');};hands.src=assetUrl('assets/events/theon-hands.png');overlay.classList.add('hands');}
+        else overlay.classList.remove('hands');
+      }
+      overlay.classList.remove('jolt');void overlay.offsetWidth;overlay.classList.add('jolt');
+      playUiSound(step.flash?880:Math.max(90,240-index*12));
+    }
     function playScene(steps,done,{keep=false,gap=1900}={}){
       window.setTimeout(()=>{ // after any day transition has finished raising the phone
         clearInvasion();endSimulatedCall();stopRinging();
         stage.classList.add('lowered');
-        const overlay=$('home-invasion'),img=$('invasion-image');
+        const overlay=$('home-invasion');
         overlay.classList.add('visible');overlay.classList.remove('blackout','lights','flash');
-        steps.forEach((step,index)=>{
-          invasionTimers.push(window.setTimeout(()=>{
-            overlay.classList.toggle('flash',!!step.flash);
-            if(!step.flash){img.onerror=()=>{img.onerror=null;img.src=assetUrl(invasionFrame(step.stand||'room'));};img.src=assetUrl(step.image);}
-            $('invasion-caption').textContent=step.caption;
-            overlay.classList.toggle('lights',!!step.lights);
-            overlay.classList.remove('jolt');void overlay.offsetWidth;overlay.classList.add('jolt');
-            playUiSound(step.flash?880:Math.max(90,240-index*12));
-          },index*gap));
-        });
+        steps.forEach((step,index)=>{invasionTimers.push(window.setTimeout(()=>showSceneStep(step,index),index*gap));});
         if(keep){invasionTimers.push(window.setTimeout(done,steps.length*gap));return;}
         invasionTimers.push(window.setTimeout(()=>overlay.classList.add('blackout'),steps.length*gap));
         invasionTimers.push(window.setTimeout(()=>{clearInvasion();overlay.classList.remove('flash');done();},steps.length*gap+900));
@@ -3622,7 +3784,7 @@
     function toneNewDay(){
       glowNewDay();laviniaNewDay();leakNewDay(); // Truecel
       callerNewDay(); // Mogger: the girl who keeps calling
-      fionnNewDay();dadNewDay(); // Mogger: Fionn, and her dad
+      fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
       if(tone()==='mogger'&&gameRandom()<.45){
         const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA]:[];
@@ -3784,7 +3946,7 @@
     function tryHerCall(slot,force=false){
       const today=callsToday();
       if(today.slots.includes(slot)||today.callers.length>=MAX_CALLS_A_DAY||callBusy())return false;
-      const stranger=strangerDue(); // Fionn, or her dad: they always ring
+      const stranger=strangerDue(); // Theon, or her dad: they always ring
       if(stranger){today.slots.push(slot);strangerRang(stranger);startIncomingCall(stranger);return true;}
       const callers=herCallers().sort((a,b)=>warmthOf(b)-warmthOf(a));
       if(!callers.length)return false;
@@ -3882,7 +4044,7 @@
       if(!incomingCall)return;
       const id=incomingCall.id,profile=hingeProfile(id),kit=talkKit()?.calls;
       stopRinging();
-      if(isStranger(id)){herCall=strangerAnswer(id);saveRun(true);renderCalls();return;} // Fionn, or her dad
+      if(isStranger(id)){herCall=strangerAnswer(id);saveRun(true);renderCalls();return;} // Theon, or her dad
       if(!profile||!kit)return renderCalls();
       const sister=profile.factionId==='sisters_of_mercy';
       if(laviniaCallingToday(id)){ // Truecel: Lavinia, then Brad
@@ -4167,7 +4329,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
@@ -4700,8 +4862,8 @@
     function clearInvasion(){
       for(const id of invasionTimers)clearTimeout(id);
       invasionTimers=[];
-      $('home-invasion').classList.remove('visible','lights','blackout','jolt');
-      closeQte(); // Fionn
+      $('home-invasion').classList.remove('visible','lights','blackout','jolt','hands');
+      closeQte(); // Theon
     }
     function invasionFrame(scene){
       const phase=dayPhases.includes(time.value)?time.value:'bedroom-night';
@@ -4796,7 +4958,7 @@
     // evidence cannot substantiate. Queries and tentative tips do not count.
     const POLICE_ARREST_MESSAGE='You wasted police time and are under arrest. You are going to prison forever';
     const POLICE_ARREST_FRAMES=['threshold','approach','cuff','grab'];
-    // Fionn: arrested over his messages (nobody stopped him), or over him (somebody found him).
+    // Theon: arrested over his messages (nobody stopped him), or over him (somebody found him).
     var ARREST_CAPTIONS={fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
     var ARREST_ENDINGS={fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
     let policeArrestTimers=[];
@@ -5223,13 +5385,13 @@
       const chapelState=chapel?.state?.();
       if(chapelState?.active&&chapelState.journal?.length)groups.push({title:'The chapel',lines:chapelState.journal.slice().reverse().map(entry=>`Day ${entry.day}: ${entry.text}`)});
       if(PV?.isOpen()){const facts=PV.engine.caseFile(world.professorVale,world.day).facts;if(facts.length)groups.push({title:'Professor Vale',lines:facts.slice()});}
-      const fionnLines=fionnNotes();if(fionnLines.length)groups.push({title:fionnState().clues.includes('name')?'Fionn':'The verses',lines:fionnLines}); // Fionn
+      const fionnLines=fionnNotes();if(fionnLines.length)groups.push({title:fionnState().clues.includes('name')?'Theon':'The verses',lines:fionnLines}); // Theon
       return groups;
     }
     function cupboardItems(){
       const items=[];
       if(glowState().stage==='delivered')items.push({id:'lpc',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
-      if(fionnRevolver())items.push({id:'revolver',label:'Grandad’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:FIONN.revolver}); // Fionn
+      if(fionnRevolver())items.push({id:'revolver',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
       const m=world.marriage;
       if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweller'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
       if(BR){
@@ -5465,6 +5627,7 @@
         const warning=key==='police'&&world.falsePoliceReports?` · ⚠ ${world.falsePoliceReports}/${MAX_FALSE_REPORTS} false reports`:'';
         list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
       }
+      {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:pemberton',name:'Mrs Pemberton',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/pemberton.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
       for(const thread of hingeThreads.values()){
@@ -5684,7 +5847,7 @@
         if(world.policeArrested){showPoliceArrestDeath();return true;}
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
         if(dadState().stage==='dead'||dadState().stage==='coming'){dadDeath();return true;} // her dad
-        if(fionnState().stage==='dead'){fionnDeathScreen();return true;} // Fionn
+        if(fionnState().stage==='dead'){fionnDeathScreen();return true;} // Theon
         if(fionnState().stage==='shot')playScene([FIONN.shot[1]],fionnHideChoices,{keep:true}); // the body is still on the floor
         else if(fionnActive()&&fionnState().arriving)fionnArrive(fionnState().invited); // he was in the doorway
         const valeOver=savedValeGameOver(); // so is a Vale arrest or death
