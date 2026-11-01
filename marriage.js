@@ -1,4 +1,5 @@
-/* MATCH: marriage to a Sister of Mercy, the only way to win.
+/* MATCH: marriage, the way to win. Marry a Sister of Mercy, or be married off by the
+ * Thunderbirds at the end of Professor Vale (thunderbirdWedding below).
  *
  * preview.html loads this file before its own script and creates one engine with
  * MATCH_MARRIAGE_ENGINE.create(api). The game calls a few hooks, all marked
@@ -7,6 +8,7 @@
  *
  * All state lives in world.marriage (saved, loaded and reset with the run). The
  * win itself is recorded in world.victory, which nothing else in the game sets.
+ * world.marriage.tb holds the Thunderbird wedding; one wedding per run, either kind.
  * Text, the five Sisters' lines, the jewellers and all 50 examination questions
  * live in marriage.json.
  *
@@ -83,7 +85,7 @@
     function freshJeweller(){return {asked:false,church:false,favourAsked:false,chapelTold:false,orderedDay:null,ready:false,met:false};}
     function freshState(){
       return {v:1,sisters:Object.fromEntries(SISTERS.map(id=>[id,freshSister()])),
-        ring:null,jewellers:Object.fromEntries(JEWELLERS.map(id=>[id,freshJeweller()])),numbers:{},married:null};
+        ring:null,jewellers:Object.fromEntries(JEWELLERS.map(id=>[id,freshJeweller()])),numbers:{},married:null,tb:null};
     }
     function normalize(raw){
       const out=freshState();
@@ -117,6 +119,8 @@
       if(raw.numbers&&typeof raw.numbers==='object')for(const id of JEWELLERS)if(typeof raw.numbers[id]==='string'&&/^\d{7}$/.test(raw.numbers[id]))out.numbers[id]=raw.numbers[id];
       // Only a Sister of Mercy (with her own lines, or any Sister in the roster) can be the bride.
       if(raw.married&&SISTER_ID.test(String(raw.married.id))&&sister(raw.married.id))out.married={id:raw.married.id,day:int(raw.married.day)};
+      // The Thunderbird wedding: only a Thunderbird, and only if there was no Sister's wedding.
+      else if(raw.tb&&SISTER_ID.test(String(raw.tb.id))&&api.profile?.(raw.tb.id)?.factionId==='thunderbirds')out.tb={id:raw.tb.id,day:int(raw.tb.day)};
       return out;
     }
     function state(){
@@ -145,6 +149,8 @@
     }
     function sisterIds(){return [...new Set([...Object.keys(data?.sisters||{}),...(api.sisterIds?.()||[])])].filter(id=>sister(id));}
     const sisterState=(st,id)=>st.sisters[id]||(st.sisters[id]=freshSister());
+    const wed=st=>st.married||st.tb; // already married, either way
+    const brideName=id=>sister(id)?.name||api.profile?.(id)?.name||'her';
     const firstName=id=>(sister(id)?.name||'her').split(' ')[0];
     const question=qid=>data.questions.find(q=>q.id===qid);
     // At most two examination questions a day for each Sister (data.rules.questionsPerDay).
@@ -169,7 +175,7 @@
       const st=state();
       if(!st||!thread||!sister(thread.id)||thread.blocked||thread.fumbled)return null; // she blocked you: no examination
       const id=thread.id,s=sisterState(st,id);
-      if(st.married)return {html:tag(st.married.id===id?'Married. God bless you both.':'You are already married.'),only:true};
+      if(wed(st))return {html:tag(st.married?.id===id?'Married. God bless you both.':'You are already married.'),only:true};
       if(s.active&&s.current!==null){
         const q=question(s.current);
         const answers=q.answers.map((answer,index)=>button(`answer:${id}:${index}`,`${LETTERS[index]}. ${answer}`,{mark:'',extra:'marriage-answer'})).join('');
@@ -208,7 +214,7 @@
     }
     function start(st,id){
       const s=sisterState(st,id),sis=sister(id);
-      if(s.passed||st.married||!canAsk(s))return;
+      if(s.passed||wed(st)||!canAsk(s))return;
       const opening=s.started?sis.resume:sis.intro;
       const firstTime=!s.started;
       const q=s.current!==null?question(s.current):null;
@@ -257,7 +263,7 @@
     }
     function propose(st,id){
       const s=sisterState(st,id),sis=sister(id);
-      if(!s.passed||st.married)return;
+      if(!s.passed||wed(st))return;
       if(!st.ring){
         s.proposedWithoutRing++;
         converse(id,`${firstName(id)}, will you marry me?`,[data.rules.noRingReply,sis.noRing]);
@@ -266,7 +272,7 @@
       converse(id,`${firstName(id)}, will you marry me?`,[sis.accept],()=>marry(st,id));
     }
     function marry(st,id){
-      if(st.married)return;
+      if(wed(st))return;
       st.married={id,day:today()};
       // The single place in the game that records a win.
       api.world().victory={type:'marriage',bride:id,day:today()};
@@ -274,6 +280,18 @@
       api.status(`${sister(id).name} said yes. You won MATCH.`);
       api.save();
       playWedding(id,false);
+    }
+    // Professor Vale's Thunderbird ending: the gala ball, a vote, a wedding. The other way to win.
+    function thunderbirdWedding(id){
+      const st=state();
+      if(!st||wed(st)||sister(id)||api.profile?.(id)?.factionId!=='thunderbirds')return false;
+      st.tb={id,day:today()};
+      api.world().victory={type:'thunderbirds',bride:id,day:today()};
+      refreshDesk();
+      api.status(fill(data.thunderbirds.status,{name:brideName(id)}));
+      api.save();
+      playWedding(id,false);
+      return true;
     }
     function choose(action){
       const st=state();
@@ -306,7 +324,7 @@
     // Topics for a jeweller's line, plus Rafaela Ortega's favour (key 'rafael') on the chapel line.
     function serviceTopics(serviceId){
       const st=state();
-      if(!st||st.married)return [];
+      if(!st||wed(st))return [];
       if(serviceId==='service:chapel'){
         const r=st.jewellers.rafael;
         return r.favourAsked&&!r.chapelTold?[{id:'rafael-clock',label:data.jewellerTalk.rafael.chapelTopic.label,marriage:true}]:[];
@@ -437,6 +455,7 @@
       });
     }
     function weddingFrames(id){
+      if(!sister(id))return (data.thunderbirds?.scenes||[]).map(scene=>fill(scene.path,{slug:api.profile?.(id)?.slug||id}));
       const slug=sister(id).slug;
       return data.art.weddingScenes.map(scene=>`assets/marriage/weddings/${slug}-${scene.key}.png`);
     }
@@ -455,7 +474,7 @@
     function refreshDesk(){
       mount();
       const st=state();
-      if(deskRing&&deskRing.classList)deskRing.classList.toggle('visible',!!(st&&st.ring&&!st.married));
+      if(deskRing&&deskRing.classList)deskRing.classList.toggle('visible',!!(st&&st.ring&&!wed(st)));
     }
     function clearTimers(){for(const timer of slideTimers)api.cancel(timer);slideTimers=[];}
     // A full-screen montage: one picture at a time, slow cross-fades, no text or controls.
@@ -464,7 +483,7 @@
       api.setLowered(true);
       const frames=weddingFrames(id);
       showing={id,preview,frames,index:-1};
-      show.setAttribute('aria-label',`Wedding photographs of ${sister(id).name}`);
+      show.setAttribute('aria-label',`Wedding photographs of ${brideName(id)}`);
       show.classList.add('visible');
       api.playUiSound(520);
       advance();
@@ -476,7 +495,7 @@
       if(showing.index>=showing.frames.length){finishWedding();return;}
       const img=showImages[showing.index%2],other=showImages[(showing.index+1)%2];
       setFrame(img,showing.id,showing.index,showing.frames[showing.index]);
-      img.alt=data.art.weddingScenes[showing.index].title;
+      img.alt=((sister(showing.id)?data.art.weddingScenes:data.thunderbirds?.scenes)||[])[showing.index]?.title||'';
       img.classList.remove('on');void img.offsetWidth;img.classList.add('on');
       other.classList.remove('on');
       slideTimers.push(api.later(advance,SLIDE_MS));
@@ -489,13 +508,16 @@
     }
     function showVictory(id,preview){
       mount();
-      const st=state(),v=data.victory;
-      const day=preview?today():st?.married?.day;
+      const st=state(),tb=!sister(id),v=tb?data.thunderbirds.victory:data.victory;
+      const day=preview?today():(st?.married||st?.tb)?.day;
+      const backdrop=tb?data.thunderbirds.backdrop:data.art.victoryBackdrop;
       const frames=weddingFrames(id);
-      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(data.art.victoryBackdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(frames[3]))}" alt="${esc(sister(id).name)} on her wedding day"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(v.subtitle)}</p><p class="line">${esc(fill(v.line,{name:sister(id).name,day}))}</p>${preview?'<p class="note">Testing preview. Your run is unchanged.</p><button data-marriage-win="close">Close preview</button>':`<button data-marriage-win="new">${esc(v.newGame)}</button>`}</div>`;
+      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(frames[3]))}" alt="${esc(brideName(id))} on her wedding day"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(v.subtitle)}</p><p class="line">${esc(fill(v.line,{name:brideName(id),day}))}</p>${preview?'<p class="note">Testing preview. Your run is unchanged.</p><button data-marriage-win="close">Close preview</button>':`<button data-marriage-win="new">${esc(v.newGame)}</button>`}</div>`;
       const portrait=win.querySelector?.('.frame img');
       const fallback=fallbackFrame(id,3);
       if(portrait&&fallback)portrait.onerror=()=>{portrait.onerror=null;portrait.src=api.assetUrl(fallback);}; // her own photo until her wedding portrait exists
+      const back=win.querySelector?.('.backdrop');
+      if(back&&tb)back.onerror=()=>{back.onerror=null;back.src=api.assetUrl(data.art.victoryBackdrop);}; // the Sisters' backdrop until the Thunderbirds' exists
       win.classList.add('visible');
       api.playUiSound(660);
     }
@@ -517,15 +539,16 @@
       const st=state();
       // The victory record and the marriage always agree.
       if(st.married)world.victory={type:'marriage',bride:st.married.id,day:st.married.day};
+      else if(st.tb)world.victory={type:'thunderbirds',bride:st.tb.id,day:st.tb.day};
       else if(world.victory)delete world.victory;
       refreshDesk();
-      if(st.married)showVictory(st.married.id,false);
+      if(wed(st))showVictory(wed(st).id,false);
     }
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.
     let previewIndex=0;
     function previewWedding(id){
       if(!data)return false;
-      const bride=sister(id)?id:SISTERS[previewIndex++%SISTERS.length];
+      const bride=sister(id)||api.profile?.(id)?.factionId==='thunderbirds'?id:SISTERS[previewIndex++%SISTERS.length]; // a Thunderbird id previews her Thunderbird wedding
       playWedding(bride,true);
       return bride;
     }
@@ -533,7 +556,7 @@
     mount();
     return {
       optionsFor,choose,notesEntry,jewellerContacts,jewellerName,contactForNumber,serviceTopics,chooseServiceTopic,
-      reset,afterLoad,refreshDesk,previewWedding,
+      reset,afterLoad,refreshDesk,previewWedding,thunderbirdWedding,
       hasData:()=>!!data,
       // The five jewellers as Hinge cards (preview.html puts them in the swipe deck).
       jewellerCards:()=>!data?[]:JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,role:data.jewellers[id].role,portrait:data.jewellers[id].portrait})),
@@ -551,7 +574,7 @@
       // is passed, or today's questions are used up.
       phoneExam:id=>{
         const st=state();
-        if(!st||st.married||!sister(id))return null;
+        if(!st||wed(st)||!sister(id))return null;
         const s=sisterState(st,id);
         if(!s.started||s.passed||!canAsk(s))return null;
         const q=s.current!==null?question(s.current):draw(st,id);
@@ -582,7 +605,7 @@
         const q=pool[Math.floor(seeded(`${api.world().seed||'match'}:phone:${key}`)()*pool.length)];
         return {id:q.id,question:q.question,answers:[...q.answers],correctAnswerIndex:q.correctAnswerIndex};
       },
-      isWon:()=>!!state()?.married,
+      isWon:()=>!!(state()?.married||state()?.tb),
       // Read-only helpers for tests and debugging.
       state:()=>state(),frames:id=>weddingFrames(id),
       slideshow:()=>({visible:!!show?.classList?.contains('visible'),image:showing?showImages[showing.index%2]?.src:'',index:showing?showing.index:-1}),

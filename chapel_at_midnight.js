@@ -31,7 +31,7 @@
   const FLYER_GOTHS=['MATCH-061','MATCH-062','MATCH-063'];
   const PLACES=['old_mission','cemetery_chapel','st_brigid'];
   const ROLES=['loyal','gossip','fedup'];
-  const GOTH_ACTS=['rite','where','criticize','sisters'];
+  const GOTH_ACTS=['rite','moon','where','criticize','sisters'];
   const VICTORIA_ACTS=['rite','where','come','backout','confront'];
   const QUEST_CHANCE=0.5; // share of runs in which the Chapel at Midnight happens
   const FATAL=['confront','reported','went_alone','remembered','betrayed'];
@@ -112,6 +112,7 @@
         roles:Object.fromEntries(FLYER_GOTHS.map((id,i)=>[id,order[i]])),
         heat:0,whispers:0,
         attackDueDay:null,attackReason:null,attackPending:false,attackRunning:false,attackPhase:null,dead:false,death:null,deathKind:null,
+        nightKnown:false, // which night is the moonless one: someone has to tell you
         clues:[],goths:{},victoria:{asked:[],told:false,going:false,whereDay:null},
         warned:null,warnedDay:null,fedupJoins:false,fedupId:null,
         outcome:null,outcomeDay:null,ritualCompleted:false,resultText:null,notice:null,journal:[]
@@ -133,6 +134,7 @@
       const int=value=>Number.isInteger(value)?value:null;
       const isId=value=>typeof value==='string'&&/^MATCH-\d{3}$/.test(value);
       for(const key of ['active','dead','attackPending','attackRunning','ritualCompleted','chalkTrueFirst','fedupJoins'])out[key]=!!raw[key];
+      out.nightKnown=raw.nightKnown===undefined?!!raw.active:!!raw.nightKnown; // a case already open from before kept its countdown
       for(const key of ['startDay','riteDay','attackDueDay','outcomeDay','warnedDay'])out[key]=int(raw[key]);
       for(const key of ['heat','whispers'])out[key]=Math.max(0,Math.min(99,int(raw[key])||0));
       if(typeof raw.enabled==='boolean')out.enabled=raw.enabled;
@@ -193,7 +195,7 @@
         short:placeShort(st.location),chalkA:placeName(chalk[0]),chalkB:placeName(chalk[1]),
         warnedPlace:placeName(st.warned),riddle:data.places[st.location].riddle,
         fedup:nameOf(st.fedupId||holder(st,'fedup')),gossip:nameOf(holder(st,'gossip')),
-        when:st.riteDay===null?'soon':relNights(st.riteDay),...extra};
+        when:st.riteDay===null?'soon':st.nightKnown?relNights(st.riteDay):'on the moonless night',night:st.riteDay===null?'soon':relNights(st.riteDay),...extra};
       return String(text).replace(/\{(\w+)\}/g,(match,key)=>vars[key]!==undefined?String(vars[key]):match);
     }
     // A number between 0 and 1 for one chancy moment, fixed by the run's seed.
@@ -258,8 +260,8 @@
       ensureServiceTopics(true);
       const edition=(api.world().editions||[]).find(item=>item.day===today());
       if(edition)decorateEdition(edition);
-      journal(st,how==='match'?'You matched with Victoria Blackwood. Her Midnight Rite is in seven nights, and the flyers are everywhere.':
-        'Victoria Blackwood’s Midnight Rite flyer is in the paper: one night only, seven nights from today.');
+      journal(st,how==='match'?'You matched with Victoria Blackwood. Her Midnight Rite is on the next moonless night, and the flyers are everywhere.':
+        'Victoria Blackwood’s Midnight Rite flyer is in the paper: one night only, on the next moonless night.');
       api.status('☾ A new case file is in your bedside cupboard: the Chapel at Midnight.');
       return true;
     }
@@ -281,7 +283,7 @@
         for(const item of edition.items||[]){
           if(!item.chapelFragment)continue;
           if(!seen.includes(`${edition.day}:${item.id}`)&&!(openedToday&&edition.day===today()))continue;
-          if(item.chapelFragment==='flyer')addClue(st,'flyer',`Paper, day ${edition.day}: the Midnight Rite is one night only, seven nights from the day the flyer appeared. Venue by word of mouth only.`);
+          if(item.chapelFragment==='flyer')addClue(st,'flyer',`Paper, day ${edition.day}: the Midnight Rite is one night only, on the next moonless night. Venue by word of mouth only.`);
           if(item.chapelFragment==='chalk')addClue(st,'chalk',`Paper, day ${edition.day}: ${fill(data.chalkPlaces)}`);
         }
       }
@@ -327,6 +329,7 @@
       const g=gothState(st,id);
       return GOTH_ACTS.filter(act=>{
         if(act==='where')return !g.told&&g.whereDay!==today();
+        if(act==='moon')return !st.nightKnown&&!g.asked.includes('moon'); // until somebody has told you which night
         if(act==='sisters'&&!st.warned)return false;
         return !g.asked.includes(act);
       });
@@ -336,7 +339,11 @@
       if(!isGoth(profile)||isClosed(id)||st.outcome||!gothChoices(st,id).includes(act))return;
       const role=roleOf(st,id),g=gothState(st,id),lines=data.gothRoles[role];
       let reply=lines[act],after=null;
-      if(act==='where'){
+      if(act==='moon'){
+        g.asked.push('moon');
+        reply=data.moon.goth[role]||data.moon.goth.other;
+        after=st=>learnNight(st,firstName(id));
+      }else if(act==='where'){
         g.whereDay=today();
         const friend=isFriend(st,id);
         if(role==='loyal'){
@@ -376,6 +383,7 @@
     function victoriaChoices(st){
       const v=st.victoria,out=[];
       if(!v.asked.includes('rite'))out.push('rite');
+      if(!st.nightKnown)out.push('when'); // which night
       if(!v.told&&v.whereDay!==today())out.push('where');
       out.push(v.going?'backout':'come');
       out.push('confront');
@@ -386,6 +394,7 @@
       const line=data.victoria.actions[act];
       let reply=line.reply,after=null;
       if(act==='rite')st.victoria.asked.push('rite');
+      if(act==='when')after=st=>learnNight(st,'Victoria');
       if(act==='where'){
         st.victoria.whereDay=today();
         const trusted=warmth(VICTORIA)>=rules().victoriaWarmth;
@@ -406,6 +415,16 @@
       converse(VICTORIA,line.player,reply,after);
     }
 
+    // Someone tells you which night the moon goes dark: now the case file can count down.
+    function learnNight(st,who){
+      if(st.nightKnown)return;
+      st.nightKnown=true;
+      addClue(st,'moon',fill(data.moon.clue,{who}));
+    }
+    function sisterMoon(st,id){
+      if(!isSister(api.profile(id))||isClosed(id)||st.outcome||st.nightKnown)return;
+      converse(id,data.moon.sister.player,fill(data.moon.sister.reply),st=>learnNight(st,firstName(id)));
+    }
     // ---------- the Sisters of Mercy ----------
     function sisterThreads(){
       return [...api.threads().values()].filter(thread=>isSister(api.profile(thread.id))&&!thread.blocked&&!thread.fumbled);
@@ -624,7 +643,7 @@
         choices=gothChoices(st,id).map(act=>button(`g:${id}:${act}`,data.gothActions[act].label));
         entry='Talk about Victoria’s rite';
       }else{
-        choices=PLACES.map(place=>button(`s:${id}:${place}`,fill(data.sisterTalk.label,{short:placeShort(place)}),{mark}));
+        choices=[...(st.nightKnown?[]:[button(`m:${id}`,data.moon.sister.label,{mark})]),...PLACES.map(place=>button(`s:${id}:${place}`,fill(data.sisterTalk.label,{short:placeShort(place)}),{mark}))];
         entry=data.sisterTalk.entry;
       }
       if(!choices.length)return null;
@@ -654,6 +673,7 @@
     // One short hint: a nudge from what you've heard, never the answer, never about danger.
     function hintFor(st){
       if(st.outcome||st.dead||st.warned)return null;
+      if(!st.nightKnown)return 'Somebody who keeps track of the moon would know which night it is.';
       const kinds=new Set(st.clues.map(c=>c.kind));
       if(kinds.has('riddle')||kinds.has('victoria'))return canReachSisters(st)?'The Sisters can’t keep watch everywhere.':'A Sister of Mercy can put you in touch.';
       if(kinds.has('never')&&kinds.has('chalk'))return 'Two clues, three chapels.';
@@ -664,6 +684,7 @@
       if(st.dead)return 'The case is closed.';
       if(st.outcome)return `${st.resultText} Case closed.`;
       const told=st.warned?` The Sisters will keep watch at ${placeName(st.warned)}.`:'';
+      if(!st.nightKnown)return `Victoria Blackwood’s Midnight Rite is on the next moonless night. Nobody has told you which night, or where.${told}`;
       return `Victoria Blackwood’s Midnight Rite is ${relNights(st.riteDay)}. Nobody will say where.${told}`;
     }
     function caseHtml(st){
@@ -728,6 +749,7 @@
         case 'g':gothAct(st,a,b);return;
         case 'v':victoriaAct(st,a);return;
         case 's':sisterAct(st,a,b);return;
+        case 'm':sisterMoon(st,a);return;
         case 'warn':if(canReachSisters(st))warn(st,a);break;
         default:return;
       }
@@ -784,6 +806,8 @@
       statusLine:()=>{const st=sync();return st?statusText(st):'';},
       onNewDay,afterDayStart,decorateEdition,optionsFor,choose,notesEntry,renderCase,afterLoad,reset,previewNow,previewAttack,
       onMatch,onPaperOpened,
+      // A friend finds out which night the moon goes dark (a favour in preview.html). Returns the night, or null.
+      tellNight:who=>{const st=sync();if(!st||!st.active||st.nightKnown||st.outcome||st.dead||st.riteDay===null)return null;learnNight(st,who);return relNights(st.riteDay);},
       isCaseOpen:()=>caseOpen,
       hasData:()=>!!data,
       // Read-only helpers for tests and debugging.

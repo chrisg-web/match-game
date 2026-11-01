@@ -14,8 +14,9 @@
  *   PROTECT   Piece together when and where the Back Row will strike. Then tip off
  *             Detective Graves (Police) and/or warn the Thunderbirds, who adore Vale.
  *             Best ending: Graves rings you back and you tell her it was you; or Alice
- *             Beaumont invites you to the gala; or ask any Police or Thunderbird
- *             match on a date. They all say yes now.
+ *             Beaumont invites you to the gala ball; or ask any Police or Thunderbird
+ *             match on a date. They all say yes now. The Thunderbird endings are a win:
+ *             they vote you in and marry you off (host.bride picks her, host.win plays it).
  *   BACK ROW  Ring Vanessa Greer back and join. Order Semtex, wire and a phone to your
  *             door, assemble it at your desk, leave it on the doorstep for Allison to
  *             collect, then dial the number on Day A. Best ending: Vanessa sides with you.
@@ -152,7 +153,7 @@
       rosa: { from: 'rosa', text: 'It’s Rosa. Rosa Gutierrez. You’ve been asking about the Back Row. I can’t text about it. Call me back on this number. Please don’t tell anyone it was me.' },
       vanessa: { from: 'vanessa', text: 'This is Vanessa Greer. You keep asking about Vale. So do we. Call me back. Don’t text.' },
       gravesArrest: { from: 'graves', text: 'Detective Graves. We had people at bay fourteen on Day {A}, and we got them with it in their hands. Somebody gave us a name and a day. Ring me back on this line.' },
-      alice: { from: 'alice', text: 'Alice Beaumont. Adrian is alive, sulking, and staying in our guest room. Somebody warned us, and I know it was you. The Thunderbirds would like you as guest of honour at the gala. Do call.' },
+      alice: { from: 'alice', text: 'Alice Beaumont. Adrian is alive, sulking, and staying in our guest room. Somebody warned us, and I know it was you. The Thunderbirds would like you as guest of honour at the gala ball. Do call.' },
       vanessaInvite: { from: 'vanessa', text: 'It’s Vanessa. Days now, and nobody has knocked on your door. You did what three of us couldn’t. Call me.' },
       rosaPanic: { from: 'rosa', text: 'It’s Rosa. I can’t sleep. I keep thinking about walking into the police station. Please call me.' }
     },
@@ -209,7 +210,7 @@
       goth_girls: [
         { id: 'pv_rumour', label: 'Ask if she’s heard about Professor Vale', stage: ['open'],
           player: 'Have you heard what keeps happening to Professor Vale?',
-          reply: 'Ask the girl with the megaphone. Or don’t. Honestly, Houellebecq was the best night campus has had in years. It’s the quiet ones at the back you should worry about.', learn: ['jennifer'] }
+          reply: 'Ask Jennifer Tate, the girl with the megaphone. Or don’t. Honestly, Houellebecq was the best night campus has had in years. It’s the quiet ones at the back you should worry about.', learn: ['jennifer'] }
       ],
       sisters_of_mercy: [
         { id: 'pv_rumour', label: 'Ask if she’s heard about Professor Vale', stage: ['open'],
@@ -301,7 +302,7 @@
         { id: 'pv_d_call', label: 'Let it ring' }
       ],
       'pv:alice': [
-        { id: 'pv_al_yes', label: 'Accept her invitation to the gala (ending)' },
+        { id: 'pv_al_yes', label: 'Accept her invitation to the gala ball (ending)' },
         { id: 'pv_al_later', label: 'Say you’re just glad he’s safe', reply: 'Modest. How very un-Thunderbird of you. The invitation stands, darling.' }
       ]
     },
@@ -399,9 +400,9 @@
       hero_police: { kind: 'complete', title: 'The Detective’s Number', image: 'assets/quests/professor/ending-graves.png',
         text: 'A long silence on the line. You? Do you know how many people ring me with theories? You were the one who was right. Another silence. Dinner. Not a debrief. Dinner.\n\nThe Sunfall Daily runs Vale’s face on the front page for days. He gives a lecture about it, then announces his next guest, Bret Easton Ellis, and the campus erupts all over again. You don’t go. You’re busy.',
         dateText: '{name} says yes before you’ve finished typing. Everyone at the station knows who saved Professor Vale, and she wants the whole story, slowly, over dinner.' },
-      hero_thunderbirds: { kind: 'complete', title: 'Guest of Honour', image: 'assets/quests/professor/ending-thunderbirds.png',
-        text: 'Marvellous. Alice Beaumont sends a car for you. At the gala you sit at the top table between Alice and a professor who spends the whole dinner pretending he didn’t need saving and telling everyone that Adam Curtis has said yes. Every Thunderbird in Sunfall knows your name now.',
-        dateText: '{name} says yes before you’ve finished typing. At the next Thunderbird gala she walks you to the top table on her arm, and every Thunderbird in Sunfall raises a glass to the person who saved Professor Vale.' },
+      hero_thunderbirds: { kind: 'complete', win: 'thunderbirds', title: 'Guest of Honour', image: 'assets/quests/professor/ending-thunderbirds.png',
+        text: 'Marvellous. Alice Beaumont sends a car for you. At the gala ball you sit at the top table between Alice and a professor who spends the whole dinner pretending he didn’t need saving and telling everyone that Adam Curtis has said yes.\n\nNobody applies to join the Thunderbirds. They decide. By the cheese course they have decided about you: a quiet word, a raised glass, and you are one of them. By the coffee, Alice has decided about you too. She takes your arm and doesn’t let go. Across the table three pleasant men with blue ribbons raise their glasses to you, the way you’d welcome a new colleague. Alice wears four gold bands on one finger. She says there’s room for another.\n\nThe wedding is booked before the band packs up. Your search for love is over. A Thunderbird woman’s, you gather, never quite is.',
+        dateText: '{name} says yes before you’ve finished typing. At the next Thunderbird gala ball she walks you to the top table on her arm, and every Thunderbird in Sunfall raises a glass to the person who saved Professor Vale.\n\nNobody applies to join the Thunderbirds. They decide, and by the coffee they have decided about you. Her mother has the wedding booked before the band packs up. At the reception two cheerful men introduce themselves as her other half. Both of them. They could not be more welcoming.\n\nYour search for love is over. Hers, you gather, never quite is.' },
       back_row_forever: { kind: 'complete', title: 'One of Us', image: 'assets/quests/professor/ending-vanessa.png',
         text: 'Then come over. Vanessa’s flat is all candles and books with cracked spines. She pours two glasses and doesn’t say his name once. The university has cancelled his speaker series, she says. Ellis, Curtis, all of them. The papers will call it unsolved. Let them. The Back Row has a new seat at the front.' },
       vale_dies: { kind: 'failure', title: 'The Professor Disappeared',
@@ -486,7 +487,7 @@
         inv: { semtex: 'none', wire: 'none', phone: 'none' }, due: { semtex: null, wire: null, phone: null },
         device: 'none', assemblyFails: 0, handoverDay: null, detonatedDay: null, wrongMan: false, invited: false,
         news: [], log: [],
-        ending: null, endingDay: null, endingVariant: null, endingName: null
+        ending: null, endingDay: null, endingVariant: null, endingName: null, endingBride: null, endingBrideName: null
       };
     }
 
@@ -517,7 +518,7 @@
           case 'news': s.news = Array.isArray(val) ? val.filter(n => n && Number.isInteger(n.day) && D.news[n.key]).slice(0, 60).map(n => ({ day: n.day, key: n.key, vars: n.vars && typeof n.vars.name === 'string' ? { name: n.vars.name.slice(0, 60) } : {} })) : []; break;
           case 'log': s.log = Array.isArray(val) ? val.filter(x => typeof x === 'string').slice(-40).map(x => x.slice(0, 700)) : []; break;
           case 'ending': s.ending = ENDING_IDS.includes(val) ? val : null; break;
-          case 'endingVariant': case 'endingName': case 'wireFrom': s[k] = typeof val === 'string' ? val.slice(0, 60) : null; break;
+          case 'endingVariant': case 'endingName': case 'endingBride': case 'endingBrideName': case 'wireFrom': s[k] = typeof val === 'string' ? val.slice(0, 60) : null; break;
           default: {
             const base = s[k];
             if (typeof base === 'boolean') s[k] = val === true;
@@ -581,17 +582,22 @@
     function end(s, id, day, variant, name) {
       s.ending = id; s.stage = 'ended'; s.endingDay = day;
       s.endingVariant = variant || null; s.endingName = name || null;
+      if (D.endings[id].win && opts.bride) { // the Thunderbirds marry you off: the host picks her
+        const b = opts.bride(s.endingBride);
+        if (b) { s.endingBride = b.id; s.endingBrideName = b.name; }
+      }
       return endingInfo(s);
     }
     function endingInfo(s) {
       if (!s.ending) return null;
       const e = D.endings[s.ending];
-      const v = vars(s, { name: s.endingName || '', n: (s.endingDay || 0) + 1 });
+      const v = vars(s, { name: s.endingName || '', n: (s.endingDay || 0) + 1, bride: s.endingBrideName || 'Alice Beaumont' });
       let text = e.text;
       if (s.endingVariant === 'date' && e.dateText) text = e.dateText;
       else if (s.endingVariant && e.variants && e.variants[s.endingVariant]) text = e.variants[s.endingVariant];
       return {
         id: s.ending, kind: e.kind, title: fill(e.title, v), text: fill(text, v), image: e.image || null,
+        win: e.win || null, bride: e.win ? s.endingBride : null,
         sequence: e.sequence ? D.sequences[e.sequence].map(x => ({ scene: x.scene, caption: fill(x.caption, v) })) : null,
         death: e.death ? { verb: e.death.verb, cause: e.death.cause, line: fill(e.death.line || '', v) } : null
       };
@@ -777,6 +783,7 @@
     }
     function askOnDate(s, profile, day) {
       if (!dateTopicFor(s, profile)) return no(L.unavailable);
+      if (profile.factionId === 'thunderbirds') s.endingBride = profile.id; // the one you asked out is the bride
       end(s, profile.factionId === 'police' ? 'hero_police' : 'hero_thunderbirds', day, 'date', profile.name);
       return withEnding(s, { ok: true, player: 'So… dinner? A real one.', reply: '', text: '' });
     }
@@ -1144,7 +1151,7 @@
    *   seed()                  run seed
    */
   function mount(host) {
-    const E = createEngine(DATA, { newNumber: host.newNumber });
+    const E = createEngine(DATA, { newNumber: host.newNumber, bride: host.bride });
     const doc = typeof document !== 'undefined' ? document : null;
     const asset = p => (host.assetUrl ? host.assetUrl(p) : p);
     const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -1291,7 +1298,7 @@
       ov.className = `pv-overlay pv-ending pv-${esc(info.kind)}`;
       const kind = { complete: 'CASE CLOSED', failure: 'CASE CLOSED', gameover: 'GAME OVER', death: 'GAME OVER' }[info.kind];
       ov.innerHTML = `<div class="pv-panel">${info.image ? `<img class="pv-art" src="${esc(asset(info.image))}" alt="" onerror="this.remove()">` : ''}<div class="pv-kind">${esc(kind)}</div><h2>${esc(info.title)}</h2>${info.text.split('\n\n').map(p => `<p>${esc(p)}</p>`).join('')}${info.death ? `<p class="pv-muted">YOU WERE ${esc(info.death.verb)} BY ${esc(info.death.cause)}</p>` : ''}<button class="pv-btn" data-close>Continue</button></div>`;
-      ov.addEventListener('click', ev => { if (ev.target.closest('[data-close]')) ov.remove(); });
+      ov.addEventListener('click', ev => { if (!ev.target.closest('[data-close]')) return; ov.remove(); if (info.win && host.win) host.win(info); }); // the Thunderbird ending goes on to the wedding
       rootEl.appendChild(ov);
     }
     function playFallbackSequence(steps, done) {

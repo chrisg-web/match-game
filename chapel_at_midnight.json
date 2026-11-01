@@ -2,7 +2,7 @@
   "version": 2,
   "id": "goths_ritual_against_sisters",
   "title": "The Chapel at Midnight",
-  "summary": "Victoria Blackwood is holding a rite in one of the city's three old chapels, seven nights after you first cross her path. Everyone knows when. Nobody will say where. Befriend the goth crowd (or Victoria herself), piece together which chapel it is, and send word to the Sisters of Mercy before the night comes.",
+  "summary": "Victoria Blackwood is holding a rite in one of the city's three old chapels on the next moonless night, seven nights after you first cross her path. Nobody says which night unless you ask someone who'd know, and nobody will say where. Befriend the goth crowd (or Victoria herself), find out which night and which chapel, and send word to the Sisters of Mercy before the night comes.",
   "timeRule": "Time only moves when the player starts another day. Every reference is relative: tomorrow night, in three nights. No weekdays, dates or clock times.",
   "rules": {
     "chance": 0.5,
@@ -81,6 +81,10 @@
     "sisters": {
       "label": "Tell her the Sisters will be waiting",
       "player": "The Sisters of Mercy know about the rite. They'll be waiting at the chapel."
+    },
+    "moon": {
+      "label": "Ask which night is the moonless one",
+      "player": "Everyone says the moonless night. Which night is that?"
     }
   },
   "gothRoles": {
@@ -92,7 +96,7 @@
       "sisters": "The Sisters? How sweet. I'm sure she'd love to hear that."
     },
     "gossip": {
-      "rite": "Everyone's talking about it. Well, everyone she invites. Seven nights of Victoria being insufferable, then one night of her being worse.",
+      "rite": "Everyone's talking about it. Well, everyone she invites. Until the moon goes dark it’s all Victoria being insufferable, then one night of her being worse.",
       "whereStranger": "I barely know you! Ask me again when we're actually friends.",
       "whereFriend": "Okay, I don't know where exactly. But it's not {notPlace}, I know that much. {never}",
       "criticize": "Ha! Don't let her hear you say that. Honestly though, same.",
@@ -111,7 +115,7 @@
       "rite": {
         "label": "Ask about her Midnight Rite",
         "player": "Tell me about your Midnight Rite.",
-        "reply": "Music, then something older than music. Seven nights. Bring nothing holy. ☾"
+        "reply": "Music, then something older than music. On the next moonless night. Bring nothing holy. ☾"
       },
       "where": {
         "label": "Ask where it's being held",
@@ -133,6 +137,11 @@
         "label": "Tell her you know what she's planning",
         "player": "I know what you're planning in that chapel. Call it off.",
         "reply": "Then you know too much to keep. Sleep well."
+      },
+      "when": {
+        "label": "Ask which night",
+        "player": "You keep saying the moonless night. Which night is it?",
+        "reply": "When there’s no moon. {night}, if you can’t read a sky. ☾"
       }
     },
     "afterStopped": "You did that, didn't you. ☾",
@@ -153,9 +162,9 @@
       "id": "crime_underground",
       "section": "Nightlife",
       "title": "MIDNIGHT RITE FLYERS APPEAR ACROSS THE OLD QUARTER",
-      "summary": "One night only, seven nights from today. The venue is a secret.",
-      "body": "The flyers carry a hand-drawn crescent and three names: DJ Alice Wren, invitations from Piper Nocturne at the Black Lace shop, artwork by Zara Brooks. The host signs only as V.B. The rite is seven nights from today. Where it will be, the flyer does not say: by word of mouth only.",
-      "clue": "Midnight Rite flyer: one night only, seven nights from the day it appeared. Venue by word of mouth only."
+      "summary": "One night only: the next moonless night. The venue is a secret.",
+      "body": "The flyers carry a hand-drawn crescent and three names: DJ Alice Wren, invitations from Piper Nocturne at the Black Lace shop, artwork by Zara Brooks. The host signs only as V.B. The rite is on the next moonless night. Which night that is, and where, the flyer does not say: by word of mouth only.",
+      "clue": "Midnight Rite flyer: one night only, on the next moonless night. Venue by word of mouth only."
     },
     "chalk": {
       "id": "religion_chapel",
@@ -255,5 +264,19 @@
       "Every candle in the flat went out at once.",
       "There was a crescent drawn on the inside of the door."
     ]
+  },
+  "moon": {
+    "goth": {
+      "loyal": "The new moon? {night}. She’d kill me for telling you. Not literally. Probably.",
+      "gossip": "Oh, everyone knows. The moon goes dark {night}. That’s the night.",
+      "fedup": "The new moon’s {night}. Don’t go. I mean it.",
+      "other": "The moonless night? {night}. Everyone in the scene has it circled."
+    },
+    "sister": {
+      "label": "Ask when the next new moon is",
+      "player": "Do you know when the next new moon is?",
+      "reply": "We keep a vigil on every new moon. The next one is {night}. Why do you ask?"
+    },
+    "clue": "{who} told you which night: the moon goes dark {night}."
   }
 }

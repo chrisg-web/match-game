@@ -3,15 +3,15 @@
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
   "characterCount": 123,
-  "imageCount": 680,
-  "publicImageCount": 354,
-  "privateImageCount": 326,
+  "imageCount": 686,
+  "publicImageCount": 357,
+  "privateImageCount": 329,
   "characters": [
     {
       "id": "MATCH-001",
       "slug": "anna_voss",
       "name": "Anna Voss",
-      "age": 26,
+      "age": 23,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Charity volunteer",
       "gallery": [
@@ -46,7 +46,7 @@
       "id": "MATCH-002",
       "slug": "eleanor_graves",
       "name": "Eleanor Graves",
-      "age": 31,
+      "age": 27,
       "factionId": "police",
       "canonicalOccupation": "Detective",
       "gallery": [
@@ -81,7 +81,7 @@
       "id": "MATCH-003",
       "slug": "victoria_blackwood",
       "name": "Victoria Blackwood",
-      "age": 28,
+      "age": 23,
       "factionId": "goth_girls",
       "canonicalOccupation": "Record-store regular",
       "gallery": [
@@ -122,7 +122,7 @@
       "id": "MATCH-004",
       "slug": "beatrice_hale",
       "name": "Beatrice Hale",
-      "age": 29,
+      "age": 26,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Local reporter",
       "gallery": [
@@ -157,7 +157,7 @@
       "id": "MATCH-005",
       "slug": "clara_weiss",
       "name": "Clara Weiss",
-      "age": 24,
+      "age": 21,
       "factionId": "normie_girls",
       "canonicalOccupation": "University student",
       "gallery": [
@@ -192,7 +192,7 @@
       "id": "MATCH-006",
       "slug": "catherine_bell",
       "name": "Catherine Bell",
-      "age": 27,
+      "age": 22,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Fundraising organiser",
       "gallery": [
@@ -227,7 +227,7 @@
       "id": "MATCH-007",
       "slug": "sophia_moretti",
       "name": "Sophia Moretti",
-      "age": 25,
+      "age": 20,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Parish outreach volunteer",
       "gallery": [
@@ -250,7 +250,7 @@
       "id": "MATCH-008",
       "slug": "rebecca_shaw",
       "name": "Rebecca Shaw",
-      "age": 30,
+      "age": 26,
       "factionId": "progressives",
       "canonicalOccupation": "Student organiser",
       "gallery": [
@@ -285,7 +285,7 @@
       "id": "MATCH-009",
       "slug": "amelia_hart",
       "name": "Amelia Hart",
-      "age": 23,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Retail assistant",
       "gallery": [
@@ -355,7 +355,7 @@
       "id": "MATCH-011",
       "slug": "lucy_bennett",
       "name": "Lucy Bennett",
-      "age": 26,
+      "age": 22,
       "factionId": "normie_girls",
       "canonicalOccupation": "University lecturer",
       "gallery": [
@@ -390,7 +390,7 @@
       "id": "MATCH-012",
       "slug": "natalie_cross",
       "name": "Natalie Cross",
-      "age": 29,
+      "age": 25,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Photojournalist",
       "gallery": [
@@ -434,7 +434,7 @@
       "id": "MATCH-013",
       "slug": "megan_torres",
       "name": "Megan Torres",
-      "age": 28,
+      "age": 25,
       "factionId": "normie_girls",
       "canonicalOccupation": "Shop assistant",
       "gallery": [
@@ -466,7 +466,7 @@
       "id": "MATCH-014",
       "slug": "emily_fairchild",
       "name": "Emily Fairchild",
-      "age": 25,
+      "age": 22,
       "factionId": "normie_girls",
       "canonicalOccupation": "Nurse",
       "gallery": [
@@ -497,7 +497,7 @@
       "id": "MATCH-015",
       "slug": "brooke_chandler",
       "name": "Brooke Chandler",
-      "age": 24,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Marketing assistant",
       "gallery": [
@@ -529,7 +529,7 @@
       "id": "MATCH-016",
       "slug": "madison_pike",
       "name": "Madison Pike",
-      "age": 22,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Diner waitress",
       "gallery": [
@@ -561,7 +561,7 @@
       "id": "MATCH-017",
       "slug": "olivia_reid",
       "name": "Olivia Reid",
-      "age": 27,
+      "age": 22,
       "factionId": "normie_girls",
       "canonicalOccupation": "Estate agent",
       "gallery": [
@@ -592,7 +592,7 @@
       "id": "MATCH-018",
       "slug": "sarah_whitcomb",
       "name": "Sarah Whitcomb",
-      "age": 30,
+      "age": 25,
       "factionId": "normie_girls",
       "canonicalOccupation": "Accountant",
       "gallery": [
@@ -623,7 +623,7 @@
       "id": "MATCH-019",
       "slug": "tiffany_nash",
       "name": "Tiffany Nash",
-      "age": 23,
+      "age": 20,
       "factionId": "normie_girls",
       "canonicalOccupation": "Party promoter",
       "gallery": [
@@ -654,7 +654,7 @@
       "id": "MATCH-020",
       "slug": "lauren_bishop",
       "name": "Lauren Bishop",
-      "age": 26,
+      "age": 23,
       "factionId": "normie_girls",
       "canonicalOccupation": "Fitness instructor",
       "gallery": [
@@ -685,7 +685,7 @@
       "id": "MATCH-021",
       "slug": "heather_collins",
       "name": "Heather Collins",
-      "age": 28,
+      "age": 23,
       "factionId": "normie_girls",
       "canonicalOccupation": "Primary-school teacher",
       "gallery": [
@@ -716,7 +716,7 @@
       "id": "MATCH-022",
       "slug": "chloe_farrow",
       "name": "Chloe Farrow",
-      "age": 21,
+      "age": 18,
       "factionId": "normie_girls",
       "canonicalOccupation": "Art student",
       "gallery": [
@@ -748,7 +748,7 @@
       "id": "MATCH-023",
       "slug": "julia_mercer",
       "name": "Julia Mercer",
-      "age": 32,
+      "age": 27,
       "factionId": "normie_girls",
       "canonicalOccupation": "Pastry chef",
       "gallery": [
@@ -779,7 +779,7 @@
       "id": "MATCH-024",
       "slug": "rachel_lowe",
       "name": "Rachel Lowe",
-      "age": 25,
+      "age": 22,
       "factionId": "normie_girls",
       "canonicalOccupation": "Veterinary assistant",
       "gallery": [
@@ -811,7 +811,7 @@
       "id": "MATCH-025",
       "slug": "megan_okeefe",
       "name": "Megan O'Keefe",
-      "age": 29,
+      "age": 24,
       "factionId": "normie_girls",
       "canonicalOccupation": "Dental hygienist",
       "gallery": [
@@ -843,7 +843,7 @@
       "id": "MATCH-026",
       "slug": "emma_frost",
       "name": "Emma Frost",
-      "age": 22,
+      "age": 18,
       "factionId": "normie_girls",
       "canonicalOccupation": "College senior",
       "gallery": [
@@ -874,7 +874,7 @@
       "id": "MATCH-027",
       "slug": "paige_dalton",
       "name": "Paige Dalton",
-      "age": 24,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Cinema cashier",
       "gallery": [
@@ -905,7 +905,7 @@
       "id": "MATCH-028",
       "slug": "nicole_ashbury",
       "name": "Nicole Ashbury",
-      "age": 33,
+      "age": 30,
       "factionId": "normie_girls",
       "canonicalOccupation": "Events planner",
       "gallery": [
@@ -936,7 +936,7 @@
       "id": "MATCH-029",
       "slug": "audrey_king",
       "name": "Audrey King",
-      "age": 26,
+      "age": 22,
       "factionId": "normie_girls",
       "canonicalOccupation": "Rodeo ticket seller",
       "gallery": [
@@ -967,7 +967,7 @@
       "id": "MATCH-030",
       "slug": "bethany_price",
       "name": "Bethany Price",
-      "age": 27,
+      "age": 24,
       "factionId": "normie_girls",
       "canonicalOccupation": "Librarian",
       "gallery": [
@@ -998,7 +998,7 @@
       "id": "MATCH-031",
       "slug": "erin_doyle",
       "name": "Erin Doyle",
-      "age": 24,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Lifeguard",
       "gallery": [
@@ -1029,7 +1029,7 @@
       "id": "MATCH-032",
       "slug": "kimberly_brooks",
       "name": "Kimberly Brooks",
-      "age": 31,
+      "age": 28,
       "factionId": "normie_girls",
       "canonicalOccupation": "Office administrator",
       "gallery": [
@@ -1060,7 +1060,7 @@
       "id": "MATCH-033",
       "slug": "grace_wheeler",
       "name": "Grace Wheeler",
-      "age": 23,
+      "age": 20,
       "factionId": "normie_girls",
       "canonicalOccupation": "Ice-cream vendor",
       "gallery": [
@@ -1091,7 +1091,7 @@
       "id": "MATCH-034",
       "slug": "isabel_morales",
       "name": "Isabel Morales",
-      "age": 28,
+      "age": 24,
       "factionId": "normie_girls",
       "canonicalOccupation": "Horse trainer",
       "gallery": [
@@ -1122,7 +1122,7 @@
       "id": "MATCH-035",
       "slug": "elena_vargas",
       "name": "Elena Vargas",
-      "age": 25,
+      "age": 21,
       "factionId": "normie_girls",
       "canonicalOccupation": "Florist",
       "gallery": [
@@ -1153,7 +1153,7 @@
       "id": "MATCH-036",
       "slug": "camila_reyes",
       "name": "Camila Reyes",
-      "age": 22,
+      "age": 19,
       "factionId": "normie_girls",
       "canonicalOccupation": "Cosmetology student",
       "gallery": [
@@ -1184,7 +1184,7 @@
       "id": "MATCH-037",
       "slug": "marisol_fuentes",
       "name": "Marisol Fuentes",
-      "age": 29,
+      "age": 24,
       "factionId": "normie_girls",
       "canonicalOccupation": "Park ranger",
       "gallery": [
@@ -1215,7 +1215,7 @@
       "id": "MATCH-038",
       "slug": "daniela_cruz",
       "name": "Daniela Cruz",
-      "age": 32,
+      "age": 29,
       "factionId": "normie_girls",
       "canonicalOccupation": "Boutique owner",
       "gallery": [
@@ -1246,7 +1246,7 @@
       "id": "MATCH-039",
       "slug": "hana_park",
       "name": "Hana Park",
-      "age": 26,
+      "age": 21,
       "factionId": "normie_girls",
       "canonicalOccupation": "Graphic designer",
       "gallery": [
@@ -1277,7 +1277,7 @@
       "id": "MATCH-040",
       "slug": "mei_chen",
       "name": "Mei Chen",
-      "age": 30,
+      "age": 26,
       "factionId": "normie_girls",
       "canonicalOccupation": "Hairdresser",
       "gallery": [
@@ -1308,7 +1308,7 @@
       "id": "MATCH-041",
       "slug": "nia_walker",
       "name": "Nia Walker",
-      "age": 24,
+      "age": 20,
       "factionId": "normie_girls",
       "canonicalOccupation": "Community theatre actor",
       "gallery": [
@@ -1339,7 +1339,7 @@
       "id": "MATCH-042",
       "slug": "alice_beaumont",
       "name": "Alice Beaumont",
-      "age": 29,
+      "age": 24,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Charity event chair",
       "gallery": [
@@ -1401,7 +1401,7 @@
       "id": "MATCH-044",
       "slug": "phoebe_sutton",
       "name": "Phoebe Sutton",
-      "age": 25,
+      "age": 20,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Volunteer coordinator",
       "gallery": [
@@ -1432,7 +1432,7 @@
       "id": "MATCH-045",
       "slug": "sofia_delgado",
       "name": "Sofia Delgado",
-      "age": 27,
+      "age": 22,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Community liaison",
       "gallery": [
@@ -1463,7 +1463,7 @@
       "id": "MATCH-046",
       "slug": "yumi_tanaka",
       "name": "Yumi Tanaka",
-      "age": 30,
+      "age": 27,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Non-profit accountant",
       "gallery": [
@@ -1494,7 +1494,7 @@
       "id": "MATCH-047",
       "slug": "abigail_porter",
       "name": "Abigail Porter",
-      "age": 33,
+      "age": 30,
       "factionId": "police",
       "canonicalOccupation": "Homicide detective",
       "gallery": [
@@ -1525,7 +1525,7 @@
       "id": "MATCH-048",
       "slug": "helen_markham",
       "name": "Helen Markham",
-      "age": 37,
+      "age": 32,
       "factionId": "police",
       "canonicalOccupation": "Police sergeant",
       "gallery": [
@@ -1556,7 +1556,7 @@
       "id": "MATCH-049",
       "slug": "maria_vega",
       "name": "Maria Vega",
-      "age": 28,
+      "age": 23,
       "factionId": "police",
       "canonicalOccupation": "Undercover detective",
       "gallery": [
@@ -1587,7 +1587,7 @@
       "id": "MATCH-050",
       "slug": "keiko_nakamura",
       "name": "Keiko Nakamura",
-      "age": 31,
+      "age": 28,
       "factionId": "police",
       "canonicalOccupation": "Police analyst",
       "gallery": [
@@ -1618,7 +1618,7 @@
       "id": "MATCH-051",
       "slug": "jennifer_tate",
       "name": "Jennifer Tate",
-      "age": 24,
+      "age": 20,
       "factionId": "progressives",
       "canonicalOccupation": "Campus organiser",
       "gallery": [
@@ -1649,7 +1649,7 @@
       "id": "MATCH-052",
       "slug": "vanessa_greer",
       "name": "Vanessa Greer",
-      "age": 27,
+      "age": 23,
       "factionId": "progressives",
       "canonicalOccupation": "Political activist",
       "gallery": [
@@ -1680,7 +1680,7 @@
       "id": "MATCH-053",
       "slug": "allison_kent",
       "name": "Allison Kent",
-      "age": 30,
+      "age": 25,
       "factionId": "progressives",
       "canonicalOccupation": "Research assistant",
       "gallery": [
@@ -1711,7 +1711,7 @@
       "id": "MATCH-054",
       "slug": "rosa_gutierrez",
       "name": "Rosa Gutierrez",
-      "age": 26,
+      "age": 23,
       "factionId": "progressives",
       "canonicalOccupation": "Graduate student",
       "gallery": [
@@ -1742,7 +1742,7 @@
       "id": "MATCH-055",
       "slug": "margaret_holloway",
       "name": "Margaret Holloway",
-      "age": 35,
+      "age": 32,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Parish coordinator",
       "gallery": [
@@ -1761,7 +1761,7 @@
       "id": "MATCH-056",
       "slug": "teresa_bellamy",
       "name": "Teresa Bellamy",
-      "age": 28,
+      "age": 24,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Religious-school teacher",
       "gallery": [
@@ -1780,7 +1780,7 @@
       "id": "MATCH-057",
       "slug": "evelyn_rosales",
       "name": "Evelyn Rosales",
-      "age": 31,
+      "age": 26,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Charity secretary",
       "gallery": [
@@ -1799,7 +1799,7 @@
       "id": "MATCH-058",
       "slug": "hannah_webb",
       "name": "Hannah Webb",
-      "age": 28,
+      "age": 24,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Investigative reporter",
       "gallery": [
@@ -1830,7 +1830,7 @@
       "id": "MATCH-059",
       "slug": "fiona_blake",
       "name": "Fiona Blake",
-      "age": 32,
+      "age": 29,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Editor",
       "gallery": [
@@ -1861,7 +1861,7 @@
       "id": "MATCH-060",
       "slug": "linh_tran",
       "name": "Linh Tran",
-      "age": 26,
+      "age": 21,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Freelance photojournalist",
       "gallery": [
@@ -1892,7 +1892,7 @@
       "id": "MATCH-061",
       "slug": "alice_wren",
       "name": "Alice Wren",
-      "age": 25,
+      "age": 21,
       "factionId": "goth_girls",
       "canonicalOccupation": "Nightclub DJ",
       "gallery": [
@@ -1923,7 +1923,7 @@
       "id": "MATCH-062",
       "slug": "piper_nocturne",
       "name": "Piper Nocturne",
-      "age": 23,
+      "age": 20,
       "factionId": "goth_girls",
       "canonicalOccupation": "Alternative shop assistant",
       "gallery": [
@@ -1954,7 +1954,7 @@
       "id": "MATCH-063",
       "slug": "zara_brooks",
       "name": "Zara Brooks",
-      "age": 29,
+      "age": 24,
       "factionId": "goth_girls",
       "canonicalOccupation": "Tattoo artist",
       "gallery": [
@@ -1985,7 +1985,7 @@
       "id": "MATCH-064",
       "slug": "maya_serrano",
       "name": "Maya Serrano",
-      "age": 29,
+      "age": 25,
       "factionId": "normie_girls",
       "canonicalOccupation": "Emergency department nurse",
       "gallery": [
@@ -2053,7 +2053,7 @@
       "id": "MATCH-066",
       "slug": "priya_nair",
       "name": "Priya Nair",
-      "age": 27,
+      "age": 23,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Community librarian",
       "gallery": [
@@ -2068,7 +2068,7 @@
       "id": "MATCH-067",
       "slug": "inez_morales",
       "name": "Inez Morales",
-      "age": 25,
+      "age": 22,
       "factionId": "progressives",
       "canonicalOccupation": "University housing organiser",
       "gallery": [
@@ -2102,7 +2102,7 @@
       "id": "MATCH-068",
       "slug": "rowan_pike",
       "name": "Rowan Pike",
-      "age": 32,
+      "age": 29,
       "factionId": "goth_girls",
       "canonicalOccupation": "Tattoo studio owner",
       "gallery": [
@@ -2136,7 +2136,7 @@
       "id": "MATCH-069",
       "slug": "camille_baptiste",
       "name": "Camille Baptiste",
-      "age": 30,
+      "age": 27,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Photojournalist",
       "gallery": [
@@ -2170,7 +2170,7 @@
       "id": "MATCH-070",
       "slug": "tessa_larkin",
       "name": "Tessa Larkin",
-      "age": 24,
+      "age": 20,
       "factionId": "normie_girls",
       "canonicalOccupation": "Wildlife rescue volunteer",
       "gallery": [
@@ -2210,7 +2210,7 @@
       "id": "MATCH-071",
       "slug": "nadia_okafor",
       "name": "Nadia Okafor",
-      "age": 28,
+      "age": 24,
       "factionId": "police",
       "canonicalOccupation": "Forensic evidence technician",
       "gallery": [
@@ -2282,7 +2282,7 @@
       "id": "MATCH-073",
       "slug": "leona_carlisle",
       "name": "Leona Carlisle",
-      "age": 31,
+      "age": 27,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Compliance administrator",
       "gallery": [
@@ -2320,7 +2320,7 @@
       "id": "MATCH-074",
       "slug": "elise_harrow",
       "name": "Elise Harrow",
-      "age": 22,
+      "age": 19,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Charity bookkeeper",
       "gallery": [
@@ -2345,7 +2345,7 @@
       "id": "MATCH-075",
       "slug": "francesca_quinn",
       "name": "Francesca Quinn",
-      "age": 32,
+      "age": 27,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Compliance administrator",
       "gallery": [
@@ -2360,7 +2360,7 @@
       "id": "MATCH-076",
       "slug": "naomi_whitlock",
       "name": "Naomi Whitlock",
-      "age": 23,
+      "age": 18,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Charity bookkeeper",
       "gallery": [
@@ -2436,7 +2436,7 @@
       "id": "MATCH-080",
       "slug": "valerie_huxley",
       "name": "Valerie Huxley",
-      "age": 25,
+      "age": 20,
       "factionId": "thunderbirds",
       "canonicalOccupation": "Charity bookkeeper",
       "gallery": [
@@ -2512,7 +2512,7 @@
       "id": "MATCH-102",
       "slug": "danica_holt",
       "name": "Danica Holt",
-      "age": 22,
+      "age": 18,
       "factionId": "police",
       "canonicalOccupation": "Crime scene photographer",
       "gallery": [
@@ -2550,7 +2550,7 @@
       "id": "MATCH-103",
       "slug": "sasha_mahoney",
       "name": "Sasha Mahoney",
-      "age": 32,
+      "age": 27,
       "factionId": "police",
       "canonicalOccupation": "Public safety statistician",
       "gallery": [
@@ -2588,7 +2588,7 @@
       "id": "MATCH-104",
       "slug": "imani_harper",
       "name": "Imani Harper",
-      "age": 23,
+      "age": 20,
       "factionId": "police",
       "canonicalOccupation": "Evidence archive assistant",
       "gallery": [
@@ -2603,7 +2603,7 @@
       "id": "MATCH-105",
       "slug": "leila_sayeed",
       "name": "Leila Sayeed",
-      "age": 33,
+      "age": 28,
       "factionId": "police",
       "canonicalOccupation": "Custody nurse",
       "gallery": [
@@ -2641,7 +2641,7 @@
       "id": "MATCH-106",
       "slug": "joanne_kendrick",
       "name": "Joanne Kendrick",
-      "age": 24,
+      "age": 20,
       "factionId": "police",
       "canonicalOccupation": "Police dispatcher",
       "gallery": [
@@ -2679,7 +2679,7 @@
       "id": "MATCH-107",
       "slug": "cassidy_boone",
       "name": "Cassidy Boone",
-      "age": 34,
+      "age": 29,
       "factionId": "police",
       "canonicalOccupation": "Police records clerk",
       "gallery": [
@@ -2717,7 +2717,7 @@
       "id": "MATCH-109",
       "slug": "brenda_velasco",
       "name": "Brenda Velasco",
-      "age": 35,
+      "age": 31,
       "factionId": "police",
       "canonicalOccupation": "Traffic collision investigator",
       "gallery": [
@@ -2755,7 +2755,7 @@
       "id": "MATCH-110",
       "slug": "alisha_benton",
       "name": "Alisha Benton",
-      "age": 26,
+      "age": 23,
       "factionId": "police",
       "canonicalOccupation": "Forensic lab analyst",
       "gallery": [
@@ -2793,7 +2793,7 @@
       "id": "MATCH-129",
       "slug": "adriana_ponce",
       "name": "Adriana Ponce",
-      "age": 40,
+      "age": 36,
       "factionId": "progressives",
       "canonicalOccupation": "Climate campaigner",
       "gallery": [
@@ -2831,7 +2831,7 @@
       "id": "MATCH-130",
       "slug": "sienna_navarro",
       "name": "Sienna Navarro",
-      "age": 31,
+      "age": 26,
       "factionId": "progressives",
       "canonicalOccupation": "Community art organiser",
       "gallery": [
@@ -2869,7 +2869,7 @@
       "id": "MATCH-131",
       "slug": "nora_hadley",
       "name": "Nora Hadley",
-      "age": 22,
+      "age": 18,
       "factionId": "progressives",
       "canonicalOccupation": "Climate campaigner",
       "gallery": [
@@ -2888,7 +2888,7 @@
       "id": "MATCH-132",
       "slug": "daisy_chen",
       "name": "Daisy Chen",
-      "age": 32,
+      "age": 28,
       "factionId": "progressives",
       "canonicalOccupation": "Community art organiser",
       "gallery": [
@@ -2926,7 +2926,7 @@
       "id": "MATCH-134",
       "slug": "khadija_rahman",
       "name": "Khadija Rahman",
-      "age": 33,
+      "age": 28,
       "factionId": "progressives",
       "canonicalOccupation": "Community art organiser",
       "gallery": [
@@ -2964,7 +2964,7 @@
       "id": "MATCH-136",
       "slug": "cassandra_finch",
       "name": "Cassandra Finch",
-      "age": 34,
+      "age": 31,
       "factionId": "progressives",
       "canonicalOccupation": "Community art organiser",
       "gallery": [
@@ -3002,7 +3002,7 @@
       "id": "MATCH-137",
       "slug": "eden_sutherland",
       "name": "Eden Sutherland",
-      "age": 25,
+      "age": 20,
       "factionId": "progressives",
       "canonicalOccupation": "Climate campaigner",
       "gallery": [
@@ -3040,7 +3040,7 @@
       "id": "MATCH-158",
       "slug": "agnes_castillo",
       "name": "Agnes Castillo",
-      "age": 34,
+      "age": 31,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Garden co-ordinator",
       "gallery": [
@@ -3059,7 +3059,7 @@
       "id": "MATCH-159",
       "slug": "eliza_montoya",
       "name": "Eliza Montoya",
-      "age": 25,
+      "age": 21,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Food pantry volunteer",
       "gallery": [
@@ -3078,7 +3078,7 @@
       "id": "MATCH-160",
       "slug": "rosalie_kemp",
       "name": "Rosalie Kemp",
-      "age": 35,
+      "age": 30,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Chapel archivist",
       "gallery": [
@@ -3093,7 +3093,7 @@
       "id": "MATCH-161",
       "slug": "bernadette_flores",
       "name": "Bernadette Flores",
-      "age": 26,
+      "age": 21,
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Museum conservator",
       "gallery": [
@@ -3110,7 +3110,7 @@
       "id": "MATCH-163",
       "slug": "odette_price",
       "name": "Odette Price",
-      "age": 31,
+      "age": 28,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Local radio researcher",
       "gallery": [
@@ -3148,14 +3148,36 @@
       "id": "MATCH-164",
       "slug": "arielle_brooks",
       "name": "Arielle Brooks",
-      "age": 22,
+      "age": 19,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Archive researcher",
       "gallery": [
         "assets/hinge/roster_expansion/arielle_brooks_01.webp",
-        "assets/hinge/roster_expansion/arielle_brooks_02.webp"
+        "assets/hinge/roster_expansion/arielle_brooks_02.webp",
+        "assets/hinge/roster_expansion/arielle_brooks_03.webp",
+        "assets/hinge/roster_expansion/arielle_brooks_04.webp",
+        "assets/hinge/roster_expansion/arielle_brooks_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/arielle_brooks_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Arielle Brooks, consistent Golden-tan skin, strawberry-blonde braid crown, freckles across her nose, bomber jacket and graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/arielle_brooks_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Arielle Brooks, consistent Golden-tan skin, strawberry-blonde braid crown, freckles across her nose, bomber jacket and graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/arielle_brooks_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Arielle Brooks, consistent Golden-tan skin, strawberry-blonde braid crown, freckles across her nose, bomber jacket and graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "unflappable with a mischievous streak",
       "personalGoal": "Make a life for herself in Sunfall while balancing archive researcher and desert stargazing.",
       "privatePicturePolicy": "optional later, only after mutual trust"
@@ -3164,7 +3186,7 @@
       "id": "MATCH-165",
       "slug": "harper_lin",
       "name": "Harper Lin",
-      "age": 32,
+      "age": 28,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Weekend newspaper editor",
       "gallery": [
@@ -3202,7 +3224,7 @@
       "id": "MATCH-166",
       "slug": "delia_maher",
       "name": "Delia Maher",
-      "age": 23,
+      "age": 18,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Investigative reporter",
       "gallery": [
@@ -3217,7 +3239,7 @@
       "id": "MATCH-167",
       "slug": "zadie_foster",
       "name": "Zadie Foster",
-      "age": 33,
+      "age": 29,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Freelance music reviewer",
       "gallery": [
@@ -3255,7 +3277,7 @@
       "id": "MATCH-168",
       "slug": "celina_rojas",
       "name": "Celina Rojas",
-      "age": 24,
+      "age": 19,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Photography assistant",
       "gallery": [
@@ -3293,7 +3315,7 @@
       "id": "MATCH-169",
       "slug": "kira_henson",
       "name": "Kira Henson",
-      "age": 34,
+      "age": 30,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Court reporter",
       "gallery": [
@@ -3331,7 +3353,7 @@
       "id": "MATCH-170",
       "slug": "moira_bell",
       "name": "Moira Bell",
-      "age": 25,
+      "age": 21,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Newsroom fact-checker",
       "gallery": [
@@ -3369,7 +3391,7 @@
       "id": "MATCH-171",
       "slug": "talia_farouk",
       "name": "Talia Farouk",
-      "age": 35,
+      "age": 32,
       "factionId": "fourth_estate",
       "canonicalOccupation": "Travel columnist",
       "gallery": [
@@ -3407,7 +3429,7 @@
       "id": "MATCH-191",
       "slug": "sable_marlow",
       "name": "Sable Marlow",
-      "age": 37,
+      "age": 32,
       "factionId": "goth_girls",
       "canonicalOccupation": "Music venue manager",
       "gallery": [
@@ -3445,7 +3467,7 @@
       "id": "MATCH-192",
       "slug": "lenore_vale",
       "name": "Lenore Vale",
-      "age": 28,
+      "age": 24,
       "factionId": "goth_girls",
       "canonicalOccupation": "Gothic jewellery maker",
       "gallery": [
@@ -3477,7 +3499,7 @@
       "id": "MATCH-193",
       "slug": "ashlyn_vex",
       "name": "Ashlyn Vex",
-      "age": 38,
+      "age": 35,
       "factionId": "goth_girls",
       "canonicalOccupation": "Music venue manager",
       "gallery": [
@@ -3515,7 +3537,7 @@
       "id": "MATCH-194",
       "slug": "morrigan_hale",
       "name": "Morrigan Hale",
-      "age": 29,
+      "age": 25,
       "factionId": "goth_girls",
       "canonicalOccupation": "Gothic jewellery maker",
       "gallery": [
@@ -3553,7 +3575,7 @@
       "id": "MATCH-195",
       "slug": "cleo_rook",
       "name": "Cleo Rook",
-      "age": 39,
+      "age": 35,
       "factionId": "goth_girls",
       "canonicalOccupation": "Music venue manager",
       "gallery": [
@@ -3591,7 +3613,7 @@
       "id": "MATCH-196",
       "slug": "veda_thorn",
       "name": "Veda Thorn",
-      "age": 30,
+      "age": 27,
       "factionId": "goth_girls",
       "canonicalOccupation": "Gothic jewellery maker",
       "gallery": [
@@ -3629,7 +3651,7 @@
       "id": "MATCH-197",
       "slug": "nixie_adler",
       "name": "Nixie Adler",
-      "age": 40,
+      "age": 35,
       "factionId": "goth_girls",
       "canonicalOccupation": "Music venue manager",
       "gallery": [
@@ -3667,7 +3689,7 @@
       "id": "MATCH-198",
       "slug": "lavinia_gravesend",
       "name": "Lavinia Gravesend",
-      "age": 31,
+      "age": 28,
       "factionId": "goth_girls",
       "canonicalOccupation": "Gothic jewellery maker",
       "gallery": [
@@ -3705,7 +3727,7 @@
       "id": "MATCH-199",
       "slug": "raven_solis",
       "name": "Raven Solis",
-      "age": 22,
+      "age": 18,
       "factionId": "goth_girls",
       "canonicalOccupation": "Music venue manager",
       "gallery": [
@@ -3743,7 +3765,7 @@
       "id": "MATCH-221",
       "slug": "kayla_mendoza",
       "name": "Kayla Mendoza",
-      "age": 38,
+      "age": 35,
       "factionId": "normie_girls",
       "canonicalOccupation": "Interior decorator",
       "gallery": [
@@ -3781,7 +3803,7 @@
       "id": "MATCH-222",
       "slug": "brittany_hale",
       "name": "Brittany Hale",
-      "age": 29,
+      "age": 24,
       "factionId": "normie_girls",
       "canonicalOccupation": "Florist",
       "gallery": [
@@ -3796,7 +3818,7 @@
       "id": "MATCH-223",
       "slug": "nina_petrov",
       "name": "Nina Petrov",
-      "age": 39,
+      "age": 34,
       "factionId": "normie_girls",
       "canonicalOccupation": "Pastry chef",
       "gallery": [
@@ -3813,7 +3835,7 @@
       "id": "MATCH-224",
       "slug": "jessica_rivera",
       "name": "Jessica Rivera",
-      "age": 30,
+      "age": 27,
       "factionId": "normie_girls",
       "canonicalOccupation": "Pharmacy assistant",
       "gallery": [
@@ -3851,7 +3873,7 @@
       "id": "MATCH-225",
       "slug": "alana_brooks",
       "name": "Alana Brooks",
-      "age": 40,
+      "age": 36,
       "factionId": "normie_girls",
       "canonicalOccupation": "Museum attendant",
       "gallery": [
@@ -3889,7 +3911,7 @@
       "id": "MATCH-228",
       "slug": "karina_flores",
       "name": "Karina Flores",
-      "age": 32,
+      "age": 27,
       "factionId": "normie_girls",
       "canonicalOccupation": "Tour guide",
       "gallery": [
@@ -3927,7 +3949,7 @@
       "id": "MATCH-229",
       "slug": "molly_sutton",
       "name": "Molly Sutton",
-      "age": 23,
+      "age": 18,
       "factionId": "normie_girls",
       "canonicalOccupation": "Receptionist",
       "gallery": [

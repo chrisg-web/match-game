@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c9245cb733">
+<html lang="en" data-build="8eb799f036">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -49,6 +49,20 @@
        Stacked on a phone; side by side when the screen is wide (fit() marks the stage .wide). */
     .difficulty-pick { position: absolute; z-index: 40; inset: 0; display: none; align-items: center; justify-content: center; background: #0b0710ee; }
     .difficulty-pick.visible { display: flex; }
+    /* Tutorial: pages to swipe through, a picture once drawn, its words until then */
+    .tutorial { position: absolute; z-index: 41; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 14px; background: #0b0710f2; }
+    .tutorial[hidden] { display: none; }
+    .tut-page { width: min(100%, 420px); max-height: calc(100% - 70px); overflow: auto; }
+    .tut-img { display: block; width: 100%; border-radius: 10px; }
+    .tut-card { padding: 16px 18px; border: 3px solid #c8323f; border-radius: 12px; background: #fff8f0; color: #282830; font: calc(14px * var(--reading-scale))/1.5 Verdana,sans-serif; }
+    .tut-card small { color: #a22938; font-weight: bold; letter-spacing: .06em; text-transform: uppercase; }
+    .tut-card h3 { margin: 6px 0 8px; font-size: calc(20px * var(--reading-scale)); }
+    .tut-card ul { margin: 0; padding-left: 18px; } .tut-card li { margin: 0 0 8px; }
+    .tut-nav { display: flex; align-items: center; gap: 14px; }
+    .tut-nav button, .tut-close { min-width: 44px; height: 40px; border: 2px solid #ffe1d6; border-radius: 20px; background: #c8323f; color: #fff; font: bold 18px Verdana,sans-serif; cursor: pointer; }
+    .tut-nav button:disabled { opacity: .35; cursor: default; }
+    .tut-close { position: absolute; top: 12px; right: 12px; }
+    .tut-dots { display: flex; gap: 6px; } .tut-dots i { width: 8px; height: 8px; border-radius: 50%; background: #ffe1d655; } .tut-dots i.on { background: #fff; }
     .pick-cards { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5%; width: 94%; height: 92%; }
     .pick-cards button { height: 31%; aspect-ratio: 1 / 1.13; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 6px; border: 3px solid #ed7d56; border-radius: 8px; background: #1a0e12; color: #ffe9d0; cursor: pointer; font: bold 15px ui-monospace,Consolas,monospace; letter-spacing: .12em; text-transform: uppercase; }
     .pick-cards button:hover, .pick-cards button:focus-visible { border-color: #ffd978; }
@@ -273,7 +287,9 @@
     .hinge-chat-choice { width: 100%; padding: 6px; text-align: left; background: #fff3f5; color: #573f4d; border: 1px solid #e2b5c0; font-size: calc(10px * var(--reading-scale)); }
     .hinge-chat-choice.risky { border-color: #d8b5b5; color: #95555b; background: #fff; }
     .hinge-chat-choice:active { background: #865c7c; }
-    .hinge-toast { position: absolute; z-index: 7; left: 10%; right: 10%; top: 39%; background: #11261ee8; border: 2px solid #8bdbad; border-radius: 8px; padding: 12px; text-align: center; font: bold 15px Georgia,serif; color: #e9ffe9; pointer-events: none; animation: toastOpen 900ms ease-out both; }
+    .hinge-toast { position: absolute; z-index: 7; left: 8%; right: 8%; top: 9%; background: #11261ee8; border: 2px solid #8bdbad; border-radius: 8px; padding: 6px 10px; text-align: center; font: bold 13px Georgia,serif; color: #e9ffe9; pointer-events: none; animation: hingeToastIn .18s ease-out both; }
+    @keyframes hingeToastIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .hinge-toast { animation: none; } }
     @keyframes toastOpen { 0% { opacity: 0; transform: scale(.8); } 20%,80% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
     .mini-app.connected-mode { padding: 0; overflow: hidden; background: #061c26 center / 100% 100%; color: #eafff5; font-family: Verdana,sans-serif; }
     .call-conversation { display: flex; flex-direction: column; height: 100%; padding: 7px; align-items: stretch; }
@@ -570,11 +586,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c9245cb733"></script>
-  <!-- Marriage: the Sisters of Mercy and the only victory. The standalone build inlines it. -->
-  <script src="marriage.js?v=c9245cb733"></script>
+  <script src="chapel_at_midnight.js?v=8eb799f036"></script>
+  <!-- Marriage: the Sisters of Mercy (and the Thunderbird wedding), the only victories. The standalone build inlines it. -->
+  <script src="marriage.js?v=8eb799f036"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c9245cb733"></script>
+  <script src="quests/professor-vale.js?v=8eb799f036"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -708,6 +724,7 @@
           <div class="bear-attack" id="bear-attack" role="img" aria-label="Animated bear charge across the bedroom"><img id="bear-attack-image" src="assets/events/bear-threshold.webp" alt=""></div>
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><div class="death-actions"><button id="new-game">New game</button></div></div>
+          <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
           <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose a difficulty for the new game"><div class="pick-cards"><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button></div></div><!-- New game: tap a face -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
         </div>
@@ -745,11 +762,11 @@
     function pickQuests(seed){
       if(window.MATCH_ALL_QUESTS)return {...LEGACY_QUESTS};
       const h=n=>hashSeed(seed+'|quests|'+n);
-      const pool=selectedDifficulty==='mogger'?[...QUEST_IDS,'fionn']:[...QUEST_IDS]; // Theon only steals a Mogger's pictures
-      const chosen=pool.sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
+      const chosen=[...QUEST_IDS].sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
       chosen.sort((a,b)=>(b==='br')-(a==='br')); // the gala happened on day 1: the Ledger always comes first
+      if(selectedDifficulty==='mogger'&&h('theon')%4===0)chosen.splice(1,chosen.length,'fionn'); // Theon: about one Mogger game in four; he changes everything
       const out={br:null,vale:null,chapel:null,fionn:null};
-      chosen.forEach((id,i)=>{out[id]=i===0?(id==='chapel'?2:id==='fionn'?3:1):4+h('later')%2;});
+      chosen.forEach((id,i)=>{out[id]=i===0?(id==='chapel'?2:1):id==='fionn'?3+h('later')%2:4+h('later')%2;});
       return out;
     }
     function questStart(id){
@@ -771,7 +788,7 @@
     }
     let world=newWorld('Scottsdale-'+Date.now());
     let chapel=null; // Task 2: Chapel at Midnight engine, created at the end of this script
-    let marriage=null; // Marriage: Sisters of Mercy engine (the only victory), created at the end of this script
+    let marriage=null; // Marriage: Sisters of Mercy and Thunderbird weddings (the only victories), created at the end of this script
     // Online editions stamp <html data-build> with the build's version (build-editions.mjs);
     // data files are then fetched with ?v=<stamp> so a new page never reads old cached data.
     const BUILD_STAMP=document.documentElement?.getAttribute?.('data-build')||'';
@@ -1057,6 +1074,7 @@
     let dayTransitionInFlight=false;
     function advanceToNextDay(){
       if(dayTransitionInFlight||world.policeArrested)return;
+      touchThreads(); // a chat closed today leaves the list tomorrow
       dayTransitionInFlight=true;
       stopRinging();
       closeCupboard(); // the cupboard shuts while time passes
@@ -1099,6 +1117,7 @@
         if(dadAfterDayStart())return; // Mogger: her dad comes round
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
+        if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
         if(toneNotice){showGameNotice(toneNotice);toneNotice=null;} // Mogger: someone liked you first
         if(enforceUnansweredBearAtNight())return;
@@ -1207,9 +1226,13 @@
       if(lpcAd)items.push(lpcAd);
       const fionnStory=fionnNewsItem(day); // Theon: how it ended
       if(fionnStory)items.push(fionnStory);
-      const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Pemberton's ad
+      const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Oakley's ad
       if(campus)items.push(campus);
       if(gunAd)items.push(gunAd);
+      if(Array.isArray(world.personalNews)){ // about you: a spurned woman's ad, her storyline; once printed, it lives in the edition
+        for(const item of world.personalNews.filter(entry=>entry.day===day))items.push({id:item.id,section:item.section,title:item.title,summary:item.summary,body:item.body,image:item.image||'classifieds',...(item.fallbackImage?{fallbackImage:item.fallbackImage}:{})});
+        world.personalNews=world.personalNews.filter(entry=>entry.day!==day);
+      }
       return {day,items};
     }
     function getNewsEdition(day=world.day){
@@ -1292,7 +1315,7 @@
         if(dialledNumber.includes('*')||dialledNumber.includes('#')){dialStatus='Service code entered. No service in demo.';updateDialDisplay();return;}
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
-        const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Pemberton
+        const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Oakley
         if(gunLine){startSimulatedCall(gunLine);return;}
         if(lpcLine){startSimulatedCall(lpcLine);return;}
         const momLine=callerMomLine(dialledNumber); // Mogger: Moira's mother
@@ -1302,12 +1325,12 @@
         const matchedThread=[...hingeThreads.values()].find(thread=>thread.number===dialledNumber);
         if(matchedThread){
           const woman=hingeProfile(matchedThread.id);
-          if(!matchedThread.blocked&&!matchedThread.fumbled)callerCalledBack(woman.id); // Mogger: keeping in touch with her
+          if(!matchedThread.blocked&&!matchedThread.fumbled){callerCalledBack(woman.id);spurnForgiven(woman.id);} // Mogger: keeping in touch with her; and a woman you'd been ignoring
           startSimulatedCall({id:woman.id,name:woman.name,portrait:woman.gallery[0],generic:false,noAnswer:!!(matchedThread.fumbled||matchedThread.blocked)});return;
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
         const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St Brigid’s Chapel',university:'University Office'};
-        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:`${names[contact[0]]}. Hello, how may I help you?`});return;}
+        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?DISPATCH.greeting:`${names[contact[0]]}. Hello, how may I help you?`});return;}
         const jewellerLine=marriage?.contactForNumber(dialledNumber); // Marriage: the five jewellers
         if(jewellerLine){startSimulatedCall({...jewellerLine,generic:true});return;}
         const valeLine=PV?.contactForNumber(dialledNumber); // Professor Vale: numbers found during the case
@@ -1634,36 +1657,36 @@
     }
     const serviceCallTopics={
       'service:police':[
-        {id:'tip',label:'Give a Blue Ribbon tip',flag:'policeTip',reply:'Thank you. We will record that tip and pass it to the detectives. Please do not approach anyone yourself.',clue:'You gave Sunfall Police a tip about Elena Cross and the Blue Ribbon event.'},
-        {id:'case',label:'Ask about Elena Cross',flag:'policeEnquiry',reply:'That case is active. We cannot release personal details, but the highway junction is part of our public appeal.'},
-        {id:'formal_report',label:'Formally report a Blue Ribbon crime',policeReport:true,reply:''}
+        {id:'tip',known:'br',label:'Give a Blue Ribbon tip',flag:'policeTip',reply:'Thank you. We will record that tip and pass it to the detectives. Please do not approach anyone yourself.',clue:'You gave Sunfall Police a tip about Elena Cross and the Blue Ribbon event.'},
+        {id:'case',known:'br',label:'Ask about Elena Cross',flag:'policeEnquiry',reply:'That case is active. We cannot release personal details, but the highway junction is part of our public appeal.'},
+        {id:'formal_report',known:'br',label:'Formally report a Blue Ribbon crime',policeReport:true,reply:''}
       ],
       'service:newsroom':[
-        {id:'story',label:'Ask about the missing organiser',flag:'newsroomQuestion',reply:'Our reporter is checking the guest list. If you have a first-hand account, please leave a message.',clue:'The newspaper is checking Blue Ribbon guest-list discrepancies.'},
-        {id:'vale',label:'Ask about Professor Vale',flag:'reporterQuestion',reply:'We are looking into both the vehicle incident and the fire. We cannot confirm a connection.'}
+        {id:'story',known:'br',label:'Ask about the missing organiser',flag:'newsroomQuestion',reply:'Our reporter is checking the guest list. If you have a first-hand account, please leave a message.',clue:'The newspaper is checking Blue Ribbon guest-list discrepancies.'},
+        {id:'vale',known:'vale',label:'Ask about Professor Vale',flag:'reporterQuestion',reply:'We are looking into both the vehicle incident and the fire. We cannot confirm a connection.'}
       ],
       'service:university':[
-        {id:'warn',label:'Warn staff about Professor Vale',flag:'facultyWarning',reply:'I will forward your concern to campus security. Thank you for contacting us.',clue:'You warned the university that Professor Vale might be at risk.'},
-        {id:'schedule',label:'Ask about Vale’s lecture',flag:'lectureEnquiry',reply:'The professor has not cancelled his lecture. Any change will be announced through the campus office.'}
+        {id:'warn',known:'vale',label:'Warn staff about Professor Vale',flag:'facultyWarning',reply:'I will forward your concern to campus security. Thank you for contacting us.',clue:'You warned the university that Professor Vale might be at risk.'},
+        {id:'schedule',known:'vale',label:'Ask about Vale’s lecture',flag:'lectureEnquiry',reply:'The professor has not cancelled his lecture. Any change will be announced through the campus office.'}
       ],
       'service:chapel':[
         {id:'sisters',label:'Ask about the Sisters of Mercy',flag:'chapelQuestion',reply:'The sisters are attending evening prayers. Please respect their privacy.'},
-        {id:'gala',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organise it.'}
+        {id:'gala',known:'br',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organise it.'}
       ]
     };
     // Fixed service topics plus any Blue Ribbon questions currently available on that line.
     function serviceTopicsFor(serviceId){
-      const quest=(questOn('br')?BR?.serviceTopics?.[serviceId]||[]:[]).filter(brServiceTopicAvailable).map(topic=>({...topic,quest:true}));
+      const quest=(questOn('br')&&brKnown()?BR?.serviceTopics?.[serviceId]||[]:[]).filter(brServiceTopicAvailable).map(topic=>({...topic,quest:true}));
       if(serviceId==='service:caller-mom')return callerMomTopics(); // Mogger: Moira's mother
       if(serviceId==='service:lpc')return glowTopics(); // Truecel: LPC-A365
-      if(serviceId==='service:pemberton')return fionnGunTopics(); // Theon: the revolver
-      return [...(serviceCallTopics[serviceId]||[]).filter(topic=>questOn('br')||!['newsroomQuestion','chapelGala'].includes(topic.flag)), // the gala questions only in a Ledger run
-...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon
+      if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
+      return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
+...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
     // ringing the device) get the same "Yes / Not yet" check as the Blue Ribbon.
     function valeServiceTopics(serviceId){
-      return (questOn('vale')?PV?.serviceTopics(serviceId)||[]:[]).map(topic=>({...topic,confirm:topic.confirm?`${topic.label}? There’s no taking this back.`:null}));
+      return (questOn('vale')&&valeKnown()?PV?.serviceTopics(serviceId)||[]:[]).map(topic=>({...topic,confirm:topic.confirm?`${topic.label}? There’s no taking this back.`:null}));
     }
     function chooseValeServiceTopic(topic){
       if(topic.confirm&&pendingCaseConfirm!==topic.id){pendingCaseConfirm=topic.id;return topic.confirm;}
@@ -1676,7 +1699,10 @@
       const topic=serviceTopicsFor(activeGenericCall.id).find(item=>item.id===id);
       if(!topic)return;
       let reply=topic.reply;
-      if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
+      if(topic.dispatch)reply=topic.say?topic.say():topic.reply; // 911: Doreen
+      else if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
+      else if(topic.mini)reply=chooseMiniService(id); // mini quests
+      else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
       else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
@@ -1726,7 +1752,7 @@
     const tone=()=>glowState().stage==='active'?'mogger':['mogger','normie','truecel'].includes(selectedDifficulty)?selectedDifficulty:'normie';
     let hingeDeck=[],hingeIndex=0,hingeSwipesToday=0,hingeView='discover',activeChatId=null,activeCallId=null,activeProfileId=null,profileReturnView='thread';
     let hingeJobs={},hingeGalleryIndex={},hingeThreads=new Map(),hingeLikes=0;
-    let hingeToast='',swipeLocked=false,hingeTouchStart=null,suppressPhotoClickUntil=0,lastSwipeAt=0;
+    let hingeToast='',hingeToastTimer=null,swipeLocked=false,hingeTouchStart=null,suppressPhotoClickUntil=0,lastSwipeAt=0;
     // The roster separates public gallery images from private on-request
     // photos. This is also enforced in build-hinge-profiles.mjs.
     const jobPools={
@@ -1913,6 +1939,15 @@
         })
         .catch(()=>{if(currentApp==='hinge')renderHinge();});
     } else if(hingeProfiles.length) setupHingeDeck();
+    // The chat list: the most recent conversation goes to the top. A woman who blocked or unmatched
+    // you, or whom you unmatched, is gone from the list the day after.
+    function touchThreads(){
+      for(const thread of hingeThreads.values()){
+        if(thread.log.length!==thread.seenLen){thread.seenLen=thread.log.length;world.chatSeq=(Number.isInteger(world.chatSeq)?world.chatSeq:0)+1;thread.at=world.chatSeq;}
+        if((thread.blocked||thread.left)&&!Number.isInteger(thread.goneDay))thread.goneDay=world.day;
+      }
+    }
+    const chatListed=thread=>!((thread.blocked||thread.left)&&Number.isInteger(thread.goneDay)&&thread.goneDay<world.day);
     function hingeOptionsFor(thread){
       if(thread.awaiting)return `<div class="story-tag">${thread.ghosted?'Seen · no response yet':'Message pending · check tomorrow'}</div>`;
       if(thread.pending)return '<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>';
@@ -1945,13 +1980,16 @@
       // Every choice gets a rank (lower matters more). At most MAX_CHAT_CHOICES are shown, in
       // their usual order; when there are more, the least important are left out for now.
       // 0 quests in progress · 1 case questions · 2 first small talk, numbers · 3 picture, paper,
-      // deeper · 4 Easter egg, the gala · 5 extra small talk (she still has it next time).
+      // deeper, her family · 4 Easter egg, the gala, the marriage question · 5 extra small talk (she still has it next time).
       const choices=[];
       const add=(html,rank)=>choices.push({html,rank,order:choices.length});
       if(marriageOptions?.html)add(marriageOptions.html,0); // Marriage
       if(chapelOptions?.html)add(chapelOptions.html,0); // Task 2
       for(const [id,label] of leakChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: the group chat
       for(const [id,label] of callerFriendChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: ask her friend about Moira
+      const arcNow=arcChoices(thread,profileNow);
+      for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
+      for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
@@ -1959,12 +1997,13 @@
       if(newsTalkAvailable(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="news">📰 ${esc(characterDB.newsTalk.label)}</button>`,3);
       for(const key of Object.keys(SERVICE_ASKS))if(serviceAskable(key,thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="svc:${key}">☎ ${esc(SERVICE_ASKS[key].label)}</button>`,2);
       if(realEggAvailable(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="egg:real">${esc(talkKit().eggs.real.label)}</button>`,4);
+      for(const [id,label,rank] of arcNow.filter(entry=>entry[2]>0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her family; the marriage question
       const caseTopic=(hingeDialogue?.topics||[]).find(topic=>topic.id==='case');
-      if(caseTopic&&questOn('br')&&world.day>=questStart('br')+1&&!thread.topics.includes('case'))add(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,4);
+      if(caseTopic&&questOn('br')&&brKnown()&&world.day>=questStart('br')+1&&!thread.topics.includes('case'))add(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,4);
       for(const topic of brHingeTopicsFor(hingeProfile(thread.id))){
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
-      for(const topic of questOn('vale')?PV?.hingeTopics(hingeProfile(thread.id))||[]:[]){ // Professor Vale: case questions by faction
+      for(const topic of questOn('vale')&&valeKnown()?PV?.hingeTopics(hingeProfile(thread.id))||[]:[]){ // Professor Vale: case questions by faction
         const armed=valeArmedTopic===topic.id;
         add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${armed?'⚠ Tap again to confirm: ':'🎓 '}${esc(topic.label)}</button>`,armed?0:1);
       }
@@ -1979,6 +2018,7 @@
     }
     const MAX_CHAT_CHOICES=5; // a conversation never shows more than five choices at once
     function renderHinge(){
+      touchThreads(); // the chat list order, and closed chats
       let body='';
       const current=hingeDeck[hingeIndex];
       if(hingeView==='discover'){
@@ -1995,7 +2035,7 @@
           body=`<div class="hinge-discover"><div class="hinge-card" id="hinge-card" tabindex="0" aria-label="Swipe left to pass, right to like. Tap for next photo."><img src="${image}" alt="${esc(current.name)}'s profile photograph" draggable="false"><span class="hinge-photo-count">${galleryIndex+1}/${current.gallery.length}</span><div class="hinge-caption"><strong>${esc(current.name)}, ${current.age}</strong><span>${esc(hingeJobs[current.id]||current.canonicalOccupation)}</span></div></div><div class="hinge-actions"><button class="swipe-action pass" data-swipe="pass" aria-label="Pass on ${esc(current.name)}"><img src="assets/hinge/ui/pass-x.png" alt=""></button><button class="swipe-action like" data-swipe="like" aria-label="Like ${esc(current.name)}"><img src="assets/hinge/ui/like-heart.png" alt=""></button></div></div>`;
         }
       }else if(hingeView==='chats'){
-        const threads=[...hingeThreads.values()];
+        const threads=[...hingeThreads.values()].filter(chatListed).sort((a,b)=>(b.at||0)-(a.at||0)); // newest first; blocked chats leave the next day
         body=threads.length?`<div class="hinge-list">${threads.map(thread=>{
           const profile=hingeProfile(thread.id);
           const last=thread.log[thread.log.length-1];
@@ -2012,10 +2052,17 @@
         const index=hingeGalleryIndex[profile.id]||0;
         body=`<div class="hinge-profile-detail"><button class="profile-back" data-profile-back>‹ Back to conversation</button><img class="portrait" src="${profile.gallery[index]}" alt="${esc(profile.name)} profile photograph"><strong class="profile-identity">${esc(profile.name)}, ${profile.age}</strong><div class="gallery-controls"><button data-profile-prev>‹ Previous</button><span>${index+1} of ${profile.gallery.length}</span><button data-profile-next>Next ›</button></div><small>${esc(hingeJobs[profile.id]||profile.canonicalOccupation)}</small></div>`;
       }
-      const toast=hingeToast?`<div class="hinge-toast">♥ ${esc(hingeToast)}</div>`:'';
-      $('opened').innerHTML=`<div class="hinge-shell"><div class="hinge-head">Hinge<small>${hingeSwipesToday}/10 today</small></div>${body}<div class="hinge-tabs"><button data-hinge-tab="discover" class="${hingeView==='discover'?'active':''}">♡ Discover</button><button data-hinge-tab="chats" class="${hingeView!=='discover'?'active':''}">▤ Chats (${hingeThreads.size})</button></div></div>${toast}`;
+      const toast=hingeToast&&hingeView==='discover'?`<div class="hinge-toast" role="status">♥ ${esc(hingeToast)}</div>`:''; // only where you swipe
+      const fresh=[...hingeThreads.values()].filter(thread=>chatListed(thread)&&talkState(thread).unread).length;
+      $('opened').innerHTML=`<div class="hinge-shell"><div class="hinge-head">Hinge<small>${hingeSwipesToday}/10 today</small></div>${body}<div class="hinge-tabs"><button data-hinge-tab="discover" class="${hingeView==='discover'?'active':''}">♡ Discover</button><button data-hinge-tab="chats" class="${hingeView!=='discover'?'active':''}">▤ Chats (${[...hingeThreads.values()].filter(chatListed).length}${fresh?` · ${fresh} new`:''})</button></div></div>${toast}`;
       hydrateInlineImages($('opened'));
       if($('hinge-messages'))$('hinge-messages').scrollTop=$('hinge-messages').scrollHeight;
+    }
+    // A Hinge pop-up (a match, a report): shown for a moment on the swipe screen, then gone.
+    function showHingeToast(text,ms=1100){
+      hingeToast=text;
+      window.clearTimeout(hingeToastTimer);
+      hingeToastTimer=window.setTimeout(()=>{hingeToast='';hingeToastTimer=null;if(currentApp==='hinge'&&hingeView==='discover')renderHinge();},ms);
     }
     function takeHingeSwipe(action){
       if(swipeLocked||hingeView!=='discover'||hingeSwipesToday>=10)return;
@@ -2031,20 +2078,20 @@
             world.bearChoice='none';world.bearInvited=false;world.bearPrepared=false;world.bearDistracted=false;
             world.bearAwaitingResponse=true;world.bearMessageDay=world.day;
             ensureBearThread();
-            hingeToast='You matched with Bear. He has sent you a message!';
+            showHingeToast('You matched with Bear. He has sent you a message!',1600);
             recordClue('A suspiciously large bear appeared in the dating feed.');
           }else{
             hingeLikes++;
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
-            if(fionnGirlNow(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
+            if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
+            else if(fionnGirlNow(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
               const responseMode=hingeLikes===1||fionnGirlNow(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               fionnGirlMatched(profile.id); // Theon: she knows your face
-              hingeToast=profile.name+' matched with you!';
+              showHingeToast(profile.name+' matched with you!');
               chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
             }
           }
-          if(hingeToast)window.setTimeout(()=>{hingeToast='';if(currentApp==='hinge')renderHinge();},900);
         }
         playUiSound(action==='like'?620:310);
         hingeIndex++;hingeSwipesToday++;swipeLocked=false;
@@ -2102,6 +2149,8 @@
       if(isTalkTopic(id))return chooseTalk(id,thread,profile);
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
+      if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
+      if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
@@ -2282,13 +2331,25 @@
     // others while unused lines remain, so twenty women don't all say the same thing. lineSpeaker
     // is whoever is talking (set where a conversation turn begins).
     let lineSpeaker=null;
-    function variedPick(list,key){
+    function variedPick(list,key,strict=false){ // strict: null rather than another woman's line
       if(!list?.length)return null;
       if(!world.saidBy||typeof world.saidBy!=='object'||Array.isArray(world.saidBy))world.saidBy={};
       const said=world.saidBy,sig=line=>hashSeed(String(line)).toString(36);
       const fresh=list.filter(line=>{const who=said[sig(line)];return !who||who===lineSpeaker;});
+      if(strict&&!fresh.length)return null;
       const choice=seededPick(fresh.length?fresh:list,key);
       if(choice&&lineSpeaker&&!said[sig(choice)])said[sig(choice)]=lineSpeaker;
+      return choice;
+    }
+    // Her own line: one no other woman has said yet if there is one, and never twice from her until she's used them all.
+    function ownPick(thread,key,list,seed){
+      if(!list?.length)return null;
+      if(!world.saidBy||typeof world.saidBy!=='object'||Array.isArray(world.saidBy))world.saidBy={};
+      const said=world.saidBy,sig=line=>hashSeed(String(line)).toString(36),used=talkState(thread).used[key]||[];
+      const open=list.filter(line=>{const who=said[sig(line)];return (!who||who===thread.id)&&!used.includes(line);});
+      const choice=open.length?seededPick(open,seed):freshPick(thread,key,list,seed);
+      if(open.length){(talkState(thread).used[key]||(talkState(thread).used[key]=[])).push(choice);}
+      if(choice&&!said[sig(choice)])said[sig(choice)]=thread.id;
       return choice;
     }
     // Like seededPick, but she won't say the same line to you twice until she's run through them all.
@@ -2606,7 +2667,7 @@
         const phrase=kit.newsFollow.phrases[kind]||'the paper';
         thread.log.push({who:'you',text:`${news.player} ${phrase.charAt(0).toUpperCase()+phrase.slice(1)}?`});
         lines.push(talkOpener(thread,profile,null));
-        lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day));
+        lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
         const informed=about.informed?.[profile.factionId];
         const chance={mogger:1,normie:warmthOf(thread)>=1?1:.5,truecel:warmthOf(thread)>=1?.5:.2}[tone()];
@@ -2626,7 +2687,7 @@
         thread.log.push({who:'you',text:seededPick(daily.player,profile.id+world.day)});
         lines.push(reputationLine(thread,profile));
         lines.push(variedPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
-        lines.push(voiced(freshPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day));
+        lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
         if(gameRandom()<.35){
           const phrase=kit.newsFollow.phrases[storyKind(gamePick(getNewsEdition(world.day).items||[]))];
           if(phrase)lines.push(fillIn(seededPick(daily.heard,profile.id+world.day),{story:phrase}));
@@ -2810,17 +2871,24 @@
       ],
       start:'I found your number. I hope that’s okay. I’m going to call you.',
       first:'You didn’t answer my message for an hour. I thought something had happened to you. {f1} says I’m too much. {f2} says it too. They don’t know what we have.',
-      later:['I can hear your fridge humming. I know which flat is yours.','Who were you texting? Don’t lie. I can tell when you lie.','{f1} and {f2} want me to delete the app. I deleted them instead.','Say my name. Just say it. I need to hear it.','Sorry. Sorry. I’m not like this. You make me like this.'],
+      later:['I can hear your fridge humming. I know which flat is yours.','Who were you texting? Don’t lie. I can tell when you lie.','{f1} and {f2} want me to delete the app. I deleted them instead.','Say my name. Just say it. I need to hear it.','Sorry. Sorry. I’m not like this. You make me like this.','Mum keeps ringing me. Ruth. She says I’m in one of my bad patches. I’m not in a bad patch. I’m in love.'],
       calm:['Okay. Okay. Stay on the phone. Don’t hang up first.','You sound so calm. How are you so calm?'],
       promise:['Say it again. Say it’s only me.','Promise. You promised. I wrote it down.'],
       over:['No. You don’t get to decide that.','You don’t get to leave. Nobody gets to leave.'],
       missed:['Pick up. Please pick up.','Why are you doing this to me?','Fine.','I can see your phone is on.'],
+      flood:[['Where are you?','Why won’t you pick up?','Hello?'],['I miss you.','What happened to us?','We were so good.'],['I can see you’re online.','Answer me.','ANSWER ME.'],['I’m sorry. I’m sorry. I’m not angry.','Just pick up.','I love you. You know that, right?'],['Is she there?','Is that why?','Tell me her name.'],['Mum keeps ringing.','I’m not answering her either.','Only you.']],
+      voicemail:['It’s me. You know it’s me. Pick up.','I counted the rings. Eleven. You let it ring eleven times.','I’m not angry. I just miss you. What happened to us?','I’ll keep calling. You know I will.','Your light’s off. Are you asleep? Are you with someone?','I wrote you a letter. Then I wrote it again. Call me and I’ll read it to you.'],
       friend:'Mo? Oh no. What’s she done now? Her mum is Ruth Bell. She’s the only one Mo listens to. {number}. Please don’t tell her it was me.',
       momTell:'Moira has had bad patches before. What has she done? Tell me exactly what she said.',
-      momRight:'That’s what happened last time. I’m ringing her doctor now. Thank you for telling me.',
+      momRight:'That’s what happened last time. I’m ringing her doctor and the crisis team now. They can section her if they have to, and this time they will. Thank you for telling me.',
+      momVm:'Oh, Mo. That’s her. That’s exactly how she was last time. I’m ringing the crisis team now. They’ll section her if they have to. Thank you.',
+      vmLabel:'Play her Moira’s voicemails',
+      newsroom:{label:'Ask the newsroom about Moira Bell',reply:'Moira? She hasn’t filed a story in a week. Her mum, Ruth Bell, keeps ringing the desk asking if anyone has seen her. This is the number she left: {number}. If you’re a friend, please ring her.'},
+      clues:{doreen:'Doreen on 911: if Moira is a danger to herself or to you, her family can have her sectioned. Her friends, or the people she works with, will know her family.',number:'Moira’s mum is Ruth Bell, on {number}. Moira listens to her.',told:'Ruth Bell wants to know exactly what Moira has said, or to hear it.'},
       momWrong:'That doesn’t sound like my daughter.',
       momDone:'Don’t call this number again about my family.',
-      safe:'Ruth Bell left you a voicemail: they’ve admitted Moira. She’s safe now, and so are you. Thank you.',
+      safe:'Ruth Bell left you a voicemail: Moira has been sectioned. She’s in hospital, she’s safe, and so are you.',
+      safeVm:'It’s Ruth Bell. They took Moira in last night. She’s been sectioned, and she’s safe, and she’s getting help. She won’t ring you again. Thank you for telling me. I mean that.',
       deaths:['The door was locked. It didn’t matter.','Someone was sitting on the end of the bed.','The phone rang, and rang, and then it was in the room.']
     };
     // Her state lives in world.caller so it's saved with the run.
@@ -2865,6 +2933,7 @@
         const thread=hingeThreads.get(CALLER_ID);
         if(thread){thread.awaiting=true;thread.ghosted=true;thread.missing=true;}
         showGameNotice(CALLER.safe);
+        strangerVoicemail('Ruth Bell',CALLER.safeVm,c.momNumber);
         return false;
       }
       if(c.stage!=='calling')return false;
@@ -2887,7 +2956,12 @@
       if(id!==CALLER_ID||!callerActive())return;
       const c=callerState(),thread=hingeThreads.get(id);
       c.missedInRow++;c.rage++;
-      if(thread)thread.log.push({who:'her',text:CALLER.missed[(c.calls+c.missedInRow)%CALLER.missed.length]});
+      if(!thread)return;
+      // She doesn't let it go: a flood of messages, and a voicemail.
+      const n=c.calls+c.missedInRow+c.rage;
+      for(const text of [CALLER.missed[n%CALLER.missed.length],...CALLER.flood[n%CALLER.flood.length]])thread.log.push({who:'her',text});
+      talkState(thread).unread=true;
+      strangerVoicemail(hingeProfile(id)?.name||'Moira Bell',CALLER.voicemail[n%CALLER.voicemail.length],thread.number);
     }
     // Ringing her yourself counts as keeping in touch.
     function callerCalledBack(id){
@@ -2911,6 +2985,7 @@
       if(!callerFriendChoice(thread).length)return;
       thread.log.push({who:'you',text:'Can I ask you about Moira Bell? I think she needs help.'});
       c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();
+      recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));
       deliverTalk(thread,profile,[fillIn(CALLER.friend,{number:c.momNumber})],'talk',null,true);
     }
     // Ruth Bell's line.
@@ -2922,13 +2997,22 @@
       const c=callerState();
       if(!callerActive()||c.stage==='saving'||c.strikes>=2)return [];
       if(!c.told)return [{id:'cm_tell',label:'Tell her Moira needs help',callerMom:true}];
+      const vm=moiraVoicemails()?[{id:'cm_vm',label:CALLER.vmLabel,callerMom:true}]:[]; // her own voice is proof
       const order=CALLER.details.map((d,i)=>i).sort((a,b)=>hashSeed(world.seed+'|mom|'+a)-hashSeed(world.seed+'|mom|'+b));
       const shown=[c.detail,...order.filter(i=>i!==c.detail).slice(0,2)].sort((a,b)=>hashSeed(world.seed+'|show|'+a)-hashSeed(world.seed+'|show|'+b));
-      return shown.map(i=>({id:'cm_'+i,label:CALLER.details[i].her,callerMom:true}));
+      return [...shown.map(i=>({id:'cm_'+i,label:CALLER.details[i].her,callerMom:true})),...vm];
+    }
+    const moiraVoicemails=()=>(Array.isArray(world.strangerVm)?world.strangerVm:[]).filter(v=>v&&v.from===(hingeProfile(CALLER_ID)?.name||'Moira Bell')).length;
+    // Her newsroom: Moira is a reporter. They know her mum.
+    function callerNewsroomTopics(serviceId){
+      const c=callerState();
+      if(serviceId!=='service:newsroom'||!callerActive()||c.calls<1||c.momKnown)return [];
+      return [{id:'cm_newsroom',label:CALLER.newsroom.label,callerNewsroom:true}];
     }
     function chooseCallerMom(id){
       const c=callerState();
-      if(id==='cm_tell'){c.told=true;return CALLER.momTell;}
+      if(id==='cm_tell'){c.told=true;recordClue(CALLER.clues.told);return CALLER.momTell;}
+      if(id==='cm_vm'){c.stage='saving';c.savedDay=world.day+1;return CALLER.momVm;}
       const index=Number(id.slice(3));
       if(index===c.detail){c.stage='saving';c.savedDay=world.day+1;return CALLER.momRight;}
       c.strikes++;
@@ -3108,6 +3192,66 @@
       }
     }
 
+    // ===== Tutorial (Settings): six pages to swipe through. Each page shows its picture once it's
+    // drawn (assets/tutorial/tutorial-N.png, NEW_IMAGE_REQUESTS.md); until then, its words.
+    var TUTORIAL=[
+      {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls and Settings.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to tomorrow. The time of day changes too.']},
+      {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will ring you.']},
+      {title:'The paper',points:['A new paper arrives every day. Tap a story to read it.','Stories are where things start. Read them, and you’ll know what to ask about.','Read the classifieds too. People sell things you might need: ring the number in the ad.']},
+      {title:'Calls and Contacts',points:['Dial a number on the keypad. 911 always answers.','Numbers you learn go in Contacts: from the paper, and from women who know the right people.','Missed a call? Look in Voicemail.']},
+      {title:'Your room',points:['Put the phone down to look around your room. Things in it can be tapped.','Your bedside cupboard keeps what you find: things people give you, case files and your notebook.','Open a case file to lay out what you’ve found, and connect the pieces that belong together.','Your notebook keeps everything you’ve been told.']},
+      {title:'A connected world',points:['We live in a very connected world. The best way to get anything done is to find the right people on Hinge, talk to them and ask.','Ask for information, for numbers, for favours, and sometimes for things you need.','Some women have something going on in their lives. Help, and they may owe you a favour.','Keep an eye on everything: the paper, the classifieds, what women tell you. Everything ends up being useful.']}
+    ];
+    var tutorialPage=0;
+    function openTutorial(page=0){tutorialPage=Math.max(0,Math.min(TUTORIAL.length-1,page));$('tutorial').hidden=false;renderTutorial();}
+    function closeTutorial(){$('tutorial').hidden=true;}
+    function renderTutorial(){
+      const page=TUTORIAL[tutorialPage],n=tutorialPage+1;
+      $('tut-page').innerHTML=`<img class="tut-img" src="assets/tutorial/tutorial-${n}.png" alt="${esc(page.title)}" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="tut-card"><small>How to play · ${n} of ${TUTORIAL.length}</small><h3>${esc(page.title)}</h3><ul>${page.points.map(point=>`<li>${esc(point)}</li>`).join('')}</ul></div>`;
+      $('tut-dots').innerHTML=TUTORIAL.map((_,i)=>`<i class="${i===tutorialPage?'on':''}"></i>`).join('');
+      $('tut-prev').disabled=tutorialPage===0;
+      $('tut-next').textContent=tutorialPage===TUTORIAL.length-1?'Done':'›';
+      hydrateInlineImages($('tut-page'));
+    }
+    function tutorialStep(step){
+      if(step>0&&tutorialPage===TUTORIAL.length-1){closeTutorial();return;}
+      tutorialPage=Math.max(0,Math.min(TUTORIAL.length-1,tutorialPage+step));renderTutorial();
+    }
+    $('tut-prev').onclick=()=>tutorialStep(-1);
+    $('tut-next').onclick=()=>tutorialStep(1);
+    $('tut-close').onclick=closeTutorial;
+    {let swipeX=null; // swipe through it, like Hinge
+      $('tutorial').addEventListener('pointerdown',event=>{swipeX=event.clientX;});
+      $('tutorial').addEventListener('pointerup',event=>{if(swipeX===null)return;const dx=event.clientX-swipeX;swipeX=null;if(Math.abs(dx)>40)tutorialStep(dx<0?1:-1);});}
+    // ===== 911: Doreen, the dispatcher. Every question has a reason to be asked: it's night, you've
+    // read the paper, a bear is about, a woman won't stop ringing, an officer rang you.
+    var DISPATCH={
+      greeting:'Sunfall 911, this is Doreen. What’s your emergency?',
+      topics:[
+        {id:'d911_voice',label:'Admit you just wanted to hear a voice',reply:'This line is for emergencies, love. But it’s quiet, and I’ve got two minutes. Go on. Tell me about your day.',when:()=>true},
+        {id:'d911_name',label:'Ask who you’re talking to',reply:'Doreen. Twenty-two years on these phones. I’ve heard everything twice and believed about half.',when:()=>true},
+        {id:'d911_noise',label:'Report a noise outside',reply:'Probably the Hendersons’ dog again. I’ll ask a car to drive past if one comes free.',when:()=>['bedroom-dusk','bedroom-night'].includes(time.value)},
+        {id:'d911_paper',label:'Ask about this morning’s front page',say:()=>{const lead=getNewsEdition(world.day).items[0];return lead?`Oh, that one. We’ve had people ringing about it since the paper came out. ${dispatchAboutStory(lead)}`:'I haven’t seen the paper yet, love.';},when:()=>world.paperDay===world.day},
+        {id:'d911_bear',label:'Report a bear',reply:'A bear. Right. I’ll put you through to Wildlife. They’ll ring you back. They won’t ring you back.',when:()=>bearState!=='none'},
+        {id:'d911_caller',label:'Report a woman who won’t stop ringing',say:()=>{recordClue(CALLER.clues.doreen);return 'Has she threatened you? We can’t arrest someone for wanting you too much. But if she’s a danger to herself, or to you, her family can ask a doctor to assess her and have her sectioned. Find her family, love. Her friends will know them, or the people she works with.';},when:()=>callerActive()},
+        {id:'d911_dad',label:'Report a police officer who rang to threaten you',reply:'I can’t discuss officers, love. Was there anything else?',when:()=>dadState().called}
+      ]
+    };
+    function dispatchAboutStory(item){
+      const text=`${item.section} ${item.title}`.toLowerCase();
+      if(/missing|blue ribbon|organiser/.test(text))return 'If you know something, the detectives want to hear it. If you don’t, please stop ringing them.';
+      if(/professor|vale|campus|academic/.test(text))return 'That professor rings us more than we ring him.';
+      if(/bear|wildlife/.test(text))return 'And no, we don’t know where it went.';
+      if(/storm|power|traffic|roadworks/.test(text))return 'It’ll be on the radio. Everything is.';
+      return 'Sunfall doesn’t get much news. When it does, everyone rings me.';
+    }
+    function dispatchTopics(){return DISPATCH.topics.filter(topic=>{try{return topic.when();}catch{return false;}}).map(topic=>({...topic,dispatch:true}));}
+    // Gating: you only ask about a case once you have a reason to. Opening the paper on a day a case
+    // is in it is the usual reason; Theon's once he has rung you or a woman has shown you a screenshot.
+    function brKnown(){return !!world.flags.brPaperSeen;}
+    function valeKnown(){return !!world.flags.valePaperSeen||!!PV?.isOpen?.();}
+    function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
+    function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='vale'?questOn('vale')&&valeKnown():true);}
     // ===== Mogger: her dad, and Theon =====
     // Two men who aren't on Hinge. They ring you (their ids start x:) and you can't ring them back.
     // Theon is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
@@ -3238,13 +3382,13 @@
     };
     // --- Theon: the revolver (from the paper) and the women he stalks at the university ---
     var GUN={
-      ad:{section:'Classifieds',title:'ESTATE SALE: A SERVICE REVOLVER',summary:'A widow is clearing her late husband’s study. Delivered to your door.',body:'Mrs Margaret Pemberton is selling her late husband Harold’s service revolver, in its box, cleaned and loaded. She would rather not have it in the house. Ring {number}. Her grandson will drop it round.'},
-      greeting:'Pemberton residence. Is this about Harold’s gun?',
+      ad:{section:'Classifieds',title:'ESTATE SALE: A SERVICE REVOLVER',summary:'A widow is clearing her late husband’s study. Delivered to your door.',body:'Mrs Margaret Oakley is selling her late husband Harold’s service revolver, in its box, cleaned and loaded. She would rather not have it in the house. Ring {number}. Her grandson will drop it round.'},
+      greeting:'Oakley residence. Is this about Harold’s gun?',
       order:'Oh, thank goodness. My grandson will bring it round tomorrow. Please don’t tell me what it’s for.',
       what:'It was Harold’s, from his years on the force. He never fired it, he always said. I never asked.',
       when:'Tomorrow, love. He’s a good boy. He’ll leave it on the step.',
-      delivered:'A shoebox on your doorstep, wrapped in a tea towel. Inside is Harold Pemberton’s revolver, and a note: please don’t tell me.',
-      item:'Harold Pemberton’s service revolver, in its box, wrapped in a tea towel. Loaded. Mrs Pemberton’s note says: please don’t tell me what it’s for.'
+      delivered:'A shoebox on your doorstep, wrapped in a tea towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
+      item:'Harold Oakley’s service revolver, in its box, wrapped in a tea towel. Loaded. Mrs Oakley’s note says: please don’t tell me what it’s for.'
     };
     // Three women at the university. Each knows your face from his profile, one thing about him,
     // and how to bring him to you.
@@ -3315,7 +3459,7 @@
     }
     function fionnGunLine(number){
       const f=fionnState();
-      return f.gunNumber&&f.gunNumber===String(number)?{id:'service:pemberton',name:'Mrs Pemberton',portrait:'assets/icons/calls.png',generic:true,greeting:GUN.greeting}:null;
+      return f.gunNumber&&f.gunNumber===String(number)?{id:'service:oakley',name:'Mrs Oakley',portrait:'assets/icons/calls.png',generic:true,greeting:GUN.greeting}:null;
     }
     function fionnGunTopics(){
       const gun=fionnState().gun;
@@ -3326,6 +3470,7 @@
     function isStranger(id){return typeof id==='string'&&id.startsWith('x:');}
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
+      if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -3340,22 +3485,24 @@
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
       const f=fionnState();
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
-      return null;
+      return miniCallerDue(); // mini quests
     }
     function strangerRang(id){
+      if(MINI_CALLERS[id]){miniRang(id);return;}
       if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
     }
-    function strangerVoicemail(from,text){
+    function strangerVoicemail(from,text,number=null){
       if(!Array.isArray(world.strangerVm))world.strangerVm=[];
-      world.strangerVm.push({day:world.day,from,text});
+      world.strangerVm.push({day:world.day,from,text,...(number?{number}:{})});
       if(world.strangerVm.length>40)world.strangerVm.shift();
     }
     function strangerVoicemails(){
-      return (Array.isArray(world.strangerVm)?world.strangerVm:[]).filter(v=>v&&typeof v.text==='string').map(v=>({day:v.day,from:v.from,text:v.text,number:null})).reverse();
+      return (Array.isArray(world.strangerVm)?world.strangerVm:[]).filter(v=>v&&typeof v.text==='string').map(v=>({day:v.day,from:v.from,text:v.text,number:validDemoNumber(v.number)?v.number:null})).reverse(); // a woman's voicemail can be rung back
     }
     // Not answered, or declined: they leave a message. Her dad, when it's about the messages, comes anyway.
     function strangerMissed(id){
+      if(MINI_CALLERS[id]){miniMissed(id);return;}
       if(id==='x:dad'){
         const d=dadState();
         strangerVoicemail('Unknown number',d.variant?DAD.vmCreepy:DAD.vmOpen);
@@ -3367,6 +3514,7 @@
       saveRun(true);
     }
     function strangerAnswer(id){
+      if(MINI_CALLERS[id])return miniAnswer(id);
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
       f.calls++;
@@ -3375,6 +3523,7 @@
       return {id,stranger:true,kind:'fionn',phase:'tempt',step:'open',said:FIONN.tempt[(f.calls-3)%FIONN.tempt.length]};
     }
     function strangerChoices(call){
+      if(call.kind==='mini')return miniCallChoices(call);
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
         return [{id:'d:yes',label:'Yes, sir.'},{id:'d:adult',label:'She’s an adult. It’s her choice.'},{id:'d:hang',label:'Hang up'}];
@@ -3389,6 +3538,7 @@
       return out;
     }
     function chooseStrangerCall(call,choice){
+      if(call.kind==='mini'){miniChooseCall(call,choice);return;}
       if(choice==='d:hang'||choice==='f:hang'){
         if(choice==='d:hang'&&dadState().variant)dadState().deadline=world.day+1;
         endHerCall();return;
@@ -3511,7 +3661,7 @@
     }
     function fionnNewDay(){
       const f=fionnState();
-      if(f.gun==='ordered'&&world.day>=f.gunDay){f.gun='delivered';fionnNotices.push(GUN.delivered);} // Mrs Pemberton's grandson
+      if(f.gun==='ordered'&&world.day>=f.gunDay){f.gun='delivered';fionnNotices.push(GUN.delivered);} // Mrs Oakley's grandson
       if(f.stage==='none'&&questOn('fionn')){f.stage='active';f.startDay=world.day;fionnGirlsToDeck();}
       if(!fionnActive())return;
       if(f.pendingEnd){ // the police took him, or a friend's friends did
@@ -3557,10 +3707,10 @@
       }
       if(f.waiting[thread.id]!==undefined)return [...(has('profile')?[['fionn:show','Show her his profile: it’s not you']]:[]),['fionn:notme','It wasn’t me. Someone’s using my pictures.'],['fionn:sorry','Apologise']];
       const warmth=warmthOf(thread),faction=profile.factionId;
-      if(faction==='fourth_estate'&&warmth>=2&&!has('profile'))out.push(['fionn:look','Ask her to find who’s using your pictures']);
+      if(faction==='fourth_estate'&&warmth>=2&&!has('profile')&&fionnKnown())out.push(['fionn:look','Ask her to find who’s using your pictures']);
       if(faction==='goth_girls'&&warmth>=2&&has('profile')&&!has('name'))out.push(['fionn:verse','Ask if she knows a man who writes in verse']);
       if(faction==='police'&&warmth>=3&&has('name')&&!has('home'))out.push(['fionn:run','Ask her to look up a man called Theon']);
-      if(FIONN.sort[faction]&&warmth>=2&&has('home'))out.push(['fionn:sort','Ask her to have someone deal with Theon',true]);
+      if(FIONN.sort[faction]&&warmth>=2&&has('home'))out.push(['fionn:sort',`Ask her to have someone deal with ${has('name')?'Theon':'the man above the old Rialto'}`,true]); // his name only once you know it
       return out;
     }
     function fionnReply(thread,profile,entries,after){
@@ -3577,7 +3727,7 @@
       const f=fionnState();
       const choice=fionnChoices(thread,profile).find(([key])=>key===id);
       if(!choice)return;
-      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Theon? He’s using my pictures.','fionn:sort':'Theon lives above the old Rialto. Could someone have a word with him?','fionn:g:about':'What do you know about him?','fionn:show':'Look. This is the profile he’s using. That’s my face, but it isn’t me.','fionn:g:lure':'How would I get him to come to me?'}[id]});
+      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Theon? He’s using my pictures.','fionn:sort':f.clues.includes('name')?'Theon lives above the old Rialto. Could someone have a word with him?':'There’s a man in the flat above the old Rialto. He’s stalking women with my face. Could someone have a word with him?','fionn:g:about':'What do you know about him?','fionn:show':'Look. This is the profile he’s using. That’s my face, but it isn’t me.','fionn:g:lure':'How would I get him to come to me?'}[id]});
       if(id==='fionn:g:about'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':about');girl.gives.forEach(fionnClue);warmBy(thread,1);return fionnReply(thread,profile,[{text:girl.about}]);}
       if(id==='fionn:g:lure'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':lure');if(!f.bait)f.bait=thread.id;return fionnReply(thread,profile,[{text:girl.lure}]);}
       if(id==='fionn:show'){delete f.waiting[thread.id];warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.shown[world.day%FIONN.shown.length]}]);} // proof: she believes you
@@ -3607,7 +3757,7 @@
     }
     // Phone lines: the university and the paper know him; the police need all three things.
     function fionnServiceTopics(serviceId){
-      if(!fionnActive())return [];
+      if(!fionnActive()||!fionnKnown())return [];
       const has=clue=>fionnState().clues.includes(clue);
       if(serviceId==='service:police')return [{id:'fionn_report',label:'Report someone using your pictures',fionn:true}];
       if(serviceId==='service:university'&&has('profile')&&!has('name'))return [{id:'fionn_uni',label:'Ask about a drama student who writes in verse',fionn:true}];
@@ -3793,7 +3943,6 @@
           const profile=gamePick(pool);
           const thread=ensureHingeThread(profile,'now');
           thread.log=[{who:'her',text:`${gamePick(TONE_TALK.mogger.admirer)} ${introFor(profile)}`}];
-          hingeToast=`${profile.name} liked you first!`;
           toneNotice=`♥ ${profile.name} liked you first and sent you a message.`; // shown once the new day has arrived
         }
       }
@@ -3889,8 +4038,706 @@
         return;
       }
     }
+    // ---------- Mini quests (character_database.json minis) ----------
+    // Five small stories from Sunfall's seedy side, two a game (all five with MATCH_ALL_MINIS):
+    // the pharmacist's side line, the husband, the envelope, the cleaner's jewellery and the
+    // neighbourhood watch. Everything happens through the phone: her chat, a stranger's calls,
+    // voicemail, 911, the newsroom, the paper and things left on your doorstep.
+    const miniKit=()=>characterDB?.minis||null;
+    const MINI_IDS=['pills','husband','envelope','cleaner','watch'];
+    const MINI_CALLERS={'x:m-husband':'husband','x:m-envelope':'envelope','x:m-watch':'watch'};
+    function minisState(){
+      const m=world.minis;
+      if(!m||typeof m!=='object'||Array.isArray(m)||!m.st||typeof m.st!=='object')world.minis={on:null,st:{},dead:null};
+      return world.minis;
+    }
+    function minisOn(){
+      const m=minisState();
+      if(!Array.isArray(m.on)){
+        const order=MINI_IDS.slice().sort((a,b)=>hashSeed(world.seed+'|mini|'+a)-hashSeed(world.seed+'|mini|'+b));
+        m.on=window.MATCH_NO_MINIS?[]:window.MATCH_ALL_MINIS?MINI_IDS.slice():order.slice(0,2); // tests switch them off, or all on
+      }
+      return m.on;
+    }
+    function miniStartDay(id){const i=minisOn().indexOf(id);return i<0?null:i===0?2+hashSeed(world.seed+'|minid0')%2:4+hashSeed(world.seed+'|minid'+i)%3;}
+    const ms=id=>minisState().st[id]||null;
+    const miniLive=id=>{const st=ms(id);return !!st&&!['done','skipped','quit','arrested','gone'].includes(st.stage);};
+    function sanitizeMinis(raw){
+      const out={on:null,st:{},dead:null};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      if(Array.isArray(raw.on))out.on=raw.on.filter(id=>MINI_IDS.includes(id));
+      for(const [id,st] of Object.entries(raw.st||{})){
+        if(!MINI_IDS.includes(id)||!st||typeof st!=='object'||typeof st.stage!=='string')continue;
+        const o={};
+        for(const [k,v] of Object.entries(st).slice(0,40)){
+          if(typeof v==='boolean'||Number.isInteger(v))o[k]=v;
+          else if(typeof v==='string')o[k]=v.slice(0,60);
+          else if(Array.isArray(v))o[k]=v.filter(x=>typeof x==='string').slice(0,12).map(x=>x.slice(0,40));
+        }
+        out.st[id]=o;
+      }
+      if(raw.dead&&MINI_IDS.includes(raw.dead.id))out.dead={id:raw.dead.id};
+      return out;
+    }
+    const miniThread=id=>{const st=ms(id);return st?.host?hingeThreads.get(st.host):null;};
+    const miniHost=id=>{const st=ms(id);return st?.host?hingeProfile(st.host):null;};
+    const miniFill=(text,id,extra={})=>{const p=miniHost(id);return fillIn(text,{name:p?.name||'',first:p?firstName(p):'',...extra});};
+    function miniNews(id,news,day,key){
+      const p=miniHost(id);
+      queueNews({id:`mini_${id}_${key}`,section:news.section,title:news.title,summary:miniFill(news.summary,id),body:miniFill(news.body,id,news.extra||{}),image:news.image,fallbackImage:news.fallback||'local_ad'},day);
+    }
+    const storyRead=(id,key)=>{const st=ms(id);return Number.isInteger(st?.[key])&&world.seenArticles.includes(`${st[key]}:mini_${id}_${key}`);};
+    const MINI_HOST_RULES={pills:{factions:['normie_girls','goth_girls','progressives','fourth_estate'],warmth:1},cleaner:{factions:['normie_girls','goth_girls','progressives'],warmth:1},husband:{factions:null,warmth:2,number:true}};
+    function miniHostFor(id){
+      const rule=MINI_HOST_RULES[id],taken=new Set(Object.values(minisState().st).map(st=>st.host).filter(Boolean));
+      const fits=[...hingeThreads.values()].filter(t=>{
+        const p=hingeProfile(t.id);
+        return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!taken.has(t.id)&&!mustReply(p)&&!p.jeweller&&p.factionId!=='sisters_of_mercy'&&(!rule.factions||rule.factions.includes(p.factionId))&&!t.blocked&&!t.fumbled&&!t.awaiting&&!t.ghosted&&warmthOf(t)>=rule.warmth&&t.topics.length>=1&&(!rule.number||t.number);
+      });
+      return fits.length?fits[hashSeed(world.seed+'|minihost|'+id)%fits.length]:null;
+    }
+    const liveMatches=(except=[])=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!except.includes(t.id)&&!t.blocked&&!t.fumbled&&!t.awaiting&&!p.jeweller;});
+    // Start the ones due today. A story that needs a woman waits for one (a week at most).
+    function miniStart(id){
+      const kit=miniKit()?.[id],m=minisState();
+      if(!kit||m.st[id])return m.st[id]||null;
+      if(MINI_HOST_RULES[id]){
+        const host=miniHostFor(id);
+        if(!host){if(world.day>miniStartDay(id)+7)m.st[id]={stage:'skipped',day:world.day};return null;}
+        if(id==='husband'){m.st[id]={stage:'calling',host:host.id,day:world.day,calls:0,warned:0,nextCall:world.day};return m.st[id];}
+        m.st[id]={stage:'offer',host:host.id,day:world.day};
+        herLine(host,kit.hook);
+        if(id==='pills')m.st[id].story=world.day+1,miniNews(id,kit.story,world.day+1,'story');
+        if(id==='cleaner')m.st[id].story=world.day+2,miniNews(id,kit.story,world.day+2,'story');
+        return m.st[id];
+      }
+      if(id==='envelope'){m.st[id]={stage:'ringing',day:world.day,calls:0,warned:0,has:true};showGameNotice(kit.arrive);recordClue(kit.clue);return m.st[id];}
+      if(id==='watch'){
+        if(liveMatches().length<2){if(world.day>miniStartDay(id)+7)m.st[id]={stage:'skipped',day:world.day};return null;}
+        m.st[id]={stage:'calling',day:world.day,calls:0,hangs:0,nothing:0,told:[],nextCall:world.day};return m.st[id];
+      }
+      return null;
+    }
+    // Each morning: start what's due, deliver what was promised, and let things catch up with you.
+    function miniNewDay(){
+      if(!miniKit())return;
+      for(const id of minisOn()){
+        if(!ms(id)){if(world.day>=miniStartDay(id))miniStart(id);continue;}
+        const st=ms(id),kit=miniKit()[id],thread=miniThread(id);
+        if(id==='pills'||id==='cleaner'){
+          if(Number.isInteger(st.buyDay)&&world.day>st.buyDay&&!st.has){st.has=true;showGameNotice(kit.delivered);}
+          if(Number.isInteger(st.tipDay)&&world.day>st.tipDay&&!['arrested','quit'].includes(st.stage))miniArrest(id);
+          else if(!['arrested','quit','done'].includes(st.stage)&&world.day>=st.day+(id==='pills'?5:6)&&!Number.isInteger(st.tipDay))miniArrest(id); // someone else talked
+        }else if(id==='husband'){
+          if(st.stage==='told'&&world.day>st.toldDay&&thread){
+            if(hashSeed(world.seed+'|truth')%2){st.stage='left';st.nextCall=world.day;herLine(thread,kit.truthNext.free);warmBy(thread,1);arcsState().fav[st.host]='ready';}
+            else{st.stage='done';herLine(thread,kit.truthNext.angry,{block:true});thread.blocked=true;}
+          }
+          if(st.stage==='leaving'&&world.day>st.leaveDay&&thread){st.stage='left';st.nextCall=world.day;herLine(thread,kit.leave.next);warmBy(thread,2);arcsState().fav[st.host]='ready';}
+          if(['calling','carry'].includes(st.stage)&&st.warned>=4&&!Number.isInteger(st.dieDay))st.dieDay=world.day; // he comes
+        }else if(id==='envelope'){
+          if(st.stage==='step'&&world.day>st.stepDay){
+            st.has=false;st.stage='done';
+            if(st.took){showGameNotice(kit.short);st.dieDay=world.day+1;}
+            else{showGameNotice(kit.gone);st.gift=true;}
+          }
+          if(st.stage==='police'&&world.day>st.policeDay){
+            st.has=false;st.stage='done';showGameNotice(kit.collected);
+            miniNews('envelope',{...kit.news,extra:{short:st.took?kit.newsShort:''}},world.day,'news');
+            if(st.took&&hashSeed(world.seed+'|envshort')%2)st.dieDay=world.day+1;
+          }
+          if(st.stage==='ringing'&&st.warned>=4&&!Number.isInteger(st.dieDay))st.dieDay=world.day;
+        }else if(id==='watch'){
+          if(Number.isInteger(st.pageDay)&&world.day>=st.pageDay&&!st.page){st.page=true;showGameNotice(kit.page);}
+          for(const told of st.told||[]){
+            const t=hingeThreads.get(told);
+            if(t&&!t.blocked&&st.toldDay!==world.day){herLine(t,fillIn(kit.betrayed,{first:firstName(hingeProfile(told))}),{block:true});t.blocked=true;}
+          }
+          if(st.stage==='refused'&&Number.isInteger(st.revengeDay)&&world.day>=st.revengeDay){
+            st.stage='done';
+            const targets=liveMatches().filter(t=>hingeProfile(t.id).factionId!=='thunderbirds').slice(0,2);
+            for(const t of targets){herLine(t,kit.window);warmBy(t,-1);}
+          }
+          if(st.stage==='exposing'&&world.day>st.exposeDay){
+            st.stage='done';
+            strangerVoicemail(kit.name,kit.exposedCall);
+            const tb=liveMatches().filter(t=>hingeProfile(t.id).factionId==='thunderbirds');
+            for(const t of tb)warmBy(t,-1);
+            if(tb[0])herLine(tb[0],kit.tbCool);
+            const other=liveMatches().find(t=>hingeProfile(t.id).factionId!=='thunderbirds');
+            if(other){herLine(other,kit.othersWarm);warmBy(other,1);}
+          }
+        }
+      }
+    }
+    // The woman selling pills, or stealing rings, is arrested: her customers may be next.
+    function miniArrest(id){
+      const st=ms(id),kit=miniKit()[id],thread=miniThread(id),p=miniHost(id);
+      st.stage='arrested';st.arrestedDay=world.day;
+      miniNews(id,kit.arrested,world.day,'arrested');
+      if(thread){thread.blocked=true;thread.missing=true;}
+      if(st.tipped&&p){const friend=liveMatches([st.host]).find(t=>hingeProfile(t.id).factionId===p.factionId);if(friend){herLine(friend,miniFill(kit.friend,id));warmBy(friend,-1);}}
+      // You are on her list. If you reported her, she names you for certain; otherwise the police may or may not get round to you.
+      if(st.has&&!st.flushed&&!st.handed&&(st.tipped||hashSeed(world.seed+'|minilist|'+id)%2))st.arrestDay=world.day+1;
+    }
+    // An arrest, or a visitor, at the start of a day.
+    function miniAfterDayStart(){
+      if(!miniKit())return false;
+      for(const id of ['pills','cleaner']){const st=ms(id);if(st&&st.arrestDay===world.day&&st.has&&!st.flushed&&!st.handed){startPoliceArrest(id==='pills'?'pills':'ring');return true;}}
+      for(const id of ['husband','envelope']){const st=ms(id);if(st&&Number.isInteger(st.dieDay)&&world.day>=st.dieDay&&st.stage!=='gone'){miniDeath(id);return true;}}
+      return false;
+    }
+    function miniDeath(id){
+      minisState().dead={id};
+      if(ms(id))ms(id).stage='gone';
+      miniDeathScreen();
+      saveRun(true);
+    }
+    function miniDeathScreen(){
+      const id=minisState().dead?.id,kit=miniKit()?.[id];
+      if(!kit)return;
+      stopRinging();herCall=null;
+      drawDeathTitle(kit.deathCause,'KILLED');
+      $('fatal-overlay').querySelector('p').textContent=kit.deaths[hashSeed(world.seed+'|minideath|'+id)%kit.deaths.length];
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // ----- her chat
+    function miniChoices(thread,profile){
+      const kit=miniKit(),out=[];
+      if(!kit||!profile)return out;
+      for(const id of ['pills','cleaner']){
+        const st=ms(id);
+        if(!st||st.host!==profile.id||['arrested','quit','done'].includes(st.stage))continue;
+        if(st.stage==='offer')out.push([`mini:${id}:ask`,kit[id].ask.label]);
+        if(st.stage==='open'){
+          if(!Number.isInteger(st.buyDay))out.push([`mini:${id}:buy`,kit[id].buy.label]);
+          if(!st.warned)out.push([`mini:${id}:warn`,kit[id].warn.label]);
+        }
+        if(id==='pills'&&st.stage!=='offer'&&storyRead('pills','story'))out.push(['mini:pills:tell',kit.pills.tell.label]);
+      }
+      const c=ms('cleaner');
+      if(c&&['open'].includes(c.stage)&&profile.factionId==='thunderbirds'&&profile.id!==c.host&&storyRead('cleaner','story')&&!Number.isInteger(c.tipDay))out.push(['mini:cleaner:tb',kit.cleaner.tb.label]);
+      const h=ms('husband');
+      if(h&&h.host===profile.id&&['calling','carry'].includes(h.stage)&&h.calls>=1){
+        if(!h.asked)out.push(['mini:husband:ask',kit.husband.ask.label]);
+        else if(h.stage==='calling')for(const c2 of kit.husband.choices2)out.push([`mini:husband:${c2.id}`,c2.label]);
+      }
+      return out;
+    }
+    function chooseMini(choice,thread,profile){
+      const [,id,act]=choice.split(':'),kit=miniKit()?.[id],st=ms(id);
+      if(!kit||!st)return;
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[miniFill(reply,id)],'talk',after,true);};
+      if((id==='pills'||id==='cleaner')&&st.host===profile.id){
+        if(act==='ask'&&st.stage==='offer'){st.stage='open';recordClue(miniFill(kit.clue,id));return say(kit.ask.player,kit.ask.reply);}
+        if(act==='buy'&&st.stage==='open'&&!Number.isInteger(st.buyDay)){st.buyDay=world.day;return say(kit.buy.player,kit.buy.reply);}
+        if(act==='warn'&&st.stage==='open'){st.warned=true;warmBy(thread,-1);return say(kit.warn.player,kit.warn.reply);}
+        if(act==='tell'&&id==='pills'&&storyRead('pills','story')){st.stage='quit';warmBy(thread,1);arcsState().fav[profile.id]='ready';return say(kit.tell.player,kit.tell.reply);}
+      }
+      if(id==='cleaner'&&act==='tb'&&profile.factionId==='thunderbirds'){
+        st.tipDay=world.day;st.tbTold=profile.id;
+        return say(kit.tb.player,kit.tb.reply,()=>{warmBy(thread,1);arcsState().fav[profile.id]='ready';});
+      }
+      if(id==='husband'&&st.host===profile.id){
+        if(act==='ask'&&!st.asked){st.asked=true;return say(kit.ask.player,kit.ask.reply);}
+        const c=kit.choices2.find(entry=>entry.id===act);
+        if(!c||!st.asked||st.stage!=='calling')return;
+        if(act==='leave'){st.stage='leaving';st.leaveDay=world.day;return say(c.player,c.now);}
+        if(act==='stop'){st.stage='done';return say(c.player,c.now,()=>{thread.log[thread.log.length-1].block=true;unmatchForEvent(thread);});}
+        st.stage='carry';return say(c.player,c.now);
+      }
+    }
+    // ----- the phone lines: 911 and the newsroom
+    function miniServiceTopics(serviceId){
+      const kit=miniKit(),out=[];
+      if(!kit)return out;
+      const police=serviceId==='service:police';
+      const p=ms('pills'),c=ms('cleaner'),e=ms('envelope'),w=ms('watch');
+      if(police&&p&&p.stage==='open'&&!Number.isInteger(p.tipDay))out.push({id:'mini:pills:tip',label:kit.pills.tip.label,mini:true});
+      if(police&&c&&c.stage==='open'&&!Number.isInteger(c.tipDay))out.push({id:'mini:cleaner:tip',label:kit.cleaner.tip.label,mini:true});
+      if(police&&c&&c.has&&!c.handed)out.push({id:'mini:cleaner:hand',label:kit.cleaner.handIn.label,mini:true});
+      if(police&&e&&e.stage==='ringing')out.push({id:'mini:envelope:tip',label:kit.envelope.tip.label,mini:true});
+      if(serviceId==='service:newsroom'&&w&&w.calls>=1&&!['exposing','done','skipped'].includes(w.stage)&&!w.newsroomDay)out.push({id:'mini:watch:news',label:kit.watch.newsroom.label,mini:true});
+      return out;
+    }
+    function chooseMiniService(topicId){
+      const [,id,act]=topicId.split(':'),kit=miniKit()[id],st=ms(id);
+      if(!st)return '';
+      if(id==='pills'&&act==='tip'){st.tipped=true;st.tipDay=world.day;return kit.tip.reply;}
+      if(id==='cleaner'&&act==='tip'){st.tipped=true;st.tipDay=world.day;return kit.tip.reply;}
+      if(id==='cleaner'&&act==='hand'){st.handed=true;st.has=false;showGameNotice(kit.handedNotice);const tb=liveMatches().find(t=>hingeProfile(t.id).factionId==='thunderbirds');if(tb){herLine(tb,kit.thanks);warmBy(tb,1);arcsState().fav[tb.id]='ready';}return kit.handIn.reply;}
+      if(id==='envelope'&&act==='tip'){st.stage='police';st.policeDay=world.day;return kit.tip.reply;}
+      if(id==='watch'&&act==='news'){
+        if(!st.page)return kit.newsroom.noProof;
+        st.newsroomDay=world.day;st.stage='exposing';st.exposeDay=world.day;
+        queueNews({id:'mini_watch_expose',...kit.expose,fallbackImage:'political_briefing'},world.day+1);
+        return kit.newsroom.proof;
+      }
+      return '';
+    }
+    // ----- strangers who ring: the husband, the man who wants his envelope, Constance Ashworth
+    function miniCallCard(id){
+      const kit=miniKit(),which=MINI_CALLERS[id],st=ms(which);
+      const portrait={husband:'assets/contacts/dale.png',watch:'assets/contacts/constance.png'}[which]||'assets/icons/calls.png';
+      const known=which==='husband'?st?.calls>=1:which==='watch'?st?.calls>=1:false;
+      return {id,name:known?kit[which].name:'Unknown number',gallery:[portrait],banner:portrait,ringName:'Unknown number',sub:'Mobile'};
+    }
+    function miniCallerDue(){
+      if(!miniKit())return null;
+      const h=ms('husband'),e=ms('envelope'),w=ms('watch');
+      if(h&&['calling','carry','left'].includes(h.stage)&&h.callDay!==world.day&&world.day>=h.nextCall)return 'x:m-husband';
+      if(e&&e.stage==='ringing'&&e.callDay!==world.day)return 'x:m-envelope';
+      if(w&&['calling','joined'].includes(w.stage)&&w.callDay!==world.day&&world.day>=w.nextCall)return 'x:m-watch';
+      return null;
+    }
+    function miniRang(id){const st=ms(MINI_CALLERS[id]);if(st)st.callDay=world.day;}
+    function miniAnswer(id){
+      const which=MINI_CALLERS[id],kit=miniKit()[which],st=ms(which);
+      st.calls=(st.calls||0)+1;
+      let said;
+      if(which==='husband'&&st.stage==='left'){st.stage='done';said=kit.leftCall;} // his last call
+      else if(which==='husband')said=miniFill(st.calls===1?kit.open:kit.again[(st.calls-2)%kit.again.length],'husband');
+      else if(which==='envelope')said=st.calls===1?kit.open:kit.later[(st.calls-2)%kit.later.length];
+      else said=st.stage==='joined'?kit.ask:(ms('cleaner')?.handed||ms('cleaner')?.tbTold?kit.openRing:kit.open);
+      if(which==='watch'&&st.calls===1)recordClue(kit.clue);
+      if(which==='husband'&&st.calls===1)recordClue(miniFill(kit.clue,'husband'));
+      return {id,stranger:true,kind:'mini',mini:which,phase:st.stage==='joined'?'ask':'open',step:'open',said};
+    }
+    function miniCallChoices(call){
+      const kit=miniKit()[call.mini],st=ms(call.mini),c=kit.choices;
+      if(call.mini==='husband'){if(st.stage==='done')return [{id:'m:hang',label:'Hang up'}];return [{id:'m:lie',label:c.lie},{id:'m:friends',label:c.friends},{id:'m:truth',label:c.truth},{id:'m:hang',label:c.hang}];}
+      if(call.mini==='envelope')return [{id:'m:step',label:c.step},{id:'m:police',label:c.police},{id:'m:hang',label:c.hang}];
+      if(call.phase==='what')return [{id:'m:join',label:c.join},{id:'m:refuse',label:c.refuse}];
+      if(call.phase==='ask'){
+        const out=liveMatches().filter(t=>!mustReply(hingeProfile(t.id))&&!(st.told||[]).includes(t.id)&&warmthOf(t)>=1).slice(0,3).map(t=>({id:'m:tell:'+t.id,label:fillIn(kit.tellLabel,{first:firstName(hingeProfile(t.id))})}));
+        return [...out,{id:'m:nothing',label:kit.nothingLabel}];
+      }
+      return [{id:'m:what',label:c.what},{id:'m:no',label:c.no},{id:'m:hang',label:c.hang}];
+    }
+    function miniChooseCall(call,choice){
+      const which=call.mini,kit=miniKit()[which],st=ms(which);
+      const done=()=>{call.step='bye';saveRun(true);renderCalls();};
+      if(which==='husband'){
+        st.nextCall=world.day+1;
+        if(choice==='m:hang'){if(st.stage!=='done')st.warned++;endHerCall();return;}
+        if(choice==='m:lie'){st.warned++;call.said=kit.lie;}
+        else if(choice==='m:friends'){st.warned++;call.said=kit.friends;}
+        else if(choice==='m:truth'){st.stage='told';st.toldDay=world.day;call.said=kit.truth;}
+        return done();
+      }
+      if(which==='envelope'){
+        if(choice==='m:hang'){st.warned++;endHerCall();return;}
+        if(choice==='m:step'){st.stage='step';st.stepDay=world.day;call.said=kit.stepReply;}
+        else{st.warned++;call.said=kit.policeReply;}
+        return done();
+      }
+      // Constance Ashworth
+      if(choice==='m:hang'){st.hangs=(st.hangs||0)+1;st.nextCall=world.day+1;if(st.hangs>=3){st.stage='refused';st.revengeDay=world.day+1;}endHerCall();return;}
+      if(choice==='m:what'){call.phase='what';call.said=kit.what;saveRun(true);renderCalls();return;}
+      if(choice==='m:join'){st.stage='joined';st.pageDay=world.day+1;st.nextCall=world.day+1;call.said=kit.joined;return done();}
+      if(choice==='m:refuse'||choice==='m:no'){st.stage='refused';st.revengeDay=world.day+1;call.said=kit.refused;return done();}
+      if(choice==='m:nothing'){st.nothing=(st.nothing||0)+1;st.nextCall=world.day+1;if(st.nothing>=2){st.stage='refused';st.revengeDay=world.day+1;}call.said=kit.nothing;return done();}
+      if(choice.startsWith('m:tell:')){
+        const told=choice.slice(7),p=hingeProfile(told);
+        if(!p)return;
+        (st.told||(st.told=[])).push(told);st.toldDay=world.day;st.nothing=0;st.nextCall=world.day+1;
+        queueNews({id:'mini_watch_column_'+told,...kit.column,summary:kit.column.summary,body:fillIn(kit.column.body,{name:p.name}),fallbackImage:'political_briefing'},world.day+1);
+        const tb=liveMatches().filter(t=>hingeProfile(t.id).factionId==='thunderbirds');
+        for(const t of tb)warmBy(t,1);
+        if(tb[0])arcsState().fav[tb[0].id]='ready';
+        call.said=kit.took;
+        return done();
+      }
+    }
+    function miniMissed(id){
+      const which=MINI_CALLERS[id],kit=miniKit()[which],st=ms(which);
+      if(!st)return;
+      if(which==='husband'){st.nextCall=world.day+1;/* ignoring him doesn't provoke him; lies and hang-ups do */strangerVoicemail(st.calls>=1?kit.name:'Unknown number',kit.voicemail[(st.calls+world.day)%kit.voicemail.length]);}
+      else if(which==='envelope'){st.warned++;strangerVoicemail('Unknown number',kit.later[(st.warned+world.day)%kit.later.length]);}
+      else{st.hangs=(st.hangs||0)+1;st.nextCall=world.day+1;if(st.hangs>=3&&st.stage==='calling'){st.stage='refused';st.revengeDay=world.day+1;}}
+      saveRun(true);
+    }
+    // ----- things on your doorstep, in the cupboard
+    function miniItems(){
+      const kit=miniKit(),out=[];
+      if(!kit)return out;
+      const p=ms('pills'),c=ms('cleaner'),e=ms('envelope'),w=ms('watch');
+      if(p?.has&&!p.flushed)out.push({id:'mini:pills',label:kit.pills.item.label,short:'Pills',image:'assets/items/pills-bag.png',text:miniFill(kit.pills.item.text,'pills'),actions:[{id:'mini:pills:take',label:kit.pills.take.label},{id:'mini:pills:flush',label:kit.pills.flush.label}]});
+      if(c?.has&&!c.handed)out.push({id:'mini:cleaner',label:kit.cleaner.item.label,short:'Ring',image:'assets/items/stolen-ring.png',text:miniFill(kit.cleaner.item.text,'cleaner')});
+      if(e?.has)out.push({id:'mini:envelope',label:kit.envelope.item.label,short:'Envelope',image:'assets/items/envelope.png',text:kit.envelope.item.text+(e.took?kit.envelope.took:''),actions:e.took?[]:[{id:'mini:envelope:take',label:kit.envelope.take.label}]});
+      if(e?.gift)out.push({id:'mini:whisky',label:kit.envelope.gift.label,short:'Whisky',image:'assets/items/whisky.png',text:kit.envelope.gift.text});
+      if(w?.page)out.push({id:'mini:watch',label:kit.watch.pageItem.label,short:'Watch file',image:'assets/items/watch-page.png',text:kit.watch.pageItem.text});
+      return out;
+    }
+    function miniCupAct(act){
+      const kit=miniKit();
+      if(act==='mini:pills:flush'){ms('pills').flushed=true;showGameNotice(kit.pills.flush.notice);cupboardView='shelf';renderCupboard();saveRun(true);return;}
+      if(act==='mini:pills:take'){if(dayTransitionInFlight)return;closeCupboard();showGameNotice(kit.pills.take.notice);advanceToNextDay();return;} // you sleep straight through
+      if(act==='mini:envelope:take'){ms('envelope').took=true;showGameNotice(kit.envelope.take.notice);renderCupboard();saveRun(true);}
+    }
+    // ---------- Her own story (character_database.json talk.stories) ----------
+    // Each run some women have something going on in their lives. She brings it up herself one
+    // morning once you've talked a little (or on the phone, or when you ask about her family). You
+    // ask about it, she asks what you'd do, and your answer plays out the next day: she thanks you,
+    // leaves, ends up in the paper, introduces a friend, gives you something to keep, or owes you a
+    // favour. A favour finds out the next thing a case you're on needs. Errands run through the
+    // paper's classifieds or the newsroom. Nothing names a person before you've heard of her.
+    const storyKit=()=>talkKit()?.stories||null;
+    const ARC_STAGES=['hook','told','dilemma','waiting','errand','after','done','gone'];
+    function arcsState(){
+      const a=world.arcs;
+      if(!a||typeof a!=='object'||Array.isArray(a)||!a.pick||!a.st)world.arcs={pick:{},st:{},fav:{},fam:[],weird:[],items:[]};
+      return world.arcs;
+    }
+    function sanitizeArcs(raw){
+      const out={pick:{},st:{},fav:{},fam:[],weird:[],items:[]};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      const ids=new Set((storyKit()?.arcs||[]).map(arc=>arc.id)),pid=/^MATCH-\d{3}$/;
+      for(const [k,v] of Object.entries(raw.pick||{}))if(pid.test(k)&&(v===''||ids.has(v)))out.pick[k]=v;
+      for(const [k,v] of Object.entries(raw.st||{}))if(pid.test(k)&&out.pick[k]&&v&&ARC_STAGES.includes(v.stage))
+        out.st[k]={stage:v.stage,day:Number.isInteger(v.day)?v.day:0,choice:typeof v.choice==='string'?v.choice.slice(0,20):null,adDay:Number.isInteger(v.adDay)?v.adDay:null,learned:!!v.learned};
+      for(const [k,v] of Object.entries(raw.fav||{}))if(pid.test(k)&&['ready','used'].includes(v))out.fav[k]=v;
+      for(const key of ['fam','weird'])out[key]=Array.isArray(raw[key])?[...new Set(raw[key].filter(x=>typeof x==='string'&&pid.test(x)))]:[];
+      out.items=(Array.isArray(raw.items)?raw.items:[]).filter(i=>i&&typeof i.id==='string'&&typeof i.label==='string'&&typeof i.text==='string').slice(0,40).map(i=>({id:i.id.slice(0,40),label:i.label.slice(0,80),text:i.text.slice(0,500)}));
+      return out;
+    }
+    const storyArc=id=>(id&&storyKit()?.arcs?.find(arc=>arc.id===id))||null;
+    const arcFill=(text,profile,extra={})=>fillIn(text,{name:profile.name,first:firstName(profile),...extra});
+    const ARC_NEWS_IMAGE={Business:'local_ad',Community:'charity_volunteers','Around town':'charity_volunteers',Crime:'police_interview',Education:'professor_campus',Classifieds:'classifieds'};
+    function arcEligible(profile){
+      return !!(storyKit()&&profile&&!profile.jeweller&&profile.id!==CALLER_ID&&profile.id!==bearHingeCard.id&&profile.name!=='Victoria Blackwood');
+    }
+    // Decided once for each woman: a storyline of her own, or none. Asked about her family: likelier, and a family one.
+    function arcOf(profile,family=false){
+      const a=arcsState();
+      if(!arcEligible(profile))return null;
+      if(profile.id in a.pick)return storyArc(a.pick[profile.id]);
+      const chance={mogger:55,normie:45,truecel:35}[tone()]+(family?20:0);
+      const taken=new Set(Object.values(a.pick));
+      const fits=storyKit().arcs.filter(arc=>!taken.has(arc.id)&&(!arc.only||arc.only.includes(profile.factionId))&&!(arc.notFor||[]).includes(profile.factionId));
+      const pool=family&&fits.some(arc=>arc.family)?fits.filter(arc=>arc.family):fits;
+      if(hashSeed(world.seed+'|arc|'+profile.id)%100>=chance||!pool.length){a.pick[profile.id]='';return null;}
+      const arc=pool[hashSeed(world.seed+'|arcpick|'+profile.id)%pool.length];
+      a.pick[profile.id]=arc.id;a.st[profile.id]={stage:'hook',day:world.day,choice:null,adDay:null,learned:false};
+      return arc;
+    }
+    function arcTell(thread,profile,arc,{quiet=false}={}){
+      const st=arcsState().st[profile.id];
+      st.stage='told';st.day=world.day;
+      if(!quiet)herLine(thread,arcFill(arc.hook,profile));
+    }
+    // Something to keep, in the bedside cupboard.
+    function arcKeep(profile,item,n){
+      const a=arcsState(),id=`arc:${profile.id}:${n}`;
+      if(a.items.some(entry=>entry.id===id))return;
+      a.items.push({id,label:item.label,text:`${arcFill(item.text,profile)} From ${profile.name}.`});
+      showGameNotice(`${firstName(profile)} gave you something: ${item.label}`);
+    }
+    // Her friend: a match, and she says hello. You hear her name first.
+    function arcFriend(thread,profile){
+      const taken=new Set(hingeThreads.keys());
+      const pool=hingeProfiles.filter(p=>!taken.has(p.id)&&arcEligible(p)&&!p.jeweller&&p.factionId!=='sisters_of_mercy');
+      const same=pool.filter(p=>p.factionId===profile.factionId);
+      const list=same.length?same:pool;
+      if(!list.length)return;
+      const friend=list[hashSeed(world.seed+'|arcfriend|'+profile.id)%list.length];
+      herLine(thread,`Her name’s ${friend.name}. I gave her your profile.`);
+      const t=ensureHingeThread(friend,'now');
+      t.log.push({who:'her',text:`${firstName(profile)} told me about you. Hi.`});
+      talkState(t).unread=true;
+    }
+    // The paper: today, or a later day's edition (an errand's advert).
+    function queueNews(item,day){
+      const edition=world.editions.find(entry=>entry.day===day);
+      if(edition){if(!edition.items.some(entry=>entry.id===item.id))edition.items.push(item);return;}
+      if(!Array.isArray(world.personalNews))world.personalNews=[];
+      if(!world.personalNews.some(entry=>entry.id===item.id))world.personalNews.push({...item,day});
+    }
+    const arcNewsItem=(news,profile,id)=>({id,section:news.section,title:news.title,summary:arcFill(news.summary,profile),body:arcFill(news.body,profile,{number:unusedContactNumber()}),image:ARC_NEWS_IMAGE[news.section]||'classifieds'});
+    function arcErrandReady(arc,st,profile){
+      if(arc.errand==='ad')return st.adDay!==null&&world.day>=st.adDay&&world.seenArticles.includes(`${st.adDay}:arcad_${profile.id}`); // you read the advert
+      return !!st.learned; // you rang the newsroom
+    }
+    // What your answer does, the next morning.
+    function arcConsequence(thread,profile,arc,st){
+      const effect=st.choice==='done'?arc.done:arc.choices?.find(c=>c.id===st.choice);
+      st.day=world.day;st.stage='after';
+      if(!effect){st.stage='done';return;}
+      if(effect.next)herLine(thread,arcFill(effect.next,profile));
+      if(effect.warmth)warmBy(thread,effect.warmth);
+      if(effect.favour)arcsState().fav[profile.id]='ready';
+      if(effect.news)queueNews(arcNewsItem(effect.news,profile,`arc_${profile.id}`),world.day);
+      if(effect.item)arcKeep(profile,effect.item,1);
+      if(effect.friend)arcFriend(thread,profile);
+      if(effect.unmatch||effect.block){
+        st.stage='gone';
+        if(!mustReply(profile)){const last=thread.log[thread.log.length-1];if(last)last.block=true;if(effect.unmatch)unmatchForEvent(thread);else thread.blocked=true;}
+      }
+    }
+    function arcsNewDay(){
+      if(!storyKit())return;
+      const a=arcsState();
+      let told=0; // one new story a morning
+      for(const thread of hingeThreads.values()){
+        const profile=hingeProfile(thread.id);
+        if(!profile||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending)continue;
+        const st=a.st[profile.id],arc=storyArc(a.pick[profile.id]);
+        if(!(profile.id in a.pick)){
+          if(told||warmthOf(thread)<2||thread.topics.length<2)continue;
+          const mine=arcOf(profile);
+          if(mine){told++;arcTell(thread,profile,mine);}
+          continue;
+        }
+        if(!arc||!st)continue;
+        if(st.stage==='hook'&&!told&&warmthOf(thread)>=2){told++;arcTell(thread,profile,arc);}
+        else if(st.stage==='waiting'&&st.day<world.day)arcConsequence(thread,profile,arc,st);
+        else if(st.stage==='after'&&st.day+2<=world.day&&warmthOf(thread)>=1){
+          st.stage='done';st.day=world.day;
+          if(arc.payoff?.line)herLine(thread,arcFill(arc.payoff.line,profile));
+          if(arc.payoff?.item)arcKeep(profile,arc.payoff.item,2);
+        }else if(st.stage==='errand'&&arc.errand==='ad'&&st.adDay!==null&&world.day>st.adDay+2){
+          st.stage='done';herLine(thread,arcFill(arc.late,profile));warmBy(thread,-1); // she found it herself
+        }
+      }
+    }
+    // A favour she owes you: the next thing one of your cases needs, if she could help with it.
+    const BR_FAVOUR_SCRAPS=['tb_gala_ticket','tb_charity_ledger'];
+    function favourNow(profile){
+      if(arcsState().fav[profile.id]!=='ready')return null;
+      const f=storyKit().favour,clues=fionnState().clues;
+      if(fionnActive()&&fionnKnown()&&['profile','name','home'].some(k=>!clues.includes(k)))return {kind:'theon',label:f.theon.label};
+      const c=callerState();
+      if(callerActive()&&c.calls>=1&&!c.momKnown&&profile.id!==CALLER_ID)return {kind:'moira',label:f.moira.label};
+      const ch=chapel?.state?.();
+      if(ch?.active&&!ch.nightKnown&&!ch.outcome&&!ch.dead)return {kind:'chapel',label:f.chapel.label};
+      if(questOn('br')&&brKnown()&&brCaseOpen()&&BR_FAVOUR_SCRAPS.some(id=>!brState().found[id]))return {kind:'br',label:f.br.label};
+      return null;
+    }
+    function chooseFavour(thread,profile){
+      const fav=favourNow(profile),f=storyKit().favour;
+      if(!fav)return;
+      arcsState().fav[profile.id]='used';
+      thread.log.push({who:'you',text:'Can I ask you a favour? You said you owed me one.'});
+      const lines=[f.thanks];let after=null;
+      if(fav.kind==='theon'){const next=['profile','name','home'].find(k=>!fionnState().clues.includes(k));lines.push(f.theon[next]);after=()=>fionnClue(next);}
+      else if(fav.kind==='moira'){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();lines.push(fillIn(f.moira.reply,{number:c.momNumber}));}
+      else if(fav.kind==='chapel'){const night=chapel.tellNight?.(firstName(profile));if(night)lines.push(fillIn(f.chapel.night,{night}));}
+      else if(fav.kind==='br'){const id=BR_FAVOUR_SCRAPS.find(key=>!brState().found[key]);lines.push(f.br.reply);after=()=>brFindScrap(id,`A favour from ${profile.name}`);}
+      deliverTalk(thread,profile,lines,'talk',after,true);
+    }
+    // The choices her story adds to the chat, with their rank (0 is most important).
+    function arcChoices(thread,profile){
+      const kit=storyKit();
+      if(!kit||!arcEligible(profile))return [];
+      const a=arcsState(),st=a.st[profile.id],arc=st&&storyArc(a.pick[profile.id]),out=[];
+      if(arc&&st.stage==='told')out.push(['arc:ask',arc.ask.label,0]);
+      if(arc&&st.stage==='dilemma')for(const c of arc.choices||[])out.push(['arc:c:'+c.id,c.label,0]);
+      if(arc&&st.stage==='errand'&&arcErrandReady(arc,st,profile))out.push(['arc:tell',arc.tell.label,0]);
+      const fav=favourNow(profile);
+      if(fav)out.push(['arc:fav',fav.label,0]);
+      if(!a.fam.includes(profile.id)&&warmthOf(thread)>=2&&thread.topics.length>=1)out.push(['arc:family',kit.family.label,3]); // once she likes you
+      if(profile.factionId!=='sisters_of_mercy'&&!a.weird.includes(profile.id)&&warmthOf(thread)>=2&&thread.topics.length>=2)out.push(['arc:marry',kit.marry.label,4]);
+      return out;
+    }
+    function chooseArc(id,thread,profile){
+      const kit=storyKit(),a=arcsState();
+      if(!kit)return;
+      if(id==='arc:family'){
+        if(a.fam.includes(profile.id))return;
+        a.fam.push(profile.id);
+        thread.log.push({who:'you',text:kit.family.player});
+        const arc=arcOf(profile,true),st=a.st[profile.id];
+        if(arc&&arc.family&&st?.stage==='hook'){arcTell(thread,profile,arc,{quiet:true});return deliverTalk(thread,profile,[arcFill(arc.hook,profile)],'talk',null,true);} // asking opens her story
+        const own=kit.family.byFaction[profile.factionId];
+        const line=own&&hashSeed(world.seed+'|fam|'+profile.id)%2?seededPick(own,profile.id+'|fam'):seededPick(kit.family.lines,profile.id+'|fam');
+        return deliverTalk(thread,profile,[line],'talk',null,true);
+      }
+      if(id==='arc:marry'){
+        if(a.weird.includes(profile.id))return;
+        a.weird.push(profile.id);
+        thread.log.push({who:'you',text:kit.marry.player});
+        const t=tone(),reply=seededPick(kit.marry.replies[t],profile.id+'|weird');
+        warmBy(thread,t==='truecel'?-2:-1);
+        const blocks=!mustReply(profile)&&hashSeed(world.seed+'|weirdblk|'+profile.id)%100<{mogger:10,normie:25,truecel:50}[t];
+        return deliverTalk(thread,profile,blocks?[reply,seededPick(kit.marry.block,profile.id)]:[reply],'talk',blocks?()=>{thread.log[thread.log.length-1].block=true;thread.blocked=true;}:null,true);
+      }
+      if(id==='arc:fav')return chooseFavour(thread,profile);
+      const st=a.st[profile.id],arc=st&&storyArc(a.pick[profile.id]);
+      if(!arc)return;
+      if(id==='arc:ask'&&st.stage==='told'){
+        thread.log.push({who:'you',text:arc.ask.player});
+        st.stage=arc.errand?'errand':'dilemma';st.day=world.day;
+        if(arc.errand==='ad'){st.adDay=world.day+1;queueNews(arcNewsItem(arc.ad,profile,`arcad_${profile.id}`),st.adDay);} // tomorrow's classifieds
+        return deliverTalk(thread,profile,[arcFill(arc.ask.reply,profile)],'talk',null,true);
+      }
+      if(id.startsWith('arc:c:')&&st.stage==='dilemma'){
+        const c=(arc.choices||[]).find(choice=>choice.id===id.slice(6));
+        if(!c)return;
+        thread.log.push({who:'you',text:c.player});
+        st.stage='waiting';st.choice=c.id;st.day=world.day;
+        return deliverTalk(thread,profile,[arcFill(c.now,profile)],'talk',null,true);
+      }
+      if(id==='arc:tell'&&st.stage==='errand'&&arcErrandReady(arc,st,profile)){
+        thread.log.push({who:'you',text:arc.tell.player});
+        st.stage='waiting';st.choice='done';st.day=world.day;
+        return deliverTalk(thread,profile,[arcFill(arc.tell.reply,profile)],'talk',null,true);
+      }
+    }
+    // The newsroom knows things: only once she has told you what to ask.
+    function arcServiceTopics(serviceId){
+      if(serviceId!=='service:newsroom'||!storyKit())return [];
+      const a=arcsState(),out=[];
+      for(const [pid,st] of Object.entries(a.st)){
+        const arc=storyArc(a.pick[pid]),profile=hingeProfile(pid);
+        if(!arc||!profile||arc.errand!=='newsroom'||st.stage!=='errand'||st.learned)continue;
+        out.push({id:'arc:nr:'+pid,label:arc.newsroom.label,reply:arc.newsroom.reply,onChoose:()=>{st.learned=true;recordClue(`The Sunfall Daily archive, for ${profile.name}: ${arc.newsroom.reply}`);}});
+      }
+      return out;
+    }
+    // Sometimes her call is about something: her own story, or what she's heard about a case you're on.
+    function callSubstance(thread,profile){
+      const kit=storyKit();
+      if(!kit||!thread||hashSeed(world.seed+'|callsub|'+profile.id+'|'+world.day)%100>=35)return null;
+      const a=arcsState();
+      if(arcEligible(profile)&&!(profile.id in a.pick)&&thread.topics.length>=1){const arc=arcOf(profile);if(arc){arcTell(thread,profile,arc,{quiet:true});return arcFill(arc.hook,profile);}}
+      const st=a.st[profile.id],arc=storyArc(a.pick[profile.id]);
+      if(arc&&st?.stage==='hook'){arcTell(thread,profile,arc,{quiet:true});return arcFill(arc.hook,profile);}
+      const known=[];
+      if(questOn('br')&&brKnown()&&brCaseOpen())known.push('br');
+      if(questOn('vale')&&valeKnown()&&PV?.isOpen())known.push('vale');
+      const ch=chapel?.state?.();
+      if(ch?.active&&!ch.outcome&&!ch.dead)known.push('chapel');
+      if(fionnActive()&&fionnKnown())known.push('theon');
+      if(callerActive()&&callerState().calls>=1&&profile.id!==CALLER_ID)known.push('moira');
+      const used=talkState(thread).used.rumour||(talkState(thread).used.rumour=[]);
+      const fresh=known.filter(q=>!used.includes(q));
+      if(!fresh.length)return null;
+      const q=fresh[hashSeed(world.seed+'|rum|'+profile.id+'|'+world.day)%fresh.length];
+      used.push(q);
+      const line=kit.rumours[q][profile.factionId]||kit.rumours[q].any;
+      recordClue(`${profile.name}, on the phone: ${line}`);
+      return line;
+    }
+    // ---------- Spurned: decline or miss her calls too often and she turns ----------
+    // The first time she texts and rings again the next day. The second time she decides what you
+    // are to her now: she blocks you, she pleads (a text every morning and a call every day), or she
+    // makes things difficult and blocks you. Pick up, or ring her yourself, and it's forgiven.
+    // A pleading woman you keep ignoring turns again. Quest people and the Sisters only plead.
+    const spurnKit=()=>talkKit()?.spurn||null;
+    function spurnOf(id){
+      if(!world.spurn||typeof world.spurn!=='object'||Array.isArray(world.spurn))world.spurn={};
+      return world.spurn[id]||(world.spurn[id]={n:0,mood:'',day:null,act:null,m:0});
+    }
+    function sanitizeSpurn(raw){
+      const out={};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      for(const [id,v] of Object.entries(raw)){
+        if(!/^MATCH-\d{3}$/.test(id)||!v||typeof v!=='object')continue;
+        out[id]={n:Math.max(0,Math.min(9,Math.trunc(Number(v.n))||0)),mood:['','plead','spite','done'].includes(v.mood)?v.mood:'',day:Number.isInteger(v.day)?v.day:null,act:Number.isInteger(v.act)?v.act:null,m:Math.max(0,Math.min(9,Math.trunc(Number(v.m))||0))};
+      }
+      return out;
+    }
+    function spurnCallingToday(id){
+      const v=world.spurn?.[id];
+      return !!v&&v.n>=1&&(v.mood===''||v.mood==='plead')&&v.day!==null&&v.day<world.day; // she rings again the next day
+    }
+    function herLine(thread,text,extra){if(!text)return;thread.log.push({who:'her',text,...extra});talkState(thread).unread=true;}
+    const pleadLines=profile=>profile.factionId==='sisters_of_mercy'?spurnKit().pleadSister:spurnKit().plead;
+    // She rang and you declined, or let it ring out.
+    function spurned(id,missed){
+      const profile=hingeProfile(id),thread=hingeThreads.get(id),kit=spurnKit();
+      if(!kit||!profile||!thread||isStranger(id)||id===CALLER_ID||id===bearHingeCard.id||thread.blocked||thread.fumbled)return;
+      const v=spurnOf(id);
+      if(v.mood==='spite'||v.mood==='done')return;
+      v.n++;v.day=world.day;
+      if(v.mood===''&&v.n===1){if(!missed)herLine(thread,freshPick(thread,'spurnAgain',kit.again,id+world.day));return;} // a missed call already gets a message
+      if(v.mood==='plead'&&v.n>=6&&mustReply(profile)){spurnGiveUp(thread,profile,v);return;} // a quest woman can't block you: she stops
+      if(v.mood===''||(v.mood==='plead'&&v.n>=4))spurnTurn(thread,profile,v);
+      else herLine(thread,freshPick(thread,'spurnPlead',pleadLines(profile),id+world.day+'|n'+v.n));
+      if(v.mood==='plead'&&kit.voicemail)strangerVoicemail(profile.name,freshPick(thread,'spurnVm',kit.voicemail,id+world.day+'|vm'+v.n),thread.number); // and a voicemail
+    }
+    function spurnTurn(thread,profile,v){
+      const kit=spurnKit(),again=v.mood==='plead',roll=hashSeed(world.seed+'|spurn|'+profile.id+'|'+v.n)%100;
+      let mood='plead';
+      if(!mustReply(profile)){
+        const w={mogger:[60,20],normie:[45,30],truecel:[20,40]}[tone()];
+        const plead=again?0:w[0];
+        let block=w[1]+(again?25:0);
+        if(['thunderbirds','police'].includes(profile.factionId))block+=15;
+        if(['goth_girls','fourth_estate'].includes(profile.factionId))block-=10;
+        mood=roll<plead?'plead':roll<plead+block?'block':'spite';
+      }
+      if(mood==='plead'){v.mood='plead';herLine(thread,freshPick(thread,'spurnPlead',pleadLines(profile),profile.id+world.day+'|t'+v.n));return;}
+      if(mood==='block'){v.mood='done';herLine(thread,seededPick(kit.block[profile.factionId]||kit.block.default,profile.id+'|blk'),{block:true});thread.blocked=true;return;}
+      v.mood='spite';v.act=world.day+1; // tomorrow morning she does something about it
+      herLine(thread,seededPick(kit.warn,profile.id+'|warn'),{block:true});thread.blocked=true;
+    }
+    // Nobody can plead for ever. She stops calling; she blocks you unless she can't (quest women).
+    function spurnGiveUp(thread,profile,v){
+      v.mood='done';
+      herLine(thread,seededPick(spurnKit().giveUp||['Okay. I’ll stop.'],profile.id+'|giveup'),mustReply(profile)?{}:{block:true});
+      if(!mustReply(profile))thread.blocked=true;
+    }
+    // Pick up, or ring her: forgiven. Returns what she was doing, so a call can open with relief.
+    function spurnForgiven(id){
+      const v=world.spurn?.[id];
+      if(!v||v.mood==='spite'||v.mood==='done')return null;
+      const was=v.mood||(v.n?'missed':null);
+      v.n=0;v.mood='';v.m=0;
+      return was;
+    }
+    // The paper: something about you, today (or in today's paper when it's printed).
+    const addPersonalNews=item=>queueNews(item,world.day); // today's paper
+    function sanitizePersonalNews(raw){
+      const str=v=>typeof v==='string'?v.slice(0,600):'';
+      return (Array.isArray(raw)?raw:[]).filter(item=>item&&typeof item.id==='string'&&Number.isInteger(item.day)).slice(-30)
+        .map(item=>({id:str(item.id),day:item.day,section:str(item.section),title:str(item.title),summary:str(item.summary),body:str(item.body),image:str(item.image)||'classifieds',...(item.fallbackImage?{fallbackImage:str(item.fallbackImage)}:{})}));
+    }
+    function otherMatches(id){
+      return [...hingeThreads.values()].filter(thread=>thread.id!==id&&thread.id!==bearHingeCard.id&&thread.id!==CALLER_ID&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&hingeProfile(thread.id)&&!hingeProfile(thread.id).jeweller);
+    }
+    // Spite: one thing, chosen by what is true. She tells your other matches, puts you in the paper, or reports you.
+    function spiteAct(thread,profile){
+      const kit=spurnKit(),her=profile.name,others=otherMatches(profile.id);
+      const acts=[...(others.length?['tell','tell']:[]),'ad','report'];
+      const act=acts[hashSeed(world.seed+'|spite|'+profile.id)%acts.length];
+      if(act==='tell'){
+        const same=others.filter(other=>hingeProfile(other.id).factionId===profile.factionId); // her friends first
+        const targets=[...same,...others.filter(other=>!same.includes(other))].slice(0,2);
+        const count=others.length+1;
+        const fact=(world.arcs?.weird||[]).length?'married':count>=4?'count':hashSeed(world.seed+'|fact|'+profile.id)%2?'shown':'ignore';
+        for(const other of targets){
+          herLine(other,fillIn(kit.tell[fact],{her,count}));
+          warmBy(other,-1);
+          if(warmthOf(other)<=0&&!mustReply(hingeProfile(other.id))){herLine(other,kit.toldBlock,{block:true});other.blocked=true;}
+        }
+      }else if(act==='ad'){
+        addPersonalNews({id:`spite_${profile.id}`,section:kit.ad.section,title:kit.ad.title,summary:kit.ad.summary,body:fillIn(kit.ad.body,{first:firstName(profile)}),image:'classifieds'});
+        const other=others.length?others[hashSeed(world.seed+'|admention|'+profile.id)%others.length]:null;
+        if(other){herLine(other,fillIn(kit.adMention,{her}));warmBy(other,-1);}
+      }else world.hingeReview=world.day; // nobody matches you today
+      return act;
+    }
+    function spurnNewDay(){
+      if(!spurnKit()||!world.spurn)return;
+      for(const [id,v] of Object.entries(world.spurn)){
+        const thread=hingeThreads.get(id),profile=hingeProfile(id);
+        if(!thread||!profile)continue;
+        if(v.mood==='plead'&&!thread.blocked&&!thread.fumbled){
+          v.m=(v.m||0)+1;
+          if(v.m>5)spurnGiveUp(thread,profile,v); // five mornings with no answer
+          else herLine(thread,freshPick(thread,'spurnPlead',pleadLines(profile),id+world.day+'|m'));
+        }
+        if(v.mood==='spite'&&world.day>=v.act){v.mood='done';spiteAct(thread,profile);}
+      }
+    }
     function talkNewDay(){
       toneNewDay(); // the difficulty's own luck
+      spurnNewDay(); // the women whose calls you kept declining
+      arcsNewDay(); // her own story: she brings it up, and your advice plays out
+      miniNewDay(); // the mini quests
       const kit=talkKit();
       if(!kit?.morning)return;
       let sent=0;
@@ -3940,7 +4787,7 @@
     }
     function herCallers(){
       const today=callsToday();
-      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id))&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
+      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id)||spurnCallingToday(thread.id))&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
     }
     // One part of the day: maybe someone rings. Returns true if the phone started ringing.
     function tryHerCall(slot,force=false){
@@ -3950,7 +4797,7 @@
       if(stranger){today.slots.push(slot);strangerRang(stranger);startIncomingCall(stranger);return true;}
       const callers=herCallers().sort((a,b)=>warmthOf(b)-warmthOf(a));
       if(!callers.length)return false;
-      const jealous=callers.find(thread=>callerCallingToday(thread.id))||callers.find(thread=>laviniaCallingToday(thread.id))||callers.find(thread=>jealousToday(thread.id)); // these ring first, and always
+      const jealous=callers.find(thread=>callerCallingToday(thread.id))||callers.find(thread=>laviniaCallingToday(thread.id))||callers.find(thread=>jealousToday(thread.id))||callers.find(thread=>spurnCallingToday(thread.id)); // these ring first, and always
       if(!force&&!jealous&&gameRandom()>={mogger:.85,normie:.65,truecel:.4}[tone()])return false;
       const caller=jealous||(gameRandom()<.6?callers[0]:gamePick(callers)); // the warmest is likeliest
       today.slots.push(slot);today.callers.push(caller.id);
@@ -4010,6 +4857,7 @@
         const line=seededPick(kit?.calls?.missed?.[profile.factionId]||kit?.calls?.missed?.normie_girls||[],profile.id+world.day);
         if(line){thread.log.push({who:'her',text:line});talkState(thread).unread=true;}
       }
+      spurned(id,true);
       if(currentApp==='calls')renderCalls();
       else if(currentApp==='hinge')renderHinge();
     }
@@ -4037,6 +4885,7 @@
       callerMissed(id); // Mogger: she noticed
       const thread=hingeThreads.get(id);
       if(thread){thread.callLog.push({who:'you',text:'Declined call'});warmBy(thread,-1);}
+      spurned(id); // decline her too often and she turns
       renderCalls();
     }
     // The call itself. Each step: what she says, then your choices.
@@ -4046,7 +4895,7 @@
       stopRinging();
       if(isStranger(id)){herCall=strangerAnswer(id);saveRun(true);renderCalls();return;} // Theon, or her dad
       if(!profile||!kit)return renderCalls();
-      const sister=profile.factionId==='sisters_of_mercy';
+      const sister=profile.factionId==='sisters_of_mercy',wasSpurned=spurnForgiven(id); // you picked up
       if(laviniaCallingToday(id)){ // Truecel: Lavinia, then Brad
         const l=laviniaState();
         l.callDay=world.day;
@@ -4075,7 +4924,9 @@
       }
       herCall={id,kind:sister?'sister':'flirt',step:'open',flirted:false,asked:false,said:''};
       const callThread=hingeThreads.get(id);
-      herCall.said=sister?freshPick(callThread,'callOpen',kit.sister.open,id+world.day):voiced(freshPick(callThread,'callOpen',[...(kit.open[profile.factionId]||kit.open.normie_girls),...(talkKit().morning?.[moodOf(profile)]||[])],id+world.day),profile,'call'+world.day);
+      if(wasSpurned==='plead'&&spurnKit()){herCall.said=freshPick(callThread,'spurnRelief',spurnKit().relief,id+world.day);if(callThread&&warmthOf(callThread)<2)warmBy(callThread,2-warmthOf(callThread));} // she had been begging you to pick up
+      else if(!sister&&(herCall.said=callSubstance(callThread,profile)||''))herCall.kind='flirt'; // her story, or a rumour about your case
+      else herCall.said=sister?freshPick(callThread,'callOpen',kit.sister.open,id+world.day):voiced(freshPick(callThread,'callOpen',[...(kit.open[profile.factionId]||kit.open.normie_girls),...(talkKit().morning?.[moodOf(profile)]||[])],id+world.day),profile,'call'+world.day);
       hingeThreads.get(id)?.callLog.push({who:'her',text:herCall.said});
       renderCalls();
     }
@@ -4306,6 +5157,10 @@
     function countPlaythrough(){try{localStorage.setItem(PLAYTHROUGH_KEY,String(playthroughs()+1));}catch{}}
     function creditsUnlocked(){return playthroughs()>=2;}
     function renderSettings(){
+      if(settingsView==='newgame'){ // asked inside the phone: some browsers block their own confirm box
+        $('opened').innerHTML='<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>New game</h3><p>Start again from day one? This run ends here.</p><div class="settings-options"><button data-settings-newgame-yes>Start a new game</button><button data-settings-view="main">Keep playing</button></div></div>';
+        return;
+      }
       if(settingsView==='credits'&&creditsUnlocked()){
         $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<div class="settings-btc"><code>${esc(BITCOIN_ADDRESS)}</code><button data-copy-btc>Copy address</button></div><p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support MATCH</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Chris</p></div><p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
         return;
@@ -4314,7 +5169,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -4329,7 +5184,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;if(questOn('br'))world.flags.brPaperSeen=true;if(questOn('vale'))world.flags.valePaperSeen=true;/* reading the paper gives you a reason to ask about a case */renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
@@ -4352,7 +5207,9 @@
         try{navigator.clipboard.writeText(BITCOIN_ADDRESS).then(()=>{copyBtc.textContent='Copied';},selectIt);}catch{selectIt();}
         return;
       }
-      if(event.target.closest('[data-settings-newgame]')){pickDifficulty(true);return;} // a new game, any time: choose a difficulty
+      if(event.target.closest('[data-settings-newgame-yes]')){settingsView='main';pickDifficulty();return;} // then choose a difficulty
+      if(event.target.closest('[data-settings-newgame]')){settingsView='newgame';renderSettings();return;} // a new game, any time
+      if(event.target.closest('[data-tutorial-open]')){openTutorial(0);return;} // How to play
       const settingsNav=event.target.closest('[data-settings-view]');
       if(settingsNav){settingsView=settingsNav.dataset.settingsView;renderSettings();$('opened').scrollTop=0;return;}
       const settingWallpaper=event.target.closest('[data-setting-wallpaper]');
@@ -4959,8 +5816,8 @@
     const POLICE_ARREST_MESSAGE='You wasted police time and are under arrest. You are going to prison forever';
     const POLICE_ARREST_FRAMES=['threshold','approach','cuff','grab'];
     // Theon: arrested over his messages (nobody stopped him), or over him (somebody found him).
-    var ARREST_CAPTIONS={fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
-    var ARREST_ENDINGS={fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
+    var ARREST_CAPTIONS={pills:['KNOCK KNOCK. SUNFALL POLICE!','We’ve been through her list of customers.','Hold still. The handcuffs are coming out.','You are coming with me.'],ring:['KNOCK KNOCK. SUNFALL POLICE!','We’re tracing everything she sold.','Hold still. The handcuffs are coming out.','You are coming with me.'],fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
+    var ARREST_ENDINGS={pills:{text:'Your name was on her list of customers. You are under arrest.',status:'Game over · arrested over the pills.'},ring:{text:'The Ashworths’ ring was in your bedside cupboard. You are under arrest.',status:'Game over · arrested over the ring.'},fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
     let policeArrestTimers=[];
     function clearPoliceArrest(){
       for(const id of policeArrestTimers)window.clearTimeout(id);
@@ -4978,7 +5835,7 @@
     }
     function startPoliceArrest(reason='false'){
       if(world.policeArrested)return;
-      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body'].includes(reason)?reason:'false';
+      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body','pills','ring'].includes(reason)?reason:'false';
       world.policeArrestPhase=dayPhases.includes(time.value)?time.value:'bedroom-night';
       saveRun(true);
       clearPoliceArrest();clearBearTimers();clearBearVisuals();closeEvidenceSheet(false);
@@ -5027,7 +5884,7 @@
     function brHingeTopicsFor(profile){return (profile&&questOn('br')&&BR?.hingeTopics?.[profile.factionId])||[];}
     function brTopicAvailable(topic,thread){
       const s=brState();
-      if(!brCaseOpen()||!thread)return false;
+      if(!brCaseOpen()||!thread||!brKnown())return false; // only once you've read about it
       if(thread.topics.includes(topic.id)&&!topic.repeatable)return false;
       if((topic.requires||[]).some(required=>!thread.topics.includes(required)))return false;
       if(topic.needsWitness&&s.witness!=='known')return false;
@@ -5368,7 +6225,7 @@
       const chapelState=chapel?.state?.();
       if(chapelState?.active){ // a short label for the shelf: the full status lives inside the file
         const left=chapelState.riteDay-world.day;
-        const detail=chapelState.dead||chapelState.outcome?'Case closed':left<=0?'Tonight':left===1?'Tomorrow night':`${left} nights left`;
+        const detail=chapelState.dead||chapelState.outcome?'Case closed':!chapelState.nightKnown?'Which night?':left<=0?'Tonight':left===1?'Tomorrow night':`${left} nights left`;
         files.push({id:'chapel',title:'The Chapel at Midnight',detail});
       }
       if(PV?.isOpen()){const card=PV.caseCard();files.push({id:'vale',title:card.title,detail:card.status});}
@@ -5406,6 +6263,8 @@
         if(v.stage==='backrow')items.push({id:'pv:note',label:'Vanessa’s note',image:'assets/quests/professor/vanessa-note.png',text:`Vanessa’s folded note: ${(v.noteOrder||[]).map(id=>symbols[id]).join('  ')}. Connect the three parts in that order, matching each part’s sticker.`,file:'vale'});
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
+      items.push(...miniItems()); // mini quests: on your doorstep
+      for(const item of arcsState().items)items.push({id:item.id,label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
     }
     function cupboardSignature(){return [...cupboardFiles().map(file=>'file:'+file.id),...cupboardItems().map(item=>'item:'+item.id)];}
@@ -5476,7 +6335,7 @@
       else if(view.startsWith('item:')){
         const item=cupboardItems().find(entry=>entry.id===view.slice(5));
         if(!item){cupboardView='shelf';renderCupboard();return;}
-        body.innerHTML=`${cupBack}<div class="cup-inspect">${item.image?`<div class="cup-stand"><img src="${esc(item.image)}" alt="" onerror="this.remove()"></div>`:''}<h4>${esc(item.label)}</h4><p>${esc(item.text)}</p>${item.action?`<button class="cup-act" data-cup-act="${esc(item.action.id)}">${esc(item.action.label)}</button>`:''}${item.sheet?'<button class="cup-act" data-br-action="sheet">📌 Lay it out on the Evidence Sheet</button>':''}${item.file?`<button class="cup-act" data-cup-open="${esc(item.file)}">Open the file it belongs to</button>`:''}</div>`;
+        body.innerHTML=`${cupBack}<div class="cup-inspect">${item.image?`<div class="cup-stand"><img src="${esc(item.image)}" alt="" onerror="this.remove()"></div>`:''}<h4>${esc(item.label)}</h4><p>${esc(item.text)}</p>${[...(item.actions||[]),...(item.action?[item.action]:[])].map(action=>`<button class="cup-act" data-cup-act="${esc(action.id)}">${esc(action.label)}</button>`).join('')}${item.sheet?'<button class="cup-act" data-br-action="sheet">📌 Lay it out on the Evidence Sheet</button>':''}${item.file?`<button class="cup-act" data-cup-open="${esc(item.file)}">Open the file it belongs to</button>`:''}</div>`;
       }else{
         cupboardView='shelf';
         const files=cupboardFiles(),items=cupboardItems(),pos=cupboardState().pos;
@@ -5575,6 +6434,7 @@
       const act=target.closest('[data-cup-act]');
       if(act&&!act.disabled){
         if(act.dataset.cupAct==='take-lpc'){takeGlow();return;} // Truecel: LPC-A365
+        if(act.dataset.cupAct.startsWith('mini:')){miniCupAct(act.dataset.cupAct);return;} // mini quests
         if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
         else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
         else if(act.dataset.cupAct==='connect'){connectItems(cupboardPicked);return;}
@@ -5627,7 +6487,7 @@
         const warning=key==='police'&&world.falsePoliceReports?` · ⚠ ${world.falsePoliceReports}/${MAX_FALSE_REPORTS} false reports`:'';
         list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
       }
-      {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:pemberton',name:'Mrs Pemberton',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/pemberton.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
+      {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
       for(const thread of hingeThreads.values()){
@@ -5789,6 +6649,7 @@
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
@@ -5809,13 +6670,14 @@
         hingeThreads=new Map(entries.map(([id,raw])=>{
           const profile=ids.get(id);
           const allowedImages=new Set([...profile.gallery,...(profile.privatePhotos||[]).map(photo=>photo.src)]);
-          const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{}),...(typeof line.shot==='string'?{shot:line.shot.slice(0,20)}:{})})):[];
+          const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{}),...(typeof line.shot==='string'?{shot:line.shot.slice(0,20)}:{}),...(line.block?{block:true}:{})})):[];
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
             followUp:raw.followUp&&['topic','question','news','day'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
+            at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
             log,callLog:Array.isArray(raw.callLog)?raw.callLog.filter(l=>l&&typeof l.text==='string').slice(-100):[]}];
         }));
         stopRinging();herCall=null;scheduleHerCalls();
@@ -5846,6 +6708,7 @@
         if(world.blueRibbon.retaliated){showBlueRibbonDeath();openApp('notes');return true;}
         if(world.policeArrested){showPoliceArrestDeath();return true;}
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
+        if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
         if(dadState().stage==='dead'||dadState().stage==='coming'){dadDeath();return true;} // her dad
         if(fionnState().stage==='dead'){fionnDeathScreen();return true;} // Theon
         if(fionnState().stage==='shot')playScene([FIONN.shot[1]],fionnHideChoices,{keep:true}); // the body is still on the floor
@@ -5855,6 +6718,7 @@
         if(['visible','warning','attack'].includes(bearState)){bearState='tracking';beginBearWarning();}
         chapel?.afterLoad(); // Task 2: checks quest state; old saves start the quest fresh
         marriage?.afterLoad(); // Marriage: restores examinations, the desk ring and a won game
+        valeWeddingDue(); // the Thunderbirds were about to marry you off
         addJewellersToDeck(); // saves from before the jewellers joined Hinge
         openApp('hinge');return true;
       }catch(error){
@@ -5874,7 +6738,7 @@
       world=newWorld('Scottsdale-'+Date.now()+'-'+Math.random());
       marriage?.reset(); // Marriage: closes the wedding screens and clears the desk ring
       PV=mountVale(); // Professor Vale: a fresh case (the new world has none yet)
-      hingeThreads.clear();hingeGalleryIndex={};hingeLikes=0;hingeToast='';
+      hingeThreads.clear();hingeGalleryIndex={};hingeLikes=0;hingeToast='';window.clearTimeout(hingeToastTimer);hingeToastTimer=null;
       setupHingeDeck();hingeView='discover';activeChatId=null;
       clearCallSchedule();
       visibleNewsDay=1;expandedNews.clear();getNewsEdition(1);
@@ -5929,8 +6793,21 @@
     }):null;
     addJewellersToDeck(); // the first deck was built before the jewellers were known
     // Professor Vale: "The Professor Who Won't Disappear" (quests/professor-vale.js).
-    // Phone-only. Its best endings are CASE CLOSED, never a win: marriage stays the only
-    // victory. This is the full list of game functions the quest is allowed to use.
+    // Phone-only. Its best endings are CASE CLOSED. The Thunderbird one goes on to a wedding,
+    // which marriage.js records as a win. This is the full list of game functions the quest is allowed to use.
+    // The Thunderbirds marry you off: to the Thunderbird you asked out, or else Alice Beaumont simply takes you.
+    function thunderbirdBride(preferred){
+      const fit=id=>{const profile=hingeProfile(id),thread=hingeThreads.get(id);return profile&&profile.factionId==='thunderbirds'&&!(thread&&(thread.blocked||thread.fumbled))?profile:null;};
+      const bride=(preferred?fit(preferred):null)||hingeProfile('MATCH-042');
+      return bride?{id:bride.id,name:bride.name}:null;
+    }
+    // A reload between the Vale card and the wedding: the wedding still happens.
+    function valeWeddingDue(){
+      const info=PV?.engine?.endingInfo?.(world.professorVale);
+      if(info?.win!=='thunderbirds'||!marriage?.hasData()||marriage.isWon())return;
+      const bride=info.bride||thunderbirdBride(null)?.id; // a save from before brides were chosen
+      if(bride)marriage.thunderbirdWedding(bride);
+    }
     function mountVale(){
       document.querySelectorAll('.pv-overlay').forEach(element=>element.remove());
       valeArmedTopic=null;
@@ -5940,6 +6817,8 @@
         showRoomCaption:text=>showGameNotice(text),
         playSequence:(steps,done)=>playRoomSequence(steps,done),
         showDeath:info=>showValeDeath(info),
+        bride:preferred=>thunderbirdBride(preferred),
+        win:info=>{if(info.bride)marriage?.thunderbirdWedding(info.bride);},
         overlayRoot:()=>stage,
         save:()=>saveRun(true),
         onChange:()=>{

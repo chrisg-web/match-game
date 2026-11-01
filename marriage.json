@@ -996,5 +996,33 @@
       "Yes. A thousand times yes. I am telling my mother straight away.",
       "Yes. I have prayed about this, and the answer is yes."
     ]
+  },
+  "thunderbirds": {
+    "status": "You married {name}. The Thunderbirds have a new member. You won MATCH.",
+    "backdrop": "assets/marriage/thunderbirds/victory-backdrop.png",
+    "scenes": [
+      {
+        "path": "assets/marriage/thunderbirds/1-gala-ball.png",
+        "title": "The Gala Ball"
+      },
+      {
+        "path": "assets/marriage/thunderbirds/2-voted-in.png",
+        "title": "Voted In"
+      },
+      {
+        "path": "assets/marriage/thunderbirds/3-wedding.png",
+        "title": "The Wedding"
+      },
+      {
+        "path": "assets/marriage/thunderbirds/brides/{slug}.png",
+        "title": "The Wedding Portrait"
+      }
+    ],
+    "victory": {
+      "title": "JUST MARRIED",
+      "subtitle": "Welcome to the Thunderbirds. Welcome to the family.",
+      "line": "You and {name} · The Thunderbird Club · Day {day}",
+      "newGame": "Start a new game"
+    }
   }
 }

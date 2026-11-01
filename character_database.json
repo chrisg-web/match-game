@@ -1382,7 +1382,7 @@
     {
       "id": "MATCH-001",
       "name": "Anna Voss",
-      "age": 26,
+      "age": 23,
       "faction": "thunderbirds",
       "job": "Charity volunteer",
       "look": "",
@@ -1425,7 +1425,7 @@
     {
       "id": "MATCH-002",
       "name": "Eleanor Graves",
-      "age": 31,
+      "age": 27,
       "faction": "police",
       "job": "Detective",
       "look": "",
@@ -1478,7 +1478,7 @@
     {
       "id": "MATCH-003",
       "name": "Victoria Blackwood",
-      "age": 28,
+      "age": 23,
       "faction": "goth_girls",
       "job": "Record-store regular",
       "look": "",
@@ -1530,7 +1530,7 @@
     {
       "id": "MATCH-004",
       "name": "Beatrice Hale",
-      "age": 29,
+      "age": 26,
       "faction": "fourth_estate",
       "job": "Local reporter",
       "look": "",
@@ -1582,7 +1582,7 @@
     {
       "id": "MATCH-005",
       "name": "Clara Weiss",
-      "age": 24,
+      "age": 21,
       "faction": "normie_girls",
       "job": "University student",
       "look": "",
@@ -1635,7 +1635,7 @@
     {
       "id": "MATCH-006",
       "name": "Catherine Bell",
-      "age": 27,
+      "age": 22,
       "faction": "thunderbirds",
       "job": "Fundraising organiser",
       "look": "",
@@ -1678,7 +1678,7 @@
     {
       "id": "MATCH-007",
       "name": "Sophia Moretti",
-      "age": 25,
+      "age": 20,
       "faction": "sisters_of_mercy",
       "job": "Parish outreach volunteer",
       "look": "",
@@ -1730,7 +1730,7 @@
     {
       "id": "MATCH-008",
       "name": "Rebecca Shaw",
-      "age": 30,
+      "age": 26,
       "faction": "progressives",
       "job": "Student organiser",
       "look": "",
@@ -1781,7 +1781,7 @@
     {
       "id": "MATCH-009",
       "name": "Amelia Hart",
-      "age": 23,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Retail assistant",
       "look": "",
@@ -1865,7 +1865,7 @@
     {
       "id": "MATCH-011",
       "name": "Lucy Bennett",
-      "age": 26,
+      "age": 22,
       "faction": "normie_girls",
       "job": "University lecturer",
       "look": "",
@@ -1908,7 +1908,7 @@
     {
       "id": "MATCH-012",
       "name": "Natalie Cross",
-      "age": 29,
+      "age": 25,
       "faction": "fourth_estate",
       "job": "Photojournalist",
       "look": "",
@@ -1951,7 +1951,7 @@
     {
       "id": "MATCH-013",
       "name": "Megan Torres",
-      "age": 28,
+      "age": 25,
       "faction": "normie_girls",
       "job": "Shop assistant",
       "look": "",
@@ -1993,7 +1993,7 @@
     {
       "id": "MATCH-014",
       "name": "Emily Fairchild",
-      "age": 25,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Nurse",
       "look": "",
@@ -2036,7 +2036,7 @@
     {
       "id": "MATCH-015",
       "name": "Brooke Chandler",
-      "age": 24,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Marketing assistant",
       "look": "",
@@ -2078,7 +2078,7 @@
     {
       "id": "MATCH-016",
       "name": "Madison Pike",
-      "age": 22,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Diner waitress",
       "look": "",
@@ -2121,7 +2121,7 @@
     {
       "id": "MATCH-017",
       "name": "Olivia Reid",
-      "age": 27,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "",
@@ -2164,7 +2164,7 @@
     {
       "id": "MATCH-018",
       "name": "Sarah Whitcomb",
-      "age": 30,
+      "age": 25,
       "faction": "normie_girls",
       "job": "Accountant",
       "look": "",
@@ -2206,7 +2206,7 @@
     {
       "id": "MATCH-019",
       "name": "Tiffany Nash",
-      "age": 23,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Party promoter",
       "look": "",
@@ -2249,7 +2249,7 @@
     {
       "id": "MATCH-020",
       "name": "Lauren Bishop",
-      "age": 26,
+      "age": 23,
       "faction": "normie_girls",
       "job": "Fitness instructor",
       "look": "",
@@ -2291,7 +2291,7 @@
     {
       "id": "MATCH-021",
       "name": "Heather Collins",
-      "age": 28,
+      "age": 23,
       "faction": "normie_girls",
       "job": "Primary-school teacher",
       "look": "",
@@ -2333,7 +2333,7 @@
     {
       "id": "MATCH-022",
       "name": "Chloe Farrow",
-      "age": 21,
+      "age": 18,
       "faction": "normie_girls",
       "job": "Art student",
       "look": "",
@@ -2376,7 +2376,7 @@
     {
       "id": "MATCH-023",
       "name": "Julia Mercer",
-      "age": 32,
+      "age": 27,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "",
@@ -2418,7 +2418,7 @@
     {
       "id": "MATCH-024",
       "name": "Rachel Lowe",
-      "age": 25,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Veterinary assistant",
       "look": "",
@@ -2461,7 +2461,7 @@
     {
       "id": "MATCH-025",
       "name": "Megan O'Keefe",
-      "age": 29,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Dental hygienist",
       "look": "",
@@ -2504,7 +2504,7 @@
     {
       "id": "MATCH-026",
       "name": "Emma Frost",
-      "age": 22,
+      "age": 18,
       "faction": "normie_girls",
       "job": "College senior",
       "look": "",
@@ -2546,7 +2546,7 @@
     {
       "id": "MATCH-027",
       "name": "Paige Dalton",
-      "age": 24,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Cinema cashier",
       "look": "",
@@ -2588,7 +2588,7 @@
     {
       "id": "MATCH-028",
       "name": "Nicole Ashbury",
-      "age": 33,
+      "age": 30,
       "faction": "normie_girls",
       "job": "Events planner",
       "look": "",
@@ -2631,7 +2631,7 @@
     {
       "id": "MATCH-029",
       "name": "Audrey King",
-      "age": 26,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Rodeo ticket seller",
       "look": "",
@@ -2673,7 +2673,7 @@
     {
       "id": "MATCH-030",
       "name": "Bethany Price",
-      "age": 27,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Librarian",
       "look": "",
@@ -2716,7 +2716,7 @@
     {
       "id": "MATCH-031",
       "name": "Erin Doyle",
-      "age": 24,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Lifeguard",
       "look": "",
@@ -2759,7 +2759,7 @@
     {
       "id": "MATCH-032",
       "name": "Kimberly Brooks",
-      "age": 31,
+      "age": 28,
       "faction": "normie_girls",
       "job": "Office administrator",
       "look": "",
@@ -2801,7 +2801,7 @@
     {
       "id": "MATCH-033",
       "name": "Grace Wheeler",
-      "age": 23,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Ice-cream vendor",
       "look": "",
@@ -2844,7 +2844,7 @@
     {
       "id": "MATCH-034",
       "name": "Isabel Morales",
-      "age": 28,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Horse trainer",
       "look": "",
@@ -2886,7 +2886,7 @@
     {
       "id": "MATCH-035",
       "name": "Elena Vargas",
-      "age": 25,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "",
@@ -2929,7 +2929,7 @@
     {
       "id": "MATCH-036",
       "name": "Camila Reyes",
-      "age": 22,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Cosmetology student",
       "look": "",
@@ -2971,7 +2971,7 @@
     {
       "id": "MATCH-037",
       "name": "Marisol Fuentes",
-      "age": 29,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Park ranger",
       "look": "",
@@ -3014,7 +3014,7 @@
     {
       "id": "MATCH-038",
       "name": "Daniela Cruz",
-      "age": 32,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Boutique owner",
       "look": "",
@@ -3057,7 +3057,7 @@
     {
       "id": "MATCH-039",
       "name": "Hana Park",
-      "age": 26,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Graphic designer",
       "look": "",
@@ -3100,7 +3100,7 @@
     {
       "id": "MATCH-040",
       "name": "Mei Chen",
-      "age": 30,
+      "age": 26,
       "faction": "normie_girls",
       "job": "Hairdresser",
       "look": "",
@@ -3143,7 +3143,7 @@
     {
       "id": "MATCH-041",
       "name": "Nia Walker",
-      "age": 24,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Community theatre actor",
       "look": "",
@@ -3185,7 +3185,7 @@
     {
       "id": "MATCH-042",
       "name": "Alice Beaumont",
-      "age": 29,
+      "age": 24,
       "faction": "thunderbirds",
       "job": "Charity event chair",
       "look": "",
@@ -3273,7 +3273,7 @@
     {
       "id": "MATCH-044",
       "name": "Phoebe Sutton",
-      "age": 25,
+      "age": 20,
       "faction": "thunderbirds",
       "job": "Volunteer coordinator",
       "look": "",
@@ -3316,7 +3316,7 @@
     {
       "id": "MATCH-045",
       "name": "Sofia Delgado",
-      "age": 27,
+      "age": 22,
       "faction": "thunderbirds",
       "job": "Community liaison",
       "look": "",
@@ -3358,7 +3358,7 @@
     {
       "id": "MATCH-046",
       "name": "Yumi Tanaka",
-      "age": 30,
+      "age": 27,
       "faction": "thunderbirds",
       "job": "Non-profit accountant",
       "look": "",
@@ -3401,7 +3401,7 @@
     {
       "id": "MATCH-047",
       "name": "Abigail Porter",
-      "age": 33,
+      "age": 30,
       "faction": "police",
       "job": "Homicide detective",
       "look": "",
@@ -3445,7 +3445,7 @@
     {
       "id": "MATCH-048",
       "name": "Helen Markham",
-      "age": 37,
+      "age": 32,
       "faction": "police",
       "job": "Police sergeant",
       "look": "",
@@ -3487,7 +3487,7 @@
     {
       "id": "MATCH-049",
       "name": "Maria Vega",
-      "age": 28,
+      "age": 23,
       "faction": "police",
       "job": "Undercover detective",
       "look": "",
@@ -3530,7 +3530,7 @@
     {
       "id": "MATCH-050",
       "name": "Keiko Nakamura",
-      "age": 31,
+      "age": 28,
       "faction": "police",
       "job": "Police analyst",
       "look": "",
@@ -3573,7 +3573,7 @@
     {
       "id": "MATCH-051",
       "name": "Jennifer Tate",
-      "age": 24,
+      "age": 20,
       "faction": "progressives",
       "job": "Campus organiser",
       "look": "",
@@ -3619,7 +3619,7 @@
     {
       "id": "MATCH-052",
       "name": "Vanessa Greer",
-      "age": 27,
+      "age": 23,
       "faction": "progressives",
       "job": "Political activist",
       "look": "",
@@ -3665,7 +3665,7 @@
     {
       "id": "MATCH-053",
       "name": "Allison Kent",
-      "age": 30,
+      "age": 25,
       "faction": "progressives",
       "job": "Research assistant",
       "look": "",
@@ -3708,7 +3708,7 @@
     {
       "id": "MATCH-054",
       "name": "Rosa Gutierrez",
-      "age": 26,
+      "age": 23,
       "faction": "progressives",
       "job": "Graduate student",
       "look": "",
@@ -3753,7 +3753,7 @@
     {
       "id": "MATCH-055",
       "name": "Margaret Holloway",
-      "age": 35,
+      "age": 32,
       "faction": "sisters_of_mercy",
       "job": "Parish coordinator",
       "look": "",
@@ -3799,7 +3799,7 @@
     {
       "id": "MATCH-056",
       "name": "Teresa Bellamy",
-      "age": 28,
+      "age": 24,
       "faction": "sisters_of_mercy",
       "job": "Religious-school teacher",
       "look": "",
@@ -3844,7 +3844,7 @@
     {
       "id": "MATCH-057",
       "name": "Evelyn Rosales",
-      "age": 31,
+      "age": 26,
       "faction": "sisters_of_mercy",
       "job": "Charity secretary",
       "look": "",
@@ -3886,7 +3886,7 @@
     {
       "id": "MATCH-058",
       "name": "Hannah Webb",
-      "age": 28,
+      "age": 24,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
       "look": "",
@@ -3929,7 +3929,7 @@
     {
       "id": "MATCH-059",
       "name": "Fiona Blake",
-      "age": 32,
+      "age": 29,
       "faction": "fourth_estate",
       "job": "Editor",
       "look": "",
@@ -3972,7 +3972,7 @@
     {
       "id": "MATCH-060",
       "name": "Linh Tran",
-      "age": 26,
+      "age": 21,
       "faction": "fourth_estate",
       "job": "Freelance photojournalist",
       "look": "",
@@ -4015,7 +4015,7 @@
     {
       "id": "MATCH-061",
       "name": "Alice Wren",
-      "age": 25,
+      "age": 21,
       "faction": "goth_girls",
       "job": "Nightclub DJ",
       "look": "",
@@ -4058,7 +4058,7 @@
     {
       "id": "MATCH-062",
       "name": "Piper Nocturne",
-      "age": 23,
+      "age": 20,
       "faction": "goth_girls",
       "job": "Alternative shop assistant",
       "look": "",
@@ -4101,7 +4101,7 @@
     {
       "id": "MATCH-063",
       "name": "Zara Brooks",
-      "age": 29,
+      "age": 24,
       "faction": "goth_girls",
       "job": "Tattoo artist",
       "look": "",
@@ -4144,7 +4144,7 @@
     {
       "id": "MATCH-064",
       "name": "Maya Serrano",
-      "age": 29,
+      "age": 25,
       "faction": "normie_girls",
       "job": "Emergency department nurse",
       "look": "Olive skin, dark curls in a high ponytail, teal scrubs and a white zip hoodie",
@@ -4230,7 +4230,7 @@
     {
       "id": "MATCH-066",
       "name": "Priya Nair",
-      "age": 27,
+      "age": 23,
       "faction": "sisters_of_mercy",
       "job": "Community librarian",
       "look": "Brown skin, dark side braid, tortoiseshell glasses, sage cardigan and long skirt",
@@ -4273,7 +4273,7 @@
     {
       "id": "MATCH-067",
       "name": "Inez Morales",
-      "age": 25,
+      "age": 22,
       "faction": "progressives",
       "job": "University housing organiser",
       "look": "Amber skin, wavy chestnut bob, turquoise eyeshadow, corduroy jacket and vintage band T-shirt",
@@ -4316,7 +4316,7 @@
     {
       "id": "MATCH-068",
       "name": "Rowan Pike",
-      "age": 32,
+      "age": 29,
       "faction": "goth_girls",
       "job": "Tattoo studio owner",
       "look": "Pale skin, silver-black undercut, grey-green eyes, subtle tattoos and crescent jewellery",
@@ -4359,7 +4359,7 @@
     {
       "id": "MATCH-069",
       "name": "Camille Baptiste",
-      "age": 30,
+      "age": 27,
       "faction": "fourth_estate",
       "job": "Photojournalist",
       "look": "Deep brown skin, dark locs tied in a scarf, olive utility jacket and silver compact-camera strap",
@@ -4402,7 +4402,7 @@
     {
       "id": "MATCH-070",
       "name": "Tessa Larkin",
-      "age": 24,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Wildlife rescue volunteer",
       "look": "Freckled fair skin, copper-red braids, bright coral top and faded jeans",
@@ -4445,7 +4445,7 @@
     {
       "id": "MATCH-071",
       "name": "Nadia Okafor",
-      "age": 28,
+      "age": 24,
       "faction": "police",
       "job": "Forensic evidence technician",
       "look": "Dark skin, shoulder-length box braids, burgundy shirt and simple watch",
@@ -4531,7 +4531,7 @@
     {
       "id": "MATCH-073",
       "name": "Leona Carlisle",
-      "age": 31,
+      "age": 27,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Fair skin, chestnut curly bob, grey-green eyes, navy shift dress with pearls",
@@ -4572,7 +4572,7 @@
     {
       "id": "MATCH-074",
       "name": "Elise Harrow",
-      "age": 22,
+      "age": 19,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Warm brown skin, chin-length raven bob with a fringe, amber eyes, cream blazer over a silk camisole",
@@ -4615,7 +4615,7 @@
     {
       "id": "MATCH-075",
       "name": "Francesca Quinn",
-      "age": 32,
+      "age": 27,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Dark skin, brown waves with teal tips, a silver ear cuff, white linen trouser suit",
@@ -4658,7 +4658,7 @@
     {
       "id": "MATCH-076",
       "name": "Naomi Whitlock",
-      "age": 23,
+      "age": 18,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Medium-brown skin, natural afro puff, a tiny scar through one eyebrow, tailored grey waistcoat and slacks",
@@ -4742,7 +4742,7 @@
     {
       "id": "MATCH-078",
       "name": "Simone Ellery",
-      "age": 24,
+      "age": 20,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Light-brown skin, wavy dark hair with a deep side part, a beauty mark above her lip, navy shift dress with pearls",
@@ -4764,7 +4764,7 @@
     {
       "id": "MATCH-080",
       "name": "Valerie Huxley",
-      "age": 25,
+      "age": 20,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Rail-thin runway-model frame, a slim small-busted figure, translucent pale skin, high cheekbones, cool dark sullen eyes with faint shadows beneath, honey-blonde hair scraped back, a pale pink slip-style sheath dress",
@@ -4846,7 +4846,7 @@
     {
       "id": "MATCH-082",
       "name": "Serena Bellweather",
-      "age": 26,
+      "age": 23,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Light olive skin, cornrows into a low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
@@ -4868,7 +4868,7 @@
     {
       "id": "MATCH-084",
       "name": "Cecilia Prado",
-      "age": 27,
+      "age": 22,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Light olive skin, box braids to the waist, amber eyes, powder-blue twinset",
@@ -4890,7 +4890,7 @@
     {
       "id": "MATCH-086",
       "name": "Brielle Kenton",
-      "age": 28,
+      "age": 25,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Light olive skin, burgundy-dyed curls, sharp winged eyeliner, pale pink sheath dress",
@@ -4912,7 +4912,7 @@
     {
       "id": "MATCH-088",
       "name": "Carmen Bellini",
-      "age": 29,
+      "age": 24,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Freckled fair skin, strawberry-blonde braid crown, a gap-toothed smile, striped boat-neck top and capri trousers",
@@ -4934,7 +4934,7 @@
     {
       "id": "MATCH-090",
       "name": "Miriam Landry",
-      "age": 30,
+      "age": 25,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Rosy fair skin, auburn shag with a curtain fringe, strong dark brows, cream blazer over a silk camisole",
@@ -4956,7 +4956,7 @@
     {
       "id": "MATCH-092",
       "name": "Audra Beaumont",
-      "age": 31,
+      "age": 27,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Dark skin, golden-brown ringlets, a small nose stud, camel trench coat and silk scarf",
@@ -4967,7 +4967,7 @@
     {
       "id": "MATCH-093",
       "name": "Eloise Rainer",
-      "age": 22,
+      "age": 18,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Medium-brown skin, sandy shag with a fringe, deep dimples, cream blazer over a silk camisole",
@@ -4978,7 +4978,7 @@
     {
       "id": "MATCH-094",
       "name": "Lorena Sato",
-      "age": 32,
+      "age": 28,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
       "look": "Warm beige skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
@@ -4989,7 +4989,7 @@
     {
       "id": "MATCH-095",
       "name": "Penelope Kline",
-      "age": 23,
+      "age": 19,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Light olive skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
@@ -5011,7 +5011,7 @@
     {
       "id": "MATCH-097",
       "name": "Estelle Park",
-      "age": 24,
+      "age": 20,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Warm beige skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
@@ -5033,7 +5033,7 @@
     {
       "id": "MATCH-099",
       "name": "Whitney Ashford",
-      "age": 25,
+      "age": 21,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Pale skin, dark French braid, a gap-toothed smile, navy shift dress with pearls",
@@ -5055,7 +5055,7 @@
     {
       "id": "MATCH-101",
       "name": "Catalina Reyes",
-      "age": 26,
+      "age": 22,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
       "look": "Deep brown skin, rose-gold bob, long lashes and a sleepy gaze, white linen trouser suit",
@@ -5066,7 +5066,7 @@
     {
       "id": "MATCH-102",
       "name": "Danica Holt",
-      "age": 22,
+      "age": 18,
       "faction": "police",
       "job": "Crime scene photographer",
       "look": "Deep brown skin, golden-brown ringlets, a silver ear cuff, windbreaker over a sports top",
@@ -5109,7 +5109,7 @@
     {
       "id": "MATCH-103",
       "name": "Sasha Mahoney",
-      "age": 32,
+      "age": 27,
       "faction": "police",
       "job": "Public safety statistician",
       "look": "Olive skin, natural afro puff, deep dimples, windbreaker over a sports top",
@@ -5150,7 +5150,7 @@
     {
       "id": "MATCH-104",
       "name": "Imani Harper",
-      "age": 23,
+      "age": 20,
       "faction": "police",
       "job": "Evidence archive assistant",
       "look": "Pale skin, layered caramel shoulder-length hair, freckles across her nose, windbreaker over a sports top",
@@ -5192,7 +5192,7 @@
     {
       "id": "MATCH-105",
       "name": "Leila Sayeed",
-      "age": 33,
+      "age": 28,
       "faction": "police",
       "job": "Custody nurse",
       "look": "Olive skin, soft brown fringe and a low knot, hazel eyes, plain white shirt and slim black trousers",
@@ -5233,7 +5233,7 @@
     {
       "id": "MATCH-106",
       "name": "Joanne Kendrick",
-      "age": 24,
+      "age": 20,
       "faction": "police",
       "job": "Police dispatcher",
       "look": "Freckled fair skin, natural afro puff, thin wire-rimmed glasses, maroon fleece and jeans",
@@ -5274,7 +5274,7 @@
     {
       "id": "MATCH-107",
       "name": "Cassidy Boone",
-      "age": 34,
+      "age": 29,
       "faction": "police",
       "job": "Police records clerk",
       "look": "Fair skin, short silver-dyed crop, amber eyes, denim shirt with rolled sleeves",
@@ -5315,7 +5315,7 @@
     {
       "id": "MATCH-108",
       "name": "Naoko Watanabe",
-      "age": 25,
+      "age": 21,
       "faction": "police",
       "job": "Victim liaison adviser",
       "look": "Light-brown skin, blunt black bob, rosy cheeks, windbreaker over a sports top",
@@ -5326,7 +5326,7 @@
     {
       "id": "MATCH-109",
       "name": "Brenda Velasco",
-      "age": 35,
+      "age": 31,
       "faction": "police",
       "job": "Traffic collision investigator",
       "look": "Lean and wiry, golden-tan skin, high sharp cheekbones, hooded dark eyes, a strong nose, a chestnut high ponytail, thin wire-rimmed glasses, an olive field jacket",
@@ -5367,7 +5367,7 @@
     {
       "id": "MATCH-110",
       "name": "Alisha Benton",
-      "age": 26,
+      "age": 23,
       "faction": "police",
       "job": "Forensic lab analyst",
       "look": "Lean and athletic, olive skin, a slightly crooked nose from an old break, intense dark eyes, honey-blonde beach waves, a windbreaker over a sports top",
@@ -5408,7 +5408,7 @@
     {
       "id": "MATCH-111",
       "name": "Mireya Solis",
-      "age": 36,
+      "age": 32,
       "faction": "police",
       "job": "Community safety officer",
       "look": "Fair skin, cornrows into a low bun, a wide bright smile, charcoal blazer and turtleneck",
@@ -5419,7 +5419,7 @@
     {
       "id": "MATCH-112",
       "name": "Yvette Palmer",
-      "age": 27,
+      "age": 22,
       "faction": "police",
       "job": "Detective constable",
       "look": "Medium-brown skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
@@ -5430,7 +5430,7 @@
     {
       "id": "MATCH-113",
       "name": "Katrina Ford",
-      "age": 37,
+      "age": 34,
       "faction": "police",
       "job": "Crime scene photographer",
       "look": "Pale skin, chestnut curly bob, freckles across her nose, windbreaker over a sports top",
@@ -5441,7 +5441,7 @@
     {
       "id": "MATCH-114",
       "name": "Monica Herrera",
-      "age": 28,
+      "age": 25,
       "faction": "police",
       "job": "Public safety statistician",
       "look": "Golden-tan skin, auburn shag with a curtain fringe, rosy cheeks, charcoal blazer and turtleneck",
@@ -5452,7 +5452,7 @@
     {
       "id": "MATCH-115",
       "name": "Kelsey Donovan",
-      "age": 38,
+      "age": 35,
       "faction": "police",
       "job": "Evidence archive assistant",
       "look": "Fair skin, rose-gold bob, a gap-toothed smile, black leather jacket over a white tee",
@@ -5463,7 +5463,7 @@
     {
       "id": "MATCH-116",
       "name": "Shirin Abbasi",
-      "age": 29,
+      "age": 25,
       "faction": "police",
       "job": "Custody nurse",
       "look": "Freckled fair skin, cornrows into a low bun, tortoiseshell glasses, navy polo shirt and khaki trousers",
@@ -5474,7 +5474,7 @@
     {
       "id": "MATCH-117",
       "name": "Amber Colebrook",
-      "age": 39,
+      "age": 34,
       "faction": "police",
       "job": "Police dispatcher",
       "look": "Olive skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black trousers",
@@ -5485,7 +5485,7 @@
     {
       "id": "MATCH-118",
       "name": "Renee Salazar",
-      "age": 30,
+      "age": 25,
       "faction": "police",
       "job": "Police records clerk",
       "look": "Light-brown skin, twist-out coils, a gap-toothed smile, denim shirt with rolled sleeves",
@@ -5496,7 +5496,7 @@
     {
       "id": "MATCH-119",
       "name": "Lydia Carver",
-      "age": 40,
+      "age": 35,
       "faction": "police",
       "job": "Victim liaison adviser",
       "look": "Warm beige skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
@@ -5507,7 +5507,7 @@
     {
       "id": "MATCH-120",
       "name": "Opal Franklin",
-      "age": 31,
+      "age": 27,
       "faction": "police",
       "job": "Traffic collision investigator",
       "look": "Light-brown skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
@@ -5518,7 +5518,7 @@
     {
       "id": "MATCH-121",
       "name": "Taryn Chase",
-      "age": 22,
+      "age": 18,
       "faction": "police",
       "job": "Forensic lab analyst",
       "look": "Light-brown skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
@@ -5529,7 +5529,7 @@
     {
       "id": "MATCH-122",
       "name": "Sabrina Wallace",
-      "age": 32,
+      "age": 29,
       "faction": "police",
       "job": "Community safety officer",
       "look": "Golden-tan skin, long red curls, gold hoop earrings, grey hoodie and running shoes",
@@ -5540,7 +5540,7 @@
     {
       "id": "MATCH-123",
       "name": "Bridget Keogh",
-      "age": 23,
+      "age": 18,
       "faction": "police",
       "job": "Detective constable",
       "look": "Rosy fair skin, strawberry-blonde braid crown, long lashes and a sleepy gaze, olive field jacket",
@@ -5551,7 +5551,7 @@
     {
       "id": "MATCH-124",
       "name": "Noreen Gallagher",
-      "age": 33,
+      "age": 29,
       "faction": "police",
       "job": "Crime scene photographer",
       "look": "Warm brown skin, sandy shag with a fringe, a beauty mark above her lip, plain white shirt and slim black trousers",
@@ -5562,7 +5562,7 @@
     {
       "id": "MATCH-125",
       "name": "Yolanda Vega",
-      "age": 24,
+      "age": 21,
       "faction": "police",
       "job": "Public safety statistician",
       "look": "Fair skin, dark French braid, a tiny scar through one eyebrow, plain white shirt and slim black trousers",
@@ -5573,7 +5573,7 @@
     {
       "id": "MATCH-126",
       "name": "Harriet Boyle",
-      "age": 34,
+      "age": 31,
       "faction": "police",
       "job": "Evidence archive assistant",
       "look": "Warm beige skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
@@ -5584,7 +5584,7 @@
     {
       "id": "MATCH-127",
       "name": "Gwen Alvarado",
-      "age": 25,
+      "age": 21,
       "faction": "police",
       "job": "Custody nurse",
       "look": "Light-brown skin, dark brown messy bun, a gap-toothed smile, grey hoodie and running shoes",
@@ -5595,7 +5595,7 @@
     {
       "id": "MATCH-128",
       "name": "Simone Achebe",
-      "age": 35,
+      "age": 32,
       "faction": "police",
       "job": "Police dispatcher",
       "look": "Deep brown skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
@@ -5606,7 +5606,7 @@
     {
       "id": "MATCH-129",
       "name": "Adriana Ponce",
-      "age": 40,
+      "age": 36,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Golden-tan skin, chin-length raven bob with a fringe, a beauty mark above her lip, overalls and a bandana",
@@ -5648,7 +5648,7 @@
     {
       "id": "MATCH-130",
       "name": "Sienna Navarro",
-      "age": 31,
+      "age": 26,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Olive skin, burgundy-dyed curls, grey-green eyes, embroidered peasant blouse",
@@ -5689,7 +5689,7 @@
     {
       "id": "MATCH-131",
       "name": "Nora Hadley",
-      "age": 22,
+      "age": 18,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Warm brown skin, sleek middle-parted dark hair, a silver ear cuff, vintage windbreaker",
@@ -5732,7 +5732,7 @@
     {
       "id": "MATCH-132",
       "name": "Daisy Chen",
-      "age": 32,
+      "age": 28,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Dark skin, wavy dark hair with a deep side part, tortoiseshell glasses, hand-knitted jumper",
@@ -5773,7 +5773,7 @@
     {
       "id": "MATCH-133",
       "name": "Zoe Whitaker",
-      "age": 23,
+      "age": 19,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Light-brown skin, golden-brown ringlets, freckles across her nose, oversized thrifted cardigan",
@@ -5784,7 +5784,7 @@
     {
       "id": "MATCH-134",
       "name": "Khadija Rahman",
-      "age": 33,
+      "age": 28,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Warm brown skin, cornrows into a low bun, strong dark brows, embroidered peasant blouse",
@@ -5825,7 +5825,7 @@
     {
       "id": "MATCH-135",
       "name": "Esther Yu",
-      "age": 24,
+      "age": 19,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Medium-brown skin, glossy black ponytail, a silver ear cuff, oversized thrifted cardigan",
@@ -5836,7 +5836,7 @@
     {
       "id": "MATCH-136",
       "name": "Cassandra Finch",
-      "age": 34,
+      "age": 31,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Bird-like and slight, warm brown skin, cropped bleached hair, enormous dark tired eyes with a sullen look, a small gap between her front teeth, a slim small-busted figure, a linen shirt and a canvas tote",
@@ -5877,7 +5877,7 @@
     {
       "id": "MATCH-137",
       "name": "Eden Sutherland",
-      "age": 25,
+      "age": 20,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Waifish and slight, a slim small-busted figure, light-brown skin, freckles across her nose, huge dark sleepy eyes with a sullen stare, buzz-cut dark hair, a gap-toothed smile, overalls and a bandana",
@@ -5918,7 +5918,7 @@
     {
       "id": "MATCH-138",
       "name": "Luz Palacios",
-      "age": 35,
+      "age": 31,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Fair skin, sleek middle-parted dark hair, rosy cheeks, linen shirt and canvas tote",
@@ -5929,7 +5929,7 @@
     {
       "id": "MATCH-139",
       "name": "Lara Nwosu",
-      "age": 26,
+      "age": 22,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Freckled fair skin, auburn shag with a curtain fringe, a wide bright smile, embroidered peasant blouse",
@@ -5940,7 +5940,7 @@
     {
       "id": "MATCH-140",
       "name": "Willow Greene",
-      "age": 36,
+      "age": 31,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Rosy fair skin, sandy shag with a fringe, amber eyes, band T-shirt under dungarees",
@@ -5951,7 +5951,7 @@
     {
       "id": "MATCH-141",
       "name": "Jasmin Malik",
-      "age": 27,
+      "age": 22,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Warm beige skin, sleek middle-parted dark hair, deep dimples, hand-knitted jumper",
@@ -5962,7 +5962,7 @@
     {
       "id": "MATCH-142",
       "name": "Freya Castillo",
-      "age": 37,
+      "age": 32,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Medium-brown skin, twist-out coils, freckles across her nose, mustard turtleneck",
@@ -5973,7 +5973,7 @@
     {
       "id": "MATCH-143",
       "name": "Nicolette Park",
-      "age": 28,
+      "age": 23,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Pale skin, strawberry-blonde braid crown, gold hoop earrings, oversized thrifted cardigan",
@@ -5984,7 +5984,7 @@
     {
       "id": "MATCH-144",
       "name": "Alma Sandoval",
-      "age": 38,
+      "age": 33,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Light olive skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
@@ -5995,7 +5995,7 @@
     {
       "id": "MATCH-145",
       "name": "Marlene Choi",
-      "age": 29,
+      "age": 25,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Olive skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
@@ -6006,7 +6006,7 @@
     {
       "id": "MATCH-146",
       "name": "Hollis Bennett",
-      "age": 39,
+      "age": 34,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Golden-tan skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
@@ -6017,7 +6017,7 @@
     {
       "id": "MATCH-147",
       "name": "Carla Haddad",
-      "age": 30,
+      "age": 27,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Olive skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
@@ -6028,7 +6028,7 @@
     {
       "id": "MATCH-148",
       "name": "Daria Kowalski",
-      "age": 40,
+      "age": 36,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Warm brown skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
@@ -6039,7 +6039,7 @@
     {
       "id": "MATCH-149",
       "name": "Sloane Mercer",
-      "age": 31,
+      "age": 26,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Dark skin, chestnut curly bob, grey-green eyes, hand-knitted jumper",
@@ -6050,7 +6050,7 @@
     {
       "id": "MATCH-150",
       "name": "April Khoury",
-      "age": 22,
+      "age": 18,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Warm brown skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
@@ -6061,7 +6061,7 @@
     {
       "id": "MATCH-151",
       "name": "Isla Jameson",
-      "age": 32,
+      "age": 28,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Rosy fair skin, twist-out coils, rosy cheeks, vintage windbreaker",
@@ -6072,7 +6072,7 @@
     {
       "id": "MATCH-152",
       "name": "Kiki Okada",
-      "age": 23,
+      "age": 20,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Medium-brown skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted jumper",
@@ -6083,7 +6083,7 @@
     {
       "id": "MATCH-153",
       "name": "Anika Joseph",
-      "age": 33,
+      "age": 28,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Golden-tan skin, brown waves with teal tips, a gap-toothed smile, corduroy jacket with enamel pins",
@@ -6094,7 +6094,7 @@
     {
       "id": "MATCH-154",
       "name": "Amina Youssef",
-      "age": 24,
+      "age": 21,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Light-brown skin, box braids to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
@@ -6105,7 +6105,7 @@
     {
       "id": "MATCH-155",
       "name": "Rhea Kapoor",
-      "age": 34,
+      "age": 31,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Dark skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
@@ -6116,7 +6116,7 @@
     {
       "id": "MATCH-156",
       "name": "Tamsin Wilde",
-      "age": 25,
+      "age": 22,
       "faction": "progressives",
       "job": "Community art organiser",
       "look": "Olive skin, golden-brown ringlets, a wide bright smile, band T-shirt under dungarees",
@@ -6127,7 +6127,7 @@
     {
       "id": "MATCH-157",
       "name": "Paz Herrera",
-      "age": 35,
+      "age": 30,
       "faction": "progressives",
       "job": "Climate campaigner",
       "look": "Golden-tan skin, dirty-blonde ponytail, deep dimples, hand-knitted jumper",
@@ -6138,7 +6138,7 @@
     {
       "id": "MATCH-158",
       "name": "Agnes Castillo",
-      "age": 34,
+      "age": 31,
       "faction": "sisters_of_mercy",
       "job": "Garden co-ordinator",
       "look": "Deep brown skin, box braids to the waist, long lashes and a sleepy gaze, soft cream jumper and long pleated skirt",
@@ -6181,7 +6181,7 @@
     {
       "id": "MATCH-159",
       "name": "Eliza Montoya",
-      "age": 25,
+      "age": 21,
       "faction": "sisters_of_mercy",
       "job": "Food pantry volunteer",
       "look": "Warm brown skin, box braids to the waist, freckles across her nose, soft cream jumper and long pleated skirt",
@@ -6224,7 +6224,7 @@
     {
       "id": "MATCH-160",
       "name": "Rosalie Kemp",
-      "age": 35,
+      "age": 30,
       "faction": "sisters_of_mercy",
       "job": "Chapel archivist",
       "look": "Pale skin, sandy shag with a fringe, a beauty mark above her lip, long-sleeved maxi dress",
@@ -6267,7 +6267,7 @@
     {
       "id": "MATCH-161",
       "name": "Bernadette Flores",
-      "age": 26,
+      "age": 21,
       "faction": "sisters_of_mercy",
       "job": "Museum conservator",
       "look": "Rosy fair skin, dirty-blonde ponytail, long lashes and a sleepy gaze, sage cardigan and long linen skirt",
@@ -6309,7 +6309,7 @@
     {
       "id": "MATCH-162",
       "name": "Lucia Romano",
-      "age": 36,
+      "age": 32,
       "faction": "sisters_of_mercy",
       "job": "Charity shop manager",
       "look": "Deep brown skin, long locs with gold cuffs, strong dark brows, blouse with a Peter Pan collar",
@@ -6320,7 +6320,7 @@
     {
       "id": "MATCH-163",
       "name": "Odette Price",
-      "age": 31,
+      "age": 28,
       "faction": "fourth_estate",
       "job": "Local radio researcher",
       "look": "Olive skin, black space buns, amber eyes, rolled-sleeve oxford shirt",
@@ -6363,7 +6363,7 @@
     {
       "id": "MATCH-164",
       "name": "Arielle Brooks",
-      "age": 22,
+      "age": 19,
       "faction": "fourth_estate",
       "job": "Archive researcher",
       "look": "Golden-tan skin, strawberry-blonde braid crown, freckles across her nose, bomber jacket and graphic tee",
@@ -6406,7 +6406,7 @@
     {
       "id": "MATCH-165",
       "name": "Harper Lin",
-      "age": 32,
+      "age": 28,
       "faction": "fourth_estate",
       "job": "Weekend newspaper editor",
       "look": "Freckled fair skin, chin-length raven bob with a fringe, deep dimples, striped shirt and trench coat",
@@ -6447,7 +6447,7 @@
     {
       "id": "MATCH-166",
       "name": "Delia Maher",
-      "age": 23,
+      "age": 18,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
       "look": "Pale skin, twist-out coils, deep dimples, rolled-sleeve oxford shirt",
@@ -6490,7 +6490,7 @@
     {
       "id": "MATCH-167",
       "name": "Zadie Foster",
-      "age": 33,
+      "age": 29,
       "faction": "fourth_estate",
       "job": "Freelance music reviewer",
       "look": "Light-brown skin, ash-blonde lob, long lashes and a sleepy gaze, utility vest with many pockets",
@@ -6531,7 +6531,7 @@
     {
       "id": "MATCH-168",
       "name": "Celina Rojas",
-      "age": 24,
+      "age": 19,
       "faction": "fourth_estate",
       "job": "Photography assistant",
       "look": "Warm beige skin, dirty-blonde ponytail, rosy cheeks, press lanyard and denim jacket",
@@ -6572,7 +6572,7 @@
     {
       "id": "MATCH-169",
       "name": "Kira Henson",
-      "age": 34,
+      "age": 30,
       "faction": "fourth_estate",
       "job": "Court reporter",
       "look": "Warm beige skin, burgundy-dyed curls, long lashes and a sleepy gaze, cable-knit jumper and leather satchel",
@@ -6613,7 +6613,7 @@
     {
       "id": "MATCH-170",
       "name": "Moira Bell",
-      "age": 25,
+      "age": 21,
       "faction": "fourth_estate",
       "job": "Newsroom fact-checker",
       "look": "Waifish and very pale, a slim small-busted model figure, faint shadows under dark sullen eyes, bleached eyebrows, golden-brown ringlets, a small nose stud, a striped shirt under an oversized trench coat",
@@ -6654,7 +6654,7 @@
     {
       "id": "MATCH-171",
       "name": "Talia Farouk",
-      "age": 35,
+      "age": 32,
       "faction": "fourth_estate",
       "job": "Travel columnist",
       "look": "Light olive skin, layered caramel shoulder-length hair, tortoiseshell glasses, rolled-sleeve oxford shirt",
@@ -6695,7 +6695,7 @@
     {
       "id": "MATCH-172",
       "name": "Mara Winters",
-      "age": 26,
+      "age": 23,
       "faction": "fourth_estate",
       "job": "Sports journalist",
       "look": "Light-brown skin, long red curls, strong dark brows, chambray shirt and chinos",
@@ -6706,7 +6706,7 @@
     {
       "id": "MATCH-173",
       "name": "Asha Grant",
-      "age": 36,
+      "age": 32,
       "faction": "fourth_estate",
       "job": "Television camera operator",
       "look": "Warm brown skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit jumper and leather satchel",
@@ -6717,7 +6717,7 @@
     {
       "id": "MATCH-174",
       "name": "Nadine Wells",
-      "age": 27,
+      "age": 23,
       "faction": "fourth_estate",
       "job": "Local radio researcher",
       "look": "Olive skin, cornrows into a low bun, a tiny scar through one eyebrow, bomber jacket and graphic tee",
@@ -6728,7 +6728,7 @@
     {
       "id": "MATCH-175",
       "name": "Ellen Yamada",
-      "age": 37,
+      "age": 34,
       "faction": "fourth_estate",
       "job": "Archive researcher",
       "look": "Fair skin, brown waves with teal tips, gold hoop earrings, press lanyard and denim jacket",
@@ -6739,7 +6739,7 @@
     {
       "id": "MATCH-176",
       "name": "Felicity Stone",
-      "age": 28,
+      "age": 23,
       "faction": "fourth_estate",
       "job": "Weekend newspaper editor",
       "look": "Golden-tan skin, glossy black ponytail, a silver ear cuff, bomber jacket and graphic tee",
@@ -6750,7 +6750,7 @@
     {
       "id": "MATCH-177",
       "name": "Leanne Duarte",
-      "age": 38,
+      "age": 35,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
       "look": "Dark skin, cornrows into a low bun, a beauty mark above her lip, striped shirt and trench coat",
@@ -6761,7 +6761,7 @@
     {
       "id": "MATCH-178",
       "name": "Mina Kaur",
-      "age": 29,
+      "age": 24,
       "faction": "fourth_estate",
       "job": "Freelance music reviewer",
       "look": "Light-brown skin, long locs with gold cuffs, thin wire-rimmed glasses, press lanyard and denim jacket",
@@ -6772,7 +6772,7 @@
     {
       "id": "MATCH-179",
       "name": "Rosie Nolan",
-      "age": 39,
+      "age": 36,
       "faction": "fourth_estate",
       "job": "Photography assistant",
       "look": "Medium-brown skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
@@ -6783,7 +6783,7 @@
     {
       "id": "MATCH-180",
       "name": "Suki Matsuda",
-      "age": 30,
+      "age": 27,
       "faction": "fourth_estate",
       "job": "Court reporter",
       "look": "Dark skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
@@ -6794,7 +6794,7 @@
     {
       "id": "MATCH-181",
       "name": "Gina Flores",
-      "age": 40,
+      "age": 35,
       "faction": "fourth_estate",
       "job": "Newsroom fact-checker",
       "look": "Warm beige skin, twist-out coils, rosy cheeks, utility vest with many pockets",
@@ -6805,7 +6805,7 @@
     {
       "id": "MATCH-182",
       "name": "Wendy Cho",
-      "age": 31,
+      "age": 28,
       "faction": "fourth_estate",
       "job": "Travel columnist",
       "look": "Medium-brown skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
@@ -6816,7 +6816,7 @@
     {
       "id": "MATCH-183",
       "name": "Jules Moreno",
-      "age": 22,
+      "age": 19,
       "faction": "fourth_estate",
       "job": "Sports journalist",
       "look": "Pale skin, ash-blonde lob, thin wire-rimmed glasses, bomber jacket and graphic tee",
@@ -6827,7 +6827,7 @@
     {
       "id": "MATCH-184",
       "name": "Pearl Hartley",
-      "age": 32,
+      "age": 29,
       "faction": "fourth_estate",
       "job": "Television camera operator",
       "look": "Deep brown skin, glossy black ponytail, a small nose stud, chambray shirt and chinos",
@@ -6838,7 +6838,7 @@
     {
       "id": "MATCH-185",
       "name": "Imogen Reyes",
-      "age": 23,
+      "age": 19,
       "faction": "fourth_estate",
       "job": "Local radio researcher",
       "look": "Light-brown skin, honey-blonde beach waves, rosy cheeks, press lanyard and denim jacket",
@@ -6849,7 +6849,7 @@
     {
       "id": "MATCH-186",
       "name": "Bea Hollis",
-      "age": 33,
+      "age": 30,
       "faction": "fourth_estate",
       "job": "Archive researcher",
       "look": "Olive skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
@@ -6860,7 +6860,7 @@
     {
       "id": "MATCH-187",
       "name": "Tova Lindqvist",
-      "age": 24,
+      "age": 20,
       "faction": "fourth_estate",
       "job": "Weekend newspaper editor",
       "look": "Light olive skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
@@ -6871,7 +6871,7 @@
     {
       "id": "MATCH-188",
       "name": "Priyanka Das",
-      "age": 34,
+      "age": 29,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
       "look": "Warm brown skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit jumper and leather satchel",
@@ -6882,7 +6882,7 @@
     {
       "id": "MATCH-189",
       "name": "Marnie Quill",
-      "age": 25,
+      "age": 21,
       "faction": "fourth_estate",
       "job": "Freelance music reviewer",
       "look": "Pale skin, natural afro puff, tortoiseshell glasses, rolled-sleeve oxford shirt",
@@ -6893,7 +6893,7 @@
     {
       "id": "MATCH-190",
       "name": "Corinne Gale",
-      "age": 35,
+      "age": 31,
       "faction": "fourth_estate",
       "job": "Photography assistant",
       "look": "Dark skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
@@ -6904,7 +6904,7 @@
     {
       "id": "MATCH-191",
       "name": "Sable Marlow",
-      "age": 37,
+      "age": 32,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Light olive skin, dark French braid, a beauty mark above her lip, black lace corset top",
@@ -6947,7 +6947,7 @@
     {
       "id": "MATCH-192",
       "name": "Lenore Vale",
-      "age": 28,
+      "age": 24,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Golden-tan skin, sandy shag with a fringe, strong dark brows, studded leather jacket",
@@ -6990,7 +6990,7 @@
     {
       "id": "MATCH-193",
       "name": "Ashlyn Vex",
-      "age": 38,
+      "age": 35,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Dark skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
@@ -7031,7 +7031,7 @@
     {
       "id": "MATCH-194",
       "name": "Morrigan Hale",
-      "age": 29,
+      "age": 25,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Fair skin, chin-length raven bob with a fringe, tortoiseshell glasses, black lace corset top",
@@ -7072,7 +7072,7 @@
     {
       "id": "MATCH-195",
       "name": "Cleo Rook",
-      "age": 39,
+      "age": 35,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Pale skin, box braids to the waist, sharp winged eyeliner, long black velvet coat",
@@ -7113,7 +7113,7 @@
     {
       "id": "MATCH-196",
       "name": "Veda Thorn",
-      "age": 30,
+      "age": 27,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Dark skin, honey-blonde beach waves, freckles across her nose, long black velvet coat",
@@ -7154,7 +7154,7 @@
     {
       "id": "MATCH-197",
       "name": "Nixie Adler",
-      "age": 40,
+      "age": 35,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Freckled fair skin, dark French braid, thin wire-rimmed glasses, plum corset dress",
@@ -7195,7 +7195,7 @@
     {
       "id": "MATCH-198",
       "name": "Lavinia Gravesend",
-      "age": 31,
+      "age": 28,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Thin and very pale, a long narrow face with hollow cheeks, kohl-smudged dark sullen eyes, a slim small-busted figure, a glossy black ponytail, a black mesh top and a tartan skirt",
@@ -7236,7 +7236,7 @@
     {
       "id": "MATCH-199",
       "name": "Raven Solis",
-      "age": 22,
+      "age": 18,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Pale skin, platinum pixie cut, strong dark brows, black mesh top and tartan skirt",
@@ -7277,7 +7277,7 @@
     {
       "id": "MATCH-200",
       "name": "Ophelia Byrne",
-      "age": 32,
+      "age": 29,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Deep brown skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
@@ -7288,7 +7288,7 @@
     {
       "id": "MATCH-201",
       "name": "Nyx Calder",
-      "age": 23,
+      "age": 20,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Light-brown skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
@@ -7299,7 +7299,7 @@
     {
       "id": "MATCH-202",
       "name": "Selene Ward",
-      "age": 33,
+      "age": 30,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Pale skin, cornrows into a low bun, long lashes and a sleepy gaze, velvet choker and black slip dress",
@@ -7310,7 +7310,7 @@
     {
       "id": "MATCH-203",
       "name": "Billie Wraith",
-      "age": 24,
+      "age": 21,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Warm brown skin, blunt black bob, sharp winged eyeliner, plum corset dress",
@@ -7321,7 +7321,7 @@
     {
       "id": "MATCH-204",
       "name": "Indigo Crossley",
-      "age": 34,
+      "age": 31,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Rosy fair skin, long red curls, tortoiseshell glasses, plum corset dress",
@@ -7332,7 +7332,7 @@
     {
       "id": "MATCH-205",
       "name": "Moth Delaney",
-      "age": 25,
+      "age": 21,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Warm brown skin, wavy dark hair with a deep side part, a beauty mark above her lip, silver-buckled platform boots and black jeans",
@@ -7343,7 +7343,7 @@
     {
       "id": "MATCH-206",
       "name": "Ivy Sable",
-      "age": 35,
+      "age": 32,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Warm brown skin, honey-blonde beach waves, a silver ear cuff, black lace corset top",
@@ -7354,7 +7354,7 @@
     {
       "id": "MATCH-207",
       "name": "Astrid Sorrow",
-      "age": 26,
+      "age": 21,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Freckled fair skin, glossy black ponytail, a silver ear cuff, fishnet sleeves under a band tee",
@@ -7365,7 +7365,7 @@
     {
       "id": "MATCH-208",
       "name": "Salem Bell",
-      "age": 36,
+      "age": 33,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Medium-brown skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
@@ -7376,7 +7376,7 @@
     {
       "id": "MATCH-209",
       "name": "Coraline Dusk",
-      "age": 27,
+      "age": 22,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Freckled fair skin, jet-black waist-length hair, a gap-toothed smile, velvet choker and black slip dress",
@@ -7387,7 +7387,7 @@
     {
       "id": "MATCH-210",
       "name": "Juno Varela",
-      "age": 37,
+      "age": 34,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Deep brown skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
@@ -7398,7 +7398,7 @@
     {
       "id": "MATCH-211",
       "name": "Lilith Kestrel",
-      "age": 28,
+      "age": 25,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Dark skin, dark brown messy bun, grey-green eyes, silver-buckled platform boots and black jeans",
@@ -7409,7 +7409,7 @@
     {
       "id": "MATCH-212",
       "name": "Ezraine Quinn",
-      "age": 38,
+      "age": 33,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Warm beige skin, cornrows into a low bun, rosy cheeks, velvet choker and black slip dress",
@@ -7420,7 +7420,7 @@
     {
       "id": "MATCH-213",
       "name": "Eris Moon",
-      "age": 29,
+      "age": 26,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Warm brown skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
@@ -7431,7 +7431,7 @@
     {
       "id": "MATCH-214",
       "name": "Marlowe Poe",
-      "age": 39,
+      "age": 35,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Pale skin, glossy black ponytail, a small nose stud, long black velvet coat",
@@ -7442,7 +7442,7 @@
     {
       "id": "MATCH-215",
       "name": "Wren Black",
-      "age": 30,
+      "age": 27,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Light-brown skin, copper waist-length waves, strong dark brows, studded leather jacket",
@@ -7453,7 +7453,7 @@
     {
       "id": "MATCH-216",
       "name": "Milena Kovac",
-      "age": 40,
+      "age": 36,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Warm brown skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
@@ -7464,7 +7464,7 @@
     {
       "id": "MATCH-217",
       "name": "Vesper Lane",
-      "age": 31,
+      "age": 27,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Warm brown skin, long red curls, strong dark brows, plum corset dress",
@@ -7475,7 +7475,7 @@
     {
       "id": "MATCH-218",
       "name": "Hex Morrow",
-      "age": 22,
+      "age": 19,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Olive skin, chestnut high ponytail, amber eyes, long black velvet coat",
@@ -7486,7 +7486,7 @@
     {
       "id": "MATCH-219",
       "name": "Dahlia Grieve",
-      "age": 32,
+      "age": 28,
       "faction": "goth_girls",
       "job": "Music venue manager",
       "look": "Deep brown skin, short silver-dyed crop, grey-green eyes, velvet choker and black slip dress",
@@ -7497,7 +7497,7 @@
     {
       "id": "MATCH-220",
       "name": "Sorrel Vane",
-      "age": 23,
+      "age": 19,
       "faction": "goth_girls",
       "job": "Gothic jewellery maker",
       "look": "Deep brown skin, wavy dark hair with a deep side part, tortoiseshell glasses, black lace corset top",
@@ -7508,7 +7508,7 @@
     {
       "id": "MATCH-221",
       "name": "Kayla Mendoza",
-      "age": 38,
+      "age": 35,
       "faction": "normie_girls",
       "job": "Interior decorator",
       "look": "Dark skin, blunt black bob, grey-green eyes, floral blouse and jeans",
@@ -7549,7 +7549,7 @@
     {
       "id": "MATCH-222",
       "name": "Brittany Hale",
-      "age": 29,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "Light-brown skin, soft brown fringe and a low knot, sharp winged eyeliner, turquoise peasant top",
@@ -7591,7 +7591,7 @@
     {
       "id": "MATCH-223",
       "name": "Nina Petrov",
-      "age": 39,
+      "age": 34,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "Rosy fair skin, soft brown fringe and a low knot, thin wire-rimmed glasses, sporty tracksuit jacket",
@@ -7634,7 +7634,7 @@
     {
       "id": "MATCH-224",
       "name": "Jessica Rivera",
-      "age": 30,
+      "age": 27,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
       "look": "Olive skin, rose-gold bob, a beauty mark above her lip, striped T-shirt dress",
@@ -7675,7 +7675,7 @@
     {
       "id": "MATCH-225",
       "name": "Alana Brooks",
-      "age": 40,
+      "age": 36,
       "faction": "normie_girls",
       "job": "Museum attendant",
       "look": "Deep brown skin, honey-blonde beach waves, a silver ear cuff, mint polo shirt",
@@ -7718,7 +7718,7 @@
     {
       "id": "MATCH-226",
       "name": "Samantha Price",
-      "age": 31,
+      "age": 27,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "Warm beige skin, strawberry-blonde braid crown, a tiny scar through one eyebrow, mint polo shirt",
@@ -7729,7 +7729,7 @@
     {
       "id": "MATCH-227",
       "name": "Jade Carter",
-      "age": 22,
+      "age": 18,
       "faction": "normie_girls",
       "job": "Swimming coach",
       "look": "Waifish and slight, a slim small-busted figure, pale freckled skin, wide-set grey eyes with a sleepy sullen gaze, a gap-toothed smile, golden-brown ringlets, an oversized yellow sundress",
@@ -7740,7 +7740,7 @@
     {
       "id": "MATCH-228",
       "name": "Karina Flores",
-      "age": 32,
+      "age": 27,
       "faction": "normie_girls",
       "job": "Tour guide",
       "look": "Slight and narrow-shouldered, pale freckled skin, wide-set heavy-lidded eyes, a strong nose, an ash-blonde lob, a sporty tracksuit jacket",
@@ -7781,7 +7781,7 @@
     {
       "id": "MATCH-229",
       "name": "Molly Sutton",
-      "age": 23,
+      "age": 18,
       "faction": "normie_girls",
       "job": "Receptionist",
       "look": "Light olive skin, rose-gold bob, a small nose stud, sporty tracksuit jacket",
@@ -7822,7 +7822,7 @@
     {
       "id": "MATCH-230",
       "name": "Christina Brooks",
-      "age": 33,
+      "age": 28,
       "faction": "normie_girls",
       "job": "Primary school teacher",
       "look": "Light-brown skin, cornrows into a low bun, a wide bright smile, sporty tracksuit jacket",
@@ -7833,7 +7833,7 @@
     {
       "id": "MATCH-231",
       "name": "Daphne Laurent",
-      "age": 24,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Dog walker",
       "look": "Warm beige skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
@@ -7844,7 +7844,7 @@
     {
       "id": "MATCH-232",
       "name": "Riley Dawson",
-      "age": 34,
+      "age": 30,
       "faction": "normie_girls",
       "job": "Interior decorator",
       "look": "Freckled fair skin, short silver-dyed crop, a small nose stud, yellow sundress",
@@ -7855,7 +7855,7 @@
     {
       "id": "MATCH-233",
       "name": "Lacey Wilson",
-      "age": 25,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "Deep brown skin, twist-out coils, a small nose stud, red gingham shirt",
@@ -7866,7 +7866,7 @@
     {
       "id": "MATCH-234",
       "name": "Avery Rhodes",
-      "age": 35,
+      "age": 30,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "Pale skin, black space buns, amber eyes, turquoise peasant top",
@@ -7877,7 +7877,7 @@
     {
       "id": "MATCH-235",
       "name": "Summer Barton",
-      "age": 26,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
       "look": "Pale skin, auburn shag with a curtain fringe, long lashes and a sleepy gaze, mint polo shirt",
@@ -7888,7 +7888,7 @@
     {
       "id": "MATCH-236",
       "name": "Jenna Nguyen",
-      "age": 36,
+      "age": 31,
       "faction": "normie_girls",
       "job": "Museum attendant",
       "look": "Olive skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
@@ -7899,7 +7899,7 @@
     {
       "id": "MATCH-237",
       "name": "Lila Thompson",
-      "age": 27,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "Dark skin, natural afro puff, rosy cheeks, pink zip hoodie",
@@ -7910,7 +7910,7 @@
     {
       "id": "MATCH-238",
       "name": "Melody Brooks",
-      "age": 37,
+      "age": 34,
       "faction": "normie_girls",
       "job": "Swimming coach",
       "look": "Fair skin, golden-brown ringlets, gold hoop earrings, turquoise peasant top",
@@ -7921,7 +7921,7 @@
     {
       "id": "MATCH-239",
       "name": "Eva Castillo",
-      "age": 28,
+      "age": 25,
       "faction": "normie_girls",
       "job": "Tour guide",
       "look": "Pale skin, blunt black bob, tortoiseshell glasses, lavender knit top",
@@ -7932,7 +7932,7 @@
     {
       "id": "MATCH-240",
       "name": "Giselle Ford",
-      "age": 38,
+      "age": 35,
       "faction": "normie_girls",
       "job": "Receptionist",
       "look": "Dark skin, ash-blonde lob, a gap-toothed smile, sporty tracksuit jacket",
@@ -7943,7 +7943,7 @@
     {
       "id": "MATCH-241",
       "name": "Morgan Palmer",
-      "age": 29,
+      "age": 26,
       "faction": "normie_girls",
       "job": "Primary school teacher",
       "look": "Warm beige skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
@@ -7954,7 +7954,7 @@
     {
       "id": "MATCH-242",
       "name": "Roxanne Pierce",
-      "age": 39,
+      "age": 35,
       "faction": "normie_girls",
       "job": "Dog walker",
       "look": "Dark skin, copper waist-length waves, a gap-toothed smile, turquoise peasant top",
@@ -7965,7 +7965,7 @@
     {
       "id": "MATCH-243",
       "name": "Alyssa Kim",
-      "age": 30,
+      "age": 25,
       "faction": "normie_girls",
       "job": "Interior decorator",
       "look": "Light olive skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
@@ -7976,7 +7976,7 @@
     {
       "id": "MATCH-244",
       "name": "Trinity West",
-      "age": 40,
+      "age": 37,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "Golden-tan skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
@@ -7987,7 +7987,7 @@
     {
       "id": "MATCH-245",
       "name": "Faye Dawson",
-      "age": 31,
+      "age": 28,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "Pale skin, soft brown fringe and a low knot, long lashes and a sleepy gaze, yellow sundress",
@@ -7998,7 +7998,7 @@
     {
       "id": "MATCH-246",
       "name": "Nikki Mendoza",
-      "age": 22,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
       "look": "Fair skin, dark brown messy bun, sharp winged eyeliner, white tank top and denim shorts",
@@ -8009,7 +8009,7 @@
     {
       "id": "MATCH-247",
       "name": "Paola Cruz",
-      "age": 32,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Museum attendant",
       "look": "Warm brown skin, twist-out coils, tortoiseshell glasses, striped T-shirt dress",
@@ -8020,7 +8020,7 @@
     {
       "id": "MATCH-248",
       "name": "Brogan Ellis",
-      "age": 23,
+      "age": 20,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "Freckled fair skin, platinum pixie cut, freckles across her nose, sporty tracksuit jacket",
@@ -8031,7 +8031,7 @@
     {
       "id": "MATCH-249",
       "name": "Mia Donnelly",
-      "age": 33,
+      "age": 28,
       "faction": "normie_girls",
       "job": "Swimming coach",
       "look": "Fair skin, box braids to the waist, thin wire-rimmed glasses, red gingham shirt",
@@ -8042,7 +8042,7 @@
     {
       "id": "MATCH-250",
       "name": "Esme Turner",
-      "age": 24,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Tour guide",
       "look": "Rosy fair skin, jet-black waist-length hair, grey-green eyes, floral blouse and jeans",
@@ -8053,7 +8053,7 @@
     {
       "id": "MATCH-251",
       "name": "Cora Morgan",
-      "age": 34,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Receptionist",
       "look": "Light olive skin, blunt black bob, rosy cheeks, lavender knit top",
@@ -8064,7 +8064,7 @@
     {
       "id": "MATCH-252",
       "name": "Hailey Finn",
-      "age": 25,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Primary school teacher",
       "look": "Olive skin, box braids to the waist, freckles across her nose, floral blouse and jeans",
@@ -8075,7 +8075,7 @@
     {
       "id": "MATCH-253",
       "name": "Delilah West",
-      "age": 35,
+      "age": 31,
       "faction": "normie_girls",
       "job": "Dog walker",
       "look": "Medium-brown skin, platinum pixie cut, a tiny scar through one eyebrow, turquoise peasant top",
@@ -8086,7 +8086,7 @@
     {
       "id": "MATCH-254",
       "name": "Kendall Barker",
-      "age": 26,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Interior decorator",
       "look": "Pale skin, honey-blonde beach waves, a beauty mark above her lip, pink zip hoodie",
@@ -8097,7 +8097,7 @@
     {
       "id": "MATCH-255",
       "name": "Brianna Lewis",
-      "age": 36,
+      "age": 31,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "Light olive skin, brown waves with teal tips, freckles across her nose, mint polo shirt",
@@ -8108,7 +8108,7 @@
     {
       "id": "MATCH-256",
       "name": "Celia Bradford",
-      "age": 27,
+      "age": 22,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "Warm brown skin, glossy black ponytail, a gap-toothed smile, coral cropped cardigan",
@@ -8119,7 +8119,7 @@
     {
       "id": "MATCH-257",
       "name": "Isobel Clarke",
-      "age": 37,
+      "age": 33,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
       "look": "Warm brown skin, long locs with gold cuffs, a small nose stud, white tank top and denim shorts",
@@ -8130,7 +8130,7 @@
     {
       "id": "MATCH-258",
       "name": "Savannah Patel",
-      "age": 28,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Museum attendant",
       "look": "Freckled fair skin, chestnut curly bob, a wide bright smile, coral cropped cardigan",
@@ -8141,7 +8141,7 @@
     {
       "id": "MATCH-259",
       "name": "Tamara Cole",
-      "age": 38,
+      "age": 33,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "Warm beige skin, glossy black ponytail, rosy cheeks, grey sweatshirt and leggings",
@@ -8152,7 +8152,7 @@
     {
       "id": "MATCH-260",
       "name": "Georgina Wells",
-      "age": 29,
+      "age": 24,
       "faction": "normie_girls",
       "job": "Swimming coach",
       "look": "Medium-brown skin, copper waist-length waves, thin wire-rimmed glasses, white tank top and denim shorts",
@@ -8163,7 +8163,7 @@
     {
       "id": "MATCH-261",
       "name": "Rosie Vasquez",
-      "age": 39,
+      "age": 36,
       "faction": "normie_girls",
       "job": "Tour guide",
       "look": "Deep brown skin, soft brown fringe and a low knot, a silver ear cuff, sporty tracksuit jacket",
@@ -8174,7 +8174,7 @@
     {
       "id": "MATCH-262",
       "name": "Katrina Meyer",
-      "age": 30,
+      "age": 26,
       "faction": "normie_girls",
       "job": "Receptionist",
       "look": "Warm brown skin, natural afro puff, freckles across her nose, turquoise peasant top",
@@ -8185,7 +8185,7 @@
     {
       "id": "MATCH-263",
       "name": "Bethany Sinclair",
-      "age": 40,
+      "age": 37,
       "faction": "normie_girls",
       "job": "Primary school teacher",
       "look": "Dark skin, box braids to the waist, a gap-toothed smile, sporty tracksuit jacket",
@@ -8196,7 +8196,7 @@
     {
       "id": "MATCH-264",
       "name": "Joan Ramirez",
-      "age": 31,
+      "age": 26,
       "faction": "normie_girls",
       "job": "Dog walker",
       "look": "Rosy fair skin, honey-blonde beach waves, gold hoop earrings, red gingham shirt",
@@ -8207,7 +8207,7 @@
     {
       "id": "MATCH-265",
       "name": "Therese Kim",
-      "age": 22,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Interior decorator",
       "look": "Medium-brown skin, short silver-dyed crop, a gap-toothed smile, turquoise peasant top",
@@ -8218,7 +8218,7 @@
     {
       "id": "MATCH-266",
       "name": "Martha Delaney",
-      "age": 32,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Florist",
       "look": "Light-brown skin, sleek middle-parted dark hair, tortoiseshell glasses, striped T-shirt dress",
@@ -8229,7 +8229,7 @@
     {
       "id": "MATCH-267",
       "name": "Claudette Duval",
-      "age": 23,
+      "age": 19,
       "faction": "normie_girls",
       "job": "Pastry chef",
       "look": "Light olive skin, soft brown fringe and a low knot, thin wire-rimmed glasses, mint polo shirt",
@@ -8240,7 +8240,7 @@
     {
       "id": "MATCH-268",
       "name": "Susannah Cole",
-      "age": 33,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
       "look": "Rosy fair skin, brown waves with teal tips, thin wire-rimmed glasses, turquoise peasant top",
@@ -8251,7 +8251,7 @@
     {
       "id": "MATCH-269",
       "name": "Lillian Duarte",
-      "age": 24,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Museum attendant",
       "look": "Light olive skin, dirty-blonde ponytail, grey-green eyes, white tank top and denim shorts",
@@ -8262,7 +8262,7 @@
     {
       "id": "MATCH-270",
       "name": "Tasha Greenwood",
-      "age": 34,
+      "age": 29,
       "faction": "normie_girls",
       "job": "Estate agent",
       "look": "Rosy fair skin, burgundy-dyed curls, a gap-toothed smile, turquoise peasant top",
@@ -8273,7 +8273,7 @@
     {
       "id": "MATCH-271",
       "name": "Holly Marsh",
-      "age": 25,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Swimming coach",
       "look": "Fair skin, layered caramel shoulder-length hair, rosy cheeks, lavender knit top",
@@ -8284,7 +8284,7 @@
     {
       "id": "MATCH-272",
       "name": "Courtney Vance",
-      "age": 35,
+      "age": 30,
       "faction": "normie_girls",
       "job": "Tour guide",
       "look": "Rosy fair skin, cornrows into a low bun, grey-green eyes, grey sweatshirt and leggings",
@@ -8295,7 +8295,7 @@
     {
       "id": "MATCH-273",
       "name": "Lena Fischer",
-      "age": 26,
+      "age": 21,
       "faction": "normie_girls",
       "job": "Receptionist",
       "look": "Golden-tan skin, jet-black waist-length hair, freckles across her nose, lavender knit top",
@@ -8306,7 +8306,7 @@
     {
       "id": "MATCH-274",
       "name": "Marisol Ibarra",
-      "age": 36,
+      "age": 32,
       "faction": "normie_girls",
       "job": "Primary school teacher",
       "look": "Light olive skin, platinum pixie cut, deep dimples, pink zip hoodie",
@@ -8317,7 +8317,7 @@
     {
       "id": "MATCH-275",
       "name": "Abby Kincaid",
-      "age": 27,
+      "age": 23,
       "faction": "normie_girls",
       "job": "Dog walker",
       "look": "Light-brown skin, short silver-dyed crop, a wide bright smile, turquoise peasant top",
@@ -11267,7 +11267,19 @@
         },
         "informed": {}
       }
-    }
+    },
+    "skimmed": [
+      "I only read the headline, honestly. What did you make of it?",
+      "I skimmed it. Everyone at work had an opinion. I’m saving mine.",
+      "I saw it but I didn’t read it properly. Should I?",
+      "My mum read it out to me over the phone. Badly.",
+      "I’ve heard three versions of that story today. I believe none of them.",
+      "I read half of it and then my coffee went cold. What happens at the end?",
+      "Honestly? I’m staying out of that one.",
+      "Everyone keeps asking me about it. I keep changing the subject.",
+      "I’ll read it properly tonight. Don’t spoil it.",
+      "I saw the picture and decided not to read the rest."
+    ]
   },
   "talk": {
     "affinity": {
@@ -13895,6 +13907,1362 @@
           ]
         }
       }
+    },
+    "stories": {
+      "arcs": [
+        {
+          "id": "sister_wedding",
+          "family": true,
+          "hook": "My little sister just got engaged. To Darren. I can’t stand Darren. And I have to give a speech.",
+          "ask": {
+            "label": "Ask what’s wrong with Darren",
+            "player": "What’s actually wrong with Darren?",
+            "reply": "He calls her babe in front of our nan and he has never once asked her a question about herself. She’s happy, though. Do I say something, or smile and give the speech?"
+          },
+          "choices": [
+            {
+              "id": "speak",
+              "label": "Tell her to talk to her sister first",
+              "player": "Talk to your sister. Privately. Before the speech.",
+              "now": "Yeah. You’re right. I’ll take her for a drink.",
+              "next": "I talked to her. She cried, I cried, then she said Darren is the only man who has ever stayed. I’m giving the speech. I’m going to be nice.",
+              "warmth": 1,
+              "favour": true
+            },
+            {
+              "id": "smile",
+              "label": "Tell her to smile and give the speech",
+              "player": "Smile, give the speech, and love her anyway.",
+              "now": "That’s probably the grown-up answer. I hate it.",
+              "next": "The speech went fine. Darren cried. Maybe he’s alright. Don’t tell anyone I said that.",
+              "warmth": 1,
+              "news": {
+                "section": "Community",
+                "title": "ENGAGEMENT PARTY TAKES OVER THE LUCKY CACTUS",
+                "summary": "The bride’s sister kept her speech short and kind.",
+                "body": "A Sunfall couple celebrated their engagement at the Lucky Cactus. {name}, the bride’s sister, gave a short speech that made the groom cry."
+              }
+            },
+            {
+              "id": "roast",
+              "label": "Tell her to roast Darren in the speech",
+              "player": "Roast him. Lovingly. Mostly.",
+              "now": "Ha. Tempting.",
+              "next": "I roasted Darren. Nobody laughed except Darren. My sister isn’t speaking to me. Thanks for that.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "My sister asked about you, by the way. I said you gave me good advice. Don’t let it go to your head.",
+            "item": {
+              "label": "A slice of engagement cake",
+              "text": "Wrapped in a napkin, with a note from {first}: for luck. Darren made it. It’s actually good."
+            }
+          }
+        },
+        {
+          "id": "dad_hospital",
+          "family": true,
+          "hook": "Sorry if I’m slow replying. My dad’s in hospital. It’s his heart. He says he’s fine. He always says he’s fine.",
+          "ask": {
+            "label": "Ask how her dad really is",
+            "player": "How is your dad doing, honestly?",
+            "reply": "Grumpy, which is a good sign. Mum wants me to move back home to help. I’d have to give up my flat. What would you do?"
+          },
+          "choices": [
+            {
+              "id": "home",
+              "label": "Tell her to go home for a while",
+              "player": "Go home for a bit. Flats come back. Dads don’t.",
+              "now": "Yeah. I know. I just needed someone to say it.",
+              "next": "I’m back in my old bedroom. There’s a poster of a boy band on the wall. Dad’s already bossing me about. It’s nice.",
+              "warmth": 2,
+              "favour": true
+            },
+            {
+              "id": "stay",
+              "label": "Tell her to keep her flat and visit",
+              "player": "Keep your flat. Visit every day you can.",
+              "now": "That’s what I want to do. Is that selfish?",
+              "next": "I’ve been going straight from work every day. He pretends he’s annoyed. Thank you for not making me feel guilty.",
+              "warmth": 1
+            },
+            {
+              "id": "fine",
+              "label": "Tell her he’ll be fine",
+              "player": "He’ll be fine. They always are.",
+              "now": "You don’t know that.",
+              "next": "He’s home now. You were right, I suppose. You didn’t have to sound so sure about it, though.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "Dad asked who I keep texting. I said a friend. He said friends don’t make you smile like that. Mortifying.",
+            "item": {
+              "label": "A get-well card",
+              "text": "Signed by her dad, for some reason: Thanks for looking after my girl. Grumpily, Dad."
+            }
+          }
+        },
+        {
+          "id": "mum_setups",
+          "family": true,
+          "hook": "My mum has set me up with three men from her church this week. Three. One of them brought a briefcase.",
+          "ask": {
+            "label": "Ask about the man with the briefcase",
+            "player": "Who brings a briefcase to a set-up?",
+            "reply": "An accountant called Graham. He was nice! That’s the problem. She wants me to see him again. How do I get out of it?"
+          },
+          "choices": [
+            {
+              "id": "truth",
+              "label": "Tell her to be honest with her mum",
+              "player": "Tell your mum the truth: you’ll find your own man.",
+              "now": "She’ll cry. Then she’ll make soup. Okay.",
+              "next": "I told her. She cried, made soup, then asked if the man I’m talking to has a job. I said yes. You do, don’t you?",
+              "warmth": 1
+            },
+            {
+              "id": "me",
+              "label": "Tell her to mention you",
+              "player": "Tell her you’re talking to someone.",
+              "now": "Bold. I like it.",
+              "next": "I told Mum about you. She wants your star sign and your intentions. I said Hinge. She said what’s Hinge. It went downhill from there.",
+              "warmth": 2,
+              "favour": true
+            },
+            {
+              "id": "graham",
+              "label": "Tell her to give Graham a chance",
+              "player": "Give Graham a chance. Briefcases are underrated.",
+              "now": "Wow. Okay.",
+              "next": "I went out with Graham again. He’s lovely. We’re seeing each other, so this is goodbye. Thank you, I suppose.",
+              "unmatch": true
+            }
+          ],
+          "payoff": {
+            "line": "Mum’s stopped setting me up. She says she’s waiting to meet you. No pressure. Lots of pressure."
+          }
+        },
+        {
+          "id": "brother_debt",
+          "family": true,
+          "hook": "My little brother owes money to some men from the motel on the interstate. He won’t say how much.",
+          "ask": {
+            "label": "Ask what kind of men",
+            "player": "What kind of men are we talking about?",
+            "reply": "The kind who park outside and don’t get out of the car. He wants me to lend it to him. I have it, just about. What would you do?"
+          },
+          "choices": [
+            {
+              "id": "pay",
+              "label": "Tell her to pay it, once",
+              "player": "Pay it once. Make him promise it’s the last time.",
+              "now": "Once. Yeah. Once.",
+              "next": "I paid. The car outside has gone. He hugged me for the first time since he was twelve.",
+              "warmth": 1
+            },
+            {
+              "id": "police",
+              "label": "Tell her to ring the police",
+              "player": "Ring the police. Let them deal with the car.",
+              "now": "He’ll never forgive me. But okay.",
+              "next": "The police went to the motel. My brother is furious with me. He’ll be fine. He’ll be alive, anyway.",
+              "warmth": 1,
+              "favour": true,
+              "news": {
+                "section": "Crime",
+                "title": "TWO MEN QUESTIONED AFTER MOTEL TIP-OFF",
+                "summary": "Police thank a member of the public.",
+                "body": "Officers questioned two men at the interstate motel after a tip-off about threats over a debt. A young man and his sister have been offered help."
+              }
+            },
+            {
+              "id": "learn",
+              "label": "Tell her to let him learn",
+              "player": "Let him sort it out. He has to learn.",
+              "now": "He’s nineteen. Okay. Okay.",
+              "next": "He turned up with a black eye. He says he walked into a door. I keep thinking about what you said.",
+              "warmth": -2
+            }
+          ],
+          "payoff": {
+            "line": "My brother wants to buy you a drink. He thinks you’re the reason I didn’t kill him. Don’t go. He’ll make you pay."
+          }
+        },
+        {
+          "id": "boss_credit",
+          "hook": "My boss presented my idea at a meeting today. My idea. My slides. He said we.",
+          "ask": {
+            "label": "Ask what she’s going to do",
+            "player": "So what are you going to do about it?",
+            "reply": "Nothing, probably. That’s the problem. What would you do?"
+          },
+          "choices": [
+            {
+              "id": "calm",
+              "label": "Tell her to tell him, calmly",
+              "player": "Tell him, calmly, that it was your idea.",
+              "now": "Calmly. I can do calmly. Probably.",
+              "next": "I told him. He said he was sure he’d mentioned me. Then he gave me the next project with my name on it. I nearly fainted.",
+              "warmth": 1
+            },
+            {
+              "id": "above",
+              "label": "Tell her to go over his head",
+              "player": "Go to his boss. Take the files.",
+              "now": "Ruthless. I like it.",
+              "next": "I went to his boss. Now I have his job. He has the desk by the printer. I feel slightly bad. Slightly.",
+              "warmth": 2,
+              "favour": true,
+              "news": {
+                "section": "Business",
+                "title": "SUNFALL FIRM NAMES NEW TEAM LEADER",
+                "summary": "A promotion from within, after a disputed presentation.",
+                "body": "{name} has been promoted to lead her team. Colleagues say she has been doing the job for a while anyway."
+              }
+            },
+            {
+              "id": "quit",
+              "label": "Tell her to quit",
+              "player": "Quit. They don’t deserve you.",
+              "now": "Easy for you to say.",
+              "next": "I quit. Mum isn’t speaking to me. I’m eating cereal for dinner. I hope you’re happy.",
+              "warmth": -2
+            }
+          ],
+          "payoff": {
+            "line": "I got a bonus. I’m not saying it was because of you. I’m not not saying it.",
+            "item": {
+              "label": "A fancy pen",
+              "text": "Engraved with her firm’s name. She says she has a drawer full of them and you deserve one."
+            }
+          }
+        },
+        {
+          "id": "own_cafe",
+          "hook": "I’ve been looking at an empty shop on Main Street for a month. I want to open my own place. Don’t laugh.",
+          "ask": {
+            "label": "Ask what she’d open",
+            "player": "What would you open?",
+            "reply": "A tiny café that does one thing really well. Cinnamon buns. I’ve saved enough for three months, then nothing. Should I?"
+          },
+          "choices": [
+            {
+              "id": "go",
+              "label": "Tell her to go for it",
+              "player": "Do it. Three months is plenty to prove it.",
+              "now": "Oh God. Okay. Okay!",
+              "next": "I signed the lease. I’m terrified. Come and be my first customer. Well, you can’t. You know what I mean.",
+              "warmth": 2,
+              "favour": true,
+              "news": {
+                "section": "Business",
+                "title": "NEW CAFÉ ON MAIN STREET SELLS ONE THING",
+                "summary": "Cinnamon buns. That’s it. The queue went round the corner.",
+                "body": "{name} has opened a tiny café on Main Street that sells only cinnamon buns. The queue went round the corner by lunchtime."
+              }
+            },
+            {
+              "id": "wait",
+              "label": "Tell her to wait and save",
+              "player": "Wait a year. Save more. Then do it.",
+              "now": "Sensible. Boring. Right.",
+              "next": "Someone else took the shop. It’s a vape shop now. I walk past it every day. I’m fine.",
+              "warmth": -1
+            },
+            {
+              "id": "stall",
+              "label": "Tell her to try a market stall first",
+              "player": "Try a market stall first and see.",
+              "now": "Ooh. Low risk. I like that.",
+              "next": "I did a stall at the market. Sold out in two hours. I’m doing it again. Then maybe the shop.",
+              "warmth": 1,
+              "item": {
+                "label": "A cinnamon bun",
+                "text": "Wrapped in brown paper, from her market stall. Still slightly warm."
+              }
+            }
+          ],
+          "payoff": {
+            "line": "I named a bun after you. It’s the plain one. Joking. It’s the best one."
+          }
+        },
+        {
+          "id": "ex_back",
+          "notFor": [
+            "sisters_of_mercy"
+          ],
+          "hook": "My ex messaged me last night. First time in a year. He wants to talk.",
+          "ask": {
+            "label": "Ask what she wants to do",
+            "player": "What do you want to do about him?",
+            "reply": "I don’t know. He was my whole life for three years. Then he wasn’t. What would you say, if you were me?"
+          },
+          "choices": [
+            {
+              "id": "back",
+              "label": "Tell her to give him another chance",
+              "player": "Give him a chance. People change.",
+              "now": "You think so?",
+              "next": "I met him. He has changed. We’re going to try again. You were really kind about it. Bye, then.",
+              "unmatch": true
+            },
+            {
+              "id": "better",
+              "label": "Tell her she deserves better",
+              "player": "You deserve someone who never left.",
+              "now": "That’s quite a line. It worked, though.",
+              "next": "I told him no. It felt amazing. I deleted his number and ate a whole pizza.",
+              "warmth": 2,
+              "favour": true
+            },
+            {
+              "id": "want",
+              "label": "Ask what she actually wants",
+              "player": "What do you want? Not him. You.",
+              "now": "Nobody’s asked me that in ages.",
+              "next": "I thought about what you asked. I want a dog and a quiet life and someone who asks me things. So. No to him.",
+              "warmth": 1
+            }
+          ],
+          "payoff": {
+            "line": "My ex saw I was happy and messaged again. I didn’t reply. I was too busy talking to you."
+          }
+        },
+        {
+          "id": "friend_feud",
+          "hook": "My best friend and I aren’t speaking. Twelve years, and now nothing, over a birthday.",
+          "ask": {
+            "label": "Ask what happened",
+            "player": "What happened with your best friend?",
+            "reply": "I forgot her birthday. Completely. She found out I’d been out that night from someone’s photos. Do I grovel, or wait for her to calm down?"
+          },
+          "choices": [
+            {
+              "id": "grovel",
+              "label": "Tell her to grovel, with cake",
+              "player": "Grovel. With cake.",
+              "now": "With cake. Obviously with cake.",
+              "next": "I turned up with a cake and cried on her doorstep. We’re fine. She wants to meet you, by the way. She’s on Hinge. Be nice.",
+              "warmth": 1,
+              "friend": true
+            },
+            {
+              "id": "wait",
+              "label": "Tell her to give it a week",
+              "player": "Give it a week. She’ll miss you.",
+              "now": "A whole week? Fine.",
+              "next": "She messaged first. She said she missed me. You were right, annoyingly.",
+              "warmth": 1
+            },
+            {
+              "id": "sides",
+              "label": "Say her friend is overreacting",
+              "player": "Honestly, she’s overreacting.",
+              "now": "Right.",
+              "next": "I told her what you said. Now neither of them is speaking to me, and I’m not speaking to you.",
+              "block": true
+            }
+          ],
+          "payoff": {
+            "line": "My best friend approves of you. That has never happened. Not once."
+          }
+        },
+        {
+          "id": "secret_songs",
+          "hook": "Can I tell you something embarrassing? I write songs. Nobody knows.",
+          "ask": {
+            "label": "Ask what her songs are about",
+            "player": "What are your songs about?",
+            "reply": "Mostly men who didn’t text back. There’s an open mic at the Lucky Cactus. Should I do it?"
+          },
+          "choices": [
+            {
+              "id": "go",
+              "label": "Tell her to do the open mic",
+              "player": "Do it. I’ll be cheering from here.",
+              "now": "From your bedroom. Very supportive. Okay.",
+              "next": "I did it. My voice shook for the first song and not the second. A man at the bar bought me a drink. I wish it had been you.",
+              "warmth": 2,
+              "favour": true,
+              "news": {
+                "section": "Around town",
+                "title": "SURPRISE STAR AT LUCKY CACTUS OPEN MIC",
+                "summary": "A first-timer brought the room to silence.",
+                "body": "{name} played her own songs at the Lucky Cactus open mic for the first time. The regulars have asked her to come back."
+              }
+            },
+            {
+              "id": "record",
+              "label": "Tell her to record one first",
+              "player": "Record one first, just for you.",
+              "now": "Baby steps. I can do baby steps.",
+              "next": "I recorded one. I’ve listened to it forty times. It’s about you a bit. Don’t ask which bit.",
+              "warmth": 1,
+              "item": {
+                "label": "A burned CD",
+                "text": "One song on it, and her handwriting on the label: not about you. It is."
+              }
+            },
+            {
+              "id": "me",
+              "label": "Ask if any are about you",
+              "player": "Are any of them about me?",
+              "now": "Wow. No. Goodnight.",
+              "next": "I’m not telling you about my songs any more.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "I played my new song for my mum. She cried. She asked who it was for. I said a man who listens."
+          }
+        },
+        {
+          "id": "job_away",
+          "hook": "I got offered a job. A good one. In another city.",
+          "ask": {
+            "label": "Ask about the job",
+            "player": "Tell me about the job.",
+            "reply": "Double the money, half the sun, nobody I know. I have to answer soon. What would you do?"
+          },
+          "choices": [
+            {
+              "id": "take",
+              "label": "Tell her to take it",
+              "player": "Take it. You can always come back.",
+              "now": "You’re right. I hate that you’re right.",
+              "next": "I took it. I leave soon. Thank you for being honest with me. I’ll miss this.",
+              "unmatch": true
+            },
+            {
+              "id": "stay",
+              "label": "Tell her to stay",
+              "player": "Stay. Sunfall needs you.",
+              "now": "Sunfall doesn’t need anyone. But okay.",
+              "next": "I said no. My boss gave me a raise to stop me leaving. I should have asked for more.",
+              "warmth": 1,
+              "favour": true
+            },
+            {
+              "id": "me",
+              "label": "Ask her to stay for you",
+              "player": "Stay for me.",
+              "now": "We met on an app about a week ago.",
+              "next": "I’m staying. Not for you. For the sun. It was a nice thing to say. Weird, but nice.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "I keep the job offer in a drawer. I look at it when work is bad. Then I look at my phone instead.",
+            "item": {
+              "label": "A postcard",
+              "text": "Blank, from the city she nearly moved to. She kept it to remind her why she stayed."
+            }
+          }
+        },
+        {
+          "id": "rent_rise",
+          "hook": "My landlord is putting my rent up again. I can’t afford it. I might have to move.",
+          "ask": {
+            "label": "Ask what she’ll do about the rent",
+            "player": "What are you going to do about the rent?",
+            "reply": "Fight him, take a second job, or move in with my friend who has four cats. Pick one."
+          },
+          "choices": [
+            {
+              "id": "fight",
+              "label": "Tell her to fight it",
+              "player": "Fight it. Look up your rights.",
+              "now": "I do love a fight.",
+              "next": "I wrote him a letter with lots of long words. He backed down. I’m drunk on power.",
+              "warmth": 1,
+              "favour": true
+            },
+            {
+              "id": "job",
+              "label": "Tell her to take a second job",
+              "player": "Take a second job for a bit.",
+              "now": "When would I sleep? Fine.",
+              "next": "I’m working nights at the diner now. I’m so tired I called my boss Mum.",
+              "warmth": 0,
+              "item": {
+                "label": "A diner napkin",
+                "text": "With a doodle of you on it, by her. Not a flattering doodle."
+              }
+            },
+            {
+              "id": "cats",
+              "label": "Tell her to move in with the cats",
+              "player": "Four cats? That sounds like a home.",
+              "now": "You haven’t met these cats.",
+              "next": "I moved in. One of the cats sleeps on my face. I think I’ve never been happier.",
+              "warmth": 1
+            }
+          ],
+          "payoff": {
+            "line": "I paid my rent today and didn’t cry. Growth. Thank you for listening to me moan."
+          }
+        },
+        {
+          "id": "gran_gone",
+          "family": true,
+          "hook": "My gran died. It was expected. It still feels like the floor has gone.",
+          "ask": {
+            "label": "Ask about her gran",
+            "player": "Tell me about your gran.",
+            "reply": "She taught me to make bread and to swear in two languages. We’re clearing her house. Do I keep her things, or let my aunts have them?"
+          },
+          "choices": [
+            {
+              "id": "keep",
+              "label": "Tell her to keep one small thing",
+              "player": "Keep one small thing. Something she used every day.",
+              "now": "Her wooden spoon. She hit us with it. Lovingly.",
+              "next": "I kept the spoon. It’s on my kitchen wall. I say good morning to it.",
+              "warmth": 2,
+              "item": {
+                "label": "Her gran’s bread recipe",
+                "text": "Copied out by {first} from the original card. At the bottom, in her gran’s words: don’t rush it."
+              }
+            },
+            {
+              "id": "fight",
+              "label": "Tell her to fight for it all",
+              "player": "Fight for it. You were closest to her.",
+              "now": "My aunts would kill me.",
+              "next": "I fought my aunts over a teapot. Nobody won. We all eat separately at family dinners now.",
+              "warmth": -1
+            },
+            {
+              "id": "listen",
+              "label": "Just listen",
+              "player": "I’m sorry. Tell me more about her.",
+              "now": "She once threw a shoe at a man who was rude to a waitress. She was eighty.",
+              "next": "Thank you for listening. I didn’t need advice. I needed that.",
+              "warmth": 2,
+              "favour": true
+            }
+          ],
+          "payoff": {
+            "line": "I made Gran’s bread for the first time. It was terrible. She’d have laughed. I laughed."
+          }
+        },
+        {
+          "id": "faith_dry",
+          "only": [
+            "sisters_of_mercy"
+          ],
+          "hook": "Can I be honest with you? I’ve been finding it hard to pray lately. That has never happened to me before.",
+          "ask": {
+            "label": "Ask what has changed",
+            "player": "What has changed, do you think?",
+            "reply": "Nothing. That’s the hard part. The words are the same and they feel far away. What would you do?"
+          },
+          "choices": [
+            {
+              "id": "pray",
+              "label": "Offer to pray with her",
+              "player": "Would it help if I prayed with you? Even from here.",
+              "now": "That’s the kindest thing anyone has said to me in a long time.",
+              "next": "I went to the early Mass and the words came back. I thought of you, a little. I hope that isn’t wrong.",
+              "warmth": 2,
+              "favour": true
+            },
+            {
+              "id": "saints",
+              "label": "Tell her the saints had dry spells too",
+              "player": "Doubt is part of faith. Even the saints had dry spells.",
+              "now": "Mother Teresa did. I’d forgotten that.",
+              "next": "I read about the saints and their dry spells. It helped. Thank you for knowing that.",
+              "warmth": 1,
+              "item": {
+                "label": "A holy card",
+                "text": "Saint Thérèse, a little worn. On the back: thank you for being patient with me."
+              }
+            },
+            {
+              "id": "real",
+              "label": "Ask if she has ever wondered if it’s real",
+              "player": "Have you ever wondered if any of it is real?",
+              "now": "That’s not what I meant.",
+              "next": "I don’t think we should talk about my faith any more.",
+              "warmth": -2
+            }
+          ],
+          "payoff": {
+            "line": "Father asked me why I seem lighter lately. I said a friend was praying for me. He said keep that friend."
+          }
+        },
+        {
+          "id": "lasagne",
+          "hook": "My roommate ate my food again. I labelled it. With my name. She ate it anyway.",
+          "ask": {
+            "label": "Ask what she ate",
+            "player": "What did she eat?",
+            "reply": "A whole lasagne. It took me two hours. Do I say something, or do I hide the next one in my wardrobe?"
+          },
+          "choices": [
+            {
+              "id": "talk",
+              "label": "Tell her to talk to her roommate",
+              "player": "Talk to her. Kindly. Then buy a lock.",
+              "now": "A lock. On a fridge. Yes.",
+              "next": "We talked. She’s broke and she’s been skipping meals. I make two lasagnes now.",
+              "warmth": 1,
+              "favour": true
+            },
+            {
+              "id": "revenge",
+              "label": "Tell her to eat the roommate’s food",
+              "player": "Eat her food. Fair’s fair.",
+              "now": "Petty. I love it.",
+              "next": "I ate her yoghurts. She ate my birthday cake. It’s war now. Thanks.",
+              "warmth": 0
+            },
+            {
+              "id": "move",
+              "label": "Tell her to move out",
+              "player": "Life’s too short for lasagne thieves. Move.",
+              "now": "Over a lasagne?",
+              "next": "I didn’t move out. I did tell her you said I should. She thinks you’re dramatic.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "I made you a lasagne. Well, a portion. It’s in my fridge with your name on it. Nobody will eat this one.",
+            "item": {
+              "label": "A tub of lasagne",
+              "text": "With your name on the lid in marker pen. She says nobody will dare."
+            }
+          }
+        },
+        {
+          "id": "night_school",
+          "hook": "I’ve been thinking about going back to study. I left school at sixteen. Is that stupid?",
+          "ask": {
+            "label": "Ask what she’d study",
+            "player": "What would you study?",
+            "reply": "Nursing. Or law. Something where people listen when I speak. I’d be the oldest there by years. Should I?"
+          },
+          "choices": [
+            {
+              "id": "enrol",
+              "label": "Tell her to enrol",
+              "player": "Enrol. Being the oldest just means you know why you’re there.",
+              "now": "Okay. I’m filling in the form now. Don’t watch.",
+              "next": "I enrolled. I bought new pencils like a child. I’m so happy.",
+              "warmth": 2,
+              "favour": true,
+              "news": {
+                "section": "Education",
+                "title": "SUNFALL COLLEGE SEES MORE ADULT STUDENTS",
+                "summary": "Older students are going back to class.",
+                "body": "Among the new students at Sunfall College is {name}, who left school at sixteen. She says she is tired of being clever in private."
+              }
+            },
+            {
+              "id": "online",
+              "label": "Suggest a course online first",
+              "player": "Try a course online first.",
+              "now": "Less terrifying. Yes.",
+              "next": "I started one online. First week: I know nothing. Second week: I know that I know nothing. Progress.",
+              "warmth": 1
+            },
+            {
+              "id": "why",
+              "label": "Ask why now",
+              "player": "Why now?",
+              "now": "Because I’m tired of being clever in private.",
+              "next": "I thought about what you asked. I’m doing it.",
+              "warmth": 1
+            }
+          ],
+          "payoff": {
+            "line": "I got my first mark back. A good one. I wanted to tell someone, and it was you.",
+            "item": {
+              "label": "A gold star sticker",
+              "text": "From her first marked assignment. She says you can have it. She has more."
+            }
+          }
+        },
+        {
+          "id": "big_speech",
+          "hook": "I have to speak in front of the whole company soon. I think I’m going to be sick.",
+          "ask": {
+            "label": "Ask what she’s presenting",
+            "player": "What are you presenting?",
+            "reply": "Our numbers. They’re bad. Not my fault, but I’m the one standing there. Any advice?"
+          },
+          "choices": [
+            {
+              "id": "honest",
+              "label": "Tell her to tell it straight",
+              "player": "Tell them straight. People respect that.",
+              "now": "Straight. Okay.",
+              "next": "I told them straight. The boss thanked me in front of everyone. My knees are still shaking.",
+              "warmth": 1,
+              "favour": true
+            },
+            {
+              "id": "joke",
+              "label": "Tell her to open with a joke",
+              "player": "Open with a joke. Break the ice.",
+              "now": "What joke?",
+              "next": "I opened with a joke. Nobody laughed. Then I laughed, and everyone laughed at me laughing. It went fine. Weirdly.",
+              "warmth": 1
+            },
+            {
+              "id": "sick",
+              "label": "Tell her to call in sick",
+              "player": "Call in sick.",
+              "now": "I can’t do that.",
+              "next": "I didn’t call in sick. It was awful and fine. You were no help at all, but thanks for answering.",
+              "warmth": -1
+            }
+          ],
+          "payoff": {
+            "line": "They want me to do the next one too. Apparently I’m good at bad news.",
+            "item": {
+              "label": "A conference lanyard",
+              "text": "With her name on it. She says it’s a trophy now."
+            }
+          }
+        },
+        {
+          "id": "lost_dog",
+          "errand": "ad",
+          "hook": "My dog got out last night. Biscuit. He’s small and grey and an idiot. I’ve been driving round for hours.",
+          "ask": {
+            "label": "Ask how you can help",
+            "player": "What can I do to help find him?",
+            "reply": "Keep an eye out. Tell me if you see anything. Anything at all."
+          },
+          "ad": {
+            "section": "Classifieds",
+            "title": "FOUND: SMALL GREY DOG",
+            "summary": "Red collar. No sense. Answers to nothing.",
+            "body": "Found near the Lucky Cactus: a small grey dog with a red collar and no sense at all. Ring {number} to collect him."
+          },
+          "tell": {
+            "label": "Tell her about the found-dog ad",
+            "player": "Look in today’s paper. Someone found a small grey dog near the Lucky Cactus.",
+            "reply": "BISCUIT! Oh my God. I’m ringing them now. I could kiss you. I might."
+          },
+          "done": {
+            "warmth": 2,
+            "favour": true,
+            "news": {
+              "section": "Around town",
+              "title": "DOG REUNITED WITH OWNER",
+              "summary": "Biscuit is home, and not sorry.",
+              "body": "A small grey dog found near the Lucky Cactus is home with {name}. She thanked a friend who spotted the advert."
+            }
+          },
+          "late": "Biscuit’s home. A neighbour saw an ad in the paper. I wish you’d told me if you’d seen it.",
+          "payoff": {
+            "line": "Biscuit sends his love. He has eaten a sock.",
+            "item": {
+              "label": "A photo of Biscuit",
+              "text": "Small, grey, an idiot. Signed with a paw print in what is probably jam."
+            }
+          }
+        },
+        {
+          "id": "new_job",
+          "errand": "ad",
+          "hook": "I hate my job. I’m going to find something new. Help me look?",
+          "ask": {
+            "label": "Ask what kind of job she wants",
+            "player": "What kind of job are you after?",
+            "reply": "Anything that isn’t this. Something with people. Or animals. If you see anything, tell me."
+          },
+          "ad": {
+            "section": "Classifieds",
+            "title": "SUNFALL ANIMAL RESCUE: HELP WANTED",
+            "summary": "People and animals, in that order. Mostly animals.",
+            "body": "Sunfall Animal Rescue needs a friendly pair of hands: feeding, walking, cleaning and cuddling. Ring {number}."
+          },
+          "tell": {
+            "label": "Tell her about the animal rescue ad",
+            "player": "Look in today’s paper: the animal rescue needs someone.",
+            "reply": "An animal rescue? That’s perfect. I’m ringing them now. Wish me luck!"
+          },
+          "done": {
+            "warmth": 2,
+            "favour": true
+          },
+          "late": "I got a job at the animal rescue. I saw the ad myself in the end. You could have told me, you know.",
+          "payoff": {
+            "line": "A goat bit me today. Best job I’ve ever had. Thank you for telling me about it.",
+            "item": {
+              "label": "A volunteer badge",
+              "text": "From Sunfall Animal Rescue. She says it makes you an honorary dog person."
+            }
+          }
+        },
+        {
+          "id": "flat_hunt",
+          "errand": "ad",
+          "hook": "I have to be out of my flat soon and I’ve found nothing. I’m going to end up in a tent.",
+          "ask": {
+            "label": "Ask what she needs in a flat",
+            "player": "What are you looking for in a flat?",
+            "reply": "A roof. A window. No mould, ideally. Tell me if you see anything in the paper."
+          },
+          "ad": {
+            "section": "Classifieds",
+            "title": "ROOM TO LET IN A QUIET HOUSE",
+            "summary": "A sunny room, a kind landlady and one elderly cat.",
+            "body": "A sunny room in a quiet house off Main Street. Kind landlady, one elderly cat, no parties. Ring {number}."
+          },
+          "tell": {
+            "label": "Tell her about the room in the paper",
+            "player": "There’s a sunny room to let in today’s paper. With a cat.",
+            "reply": "A sunny room? With a cat? I’m ringing now. Don’t let anyone else see that paper."
+          },
+          "done": {
+            "warmth": 2,
+            "favour": true
+          },
+          "late": "I found a room in the end. Someone else told me about it. Thanks anyway.",
+          "payoff": {
+            "line": "The cat has decided I’m his. The landlady says that has never happened. I owe you.",
+            "item": {
+              "label": "A housewarming invitation",
+              "text": "Hand-drawn. She knows you can’t come. She wanted you to have one."
+            }
+          }
+        },
+        {
+          "id": "old_letters",
+          "errand": "newsroom",
+          "hook": "I found a bundle of old letters under the floorboards in my flat. Love letters, all signed R. I can’t stop reading them.",
+          "ask": {
+            "label": "Ask about the letters",
+            "player": "What do the letters say?",
+            "reply": "He was in love with a girl called Margaret who lived here sixty years ago. I want to know if she ever got them. Who would even know something like that?"
+          },
+          "newsroom": {
+            "label": "Ask about old love letters signed R",
+            "reply": "Sixty years ago, in that house? Our archive has a wedding notice: Margaret Quill married a Robert Ainsley at St Brigid’s. Robert. R. He married her."
+          },
+          "tell": {
+            "label": "Tell her what the paper’s archive says",
+            "player": "The paper’s archive says Margaret married a Robert at St Brigid’s. R married her.",
+            "reply": "He married her. Oh, I’m going to cry. He married her."
+          },
+          "done": {
+            "warmth": 2,
+            "favour": true,
+            "news": {
+              "section": "Around town",
+              "title": "LOVE LETTERS FOUND UNDER FLOORBOARDS",
+              "summary": "Sixty years on, a happy ending.",
+              "body": "{name} found a bundle of love letters signed R under her floorboards. The Sunfall Daily archive shows the writer married the woman he wrote to."
+            }
+          },
+          "payoff": {
+            "line": "I read the last letter again. He says he’d wait at the station every night for a year. People don’t write like that any more.",
+            "item": {
+              "label": "A copy of one of the letters",
+              "text": "In her handwriting, copied from R’s: I would wait at the station every night for a year, if it was you getting off the train."
+            }
+          }
+        }
+      ],
+      "family": {
+        "label": "Ask about her family",
+        "player": "Tell me about your family.",
+        "lines": [
+          "Mum, Dad, two brothers who still think I’m twelve. Family lunches are a contact sport.",
+          "It’s just me and my mum. She rings every morning to check I’m alive.",
+          "Big family. Loud. If you ever meet them, eat whatever they give you.",
+          "My dad builds model trains. My mum pretends to like them. It’s love, I think.",
+          "I’m the eldest of four. I was a second mum before I was ten.",
+          "My parents split when I was little. I got two birthdays every year out of it.",
+          "My nan raised me, mostly. She’s ninety and still beats me at cards.",
+          "We don’t talk much, my family. We text in emojis. It works.",
+          "My dad’s a mechanic. He still checks my tyres every time I visit."
+        ],
+        "byFaction": {
+          "thunderbirds": [
+            "My father sits on four boards and came to none of my school plays. Mother came to all of them, with a photographer."
+          ],
+          "sisters_of_mercy": [
+            "Seven of us. Mass together, dinner together, arguments together. I wouldn’t change any of it."
+          ],
+          "police": [
+            "My dad and my grandad were both on the force. I never stood a chance."
+          ],
+          "goth_girls": [
+            "My mum still thinks this is a phase. It has been twelve years."
+          ],
+          "progressives": [
+            "My parents vote the other way. We have a rule: no politics at dinner. We break it every time."
+          ],
+          "fourth_estate": [
+            "My mum was a journalist too. She still corrects my grammar in birthday cards."
+          ]
+        }
+      },
+      "marry": {
+        "label": "Ask if she’d marry you",
+        "player": "Would you marry me?",
+        "replies": {
+          "mogger": [
+            "Ooh, you’re being weird. Cute, but weird. Ask me again in a year.",
+            "Ooh, you’re being weird. Buy me a coffee first.",
+            "Ooh, you’re being weird. I mean, I’m flattered. But weird.",
+            "Ooh, you’re being weird. Is this how you get all the girls?",
+            "Ooh, you’re being weird. Ask me after the third date. Maybe.",
+            "Ooh, you’re being weird. My mum would love you, though."
+          ],
+          "normie": [
+            "Ooh, you’re being weird. We’ve been talking for about five minutes.",
+            "Ooh, you’re being weird. Is this a bit? Tell me it’s a bit.",
+            "Ooh, you’re being weird. I don’t even know your middle name.",
+            "Ooh, you’re being weird. Let’s maybe start with a drink.",
+            "Ooh, you’re being weird. Are you okay?",
+            "Ooh, you’re being weird. My friend is going to screenshot this."
+          ],
+          "truecel": [
+            "Ooh, you’re being weird. Really weird.",
+            "Ooh, you’re being weird. My friends are going to love this.",
+            "Ooh, you’re being weird. That is genuinely alarming.",
+            "Ooh, you’re being weird. Do you ask every girl that?",
+            "Ooh, you’re being weird. No. Just no.",
+            "Ooh, you’re being weird. I’m telling the group chat."
+          ]
+        },
+        "block": [
+          "I’m going to go now.",
+          "Yeah, no. Bye.",
+          "Okay, I’m out. Good luck with that.",
+          "Blocking you. Nothing personal. Actually, it is."
+        ]
+      },
+      "rumours": {
+        "br": {
+          "thunderbirds": "Sorry, I had to tell someone. At the club, somebody asked who sat at Table 9 at the gala and the whole room went quiet.",
+          "police": "Off the record: the door log from the gala has a gap in it. That’s all I’m saying.",
+          "fourth_estate": "Our photo desk has more pictures from the gala than we printed. Just saying.",
+          "any": "Everyone at work is talking about that missing organiser. My friend thinks the police are looking in the wrong place."
+        },
+        "vale": {
+          "progressives": "Have you noticed? That professor’s accidents always come the day after one of his speakers. My friend in the department noticed.",
+          "police": "Between us, one of our detectives doesn’t believe the professor’s accidents were accidents.",
+          "fourth_estate": "Our newsroom thinks someone in his own department is leaking his diary.",
+          "any": "Is that professor still alive? My mum is obsessed with him."
+        },
+        "chapel": {
+          "goth_girls": "Everyone in the scene is talking about Victoria’s thing. One of the old chapels. That’s all anyone will say.",
+          "sisters_of_mercy": "We’re keeping candles lit for whoever goes to that woman’s rite.",
+          "any": "Someone has been chalking crescents on chapel doors. It’s creepy."
+        },
+        "theon": {
+          "fourth_estate": "We’ve had letters to the paper in verse for years. Same handwriting every time. Same return address, too.",
+          "any": "My friend got one of those creepy poems with your face on it. I told her it wasn’t you. Someone at the university says they’ve seen him."
+        },
+        "moira": {
+          "any": "Is a girl called Moira bothering you? She has been asking everyone about you."
+        }
+      },
+      "favour": {
+        "theon": {
+          "label": "Ask her to find out who’s using your face",
+          "profile": "I asked around. The man with your face calls himself Orsino on Hinge. Drama student, apparently. Unfinished.",
+          "name": "My cousin knows him from the drama course. His name is Theon.",
+          "home": "A friend of mine delivers to the flat above the old Rialto. That’s where Theon lives."
+        },
+        "br": {
+          "label": "Ask her what she can find out about Elena Cross",
+          "reply": "I asked around. Someone gave me this for you. Don’t say where it came from."
+        },
+        "chapel": {
+          "label": "Ask her what she can find out about Victoria’s rite",
+          "night": "I asked a friend who goes to those things. The moon goes dark {night}. That’s the night.",
+          "never": "A friend says it isn’t at {place}. She was very sure."
+        },
+        "moira": {
+          "label": "Ask her how to reach Moira Bell’s family",
+          "reply": "Moira Bell? I know her mum, Ruth. She’s lovely. Here’s her number: {number}."
+        },
+        "thanks": "Anything for you. I owed you one."
+      }
+    },
+    "spurn": {
+      "again": [
+        "Did you see I called?",
+        "I tried ringing. Call me back?",
+        "Missed you. Ring me when you can.",
+        "Busy? I rang. No big deal."
+      ],
+      "plead": [
+        "I miss you.",
+        "What happened to us?",
+        "Please just pick up.",
+        "Did I do something wrong?",
+        "I keep looking at my phone.",
+        "You used to be so easy to talk to. What changed?",
+        "I’m not angry. I just want to hear your voice.",
+        "Is there someone else? You can tell me.",
+        "I deleted your number. Then I put it back.",
+        "I had a dream about you. Please call.",
+        "I don’t understand what I did.",
+        "Just tell me if it’s over. Anything is better than this."
+      ],
+      "pleadSister": [
+        "I’ve been praying for you. Please call when you can.",
+        "I hope you’re safe. I miss our talks.",
+        "If I said something wrong, I would rather know.",
+        "I lit a candle for you. I hope that isn’t strange."
+      ],
+      "relief": [
+        "You picked up. Oh, thank God. I thought I’d scared you off.",
+        "Hi. Hi. Sorry. I just really missed you.",
+        "You answered! Okay. Okay. I’m not going to cry.",
+        "There you are. I thought you’d vanished."
+      ],
+      "block": {
+        "default": [
+          "Fine. I get the message. Bye.",
+          "Wow. Okay. Don’t bother calling back.",
+          "I don’t chase people. Goodbye.",
+          "You could have just said. Bye."
+        ],
+        "thunderbirds": [
+          "I don’t ring a man three times. Goodbye.",
+          "How very rude. Goodbye."
+        ],
+        "police": [
+          "Noted. Don’t contact me again.",
+          "Understood. We’re done."
+        ],
+        "goth_girls": [
+          "Ghosted by a man who still uses Hinge. Iconic. Bye.",
+          "Enjoy the silence. I will."
+        ],
+        "fourth_estate": [
+          "No comment. Ever again. Bye."
+        ]
+      },
+      "warn": [
+        "You don’t get to just ignore me.",
+        "Okay. Everyone’s going to know what you’re like.",
+        "You’ll regret ignoring me.",
+        "Fine. Let’s see who picks up for you now."
+      ],
+      "tell": {
+        "count": "{her} messaged me. She says you’re talking to {count} of us at once. Is that true?",
+        "ignore": "{her} says you led her on and then stopped answering her calls. That’s cold.",
+        "shown": "{her} sent me screenshots of your messages to her. Interesting reading.",
+        "married": "{her} says you asked a girl to marry you after about a day. Do you say that to everyone?"
+      },
+      "toldBlock": "Yeah, I don’t need this. Bye.",
+      "ad": {
+        "section": "Classifieds",
+        "title": "PERSONAL",
+        "summary": "To the man on Hinge who never picks up.",
+        "body": "To the man on Hinge who never picks up his phone: I hope it was worth it. You know who you are. Now so does everyone else. {first}."
+      },
+      "adMention": "Is that personal ad in the paper about you? The one from {her}?",
+      "report": "Your profile has been reported. Hinge has paused your matches while it takes a look.",
+      "voicemail": [
+        "It’s me. I just wanted to hear your voice. Call me back.",
+        "Hi. It’s me again. Sorry. I miss you. That’s all.",
+        "I don’t know what I did. Please just call me.",
+        "I keep starting messages and deleting them. So. Voicemail. Call me.",
+        "It’s me. I’m not angry. I promise I’m not angry. Call me."
+      ],
+      "giveUp": [
+        "Okay. I’ll stop. I’m here if you ever want me.",
+        "I’m going to stop calling now. I hope you’re okay.",
+        "This is the last one. Take care of yourself."
+      ]
+    }
+  },
+  "minis": {
+    "pills": {
+      "hook": "Can’t sleep again? I’ve got something for that. I do a few shifts on the back counter at Desert Rx. You would not believe what gets thrown away.",
+      "clue": "{name} sells pills from the back counter at Desert Rx.",
+      "ask": {
+        "label": "Ask what she means by thrown away",
+        "player": "What do you mean, thrown away?",
+        "reply": "Sleeping pills, mostly. Some other things. Cash under your mat, and you never got them from me."
+      },
+      "buy": {
+        "label": "Ask to buy some",
+        "player": "Okay. How much?",
+        "reply": "Leave the cash under your mat tonight. Don’t take two."
+      },
+      "warn": {
+        "label": "Tell her to stop before someone gets hurt",
+        "player": "You need to stop before someone gets hurt.",
+        "reply": "Says the man who can’t sleep. Fine. Maybe."
+      },
+      "delivered": "A paper bag from Desert Rx on your doorstep, folded over twice. Inside: a brown bottle with no label.",
+      "item": {
+        "label": "A bag from Desert Rx",
+        "text": "A brown bottle with no label, in a paper bag from Desert Rx. {first} sold it to you."
+      },
+      "take": {
+        "label": "💊 Take one tonight",
+        "notice": "You sleep straight through to the next day. Your phone was on silent."
+      },
+      "flush": {
+        "label": "🚽 Flush them",
+        "notice": "Down the toilet. Gone."
+      },
+      "story": {
+        "section": "Crime",
+        "title": "STUDENT IN HOSPITAL AFTER PILLS FROM A CAR PARK",
+        "summary": "A 20-year-old student is recovering. Police want to know where the pills came from.",
+        "body": "A university student, 20, is recovering in Sunfall General after taking pills bought in a supermarket car park. Detectives believe the pills came from a local pharmacy and are asking pharmacy staff to come forward.",
+        "image": "pills_student",
+        "fallback": "police_evidence"
+      },
+      "tell": {
+        "label": "Tell her about the student in the paper",
+        "player": "Did you see the paper? A student nearly died.",
+        "reply": "I saw. I haven’t slept either. I’m done. I’m stopping. Today."
+      },
+      "tip": {
+        "label": "Report a woman selling pills from Desert Rx",
+        "reply": "Desert Rx. Right. Leave it with us, love. And thank you."
+      },
+      "arrested": {
+        "section": "Crime",
+        "title": "PHARMACY WORKER ARRESTED OVER PILLS",
+        "summary": "{name}, who worked the back counter at Desert Rx, has been charged.",
+        "body": "{name} was arrested at Desert Rx and charged with supplying prescription drugs. Police say they are working through a list of her customers.",
+        "image": "pharmacy_arrest",
+        "fallback": "police_station"
+      },
+      "friend": "Did you report {first}? Everyone in our group is saying it was you."
+    },
+    "husband": {
+      "name": "Dale",
+      "clue": "{name} is married. Her husband, Dale, has your number.",
+      "open": "Is this the man who keeps texting my wife? I’m {first}’s husband. Dale.",
+      "again": [
+        "It’s Dale again. I’ve read more of them now.",
+        "You think I don’t know where she goes on her phone?",
+        "I’ve got your number. I can get the rest.",
+        "She says you’re just a friend. Are you just a friend?"
+      ],
+      "choices": {
+        "lie": "Say it’s a wrong number",
+        "friends": "Tell him you’re just friends",
+        "truth": "Tell him the truth: you met on Hinge",
+        "hang": "Hang up"
+      },
+      "lie": "Funny. You’re in her phone as Gym.",
+      "friends": "Friends don’t text her in the middle of the night.",
+      "truth": "Hinge. She told me she deleted it. A long silence. Right.",
+      "voicemail": [
+        "This is Dale. You know who I am. Pick up.",
+        "Dale again. I’m not going to stop ringing.",
+        "I found your profile. Nice room."
+      ],
+      "ask": {
+        "label": "Ask her why she never mentioned a husband",
+        "player": "Your husband rang me. Why didn’t you tell me?",
+        "reply": "Because he’s never home, and when he is, he isn’t really there. I didn’t think you’d talk to me if you knew."
+      },
+      "choices2": [
+        {
+          "id": "leave",
+          "label": "Tell her to leave him",
+          "player": "Leave him. You deserve better than not really there.",
+          "now": "Maybe. Maybe I will."
+        },
+        {
+          "id": "stop",
+          "label": "Tell her you can’t do this",
+          "player": "I can’t do this. I’m sorry.",
+          "now": "No. I get it. Bye."
+        },
+        {
+          "id": "carry",
+          "label": "Say it doesn’t matter to you",
+          "player": "It doesn’t matter to me.",
+          "now": "Good. Then nothing has to change."
+        }
+      ],
+      "leave": {
+        "next": "I did it. I’m at my sister’s. I feel sick and free at the same time."
+      },
+      "truthNext": {
+        "free": "You told him. I should hate you. I’m at my sister’s. Honestly, I think you did me a favour.",
+        "angry": "You TOLD him? Do you know what you’ve done? Don’t ever message me again."
+      },
+      "leftCall": "She’s gone. Her sister’s. I hope you’re pleased with yourself.",
+      "deathCause": "HER HUSBAND",
+      "deaths": [
+        "He didn’t knock.",
+        "The car outside had been there all evening.",
+        "Someone had been waiting in the stairwell for a long time."
+      ]
+    },
+    "envelope": {
+      "arrive": "A padded envelope on your doorstep, addressed to R. Vance, who lived here before you. Inside: a thick fold of cash and a cheap phone.",
+      "clue": "An envelope of cash for R. Vance, the last tenant, was left on your doorstep. Someone wants it back.",
+      "item": {
+        "label": "An envelope for R. Vance",
+        "text": "A thick fold of cash and a cheap phone, addressed to R. Vance, who lived here before you."
+      },
+      "take": {
+        "label": "💵 Take some of the cash",
+        "notice": "You take a few notes from the middle. Nobody will notice."
+      },
+      "took": " Someone has taken a few notes from the middle.",
+      "open": "You’ve got something that isn’t yours. Don’t say a name. Put it back on the step tonight and we never talk again.",
+      "later": [
+        "It’s still not on the step.",
+        "You’re making this complicated.",
+        "I know which door it is. I delivered it.",
+        "Tonight. On the step. Last time I ask nicely."
+      ],
+      "choices": {
+        "step": "Agree to leave it on the step",
+        "police": "Tell him you’ve called the police",
+        "hang": "Hang up"
+      },
+      "stepReply": "Good. Tonight. Then you forget this number.",
+      "policeReply": "No, you haven’t. If you had, you wouldn’t still have it.",
+      "gone": "The envelope has gone from the step. In its place: a bottle of good whisky. No note.",
+      "gift": {
+        "label": "A bottle of whisky",
+        "text": "Good whisky, left on your doorstep where the envelope was. No note."
+      },
+      "short": "The envelope has gone from the step. Your phone rings once in the night. Nobody speaks.",
+      "tip": {
+        "label": "Report an envelope of cash left for the last tenant",
+        "reply": "Don’t touch it, and don’t answer that phone. An officer will collect it tonight."
+      },
+      "collected": "An officer collected the envelope overnight. Doreen says thank you.",
+      "news": {
+        "section": "Crime",
+        "title": "CASH ON DOORSTEP LINKED TO MOTEL GANG",
+        "summary": "A resident handed in an envelope left for a former tenant.",
+        "body": "An envelope of cash, left on a doorstep for a former tenant, has been linked by detectives to a gang working out of the interstate motel.{short}",
+        "image": "envelope_motel",
+        "fallback": "crime_motel"
+      },
+      "newsShort": " Police say some of the money was missing.",
+      "deathCause": "A STRANGER",
+      "deaths": [
+        "They knew which door it was. They had delivered it.",
+        "Nobody heard a thing.",
+        "The phone rang once, from somewhere inside the room."
+      ]
+    },
+    "cleaner": {
+      "hook": "I clean three houses up on the ridge. Thunderbird houses. You would not believe what rich people leave lying around.",
+      "clue": "{name} steals from the Thunderbird houses she cleans on the ridge.",
+      "ask": {
+        "label": "Ask what they leave lying around",
+        "player": "Like what?",
+        "reply": "Rings. Bracelets. Things nobody has worn in years. Nobody counts. Want a ring? For your future wife. Cheap."
+      },
+      "buy": {
+        "label": "Buy a ring from her",
+        "player": "Okay. Show me a ring.",
+        "reply": "Tomorrow, under your mat. Don’t wear it on the ridge."
+      },
+      "warn": {
+        "label": "Tell her she’ll get caught",
+        "player": "You’re going to get caught.",
+        "reply": "Nobody counts. That’s the whole point of being rich."
+      },
+      "delivered": "A small velvet pouch under your doormat. Inside: an old diamond ring, far too good to be cheap.",
+      "item": {
+        "label": "A diamond ring (don’t ask)",
+        "text": "An old diamond ring in a velvet pouch, from {first}. Far too good to be cheap."
+      },
+      "story": {
+        "section": "Local",
+        "title": "HEIRLOOM RING MISSING FROM RIDGE HOME",
+        "summary": "The Ashworth family say a diamond ring has vanished.",
+        "body": "A diamond ring that has been in the Ashworth family for four generations has gone missing from their home on the ridge. Mrs Constance Ashworth said nobody had worn it in years, but she noticed at once. Police are speaking to domestic staff.",
+        "image": "ridge_theft",
+        "fallback": "charity_gala"
+      },
+      "tip": {
+        "label": "Report a cleaner stealing from the ridge houses",
+        "reply": "The ridge. Right. We’ll have a word with the agency. Thank you, love."
+      },
+      "handIn": {
+        "label": "Hand in a ring you were sold",
+        "reply": "Hand it in? Good lad. Leave it in an envelope by the door and an officer will collect it. Nobody needs to know where it came from."
+      },
+      "handedNotice": "An officer collected the ring. Doreen says the Ashworths will be very glad.",
+      "tb": {
+        "label": "Tell her about the Ashworths’ cleaner",
+        "player": "I think I know who took the Ashworths’ ring. Their cleaner.",
+        "reply": "The Ashworths’ cleaner? Leave it with me. Constance will be very grateful."
+      },
+      "thanks": "The Ashworths are telling everyone you handed in that ring. Well done, you.",
+      "arrested": {
+        "section": "Crime",
+        "title": "CLEANER CHARGED OVER RIDGE THEFTS",
+        "summary": "{name} cleaned three homes on the ridge.",
+        "body": "{name}, who cleaned three homes on the ridge, has been charged with theft. Police say they are tracing everything she sold.",
+        "image": "ridge_theft",
+        "fallback": "police_station"
+      },
+      "friend": "Did you have something to do with {first} getting arrested?"
+    },
+    "watch": {
+      "name": "Constance Ashworth",
+      "clue": "Constance Ashworth chairs the Ridge Neighbourhood Watch. She keeps a file on everyone in Sunfall.",
+      "open": "Constance Ashworth. I chair the Ridge Neighbourhood Watch. You’re the young man who is always at home. We have a use for people who are always at home.",
+      "openRing": "Constance Ashworth. You’re the young man who found my ring. I chair the Ridge Neighbourhood Watch, and I have a use for people who are always at home.",
+      "choices": {
+        "what": "Ask what she wants",
+        "no": "Tell her you’re not interested",
+        "hang": "Hang up",
+        "join": "Agree to help her",
+        "refuse": "Refuse"
+      },
+      "what": "Information. Who comes and goes. Who says what. Girls talk to you, I gather. I keep a file on everyone in Sunfall. I would like to keep one with you, rather than on you.",
+      "joined": "Splendid. I’ll ring. Have something for me.",
+      "refused": "How disappointing. You have a window, you know. Everyone does.",
+      "ask": "Constance Ashworth. Well? Tell me something about one of your girls.",
+      "tellLabel": "Tell her what {first} told you",
+      "nothingLabel": "Tell her nothing today",
+      "took": "How interesting. Thank you. The Thunderbirds will hear good things about you.",
+      "nothing": "Nothing? I do hope that isn’t becoming a habit.",
+      "page": "A cream envelope through your letterbox, with the Ashworth crest. Inside: one typed page from the Watch file. It’s about you.",
+      "pageItem": {
+        "label": "A page from the Watch file",
+        "text": "One typed page under the Ashworth crest: your name, your window, the time your light goes off, and the names of the women you talk to."
+      },
+      "betrayed": "How does Constance Ashworth know what I told you? I told YOU that. Nobody else. Don’t ever message me again.",
+      "column": {
+        "section": "Society",
+        "title": "WHAT THE WATCH KNOWS",
+        "summary": "A local woman’s private business, courtesy of an anonymous friend.",
+        "body": "The Ridge Neighbourhood Watch notes that {name} has not been entirely honest with the people around her. An anonymous friend tells us more.",
+        "image": "watch_column"
+      },
+      "window": "Constance Ashworth showed me a photograph of you at your window at night. Every night. Explain.",
+      "newsroom": {
+        "label": "Tell the newsroom about Constance Ashworth’s files",
+        "noProof": "A neighbourhood watch with files on everyone? Get us one page and we’ll run it.",
+        "proof": "One page is all we need. This runs tomorrow."
+      },
+      "expose": {
+        "section": "Front page",
+        "title": "WATCH CHAIR KEPT SECRET FILES ON RESIDENTS",
+        "summary": "Typed pages seen by the Sunfall Daily list who comes and goes, and when lights go off.",
+        "body": "Constance Ashworth, chair of the Ridge Neighbourhood Watch, kept typed files on hundreds of Sunfall residents, the Sunfall Daily can reveal. Mrs Ashworth said she was simply being neighbourly.",
+        "image": "watch_files"
+      },
+      "exposedCall": "You. Do you know how long I have kept this town in order? Enjoy your window.",
+      "tbCool": "Did you go to the paper about Constance? Half the club isn’t speaking to the other half.",
+      "othersWarm": "Was it you who exposed that Ashworth woman? She had a file on my mum. Thank you."
     }
   }
 }
