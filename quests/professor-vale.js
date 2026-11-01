@@ -306,7 +306,7 @@
         { id: 'pv_al_later', label: 'Say you’re just glad he’s safe', reply: 'Modest. How very un-Bluebird of you. The invitation stands, darling.' }
       ]
     },
-    // Topics that need a second tap to confirm (they are final).
+    // Final topics: marked ⚠ in chats and red in your room. They happen on the first tap.
     finalTopics: ['tip', 'pv_g_tell', 'pv_g_confess', 'pv_v_join', 'pv_v_refuse', 'pv_v_ready', 'pv_v_out', 'pv_v_yes', 'pv_d_call', 'pv_al_yes', 'pv_date'],
 
     rosaLines: {
@@ -1156,7 +1156,6 @@
     const asset = p => (host.assetUrl ? host.assetUrl(p) : p);
     const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     let pageEl = null;
-    let armed = null;
     let lastText = '';
 
     function state() {
@@ -1185,7 +1184,8 @@
       const s = state();
       const v = E.caseFile(s, day());
       if (s.stage === 'dormant') { pageEl.innerHTML = `<div class="pv-case"><h3>${esc(v.title)}</h3><p class="pv-muted">Nothing here yet. Keep reading the Sunfall Daily.</p></div>`; return; }
-      const btn = (id, label, desc, enabled, confirm) => `<button class="pv-btn${confirm ? ' pv-final' : ''}${armed === id ? ' pv-armed' : ''}" data-pv-room="${esc(id)}" ${enabled ? '' : 'disabled'}>${esc(armed === id ? 'Tap again to confirm' : label)}${desc ? `<small>${esc(desc)}</small>` : ''}</button>`;
+      // A final action (marked in red) happens on the first tap, like every choice.
+      const btn = (id, label, desc, enabled, final) => `<button class="pv-btn${final ? ' pv-final' : ''}" data-pv-room="${esc(id)}" ${enabled ? '' : 'disabled'}>${esc(label)}${desc ? `<small>${esc(desc)}</small>` : ''}</button>`;
       let h = `<div class="pv-case"><h3>${esc(v.title)}</h3><div class="pv-sub">${esc(v.routeName)} · Day ${v.day}${v.debateDay ? ` · Cofnas lecture Day ${v.debateDay}` : ''}${v.attackDay ? ` · Attack Day ${v.attackDay}` : ''}</div>`;
       if (lastText) h += `<div class="pv-last">${esc(lastText)}</div>`;
       if (v.hint) h += `<div class="pv-hint">Hint: ${esc(v.hint)}</div>`;
@@ -1204,8 +1204,6 @@
         const b = ev.target.closest && ev.target.closest('[data-pv-room]');
         if (!b || b.disabled) return;   // number buttons use the game's own data-note-dial handler
         const id = b.getAttribute('data-pv-room');
-        if (b.classList.contains('pv-final') && armed !== id) { armed = id; render(); return; }
-        armed = null;
         after(E.roomAction(state(), id, day()));
       };
     }
@@ -1345,7 +1343,7 @@
 .pv-last{margin:8px 0;padding:7px 9px;border-left:3px solid #e35349;background:rgba(227,83,73,.1)}
 .pv-btn{display:block;width:100%;margin:6px 0 0;padding:8px 9px;border-radius:7px;border:1px solid rgba(127,127,127,.5);background:rgba(127,127,127,.14);color:inherit;font:inherit;text-align:left;cursor:pointer}
 .pv-btn small{display:block;opacity:.7;font-size:10px}.pv-btn:disabled{opacity:.45;cursor:default}
-.pv-final{border-color:#e35349}.pv-armed{background:#e35349;color:#fff}
+.pv-final{border-color:#e35349}
 .pv-meter{display:grid;grid-template-columns:38% 1fr auto;gap:2px 6px;align-items:center;margin:6px 0}
 .pv-meter i{display:block;height:7px;border-radius:4px;background:rgba(127,127,127,.25);overflow:hidden}.pv-meter b{display:block;height:100%;background:#4a8f6a}
 .pv-meter em{font-style:normal;opacity:.75}.pv-meter small{grid-column:1/-1;opacity:.6;font-size:10px}.pv-danger b{background:#e35349}

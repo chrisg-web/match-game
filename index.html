@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a2d87aa4a8">
+<html lang="en" data-build="a5a98bf55d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -343,7 +343,6 @@
     .case-button { display: block; width: 100%; margin: 6px 0; padding: 9px 8px; border: 1px solid #7d6440; border-radius: 5px; background: #2a2f45; color: #f6e7c8; text-align: left; font: bold calc(10px * var(--reading-scale))/1.35 Verdana,sans-serif; cursor: pointer; }
     .case-button.safe { background: #1f4a3c; border-color: #7fc8a8; }
     .case-button.danger { background: #5a1a22; border-color: #d47a83; }
-    .case-button.armed { background: #a3202f; border-color: #ffb4bc; }
     .case-button small { display: block; font-weight: normal; opacity: .85; margin-top: 2px; }
     .suspicion-meter { padding: 7px; border: 1px solid #d4c39b; border-radius: 5px; background: #fffdf3; font: calc(10px * var(--reading-scale))/1.4 Verdana,sans-serif; color: #3b3b48; }
     .meter-head { display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
@@ -596,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a2d87aa4a8"></script>
+  <script src="chapel_at_midnight.js?v=a5a98bf55d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a2d87aa4a8"></script>
+  <script src="marriage.js?v=a5a98bf55d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a2d87aa4a8"></script>
+  <script src="quests/professor-vale.js?v=a5a98bf55d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -700,7 +699,7 @@
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
-              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go to tomorrow</button><button id="day-no">Not yet</button></div></div>
+              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go forward in time</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCH</strong></div>
                 <div class="app-grid">
@@ -1112,6 +1111,7 @@
         chapel?.onNewDay(); // Task 2: the night of the rite, and Victoria's visits
         const valeDay=questOn('vale')&&(PV?.isOpen()||world.day>=questStart('vale')+2)?PV?.onNewDay(world.day):null; // Professor Vale: voicemails, deliveries, Day A; before the paper prints. Opens by itself two days after its first story.
         getNewsEdition(world.day);
+        if(currentApp==='news')readTodaysPaper(); // the paper was open when the day turned: you're reading today's
         randomiseRoomLook();
         fit();
         stage.classList.remove('day-passing');
@@ -1270,6 +1270,17 @@
         updateRunStatus('Blue Ribbon Foundation office number saved to Contacts. Calls there will be noticed.');
       }
       renderNews();
+    }
+    // Today's paper is on screen, so you've read it: opened from the home screen, or already
+    // open when the day turned. Its stories give you a reason to ask women about the cases.
+    function readTodaysPaper(){
+      visibleNewsDay=world.day;world.paperDay=world.day;
+      const items=getNewsEdition(world.day).items;
+      if(items.some(item=>item.glowAd))glowState().seen=true; // Truecel: LPC-A365
+      if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
+      if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; // the Day 1 paper only announces the benefit; Elena is missing from Day 2
+      if(questOn('vale'))world.flags.valePaperSeen=true;
+      chapel?.onPaperOpened?.(); // Task 2: seeing Victoria's flyer starts her countdown
     }
     // The Day 2 lead carries the gala photograph that can be clipped as evidence.
     // Worked out from the edition, so editions cached in older saves still offer it.
@@ -1560,7 +1571,6 @@
     }
     function endSimulatedCall(){
       if(herCall){herCall=null;}
-      pendingCaseConfirm=null; // [Blue Ribbon]
       stopCallTypewriter();callRevealText='';callRevealProgress=0;callRevealElement=null;
       if(ringTimer!==null){clearTimeout(ringTimer);ringTimer=null;}
       ringingContact=null;activeCallId=null;activeGenericCall=null;
@@ -1614,11 +1624,10 @@
       if(!called){$('call-bubble').classList.remove('visible');return;}
       const latest=thread?.callLog?.filter(item=>item.who==='her').at(-1)?.text||activeGenericCall?.greeting||'Hello?';
       const serviceTopics=activeGenericCall?serviceTopicsFor(activeGenericCall.id):[];
-      const caseConfirm=activeGenericCall?caseConfirmTopic(serviceTopics):null; // [Blue Ribbon] irreversible choices ask first
-      const asking=callSpeechState==='options'||!!caseConfirm;
-      const nothingLeft=asking&&!caseConfirm&&!thread&&!serviceTopics.length;
-      const speech=caseConfirm?caseConfirm.confirm:nothingLeft?'That’s everything for now. Thanks for calling.':asking?'What would you like to ask next?':latest;
-      const buttons=caseConfirm?caseConfirmButtons(caseConfirm):asking?(thread?(hingeDialogue?.callTopics||[]).map(topic=>`<button data-call-topic="${topic.id}">${esc(topic.label)}</button>`).join('')+(wireAskable(thread,profile)?'<button data-call-topic="vale-wire">Ask if she has any wire</button>':''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
+      const asking=callSpeechState==='options';
+      const nothingLeft=asking&&!thread&&!serviceTopics.length;
+      const speech=nothingLeft?'That’s everything for now. Thanks for calling.':asking?'What would you like to ask next?':latest;
+      const buttons=asking?(thread?(hingeDialogue?.callTopics||[]).map(topic=>`<button data-call-topic="${topic.id}">${esc(topic.label)}</button>`).join('')+(wireAskable(thread,profile)?'<button data-call-topic="vale-wire">Ask if she has any wire</button>':''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
       $('call-bubble').innerHTML=`<img src="${profile?.gallery[0]||called.portrait}" alt="${esc(called.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(called.name)}</strong><p class="speech" aria-live="off">${esc(speech)}</p><div class="call-bubble-buttons">${buttons}<button data-call-hangup>End</button></div></div>`;
       $('call-bubble').classList.add('visible');
       hydrateInlineImages($('call-bubble'));
@@ -1695,13 +1704,11 @@
 ...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
-    // ringing the device) get the same "Yes / Not yet" check as the Blue Ribbon.
+    // ringing the device) are marked ⚠ and happen on the first tap, like every choice.
     function valeServiceTopics(serviceId){
-      return (questOn('vale')&&valeKnown()?PV?.serviceTopics(serviceId)||[]:[]).map(topic=>({...topic,confirm:topic.confirm?`${topic.label}? There’s no taking this back.`:null}));
+      return (questOn('vale')&&valeKnown()?PV?.serviceTopics(serviceId)||[]:[]).map(topic=>({...topic,final:!!topic.confirm}));
     }
     function chooseValeServiceTopic(topic){
-      if(topic.confirm&&pendingCaseConfirm!==topic.id){pendingCaseConfirm=topic.id;return topic.confirm;}
-      pendingCaseConfirm=null;
       const result=PV.chooseServiceTopic(activeGenericCall.id,topic.id);
       return result?.reply||result?.text||'…';
     }
@@ -1980,6 +1987,7 @@
       if(thread.unmatched)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · She unmatched you.</div>';
       if(thread.blocked)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">BLOCKED · This conversation is closed.</div>';
       if(thread.fumbled)return '<div style="color:#e7a0ac;text-align:center;font:10px Verdana,sans-serif;padding:8px">Conversation ended. She is no longer responding.</div>';
+      if(thread.quiet)return '<div style="color:#e7a0ac;text-align:center;font:10px Verdana,sans-serif;padding:8px">She has stopped replying.</div>';
       const marriageOptions=marriage?.optionsFor(thread); // Marriage: examination answers and the proposal
       if(marriageOptions?.only)return marriageOptions.html;
       const chapelOptions=chapel?.optionsFor(thread); // Task 2: Chapel at Midnight choices
@@ -2015,8 +2023,7 @@
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
       for(const topic of questOn('vale')&&valeKnown()?PV?.hingeTopics(hingeProfile(thread.id))||[]:[]){ // Professor Vale: case questions by faction
-        const armed=valeArmedTopic===topic.id;
-        add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${armed?'⚠ Tap again to confirm: ':'🎓 '}${esc(topic.label)}</button>`,armed?0:1);
+        add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${topic.confirm?'⚠ ':'🎓 '}${esc(topic.label)}</button>`,1); // ⚠ final: it happens on the first tap
       }
       if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number && talkState(thread).numberRefusedDay!==world.day){
         add('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>',2);
@@ -2050,7 +2057,7 @@
         body=threads.length?`<div class="hinge-list">${threads.map(thread=>{
           const profile=hingeProfile(thread.id);
           const last=thread.log[thread.log.length-1];
-          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${talkState(thread).unread?'💬 New message':thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
+          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${talkState(thread).unread?'💬 New message':thread.quiet?'Gone quiet':thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
         }).join('')}</div>`:'<div class="hinge-empty">No conversations yet.<p>Like somebody to start a chat.</p></div>';
       }else if(hingeView==='thread'){
         const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
@@ -2156,7 +2163,8 @@
     }
     function chooseHingeTopic(id){
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
-      if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
+      if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked||thread.quiet)return;
+      {const ts=talkState(thread),days=ts.days||(ts.days=[]);if(!days.includes(world.day))days.push(world.day);} /* one conversation a day */
       if(isTalkTopic(id))return chooseTalk(id,thread,profile);
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
@@ -2334,6 +2342,8 @@
     const OWN_QUEST_RX={vale:/\bVale\b|Back Row|Cofnas/,br:/Blue Ribbon|\bgala\b|Elena Cross|Augustus Pell|Dorian Kell|Table 9|Scholarship Drive/i,chapel:/Victoria|crescent|Midnight Rite|Midnight Show/i};
     function ownTopicInRun(item,profile){
       if(item.fromDay&&world.day<item.fromDay)return false; /* what happens at this year's gala (Day 1 night) or after it */
+      if(item.quest&&!questReason(item.quest))return false; /* only once you have a reason to ask */
+      if(item.gives&&!givesOpen(item.gives))return false; /* and while she still has something to give */
       if(profile?.id==='MATCH-003')return true;
       const text=`${item.label} ${item.player} ${item.reply} ${item.note||''}`;
       return Object.entries(OWN_QUEST_RX).every(([quest,pattern])=>!pattern.test(text)||questOn(quest));
@@ -2411,6 +2421,7 @@
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),
+        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,callTold:words(src.callTold),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
         used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
     }
@@ -2497,6 +2508,90 @@
       const choices=followChoices(thread.followUp);
       if(!choices.length){thread.followUp=null;return '';}
       return choices.map(choice=>`<button class="hinge-chat-choice follow-choice" data-hinge-topic="follow:${esc(choice.id)}">${esc(choice.label)}</button>`).join('');
+    }
+    // ---------- Conversations run out ----------
+    // Each day you chat with her is one conversation. She gives you three to six (her nature and
+    // the run decide), more if she's keen, then says goodbye and stops replying. A woman who likes
+    // you may still ring, and a call you answer is worth another conversation. Women a quest needs,
+    // the Sisters, and anyone in the middle of her own story or a mini quest never go quiet.
+    function chatBudget(thread,profile){
+      const outgoing=personalityOf(profile)?.bigFive?.[2]??3; /* extraversion */
+      let budget=3+hashSeed(world.seed+'|talks|'+profile.id)%4;
+      if(outgoing>=4)budget++;else if(outgoing<=2)budget--;
+      budget=Math.max(3,Math.min(6,budget));
+      const warmth=warmthOf(thread);
+      if(warmth>=3)budget+=2;
+      if(warmth>=4)budget+=1;
+      return budget+Math.min(3,talkState(thread).bonus||0);
+    }
+    function chatEndless(thread,profile){
+      if(window.MATCH_ENDLESS_CHAT||!profile||profile.jeweller||thread.id===bearHingeCard.id||thread.id===CALLER_ID||mustReply(profile))return true;
+      const story=arcsState().st[profile.id];
+      if(story&&story.stage&&!['done','hook'].includes(story.stage))return true; /* her story is under way */
+      return Object.values(minisState().st||{}).some(st=>st&&st.host===profile.id&&st.stage&&st.stage!=='done');
+    }
+    const chatsUsed=thread=>(talkState(thread).days||[]).filter(day=>day<world.day).length;
+    function quietNewDay(){ // the morning after her last conversation she says goodbye
+      const lines=talkKit()?.quiet;
+      if(!lines?.length)return;
+      for(const thread of hingeThreads.values()){
+        if(thread.quiet||thread.blocked||thread.unmatched||thread.left||thread.fumbled||thread.awaiting||thread.pending||thread.missing||thread.followUp)continue; // she asked you something: she waits for your answer first
+        const profile=hingeProfile(thread.id);
+        if(!profile||chatEndless(thread,profile)||chatsUsed(thread)<chatBudget(thread,profile))continue;
+        thread.quiet=true;
+        lineSpeaker=profile.id;
+        thread.log.push({who:'her',text:variedPick(lines,profile.id+'|quiet')});
+        talkState(thread).unread=true;
+      }
+    }
+    // ---------- What she knows about your cases ----------
+    // A topic may give something a quest needs. It shows only while you have a reason to ask (you
+    // know about the case) and there is still something for her to give.
+    function questReason(quest){
+      if(quest==='br')return questOn('br')&&brKnown()&&brCaseOpen();
+      if(quest==='vale')return questOn('vale')&&valeKnown();
+      if(quest==='chapel'){const ch=chapel?.state?.();return !!(ch?.active&&!ch.outcome&&!ch.dead);}
+      if(quest==='theon')return fionnActive()&&fionnKnown();
+      if(quest==='moira')return callerActive()&&callerState().calls>=1;
+      return true;
+    }
+    function givesOpen(gives){
+      if(!gives)return true;
+      if(gives.br)return questReason('br')&&!brState().found[gives.br];
+      if(gives.chapel)return questReason('chapel')&&!chapel.state().nightKnown;
+      if(gives.theon)return questReason('theon')&&!fionnState().clues.includes(gives.theon);
+      if(gives.moira)return questReason('moira')&&!callerState().momKnown;
+      return true;
+    }
+    // Her line, with whatever it gives filled in; the scrap itself arrives after she has said it.
+    function topicTold(item,profile){
+      const g=item.gives,values={};
+      if(g?.moira&&givesOpen(g)){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();values.number=c.momNumber;}
+      if(g?.chapel&&givesOpen(g))values.night=chapel.tellNight?.(firstName(profile))||'soon';
+      if(g?.theon&&givesOpen(g))fionnClue(g.theon);
+      return {text:fillIn(item.reply,values),after:()=>{if(item.note)recordClue(item.note);if(g?.br&&givesOpen(g))brFindScrap(g.br,`From ${profile.name}`);}};
+    }
+    // ---------- Her calls: what she tells you on the phone ----------
+    function callTopicsFor(thread,profile){
+      if(!thread||!profile)return [];
+      const told=talkState(thread).callTold||[];
+      return (womanOf(profile)?.conversation?.calls||[]).filter(item=>!told.includes(item.id)&&warmEnough(warmthOf(thread),item)&&ownTopicInRun(item,profile));
+    }
+    function tellCallTopic(thread,profile,item){
+      const state=talkState(thread);
+      (state.callTold||(state.callTold=[])).push(item.id);
+      const told=topicTold(item,profile);
+      told.after();
+      return told.text;
+    }
+    // She rang because she likes you: sometimes she tells you something she wouldn't type.
+    function callVolunteer(thread,profile){
+      const open=callTopicsFor(thread,profile);
+      if(!open.length)return null;
+      const warmth=warmthOf(thread),chance=warmth>=4?70:warmth>=3?45:25;
+      if(hashSeed(world.seed+'|volunteer|'+profile.id+'|'+world.day)%100>=chance)return null;
+      const lead=freshPick(thread,'callLead',talkKit()?.callLead||[''],profile.id+world.day);
+      return `${lead?lead+' ':''}${tellCallTopic(thread,profile,open[0])}`;
     }
     function newsTalkAvailable(thread){
       // Only once you've read today's paper (opened the News app today).
@@ -2667,10 +2762,11 @@
         thread.followUp=null;thread.topics.push(id);
         thread.log.push({who:'you',text:own.player});
         lines.push(talkOpener(thread,profile,null));
-        lines.push(own.reply);
+        const told=topicTold(own,profile);
+        lines.push(told.text);
         if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
         maybeHerQuestion(thread,profile,lines);
-        after=()=>{if(own.note)recordClue(own.note);moggerPicture(thread,profile);};
+        after=()=>{told.after();moggerPicture(thread,profile);};
       }else if(id==='news'){
         if(!newsTalkAvailable(thread))return;
         const news=characterDB.newsTalk,kind=newsStoryFor(thread,profile),about=news.kinds[kind]||{};
@@ -4494,7 +4590,7 @@
       let told=0; // one new story a morning
       for(const thread of hingeThreads.values()){
         const profile=hingeProfile(thread.id);
-        if(!profile||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending)continue;
+        if(!profile||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet)continue;
         const st=a.st[profile.id],arc=storyArc(a.pick[profile.id]);
         if(!(profile.id in a.pick)){
           if(told||warmthOf(thread)<2||thread.topics.length<2)continue;
@@ -4750,12 +4846,13 @@
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       miniNewDay(); // the mini quests
+      quietNewDay(); // conversations run out
       const kit=talkKit();
       if(!kit?.morning)return;
       let sent=0;
       for(const thread of hingeThreads.values()){
         if(sent>=2)break;
-        if(thread.id===bearHingeCard.id||warmthOf(thread)<2||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending)continue;
+        if(thread.id===bearHingeCard.id||warmthOf(thread)<2||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet)continue;
         const profile=hingeProfile(thread.id),state=talkState(thread);
         if(!profile||state.morningDay===world.day||gameRandom()>=.4)continue;
         const tag=[...state.tags].reverse().find(item=>kit.callbacks[item]);
@@ -4936,7 +5033,9 @@
       }
       herCall={id,kind:sister?'sister':'flirt',step:'open',flirted:false,asked:false,said:''};
       const callThread=hingeThreads.get(id);
+      if(callThread&&!sister){const ts=talkState(callThread);ts.bonus=Math.min(3,(ts.bonus||0)+1);callThread.quiet=false;} /* she rang you: worth another conversation */
       if(wasSpurned==='plead'&&spurnKit()){herCall.said=freshPick(callThread,'spurnRelief',spurnKit().relief,id+world.day);if(callThread&&warmthOf(callThread)<2)warmBy(callThread,2-warmthOf(callThread));} // she had been begging you to pick up
+      else if(!sister&&(herCall.said=callVolunteer(callThread,profile)||''))herCall.kind='flirt'; // she likes you: something she wouldn't type
       else if(!sister&&(herCall.said=callSubstance(callThread,profile)||''))herCall.kind='flirt'; // her story, or a rumour about your case
       else herCall.said=sister?freshPick(callThread,'callOpen',kit.sister.open,id+world.day):voiced(freshPick(callThread,'callOpen',[...(kit.open[profile.factionId]||kit.open.normie_girls),...(talkKit().morning?.[moodOf(profile)]||[])],id+world.day),profile,'call'+world.day);
       hingeThreads.get(id)?.callLog.push({who:'her',text:herCall.said});
@@ -4959,6 +5058,7 @@
       const out=[];
       if(!call.flirted)out.push({id:'flirt',label:kit.options.flirt.label});
       if(!call.asked)out.push({id:'ask',label:kit.options.ask.label});
+      if((call.mine||0)<2)for(const item of callTopicsFor(hingeThreads.get(call.id),hingeProfile(call.id)).slice(0,1))out.push({id:'mine:'+item.id,label:item.label}); // her own call topics
       out.push({id:'go',label:kit.options.go.label});
       return out;
     }
@@ -5072,21 +5172,24 @@
         you(kit.options.ask.player);
         // She tells you something she knows, if there's anything she hasn't told you yet.
         const told=talkState(thread).informed,tells=kit.tells[faction]||[];
-        const index=tells.findIndex((item,at)=>!told.includes('call:'+at));
+        const index=tells.findIndex((item,at)=>!told.includes('call:'+at)&&!(item.fromDay>world.day));
         if(index>=0){told.push('call:'+index);recordClue(tells[index].note);say(tells[index].line);}
         else{
           // Out of gossip: something from today's paper that her world knows about, else the town.
           const news=characterDB.newsTalk.kinds||{},kinds=(getNewsEdition(world.day).items||[]).map(storyKind);
-          const kind=kinds.find(item=>news[item]?.informed?.[faction]&&!told.includes(item));
+          const kind=kinds.find(item=>news[item]?.informed?.[faction]&&!told.includes(item)&&!(news[item].informed[faction].fromDay>world.day));
           if(kind){told.push(kind);recordClue(news[kind].informed[faction].note);say(seededPick(news[kind].informed[faction].lines,call.id));}
           else say(freshPick(thread,'callTown',[...talkKit().asides.places,...kit.noTell],call.id+world.day));
         }
+      }else if(choice.startsWith('mine:')){
+        const item=callTopicsFor(thread,profile).find(entry=>'mine:'+entry.id===choice);
+        if(item){call.mine=(call.mine||0)+1;you(item.player);say(tellCallTopic(thread,profile,item));}
       }else if(choice==='go'){
         you(kit.options.go.player);
         call.step='bye';say(freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day));
       }
       // Two things said, and she wraps up herself.
-      if(call.kind==='flirt'&&call.step!=='bye'&&call.flirted&&call.asked){
+      if(call.kind==='flirt'&&call.step!=='bye'&&(call.flirted?1:0)+(call.asked?1:0)+(call.mine||0)>=2){
         call.step='bye';
         say(`${call.said} ${freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day)}`);
         thread.callLog.splice(thread.callLog.length-2,1);
@@ -5196,11 +5299,11 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){visibleNewsDay=world.day;world.paperDay=world.day;if(getNewsEdition(world.day).items.some(item=>item.glowAd))glowState().seen=true;if(getNewsEdition(world.day).items.some(item=>item.fionnAd))fionnState().gunSeen=true;if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; /* the Day 1 paper only announces the benefit; Elena is missing from Day 2 */if(questOn('vale'))world.flags.valePaperSeen=true;/* reading the paper gives you a reason to ask about a case */renderNews();chapel?.onPaperOpened?.();return;} // Task 2: seeing Victoria's flyer starts her countdown // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){readTodaysPaper();renderNews();return;} // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
-      if(app==='notes'){notesView='main';caseWithdrawArmed=false;renderNotes();return;}
+      if(app==='notes'){notesView='main';renderNotes();return;}
       $('opened').innerHTML=typeof appContent[app]==='function'?appContent[app]():appContent[app];
       hydrateInlineImages($('opened'));
     }
@@ -5227,7 +5330,7 @@
       const settingWallpaper=event.target.closest('[data-setting-wallpaper]');
       if(settingWallpaper){$('wallpaper-style').value=settingWallpaper.dataset.settingWallpaper;wallpaperLocked=true;fit();renderSettings();return;}
       const notesNav=event.target.closest('[data-notes-view]');
-      if(notesNav){notesView=notesNav.dataset.notesView;caseWithdrawArmed=false;renderNotes();return;}
+      if(notesNav){notesView=notesNav.dataset.notesView;renderNotes();return;}
       const caseAction=event.target.closest('[data-br-action]');
       if(caseAction){handleCaseAction(caseAction.dataset.brAction);return;}
       const newsClip=event.target.closest('[data-news-clip]');
@@ -5301,7 +5404,6 @@
       if(topic){chooseCallTopic(topic.dataset.callTopic);return;}
       const serviceTopic=event.target.closest('[data-service-topic]');
       if(serviceTopic){chooseServiceTopic(serviceTopic.dataset.serviceTopic);return;}
-      if(event.target.closest('[data-case-cancel]')){pendingCaseConfirm=null;callSpeechState='options';renderCallBubble();return;} // [Blue Ribbon]
       if(event.target.closest('[data-call-hangup]')){endSimulatedCall();dialStatus='Call ended.';renderCalls();}
     });
     $('incoming-banner').addEventListener('click',openIncomingCall);
@@ -5423,7 +5525,7 @@
     // build). Every delay is counted in simulated days, never clock time.
     let BR=window.MATCH_BLUE_RIBBON||null;
     let brScrapIndex=new Map(),brClaimIndex=new Map();
-    let notesView='main',caseWithdrawArmed=false;
+    let notesView='main';
     let sheetSelected=null,sheetConnectFrom=null,sheetModal=null,sheetDrag=null,sheetShowLinks=false,sheetMessage='',suppressSheetClickUntil=0;
     let invasionTimers=[],noticeTimer=null;
     const scrapWidths={ticket:30,ledger:37,slip:31,photo:34,statement:35,rumour:28,planted:27};
@@ -5457,7 +5559,7 @@
     }
     function brAddSuspicion(amount,reason){
       const s=brState();
-      if(!BR||!amount||s.retaliated)return;
+      if(!BR||!amount||s.retaliated||s.outcome==='success')return; // the federal inquiry is open: nobody is watching you now
       const levelBefore=brLevel(s.suspicion);
       s.suspicion=Math.max(0,Math.min(100,s.suspicion+amount));
       if(amount>0&&brLevel(s.suspicion)!==levelBefore)showGameNotice(`Suspicion rising: ${brLevel(s.suspicion)}`);
@@ -5797,14 +5899,11 @@
       const info=PV.engine.endingInfo(s);
       return valeGameOver(info)?{...info.death,title:info.title,text:info.text}:null;
     }
-    var valeArmedTopic=null; // var: hingeOptionsFor can read it before this line runs
     function chooseValeHingeTopic(id){
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!PV||!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
       const topic=PV.hingeTopics(profile).find(item=>item.id===id);
       if(!topic)return;
-      if(topic.confirm&&valeArmedTopic!==id){valeArmedTopic=id;renderHinge();return;} // final: tap twice
-      valeArmedTopic=null;
       const result=PV.chooseHingeTopic(profile,id);
       if(!result?.ok)return;
       thread.log.push({who:'you',text:result.player});
@@ -5936,13 +6035,10 @@
       if(topic.scrap&&s.found[topic.scrap])return false;
       return true;
     }
-    // Irreversible choices are asked twice: the first tap shows topic.confirm.
-    var pendingCaseConfirm=null;
-    function caseConfirmTopic(topics){return pendingCaseConfirm?topics.find(topic=>topic.id===pendingCaseConfirm&&topic.confirm)||null:null;}
-    function caseConfirmButtons(topic){return `<button data-service-topic="${topic.id}" class="case-risky">⚠ Yes: ${esc(topic.label)}</button><button data-case-cancel>Not yet</button>`;}
-    // ⚠ marks irreversible or witness-exposing questions; 👁 marks ones that raise suspicion.
+    // Every choice happens on the first tap: no "are you sure?". ⚠ marks final or
+    // witness-exposing questions; 👁 marks ones that raise suspicion.
     function caseTopicMarker(topic){
-      if(topic.confirm||topic.exposes)return {className:'case-risky',prefix:'⚠ '};
+      if(topic.final||topic.exposes)return {className:'case-risky',prefix:'⚠ '};
       if(topic.suspicion)return {className:'case-noticed',prefix:'👁 '};
       return {className:'',prefix:''};
     }
@@ -5955,8 +6051,6 @@
       return `<button class="hinge-chat-choice case-choice${mark.className==='case-risky'?' risky':''}" data-br-topic="${topic.id}">${mark.prefix||'🔎 '}${esc(topic.label)}</button>`;
     }
     function brHandleServiceTopic(topic,call){
-      if(topic.confirm&&pendingCaseConfirm!==topic.id){pendingCaseConfirm=topic.id;return topic.confirm;}
-      pendingCaseConfirm=null;
       if(topic.report)return brReportFederal().reply;
       if(topic.accuse)return brAccuse(topic.accuse,topic.channel);
       const reply=topic.reply==='{review}'?brReviewHint():topic.reply;
@@ -6047,6 +6141,7 @@
       $('evidence-sheet').classList.remove('visible');
       sheetDrag=null;sheetModal=null;sheetConnectFrom=null;sheetSelected=null;
       if(render&&currentApp==='notes')renderNotes();
+      if(render&&cupboardIsOpen())renderCupboard(); // back to the case file: show the strings just pinned and any number they unlocked
     }
     function scrapPin(id,overrides={}){
       const found=overrides[id]||brState().found[id],scrap=brScrapIndex.get(id);
@@ -6390,7 +6485,7 @@
     function closeCupboard(){
       $('cupboard').classList.remove('open');
       $('cupboard').setAttribute('aria-hidden','true');
-      cupboardView='shelf';caseWithdrawArmed=false;cupboardSelecting=false;cupboardPicked=[];
+      cupboardView='shelf';cupboardSelecting=false;cupboardPicked=[];
     }
     const cupBack='<button class="cup-back" data-cup-back>‹ Cupboard</button>';
     function renderCupboard(){
@@ -6484,7 +6579,7 @@
         item.addEventListener('pointermove',move);item.addEventListener('pointerup',up);item.addEventListener('pointercancel',up);
       }));
     }
-    // Go forward in time from the phone itself: tap the day in the status bar.
+    // Go forward in time from the phone itself: tap the day in the status bar. (Chris keeps this box.)
     function dayDialogAllowed(){return !dayTransitionInFlight&&!world.policeArrested&&!$('fatal-overlay').classList.contains('visible');}
     $('day-button').addEventListener('click',event=>{
       event.stopPropagation();
@@ -6501,7 +6596,7 @@
     $('cupboard').addEventListener('click',event=>{
       const target=event.target;
       if(target===$('cupboard')||target.closest('[data-cup-close]')){closeCupboard();return;}
-      if(target.closest('[data-cup-back]')){cupboardView='shelf';caseWithdrawArmed=false;renderCupboard();return;}
+      if(target.closest('[data-cup-back]')){cupboardView='shelf';renderCupboard();return;}
       const open=target.closest('[data-cup-open]');
       if(open){cupboardView=open.dataset.cupOpen;renderCupboard();return;}
       const item=target.closest('[data-cup-item]');
@@ -6625,7 +6720,7 @@
       const cards=BR.scraps.filter(scrap=>scrap.kind==='card'&&s.found[scrap.id]).map(scrap=>`<li>${esc(scrap.title)}: ${esc(BR.sources[scrap.source]?.label||'')} · ${esc(labels[scrap.reliability])} reliability</li>`).join('');
       const witnessCopy={unknown:'No witness yet. Somebody saw how the night ended.',known:'R.M., a catering supervisor, saw the end of the night. Her identity is not protected yet, and people watching you could follow your calls to her.',protected:'You have promised to keep R.M.’s identity secret. She trusts you.',exposed:'R.M.’s identity leaked. She has withdrawn her statement and left town.'};
       const federal=s.federalUnlocked?`<button class="case-button safe" data-br-action="call-federal">☎ Call the federal field office<small>${esc(brNumber('federal'))} · submit your dossier when it is ready</small></button>`:`<p>Federal report locked. Pin ${dossier.required} independent links on the Evidence Sheet (you have ${dossier.apparentIndependent}).</p>`;
-      const withdraw=open?`<button class="case-button danger ${caseWithdrawArmed?'armed':''}" data-br-action="withdraw">${caseWithdrawArmed?'Tap again to walk away for good':'Withdraw from the investigation'}<small>Lowers suspicion, but the case stays unsolved. Cannot be undone.</small></button>`:'';
+      const withdraw=open?`<button class="case-button danger" data-br-action="withdraw">Withdraw from the investigation<small>Lowers suspicion, but the case stays unsolved. Cannot be undone.</small></button>`:'';
       return `<div class="case-page"><button class="case-back" data-cup-back>‹ Cupboard</button><h3>The Blue Ribbon Ledger</h3>${outcome}${warning?`<p class="case-warning">${esc(warning)}</p>`:''}<button class="case-button" data-br-action="sheet">📌 Open the Evidence Sheet<small>Move, rotate and connect scraps with string</small></button><h4>Evidence (${count.found}/${count.total})</h4><ul>${scrapList}</ul>${cards?`<h4>Other notes on the board</h4><ul>${cards}</ul>`:''}<h4>Dossier</h4><p>Pinned links: ${dossier.links}. Independent sources backing each other (as far as you can tell): ${dossier.apparentIndependent}/${dossier.required}.</p><h4>Witness</h4><p>${esc(witnessCopy[s.witness])}</p>${open&&s.witness==='known'?'<button class="case-button safe" data-br-action="protect">Protect R.M.’s identity<small>Keep her name out of every chat, call and newspaper</small></button>':''}<h4>Decisions</h4>${open||s.federalUnlocked?federal:''}${withdraw}</div>`; // no visible meters: suspicion shows in the world (the sedan, people going quiet)
     }
     // Blue Ribbon decisions, made from its file in the bedside cupboard.
@@ -6634,8 +6729,6 @@
       if(action==='sheet'){openEvidenceSheet();return;} // opens over the cupboard; closing it returns there
       if(action==='protect'){brProtectWitness();refreshCaseFile();return;}
       if(action==='withdraw'){
-        if(!caseWithdrawArmed){caseWithdrawArmed=true;refreshCaseFile();return;}
-        caseWithdrawArmed=false;
         if(brWithdraw())updateRunStatus('You walked away from the Blue Ribbon case.');
         refreshCaseFile();return;
       }
@@ -6808,7 +6901,7 @@
       stopRinging();herCall=null;
       endSimulatedCall();
       clearBearTimers();clearBearVisuals();clearPoliceArrest();closeEvidenceSheet(false);closeCupboard();
-      notesView='main';caseWithdrawArmed=false;clearGameNotices();$('watch-lights').classList.remove('visible');
+      notesView='main';clearGameNotices();$('watch-lights').classList.remove('visible');
       chapel?.reset(); // Task 2
       world=newWorld('Scottsdale-'+Date.now()+'-'+Math.random());
       marriage?.reset(); // Marriage: closes the wedding screens and clears the desk ring
@@ -6885,7 +6978,6 @@
     }
     function mountVale(){
       document.querySelectorAll('.pv-overlay').forEach(element=>element.remove());
-      valeArmedTopic=null;
       return window.ProfessorVale?window.ProfessorVale.mount({
         world:()=>world,assetUrl,newNumber:()=>unusedContactNumber(),
         status:text=>updateRunStatus(text),

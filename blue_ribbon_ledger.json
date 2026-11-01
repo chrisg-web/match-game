@@ -273,11 +273,11 @@
         "reply": "We obtained a police statement with the names blacked out. You've been straight with us, so here is our copy. Don't try to unmask the witness."},
       {"id": "br_review", "label": "Ask the city desk to review your evidence", "needsLinks": 2, "repeatable": true, "reply": "{review}"},
       {"id": "br_name", "label": "Tell the reporter who your witness is", "needsWitness": true, "exposes": true, "suspicion": 10,
-        "confirm": "Once you name your witness you can't take it back, and these phone lines aren't private. Are you sure?",
+        "final": true,
         "suspicionReason": "You gave your witness's identity to a newsroom with leaky phone lines.",
         "reply": "Thank you. I'll try to reach her… although our lines aren't exactly private these days."},
-      {"id": "br_accuse_pell", "label": "Go on the record: accuse Treasurer Pell", "needsScrap": "tb_news_photo", "accuse": "pell", "channel": "newsroom", "confirm": "If you go on the record, your accusation runs in tomorrow's paper and can't be taken back. Are you sure?"},
-      {"id": "br_accuse_porter", "label": "Go on the record: accuse Officer Porter", "needsScrap": "tb_news_photo", "accuse": "porter", "channel": "newsroom", "confirm": "If you go on the record, your accusation runs in tomorrow's paper and can't be taken back. Are you sure?"}
+      {"id": "br_accuse_pell", "label": "Go on the record: accuse Treasurer Pell", "needsScrap": "tb_news_photo", "accuse": "pell", "channel": "newsroom", "final": true},
+      {"id": "br_accuse_porter", "label": "Go on the record: accuse Officer Porter", "needsScrap": "tb_news_photo", "accuse": "porter", "channel": "newsroom", "final": true}
     ],
     "service:chapel": [
       {"id": "br_lost", "label": "Ask about the lost-property box", "needsFlag": "chapelGala", "scrap": "tb_gala_ticket",
@@ -293,13 +293,13 @@
         "scrap": "tb_charity_ledger",
         "reply": "Of course, we value our donors. I'll photograph the disbursement sheet for you… oh dear, it's half torn. I'll send what I have."},
       {"id": "br_f_accuse", "label": "Accuse the treasurer to his own office", "needsScrap": "tb_charity_ledger", "accuse": "pell", "channel": "foundation",
-        "confirm": "You are about to accuse the treasurer to his own staff. They will know exactly who you are. Are you sure?"}
+        "final": true}
     ],
     "service:federal": [
       {"id": "br_fed_ask", "label": "Ask what investigators need", "repeatable": true,
         "reply": "Three independent sources that back each other up. No rumours, no theories that the records contradict. And any witness must stay protected: if their name has leaked, we can't use them."},
       {"id": "br_fed_submit", "label": "Formally submit your dossier", "report": true,
-        "confirm": "Formal submission is final. Investigators will judge every string on your Evidence Sheet as it stands. Submit now?"}
+        "final": true}
     ]
   },
   "serviceContacts": {

@@ -169,6 +169,11 @@
       return `<button class="hinge-chat-choice marriage-choice ${extra}" data-marriage-choice="${esc(action)}">${mark?mark+' ':''}${esc(label)}</button>`;
     }
     function tag(text){return `<div class="story-tag">${esc(text)}</div>`;}
+    // You can only ask a Sister about marriage once she knows you: she has given you her
+    // number, or you have talked properly on the app (rules.talkBeforeAsking exchanges).
+    function knowsYou(thread){
+      return !!thread?.number||(thread?.topics||[]).length>=(data?.rules?.talkBeforeAsking||6);
+    }
     // Returns {html, only}. With only=true the examination answers replace the
     // ordinary chat topics until she has asked her question and you have answered.
     function optionsFor(thread){
@@ -176,6 +181,7 @@
       if(!st||!thread||!sister(thread.id)||thread.blocked||thread.fumbled)return null; // she blocked you: no examination
       const id=thread.id,s=sisterState(st,id);
       if(wed(st))return {html:tag(st.married?.id===id?'Married. God bless you both.':'You are already married.'),only:true};
+      if(!s.started&&!s.passed&&!knowsYou(thread))return null; // too soon to ask
       if(s.active&&s.current!==null){
         const q=question(s.current);
         const answers=q.answers.map((answer,index)=>button(`answer:${id}:${index}`,`${LETTERS[index]}. ${answer}`,{mark:'',extra:'marriage-answer'})).join('');
@@ -298,7 +304,7 @@
       if(!st)return;
       const [kind,id,extra]=String(action).split(':');
       if(!sister(id))return;
-      if(kind==='start')start(st,id);
+      if(kind==='start'){const s=sisterState(st,id);if(s.started||s.passed||knowsYou(threadOf(id)))start(st,id);}
       else if(kind==='answer')answer(st,id,Number(extra));
       else if(kind==='pause')pause(st,id);
       else if(kind==='propose')propose(st,id);
@@ -416,7 +422,7 @@
         const j=data.jewellers[id];
         return `<p class="contact-entry"><b>${esc(j.name)}</b>, ${esc(j.shop)}<br><small>${esc(j.role)} · ${esc(j.location)}</small><br><button class="notes-call" data-note-dial="${st.numbers[id]}">${st.numbers[id]} ☎</button></p>`;
       }).join('');
-      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win: pass her examination (five correct answers in a row), get a wedding ring, then propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Sunfall jewellers</b></p>${shops}`}</div>`;
+      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win. Get to know her first (talk properly, or get her number) before you ask. Then pass her examination (five correct answers in a row), get a wedding ring, and propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Sunfall jewellers</b></p>${shops}`}</div>`;
     }
 
     // ---------- desk, wedding slideshow and victory screen ----------

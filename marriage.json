@@ -7,6 +7,7 @@
   "timeRule": "Time advances only through Start Another Day. No weekdays, calendar dates or clock times are needed to play.",
   "rules": {
     "streakToPass": 5,
+    "talkBeforeAsking": 6,
     "noRingReply": "Wait, without a ring?",
     "ringArrived": "A small velvet box has been delivered. The wedding ring is on your desk.",
     "alreadyHaveRing": "You already have a wedding ring on your desk.",
