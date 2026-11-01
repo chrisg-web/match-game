@@ -6,23 +6,76 @@
   "timeRule": "Time advances only through simulated days via Start Another Day. Evidence carries in-game day stamps such as Day 1, never weekdays, calendar dates or clock times. Delayed events fire after a number of simulated days, never at a set hour.",
   "narrativeGuardrail": "Wholly fictional charity, people and crimes. The investigation stays abstract and non-instructional, and the home invasion implies rather than depicts violence.",
   "cast": [
-    {"id": "cross", "name": "Elena Cross", "role": "Blue Ribbon organiser, missing since gala night (Day 1)"},
-    {"id": "pell", "name": "Augustus Pell", "initials": "A.P.", "role": "Foundation treasurer"},
-    {"id": "kell", "name": "Dorian Kell", "initials": "D.K.", "role": "Foundation events director"},
-    {"id": "porter", "name": "Officer A. Porter", "initials": "A.P.", "role": "Door security at the gala"},
-    {"id": "witness", "name": "R.M.", "initials": "R.M.", "role": "Catering supervisor who saw the end of the night"}
+    {
+      "id": "cross",
+      "name": "Elena Cross",
+      "role": "Blue Ribbon organizer, missing since gala night (Day 1)"
+    },
+    {
+      "id": "pell",
+      "name": "Augustus Pell",
+      "initials": "A.P.",
+      "role": "Foundation treasurer"
+    },
+    {
+      "id": "kell",
+      "name": "Dorian Kell",
+      "initials": "D.K.",
+      "role": "Foundation events director"
+    },
+    {
+      "id": "porter",
+      "name": "Officer A. Porter",
+      "initials": "A.P.",
+      "role": "Door security at the gala"
+    },
+    {
+      "id": "witness",
+      "name": "R.M.",
+      "initials": "R.M.",
+      "role": "Catering supervisor who saw the end of the night"
+    }
   ],
   "sources": {
-    "volunteer": {"label": "Gala volunteer", "detail": "Found by people who cleared the tables after the benefit."},
-    "records": {"label": "Foundation account books", "detail": "A page torn from the Scholarship Drive disbursement ledger."},
-    "slip_caller": {"label": "R.M., a caller to the newsroom", "detail": "A message copied down by the Sunfall Daily front desk."},
-    "statement_witness": {"label": "Unnamed catering supervisor", "detail": "A police statement with the witness's name blacked out."},
-    "witness_rm": {"label": "R.M., catering supervisor", "detail": "One witness. The phone slip and the police statement both come from this person."},
-    "press": {"label": "Sunfall Daily photo desk", "detail": "A published photograph and caption from the Day 2 edition."},
-    "rumour": {"label": "Group-chat rumour", "detail": "Forwarded third-hand. Nobody in the chain saw it themselves."},
-    "planted": {"label": "Unsigned note", "detail": "Slipped under your door after you began asking questions."}
+    "volunteer": {
+      "label": "Gala volunteer",
+      "detail": "Found by people who cleared the tables after the benefit."
+    },
+    "records": {
+      "label": "Foundation account books",
+      "detail": "A page torn from the Scholarship Drive disbursement ledger."
+    },
+    "slip_caller": {
+      "label": "R.M., a caller to the newsroom",
+      "detail": "A message copied down by the Sunfall Daily front desk."
+    },
+    "statement_witness": {
+      "label": "Unnamed catering supervisor",
+      "detail": "A police statement with the witness's name blacked out."
+    },
+    "witness_rm": {
+      "label": "R.M., catering supervisor",
+      "detail": "One witness. The phone slip and the police statement both come from this person."
+    },
+    "press": {
+      "label": "Sunfall Daily photo desk",
+      "detail": "A published photograph and caption from the Day 2 edition."
+    },
+    "rumour": {
+      "label": "Group-chat rumor",
+      "detail": "Forwarded third-hand. Nobody in the chain saw it themselves."
+    },
+    "planted": {
+      "label": "Unsigned note",
+      "detail": "Slipped under your door after you began asking questions."
+    }
   },
-  "reliabilityLabels": ["Unknown", "Low", "Medium", "High"],
+  "reliabilityLabels": [
+    "Unknown",
+    "Low",
+    "Medium",
+    "High"
+  ],
   "reasonTypes": {
     "identity": "Initials and names",
     "detail": "Matching detail",
@@ -33,10 +86,22 @@
   },
   "suspicion": {
     "levels": [
-      {"min": 0, "label": "Unnoticed"},
-      {"min": 30, "label": "Noticed"},
-      {"min": 55, "label": "Watched"},
-      {"min": 75, "label": "Dangerous"}
+      {
+        "min": 0,
+        "label": "Unnoticed"
+      },
+      {
+        "min": 30,
+        "label": "Noticed"
+      },
+      {
+        "min": 55,
+        "label": "Watched"
+      },
+      {
+        "min": 75,
+        "label": "Dangerous"
+      }
     ],
     "watched": 55,
     "dangerous": 75,
@@ -48,306 +113,1056 @@
   "requiredIndependentLinks": 3,
   "scraps": [
     {
-      "id": "tb_gala_ticket", "kind": "evidence", "style": "ticket",
+      "id": "tb_gala_ticket",
+      "kind": "evidence",
+      "style": "ticket",
       "title": "Torn gala ticket",
       "image": "assets/evidence/tb-gala-stub.png",
-      "source": "volunteer", "apparentSource": "volunteer",
-      "reliability": 2, "reliabilityNote": "A genuine ticket, but anyone could have pencilled the note on the back.",
-      "face": ["BLUE RIBBON BENEFIT", "Scholarship Drive gala night", "DAY 1", "TABLE 9 · SEAT 4", "COMPLIMENTARY"],
+      "source": "volunteer",
+      "apparentSource": "volunteer",
+      "reliability": 2,
+      "reliabilityNote": "A genuine ticket, but anyone could have pencilled the note on the back.",
+      "face": [
+        "BLUE RIBBON BENEFIT",
+        "Scholarship Drive gala night",
+        "DAY 1",
+        "TABLE 9 · SEAT 4",
+        "COMPLIMENTARY"
+      ],
       "handwriting": "No name on list. Per A.P.",
-      "facts": ["Day 1", "Table 9", "A.P."],
+      "facts": [
+        "Day 1",
+        "Table 9",
+        "A.P."
+      ],
       "hint": "Someone who cleared the tables, or a lost-property box, may have it.",
-      "home": {"x": 3, "y": 3, "rot": -6},
-      "artSize": [1536, 1024],
-      "ink": {"header": {"x": 33, "y": 23, "w": 50, "h": 17, "size": 3.3, "font": "print"}, "hand": {"x": 35, "y": 40.5, "w": 46, "h": 8.5, "rot": -3, "size": 2.4, "font": "pencil"}, "day": {"x": 32.5, "y": 66, "w": 13.5, "h": 12, "size": 3.4, "font": "print center"}, "seat": {"x": 47.5, "y": 66, "w": 20.5, "h": 12, "size": 3.2, "font": "print center"}, "comp": {"x": 69, "y": 66, "w": 16, "h": 12, "size": 1.35, "font": "print center"}}
+      "home": {
+        "x": 3,
+        "y": 3,
+        "rot": -6
+      },
+      "artSize": [
+        1536,
+        1024
+      ],
+      "ink": {
+        "header": {
+          "x": 33,
+          "y": 23,
+          "w": 50,
+          "h": 17,
+          "size": 3.3,
+          "font": "print"
+        },
+        "hand": {
+          "x": 35,
+          "y": 40.5,
+          "w": 46,
+          "h": 8.5,
+          "rot": -3,
+          "size": 2.4,
+          "font": "pencil"
+        },
+        "day": {
+          "x": 32.5,
+          "y": 66,
+          "w": 13.5,
+          "h": 12,
+          "size": 3.4,
+          "font": "print center"
+        },
+        "seat": {
+          "x": 47.5,
+          "y": 66,
+          "w": 20.5,
+          "h": 12,
+          "size": 3.2,
+          "font": "print center"
+        },
+        "comp": {
+          "x": 69,
+          "y": 66,
+          "w": 16,
+          "h": 12,
+          "size": 1.35,
+          "font": "print center"
+        }
+      }
     },
     {
-      "id": "tb_charity_ledger", "kind": "evidence", "style": "ledger",
+      "id": "tb_charity_ledger",
+      "kind": "evidence",
+      "style": "ledger",
       "title": "Charity ledger fragment",
       "image": "assets/evidence/tb-charity-ledger.png",
-      "source": "records", "apparentSource": "records",
-      "reliability": 3, "reliabilityNote": "An original accounts page, though torn and incomplete.",
+      "source": "records",
+      "apparentSource": "records",
+      "reliability": 3,
+      "reliabilityNote": "An original accounts page, though torn and incomplete.",
       "heading": "SCHOLARSHIP DRIVE: DISBURSEMENTS",
       "rows": [
-        ["Day 1", "Halcyon Ridge Trust", "40,000", "A.P."],
-        ["Day 1", "Table 9 hospitality", "2,500", "D.K."],
-        ["Day 2", "Halcyon Ridge Trust", "25,000", "A.P. / D.K."],
-        ["Day 2", "Late service (catering)", "600", "D.K."]
+        [
+          "Day 1",
+          "Halcyon Ridge Trust",
+          "40,000",
+          "A.P."
+        ],
+        [
+          "Day 1",
+          "Table 9 hospitality",
+          "2,500",
+          "D.K."
+        ],
+        [
+          "Day 2",
+          "Halcyon Ridge Trust",
+          "25,000",
+          "A.P. / D.K."
+        ],
+        [
+          "Day 2",
+          "Late service (catering)",
+          "600",
+          "D.K."
+        ]
       ],
-      "facts": ["Day 1", "Day 2", "Table 9", "A.P.", "D.K.", "Halcyon Ridge Trust", "Late service"],
+      "facts": [
+        "Day 1",
+        "Day 2",
+        "Table 9",
+        "A.P.",
+        "D.K.",
+        "Halcyon Ridge Trust",
+        "Late service"
+      ],
       "hint": "The Foundation keeps the books. Insiders, or a careless office, might share a page.",
-      "home": {"x": 35, "y": 5, "rot": 3},
-      "artSize": [1024, 1536],
-      "ink": {"heading": {"x": 16, "y": 9.5, "w": 58, "h": 4, "size": 2.4, "font": "print"}, "table": {"x": 16, "y": 16, "w": 69, "h": 38, "size": 3, "font": "hand"}}
+      "home": {
+        "x": 35,
+        "y": 5,
+        "rot": 3
+      },
+      "artSize": [
+        1024,
+        1536
+      ],
+      "ink": {
+        "heading": {
+          "x": 16,
+          "y": 9.5,
+          "w": 58,
+          "h": 4,
+          "size": 2.4,
+          "font": "print"
+        },
+        "table": {
+          "x": 16,
+          "y": 16,
+          "w": 69,
+          "h": 38,
+          "size": 3,
+          "font": "hand"
+        }
+      }
     },
     {
-      "id": "tb_phone_slip", "kind": "evidence", "style": "slip",
+      "id": "tb_phone_slip",
+      "kind": "evidence",
+      "style": "slip",
       "title": "Telephone message slip",
       "image": "assets/evidence/tb-phone-slip.png",
-      "source": "witness_rm", "apparentSource": "slip_caller",
-      "reliability": 2, "reliabilityNote": "Second-hand: a receptionist copied the caller's words.",
-      "form": [["For", "Elena Cross (c/o city desk)"], ["From", "R.M. (catering)"], ["When", "Day 1, late"], ["Taken by", "Front desk, Sunfall Daily"]],
-      "handwriting": "Grey sedan at the old junction after the benefit. D.K. driving. Someone from Table 9 beside him. Please call me back.",
-      "facts": ["Day 1", "R.M.", "D.K.", "Table 9", "Grey sedan", "Old junction"],
+      "source": "witness_rm",
+      "apparentSource": "slip_caller",
+      "reliability": 2,
+      "reliabilityNote": "Second-hand: a receptionist copied the caller's words.",
+      "form": [
+        [
+          "For",
+          "Elena Cross (c/o city desk)"
+        ],
+        [
+          "From",
+          "R.M. (catering)"
+        ],
+        [
+          "When",
+          "Day 1, late"
+        ],
+        [
+          "Taken by",
+          "Front desk, Sunfall Daily"
+        ]
+      ],
+      "handwriting": "Gray sedan at the old junction after the benefit. D.K. driving. Someone from Table 9 beside him. Please call me back.",
+      "facts": [
+        "Day 1",
+        "R.M.",
+        "D.K.",
+        "Table 9",
+        "Gray sedan",
+        "Old junction"
+      ],
       "hint": "Elena had been talking to the newspaper. Ask who left messages for her.",
-      "home": {"x": 67, "y": 3, "rot": 5},
-      "artSize": [1402, 1122],
-      "ink": {"body": {"x": 17, "y": 22, "w": 68, "h": 56, "rot": -11.5, "size": 2.9, "font": "hand"}}
+      "home": {
+        "x": 67,
+        "y": 3,
+        "rot": 5
+      },
+      "artSize": [
+        1402,
+        1122
+      ],
+      "ink": {
+        "body": {
+          "x": 17,
+          "y": 22,
+          "w": 68,
+          "h": 56,
+          "rot": -11.5,
+          "size": 2.9,
+          "font": "hand"
+        }
+      }
     },
     {
-      "id": "tb_news_photo", "kind": "evidence", "style": "photo",
+      "id": "tb_news_photo",
+      "kind": "evidence",
+      "style": "photo",
       "title": "Cropped newspaper photograph",
       "image": "assets/evidence/tb-news-crop.png",
-      "source": "press", "apparentSource": "press",
-      "reliability": 3, "reliabilityNote": "A published photograph, but the caption leaves someone out.",
+      "source": "press",
+      "apparentSource": "press",
+      "reliability": 3,
+      "reliabilityNote": "A published photograph, but the caption leaves someone out.",
       "lanyard": "D. KE…",
-      "caption": "Treasurer Augustus Pell with organiser Elena Cross as the benefit closed (Day 1). Door security: Officer A. Porter.",
-      "column": "…Mr Pell said he left early and did not see Ms Cross again that night. All Scholarship Drive payments were frozen on Day 2, he added…",
-      "facts": ["Day 1", "Augustus Pell", "Officer A. Porter", "Elena Cross", "Lanyard D. KE…", "Payments frozen on Day 2", "Pell left early"],
+      "caption": "Treasurer Augustus Pell with organizer Elena Cross as the benefit closed (Day 1). Door security: Officer A. Porter.",
+      "column": "…Mr. Pell said he left early and did not see Ms. Cross again that night. All Scholarship Drive payments were frozen on Day 2, he added…",
+      "facts": [
+        "Day 1",
+        "Augustus Pell",
+        "Officer A. Porter",
+        "Elena Cross",
+        "Lanyard D. KE…",
+        "Payments frozen on Day 2",
+        "Pell left early"
+      ],
       "hint": "Read the Day 2 Sunfall Daily in full and clip the gala photograph.",
-      "home": {"x": 4, "y": 39, "rot": -3},
-      "artSize": [1536, 1024],
-      "ink": {"caption": {"x": 26.5, "y": 19.5, "w": 42.5, "h": 12, "rot": -7.5, "size": 1.92, "font": "print"}, "lanyard": {"x": 55.5, "y": 55, "w": 8, "h": 3.5, "rot": -7, "size": 1.5, "font": "badge"}}
+      "home": {
+        "x": 4,
+        "y": 39,
+        "rot": -3
+      },
+      "artSize": [
+        1536,
+        1024
+      ],
+      "ink": {
+        "caption": {
+          "x": 26.5,
+          "y": 19.5,
+          "w": 42.5,
+          "h": 12,
+          "rot": -7.5,
+          "size": 1.92,
+          "font": "print"
+        },
+        "lanyard": {
+          "x": 55.5,
+          "y": 55,
+          "w": 8,
+          "h": 3.5,
+          "rot": -7,
+          "size": 1.5,
+          "font": "badge"
+        }
+      }
     },
     {
-      "id": "tb_witness_statement", "kind": "evidence", "style": "statement",
+      "id": "tb_witness_statement",
+      "kind": "evidence",
+      "style": "statement",
       "title": "Redacted witness statement",
       "image": "assets/evidence/tb-witness-statement.png",
-      "source": "witness_rm", "apparentSource": "statement_witness",
-      "reliability": 3, "reliabilityNote": "A formal statement, but the names are blacked out.",
+      "source": "witness_rm",
+      "apparentSource": "statement_witness",
+      "reliability": 3,
+      "reliabilityNote": "A formal statement, but the names are blacked out.",
       "heading": "SUNFALL POLICE · WITNESS STATEMENT · TAKEN DAY 2",
       "statement": [
-        {"text": "Name: "}, {"redact": "Ruth Mayhew"}, {"text": " · Role: catering supervisor. "},
-        {"text": "After the benefit (Day 1) I saw Ms Cross arguing with the treasurer by the service door. Mr K"}, {"redact": "ell"},
-        {"text": " told me my late-service invoice would be paid from the Scholarship Drive and that I should go home. Later I passed a grey sedan parked at the old junction. Signed: R. M"}, {"redact": "ayhew"}
+        {
+          "text": "Name: "
+        },
+        {
+          "redact": "Ruth Mayhew"
+        },
+        {
+          "text": " · Role: catering supervisor. "
+        },
+        {
+          "text": "After the benefit (Day 1) I saw Ms. Cross arguing with the treasurer by the service door. Mr. K"
+        },
+        {
+          "redact": "ell"
+        },
+        {
+          "text": " told me my late-service invoice would be paid from the Scholarship Drive and that I should go home. Later I passed a gray sedan parked at the old junction. Signed: R. M"
+        },
+        {
+          "redact": "ayhew"
+        }
       ],
-      "facts": ["Day 1", "Treasurer there at the end", "Mr K…", "Late-service invoice", "Grey sedan", "Old junction", "Signed R. M…"],
+      "facts": [
+        "Day 1",
+        "Treasurer there at the end",
+        "Mr. K…",
+        "Late-service invoice",
+        "Gray sedan",
+        "Old junction",
+        "Signed R. M…"
+      ],
       "hint": "Police contacts, or a newspaper that already holds a copy.",
-      "home": {"x": 37, "y": 41, "rot": 2},
-      "artSize": [1388, 1133],
-      "ink": {"heading": {"x": 11, "y": 22, "w": 47, "h": 9, "rot": -9, "size": 2.4, "font": "type"}, "body": {"x": 12, "y": 36, "w": 72, "h": 50, "rot": -9, "size": 2.75, "font": "type backing"}}
+      "home": {
+        "x": 37,
+        "y": 41,
+        "rot": 2
+      },
+      "artSize": [
+        1388,
+        1133
+      ],
+      "ink": {
+        "heading": {
+          "x": 11,
+          "y": 22,
+          "w": 47,
+          "h": 9,
+          "rot": -9,
+          "size": 2.4,
+          "font": "type"
+        },
+        "body": {
+          "x": 12,
+          "y": 36,
+          "w": 72,
+          "h": 50,
+          "rot": -9,
+          "size": 2.75,
+          "font": "type backing"
+        }
+      }
     },
     {
-      "id": "tb_rumour_donor", "kind": "card", "style": "rumour",
-      "title": "Group-chat rumour",
+      "id": "tb_rumour_donor",
+      "kind": "card",
+      "style": "rumour",
+      "title": "Group-chat rumor",
       "image": "assets/evidence/tb-rumour-chat.png",
-      "source": "rumour", "apparentSource": "rumour",
-      "reliability": 1, "reliabilityNote": "Forwarded third-hand. Nobody in the chain saw it.",
+      "source": "rumour",
+      "apparentSource": "rumour",
+      "reliability": 1,
+      "reliabilityNote": "Forwarded third-hand. Nobody in the chain saw it.",
       "handwriting": "Everyone's saying Elena ran off with a married donor after the gala!! Someone saw her get into a really nice car.",
-      "facts": ["Elena Cross", "A car", "A married donor"],
+      "facts": [
+        "Elena Cross",
+        "A car",
+        "A married donor"
+      ],
       "hint": "Gossip travels through group chats.",
-      "home": {"x": 68, "y": 38, "rot": -8},
-      "artSize": [1254, 1254],
-      "ink": {"body": {"x": 13, "y": 14, "w": 64, "h": 70, "size": 4.4, "font": "hand"}}
+      "home": {
+        "x": 68,
+        "y": 38,
+        "rot": -8
+      },
+      "artSize": [
+        1254,
+        1254
+      ],
+      "ink": {
+        "body": {
+          "x": 13,
+          "y": 14,
+          "w": 64,
+          "h": 70,
+          "size": 4.4,
+          "font": "hand"
+        }
+      }
     },
     {
-      "id": "tb_anonymous_note", "kind": "card", "style": "planted",
+      "id": "tb_anonymous_note",
+      "kind": "card",
+      "style": "planted",
       "title": "Unsigned note",
       "image": "assets/evidence/tb-unsigned-note.png",
-      "source": "planted", "apparentSource": "planted",
-      "reliability": 0, "reliabilityNote": "No sender. It arrived after people noticed your questions.",
+      "source": "planted",
+      "apparentSource": "planted",
+      "reliability": 0,
+      "reliabilityNote": "No sender. It arrived after people noticed your questions.",
       "handwriting": "ASK OFFICER PORTER WHERE SHE DROVE E.C. AFTER THE BENEFIT.",
-      "facts": ["Officer Porter", "E.C."],
+      "facts": [
+        "Officer Porter",
+        "E.C."
+      ],
       "hint": "",
-      "home": {"x": 66, "y": 70, "rot": 6},
-      "artSize": [2009, 783],
-      "ink": {"body": {"x": 27, "y": 20, "w": 50, "h": 62, "size": 4.4, "font": "marker"}}
+      "home": {
+        "x": 66,
+        "y": 70,
+        "rot": 6
+      },
+      "artSize": [
+        2009,
+        783
+      ],
+      "ink": {
+        "body": {
+          "x": 27,
+          "y": 20,
+          "w": 50,
+          "h": 62,
+          "size": 4.4,
+          "font": "marker"
+        }
+      }
     }
   ],
   "claims": [
-    {"id": "c_ticket_ledger_ap", "a": "tb_gala_ticket", "b": "tb_charity_ledger", "type": "identity", "valid": true,
-      "text": "A.P. approved the unlisted seat and also signed the Halcyon Ridge payments."},
-    {"id": "c_ticket_ledger_table", "a": "tb_gala_ticket", "b": "tb_charity_ledger", "type": "detail", "valid": true,
-      "text": "The unlisted Table 9 seat was paid for as Table 9 hospitality."},
-    {"id": "c_ticket_slip_table", "a": "tb_gala_ticket", "b": "tb_phone_slip", "type": "detail", "valid": true,
-      "text": "Someone from Table 9 was in the grey sedan with D.K."},
-    {"id": "c_ticket_photo_porter", "a": "tb_gala_ticket", "b": "tb_news_photo", "type": "identity", "valid": false,
+    {
+      "id": "c_ticket_ledger_ap",
+      "a": "tb_gala_ticket",
+      "b": "tb_charity_ledger",
+      "type": "identity",
+      "valid": true,
+      "text": "A.P. approved the unlisted seat and also signed the Halcyon Ridge payments."
+    },
+    {
+      "id": "c_ticket_ledger_table",
+      "a": "tb_gala_ticket",
+      "b": "tb_charity_ledger",
+      "type": "detail",
+      "valid": true,
+      "text": "The unlisted Table 9 seat was paid for as Table 9 hospitality."
+    },
+    {
+      "id": "c_ticket_slip_table",
+      "a": "tb_gala_ticket",
+      "b": "tb_phone_slip",
+      "type": "detail",
+      "valid": true,
+      "text": "Someone from Table 9 was in the gray sedan with D.K."
+    },
+    {
+      "id": "c_ticket_photo_porter",
+      "a": "tb_gala_ticket",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": false,
       "text": "The A.P. who seated the unlisted guest is Officer A. Porter from the door.",
-      "hint": "Officer Porter worked the door and logged arrivals. Check who actually signs things off before you pin A.P. on her."},
-    {"id": "c_ticket_photo_pell", "a": "tb_gala_ticket", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "The A.P. who seated the unlisted guest is Treasurer Augustus Pell."},
-    {"id": "c_ticket_statement_treasurer", "a": "tb_gala_ticket", "b": "tb_witness_statement", "type": "identity", "valid": true,
-      "text": "The treasurer the witness saw arguing is the A.P. who placed the unlisted guest."},
-    {"id": "c_ledger_slip_dk", "a": "tb_charity_ledger", "b": "tb_phone_slip", "type": "identity", "valid": true,
-      "text": "D.K., who signed the late payments, was the one driving the grey sedan."},
-    {"id": "c_ledger_photo_pell", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "A.P. in the ledger is Treasurer Augustus Pell."},
-    {"id": "c_ledger_photo_porter", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "identity", "valid": false,
+      "hint": "Officer Porter worked the door and logged arrivals. Check who actually signs things off before you pin A.P. on her."
+    },
+    {
+      "id": "c_ticket_photo_pell",
+      "a": "tb_gala_ticket",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": true,
+      "text": "The A.P. who seated the unlisted guest is Treasurer Augustus Pell."
+    },
+    {
+      "id": "c_ticket_statement_treasurer",
+      "a": "tb_gala_ticket",
+      "b": "tb_witness_statement",
+      "type": "identity",
+      "valid": true,
+      "text": "The treasurer the witness saw arguing is the A.P. who placed the unlisted guest."
+    },
+    {
+      "id": "c_ledger_slip_dk",
+      "a": "tb_charity_ledger",
+      "b": "tb_phone_slip",
+      "type": "identity",
+      "valid": true,
+      "text": "D.K., who signed the late payments, was the one driving the gray sedan."
+    },
+    {
+      "id": "c_ledger_photo_pell",
+      "a": "tb_charity_ledger",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": true,
+      "text": "A.P. in the ledger is Treasurer Augustus Pell."
+    },
+    {
+      "id": "c_ledger_photo_porter",
+      "a": "tb_charity_ledger",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": false,
       "text": "A.P. in the ledger is Officer A. Porter.",
-      "hint": "A police officer on door duty signing charity payments? Look at who the newspaper says runs the money."},
-    {"id": "c_ledger_photo_frozen", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "date", "valid": true,
-      "text": "Pell says payments were frozen on Day 2, yet A.P. signed a Day 2 payment to Halcyon Ridge."},
-    {"id": "c_ledger_photo_lanyard", "a": "tb_charity_ledger", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "D.K. in the ledger is the man in the D. KE… lanyard, cropped out of the caption."},
-    {"id": "c_ledger_statement_invoice", "a": "tb_charity_ledger", "b": "tb_witness_statement", "type": "detail", "valid": true,
-      "text": "The witness's late-service invoice is D.K.'s Late service entry."},
-    {"id": "c_ledger_statement_kell", "a": "tb_charity_ledger", "b": "tb_witness_statement", "type": "identity", "valid": true,
-      "text": "The Mr K… in the statement is the D.K. who signs the ledger."},
-    {"id": "c_slip_photo_lanyard", "a": "tb_phone_slip", "b": "tb_news_photo", "type": "identity", "valid": true,
-      "text": "The driver D.K. is the man in the D. KE… lanyard left out of the caption."},
-    {"id": "c_slip_photo_cross", "a": "tb_phone_slip", "b": "tb_news_photo", "type": "weak", "valid": true,
-      "text": "Elena Cross is named on both."},
-    {"id": "c_slip_statement_same", "a": "tb_phone_slip", "b": "tb_witness_statement", "type": "same_source", "valid": true,
-      "text": "R.M. on the slip and the redacted R. M… are the same catering supervisor."},
-    {"id": "c_slip_statement_two", "a": "tb_phone_slip", "b": "tb_witness_statement", "type": "detail", "valid": false,
-      "text": "Two separate witnesses saw the grey sedan at the old junction.",
-      "hint": "Read the slip and the statement side by side. Are you sure they come from two different people?"},
-    {"id": "c_photo_statement_left_early", "a": "tb_news_photo", "b": "tb_witness_statement", "type": "contradiction", "valid": true,
-      "text": "Pell says he left early, but the witness saw Ms Cross arguing with the treasurer after the benefit."},
-    {"id": "c_rumour_photo_donor", "a": "tb_rumour_donor", "b": "tb_news_photo", "type": "detail", "valid": false,
+      "hint": "A police officer on door duty signing charity payments? Look at who the newspaper says runs the money."
+    },
+    {
+      "id": "c_ledger_photo_frozen",
+      "a": "tb_charity_ledger",
+      "b": "tb_news_photo",
+      "type": "date",
+      "valid": true,
+      "text": "Pell says payments were frozen on Day 2, yet A.P. signed a Day 2 payment to Halcyon Ridge."
+    },
+    {
+      "id": "c_ledger_photo_lanyard",
+      "a": "tb_charity_ledger",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": true,
+      "text": "D.K. in the ledger is the man in the D. KE… lanyard, cropped out of the caption."
+    },
+    {
+      "id": "c_ledger_statement_invoice",
+      "a": "tb_charity_ledger",
+      "b": "tb_witness_statement",
+      "type": "detail",
+      "valid": true,
+      "text": "The witness's late-service invoice is D.K.'s Late service entry."
+    },
+    {
+      "id": "c_ledger_statement_kell",
+      "a": "tb_charity_ledger",
+      "b": "tb_witness_statement",
+      "type": "identity",
+      "valid": true,
+      "text": "The Mr. K… in the statement is the D.K. who signs the ledger."
+    },
+    {
+      "id": "c_slip_photo_lanyard",
+      "a": "tb_phone_slip",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": true,
+      "text": "The driver D.K. is the man in the D. KE… lanyard left out of the caption."
+    },
+    {
+      "id": "c_slip_photo_cross",
+      "a": "tb_phone_slip",
+      "b": "tb_news_photo",
+      "type": "weak",
+      "valid": true,
+      "text": "Elena Cross is named on both."
+    },
+    {
+      "id": "c_slip_statement_same",
+      "a": "tb_phone_slip",
+      "b": "tb_witness_statement",
+      "type": "same_source",
+      "valid": true,
+      "text": "R.M. on the slip and the redacted R. M… are the same catering supervisor."
+    },
+    {
+      "id": "c_slip_statement_two",
+      "a": "tb_phone_slip",
+      "b": "tb_witness_statement",
+      "type": "detail",
+      "valid": false,
+      "text": "Two separate witnesses saw the gray sedan at the old junction.",
+      "hint": "Read the slip and the statement side by side. Are you sure they come from two different people?"
+    },
+    {
+      "id": "c_photo_statement_left_early",
+      "a": "tb_news_photo",
+      "b": "tb_witness_statement",
+      "type": "contradiction",
+      "valid": true,
+      "text": "Pell says he left early, but the witness saw Ms. Cross arguing with the treasurer after the benefit."
+    },
+    {
+      "id": "c_rumour_photo_donor",
+      "a": "tb_rumour_donor",
+      "b": "tb_news_photo",
+      "type": "detail",
+      "valid": false,
       "text": "Elena left the benefit willingly with a married donor.",
-      "hint": "A rumour forwarded three times is not a sighting. Nobody can name the donor."},
-    {"id": "c_rumour_slip_car", "a": "tb_rumour_donor", "b": "tb_phone_slip", "type": "detail", "valid": false,
-      "text": "The grey sedan was the donor's car taking Elena away.",
-      "hint": "The slip names the driver. The rumour names nobody."},
-    {"id": "c_note_ticket_porter", "a": "tb_anonymous_note", "b": "tb_gala_ticket", "type": "identity", "valid": false,
+      "hint": "A rumor forwarded three times is not a sighting. Nobody can name the donor."
+    },
+    {
+      "id": "c_rumour_slip_car",
+      "a": "tb_rumour_donor",
+      "b": "tb_phone_slip",
+      "type": "detail",
+      "valid": false,
+      "text": "The gray sedan was the donor's car taking Elena away.",
+      "hint": "The slip names the driver. The rumor names nobody."
+    },
+    {
+      "id": "c_note_ticket_porter",
+      "a": "tb_anonymous_note",
+      "b": "tb_gala_ticket",
+      "type": "identity",
+      "valid": false,
       "text": "Officer Porter seated the unlisted guest and drove E.C. away.",
-      "hint": "Who benefits if you chase a police officer? That note arrived right after you started asking questions."},
-    {"id": "c_note_photo_porter", "a": "tb_anonymous_note", "b": "tb_news_photo", "type": "identity", "valid": false,
+      "hint": "Who benefits if you chase a police officer? That note arrived right after you started asking questions."
+    },
+    {
+      "id": "c_note_photo_porter",
+      "a": "tb_anonymous_note",
+      "b": "tb_news_photo",
+      "type": "identity",
+      "valid": false,
       "text": "Officer Porter, on the door, is the A.P. who drove E.C. from the benefit.",
-      "hint": "Who benefits if you chase a police officer? That note arrived right after you started asking questions."}
+      "hint": "Who benefits if you chase a police officer? That note arrived right after you started asking questions."
+    }
   ],
   "weakDayClaim": "Both date from gala night (Day 1). Half the city was there, so this proves little by itself.",
   "hingeTopics": {
     "thunderbirds": [
-      {"id": "br_table", "label": "Ask what she saw at Table 9", "requires": ["case"],
+      {
+        "id": "br_table",
+        "label": "Ask what she saw at Table 9",
+        "requires": [
+          "case"
+        ],
         "player": "You mentioned the gala. Did anything odd happen around Table 9?",
         "reply": "Table 9 was the treasurer's table. I found this torn ticket when we cleared it. There was no name for that seat on the plan. Please don't tell the committee I sent it.",
-        "scrap": "tb_gala_ticket", "suspicion": 8, "suspicionReason": "A Bluebirds volunteer mentioned your Table 9 questions to the committee."},
-      {"id": "br_books", "label": "Ask who keeps the Scholarship Drive books", "requires": ["case"],
+        "scrap": "tb_gala_ticket",
+        "suspicion": 8,
+        "suspicionReason": "A Bluebirds volunteer mentioned your Table 9 questions to the committee."
+      },
+      {
+        "id": "br_books",
+        "label": "Ask who keeps the Scholarship Drive books",
+        "requires": [
+          "case"
+        ],
         "player": "Who keeps the Scholarship Drive accounts?",
         "reply": "The treasurer and the events director sign everything. I tidied the office and found a torn page in the shredding bag. Here. Delete this chat.",
-        "scrap": "tb_charity_ledger", "suspicion": 10, "suspicionReason": "A torn ledger page went missing from the Foundation office."},
-      {"id": "br_rm", "label": "Ask whether she knows an R.M. from catering", "requires": ["case"], "needsWitness": true,
+        "scrap": "tb_charity_ledger",
+        "suspicion": 10,
+        "suspicionReason": "A torn ledger page went missing from the Foundation office."
+      },
+      {
+        "id": "br_rm",
+        "label": "Ask whether she knows an R.M. from catering",
+        "requires": [
+          "case"
+        ],
+        "needsWitness": true,
         "player": "Do you know someone called R.M. who worked catering at the gala?",
         "reply": "R.M.? That must be Ruth from late service. Why? The committee has been asking about her too…",
-        "exposes": true, "suspicion": 12, "suspicionReason": "You asked a Bluebirds volunteer to identify your witness."}
+        "exposes": true,
+        "suspicion": 12,
+        "suspicionReason": "You asked a Bluebirds volunteer to identify your witness."
+      }
     ],
     "police": [
-      {"id": "br_witness", "label": "Ask whether a witness came forward", "requires": ["case"],
+      {
+        "id": "br_witness",
+        "label": "Ask whether a witness came forward",
+        "requires": [
+          "case"
+        ],
         "player": "Has anyone come forward about the night of the gala?",
         "reply": "I can't share statements. But the paper already has a redacted copy, so here it is. The names are blacked out for a reason. Keep it that way.",
-        "scrap": "tb_witness_statement", "suspicion": 0},
-      {"id": "br_porter", "label": "Ask about Officer Porter on the door", "requires": ["case"], "needsScrap": "tb_news_photo",
+        "scrap": "tb_witness_statement",
+        "suspicion": 0
+      },
+      {
+        "id": "br_porter",
+        "label": "Ask about Officer Porter on the door",
+        "requires": [
+          "case"
+        ],
+        "needsScrap": "tb_news_photo",
         "player": "What was Officer Porter doing at the gala?",
         "reply": "Abigail Porter ran the door and logged every arrival. She flagged an unlisted guest at Table 9 to her sergeant that same night. Whoever told you she's involved is wrong.",
-        "clue": "Police: Officer Porter logged arrivals and reported the unlisted Table 9 guest herself.", "suspicion": 0}
+        "clue": "Police: Officer Porter logged arrivals and reported the unlisted Table 9 guest herself.",
+        "suspicion": 0
+      }
     ],
     "fourth_estate": [
-      {"id": "br_slip", "label": "Ask about messages left for Elena", "requires": ["case"],
+      {
+        "id": "br_slip",
+        "label": "Ask about messages left for Elena",
+        "requires": [
+          "case"
+        ],
         "player": "Did anyone leave messages for Elena at the paper?",
         "reply": "Elena had been talking to our city desk. The front desk took this message for her on gala night. We never reached the caller. If you find them, protect them.",
-        "scrap": "tb_phone_slip", "suspicion": 0},
-      {"id": "br_review", "label": "Ask her to look over your evidence sheet", "requires": ["case"], "needsLinks": 2, "repeatable": true,
-        "player": "Could you look over the connections I've pinned?", "reply": "{review}", "suspicion": 0}
+        "scrap": "tb_phone_slip",
+        "suspicion": 0
+      },
+      {
+        "id": "br_review",
+        "label": "Ask her to look over your evidence sheet",
+        "requires": [
+          "case"
+        ],
+        "needsLinks": 2,
+        "repeatable": true,
+        "player": "Could you look over the connections I've pinned?",
+        "reply": "{review}",
+        "suspicion": 0
+      }
     ],
     "progressives": [
-      {"id": "br_gossip", "label": "Ask what people are saying about Elena", "requires": ["case"],
+      {
+        "id": "br_gossip",
+        "label": "Ask what people are saying about Elena",
+        "requires": [
+          "case"
+        ],
         "player": "What's the group chat saying about Elena Cross?",
         "reply": "The group chat says she ran off with a married donor. Someone saw her get into a nice car. I'd take it with a pinch of salt.",
-        "scrap": "tb_rumour_donor", "suspicion": 0}
+        "scrap": "tb_rumour_donor",
+        "suspicion": 0
+      }
     ],
     "goth_girls": [
-      {"id": "br_gossip", "label": "Ask what people are saying about Elena", "requires": ["case"],
+      {
+        "id": "br_gossip",
+        "label": "Ask what people are saying about Elena",
+        "requires": [
+          "case"
+        ],
         "player": "What are people saying about Elena Cross?",
         "reply": "The after-party crowd says she eloped with some donor. It sounds like a story somebody wanted told.",
-        "scrap": "tb_rumour_donor", "suspicion": 0}
+        "scrap": "tb_rumour_donor",
+        "suspicion": 0
+      }
     ],
     "sisters_of_mercy": [
-      {"id": "br_lostfound", "label": "Ask whether anything was handed in after the gala", "requires": ["case"],
+      {
+        "id": "br_lostfound",
+        "label": "Ask whether anything was handed in after the gala",
+        "requires": [
+          "case"
+        ],
         "player": "Was anything handed in after the charity gala?",
         "reply": "One of our volunteers found a torn ticket and put it in the lost-property box. Sister Margaret thought it might matter to someone. Here is a photograph of it.",
-        "scrap": "tb_gala_ticket", "suspicion": 0}
+        "scrap": "tb_gala_ticket",
+        "suspicion": 0
+      }
     ]
   },
   "serviceTopics": {
     "service:police": [
-      {"id": "br_porter_log", "label": "Ask about Officer Porter's door log", "needsScrap": "tb_news_photo",
+      {
+        "id": "br_porter_log",
+        "label": "Ask about Officer Porter's door log",
+        "needsScrap": "tb_news_photo",
         "reply": "Officer Porter logged every arrival at the benefit. She reported an unlisted guest at Table 9 that same night. Please don't spread her name about.",
-        "clue": "Police: Officer Porter logged arrivals and reported the unlisted Table 9 guest herself."}
+        "clue": "Police: Officer Porter logged arrivals and reported the unlisted Table 9 guest herself."
+      }
     ],
     "service:newsroom": [
-      {"id": "br_slip", "label": "Ask about messages left for Elena", "minDay": 2, "scrap": "tb_phone_slip",
-        "reply": "Elena had been talking to our city desk. Our front desk took a message for her on gala night. I'll send you a copy. Whoever R.M. is, they're frightened."},
-      {"id": "br_statement", "label": "Ask for the paper's redacted witness statement", "minDay": 3, "needsScrap": "tb_phone_slip", "scrap": "tb_witness_statement",
-        "reply": "We obtained a police statement with the names blacked out. You've been straight with us, so here is our copy. Don't try to unmask the witness."},
-      {"id": "br_review", "label": "Ask the city desk to review your evidence", "needsLinks": 2, "repeatable": true, "reply": "{review}"},
-      {"id": "br_name", "label": "Tell the reporter who your witness is", "needsWitness": true, "exposes": true, "suspicion": 10,
+      {
+        "id": "br_slip",
+        "label": "Ask about messages left for Elena",
+        "minDay": 2,
+        "scrap": "tb_phone_slip",
+        "reply": "Elena had been talking to our city desk. Our front desk took a message for her on gala night. I'll send you a copy. Whoever R.M. is, they're frightened."
+      },
+      {
+        "id": "br_statement",
+        "label": "Ask for the paper's redacted witness statement",
+        "minDay": 3,
+        "needsScrap": "tb_phone_slip",
+        "scrap": "tb_witness_statement",
+        "reply": "We obtained a police statement with the names blacked out. You've been straight with us, so here is our copy. Don't try to unmask the witness."
+      },
+      {
+        "id": "br_review",
+        "label": "Ask the city desk to review your evidence",
+        "needsLinks": 2,
+        "repeatable": true,
+        "reply": "{review}"
+      },
+      {
+        "id": "br_name",
+        "label": "Tell the reporter who your witness is",
+        "needsWitness": true,
+        "exposes": true,
+        "suspicion": 10,
         "final": true,
         "suspicionReason": "You gave your witness's identity to a newsroom with leaky phone lines.",
-        "reply": "Thank you. I'll try to reach her… although our lines aren't exactly private these days."},
-      {"id": "br_accuse_pell", "label": "Go on the record: accuse Treasurer Pell", "needsScrap": "tb_news_photo", "accuse": "pell", "channel": "newsroom", "final": true},
-      {"id": "br_accuse_porter", "label": "Go on the record: accuse Officer Porter", "needsScrap": "tb_news_photo", "accuse": "porter", "channel": "newsroom", "final": true}
+        "reply": "Thank you. I'll try to reach her… although our lines aren't exactly private these days."
+      },
+      {
+        "id": "br_accuse_pell",
+        "label": "Go on the record: accuse Treasurer Pell",
+        "needsScrap": "tb_news_photo",
+        "accuse": "pell",
+        "channel": "newsroom",
+        "final": true
+      },
+      {
+        "id": "br_accuse_porter",
+        "label": "Go on the record: accuse Officer Porter",
+        "needsScrap": "tb_news_photo",
+        "accuse": "porter",
+        "channel": "newsroom",
+        "final": true
+      }
     ],
     "service:chapel": [
-      {"id": "br_lost", "label": "Ask about the lost-property box", "needsFlag": "chapelGala", "scrap": "tb_gala_ticket",
-        "reply": "A volunteer handed in a torn gala ticket. Sister Margaret will send you a photograph of it. We hope it helps someone."}
+      {
+        "id": "br_lost",
+        "label": "Ask about the lost-property box",
+        "needsFlag": "chapelGala",
+        "scrap": "tb_gala_ticket",
+        "reply": "A volunteer handed in a torn gala ticket. Sister Margaret will send you a photograph of it. We hope it helps someone."
+      }
     ],
     "service:foundation": [
-      {"id": "br_f_elena", "label": "Ask about Elena Cross", "suspicion": 8, "suspicionReason": "The Foundation office logged your call about Elena Cross.",
-        "reply": "Ms Cross is on personal leave. May I take your name? …Hello?"},
-      {"id": "br_f_table", "label": "Ask who sat at Table 9", "suspicion": 12, "suspicionReason": "You asked the Foundation about the treasurer's table.",
+      {
+        "id": "br_f_elena",
+        "label": "Ask about Elena Cross",
+        "suspicion": 8,
+        "suspicionReason": "The Foundation office logged your call about Elena Cross.",
+        "reply": "Ms. Cross is on personal leave. May I take your name? …Hello?"
+      },
+      {
+        "id": "br_f_table",
+        "label": "Ask who sat at Table 9",
+        "suspicion": 12,
+        "suspicionReason": "You asked the Foundation about the treasurer's table.",
         "reply": "Table 9 is the treasurer's own table. Why would you want to know that?",
-        "clue": "Foundation office: Table 9 was Treasurer Pell's own table."},
-      {"id": "br_f_accounts", "label": "Pose as a donor and ask for the accounts", "suspicion": 15, "suspicionReason": "A donor asked the Foundation for its disbursement records.",
+        "clue": "Foundation office: Table 9 was Treasurer Pell's own table."
+      },
+      {
+        "id": "br_f_accounts",
+        "label": "Pose as a donor and ask for the accounts",
+        "suspicion": 15,
+        "suspicionReason": "A donor asked the Foundation for its disbursement records.",
         "scrap": "tb_charity_ledger",
-        "reply": "Of course, we value our donors. I'll photograph the disbursement sheet for you… oh dear, it's half torn. I'll send what I have."},
-      {"id": "br_f_accuse", "label": "Accuse the treasurer to his own office", "needsScrap": "tb_charity_ledger", "accuse": "pell", "channel": "foundation",
-        "final": true}
+        "reply": "Of course, we value our donors. I'll photograph the disbursement sheet for you… oh dear, it's half torn. I'll send what I have."
+      },
+      {
+        "id": "br_f_accuse",
+        "label": "Accuse the treasurer to his own office",
+        "needsScrap": "tb_charity_ledger",
+        "accuse": "pell",
+        "channel": "foundation",
+        "final": true
+      }
     ],
     "service:federal": [
-      {"id": "br_fed_ask", "label": "Ask what investigators need", "repeatable": true,
-        "reply": "Three independent sources that back each other up. No rumours, no theories that the records contradict. And any witness must stay protected: if their name has leaked, we can't use them."},
-      {"id": "br_fed_submit", "label": "Formally submit your dossier", "report": true,
-        "final": true}
+      {
+        "id": "br_fed_ask",
+        "label": "Ask what investigators need",
+        "repeatable": true,
+        "reply": "Three independent sources that back each other up. No rumors, no theories that the records contradict. And any witness must stay protected: if their name has leaked, we can't use them."
+      },
+      {
+        "id": "br_fed_submit",
+        "label": "Formally submit your dossier",
+        "report": true,
+        "final": true
+      }
     ]
   },
   "serviceContacts": {
-    "foundation": {"name": "Blue Ribbon Foundation", "greeting": "Blue Ribbon Foundation, Scholarship Drive office. How may I help?", "portrait": "assets/factions/thunderbirds_blue_ribbon.png"},
-    "federal": {"name": "Federal field office", "greeting": "Federal field office, public reporting line. Go ahead.", "portrait": "assets/icons/calls.png"}
+    "foundation": {
+      "name": "Blue Ribbon Foundation",
+      "greeting": "Blue Ribbon Foundation, Scholarship Drive office. How may I help?",
+      "portrait": "assets/factions/thunderbirds_blue_ribbon.png"
+    },
+    "federal": {
+      "name": "Federal field office",
+      "greeting": "Federal field office, public reporting line. Go ahead.",
+      "portrait": "assets/icons/calls.png"
+    }
   },
   "news": {
-    "warning": {"section": "Around town", "image": "police_roadblock", "title": "RESIDENTS REPORT CAR CIRCLING QUIET STREETS", "summary": "A grey sedan has been seen idling on residential streets.", "body": "Neighbours say the same car has parked near several homes on your side of town. Police urge residents to report anything unusual and to keep doors locked."},
-    "witnessGone": {"section": "Missing", "image": "missing_03", "title": "CATERING WORKER IN CHARITY CASE LEAVES SUNFALL", "summary": "A late-service supervisor has left the city and withdrawn her statement.", "body": "Friends say she packed in a hurry after too many people started asking about her. Police confirm a witness statement in the Blue Ribbon case has been withdrawn."},
+    "warning": {
+      "section": "Around town",
+      "image": "police_roadblock",
+      "title": "RESIDENTS REPORT CAR CIRCLING QUIET STREETS",
+      "summary": "A gray sedan has been seen idling on residential streets.",
+      "body": "Neighbors say the same car has parked near several homes on your side of town. Police urge residents to report anything unusual and to keep doors locked."
+    },
+    "witnessGone": {
+      "section": "Missing",
+      "image": "missing_03",
+      "title": "CATERING WORKER IN CHARITY CASE LEAVES SUNFALL",
+      "summary": "A late-service supervisor has left the city and withdrawn her statement.",
+      "body": "Friends say she packed in a hurry after too many people started asking about her. Police confirm a witness statement in the Blue Ribbon case has been withdrawn."
+    },
     "outcomes": {
       "success": [
-        {"offset": 1, "section": "Investigation", "image": "police_evidence", "title": "FEDERAL OFFICIALS REVIEW BLUE RIBBON RECORDS", "summary": "Investigators have taken the Scholarship Drive's books after a resident submitted a dossier.", "body": "A federal spokesperson called the file unusually well corroborated. The source and the witness involved are being protected."},
-        {"offset": 2, "section": "Investigation", "image": "police_interview", "title": "TREASURER AND EVENTS DIRECTOR QUESTIONED OVER CHARITY PAYMENTS", "summary": "Augustus Pell and Dorian Kell were interviewed about transfers to the Halcyon Ridge Trust.", "body": "The food bank and scholarships will continue under independent trustees. Most of our volunteers did nothing wrong, a new trustee said."},
-        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "ELENA CROSS FOUND SAFE AFTER HIDING FROM THREATS", "summary": "The organiser contacted investigators once the inquiry became public.", "body": "Ms Cross says she went into hiding on gala night after being threatened near the old junction. She thanked whoever kept asking the right questions."},
-        {"offset": 5, "section": "Community", "image": "religion_benefit", "title": "BLUE RIBBON VOLUNTEERS RETURN TO THE FOOD BANK", "summary": "The charity's legitimate work carries on under new trustees.", "body": "Volunteers who had no part in the Halcyon Ridge payments say they are relieved. Scholarships already promised will be honoured."}
+        {
+          "offset": 1,
+          "section": "Investigation",
+          "image": "police_evidence",
+          "title": "FEDERAL OFFICIALS REVIEW BLUE RIBBON RECORDS",
+          "summary": "Investigators have taken the Scholarship Drive's books after a resident submitted a dossier.",
+          "body": "A federal spokesperson called the file unusually well corroborated. The source and the witness involved are being protected."
+        },
+        {
+          "offset": 2,
+          "section": "Investigation",
+          "image": "police_interview",
+          "title": "TREASURER AND EVENTS DIRECTOR QUESTIONED OVER CHARITY PAYMENTS",
+          "summary": "Augustus Pell and Dorian Kell were interviewed about transfers to the Halcyon Ridge Trust.",
+          "body": "The food bank and scholarships will continue under independent trustees. Most of our volunteers did nothing wrong, a new trustee said."
+        },
+        {
+          "offset": 3,
+          "section": "Missing",
+          "image": "missing_03",
+          "title": "ELENA CROSS FOUND SAFE AFTER HIDING FROM THREATS",
+          "summary": "The organizer contacted investigators once the inquiry became public.",
+          "body": "Ms. Cross says she went into hiding on gala night after being threatened near the old junction. She thanked whoever kept asking the right questions."
+        },
+        {
+          "offset": 5,
+          "section": "Community",
+          "image": "religion_benefit",
+          "title": "BLUE RIBBON VOLUNTEERS RETURN TO THE FOOD BANK",
+          "summary": "The charity's legitimate work carries on under new trustees.",
+          "body": "Volunteers who had no part in the Halcyon Ridge payments say they are relieved. Scholarships already promised will be honored."
+        }
       ],
       "failed_report": [
-        {"offset": 1, "section": "Investigation", "image": "police_station", "title": "FEDERAL OFFICE DECLINES BLUE RIBBON COMPLAINT", "summary": "Officials call a resident's dossier speculative and partly contradicted by records.", "body": "A spokesperson said the file relied on theories that could not be corroborated. No inquiry will be opened."},
-        {"offset": 2, "section": "Public life", "image": "political_briefing", "title": "FOUNDATION WELCOMES END TO RUMOURS", "summary": "Treasurer Augustus Pell says the charity will move on.", "body": "Payments to the Halcyon Ridge Trust have quietly resumed. Elena Cross remains missing."},
-        {"offset": 4, "section": "Missing", "image": "missing_02", "title": "BLUE RIBBON CASE GOES COLD", "summary": "Police say there are no new lines of inquiry.", "body": "Volunteers who once spoke to the newspaper now decline to comment."}
+        {
+          "offset": 1,
+          "section": "Investigation",
+          "image": "police_station",
+          "title": "FEDERAL OFFICE DECLINES BLUE RIBBON COMPLAINT",
+          "summary": "Officials call a resident's dossier speculative and partly contradicted by records.",
+          "body": "A spokesperson said the file relied on theories that could not be corroborated. No inquiry will be opened."
+        },
+        {
+          "offset": 2,
+          "section": "Public life",
+          "image": "political_briefing",
+          "title": "FOUNDATION WELCOMES END TO RUMORS",
+          "summary": "Treasurer Augustus Pell says the charity will move on.",
+          "body": "Payments to the Halcyon Ridge Trust have quietly resumed. Elena Cross remains missing."
+        },
+        {
+          "offset": 4,
+          "section": "Missing",
+          "image": "missing_02",
+          "title": "BLUE RIBBON CASE GOES COLD",
+          "summary": "Police say there are no new lines of inquiry.",
+          "body": "Volunteers who once spoke to the newspaper now decline to comment."
+        }
       ],
       "failed_accusation": [
-        {"offset": 1, "section": "Public life", "image": "political_briefing", "title": "RESIDENT ACCUSES BLUE RIBBON TREASURER", "summary": "A caller to this newspaper named Augustus Pell in the Elena Cross case.", "body": "The claims were made before any official inquiry. The Foundation called them reckless and defamatory."},
-        {"offset": 2, "section": "Public life", "image": "police_station", "title": "PELL DENIES CLAIMS AS FOUNDATION THREATENS LEGAL ACTION", "summary": "Lawyers for the treasurer demand a retraction.", "body": "Several volunteers who had spoken privately about the gala have stopped answering calls."},
-        {"offset": 3, "section": "Missing", "image": "missing_03", "title": "KEY WITNESS WITHDRAWS STATEMENT IN CHARITY CASE", "summary": "Police confirm a statement in the Blue Ribbon case has been withdrawn.", "body": "Investigators say the public accusation made a difficult case much harder."},
-        {"offset": 5, "section": "Investigation", "image": "police_evidence", "title": "FEDERAL REVIEW OF BLUE RIBBON CLOSED WITHOUT CHARGES", "summary": "Officials cite insufficient evidence after witnesses withdrew.", "body": "Elena Cross remains missing. The Scholarship Drive continues under its existing board."}
+        {
+          "offset": 1,
+          "section": "Public life",
+          "image": "political_briefing",
+          "title": "RESIDENT ACCUSES BLUE RIBBON TREASURER",
+          "summary": "A caller to this newspaper named Augustus Pell in the Elena Cross case.",
+          "body": "The claims were made before any official inquiry. The Foundation called them reckless and defamatory."
+        },
+        {
+          "offset": 2,
+          "section": "Public life",
+          "image": "police_station",
+          "title": "PELL DENIES CLAIMS AS FOUNDATION THREATENS LEGAL ACTION",
+          "summary": "Lawyers for the treasurer demand a retraction.",
+          "body": "Several volunteers who had spoken privately about the gala have stopped answering calls."
+        },
+        {
+          "offset": 3,
+          "section": "Missing",
+          "image": "missing_03",
+          "title": "KEY WITNESS WITHDRAWS STATEMENT IN CHARITY CASE",
+          "summary": "Police confirm a statement in the Blue Ribbon case has been withdrawn.",
+          "body": "Investigators say the public accusation made a difficult case much harder."
+        },
+        {
+          "offset": 5,
+          "section": "Investigation",
+          "image": "police_evidence",
+          "title": "FEDERAL REVIEW OF BLUE RIBBON CLOSED WITHOUT CHARGES",
+          "summary": "Officials cite insufficient evidence after witnesses withdrew.",
+          "body": "Elena Cross remains missing. The Scholarship Drive continues under its existing board."
+        }
       ],
       "failed_wrong_accusation": [
-        {"offset": 1, "section": "Crime", "image": "police_station", "title": "RESIDENT ACCUSES OFFICER OVER MISSING ORGANISER", "summary": "A caller claimed Officer A. Porter drove Elena Cross from the benefit.", "body": "The police department said the claim was 'false and contradicted by the officer's own records'."},
-        {"offset": 2, "section": "Crime", "image": "police_interview", "title": "POLICE: OFFICER FLAGGED UNLISTED GALA GUEST; CLAIM DISMISSED", "summary": "Officer Porter reported the unlisted Table 9 guest on gala night.", "body": "Detectives say the false accusation cost the inquiry several days. The Foundation thanked police for clearing the air."},
-        {"offset": 4, "section": "Missing", "image": "missing_02", "title": "BLUE RIBBON CASE STALLS", "summary": "The inquiry into Elena Cross's disappearance has no new leads.", "body": "Witnesses have stopped talking. Payments to the Halcyon Ridge Trust continue."}
+        {
+          "offset": 1,
+          "section": "Crime",
+          "image": "police_station",
+          "title": "RESIDENT ACCUSES OFFICER OVER MISSING ORGANIZER",
+          "summary": "A caller claimed Officer A. Porter drove Elena Cross from the benefit.",
+          "body": "The police department said the claim was 'false and contradicted by the officer's own records'."
+        },
+        {
+          "offset": 2,
+          "section": "Crime",
+          "image": "police_interview",
+          "title": "POLICE: OFFICER FLAGGED UNLISTED GALA GUEST; CLAIM DISMISSED",
+          "summary": "Officer Porter reported the unlisted Table 9 guest on gala night.",
+          "body": "Detectives say the false accusation cost the inquiry several days. The Foundation thanked police for clearing the air."
+        },
+        {
+          "offset": 4,
+          "section": "Missing",
+          "image": "missing_02",
+          "title": "BLUE RIBBON CASE STALLS",
+          "summary": "The inquiry into Elena Cross's disappearance has no new leads.",
+          "body": "Witnesses have stopped talking. Payments to the Halcyon Ridge Trust continue."
+        }
       ],
       "withdrawn": [
-        {"offset": 1, "section": "Community", "image": "charity_volunteers", "title": "BLUE RIBBON INQUIRY GOES QUIET", "summary": "Few new questions are being asked about the gala.", "body": "Volunteers say the atmosphere at the Foundation has settled down."},
-        {"offset": 3, "section": "Community", "image": "religion_benefit", "title": "SCHOLARSHIP DRIVE BREAKS FUNDRAISING RECORD", "summary": "Treasurer Augustus Pell thanked donors at a crowded reception.", "body": "Payments to the Halcyon Ridge Trust were not discussed."},
-        {"offset": 6, "section": "Missing", "image": "missing_02", "title": "ELENA CROSS CASE MARKED UNRESOLVED", "summary": "Police have scaled back the search for the missing organiser.", "body": "Her family continues to appeal for information."}
+        {
+          "offset": 1,
+          "section": "Community",
+          "image": "charity_volunteers",
+          "title": "BLUE RIBBON INQUIRY GOES QUIET",
+          "summary": "Few new questions are being asked about the gala.",
+          "body": "Volunteers say the atmosphere at the Foundation has settled down."
+        },
+        {
+          "offset": 3,
+          "section": "Community",
+          "image": "religion_benefit",
+          "title": "SCHOLARSHIP DRIVE BREAKS FUNDRAISING RECORD",
+          "summary": "Treasurer Augustus Pell thanked donors at a crowded reception.",
+          "body": "Payments to the Halcyon Ridge Trust were not discussed."
+        },
+        {
+          "offset": 6,
+          "section": "Missing",
+          "image": "missing_02",
+          "title": "ELENA CROSS CASE MARKED UNRESOLVED",
+          "summary": "Police have scaled back the search for the missing organizer.",
+          "body": "Her family continues to appeal for information."
+        }
       ]
     },
     "ongoingLead": {
-      "success": {"title": "BLUE RIBBON TRUSTEES PLEDGE FULL CO-OPERATION", "summary": "New trustees say every disbursement will be published.", "body": "Federal investigators continue to examine the Scholarship Drive's accounts."},
-      "failed": {"title": "BLUE RIBBON CASE QUIET AFTER SETBACK", "summary": "Elena Cross remains missing.", "body": "Volunteers decline to talk about the benefit."},
-      "withdrawn": {"title": "LIFE RETURNS TO NORMAL AT THE BLUE RIBBON FOUNDATION", "summary": "The Scholarship Drive's next benefit is already being planned.", "body": "Elena Cross remains missing."}
+      "success": {
+        "title": "BLUE RIBBON TRUSTEES PLEDGE FULL CO-OPERATION",
+        "summary": "New trustees say every disbursement will be published.",
+        "body": "Federal investigators continue to examine the Scholarship Drive's accounts."
+      },
+      "failed": {
+        "title": "BLUE RIBBON CASE QUIET AFTER SETBACK",
+        "summary": "Elena Cross remains missing.",
+        "body": "Volunteers decline to talk about the benefit."
+      },
+      "withdrawn": {
+        "title": "LIFE RETURNS TO NORMAL AT THE BLUE RIBBON FOUNDATION",
+        "summary": "The Scholarship Drive's next benefit is already being planned.",
+        "body": "Elena Cross remains missing."
+      }
     },
     "deathHeadline": "RESIDENT FOUND DEAD AT HOME. POLICE REPORT NO SIGN OF FORCED ENTRY."
   },
   "invasion": [
-    {"scene": "room", "caption": "Headlights sweep across the ceiling. A grey sedan stops outside and its engine cuts out."},
-    {"scene": "room-open", "caption": "The bedroom door swings open. Someone wearing a blue ribbon pin steps inside."},
-    {"scene": "figure", "caption": "You were told to stop asking."}
+    {
+      "scene": "room",
+      "caption": "Headlights sweep across the ceiling. A gray sedan stops outside and its engine cuts out."
+    },
+    {
+      "scene": "room-open",
+      "caption": "The bedroom door swings open. Someone wearing a blue ribbon pin steps inside."
+    },
+    {
+      "scene": "figure",
+      "caption": "You were told to stop asking."
+    }
   ]
 }

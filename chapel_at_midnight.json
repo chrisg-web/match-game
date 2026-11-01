@@ -41,11 +41,11 @@
       "never": "She says the Cemetery Chapel has too many security lights now."
     },
     "st_brigid": {
-      "name": "St Brigid's Chapel",
-      "short": "St Brigid's",
-      "guide": "St Brigid's Chapel: a copy of the saint's cloak hangs above the altar.",
+      "name": "St. Brigid's Chapel",
+      "short": "St. Brigid's",
+      "guide": "St. Brigid's Chapel: a copy of the saint's cloak hangs above the altar.",
       "riddle": "beneath the saint's cloak",
-      "never": "She says St Brigid's is crawling with Sisters."
+      "never": "She says St. Brigid's is crawling with Sisters."
     }
   },
   "flyerGoths": {
@@ -195,15 +195,15 @@
           "id": "religion_chapel",
           "section": "Faith",
           "title": "SISTERS' VIGIL ENDS A NIGHT OF DISTURBANCES AT {PLACE}",
-          "summary": "Neighbours describe candles, singing and a group in black leaving quietly.",
-          "body": "A vigil at {place} lasted through the night. Police say nobody was hurt. One neighbour said the air felt lighter by morning."
+          "summary": "Neighbors describe candles, singing and a group in black leaving quietly.",
+          "body": "A vigil at {place} lasted through the night. Police say nobody was hurt. One neighbor said the air felt lighter by morning."
         },
         {
           "id": "crime_underground",
           "section": "Nightlife",
           "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
           "summary": "The crescent flyers have been torn down.",
-          "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+          "body": "The organizer known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
         }
       ],
       "reconciled": [
@@ -219,7 +219,7 @@
           "section": "Nightlife",
           "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
           "summary": "The crescent flyers have been torn down.",
-          "body": "The organiser known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+          "body": "The organizer known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
         }
       ],
       "completed": [
@@ -269,7 +269,7 @@
     "captions": [
       "The door was open when the lights went out. It had been locked.",
       "Somebody was humming in the hallway.",
-      "Every candle in the flat went out at once.",
+      "Every candle in the apartment went out at once.",
       "There was a crescent drawn on the inside of the door."
     ]
   },

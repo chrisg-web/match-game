@@ -722,7 +722,7 @@
         const now=st.warned?`<p>The Sisters will keep watch at <b>${esc(placeName(st.warned))}</b> on the night.</p>`:'<p>You haven’t told the Sisters anything yet.</p>';
         const send=canReachSisters(st)?
           `<p><b>${st.warned?'Change your answer':'Send word: the rite is at'}</b></p><div class="chapel-row">${PLACES.map(place=>`<button class="chapel-btn ${st.warned===place?'on':''}" data-chapel-choice="warn:${place}">${esc(placeShort(place))}</button>`).join('')}</div>`:
-          '<p>You need a way to reach them. Any Sister of Mercy will give you St Brigid’s number if you ask her.</p>';
+          '<p>You need a way to reach them. Any Sister of Mercy will give you St. Brigid’s number if you ask her.</p>';
         sisters=now+send;
       }
       return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${hintFor(st)?`<p class="chapel-hint">Hint: ${esc(hintFor(st))}</p>`:''}`+

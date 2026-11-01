@@ -2,7 +2,7 @@
   "version": 1,
   "id": "sisters_of_mercy_marriage",
   "title": "Marriage: the Sisters of Mercy",
-  "summary": "The only way to win MATCH. Pass a Sister of Mercy's traditional Catholic examination (five correct answers in a row), get a free wedding ring from one of five Sunfall jewellers, then propose.",
+  "summary": "The only way to win MATCH. Pass a Sister of Mercy's traditional Catholic examination (five correct answers in a row), get a free wedding ring from one of five Sunfall jewelers, then propose.",
   "fellowship": "The Sisters of Mercy are a lay fellowship of traditional Catholic women in Sunfall, not a vowed religious congregation. Every member is free to marry.",
   "timeRule": "Time advances only through Start Another Day. No weekdays, calendar dates or clock times are needed to play.",
   "rules": {
@@ -46,7 +46,7 @@
   "victory": {
     "title": "JUST MARRIED",
     "subtitle": "You found your perfect match.",
-    "line": "You and {name} · St Brigid’s Chapel · Day {day}",
+    "line": "You and {name} · St. Brigid’s Chapel · Day {day}",
     "newGame": "Start a new game"
   },
   "sisters": {
@@ -63,7 +63,7 @@
         "Oh! You actually knew that one!",
         "Yes! Nonna would be so proud of you.",
         "Look at you, paying attention at Mass!",
-        "Correct! I might have to start practising a new surname."
+        "Correct! I might have to start practicing a new surname."
       ],
       "wrong": [
         "Oh no, darling. Back to the start, I'm afraid.",
@@ -72,13 +72,13 @@
         "Not quite! I still like you, though. Again!"
       ],
       "pass": "FIVE! Five in a row! I think I just squealed in the parish office. You know your faith… and I think you know my heart a little, too.",
-      "noRing": "A girl does need a ring, darling! Go and see a jeweller. I'll wait. Probably.",
+      "noRing": "A girl does need a ring, darling! Go and see a jeweler. I'll wait. Probably.",
       "accept": "A ring?! Yes! Yes, yes, a hundred times yes! I'm calling Nonna. No, I'm calling Father first. No… NONNA!"
     },
     "MATCH-055": {
       "name": "Margaret Holloway",
       "slug": "margaret_holloway",
-      "temperament": "stern and organised",
+      "temperament": "stern and organized",
       "start": "Ask whether she would ever consider marriage",
       "player": "Margaret, I'd like to ask you something serious. Would you ever consider marrying me?",
       "intro": "Marriage is a serious undertaking, and I never begin anything without proper preparation. Five correct answers in a row. One mistake and we begin again. Shall we?",
@@ -171,7 +171,7 @@
         "Oh, sweetheart. Wrong footnote. Begin again.",
         "Mm, no. Perhaps another evening with the catechism?"
       ],
-      "pass": "Five in a row. I've catalogued a thousand books and I've never read anything quite as lovely as you getting that last one right.",
+      "pass": "Five in a row. I've cataloged a thousand books and I've never read anything quite as lovely as you getting that last one right.",
       "noRing": "Without a ring? That's a hymn book without a binding. Lovely, but it'll fall apart. Come back with one.",
       "accept": "Yes. With all my heart, yes. I'm going to write this down in the most beautiful hand I have."
     }
@@ -180,7 +180,7 @@
     "agnes": {
       "name": "Agnes Bellamy",
       "shop": "Bellamy & Daughters Antiques",
-      "role": "Antique jeweller",
+      "role": "Antique jeweler",
       "location": "Main Street, Old Town Sunfall",
       "personality": "Elderly, sentimental and fond of traditional marriages. Teresa Bellamy's grandmother.",
       "portrait": "assets/marriage/jewellers/agnes_bellamy.png",
@@ -190,7 +190,7 @@
     "rafael": {
       "name": "Rafaela Ortega",
       "shop": "Ortega Watch & Jewelry Repair",
-      "role": "Jewellery repair specialist",
+      "role": "Jewelry repair specialist",
       "location": "Sunfall Road, beside the laundromat",
       "personality": "Practical, friendly and quietly generous.",
       "portrait": "assets/marriage/jewellers/rafaela_ortega.png",
@@ -200,7 +200,7 @@
     "clara": {
       "name": "Clara Whitmore",
       "shop": "Whitmore Estate Jewels",
-      "role": "Estate jewellery dealer",
+      "role": "Estate jewelry dealer",
       "location": "Fifth Avenue, in the gallery district",
       "personality": "Elegant, discerning and fascinated by family history. A Bluebird: she wears the blue swallow brooch.",
       "portrait": "assets/marriage/jewellers/clara_whitmore.png",
@@ -220,7 +220,7 @@
     "sofia": {
       "name": "Sofia Rinaldi",
       "shop": "Rinaldi Bridal Boutique",
-      "role": "Boutique jeweller",
+      "role": "Boutique jeweler",
       "location": "Sunfall Quarter",
       "personality": "Cheerful, romantic and enthusiastic about weddings. A Bluebird: she wears the blue swallow brooch.",
       "portrait": "assets/marriage/jewellers/sofia_rinaldi.png",
@@ -236,11 +236,11 @@
       },
       "discount": {
         "label": "Ask whether she does discounts",
-        "reply": "Discounts! Young man, a wedding ring is not a tin of beans."
+        "reply": "Discounts! Young man, a wedding ring is not a can of beans."
       },
       "church": {
         "label": "Tell her it will be a proper church wedding",
-        "reply": "Oh, that's what I like to hear. My Walter and I married at St Brigid's fifty-one years ago. Shall I tell you about it? Everyone hangs up when I start.",
+        "reply": "Oh, that's what I like to hear. My Walter and I married at St. Brigid's fifty-one years ago. Shall I tell you about it? Everyone hangs up when I start.",
         "teresa": " My granddaughter Teresa is a Sister of Mercy, you know. Clever girl. Far too clever for most boys."
       },
       "listen": {
@@ -251,15 +251,15 @@
     "rafael": {
       "ask": {
         "label": "Ask whether she has a plain wedding band",
-        "reply": "I fix rings, I don't sell many. But there's a plain gold band in my drawer that nobody ever came back for. Tell you what, do me a favour. St Brigid's sacristy clock has been ready for weeks and nobody's collected it. Call the chapel and let them know?"
+        "reply": "I fix rings, I don't sell many. But there's a plain gold band in my drawer that nobody ever came back for. Tell you what, do me a favor. St. Brigid's sacristy clock has been ready for weeks and nobody's collected it. Call the chapel and let them know?"
       },
       "waiting": {
         "label": "Ask about the band again",
-        "reply": "Deal's still on the table. Call St Brigid's about their clock first."
+        "reply": "Deal's still on the table. Call St. Brigid's about their clock first."
       },
       "done": {
         "label": "Tell Rafaela the chapel got her message",
-        "reply": "They already rang me. The clock's going home, so the ring's going to you. No charge. It was never going to do anyone any good in a drawer. My nephew's dropping it off now."
+        "reply": "They already called me. The clock's going home, so the ring's going to you. No charge. It was never going to do anyone any good in a drawer. My nephew's dropping it off now."
       },
       "chapelTopic": {
         "label": "Tell them Rafaela Ortega has finished the sacristy clock",
@@ -277,13 +277,13 @@
       },
       "bride": {
         "label": "Tell her you hope to marry {name}",
-        "reply": "{history} There's a plain gold band here from a couple married at St Brigid's who had sixty years together. It should go back to that church. I won't take a cent for it. My courier is on his way."
+        "reply": "{history} There's a plain gold band here from a couple married at St. Brigid's who had sixty years together. It should go back to that church. I won't take a cent for it. My courier is on his way."
       },
       "history": {
         "MATCH-007": "Moretti? The Morettis ran the bakery on Brown Avenue for three generations. They baked the bread for every parish picnic.",
-        "MATCH-055": "Holloway? Her great-grandparents gave St Brigid's its organ.",
+        "MATCH-055": "Holloway? Her great-grandparents gave St. Brigid's its organ.",
         "MATCH-056": "Bellamy? Agnes Bellamy's granddaughter! Agnes and I have been rivals for forty years. Oh, I would love to beat her to this.",
-        "MATCH-057": "Rosales? Her grandmother sewed the altar linens at St Brigid's for half a century.",
+        "MATCH-057": "Rosales? Her grandmother sewed the altar linens at St. Brigid's for half a century.",
         "MATCH-066": "Nair? Her family endowed the parish reading room. She's the one keeping it open, isn't she?"
       }
     },

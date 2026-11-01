@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3a37a4a6b4">
+<html lang="en" data-build="34fd1b78b4">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3a37a4a6b4"></script>
+  <script src="chapel_at_midnight.js?v=34fd1b78b4"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3a37a4a6b4"></script>
+  <script src="marriage.js?v=34fd1b78b4"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3a37a4a6b4"></script>
+  <script src="quests/professor-vale.js?v=34fd1b78b4"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -652,10 +652,10 @@
           <option value="hand-two-shirt">Two hands, shirt sleeves</option>
         </select>
         <label for="legs-type">Clothing</label>
-        <select id="legs-type"><option value="jeans-legs">Jeans and T-shirt</option><option value="legs-pyjamas">Plaid pyjamas</option><option value="legs-shorts">Casual shorts</option><option value="legs-boxers">Plaid boxer shorts</option><option value="legs-white-shorts">White lounge shorts</option><option value="legs-cargo-2000s">Cargo trousers and skate T-shirt</option><option value="legs-tracksuit-2000s">Striped tracksuit and jacket</option><option value="legs-chinos-2000s">Chinos and polo shirt</option><option value="legs-basketball-shorts">Basketball shorts and loose tee</option><option value="legs-boxer-briefs">Boxer briefs and T-shirt</option></select>
+        <select id="legs-type"><option value="jeans-legs">Jeans and T-shirt</option><option value="legs-pyjamas">Plaid pajamas</option><option value="legs-shorts">Casual shorts</option><option value="legs-boxers">Plaid boxer shorts</option><option value="legs-white-shorts">White lounge shorts</option><option value="legs-cargo-2000s">Cargo pants and skate T-shirt</option><option value="legs-tracksuit-2000s">Striped tracksuit and jacket</option><option value="legs-chinos-2000s">Chinos and polo shirt</option><option value="legs-basketball-shorts">Basketball shorts and loose tee</option><option value="legs-boxer-briefs">Boxer briefs and T-shirt</option></select>
         <label for="clutter-type">Clutter</label>
         <select id="clutter-type">
-          <option value="instant-noodles">Pot noodle</option><option value="chinese-takeaway">Chinese takeaway</option>
+          <option value="instant-noodles">Pot noodle</option><option value="chinese-takeaway">Chinese takeout</option>
           <option value="pizza-box">Pizza</option><option value="beer-cans">Beer cans</option><option value="coffee-cups">Coffee cups</option>
           <option value="flowers">Roses</option><option value="red-shoes">Women's shoes</option><option value="laundry">Laundry</option>
         </select>
@@ -1093,7 +1093,7 @@
     // tidy until the next day's room brings new mess.
     const clutterTidy={
       'instant-noodles': {sound:'crumple',label:'An empty pot noodle',note:'Noodle pot crumpled and binned.'},
-      'chinese-takeaway':{sound:'crumple',label:'A Chinese takeaway carton',note:'Takeaway carton squashed and binned.'},
+      'chinese-takeaway':{sound:'crumple',label:'A Chinese takeout carton',note:'Takeout carton squashed and binned.'},
       'pizza-box':       {sound:'cardboard',label:'An open pizza box',note:'Pizza box folded up and binned.'},
       'beer-cans':       {sound:'cans',label:'Empty beer cans',note:'Cans crushed and binned.'},
       'coffee-cups':     {sound:'crumple',label:'Old coffee cups',note:'Coffee cups crumpled and binned.'},
@@ -1197,7 +1197,7 @@
         saveRun(true);
         if(valeGameOver(valeDay?.ending))return; // Professor Vale: an arrest or death is already playing in the room
         if(caseEvent==='invasion'){startHomeInvasion();return;}
-        if(caseEvent==='warning')showGameNotice('A grey sedan is idling outside your home.');
+        if(caseEvent==='warning')showGameNotice('A gray sedan is idling outside your home.');
         if(reportedAfterDayStart())return; // Truecel: she reported you
         if(dadAfterDayStart())return; // Mogger: her dad comes round
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
@@ -1266,10 +1266,10 @@
       const storyline=day=>{
       let lead,second;
       if(day===1){
-        lead=storyArticle('charity_gala',{title:'BLUE RIBBON ORGANISER PREPARES BENEFIT NIGHT',summary:'The Blue Ribbon Foundation’s Scholarship Drive peaks with tonight’s benefit, but some volunteers are uneasy about the guest list.',body:'Organiser Elena Cross insists there is nothing unusual about last-minute changes to the seating plan. Treasurer Augustus Pell and events director Dorian Kell will welcome the Scholarship Drive’s largest donors. A volunteer described several heated conversations behind the scenes. Donors can reach the Foundation office by telephone.',clue:'Blue Ribbon organiser Elena Cross was due to host the Scholarship Drive benefit on Day 1.'});
+        lead=storyArticle('charity_gala',{title:'BLUE RIBBON ORGANIZER PREPARES BENEFIT NIGHT',summary:'The Blue Ribbon Foundation’s Scholarship Drive peaks with tonight’s benefit, but some volunteers are uneasy about the guest list.',body:'Organizer Elena Cross insists there is nothing unusual about last-minute changes to the seating plan. Treasurer Augustus Pell and events director Dorian Kell will welcome the Scholarship Drive’s largest donors. A volunteer described several heated conversations behind the scenes. Donors can reach the Foundation office by telephone.',clue:'Blue Ribbon organizer Elena Cross was due to host the Scholarship Drive benefit on Day 1.'});
         second=storyArticle('professor_car',{title:'PROFESSOR VALE SURVIVES UNEXPLAINED BRAKE FAILURE',summary:'The lecturer escaped injury after his car failed to stop on a desert road.',body:'Professor Adrian Vale says his car was checked only last week. The university has urged restraint while an independent mechanic examines the vehicle. Nobody has been charged.',clue:'Professor Adrian Vale reported a suspicious brake failure before the house fire.'});
       }else if(day===2){
-        lead=storyArticle('missing_01',{image:'charity_gala',title:'BLUE RIBBON ORGANISER VANISHES AFTER GALA',summary:'Elena Cross never arrived home. Police want to speak to anyone who attended the benefit.',body:'Her mobile was last active near the old interstate junction. A colleague says she argued with someone as the charity evening ended. Treasurer Augustus Pell, pictured with Ms Cross, said he left early and did not see her again that night. He added that all Scholarship Drive payments were frozen on Day 2. Police have not named a suspect.',clue:'Elena Cross disappeared after the gala, near the old interstate junction.'});
+        lead=storyArticle('missing_01',{image:'charity_gala',title:'BLUE RIBBON ORGANIZER VANISHES AFTER GALA',summary:'Elena Cross never arrived home. Police want to speak to anyone who attended the benefit.',body:'Her phone was last active near the old interstate junction. A colleague says she argued with someone as the charity evening ended. Treasurer Augustus Pell, pictured with Ms. Cross, said he left early and did not see her again that night. He added that all Scholarship Drive payments were frozen on Day 2. Police have not named a suspect.',clue:'Elena Cross disappeared after the gala, near the old interstate junction.'});
         second=storyArticle('professor_fire',{title:'FIRE AT PROFESSOR VALE’S HOUSE AFTER CAR SCARE',summary:'Investigators are examining the cause of a late-night blaze at the academic’s home.',body:'The professor was away from the property when flames took hold. Colleagues have connected the incident to the car failure, although authorities have not established a link.',clue:'Adrian Vale’s home caught fire after the brake failure.'});
       }else if(day===3){
         lead=storyArticle('missing_02',{title:hasTip?'POLICE REVIEW FRESH TIP IN BLUE RIBBON CASE':'POLICE ASK FOR HELP IN BLUE RIBBON SEARCH',summary:hasTip?'Officers confirm they are assessing a caller’s information about the old interstate junction.':'Officers are searching along the highway after an unconfirmed sighting.',body:(hasTip?'Detectives say a recent tip may help establish who met Elena Cross after the benefit. They have asked the public not to spread unverified names.':'The search continues with no confirmed new information. Investigators are asking anyone with direct knowledge of Elena Cross’s last movements to make contact.')+' A volunteer has told this newspaper that the published seating plan lists only three guests at Table 9. Events director Dorian Kell says he drove straight home after the benefit.',clue:'The Blue Ribbon case has reached its first major lead.'});
@@ -1427,7 +1427,7 @@
           startSimulatedCall({id:woman.id,name:woman.name,portrait:woman.gallery[0],generic:false,noAnswer:!!(matchedThread.fumbled||matchedThread.blocked)});return;
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
-        const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St Brigid’s Chapel',university:'University Office'};
+        const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St. Brigid’s Chapel',university:'University Office'};
         if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?DISPATCH.greeting:`${names[contact[0]]}. Hello, how may I help you?`});return;}
         const jewellerLine=marriage?.contactForNumber(dialledNumber); // Marriage: the five jewellers
         if(jewellerLine){startSimulatedCall({...jewellerLine,generic:true});return;}
@@ -1435,7 +1435,7 @@
         if(valeLine){startSimulatedCall({id:valeLine.id,name:valeLine.name,portrait:valeLine.portrait,generic:true,greeting:valeLine.greeting});return;}
         const caseLine=brServiceByNumber(dialledNumber);
         if(caseLine){const line=BR.serviceContacts[caseLine];startSimulatedCall({id:'service:'+caseLine,name:line.name,portrait:line.portrait,generic:true,greeting:line.greeting});return;}
-        dialStatus='Number not recognised. Dial 911 for police or check the seven digits.';
+        dialStatus='Number not recognized. Dial 911 for police or check the seven digits.';
         updateDialDisplay();
       };
       updateDialDisplay();
@@ -1758,16 +1758,16 @@
         {id:'formal_report',known:'br',label:'Formally report a Blue Ribbon crime',policeReport:true,reply:''}
       ],
       'service:newsroom':[
-        {id:'story',known:'br',label:'Ask about the missing organiser',flag:'newsroomQuestion',reply:'Our reporter is checking the guest list. If you have a first-hand account, please leave a message.',clue:'The newspaper is checking Blue Ribbon guest-list discrepancies.'},
+        {id:'story',known:'br',label:'Ask about the missing organizer',flag:'newsroomQuestion',reply:'Our reporter is checking the guest list. If you have a first-hand account, please leave a message.',clue:'The newspaper is checking Blue Ribbon guest-list discrepancies.'},
         {id:'vale',known:'vale',label:'Ask about Professor Vale',flag:'reporterQuestion',reply:'We are looking into both the vehicle incident and the fire. We cannot confirm a connection.'}
       ],
       'service:university':[
         {id:'warn',known:'vale',label:'Warn staff about Professor Vale',flag:'facultyWarning',reply:'I will forward your concern to campus security. Thank you for contacting us.',clue:'You warned the university that Professor Vale might be at risk.'},
-        {id:'schedule',known:'vale',label:'Ask about Vale’s lecture',flag:'lectureEnquiry',reply:'The professor has not cancelled his lecture. Any change will be announced through the campus office.'}
+        {id:'schedule',known:'vale',label:'Ask about Vale’s lecture',flag:'lectureEnquiry',reply:'The professor has not canceled his lecture. Any change will be announced through the campus office.'}
       ],
       'service:chapel':[
         {id:'sisters',label:'Ask about the Sisters of Mercy',flag:'chapelQuestion',reply:'The sisters are attending evening prayers. Please respect their privacy.'},
-        {id:'gala',known:'br',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organise it.'}
+        {id:'gala',known:'br',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organize it.'}
       ]
     };
     // Fixed service topics plus any Blue Ribbon questions currently available on that line.
@@ -1852,10 +1852,10 @@
     const jobPools={
       thunderbirds:['Chief Philanthropy Officer','Luxury crisis consultant','Gala operations manager','Impact-investing girlboss','Charity volunteer','Event receptionist','Social-impact start-up founder'],
       police:['Detective','Evidence room assistant','Parking enforcement officer','Crime-scene technician','Police dispatcher','Forensic accountant','Public-safety analyst'],
-      progressives:['DEI disruption strategist','Chief Vibes Officer','Climate-tech founder','Intersectional product lead','Campus organiser','Adjunct lecturer','Community outreach coordinator','Social-media consultant'],
+      progressives:['DEI disruption strategist','Chief Vibes Officer','Climate-tech founder','Intersectional product lead','Campus organizer','Adjunct lecturer','Community outreach coordinator','Social-media consultant'],
       sisters_of_mercy:['Parish administrator','Chapel organist','Primary school teacher','Bookshop assistant','Church cleaner','Charity treasurer','Florist','Museum guide'],
       fourth_estate:['Investigative journalist','Podcast empire founder','Fashion columnist','Newsroom producer','Copy editor','Local radio presenter','Freelance photographer'],
-      goth_girls:['Haunted hotel concierge','Funeral florist','Tattoo studio receptionist','Nightclub sound engineer','Alternative fashion designer','Record shop assistant','Cemetery tour guide'],
+      goth_girls:['Haunted hotel concierge','Funeral florist','Tattoo studio receptionist','Nightclub sound engineer','Alternative fashion designer','Record store clerk','Cemetery tour guide'],
       normie_girls:['Cleaner','Dental receptionist','Nurse','Yoga studio owner','Coffee shop barista','Real-estate girlboss','Dog groomer','Hair stylist','Software engineer','Waitress','Personal trainer','Office administrator','Chief Spreadsheet Officer']
     };
     const esc=value=>String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -1892,9 +1892,9 @@
     const JEWELLER_HELLO={
       agnes:'Good evening. My daughters made me join this app. I sell antique rings, mostly to people who cry in my shop.',
       rafael:'Hi! I fix watches and broken engagement rings. Business is booming, which says something about Sunfall.',
-      clara:'Hello. I deal in estate jewellery: other people’s heirlooms, beautifully priced.',
+      clara:'Hello. I deal in estate jewelry: other people’s heirlooms, beautifully priced.',
       joseph:'Hey. I make rings by hand in a workshop by the canal. Mostly I make sawdust and tea.',
-      sofia:'Ciao! I sell bridal jewellery, so I’m professionally obsessed with weddings. Fair warning.'
+      sofia:'Ciao! I sell bridal jewelry, so I’m professionally obsessed with weddings. Fair warning.'
     };
     let jewellerCardCache=null;
     function jewellerCards(){
@@ -1923,7 +1923,7 @@
         'Quick question: if someone says a benefit is small, how many hundred guests would you expect?',
         'I went to buy flowers for a gala and accidentally came home with eight centrepieces.',
         'My weekend appears to have been sold to a charity auction. Do you have a rescue plan?',
-        'There is a woman on the committee who has colour-coded the entire town. Help.'
+        'There is a woman on the committee who has color-coded the entire town. Help.'
       ],
       police:[
         'I have survived a twelve-hour shift and one extremely angry parking meter. Hi.',
@@ -1933,7 +1933,7 @@
         'The coffee machine at work has declared war on us. How is your day?'
       ],
       progressives:[
-        'Is it possible to organise a meeting about having fewer meetings? Asking for an entire committee.',
+        'Is it possible to organize a meeting about having fewer meetings? Asking for an entire committee.',
         'My start-up currently has a pitch deck, three tote bags and no product. How is your week?',
         'I have written a mission statement so ambitious I cannot fit it in my dating bio.',
         'Someone called our campus group too online and honestly they had a point.',
@@ -1957,11 +1957,11 @@
         'The record shop played something cheerful today. I am still recovering.',
         'I have tickets to a band with seventeen listeners. This is your warning.',
         'Hi. I am trying to decide whether the moon looks sinister or simply tired tonight.',
-        'My favourite bar serves coffee until the small hours. You would either love it or run away.',
+        'My favorite bar serves coffee until the small hours. You would either love it or run away.',
         'I found an old horror film so bad it has become my entire personality.'
       ],
       normie_girls:[
-        'My neighbour has borrowed my vacuum cleaner for three weeks. At what point is it a hostage situation?',
+        'My neighbor has borrowed my vacuum cleaner for three weeks. At what point is it a hostage situation?',
         'Hey! I have had a day that can only be fixed by chips and a terrible film.',
         'I just bought a plant called unkillable and immediately began worrying about it.',
         'Question: does assembling flat-pack furniture count as a personality trait?',
@@ -2049,7 +2049,7 @@
         if(bearState==='escaped')return '<div class="story-tag">The bear wandered away. You survived.</div>';
         if(bearState==='warning'||bearState==='attack')return '<div class="story-tag">Something heavy is scratching at your door. Put the phone down.</div>';
         if(bearState==='dead')return '<div class="story-tag">The conversation is over.</div>';
-        if(!thread.topics.includes('honey'))return '<button class="hinge-chat-choice" data-bear-topic="honey">Ask about his favourite food</button>';
+        if(!thread.topics.includes('honey'))return '<button class="hinge-chat-choice" data-bear-topic="honey">Ask about his favorite food</button>';
         if(!thread.topics.includes('where'))return '<button class="hinge-chat-choice" data-bear-topic="where">Ask whether he lives nearby</button>';
         if(!thread.topics.some(topic=>['boundaries','distract','visit','ignore'].includes(topic)))return [
           '<button class="hinge-chat-choice" data-bear-topic="boundaries">Tell him your address is private</button>',
@@ -2057,7 +2057,7 @@
           '<button class="hinge-chat-choice" data-bear-topic="ignore">Stop replying to Bear</button>',
           '<button class="hinge-chat-choice risky" data-bear-topic="visit">Invite him over</button>'
         ].join('');
-        return '<div class="story-tag">He knows your neighbourhood. Lower the phone carefully.</div>';
+        return '<div class="story-tag">He knows your neighborhood. Lower the phone carefully.</div>';
       }
       if(thread.left)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · You unmatched her.</div>';
       if(thread.unmatched)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · She unmatched you.</div>';
@@ -2080,6 +2080,8 @@
       const add=(html,rank)=>choices.push({html,rank,order:choices.length});
       if(marriageOptions?.html)add(marriageOptions.html,0); // Marriage
       if(chapelOptions?.html)add(chapelOptions.html,0); // Task 2
+      for(const ask of gossipAsksFor(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="gossip:${esc(ask.key)}">${esc(fillIn(GOSSIP_ASK_LABEL,{teller:firstName(hingeProfile(ask.by))}))}</button>`,1); // what someone told you about her
+      if(lifeAskOpen(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="life:more">${esc(LIFE_ASK_LABEL)}</button>`,1); // her news today
       for(const [id,label] of leakChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: the group chat
       for(const [id,label] of callerFriendChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: ask her friend about Moira
       const arcNow=arcChoices(thread,profileNow);
@@ -2196,15 +2198,17 @@
         if(currentApp==='hinge')renderHinge();
       },180);
     }
+    const REPLY_MIN_MS=3000,REPLY_MAX_MS=10000;
     function hingeReplyDelay(profile,topicId){
-      const ranges={thunderbirds:[950,4300],police:[1800,6500],progressives:[700,4200],
-        sisters_of_mercy:[1400,5500],fourth_estate:[750,5700],goth_girls:[1200,6100],normie_girls:[800,4800]};
-      const [minimum,maximum]=ranges[profile.factionId]||[900,4900];
+      // Every reply takes a while: three to ten seconds, never instant and never longer (Chris).
+      const ranges={thunderbirds:[3200,8200],police:[4200,9600],progressives:[3000,7600],
+        sisters_of_mercy:[3800,9200],fourth_estate:[3100,8800],goth_girls:[3600,9600],normie_girls:[3000,8000]};
+      const [minimum,maximum]=ranges[profile?.factionId]||[3200,8400];
       let delay=minimum+Math.floor(gameRandom()*(maximum-minimum));
       if(topicId==='photo')delay+=1200;
-      if(topicId==='fumble')delay=Math.min(delay,1700);
-      delay*=(personalityOf(profile)?.speed||1)*{mogger:.7,normie:1,truecel:1.4}[tone()];
-      return Math.round(delay);
+      if(topicId==='fumble')delay=Math.min(delay,3600);
+      delay*=(personalityOf(profile)?.speed||1)*{mogger:.8,normie:1,truecel:1.25}[tone()];
+      return Math.round(Math.max(REPLY_MIN_MS,Math.min(REPLY_MAX_MS,delay)));
     }
     function chooseBearTopic(id){
       const thread=hingeThreads.get(bearHingeCard.id);
@@ -2480,7 +2484,7 @@
       const byKey=obj=>Object.fromEntries(Object.entries(obj&&typeof obj==='object'?obj:{}).slice(0,100).map(([key,list])=>[key,ids(list)]));
       const told={};
       for(const [question,list] of Object.entries(src.told&&typeof src.told==='object'?src.told:{}).slice(0,50)){
-        if(Array.isArray(list))told[question]=list.filter(entry=>entry&&typeof entry.id==='string'&&typeof entry.answer==='string').slice(0,300).map(entry=>({id:entry.id,answer:entry.answer}));
+        if(Array.isArray(list))told[question]=list.filter(entry=>entry&&typeof entry.id==='string'&&typeof entry.answer==='string').slice(0,300).map(entry=>({id:entry.id,answer:entry.answer,...(Number.isInteger(entry.day)?{day:entry.day}:{})}));
       }
       const count=value=>Math.max(0,Math.min(9999,Math.trunc(Number(value)||0)));
       const tags=Object.fromEntries(Object.entries(src.tags&&typeof src.tags==='object'?src.tags:{}).slice(0,60).map(([tag,value])=>[tag,count(value)]));
@@ -2503,6 +2507,8 @@
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
         days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,callTold:words(src.callTold),
+        later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
+        gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
         used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
     }
@@ -2578,6 +2584,7 @@
         return question?question.answers.map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer})):[];
       }
       if(follow.kind==='news')return moods(kit.newsFollow?.options);
+      if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
       if(follow.kind==='lie')return twoTruthsSet(follow)?['first','second','third'].map((word,index)=>({id:String(index),label:`The ${word} one is the lie`,player:`The ${word} one. That’s the lie.`,tags:[]})):[];
       if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
       const topic=characterDB?.worldTopics?.find(item=>item.id===follow.id);
@@ -2601,6 +2608,7 @@
       if(outgoing>=4)budget++;else if(outgoing<=2)budget--;
       budget=Math.max(3,Math.min(6,budget));
       const warmth=warmthOf(thread);
+      if(warmth>=0)budget=Math.max(budget,lifeOf(profile).length+1); // she doesn't leave with news still to tell
       if(warmth>=3)budget+=2;
       if(warmth>=4)budget+=1;
       return budget+Math.min(3,talkState(thread).bonus||0);
@@ -2612,17 +2620,176 @@
       return Object.values(minisState().st||{}).some(st=>st&&st.host===profile.id&&st.stage&&st.stage!=='done');
     }
     const chatsUsed=thread=>(talkState(thread).days||[]).filter(day=>day<world.day).length;
-    // A few questions a day: she answers 3 of your questions a day, 4 once she likes you, then signs
-    // off until tomorrow. Answering her questions and story events (her family, a favour, Theon, the
-    // marriage examination, the Chapel) never count. Jewellers, the bear and the girl who keeps
-    // calling aren't ordinary chats. Tests switch it off with MATCH_ENDLESS_CHAT.
-    const ASK_FREE=/^(follow:|coffee:|caller:|mini:|leak:|dad:|fionn:)/;
-    const freeAsk=(thread,profile,id)=>ASK_FREE.test(String(id))||(String(id).startsWith('arc:')&&arcChoices(thread,profile).some(entry=>entry[0]===id&&entry[2]===0)); // her story under way is free; asking about her family is a question
-    const dailyAskCap=thread=>warmthOf(thread)>=2?4:3;
+
+    // ---------- The gossip web: everybody knows something (TEXTING_REVAMP.md) ----------
+    // Each woman knows two or three things about other women in the game. Once she's warm enough she
+    // lets one slip inside a reply (one a day at most); it goes in your notebook with her name on it.
+    // If you've matched with the woman it's about, her chat offers to ask about it.
+    const GOSSIP_ASK_LABEL='Ask about what {teller} said';
+    const gossipOf=profile=>womanOf(profile)?.conversation?.gossip||[];
+    const lifeOf=profile=>womanOf(profile)?.conversation?.life||[];
+    function sanitizeGossip(raw){
+      const src=raw&&typeof raw==='object'?raw:{},told={};
+      for(const [key,value] of Object.entries(src.told&&typeof src.told==='object'?src.told:{}).slice(0,600))
+        if(/^MATCH-\d{3}:[a-z0-9]{1,12}$/.test(key)&&value&&Number.isInteger(value.day))told[key]={day:value.day};
+      return {told,asked:Array.isArray(src.asked)?src.asked.filter(key=>typeof key==='string'&&told[key]).slice(0,600):[]};
+    }
+    function gossipState(){
+      if(!world.gossip||typeof world.gossip!=='object'||!world.gossip.told||!Array.isArray(world.gossip.asked))world.gossip=sanitizeGossip(world.gossip);
+      return world.gossip;
+    }
+    // Two women are linked when either knows something about the other: they talk.
+    const linkedWomen=(a,b)=>gossipOf(hingeProfile(a)).some(fact=>fact.about===b)||gossipOf(hingeProfile(b)).some(fact=>fact.about===a);
+    const unquest=text=>String(text).replace(/Lenore Vale/g,'Lenore'); // her surname is not Professor Vale's case
+    function pickGossip(thread,profile,chance=.6){
+      if(!revampOn())return null;
+      const st=talkState(thread),g=gossipState();
+      if(st.gossipDay===world.day||gameRandom()>=chance)return null;
+      const fact=gossipOf(profile).find(item=>!g.told[profile.id+':'+item.id]&&warmthOf(thread)>=(item.warmth||0)&&hingeProfile(item.about)&&ownTopicInRun({label:'',player:unquest(item.ask),reply:unquest(item.says+' '+item.answer),note:unquest(item.note),fromDay:item.fromDay},profile)); // quest gossip only in a run with that quest
+      if(!fact)return null;
+      st.gossipDay=world.day;
+      g.told[profile.id+':'+fact.id]={day:world.day};
+      return fact;
+    }
+    function gossipAsksFor(thread){
+      const g=gossipState(),out=[];
+      if(!thread||!hingeProfile(thread.id))return out;
+      for(const key of Object.keys(g.told)){
+        if(g.asked.includes(key))continue;
+        const [by,id]=key.split(':'),fact=gossipOf(hingeProfile(by)).find(item=>item.id===id);
+        if(fact&&fact.about===thread.id&&hingeProfile(by))out.push({key,by,fact});
+      }
+      return out.slice(0,2);
+    }
+
+    // ---------- Her life moves on ----------
+    // Four bits of news each, in order: on a morning after you've talked, her next one arrives as a
+    // message. Ask her about it and she tells you the rest; then you reply with a tone.
+    const LIFE_ASK_LABEL='Ask her about it';
+    const LIFE_PLAYER={good:['That’s brilliant. Tell me everything.','Wait, really? How did that happen?','Go on then, the whole story.'],
+      bad:['Oh no. What happened?','Are you all right? What happened?','That sounds rotten. Tell me.'],
+      odd:['Hang on. Tell me more.','That’s strange. Then what?','Go on, I want the rest.']};
+    function lifeAskOpen(thread,profile){
+      const st=talkState(thread);
+      return Number.isInteger(st.lifeOpen)&&!!lifeOf(profile)[st.lifeOpen];
+    }
+    function lifeNewDay(){
+      if(!revampOn())return;
+      let sent=0;
+      const threads=[...hingeThreads.values()].sort((a,b)=>warmthOf(b)-warmthOf(a));
+      for(const thread of threads){
+        if(sent>=4)break;
+        const profile=hingeProfile(thread.id),st=talkState(thread),life=lifeOf(profile);
+        if(thread.id===CALLER_ID&&callerActive())continue; // Mogger: the girl who keeps calling has a story of her own
+        if(!profile||!life.length||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.quiet||thread.awaiting||thread.ghosted||thread.unmatched||thread.left||thread.missing||thread.pending)continue;
+        const days=st.days||[],n=st.lifeN||0;
+        if(!days.length||Math.max(...days)<world.day-3||n>=life.length||st.lifeDay===world.day)continue; // only women you've been talking to
+        if(st.lifeDay&&!days.some(day=>day>=st.lifeDay))continue; // you haven't talked since her last news
+        st.lifeN=n+1;st.lifeDay=world.day;st.lifeOpen=n;
+        lineSpeaker=profile.id;
+        thread.log.push({who:'her',text:life[n].news});
+        st.unread=true;sent++;
+      }
+    }
+
+    // ---------- Next-day answers ----------
+    // Now and then she thinks about a question overnight; the answer arrives in the morning.
+    const LATER_LINES=['Ooh. Let me think about that one. I’ll tell you tomorrow.','Hm. Not over text, not tonight. Tomorrow.','I’ve got an answer but it’s a long one. Tomorrow, I promise.','Give me till tomorrow on that one.','Good question. I’m going to sleep on it.'];
+    const LATER_LEAD=['About what you asked yesterday.','So, your question from yesterday.','Right. I thought about it.','I promised you an answer.'];
+    function laterOK(thread,profile,item){
+      if(!revampOn()||item.quest||item.gives||talkState(thread).later||thread.topics.length<3)return false;
+      const quiet=(personalityOf(profile)?.bigFive?.[2]??3)<=2?.1:0;
+      return gameRandom()<{mogger:.1,normie:.2,truecel:.3}[tone()]+quiet;
+    }
+    function laterNewDay(){
+      for(const thread of hingeThreads.values()){
+        const st=talkState(thread),later=st.later;
+        if(!later||later.day>world.day)continue;
+        st.later=null;
+        const profile=hingeProfile(thread.id);
+        if(!profile||thread.blocked||thread.fumbled||thread.quiet||thread.unmatched||thread.left||thread.missing)continue;
+        lineSpeaker=profile.id;
+        later.lines.forEach((text,i)=>thread.log.push({who:'her',text:i===0?`${seededPick(LATER_LEAD,profile.id+world.day)} ${text}`:text}));
+        if(later.note)recordClue(later.note);
+        st.unread=true;
+      }
+    }
+
+    // ---------- Your replies have tone ----------
+    // After her news, or her answer about gossip: tease her, be sincere, or change the subject.
+    // Her type and what she likes decide how it lands, and she remembers it tomorrow.
+    const TONES=['tease','sincere','dodge'];
+    const TONE_LABEL={tease:'😏 Tease her',sincere:'♡ Be sincere',dodge:'↪ Change the subject'};
+    const TONE_PLAYER={
+      good:{tease:['Look at you, showing off.','So you’re famous now. Do I need an appointment?','Careful, you’ll get a big head.'],sincere:['That’s brilliant. You deserve it.','I’m really pleased for you.','That’s lovely. Honestly.'],dodge:['Nice. Anyway, what are you up to later?','Good for you. So, seen anything good lately?','Cool. Did you see the paper today?']},
+      bad:{tease:['So, worst week in Sunfall history, then?','At least it makes a good story.','Well, that’s one for the memoirs.'],sincere:['I’m sorry. That’s really hard. How are you holding up?','That’s rotten. I’m glad you told me.','You didn’t deserve that. Anything I can do?'],dodge:['That’s rough. Anyway, how’s work?','Ah. Shall we talk about something nicer?','Right. Have you eaten today?']},
+      odd:{tease:['That is the most Sunfall thing I’ve ever heard.','You’re making that up.','I knew this town was haunted.'],sincere:['That’s strange. Are you all right?','Huh. What do you make of it?','That would rattle me too. Thanks for telling me.'],dodge:['Weird. Anyway, how was your day?','Strange town. So, what are you up to this weekend?','Huh. Changing the subject: coffee or tea?']}};
+    const TONE_REACT={
+      tease:{pos:['Ha. Shut up. Okay, that was funny.','You’re lucky you make me laugh.','Rude. I love it.','Stop. I’m laughing on the bus.'],neg:['That’s not funny, actually.','Wow. Okay. Never telling you anything again.','Really? I tell you that and you make a joke?']},
+      sincere:{pos:['Thank you. That means more than you think.','That’s kind. I needed someone to say that.','You’re sweet, you know that?','Okay, that was nice. Thank you.'],neg:['Don’t get soppy on me.','Okay, Dear Diary. Calm down.','Bit much, but thanks.']},
+      dodge:{pos:['Fine by me. I didn’t want to dwell on it.','Thank you for not making it a thing.','Good. New subject. You pick.'],neg:['Right. Okay. Forget I said anything.','Wow, okay, subject changed.','Noted. You don’t want to hear about my life.']}};
+    const TONE_RECALL={
+      tease:{pos:['Still laughing at what you said yesterday. Don’t let it go to your head.','I told my friend your joke from yesterday. She laughed too, annoyingly.'],neg:['You made fun of me yesterday. I’ve decided to let it go. Barely.']},
+      sincere:{pos:['Thank you for yesterday, by the way. You were kind about it.','I kept thinking about what you said yesterday. It helped.'],neg:['About yesterday. I know you meant well. I’m just not a hugger.']},
+      dodge:{pos:['Thanks for not making a fuss yesterday. I appreciated it.'],neg:['You changed the subject on me yesterday. I noticed.','Yesterday you went very quiet when I told you my news. Just saying.']}};
+    function likedTone(profile){
+      const liked=womanOf(profile)?.conversation?.likes;
+      if(TONES.includes(liked))return liked;
+      const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3];
+      return CONTRARIANS.has(p?.id)||E>=4?'tease':E<=2&&A<=3?'dodge':'sincere';
+    }
+    function toneScore(choice,profile,feel){
+      const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3],contrarian=CONTRARIANS.has(p?.id);
+      let score=choice===likedTone(profile)?1:0;
+      if(choice==='tease'){if(feel==='bad'&&A>=4)score-=1;if(E>=4||contrarian)score+=1;}
+      if(choice==='sincere'){if(feel==='bad')score+=1;else if(contrarian)score-=1;}
+      if(choice==='dodge'){score-=1;if(E<=2&&feel==='bad')score+=1;}
+      return score;
+    }
+
+    // ---------- She remembers ----------
+    // Her first line of a day may bring back how you took her news yesterday, or something you told
+    // her a couple of days ago.
+    const REMEMBER=['You told me {told}. I’ve been thinking about that.','I told my sister you said {told}. She has opinions.','You said {told}. Did you mean it? I’m holding you to it.','Still thinking about how you said {told}.'];
+    function recallLine(thread,profile){
+      if(!revampOn())return null;
+      const st=talkState(thread),kit=talkKit(),mem=String(st.memory.tone||'').split(':');
+      const day=Number(mem[0]);
+      if(day&&day>=world.day-2&&day<world.day&&st.memory.toneSaid!==String(day)&&TONE_RECALL[mem[1]]){
+        st.memory.toneSaid=String(day);
+        return seededPick(TONE_RECALL[mem[1]][Number(mem[2])<0?'neg':'pos'],profile.id+day);
+      }
+      const recalled=st.recalled||(st.recalled=[]);
+      for(const [question,list] of Object.entries(convo().told)){
+        const mine=list.find(entry=>entry.id===profile.id&&Number.isInteger(entry.day)&&entry.day<=world.day-2);
+        if(!mine||recalled.includes(question))continue;
+        const told=kit?.herQuestions?.find(item=>item.id===question)?.answers?.find(answer=>answer.id===mine.answer)?.told;
+        if(!told)continue;
+        recalled.push(question);
+        return fillIn(seededPick(REMEMBER,profile.id+question),{told});
+      }
+      return null;
+    }
+    // She talks while she has news (Chris, replacing three or four questions a day). Each day she
+    // has her life news, gossip you've heard about her, today's paper, and two bits of small talk
+    // (three once she likes you, one more if she's outgoing). When those are used up she signs off
+    // until tomorrow. Her questions, your answers, story events, quests and her number never run the
+    // day out. Jewellers, the bear and the girl who keeps calling aren't ordinary chats. Tests switch
+    // it off with MATCH_ENDLESS_CHAT (which also keeps the other new, chancy parts out of old tests).
+    const revampOn=()=>!window.MATCH_ENDLESS_CHAT;
+    const SMALL_TALK=/^(own|world):/;
+    const smallTalk=id=>SMALL_TALK.test(String(id))||['daily','game','photo'].includes(id)||(hingeDialogue?.topics||[]).some(topic=>topic.id===id&&topic.id!=='case');
+    const freeAsk=(thread,profile,id)=>!smallTalk(id);
+    const dailyAskCap=thread=>2+(warmthOf(thread)>=2?1:0)+((personalityOf(hingeProfile(thread.id))?.bigFive?.[2]??3)>=4?1:0); // small talk a day
     const asksToday=thread=>{const ts=talkState(thread);return ts.askDay===world.day?ts.asks||0:0;};
+    function hasNewsToday(thread,profile){
+      if(lifeAskOpen(thread,profile)||gossipAsksFor(thread).length||newsTalkAvailable(thread))return true;
+      return asksToday(thread)<dailyAskCap(thread);
+    }
     function doneForToday(thread){
       if(window.MATCH_ENDLESS_CHAT||!thread||thread.id===bearHingeCard.id||thread.id===CALLER_ID||hingeProfile(thread.id)?.jeweller)return false;
-      return asksToday(thread)>=dailyAskCap(thread);
+      const profile=hingeProfile(thread.id);
+      return !!profile&&!hasNewsToday(thread,profile);
     }
     function countAsk(thread,id){
       const ts=talkState(thread);
@@ -2750,6 +2917,8 @@
         state.lastDay=world.day;
         const rep=reputationLine(thread,profile);
         if(rep)return rep;
+        const recall=recallLine(thread,profile); // she remembers
+        if(recall)return recall;
         const friend=friendOf(profile);
         if(friend&&!state.friendShown&&hingeThreads.get(friend.id)?.topics?.length){state.friendShown=true;return fillIn(seededPick(kit.asides.friendKnows,profile.id),{friend:firstName(friend)});}
         if(gameRandom()<.45)return seededPick(kit.moods[moodOf(profile)],profile.id+world.day);
@@ -2809,7 +2978,7 @@
     const TONE_TALK={
       mogger:{
         close:[' You know you’re dangerous, right?',' Sorry, I got distracted by your photos again.',' Why are you even single?',' My friends are going to lose it when I tell them about you.',' Stop being this easy to talk to.',' Okay, now you’re just showing off.',' Is it weird that I’m smiling at my phone?',' You’re trouble. I can tell.',' I’ve already told my sister about you.',' Don’t let it go to your head. Too late, probably.'],
-        warm:['Stop. You’re perfect.','Marry me. Kidding. Mostly.','Wow. Okay. Who raised you?','You just went up three levels.','I knew you’d say that. I hoped you would.','That’s the hottest thing anyone has said to me all week.','Okay, now I’m blushing at my phone like an idiot.','Where have you been all my life? Don’t answer, I don’t care.','My friend is going to be so jealous.','You really do have an answer for everything.','I could listen to you all day. Text you all day. Whatever.','Correct. Annoyingly correct.','I’m screenshotting that for my sister.','That’s it. You’re officially my favourite match.'],
+        warm:['Stop. You’re perfect.','Marry me. Kidding. Mostly.','Wow. Okay. Who raised you?','You just went up three levels.','I knew you’d say that. I hoped you would.','That’s the hottest thing anyone has said to me all week.','Okay, now I’m blushing at my phone like an idiot.','Where have you been all my life? Don’t answer, I don’t care.','My friend is going to be so jealous.','You really do have an answer for everything.','I could listen to you all day. Text you all day. Whatever.','Correct. Annoyingly correct.','I’m screenshotting that for my sister.','That’s it. You’re officially my favorite match.'],
         cool:['You’re lucky you’re cute.','Wrong answer. Still talking to you, though.','I’ll allow it. This once.','Bold. I respect bold.','I should mind that. I don’t.','Anyone else and I’d unmatch. You get a pass.','Hm. Your face is doing a lot of work here.','That was terrible. Say something else, quickly.'],
         admirer:['I liked you first. Thought you should know.','I never message first. Making an exception.','My friend dared me to say hi. She also said you’re out of my league. Hi.','You popped up and I panicked and pressed like. Hi.','Okay, I’m doing the thing where I message first. Be nice.']
       },
@@ -2843,14 +3012,37 @@
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,delayKey));
     }
-    const isTalkTopic=id=>/^(own|world|follow|egg|svc):/.test(id)||id==='news'||id==='deeper'||id==='daily'||id==='game';
+    const isTalkTopic=id=>/^(own|world|follow|egg|svc|gossip|life):/.test(id)||id==='news'||id==='deeper'||id==='daily'||id==='game';
     function chooseTalk(id,thread,profile){
       lineSpeaker=profile.id;
       const kit=talkKit();
       if(!characterDB||!kit)return;
       if(id.startsWith('follow:'))return answerFollow(id.slice(7),thread,profile);
       const state=talkState(thread),c=convo(),lines=[];
-      let after=null;
+      let after=null,gossip=null;
+      if(id.startsWith('gossip:')){
+        // Asking her about what another woman said about her.
+        const ask=gossipAsksFor(thread).find(item=>item.key===id.slice(7));
+        if(!ask)return;
+        thread.followUp=null;gossipState().asked.push(ask.key);
+        thread.log.push({who:'you',text:ask.fact.ask});
+        lines.push(ask.fact.answer);
+        if(ask.fact.mood)warmBy(thread,ask.fact.mood);
+        thread.followUp={kind:'tone',id:ask.fact.mood<0?'bad':ask.fact.mood>0?'good':'odd'};
+        return deliverTalk(thread,profile,lines,'talk',null,true);
+      }
+      if(id==='life:more'){
+        // Her news: the rest of the story, maybe a bit of gossip, then your reply.
+        if(!lifeAskOpen(thread,profile))return;
+        const item=lifeOf(profile)[state.lifeOpen];
+        state.lifeOpen=null;thread.followUp=null;
+        thread.log.push({who:'you',text:seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day)});
+        lines.push(item.more);
+        gossip=pickGossip(thread,profile,.8);
+        if(gossip)lines.push(gossip.says);
+        thread.followUp={kind:'tone',id:['good','bad','odd'].includes(item.feel)?item.feel:'odd'};
+        return deliverTalk(thread,profile,lines,'talk',gossip?()=>recordClue(gossip.note):null,true);
+      }
       if(id.startsWith('world:')){
         const topic=characterDB.worldTopics.find(item=>'world:'+item.id===id);
         if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic))return;
@@ -2860,6 +3052,7 @@
         lines.push(voiced(topicView(topic,profile),profile,topic.id));
         if(topic.id==='bear')lines.push(...bearEgg());
         lines.push(talkAside(thread,profile));
+        gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says); // something she's heard
         // Easter egg: she knew the last person in your room.
         if(['sunfall','leave'].includes(topic.id)&&!state.tenant&&warmthOf(thread)>=2&&hashSeed(world.seed+'|tenant|'+profile.id)%4===0){state.tenant=true;lines.push(seededPick(kit.eggs.lastTenant,profile.id));}
         const ask=topic.ask||topic.follow?.question;
@@ -2873,11 +3066,20 @@
         thread.followUp=null;thread.topics.push(id);
         thread.log.push({who:'you',text:own.player});
         lines.push(talkOpener(thread,profile,null));
-        const told=topicTold(own,profile);
-        lines.push(told.text);
-        if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
-        maybeHerQuestion(thread,profile,lines);
-        after=()=>{told.after();moggerPicture(thread,profile);};
+        if(laterOK(thread,profile,own)){ // she'll think about it overnight
+          const told=topicTold(own,profile);
+          state.later={day:world.day+1,lines:[told.text],note:own.note||null};
+          lines.push(seededPick(LATER_LINES,profile.id+world.day));
+          if(tone()!=='truecel')warmBy(thread,1);
+          after=()=>moggerPicture(thread,profile);
+        }else{
+          const told=topicTold(own,profile);
+          lines.push(told.text);
+          gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
+          if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
+          maybeHerQuestion(thread,profile,lines);
+          after=()=>{told.after();moggerPicture(thread,profile);};
+        }
       }else if(id==='news'){
         if(!newsTalkAvailable(thread))return;
         const news=characterDB.newsTalk,kind=newsStoryFor(thread,profile),about=news.kinds[kind]||{};
@@ -2907,6 +3109,7 @@
         lines.push(reputationLine(thread,profile));
         lines.push(variedPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
         lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
+        gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
         if(gameRandom()<.35){
           const phrase=kit.newsFollow.phrases[storyKind(gamePick(getNewsEdition(world.day).items||[]))];
           if(phrase)lines.push(fillIn(seededPick(daily.heard,profile.id+world.day),{story:phrase}));
@@ -2954,6 +3157,7 @@
         thread.log.push({who:'you',text:kit.eggs.real.player});
         lines.push(hashSeed(world.seed+'|maker|'+profile.id)%6===0?kit.eggs.real.developer:(kit.eggs.real.lines[profile.factionId]||kit.eggs.real.lines.normie_girls));
       }else return;
+      if(gossip){const before=after;after=()=>{if(before)before();recordClue(gossip.note);};}
       deliverTalk(thread,profile,lines,'talk',after);
     }
     // How a light answer lands depends on who she is.
@@ -2995,7 +3199,7 @@
         score=choice.tags.reduce((sum,tag)=>sum+(kit.affinity[faction]?.[tag]||0),0);
         delta=settleScore(score,{serious:true,personality,profile});
         // Easter egg: her friends compare notes on what you told them.
-        const others=(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id&&hingeProfile(entry.id)?.factionId===faction);
+        const others=(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id&&(hingeProfile(entry.id)?.factionId===faction||linkedWomen(profile.id,entry.id))); // her faction, or anyone she talks to
         const contradicted=others.find(entry=>entry.answer!==choice.id),agreed=others.find(entry=>entry.answer===choice.id);
         const question=kit.herQuestions.find(item=>item.id===follow.id);
         if(contradicted&&gameRandom()<.6){
@@ -3006,10 +3210,15 @@
           lines.push(delta>0?variedPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+follow.id+world.day):delta<0?variedPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+follow.id+world.day):variedPick(kit.neutral,profile.id+follow.id));
           if(agreed&&gameRandom()<.3){lines.push(fillIn(seededPick(kit.eggs.consistent,profile.id+follow.id),{other:otherName(agreed.id)}));delta+=1;}
         }
-        c.told[follow.id]=[...(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id),{id:profile.id,answer:choice.id}];
+        c.told[follow.id]=[...(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id),{id:profile.id,answer:choice.id,day:world.day}];
       }else if(follow.kind==='day'){
         delta=settleScore(choice.tags.reduce((sum,tag)=>sum+(kit.affinity[faction]?.[tag]||0),0),{personality,profile});
         lines.push(delta>0?variedPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+'day'+world.day):delta<0?variedPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+'day'+world.day):variedPick(kit.neutral,profile.id+world.day));
+      }else if(follow.kind==='tone'){
+        delta=settleScore(toneScore(choice.tone,profile,follow.id),{personality,profile});
+        const pool=TONE_REACT[choice.tone][delta<0?'neg':'pos'];
+        lines.push(delta===0?variedPick(kit.neutral,profile.id+'tone'+world.day):delta>0?variedPick([...pool,...(personality?.reactions?.warm||[])],profile.id+choice.tone+world.day):variedPick([...pool,...(personality?.reactions?.cool||[])],profile.id+choice.tone+world.day));
+        state.memory.tone=`${world.day}:${choice.tone}:${Math.sign(delta)}`;
       }else if(follow.kind==='lie'){
         const game=kit.games.twoTruths,set=twoTruthsSet(follow);
         const right=set&&Number(choice.id)===set.lie;
@@ -3059,7 +3268,7 @@
         believe:['Fine. I believe you. Don’t make me regret it.','Okay. Okay. Just friends. I’m watching you.'],
         liar:['Liar. She has screenshots.','Just a friend. Right. Goodbye.'],
         chosen:['Then prove it.','Good. Tell her yourself.','I knew it. She owes me a drink.'],
-        hurt:['{other} rang me to gloat. Enjoy each other.','I heard what you told {other}. Wow.'],
+        hurt:['{other} called me to gloat. Enjoy each other.','I heard what you told {other}. Wow.'],
         out:['Wow. Okay. Noted.','You’re unbelievable.'],
         block:['Fine. Lose my number.']
       },
@@ -3090,24 +3299,24 @@
       ],
       start:'I found your number. I hope that’s okay. I’m going to call you.',
       first:'You didn’t answer my message for an hour. I thought something had happened to you. {f1} says I’m too much. {f2} says it too. They don’t know what we have.',
-      later:['I can hear your fridge humming. I know which flat is yours.','Who were you texting? Don’t lie. I can tell when you lie.','{f1} and {f2} want me to delete the app. I deleted them instead.','Say my name. Just say it. I need to hear it.','Sorry. Sorry. I’m not like this. You make me like this.','Mum keeps ringing me. Ruth. She says I’m in one of my bad patches. I’m not in a bad patch. I’m in love.'],
+      later:['I can hear your fridge humming. I know which apartment is yours.','Who were you texting? Don’t lie. I can tell when you lie.','{f1} and {f2} want me to delete the app. I deleted them instead.','Say my name. Just say it. I need to hear it.','Sorry. Sorry. I’m not like this. You make me like this.','Mom keeps calling me. Ruth. She says I’m in one of my bad patches. I’m not in a bad patch. I’m in love.'],
       calm:['Okay. Okay. Stay on the phone. Don’t hang up first.','You sound so calm. How are you so calm?'],
       promise:['Say it again. Say it’s only me.','Promise. You promised. I wrote it down.'],
       over:['No. You don’t get to decide that.','You don’t get to leave. Nobody gets to leave.'],
       missed:['Pick up. Please pick up.','Why are you doing this to me?','Fine.','I can see your phone is on.'],
-      flood:[['Where are you?','Why won’t you pick up?','Hello?'],['I miss you.','What happened to us?','We were so good.'],['I can see you’re online.','Answer me.','ANSWER ME.'],['I’m sorry. I’m sorry. I’m not angry.','Just pick up.','I love you. You know that, right?'],['Is she there?','Is that why?','Tell me her name.'],['Mum keeps ringing.','I’m not answering her either.','Only you.']],
+      flood:[['Where are you?','Why won’t you pick up?','Hello?'],['I miss you.','What happened to us?','We were so good.'],['I can see you’re online.','Answer me.','ANSWER ME.'],['I’m sorry. I’m sorry. I’m not angry.','Just pick up.','I love you. You know that, right?'],['Is she there?','Is that why?','Tell me her name.'],['Mom keeps ringing.','I’m not answering her either.','Only you.']],
       voicemail:['It’s me. You know it’s me. Pick up.','I counted the rings. Eleven. You let it ring eleven times.','I’m not angry. I just miss you. What happened to us?','I’ll keep calling. You know I will.','Your light’s off. Are you asleep? Are you with someone?','I wrote you a letter. Then I wrote it again. Call me and I’ll read it to you.'],
-      friend:'Mo? Oh no. What’s she done now? Her mum is Ruth Bell. She’s the only one Mo listens to. {number}. Please don’t tell her it was me.',
+      friend:'Mo? Oh no. What’s she done now? Her mom is Ruth Bell. She’s the only one Mo listens to. {number}. Please don’t tell her it was me.',
       momTell:'Moira has had bad patches before. What has she done? Tell me exactly what she said.',
-      momRight:'That’s what happened last time. I’m ringing her doctor and the crisis team now. They can section her if they have to, and this time they will. Thank you for telling me.',
+      momRight:'That’s what happened last time. I’m calling her doctor and the crisis team now. They can section her if they have to, and this time they will. Thank you for telling me.',
       momVm:'Oh, Mo. That’s her. That’s exactly how she was last time. I’m ringing the crisis team now. They’ll section her if they have to. Thank you.',
       vmLabel:'Play her Moira’s voicemails',
-      newsroom:{label:'Ask the newsroom about Moira Bell',reply:'Moira? She hasn’t filed a story in a week. Her mum, Ruth Bell, keeps ringing the desk asking if anyone has seen her. This is the number she left: {number}. If you’re a friend, please ring her.'},
-      clues:{doreen:'Doreen on 911: if Moira is a danger to herself or to you, her family can have her sectioned. Her friends, or the people she works with, will know her family.',number:'Moira’s mum is Ruth Bell, on {number}. Moira listens to her.',told:'Ruth Bell wants to know exactly what Moira has said, or to hear it.'},
+      newsroom:{label:'Ask the newsroom about Moira Bell',reply:'Moira? She hasn’t filed a story in a week. Her mom, Ruth Bell, keeps ringing the desk asking if anyone has seen her. This is the number she left: {number}. If you’re a friend, please call her.'},
+      clues:{doreen:'Doreen on 911: if Moira is a danger to herself or to you, her family can have her committed. Her friends, or the people she works with, will know her family.',number:'Moira’s mom is Ruth Bell, on {number}. Moira listens to her.',told:'Ruth Bell wants to know exactly what Moira has said, or to hear it.'},
       momWrong:'That doesn’t sound like my daughter.',
       momDone:'Don’t call this number again about my family.',
-      safe:'Ruth Bell left you a voicemail: Moira has been sectioned. She’s in hospital, she’s safe, and so are you.',
-      safeVm:'It’s Ruth Bell. They took Moira in last night. She’s been sectioned, and she’s safe, and she’s getting help. She won’t ring you again. Thank you for telling me. I mean that.',
+      safe:'Ruth Bell left you a voicemail: Moira has been committed. She’s in the hospital, she’s safe, and so are you.',
+      safeVm:'It’s Ruth Bell. They took Moira in last night. She’s been committed, and she’s safe, and she’s getting help. She won’t call you again. Thank you for telling me. I mean that.',
       deaths:['The door was locked. It didn’t matter.','Someone was sitting on the end of the bed.','The phone rang, and rang, and then it was in the room.']
     };
     // Her state lives in world.caller so it's saved with the run.
@@ -3243,7 +3452,7 @@
       greeting:'LPC Laboratories. This line is recorded.',
       order:'One pot. On your doorstep tomorrow. One tablet, at night. Not two. Never two.',
       what:'Confidence. Presence. A certain gravity. The side effects are temporary. So are the effects.',
-      delivered:'A small unmarked parcel just inside your door: a white pot labelled LPC-A365, and a leaflet in very small print.',
+      delivered:'A small unmarked parcel just inside your door: a white pot labeled LPC-A365, and a leaflet in very small print.',
       item:'A white pot with a blue lid. LPC-A365. The leaflet says one tablet at night, then sleep. It smells faintly of expensive cologne.',
       scene:[{image:'assets/events/glow-pot.png',caption:'LPC-A365. One tablet at night.'},{image:'assets/events/glow-pill.png',caption:'One small white tablet. It smells like a department store.'},{image:'assets/events/glow-swallow.png',caption:'Down it goes.'},{image:'assets/events/glow-selfie.png',caption:'You take a selfie. The flash goes off. For a second you look like somebody else.',flash:true}],
       awake:'You wake up and something is different. Your reflection is standing up straighter than you are.',
@@ -3333,7 +3542,7 @@
       sweet:['I don’t usually like talking on the phone. I like talking to you.','You’re not like the others on that app. You actually listen.','I wrote a poem today. Don’t ask. Okay, it was about you. A bit.'],
       warm:['That’s the nicest thing anyone’s said to me in a while.','See? This is why I call you.','Stop. I’m smiling like an idiot.'],
       brad:'So. I need to tell you something before you hear it from someone else. I’ve been seeing someone. His name is Brad.',
-      why:'Honestly? He’s just better. He’s taller than you. Like, a lot taller. He has a jawline, and a car, and friends who aren’t on the internet. He walks into a room and people turn round. You walk into a room and people check their phones. He’s better than you in every way. Sorry. You asked.',
+      why:'Honestly? He’s just better. He’s taller than you. Like, a lot taller. He has a jawline, and a car, and friends who aren’t on the internet. He walks into a room and people turn around. You walk into a room and people check their phones. He’s better than you in every way. Sorry. You asked.',
       happy:'You’re happy for me? That’s honestly the saddest thing I’ve ever heard.',
       hangup:'Wow. You hung up. That’s exactly why.',
       last:'Please don’t message me again. Brad gets jealous. Not that he needs to.'
@@ -3356,7 +3565,7 @@
 
     // ===== Truecel: the group chat =====
     const LEAK={
-      tip:'Someone in the girls’ group chat is posting screenshots of your messages. The one going round is when you asked {topic}. I’m not saying who. Work it out.',
+      tip:'Someone in the girls’ group chat is posting screenshots of your messages. The one going around is when you asked {topic}. I’m not saying who. Work it out.',
       ask:'Have you been posting my messages in a group chat?',
       label:'Ask if she’s been posting your messages',
       guilty:['Yeah. It was me. You were funny. Not in a good way.','Okay, yes. Everyone was bored, and you were content.'],
@@ -3419,11 +3628,11 @@
     // drawn (assets/tutorial/tutorial-N.png, NEW_IMAGE_REQUESTS.md); until then, its words.
     var TUTORIAL=[
       {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls and Settings.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to tomorrow. The time of day changes too.']},
-      {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will ring you.']},
+      {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will call you.']},
       {title:'The paper',points:['A new paper arrives every day. Tap a story to read it.','Stories are where things start. Read them, and you’ll know what to ask about.','Read the classifieds too. People sell things you might need: ring the number in the ad.']},
       {title:'Calls and Contacts',points:['Dial a number on the keypad. 911 always answers.','Numbers you learn go in Contacts: from the paper, and from women who know the right people.','Missed a call? Look in Voicemail.']},
       {title:'Your room',points:['Put the phone down to look around your room. Things in it can be tapped.','Things people leave you come through your door and land on the floor. Tap them to pick them up.','Your bedside cupboard keeps what you pick up and find: things people give you, case files and your notebook.','Open a case file to lay out what you’ve found, and connect the pieces that belong together.','Your notebook keeps everything you’ve been told.']},
-      {title:'A connected world',points:['We live in a very connected world. The best way to get anything done is to find the right people on Hinge, talk to them and ask.','Ask for information, for numbers, for favours, and sometimes for things you need.','Some women have something going on in their lives. Help, and they may owe you a favour.','Keep an eye on everything: the paper, the classifieds, what women tell you. Everything ends up being useful.']}
+      {title:'A connected world',points:['We live in a very connected world. The best way to get anything done is to find the right people on Hinge, talk to them and ask.','Ask for information, for numbers, for favors, and sometimes for things you need.','Some women have something going on in their lives. Help, and they may owe you a favor.','Keep an eye on everything: the paper, the classifieds, what women tell you. Everything ends up being useful.']}
     ];
     var tutorialPage=0;
     function openTutorial(page=0){tutorialPage=Math.max(0,Math.min(TUTORIAL.length-1,page));$('tutorial').hidden=false;renderTutorial();}
@@ -3455,18 +3664,18 @@
         {id:'d911_name',label:'Ask who you’re talking to',reply:'Doreen. Twenty-two years on these phones. I’ve heard everything twice and believed about half.',when:()=>true},
         {id:'d911_noise',label:'Report a noise outside',reply:'Probably the Hendersons’ dog again. I’ll ask a car to drive past if one comes free.',when:()=>['bedroom-dusk','bedroom-night'].includes(time.value)},
         {id:'d911_paper',label:'Ask about this morning’s front page',say:()=>{const lead=getNewsEdition(world.day).items[0];return lead?`Oh, that one. We’ve had people ringing about it since the paper came out. ${dispatchAboutStory(lead)}`:'I haven’t seen the paper yet, love.';},when:()=>world.paperDay===world.day},
-        {id:'d911_bear',label:'Report a bear',reply:'A bear. Right. I’ll put you through to Wildlife. They’ll ring you back. They won’t ring you back.',when:()=>bearState!=='none'},
-        {id:'d911_caller',label:'Report a woman who won’t stop ringing',say:()=>{recordClue(CALLER.clues.doreen);return 'Has she threatened you? We can’t arrest someone for wanting you too much. But if she’s a danger to herself, or to you, her family can ask a doctor to assess her and have her sectioned. Find her family, love. Her friends will know them, or the people she works with.';},when:()=>callerActive()},
+        {id:'d911_bear',label:'Report a bear',reply:'A bear. Right. I’ll put you through to Wildlife. They’ll call you back. They won’t call you back.',when:()=>bearState!=='none'},
+        {id:'d911_caller',label:'Report a woman who won’t stop ringing',say:()=>{recordClue(CALLER.clues.doreen);return 'Has she threatened you? We can’t arrest someone for wanting you too much. But if she’s a danger to herself, or to you, her family can ask a doctor to assess her and have her committed. Find her family, love. Her friends will know them, or the people she works with.';},when:()=>callerActive()},
         {id:'d911_dad',label:'Report a police officer who rang to threaten you',reply:'I can’t discuss officers, love. Was there anything else?',when:()=>dadState().called}
       ]
     };
     function dispatchAboutStory(item){
       const text=`${item.section} ${item.title}`.toLowerCase();
-      if(/missing|blue ribbon|organiser/.test(text))return 'If you know something, the detectives want to hear it. If you don’t, please stop ringing them.';
-      if(/professor|vale|campus|academic/.test(text))return 'That professor rings us more than we ring him.';
+      if(/missing|blue ribbon|organiser/.test(text))return 'If you know something, the detectives want to hear it. If you don’t, please stop calling them.';
+      if(/professor|vale|campus|academic/.test(text))return 'That professor calls us more than we call him.';
       if(/bear|wildlife/.test(text))return 'And no, we don’t know where it went.';
       if(/storm|power|traffic|roadworks/.test(text))return 'It’ll be on the radio. Everything is.';
-      return 'Sunfall doesn’t get much news. When it does, everyone rings me.';
+      return 'Sunfall doesn’t get much news. When it does, everyone calls me.';
     }
     function dispatchTopics(){return DISPATCH.topics.filter(topic=>{try{return topic.when();}catch{return false;}}).map(topic=>({...topic,dispatch:true}));}
     // Gating: you only ask about a case once you have a reason to. Opening the paper on a day a case
@@ -3481,10 +3690,10 @@
     // Mogger event, and Theon's women can set him on you too.
     var DAD={
       portrait:'assets/events/dad-portrait.webp',
-      open:'Is this the lad who’s been messaging my daughter? I’m her father, and I’m a police officer. Get your hands off my daughter. Unmatch her. Tonight.',
+      open:'Is this the guy who’s been messaging my daughter? I’m her father, and I’m a police officer. Get your hands off my daughter. Unmatch her. Tonight.',
       yes:'Good. I’ll know if you don’t.',
       adult:'She’s my daughter. Unmatch her, son.',
-      creepy:'Is this the lad who’s been sending creepy messages to my daughter? I’m her father. I’m a police officer. I’ve read every one of them.',
+      creepy:'Is this the guy who’s been sending creepy messages to my daughter? I’m her father. I’m a police officer. I’ve read every one of them.',
       believe:'Theon. Right. Leave it with me, son.',
       half:'Orsino? Then you’d better find him before I find you.',
       doubt:'That’s what they all say.',
@@ -3492,7 +3701,7 @@
       vmOpen:'This is her father. I’m a police officer. Unmatch my daughter. Tonight.',
       vmCreepy:'This is her father. I’ve read what you sent my daughter. I’ll see you soon.',
       daughterTold:'My dad is a police officer. I’ve shown him everything.',
-      deaths:['The patrol car was gone by morning.','His report says you fell down the stairs.','The neighbours heard nothing. He made sure of that.'],
+      deaths:['The patrol car was gone by morning.','His report says you fell down the stairs.','The neighbors heard nothing. He made sure of that.'],
       // Twelve pictures of him coming in (NEW_IMAGE_REQUESTS.md); until they're made, your own room stands in.
       steps:[
         {image:'assets/events/dad-01.png',stand:'room',lights:true,caption:'Headlights sweep across your ceiling, then stop.'},
@@ -3500,7 +3709,7 @@
         {image:'assets/events/dad-03.png',stand:'room',caption:'A big man gets out. He doesn’t hurry.'},
         {image:'assets/events/dad-04.png',stand:'room-open',caption:'Three knocks on the front door. Polite ones.'},
         {image:'assets/events/dad-05.png',stand:'room-open',caption:'The handle turns. You locked it. It opens anyway.'},
-        {image:'assets/events/dad-06.png',stand:'room-open',caption:'A torch beam finds the hallway.'},
+        {image:'assets/events/dad-06.png',stand:'room-open',caption:'A flashlight beam finds the hallway.'},
         {image:'assets/events/dad-07.png',stand:'room-open',caption:'Heavy steps on the stairs. One at a time.'},
         {image:'assets/events/dad-08.png',stand:'room-open',caption:'Light under your bedroom door.'},
         {image:'assets/events/dad-09.png',stand:'shadow',caption:'I asked you nicely, son.',creepy:'You wrote to my daughter. I read every word.'},
@@ -3567,21 +3776,21 @@
       gone:['I’m not waiting for an explanation. Bye.','Nothing to say for yourself? Fine.'],
       look:'Give me a minute. Okay, found him. Reverse image search, takes seconds. He’s calling himself Orsino.',
       goth:'A man who writes like that? Long fair hair, a beard, a black cloak with a big round brooch. Reads poetry to the graves at the old cemetery. Everyone knows him. Theon. Don’t ever let him read to you.',
-      police:'You didn’t hear this from me. He rents the flat above the old Rialto. Don’t go round there.',
-      sort:{police:'Leave it with me. Some of the lads owe me a favour.',goth_girls:'My brothers have been waiting for an excuse to visit the Rialto.',thunderbirds:'Daddy has people for this sort of thing. Consider it done.',fourth_estate:'I know a few men who owe me a story. Leave it with me.'},
+      police:'You didn’t hear this from me. He rents the apartment above the old Rialto. Don’t go around there.',
+      sort:{police:'Leave it with me. Some of the guys owe me a favor.',goth_girls:'My brothers have been waiting for an excuse to visit the Rialto.',thunderbirds:'Daddy has people for this sort of thing. Consider it done.',fourth_estate:'I know a few men who owe me a story. Leave it with me.'},
       uni:'We can’t discuss students. Although if you mean Theon, he isn’t one any more. He was asked to leave the drama course. He wouldn’t stop speaking in verse in his exams.',
-      paper:'Theon? He has sent us forty letters to the editor, every one of them in verse. They all have the same return address: the flat above the old Rialto.',
+      paper:'Theon? He has sent us forty letters to the editor, every one of them in verse. They all have the same return address: the apartment above the old Rialto.',
       policeYes:'A profile, a name and an address. That we can use. Officers will call on him tonight.',
       policeProfile:'We can’t arrest a profile picture. Bring us a name and an address.',
       policeNothing:'So these messages were sent with your photographs. Interesting. We’ll make a note.',
-      caughtNotice:'Sunfall Police arrested a man at the flat above the old Rialto. The verses have stopped.',
+      caughtNotice:'Sunfall Police arrested a man at the apartment above the old Rialto. The verses have stopped.',
       sortedNotice:'Your phone is quiet. Nobody has written to anyone in verse.',
       quiet:'Your phone is quiet. No more calls in verse.',
       // He only comes in the evening or at night. Four stages, drawn for each (NEW_IMAGE_REQUESTS.md).
       approach:{
         door:'Your bedroom door opens a hand’s width. Fingers first. Long ones.',
         side:'He slides in sideways, too smoothly, as if the floor were carrying him.',
-        close:'He doesn’t walk towards you. He is simply nearer every time you look.',
+        close:'He doesn’t walk toward you. He is simply nearer every time you look.',
         face:'He is right in front of you, close enough to smell the cloak. Good evening, Majesty, he whispers.',
         hands:'Then there are hands on your face. His hands. From behind.'
       },
@@ -3594,36 +3803,36 @@
         {id:'911',label:'☎ Call 911'}
       ],
       deaths:['He kept your face. He always meant to.','By morning there were two of you on Hinge, and one of them was smiling.','The messages kept coming for weeks. Everyone said they sounded just like you.'],
-      notes:{start:'Someone is writing to women in verse, with your face on it.',profile:'A profile called Orsino, 34, uses your photographs. Drama, Sunfall University (unfinished).',name:'His name is Theon.',home:'He lives in the flat above the old Rialto.',
+      notes:{start:'Someone is writing to women in verse, with your face on it.',profile:'A profile called Orsino, 34, uses your photographs. Drama, Sunfall University (unfinished).',name:'His name is Theon.',home:'He lives in the apartment above the old Rialto.',
         over:{caught:'The police took him away.',sorted:'Somebody dealt with him.',hidden:'He won’t be writing to anyone again.',shot:'He won’t be writing to anyone again.'}},
       hints:{none:'Hint: men like him leave a trail. Read the paper.',profile:'Hint: he has been seen on campus. Someone there knows him better than she’d like.',name:'Hint: a man who writes this much has written to someone who keeps the envelopes.',home:'Hint: you know where he lives now. So could someone with a badge, or someone with friends.'},
       news:{
-        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested Theon, a former drama student, at a flat above the old Rialto. Neighbours called him polite and said he spoke in verse. Police thanked a member of the public.'},
+        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested Theon, a former drama student, at a apartment above the old Rialto. Neighbors called him polite and said he spoke in verse. Police thanked a member of the public.'},
         sorted:{section:'Crime',title:'MAN FOUND DEAD ON RAILWAY LINE',summary:'Police name him as Theon, a university dropout known to them for stalking.',body:'A man in a black cloak was found tied to the railway line outside Sunfall. Police named him as Theon, who dropped out of Sunfall University, and said he had been known to them for stalking women for several years. Nobody has come forward.',image:'theon_tracks',fallbackImage:'crime_motel'},
         hidden:{section:'Missing',title:'LOCAL POET NOT SEEN FOR DAYS',summary:'His landlord says the rent was paid in advance.',body:'Friends of a former drama student say nobody has seen him at the old cemetery, where he read to the graves. He leaves a wardrobe of black cloaks and forty unpublished sonnets.'}
       }
     };
     // --- Theon: the revolver (from the paper) and the women he stalks at the university ---
     var GUN={
-      ad:{section:'Classifieds',title:'ESTATE SALE: A SERVICE REVOLVER',summary:'A widow is clearing her late husband’s study. Delivered to your door.',body:'Mrs Margaret Oakley is selling her late husband Harold’s service revolver, in its box, cleaned and loaded. She would rather not have it in the house. Ring {number}. Her grandson will drop it round.'},
+      ad:{section:'Classifieds',title:'ESTATE SALE: A SERVICE REVOLVER',summary:'A widow is clearing her late husband’s study. Delivered to your door.',body:'Mrs. Margaret Oakley is selling her late husband Harold’s service revolver, in its box, cleaned and loaded. She would rather not have it in the house. Ring {number}. Her grandson will drop it round.'},
       greeting:'Oakley residence. Is this about Harold’s gun?',
       order:'Oh, thank goodness. My grandson will bring it round tomorrow. Please don’t tell me what it’s for.',
       what:'It was Harold’s, from his years on the force. He never fired it, he always said. I never asked.',
       when:'Tomorrow, love. He’s a good boy. He’ll leave it on the step.',
-      delivered:'A shoebox just inside your door, wrapped in a tea towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
-      item:'Harold Oakley’s service revolver, in its box, wrapped in a tea towel. Loaded. Mrs Oakley’s note says: please don’t tell me what it’s for.'
+      delivered:'A shoebox just inside your door, wrapped in a dish towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
+      item:'Harold Oakley’s service revolver, in its box, wrapped in a dish towel. Loaded. Mrs. Oakley’s note says: please don’t tell me what it’s for.'
     };
     // Three women at the university. Each knows your face from his profile, one thing about him,
     // and how to bring him to you.
     var FIONN_GIRL_IDS=['MATCH-005','MATCH-022','MATCH-054'];
     FIONN.girls={
       'MATCH-005':{gives:['name'], // Clara Weiss, university student
-        open:'Wait. Is this actually you? A man calling himself Orsino has your face on his profile, and he’s been leaving poems under my windscreen wiper at the university for weeks.',
+        open:'Wait. Is this actually you? A man calling himself Orsino has your face on his profile, and he’s been leaving poems under my windshield wiper at the university for weeks.',
         about:'His name is Theon. He was on the drama course until they threw him out. He sits at the back of the library in that cloak and writes about me in the margins of the books.',
         lure:'He goes wherever he thinks I am. Every time. Tell him I’m staying at yours and he’ll be on your doorstep that night.'},
       'MATCH-022':{gives:['home'], // Chloe Farrow, art student
         open:'Oh my God, you’re the real one. Someone’s using your photos. He sits outside the art block every day in a black cloak and draws me. Badly.',
-        about:'I followed him home once, to see. The flat above the old Rialto. He has drawings of me stuck all over the window. I wish I hadn’t looked.',
+        about:'I followed him home once, to see. The apartment above the old Rialto. He has drawings of me stuck all over the window. I wish I hadn’t looked.',
         lure:'If he thought I was at your place, he’d come. He always comes when he thinks I’m on my own.'},
       'MATCH-054':{gives:['name'], // Rosa Gutierrez, graduate student
         open:'You have his face. Sorry, he has yours. The man in the cloak who reads poems outside my seminar room signs them Orsino, and his picture is you.',
@@ -3672,7 +3881,7 @@
       const list=names.length>1?`${names.slice(0,-1).join(', ')} and ${names.at(-1)}`:names[0];
       const count=['One student says','Two students say','Three students say'][names.length-1];
       return {id:'fionn_campus_'+day,section:'Campus',title:'STUDENTS REPORT MAN IN CLOAK ON CAMPUS',summary:`${count} a man in a black cloak follows them and leaves them poems.`,
-        body:`${list}, at Sunfall University, ${names.length>1?'say':'says'} a man in a black cloak has followed them for weeks, leaving poems under windscreen wipers and outside seminar rooms. Campus security say no crime has been committed.`,image:'professor_campus',locked:true};
+        body:`${list}, at Sunfall University, ${names.length>1?'say':'says'} a man in a black cloak has followed them for weeks, leaving poems under windshield wipers and outside seminar rooms. Campus security say no crime has been committed.`,image:'professor_campus',locked:true};
     }
     function fionnAdItem(day){
       const f=fionnState();
@@ -3682,7 +3891,7 @@
     }
     function fionnGunLine(number){
       const f=fionnState();
-      return f.gunNumber&&f.gunNumber===String(number)?{id:'service:oakley',name:'Mrs Oakley',portrait:'assets/icons/calls.png',generic:true,greeting:GUN.greeting}:null;
+      return f.gunNumber&&f.gunNumber===String(number)?{id:'service:oakley',name:'Mrs. Oakley',portrait:'assets/icons/calls.png',generic:true,greeting:GUN.greeting}:null;
     }
     function fionnGunTopics(){
       const gun=fionnState().gun;
@@ -3957,7 +4166,7 @@
       const f=fionnState();
       const choice=fionnChoices(thread,profile).find(([key])=>key===id);
       if(!choice)return;
-      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Theon? He’s using my pictures.','fionn:sort':f.clues.includes('name')?'Theon lives above the old Rialto. Could someone have a word with him?':'There’s a man in the flat above the old Rialto. He’s stalking women with my face. Could someone have a word with him?','fionn:g:about':'What do you know about him?','fionn:show':'Look. This is the profile he’s using. That’s my face, but it isn’t me.','fionn:g:lure':'How would I get him to come to me?'}[id]});
+      thread.log.push({who:'you',text:{'fionn:notme':'It wasn’t me. Someone’s using my pictures.','fionn:sorry':'I’m sorry.','fionn:look':'Someone’s using my pictures to message women. Could you find out who?','fionn:verse':'Do you know anyone who writes like this? In verse?','fionn:run':'Could you look up a man called Theon? He’s using my pictures.','fionn:sort':f.clues.includes('name')?'Theon lives above the old Rialto. Could someone have a word with him?':'There’s a man in the apartment above the old Rialto. He’s stalking women with my face. Could someone have a word with him?','fionn:g:about':'What do you know about him?','fionn:show':'Look. This is the profile he’s using. That’s my face, but it isn’t me.','fionn:g:lure':'How would I get him to come to me?'}[id]});
       if(id==='fionn:g:about'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':about');girl.gives.forEach(fionnClue);warmBy(thread,1);return fionnReply(thread,profile,[{text:girl.about}]);}
       if(id==='fionn:g:lure'){const girl=FIONN.girls[thread.id];f.asked.push(thread.id+':lure');if(!f.bait)f.bait=thread.id;return fionnReply(thread,profile,[{text:girl.lure}]);}
       if(id==='fionn:show'){delete f.waiting[thread.id];warmBy(thread,1);return fionnReply(thread,profile,[{text:FIONN.shown[world.day%FIONN.shown.length]}]);} // proof: she believes you
@@ -4162,7 +4371,7 @@
         older:'A woman old enough to be your mother says you asked her for pictures.',
         accused:'A young woman says you accused her of spreading your messages round a group chat, and kept on at her.'
       },
-      open:'Sunfall Police, the duty sergeant speaking. We’ve had a complaint about you. {reason} Nobody’s coming round tonight. This is your warning.',
+      open:'Sunfall Police, the duty sergeant speaking. We’ve had a complaint about you. {reason} Nobody’s coming around tonight. This is your warning.',
       sorry:'Good. Keep it that way. If your name crosses my desk again, we come to your door.',
       deny:'Maybe so. It’s on file all the same. One more complaint and we come to your door, and we won’t ring first.',
       voicemail:'Sunfall Police, for you. We’ve had a complaint. {reason} Consider this your warning. One more and we come to your door.',
@@ -4634,7 +4843,7 @@
       if(p?.has&&!p.flushed)out.push({id:'mini:pills',door:true,floor:'parcel',label:kit.pills.item.label,short:'Pills',image:'assets/items/pills-bag.png',text:miniFill(kit.pills.item.text,'pills'),actions:[{id:'mini:pills:take',label:kit.pills.take.label},{id:'mini:pills:flush',label:kit.pills.flush.label}]});
       if(c?.has&&!c.handed)out.push({id:'mini:cleaner',door:true,floor:'parcel',label:kit.cleaner.item.label,short:'Ring',image:'assets/items/stolen-ring.png',text:miniFill(kit.cleaner.item.text,'cleaner')});
       if(e?.has)out.push({id:'mini:envelope',door:true,floor:'envelope',label:kit.envelope.item.label,short:'Envelope',image:'assets/items/envelope.png',text:kit.envelope.item.text+(e.took?kit.envelope.took:''),actions:e.took?[]:[{id:'mini:envelope:take',label:kit.envelope.take.label}]});
-      if(e?.gift)out.push({id:'mini:whisky',door:true,floor:'parcel',label:kit.envelope.gift.label,short:'Whisky',image:'assets/items/whisky.png',text:kit.envelope.gift.text});
+      if(e?.gift)out.push({id:'mini:whisky',door:true,floor:'parcel',label:kit.envelope.gift.label,short:'Whiskey',image:'assets/items/whisky.png',text:kit.envelope.gift.text});
       if(w?.page)out.push({id:'mini:watch',door:true,floor:'letter',label:kit.watch.pageItem.label,short:'Watch file',image:'assets/items/watch-page.png',text:kit.watch.pageItem.text});
       return out;
     }
@@ -4786,12 +4995,12 @@
       const fav=favourNow(profile),f=storyKit().favour;
       if(!fav)return;
       arcsState().fav[profile.id]='used';
-      thread.log.push({who:'you',text:'Can I ask you a favour? You said you owed me one.'});
+      thread.log.push({who:'you',text:'Can I ask you a favor? You said you owed me one.'});
       const lines=[f.thanks];let after=null;
       if(fav.kind==='theon'){const next=['profile','name','home'].find(k=>!fionnState().clues.includes(k));lines.push(f.theon[next]);after=()=>fionnClue(next);}
       else if(fav.kind==='moira'){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();lines.push(fillIn(f.moira.reply,{number:c.momNumber}));}
       else if(fav.kind==='chapel'){const night=chapel.tellNight?.(firstName(profile));if(night)lines.push(fillIn(f.chapel.night,{night}));}
-      else if(fav.kind==='br'){const id=BR_FAVOUR_SCRAPS.find(key=>!brState().found[key]);lines.push(f.br.reply);after=()=>brFindScrap(id,`A favour from ${profile.name}`);}
+      else if(fav.kind==='br'){const id=BR_FAVOUR_SCRAPS.find(key=>!brState().found[key]);lines.push(f.br.reply);after=()=>brFindScrap(id,`A favor from ${profile.name}`);}
       deliverTalk(thread,profile,lines,'talk',after,true);
     }
     // The choices her story adds to the chat, with their rank (0 is most important).
@@ -5006,6 +5215,8 @@
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       miniNewDay(); // the mini quests
       quietNewDay(); // conversations run out
+      laterNewDay(); // answers she slept on
+      lifeNewDay(); // her life moves on
       const kit=talkKit();
       if(!kit?.morning)return;
       let sent=0;
@@ -5501,7 +5712,7 @@
       const callsTab=event.target.closest('[data-calls-view]');
       if(callsTab){callsView=callsTab.dataset.callsView;renderCalls();return;}
       const noteNumber=event.target.closest('[data-note-dial]');
-      if(noteNumber&&!noteNumber.disabled){dialledNumber=noteNumber.dataset.noteDial;dialStatus=currentApp==='calls'?'Ready to ring back.':'Number copied from Contacts.';callsView='keypad';openApp('calls');return;}
+      if(noteNumber&&!noteNumber.disabled){dialledNumber=noteNumber.dataset.noteDial;dialStatus=currentApp==='calls'?'Ready to call back.':'Number copied from Contacts.';callsView='keypad';openApp('calls');return;}
       const story=event.target.closest('[data-news-read]');
       if(story){readNewsStory(story.dataset.newsRead);return;}
       const swipe=event.target.closest('[data-swipe]');
@@ -5929,7 +6140,7 @@
       if(s.witness==='known')return {status:'needs_protection',reply:'We can’t take this while your witness is exposed to risk. Protect their identity first, then call back.'};
       const dossier=brEvaluateDossier();
       if(dossier.strong){
-        brSetOutcome('success',['At least three genuinely independent sources backed each other up.','No rumours or contradicted theories in the file.','Your witness stayed protected.']);
+        brSetOutcome('success',['At least three genuinely independent sources backed each other up.','No rumors or contradicted theories in the file.','Your witness stayed protected.']);
         return {status:'success',reply:'This is well corroborated. We are opening an inquiry and arranging protection for your witness. Watch the papers over the next few days.'};
       }
       const reasons=dossier.wrong.map(claim=>`Contradicted or unsupported: ${claim.text}`);
@@ -5975,13 +6186,13 @@
           s.retaliationDay=world.day+(rules.retaliationDelayDays||2);
           s.warnedDay=world.day;
           brQueueNews(world.day,BR.news.warning,'warning:'+world.day);
-          recordClue(`Day ${world.day}: a grey sedan keeps idling outside your home. Someone is watching.`);
+          recordClue(`Day ${world.day}: a gray sedan keeps idling outside your home. Someone is watching.`);
           return 'warning';
         }
         if(world.day>=s.retaliationDay){s.retaliated=true;return 'invasion';}
       }else if(s.retaliationDay!==null){
         s.retaliationDay=null;
-        recordClue(`Day ${world.day}: the grey sedan has gone. Keeping quiet seems to have worked, for now.`);
+        recordClue(`Day ${world.day}: the gray sedan has gone. Keeping quiet seems to have worked, for now.`);
       }
       if(!s.outcome){
         if(s.witness==='known'&&s.suspicion>=rules.watched)brExposeWitness('people watching you followed your calls to her');
@@ -6179,7 +6390,7 @@
         thread.log.push(line);thread.pending=false;
         if(topic.clue)recordClue(topic.clue);
         if(topic.suspicion)brAddSuspicion(topic.suspicion,topic.suspicionReason||`You asked ${profile.name} about the Blue Ribbon case.`);
-        if(topic.exposes)brExposeWitness(`${profile.name} recognised her from your description`);
+        if(topic.exposes)brExposeWitness(`${profile.name} recognized her from your description`);
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,'case'));
     }
@@ -6353,7 +6564,7 @@
       const empty=Object.keys(s.found).length?'':'<div class="ev-empty">No scraps yet. Read the Sunfall Daily, ask around in Hinge chats and make careful phone calls.</div>';
       const links=s.links.map(brClaim).filter(Boolean).map(claim=>{
         const twice=!['weak','same_source'].includes(claim.type)&&brApparentGroup(claim.a)===brApparentGroup(claim.b);
-        const note=claim.type==='weak'?'Circumstantial: does not count towards a report.':claim.type==='same_source'?'Shows both scraps come from one source.':twice?'⚠ Same source twice: counts once at most.':'';
+        const note=claim.type==='weak'?'Circumstantial: does not count toward a report.':claim.type==='same_source'?'Shows both scraps come from one source.':twice?'⚠ Same source twice: counts once at most.':'';
         return `<div class="ev-link"><span>${title(claim.a)} ↔ ${title(claim.b)}</span><em>[${typeLabel(claim.type)}] ${esc(claim.text)}</em>${note?`<em class="warn">${esc(note)}</em>`:''}${open?`<button data-ev-unpin="${esc(claim.id)}" aria-label="Remove this connection">✕</button>`:''}</div>`;
       }).join('');
       let modal='';
@@ -6518,7 +6729,7 @@
       if(glowState().stage==='delivered')items.push({id:'lpc',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
       if(fionnRevolver())items.push({id:'revolver',door:true,floor:'shoebox',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
       const m=world.marriage;
-      if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweller'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
+      if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweler'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
       if(BR){
         const s=brState();
         for(const scrap of BR.scraps)if(s.found[scrap.id])items.push({id:'br:'+scrap.id,label:scrap.title,short:SCRAP_SHORT[scrap.id],image:scrap.image||null,
@@ -6787,7 +6998,7 @@
     // once the game has given you their number (the paper prints the newsroom tip line
     // and the police number; Vale's stories, the university; the faith pages or the
     // Chapel case, St Brigid's). Saves from before Contacts existed list all four.
-    const SERVICE_CONTACTS={police:['Sunfall Police','Emergencies and reports'],newsroom:['Sunfall Daily newsroom','Tip line'],chapel:['St Brigid’s Chapel','Parish office'],university:['University Office','Campus switchboard']};
+    const SERVICE_CONTACTS={police:['Sunfall Police','Emergencies and reports'],newsroom:['Sunfall Daily newsroom','Tip line'],chapel:['St. Brigid’s Chapel','Parish office'],university:['University Office','Campus switchboard']};
     // Police (911) is always in Contacts. The others you have to ask for: a reporter for the
     // newsroom, a Sister for St Brigid's, someone on campus for the University Office.
     function serviceKnown(key){
@@ -6798,7 +7009,7 @@
     const SERVICE_ASKS={
       newsroom:{who:profile=>profile.factionId==='fourth_estate',label:'Ask for the newsroom’s number',player:'Could I get the Sunfall Daily newsroom’s number? I might have a tip.',
         reply:['The tip line is {number}. Ask for me by name, or don’t, and see who picks up.','{number}. It rings on the desk next to mine. If it’s good, I want the byline.','Here: {number}. Off the record, the night desk is friendlier.']},
-      chapel:{who:profile=>profile.factionId==='sisters_of_mercy',label:'Ask for St Brigid’s number',player:'Could I have the number for St Brigid’s parish office?',
+      chapel:{who:profile=>profile.factionId==='sisters_of_mercy',label:'Ask for St. Brigid’s number',player:'Could I have the number for St. Brigid’s parish office?',
         reply:['Of course. The parish office is {number}. If Margaret answers, be polite: she remembers everything.','{number}. Ring after Mass, when someone’s there. God bless.','It’s {number}. I’m glad you want to call. Truly.']},
       university:{who:profile=>profile.factionId==='progressives'||/universit|lectur|campus|college|research|student|professor/i.test(`${profile.canonicalOccupation} ${hingeJobs[profile.id]||''}`),label:'Ask for the University Office number',player:'Do you have the number for the University Office?',
         reply:['The campus switchboard is {number}. Good luck getting past the hold music.','{number}. Ask for the dean’s office if you want anyone to actually listen.','Sure: {number}. Don’t tell them I gave it to you.']}
@@ -6818,7 +7029,7 @@
         const warning=key==='police'&&world.falsePoliceReports?` · ⚠ ${world.falsePoliceReports}/${MAX_FALSE_REPORTS} false reports`:'';
         list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
       }
-      {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
+      {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
       for(const thread of hingeThreads.values()){
@@ -6871,7 +7082,7 @@
       const s=brState(),dossier=brEvaluateDossier(),open=brCaseOpen(),count=brEvidenceCount();
       const labels=BR.reliabilityLabels||['Unknown','Low','Medium','High'];
       const level=brLevel();
-      const warning=s.retaliated?'They came for you.':s.retaliationDay!==null?`A grey sedan has watched your home since Day ${s.warnedDay}. Lie low or withdraw before they act.`:s.suspicion>=BR.suspicion.watched?'People are watching who you talk to.':'';
+      const warning=s.retaliated?'They came for you.':s.retaliationDay!==null?`A gray sedan has watched your home since Day ${s.warnedDay}. Lie low or withdraw before they act.`:s.suspicion>=BR.suspicion.watched?'People are watching who you talk to.':'';
       const outcomeCopy={success:`Federal investigators opened an inquiry on Day ${s.outcomeDay}. Watch the Sunfall Daily over the following days.`,failed:`The investigation failed on Day ${s.outcomeDay}.`,withdrawn:`You withdrew on Day ${s.outcomeDay}. The conspiracy stays hidden.`};
       const outcome=s.outcome?`<div class="case-outcome ${s.outcome}"><b>${esc(outcomeCopy[s.outcome])}</b>${s.outcomeReasons.length?`<ul>${s.outcomeReasons.map(reason=>`<li>${esc(reason)}</li>`).join('')}</ul>`:''}</div>`:'';
       const scrapList=BR.scraps.filter(scrap=>scrap.kind==='evidence').map(scrap=>{
@@ -6978,6 +7189,7 @@
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
+        world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
         world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
@@ -7003,7 +7215,7 @@
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
-            followUp:raw.followUp&&['topic','question','news','day'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
+            followUp:raw.followUp&&['topic','question','news','day','tone'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
@@ -7240,7 +7452,7 @@
       const indicator=$('battery-fill');
       indicator.style.width=batteryPercent+'%';
       indicator.style.backgroundColor=batteryPercent<20?'#e26752':batteryPercent<50?'#e8c968':'#7fdf84';
-      indicator.parentElement.setAttribute('aria-label','Decorative battery '+batteryPercent+' per cent');
+      indicator.parentElement.setAttribute('aria-label','Decorative battery '+batteryPercent+' percent');
     }
     updateDecorativeBattery();
     getNewsEdition(1);

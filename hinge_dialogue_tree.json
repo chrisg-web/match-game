@@ -32,7 +32,7 @@
       "fumble": "That joke had all the charm of a wet gravestone. I'm done."
     },
     "MATCH-004": {
-      "intro": "Hello, stranger. Before we start, anything interesting happened in your neighbourhood lately? Habit of the job.",
+      "intro": "Hello, stranger. Before we start, anything interesting happened in your neighborhood lately? Habit of the job.",
       "work": "Local reporter. Yesterday I interviewed a man furious about a missing traffic cone. Today I'm following something rather more serious.",
       "friends": "Half the newsroom, unfortunately. We keep trying to have dinner without turning it into an editorial meeting.",
       "fumble": "I have interviewed nicer people through a prison telephone. Let's leave it there."
@@ -50,8 +50,8 @@
       "fumble": "I think our views on how to treat people differ rather profoundly. God bless you."
     },
     "MATCH-008": {
-      "intro": "You matched with an organiser. Congratulations, you've been assigned a committee position.",
-      "work": "Campaign organising. I have seventeen spreadsheets and exactly one friend who can actually make a poster.",
+      "intro": "You matched with an organizer. Congratulations, you've been assigned a committee position.",
+      "work": "Campaign organizing. I have seventeen spreadsheets and exactly one friend who can actually make a poster.",
       "friends": "Campus people, mostly. Someone always turns a simple lunch into a six-hour argument about the professor.",
       "fumble": "Well, that confirmed quite a few of my suspicions about you. Bye."
     },
@@ -62,8 +62,8 @@
       "fumble": "Yeah, no. My dog has changed his mind and so have I."
     },
     "MATCH-013": {
-      "intro": "Hello from a queue that hasn't moved in forty minutes. I'm going to become part of the airport furniture.",
-      "weekend": "Usually travelling somewhere for absolutely no reason. Sometimes I get the dates wrong, which is thrilling.",
+      "intro": "Hello from a line that hasn't moved in forty minutes. I'm going to become part of the airport furniture.",
+      "weekend": "Usually traveling somewhere for absolutely no reason. Sometimes I get the dates wrong, which is thrilling.",
       "date": "Coffee sounds perfect provided we're talking about the same day and the same city.",
       "fumble": "What a spectacularly bad line. I think I'll board this flight instead."
     },
@@ -99,7 +99,7 @@
     },
     "MATCH-067": {
       "intro": "I may have started another petition. Please tell me you have a hobby less exhausting than mine.",
-      "work": "I'm a university housing organiser. I tend to be Impatient, witty and fiercely loyal. Outside work I've been printing underground gig posters.",
+      "work": "I'm a university housing organizer. I tend to be Impatient, witty and fiercely loyal. Outside work I've been printing underground gig posters.",
       "friends": "My friends say I'm Impatient, witty and fiercely loyal. I suppose they know me better than I know myself.",
       "weekend": "I've been printing underground gig posters. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -162,10 +162,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-129": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a climate campaigner. I tend to be restless, ambitious and charming. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a climate campaigner. I tend to be restless, ambitious and charming. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -195,8 +195,8 @@
     },
     "MATCH-161": {
       "intro": "I have a confession: I've been keeping an indoor cactus garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a museum conservator. I tend to be sceptical but kind. Outside work I've been keeping an indoor cactus garden.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a museum conservator. I tend to be skeptical but kind. Outside work I've been keeping an indoor cactus garden.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been keeping an indoor cactus garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -218,16 +218,16 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-191": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a music venue manager. I tend to be warm-hearted and somewhat impulsive. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a music venue manager. I tend to be warm-hearted and somewhat impulsive. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-192": {
       "intro": "I have a confession: I've been teaching herself the drums instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be poised and fiercely independent. Outside work I've been teaching herself the drums.",
+      "work": "I'm a gothic jewelry maker. I tend to be poised and fiercely independent. Outside work I've been teaching herself the drums.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching herself the drums. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -242,10 +242,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-223": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a pastry chef. I tend to be restless, ambitious and charming. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a pastry chef. I tend to be restless, ambitious and charming. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -298,10 +298,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-073": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a compliance administrator. I tend to be warm-hearted and somewhat impulsive. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a compliance administrator. I tend to be warm-hearted and somewhat impulsive. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -355,8 +355,8 @@
     },
     "MATCH-109": {
       "intro": "I have a confession: I've been caring for an elderly rescue dog instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a traffic collision investigator. I tend to be sceptical but kind. Outside work I've been caring for an elderly rescue dog.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a traffic collision investigator. I tend to be skeptical but kind. Outside work I've been caring for an elderly rescue dog.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been caring for an elderly rescue dog. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -371,7 +371,7 @@
     },
     "MATCH-130": {
       "intro": "I have a confession: I've been teaching herself the drums instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be friendly and prone to overthinking. Outside work I've been teaching herself the drums.",
+      "work": "I'm a community art organizer. I tend to be friendly and prone to overthinking. Outside work I've been teaching herself the drums.",
       "friends": "My friends say I'm friendly and prone to overthinking. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching herself the drums. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -379,25 +379,25 @@
     },
     "MATCH-132": {
       "intro": "I have a confession: I've been making elaborate paper collages instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be calm in a crisis and terrible at small talk. Outside work I've been making elaborate paper collages.",
+      "work": "I'm a community art organizer. I tend to be calm in a crisis and terrible at small talk. Outside work I've been making elaborate paper collages.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
       "weekend": "I've been making elaborate paper collages. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-134": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be wry and observant. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a community art organizer. I tend to be wry and observant. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm wry and observant. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-136": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be sunny but stubborn. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a community art organizer. I tend to be sunny but stubborn. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -418,10 +418,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-167": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a freelance music reviewer. I tend to be restless, ambitious and charming. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a freelance music reviewer. I tend to be restless, ambitious and charming. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -459,7 +459,7 @@
     },
     "MATCH-194": {
       "intro": "I have a confession: I've been making elaborate paper collages instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be friendly and prone to overthinking. Outside work I've been making elaborate paper collages.",
+      "work": "I'm a gothic jewelry maker. I tend to be friendly and prone to overthinking. Outside work I've been making elaborate paper collages.",
       "friends": "My friends say I'm friendly and prone to overthinking. I suppose they know me better than I know myself.",
       "weekend": "I've been making elaborate paper collages. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -474,34 +474,34 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-196": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be calm in a crisis and terrible at small talk. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a gothic jewelry maker. I tend to be calm in a crisis and terrible at small talk. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-197": {
       "intro": "I have a confession: I've been collecting odd roadside souvenirs instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a music venue manager. I tend to be sceptical but kind. Outside work I've been collecting odd roadside souvenirs.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a music venue manager. I tend to be skeptical but kind. Outside work I've been collecting odd roadside souvenirs.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting odd roadside souvenirs. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-198": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be wry and observant. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a gothic jewelry maker. I tend to be wry and observant. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm wry and observant. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-221": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a interior decorator. I tend to be warm-hearted and somewhat impulsive. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a interior decorator. I tend to be warm-hearted and somewhat impulsive. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -531,8 +531,8 @@
     },
     "MATCH-171": {
       "intro": "I have a confession: I've been building a collection of forgotten records instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a travel columnist. I tend to be sceptical but kind. Outside work I've been building a collection of forgotten records.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a travel columnist. I tend to be skeptical but kind. Outside work I've been building a collection of forgotten records.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been building a collection of forgotten records. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -563,8 +563,8 @@
     },
     "MATCH-079": {
       "intro": "I have a confession: I've been keeping an indoor cactus garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a compliance administrator. I tend to be sceptical but kind. Outside work I've been keeping an indoor cactus garden.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a compliance administrator. I tend to be skeptical but kind. Outside work I've been keeping an indoor cactus garden.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been keeping an indoor cactus garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -602,10 +602,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-086": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a charity bookkeeper. I tend to be private and sharply intelligent. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a charity bookkeeper. I tend to be private and sharply intelligent. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm private and sharply intelligent. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -667,8 +667,8 @@
     },
     "MATCH-094": {
       "intro": "I have a confession: I've been photographing diner neon signs instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a charity bookkeeper. I tend to be sceptical but kind. Outside work I've been photographing diner neon signs.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a charity bookkeeper. I tend to be skeptical but kind. Outside work I've been photographing diner neon signs.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been photographing diner neon signs. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -690,10 +690,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-097": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a compliance administrator. I tend to be sunny but stubborn. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a compliance administrator. I tend to be sunny but stubborn. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -738,10 +738,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-111": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community safety officer. I tend to be earnest and occasionally awkward. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a community safety officer. I tend to be earnest and occasionally awkward. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -826,10 +826,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-122": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community safety officer. I tend to be quietly intense and loyal. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a community safety officer. I tend to be quietly intense and loyal. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -843,8 +843,8 @@
     },
     "MATCH-124": {
       "intro": "I have a confession: I've been trying to learn Italian instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a crime scene photographer. I tend to be sceptical but kind. Outside work I've been trying to learn Italian.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a crime scene photographer. I tend to be skeptical but kind. Outside work I've been trying to learn Italian.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been trying to learn Italian. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -866,10 +866,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-127": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a custody nurse. I tend to be sunny but stubborn. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a custody nurse. I tend to be sunny but stubborn. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -883,8 +883,8 @@
     },
     "MATCH-133": {
       "intro": "I have a confession: I've been keeping a handwritten travel journal instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a climate campaigner. I tend to be sceptical but kind. Outside work I've been keeping a handwritten travel journal.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a climate campaigner. I tend to be skeptical but kind. Outside work I've been keeping a handwritten travel journal.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been keeping a handwritten travel journal. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -899,7 +899,7 @@
     },
     "MATCH-138": {
       "intro": "I have a confession: I've been collecting unusual cookbooks instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be quick to laugh and slow to trust. Outside work I've been collecting unusual cookbooks.",
+      "work": "I'm a community art organizer. I tend to be quick to laugh and slow to trust. Outside work I've been collecting unusual cookbooks.",
       "friends": "My friends say I'm quick to laugh and slow to trust. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting unusual cookbooks. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -915,7 +915,7 @@
     },
     "MATCH-140": {
       "intro": "I have a confession: I've been learning to repair watches instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be private and sharply intelligent. Outside work I've been learning to repair watches.",
+      "work": "I'm a community art organizer. I tend to be private and sharply intelligent. Outside work I've been learning to repair watches.",
       "friends": "My friends say I'm private and sharply intelligent. I suppose they know me better than I know myself.",
       "weekend": "I've been learning to repair watches. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -931,7 +931,7 @@
     },
     "MATCH-142": {
       "intro": "I have a confession: I've been keeping an indoor cactus garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be warm-hearted and somewhat impulsive. Outside work I've been keeping an indoor cactus garden.",
+      "work": "I'm a community art organizer. I tend to be warm-hearted and somewhat impulsive. Outside work I've been keeping an indoor cactus garden.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
       "weekend": "I've been keeping an indoor cactus garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -947,7 +947,7 @@
     },
     "MATCH-144": {
       "intro": "I have a confession: I've been making pottery after work instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be restless, ambitious and charming. Outside work I've been making pottery after work.",
+      "work": "I'm a community art organizer. I tend to be restless, ambitious and charming. Outside work I've been making pottery after work.",
       "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
       "weekend": "I've been making pottery after work. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -963,7 +963,7 @@
     },
     "MATCH-146": {
       "intro": "I have a confession: I've been desert stargazing instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be quietly intense and loyal. Outside work I've been desert stargazing.",
+      "work": "I'm a community art organizer. I tend to be quietly intense and loyal. Outside work I've been desert stargazing.",
       "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
       "weekend": "I've been desert stargazing. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -979,23 +979,23 @@
     },
     "MATCH-148": {
       "intro": "I have a confession: I've been restoring old film cameras instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be sceptical but kind. Outside work I've been restoring old film cameras.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a community art organizer. I tend to be skeptical but kind. Outside work I've been restoring old film cameras.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been restoring old film cameras. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-149": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a climate campaigner. I tend to be wry and observant. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a climate campaigner. I tend to be wry and observant. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm wry and observant. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-150": {
       "intro": "I have a confession: I've been fixing up a used bicycle instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be earnest and occasionally awkward. Outside work I've been fixing up a used bicycle.",
+      "work": "I'm a community art organizer. I tend to be earnest and occasionally awkward. Outside work I've been fixing up a used bicycle.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
       "weekend": "I've been fixing up a used bicycle. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1011,7 +1011,7 @@
     },
     "MATCH-152": {
       "intro": "I have a confession: I've been teaching her younger cousin guitar instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be blunt and unexpectedly generous. Outside work I've been teaching her younger cousin guitar.",
+      "work": "I'm a community art organizer. I tend to be blunt and unexpectedly generous. Outside work I've been teaching her younger cousin guitar.",
       "friends": "My friends say I'm blunt and unexpectedly generous. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching her younger cousin guitar. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1027,7 +1027,7 @@
     },
     "MATCH-154": {
       "intro": "I have a confession: I've been collecting vintage postcards instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be playful until someone crosses a line. Outside work I've been collecting vintage postcards.",
+      "work": "I'm a community art organizer. I tend to be playful until someone crosses a line. Outside work I've been collecting vintage postcards.",
       "friends": "My friends say I'm playful until someone crosses a line. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1043,7 +1043,7 @@
     },
     "MATCH-156": {
       "intro": "I have a confession: I've been baking elaborate cakes badly instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a community art organiser. I tend to be unflappable with a mischievous streak. Outside work I've been baking elaborate cakes badly.",
+      "work": "I'm a community art organizer. I tend to be unflappable with a mischievous streak. Outside work I've been baking elaborate cakes badly.",
       "friends": "My friends say I'm unflappable with a mischievous streak. I suppose they know me better than I know myself.",
       "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1114,10 +1114,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-178": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a freelance music reviewer. I tend to be private and sharply intelligent. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a freelance music reviewer. I tend to be private and sharply intelligent. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm private and sharply intelligent. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1154,10 +1154,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-183": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a sports journalist. I tend to be friendly and prone to overthinking. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a sports journalist. I tend to be friendly and prone to overthinking. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm friendly and prone to overthinking. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1170,17 +1170,17 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-185": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a local radio researcher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a local radio researcher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-186": {
       "intro": "I have a confession: I've been singing in a small local choir instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a archive researcher. I tend to be sceptical but kind. Outside work I've been singing in a small local choir.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a archive researcher. I tend to be skeptical but kind. Outside work I've been singing in a small local choir.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been singing in a small local choir. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -1219,7 +1219,7 @@
     },
     "MATCH-200": {
       "intro": "I have a confession: I've been collecting unusual cookbooks instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be sunny but stubborn. Outside work I've been collecting unusual cookbooks.",
+      "work": "I'm a gothic jewelry maker. I tend to be sunny but stubborn. Outside work I've been collecting unusual cookbooks.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting unusual cookbooks. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1235,7 +1235,7 @@
     },
     "MATCH-202": {
       "intro": "I have a confession: I've been learning to repair watches instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be quick to laugh and slow to trust. Outside work I've been learning to repair watches.",
+      "work": "I'm a gothic jewelry maker. I tend to be quick to laugh and slow to trust. Outside work I've been learning to repair watches.",
       "friends": "My friends say I'm quick to laugh and slow to trust. I suppose they know me better than I know myself.",
       "weekend": "I've been learning to repair watches. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1251,7 +1251,7 @@
     },
     "MATCH-204": {
       "intro": "I have a confession: I've been keeping an indoor cactus garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be private and sharply intelligent. Outside work I've been keeping an indoor cactus garden.",
+      "work": "I'm a gothic jewelry maker. I tend to be private and sharply intelligent. Outside work I've been keeping an indoor cactus garden.",
       "friends": "My friends say I'm private and sharply intelligent. I suppose they know me better than I know myself.",
       "weekend": "I've been keeping an indoor cactus garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1267,7 +1267,7 @@
     },
     "MATCH-206": {
       "intro": "I have a confession: I've been making pottery after work instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be warm-hearted and somewhat impulsive. Outside work I've been making pottery after work.",
+      "work": "I'm a gothic jewelry maker. I tend to be warm-hearted and somewhat impulsive. Outside work I've been making pottery after work.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
       "weekend": "I've been making pottery after work. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1283,7 +1283,7 @@
     },
     "MATCH-208": {
       "intro": "I have a confession: I've been desert stargazing instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be restless, ambitious and charming. Outside work I've been desert stargazing.",
+      "work": "I'm a gothic jewelry maker. I tend to be restless, ambitious and charming. Outside work I've been desert stargazing.",
       "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
       "weekend": "I've been desert stargazing. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1299,24 +1299,24 @@
     },
     "MATCH-210": {
       "intro": "I have a confession: I've been restoring old film cameras instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be quietly intense and loyal. Outside work I've been restoring old film cameras.",
+      "work": "I'm a gothic jewelry maker. I tend to be quietly intense and loyal. Outside work I've been restoring old film cameras.",
       "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
       "weekend": "I've been restoring old film cameras. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-211": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a music venue manager. I tend to be calm in a crisis and terrible at small talk. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a music venue manager. I tend to be calm in a crisis and terrible at small talk. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-212": {
       "intro": "I have a confession: I've been fixing up a used bicycle instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be sceptical but kind. Outside work I've been fixing up a used bicycle.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a gothic jewelry maker. I tend to be skeptical but kind. Outside work I've been fixing up a used bicycle.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been fixing up a used bicycle. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -1331,7 +1331,7 @@
     },
     "MATCH-214": {
       "intro": "I have a confession: I've been teaching her younger cousin guitar instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be earnest and occasionally awkward. Outside work I've been teaching her younger cousin guitar.",
+      "work": "I'm a gothic jewelry maker. I tend to be earnest and occasionally awkward. Outside work I've been teaching her younger cousin guitar.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching her younger cousin guitar. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1347,7 +1347,7 @@
     },
     "MATCH-216": {
       "intro": "I have a confession: I've been collecting vintage postcards instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be blunt and unexpectedly generous. Outside work I've been collecting vintage postcards.",
+      "work": "I'm a gothic jewelry maker. I tend to be blunt and unexpectedly generous. Outside work I've been collecting vintage postcards.",
       "friends": "My friends say I'm blunt and unexpectedly generous. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1363,7 +1363,7 @@
     },
     "MATCH-218": {
       "intro": "I have a confession: I've been baking elaborate cakes badly instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be playful until someone crosses a line. Outside work I've been baking elaborate cakes badly.",
+      "work": "I'm a gothic jewelry maker. I tend to be playful until someone crosses a line. Outside work I've been baking elaborate cakes badly.",
       "friends": "My friends say I'm playful until someone crosses a line. I suppose they know me better than I know myself.",
       "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1379,7 +1379,7 @@
     },
     "MATCH-220": {
       "intro": "I have a confession: I've been birdwatching before breakfast instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewellery maker. I tend to be unflappable with a mischievous streak. Outside work I've been birdwatching before breakfast.",
+      "work": "I'm a gothic jewelry maker. I tend to be unflappable with a mischievous streak. Outside work I've been birdwatching before breakfast.",
       "friends": "My friends say I'm unflappable with a mischievous streak. I suppose they know me better than I know myself.",
       "weekend": "I've been birdwatching before breakfast. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1387,7 +1387,7 @@
     },
     "MATCH-226": {
       "intro": "I have a confession: I've been learning ballroom dancing instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a estate agent. I tend to be calm in a crisis and terrible at small talk. Outside work I've been learning ballroom dancing.",
+      "work": "I'm a real estate agent. I tend to be calm in a crisis and terrible at small talk. Outside work I've been learning ballroom dancing.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
       "weekend": "I've been learning ballroom dancing. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1395,15 +1395,15 @@
     },
     "MATCH-227": {
       "intro": "I have a confession: I've been learning to repair watches instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a swimming coach. I tend to be sceptical but kind. Outside work I've been learning to repair watches.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a swimming coach. I tend to be skeptical but kind. Outside work I've been learning to repair watches.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been learning to repair watches. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-230": {
       "intro": "I have a confession: I've been planting a balcony herb garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a primary school teacher. I tend to be sunny but stubborn. Outside work I've been planting a balcony herb garden.",
+      "work": "I'm a elementary school teacher. I tend to be sunny but stubborn. Outside work I've been planting a balcony herb garden.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
       "weekend": "I've been planting a balcony herb garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1450,16 +1450,16 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-236": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a museum attendant. I tend to be warm-hearted and somewhat impulsive. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a museum attendant. I tend to be warm-hearted and somewhat impulsive. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm warm-hearted and somewhat impulsive. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-237": {
       "intro": "I have a confession: I've been fixing up a used bicycle instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a estate agent. I tend to be poised and fiercely independent. Outside work I've been fixing up a used bicycle.",
+      "work": "I'm a real estate agent. I tend to be poised and fiercely independent. Outside work I've been fixing up a used bicycle.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
       "weekend": "I've been fixing up a used bicycle. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1491,7 +1491,7 @@
     },
     "MATCH-241": {
       "intro": "I have a confession: I've been collecting vintage postcards instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a primary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
+      "work": "I'm a elementary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1499,8 +1499,8 @@
     },
     "MATCH-242": {
       "intro": "I have a confession: I've been restoring vintage dresses instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a dog walker. I tend to be sceptical but kind. Outside work I've been restoring vintage dresses.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a dog walker. I tend to be skeptical but kind. Outside work I've been restoring vintage dresses.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been restoring vintage dresses. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -1538,16 +1538,16 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-247": {
-      "intro": "I have a confession: I've been playing five-a-side football instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a museum attendant. I tend to be quick to laugh and slow to trust. Outside work I've been playing five-a-side football.",
+      "intro": "I have a confession: I've been playing five-on-five soccer instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a museum attendant. I tend to be quick to laugh and slow to trust. Outside work I've been playing five-on-five soccer.",
       "friends": "My friends say I'm quick to laugh and slow to trust. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing five-a-side football. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing five-on-five soccer. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-248": {
       "intro": "I have a confession: I've been teaching herself the drums instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a estate agent. I tend to be playful until someone crosses a line. Outside work I've been teaching herself the drums.",
+      "work": "I'm a real estate agent. I tend to be playful until someone crosses a line. Outside work I've been teaching herself the drums.",
       "friends": "My friends say I'm playful until someone crosses a line. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching herself the drums. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1578,10 +1578,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-252": {
-      "intro": "I have a confession: I've been organising a neighbourhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a primary school teacher. I tend to be poised and fiercely independent. Outside work I've been organising a neighbourhood film night.",
+      "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a elementary school teacher. I tend to be poised and fiercely independent. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
-      "weekend": "I've been organising a neighbourhood film night. I need something to look forward to when I finish work.",
+      "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1594,10 +1594,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-254": {
-      "intro": "I have a confession: I've been practising watercolour landscapes instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a interior decorator. I tend to be friendly and prone to overthinking. Outside work I've been practising watercolour landscapes.",
+      "intro": "I have a confession: I've been practicing watercolour landscapes instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a interior decorator. I tend to be friendly and prone to overthinking. Outside work I've been practicing watercolour landscapes.",
       "friends": "My friends say I'm friendly and prone to overthinking. I suppose they know me better than I know myself.",
-      "weekend": "I've been practising watercolour landscapes. I need something to look forward to when I finish work.",
+      "weekend": "I've been practicing watercolour landscapes. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1619,8 +1619,8 @@
     },
     "MATCH-257": {
       "intro": "I have a confession: I've been learning ballroom dancing instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a pharmacy assistant. I tend to be sceptical but kind. Outside work I've been learning ballroom dancing.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a pharmacy assistant. I tend to be skeptical but kind. Outside work I've been learning ballroom dancing.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been learning ballroom dancing. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -1635,7 +1635,7 @@
     },
     "MATCH-259": {
       "intro": "I have a confession: I've been running an informal book club instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a estate agent. I tend to be earnest and occasionally awkward. Outside work I've been running an informal book club.",
+      "work": "I'm a real estate agent. I tend to be earnest and occasionally awkward. Outside work I've been running an informal book club.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
       "weekend": "I've been running an informal book club. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1667,7 +1667,7 @@
     },
     "MATCH-263": {
       "intro": "I have a confession: I've been sketching old shopfronts instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a primary school teacher. I tend to be playful until someone crosses a line. Outside work I've been sketching old shopfronts.",
+      "work": "I'm a elementary school teacher. I tend to be playful until someone crosses a line. Outside work I've been sketching old shopfronts.",
       "friends": "My friends say I'm playful until someone crosses a line. I suppose they know me better than I know myself.",
       "weekend": "I've been sketching old shopfronts. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1698,10 +1698,10 @@
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
     "MATCH-267": {
-      "intro": "I have a confession: I've been playing pool with her neighbours instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a pastry chef. I tend to be poised and fiercely independent. Outside work I've been playing pool with her neighbours.",
+      "intro": "I have a confession: I've been playing pool with her neighbors instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a pastry chef. I tend to be poised and fiercely independent. Outside work I've been playing pool with her neighbors.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
-      "weekend": "I've been playing pool with her neighbours. I need something to look forward to when I finish work.",
+      "weekend": "I've been playing pool with her neighbors. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1723,7 +1723,7 @@
     },
     "MATCH-270": {
       "intro": "I have a confession: I've been teaching her younger cousin guitar instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a estate agent. I tend to be quietly intense and loyal. Outside work I've been teaching her younger cousin guitar.",
+      "work": "I'm a real estate agent. I tend to be quietly intense and loyal. Outside work I've been teaching her younger cousin guitar.",
       "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching her younger cousin guitar. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1739,8 +1739,8 @@
     },
     "MATCH-272": {
       "intro": "I have a confession: I've been collecting vintage postcards instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a tour guide. I tend to be sceptical but kind. Outside work I've been collecting vintage postcards.",
-      "friends": "My friends say I'm sceptical but kind. I suppose they know me better than I know myself.",
+      "work": "I'm a tour guide. I tend to be skeptical but kind. Outside work I've been collecting vintage postcards.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
@@ -1755,7 +1755,7 @@
     },
     "MATCH-274": {
       "intro": "I have a confession: I've been baking elaborate cakes badly instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a primary school teacher. I tend to be earnest and occasionally awkward. Outside work I've been baking elaborate cakes badly.",
+      "work": "I'm a elementary school teacher. I tend to be earnest and occasionally awkward. Outside work I've been baking elaborate cakes badly.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
       "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1803,7 +1803,7 @@
       "replyDefault": "A pretty mixed group. Some are sensible and a few are absolutely impossible.",
       "replyByFaction": {
         "police": "A lot of people from work, though some of us disagree about how things ought to be done.",
-        "progressives": "Mostly campus friends and organisers. Every conversation turns into a debate.",
+        "progressives": "Mostly campus friends and organizers. Every conversation turns into a debate.",
         "fourth_estate": "Journalists, mostly. We know far too much gossip about everyone.",
         "goth_girls": "You wouldn't know them. At least, I hope you wouldn't."
       }
@@ -1816,7 +1816,7 @@
       "replyByFaction": {
         "thunderbirds": "I know people who worked on the event. There was an argument about who Elena was meeting afterwards. I would rather not name anyone over text.",
         "police": "The police are already checking the reports. I really can't say more than the public appeal.",
-        "progressives": "Someone mentioned the gala in our campus group chat, but half the messages were rumours. Be careful what you believe.",
+        "progressives": "Someone mentioned the gala in our campus group chat, but half the messages were rumors. Be careful what you believe.",
         "sisters_of_mercy": "Some people from the chapel volunteered there. It would be wrong to speculate about a missing person.",
         "fourth_estate": "The newsroom is checking a witness account from near the old interstate junction. That is all I can say until we verify it.",
         "goth_girls": "I heard the after-party was stranger than the gala. You should ask who was actually there."
@@ -1836,7 +1836,7 @@
   ],
   "phoneNumber": {
     "player": "Could I have your number?",
-    "reply": "Sure, it's {number}. You can ring me sometime.",
+    "reply": "Sure, it's {number}. You can call me sometime.",
     "alreadyGiven": "You already have my number, silly."
   },
   "callTopics": [

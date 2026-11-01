@@ -412,7 +412,7 @@
       const st=state();
       if(!st)return '';
       ensureNumbers(st);
-      const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. Ring a jeweller from your Contacts.':'Not yet. Find a jeweller on Hinge and ask for her number.';
+      const ring=st.ring?`On your bedside table, a gift from ${data.jewellers[st.ring.from].name}.`:jewellersKnown(st)?'Not yet. Ring a jeweler from your Contacts.':'Not yet. Find a jeweler on Hinge and ask for her number.';
       const exams=matchedSisters().map(id=>{ // a Sister who blocked you is out of the running
         const s=sisterState(st,id);
         const status=st.married?.id===id?'married ♥':s.passed?'passed her examination. You may propose.':s.started?`examination in progress (${s.streak} in a row)`:'not asked yet';
@@ -422,7 +422,7 @@
         const j=data.jewellers[id];
         return `<p class="contact-entry"><b>${esc(j.name)}</b>, ${esc(j.shop)}<br><small>${esc(j.role)} · ${esc(j.location)}</small><br><button class="notes-call" data-note-dial="${st.numbers[id]}">${st.numbers[id]} ☎</button></p>`;
       }).join('');
-      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win. Get to know her first (talk properly, or get her number) before you ask. Then pass her examination (five correct answers in a row), get a wedding ring, and propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Sunfall jewellers</b></p>${shops}`}</div>`;
+      return `<h3>💍 Marriage</h3><div class="paper"><p>${esc(data.fellowship)} Marry one of them to win. Get to know her first (talk properly, or get her number) before you ask. Then pass her examination (five correct answers in a row), get a wedding ring, and propose.</p><p><b>Wedding ring:</b> ${esc(ring)}</p><p><b>Examinations</b></p>${exams}${options.shops===false?'':`<p><b>Sunfall jewelers</b></p>${shops}`}</div>`;
     }
 
     // ---------- desk, wedding slideshow and victory screen ----------
