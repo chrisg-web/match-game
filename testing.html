@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="6a8719bf38">
+<html lang="en" data-build="e501af02ad">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=6a8719bf38"></script>
+  <script src="chapel_at_midnight.js?v=e501af02ad"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=6a8719bf38"></script>
+  <script src="marriage.js?v=e501af02ad"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=6a8719bf38"></script>
+  <script src="quests/professor-vale.js?v=e501af02ad"></script>
 </head>
 <body>
   <main class="workbench">
@@ -903,30 +903,91 @@
       return !coarse&&window.innerWidth>=900;
     }
     window.addEventListener('resize',()=>{if(handsBig!==null&&bigScreen()!==handsBig)setGrip();});
-    // The computer-size hands (assets/ui/hands/*/…-large.png) arrived in art pack 111 but draw too
-    // small and too low at the phone's grip settings; until their placement is tuned, computers use
-    // the difficulty's phone-size hands, which line up.
-    var BIG_HANDS_READY=false;
+    // Where the hands sit in a picture, measured once per picture: the gap between the hands (where
+    // the phone goes) as fractions of the picture's width. The big computer hands are drawn on a wider
+    // canvas than the phone-size ones, so they're sized and placed from these measurements, so their
+    // thumbs land on the phone's edges whatever the picture's layout. Any redrawn hands fit by themselves.
+    var handFit=null; // var: safe even if the game calls this before this line has run
+    function measureHands(src){
+      handFit=handFit||new Map();
+      if(handFit.has(src))return handFit.get(src);
+      const job=new Promise(resolve=>{
+        try{
+          if(typeof Image!=='function')return resolve(null);
+          const img=new Image();
+          img.onload=()=>{
+            try{
+              const W=160,H=Math.max(1,Math.round(W*img.naturalHeight/img.naturalWidth));
+              const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
+              const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,W,H);
+              const alpha=ctx.getImageData(0,0,W,H).data,used=new Array(W).fill(false);
+              for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(alpha[(y*W+x)*4+3]>40)used[x]=true;
+              let best=[0,0],from=-1; // the widest run of empty columns is the gap
+              for(let x=0;x<=W;x++){const empty=x<W&&!used[x];if(empty&&from<0)from=x;if(!empty&&from>=0){if(x-from>best[1]-best[0])best=[from,x];from=-1;}}
+              resolve(best[1]>best[0]?{gapL:best[0]/W,gapR:best[1]/W}:null);
+            }catch{resolve(null);}
+          };
+          img.onerror=()=>resolve(null);
+          img.src=assetUrl(src);
+        }catch{resolve(null);}
+      });
+      handFit.set(src,job);
+      return job;
+    }
+    // Width and left of the big hands, in % of the phone, so their gap matches the phone-size hands'.
+    // Two hands: match both edges of the gap. One hand: match its inner edge, at the scale the
+    // two-handed big picture of the same set uses.
+    function bigHandsFit(g,small,big,scale){
+      if(!small||!big)return null;
+      const twoHands=small.gapL>0.02&&small.gapR<0.98&&big.gapL>0.02&&big.gapR<0.98;
+      if(twoHands){
+        const width=g.width*(small.gapR-small.gapL)/(big.gapR-big.gapL);
+        return {width,left:g.left+small.gapL*g.width-big.gapL*width};
+      }
+      if(!scale)return null;
+      const width=g.width*scale;
+      const inner=small.gapL<=0.02?[small.gapR,big.gapR]:[small.gapL,big.gapL]; // a right hand starts where the gap ends
+      return {width,left:g.left+inner[0]*g.width-inner[1]*width};
+    }
+    var gripToken=0;
     function setGrip() {
       const pose=$('hand-pose').value;
       const g=gripGeometry[pose];
       if (!g) return;
-      const layer=$('hand-layer');
+      const layer=$('hand-layer'),token=++gripToken;
       // Hands match the difficulty (wiry and small for Truecel, absurdly muscular for Mogger), and a
-      // computer gets a bigger set. Each new picture is tried first; until it exists, the game falls
-      // back one step at a time to today's hands (NEW_IMAGE_REQUESTS.md lists the pictures).
-      const name=g.image.replace(/-v2$/,''),large=BIG_HANDS_READY&&bigScreen();
-      const tries=[...(large?[`assets/ui/hands/${selectedDifficulty}/${name}-large.png`]:[]),
-        ...(selectedDifficulty!=='normie'?[`assets/ui/hands/${selectedDifficulty}/${name}.png`]:[]),
-        `assets/ui/${g.image}.png`];
-      let step=0;
-      layer.onerror=()=>{if(++step<tries.length)layer.src=assetUrl(tries[step]);};
-      layer.src=assetUrl(tries[0]);
+      // wide computer screen gets the bigger set; resize the window across 900 pixels and it switches.
+      // A picture that doesn't exist falls back one step at a time to today's hands.
+      const name=g.image.replace(/-v2$/,''),large=bigScreen();
+      const base=`assets/ui/${g.image}.png`;
+      const phoneTries=[...(selectedDifficulty!=='normie'?[`assets/ui/hands/${selectedDifficulty}/${name}.png`]:[]),base];
+      const place=(width,left)=>{
+        $('phone').style.setProperty('--hand-width',`${width}%`);
+        $('phone').style.setProperty('--hand-left',`${left}%`);
+        $('phone').style.setProperty('--hand-bottom',`${g.bottom}%`);
+        $('phone').style.setProperty('--hand-mask',handMasks[g.crop]);
+      };
+      const phoneHands=()=>{
+        if(token!==gripToken)return;
+        place(g.width,g.left);
+        let step=0;
+        layer.onerror=()=>{if(++step<phoneTries.length)layer.src=assetUrl(phoneTries[step]);};
+        layer.src=assetUrl(phoneTries[0]);
+      };
       handsBig=large;
-      $('phone').style.setProperty('--hand-width',`${g.width}%`);
-      $('phone').style.setProperty('--hand-left',`${g.left}%`);
-      $('phone').style.setProperty('--hand-bottom',`${g.bottom}%`);
-      $('phone').style.setProperty('--hand-mask',handMasks[g.crop]);
+      place(g.width,g.left); // a valid grip straight away; the big hands replace it once measured
+      if(!large){phoneHands();return;}
+      const big=`assets/ui/hands/${selectedDifficulty}/${name}-large.png`;
+      const pairBig=`assets/ui/hands/${selectedDifficulty}/hands-edge-navy-large.png`,pairBase='assets/ui/hands-edge-navy-v2.png';
+      Promise.all([measureHands(base),measureHands(big),measureHands(pairBase),measureHands(pairBig)]).then(([small,bigFit,pairSmall,pairLarge])=>{
+        if(token!==gripToken)return; // a newer grip has taken over
+        const pair=pairSmall&&pairLarge?bigHandsFit(gripGeometry.hands,pairSmall,pairLarge,null):null;
+        const fit=bigHandsFit(g,small,bigFit,pair?pair.width/gripGeometry.hands.width:null);
+        if(!fit){phoneHands();return;} // not drawn yet, or not measurable
+        place(fit.width,fit.left);
+        layer.onerror=()=>{layer.onerror=null;phoneHands();};
+        layer.src=assetUrl(big);
+      });
     }
     function setClutterPlacement() {
       const value=$('clutter-type').value;
@@ -3233,6 +3294,7 @@
       playGlowScene(()=>{g.stage='active';g.startDay=null;saveRun(true);advanceToNextDay();});
     }
     function playGlowScene(done){
+      preloadScene(GLOW.scene);
       clearInvasion();endSimulatedCall();
       stage.classList.add('lowered');
       const overlay=$('home-invasion'),img=$('invasion-image');
@@ -3242,6 +3304,7 @@
           img.onerror=()=>{img.onerror=null;img.src=assetUrl(`assets/variants/${device.value}/bedroom-night.webp`);}; // until the picture is made
           img.src=assetUrl(step.image);
           overlay.classList.toggle('flash',!!step.flash);
+          if(step.flash)invasionTimers.push(window.setTimeout(()=>overlay.classList.remove('flash'),260)); // the camera's flash, then the selfie itself
           $('invasion-caption').textContent=step.caption;
           overlay.classList.remove('jolt');void overlay.offsetWidth;overlay.classList.add('jolt');
           playUiSound(step.flash?880:300+index*60);
@@ -3963,6 +4026,7 @@
       const f=fionnState();
       f.visitDay=null;f.arriving=true;saveRun(true);
       const armed=fionnRevolver(); // nothing in the cupboard, nothing to stop him
+      preloadScene([...['door','side','close','face'].map(theonFrame),{image:'assets/events/theon-hands.png'}]); // his whole approach, ready before he opens the door
       playScene([theonFrame('door')],()=>{
         showSceneStep(theonFrame('side'),1); // the sidestep: if you have the revolver, now's your chance
         if(armed)fionnQteOpen(invited?3800:2200);
@@ -4056,7 +4120,10 @@
       overlay.classList.remove('jolt');void overlay.offsetWidth;overlay.classList.add('jolt');
       playUiSound(step.flash?880:Math.max(90,240-index*12));
     }
+    // Start loading a scene's pictures before its first frame, so no step shows blank while a big picture loads.
+    function preloadScene(steps){for(const step of steps||[])if(step&&step.image&&typeof Image==='function'){try{const img=new Image();img.src=assetUrl(step.image);}catch{}}}
     function playScene(steps,done,{keep=false,gap=1900}={}){
+      preloadScene(steps);
       window.setTimeout(()=>{ // after any day transition has finished raising the phone
         clearInvasion();endSimulatedCall();stopRinging();
         stage.classList.add('lowered');
