@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="34fd1b78b4">
+<html lang="en" data-build="c72ca63c25">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=34fd1b78b4"></script>
+  <script src="chapel_at_midnight.js?v=c72ca63c25"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=34fd1b78b4"></script>
+  <script src="marriage.js?v=c72ca63c25"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=34fd1b78b4"></script>
+  <script src="quests/professor-vale.js?v=c72ca63c25"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2066,7 +2066,8 @@
       if(thread.quiet)return '<div style="color:#e7a0ac;text-align:center;font:10px Verdana,sans-serif;padding:8px">She has stopped replying.</div>';
       const marriageOptions=marriage?.optionsFor(thread); // Marriage: examination answers and the proposal
       if(marriageOptions?.only)return marriageOptions.html;
-      const chapelOptions=chapel?.optionsFor(thread); // Task 2: Chapel at Midnight choices
+      const doneNow=doneForToday(thread); // she's said all she's going to today: no quest questions either
+      const chapelOptions=doneNow?null:chapel?.optionsFor(thread); // Task 2: Chapel at Midnight choices
       if(chapelOptions?.only)return chapelOptions.html;
       // She has asked you something: only your answers show until you reply.
       const followHtml=thread.followUp?talkFollowHtml(thread):'';
@@ -2109,12 +2110,15 @@
       // Always offered. After her first picture it becomes "Another one?".
       add(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">♡ ${picturesSent(thread,hingeProfile(thread.id)).length?'Another one?':'Ask for a picture'}</button>`,3);
       const done=doneForToday(thread); // a few questions a day: after that, only story events
-      const shown=(done?choices.filter(choice=>choice.rank===0):[...choices]).sort((a,b)=>a.rank-b.rank||a.order-b.order).slice(0,MAX_CHAT_CHOICES).sort((a,b)=>a.order-b.order).map(choice=>choice.html);
+      const shown=(done?choices.filter(choice=>choice.rank===0&&!QUEST_ASK_HTML.test(choice.html)):[...choices]).sort((a,b)=>a.rank-b.rank||a.order-b.order).slice(0,MAX_CHAT_CHOICES).sort((a,b)=>a.order-b.order).map(choice=>choice.html);
       if(done)shown.push(`<div class="story-tag">${esc(talkKit()?.dayDoneNote||'She’s done talking for today. Try her again tomorrow.')}</div>`);
       if(thread.number)shown.push(`<div style="font:9px Verdana,sans-serif;color:#a8e8bc;text-align:center">Number saved: ${thread.number}</div>`);
       return shown.join('');
     }
     const MAX_CHAT_CHOICES=5; // a conversation never shows more than five choices at once
+    // Questions a quest lets you ask her. Free while she's talking, gone once she's done for the day.
+    const QUEST_ASK=/^(mini:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
+    const QUEST_ASK_HTML=/data-hinge-topic="(mini:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     function renderHinge(){
       touchThreads(); // the chat list order, and closed chats
       let body='';
@@ -2247,7 +2251,8 @@
     function chooseHingeTopic(id){
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked||thread.quiet)return;
-      if(!freeAsk(thread,profile,id)){if(doneForToday(thread))return;countAsk(thread,id);} // a few questions a day
+      if(!freeAsk(thread,profile,id)){if(doneForToday(thread))return;countAsk(thread,id);} // small talk uses up the day
+      else if(QUEST_ASK.test(id)&&doneForToday(thread))return; // and quest questions wait for tomorrow
       {const ts=talkState(thread),days=ts.days||(ts.days=[]);if(!days.includes(world.day))days.push(world.day);} /* one conversation a day */
       if(isTalkTopic(id))return chooseTalk(id,thread,profile);
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
@@ -7304,6 +7309,7 @@
       warmth:id=>warmthOf(hingeThreads.get(id)),warmBy:(id,delta)=>{const thread=hingeThreads.get(id);if(thread)warmBy(thread,delta);},serviceKnown,
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
       newNumber:unusedContactNumber,
+      chatDone:id=>{const thread=hingeThreads.get(id);return !!thread&&doneForToday(thread);}, // she's signed off for today
       // A flyer girl you rang comes up in your Hinge deck within the next few cards.
       toDeck:id=>{if(hingeThreads.has(id)||hingeDeck.slice(hingeIndex,hingeIndex+4).some(card=>card.id===id))return;const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===id);if(at>=0)hingeDeck.splice(at,1);const card=hingeProfile(id);if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|flyer|'+id)%3),0,card);},
       setDoor:open=>{$('door').checked=open;fit();},

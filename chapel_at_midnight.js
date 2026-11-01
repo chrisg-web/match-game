@@ -791,6 +791,9 @@
       if(!st)return;
       const [kind,a,b]=String(action).split(':');
       if(st.dead&&kind!=='close-case')return;
+      // A woman who has signed off for the day answers no more questions about the rite until tomorrow.
+      const asked=kind==='v'?VICTORIA:['g','s','m'].includes(kind)||(kind==='qmode'&&b==='on')?a:null;
+      if(asked&&api.chatDone?.(asked)){questMode.delete(asked);api.rerender();return;}
       switch(kind){
         case 'open-case':caseOpen=true;renderCase();return;
         case 'close-case':caseOpen=false;if(api.closeCase)api.closeCase();else api.openApp('notes');return;
