@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e501af02ad">
+<html lang="en" data-build="7e75ea4902">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e501af02ad"></script>
+  <script src="chapel_at_midnight.js?v=7e75ea4902"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e501af02ad"></script>
+  <script src="marriage.js?v=7e75ea4902"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e501af02ad"></script>
+  <script src="quests/professor-vale.js?v=7e75ea4902"></script>
 </head>
 <body>
   <main class="workbench">
@@ -720,7 +720,7 @@
             <img class="bezel bezel-bottom" src="assets/ui/iphone3g-bezel.png" alt="">
             <img class="bezel bezel-left" src="assets/ui/iphone3g-bezel.png" alt="">
             <img class="bezel bezel-right" src="assets/ui/iphone3g-bezel.png" alt="">
-            <img class="hands" id="hand-layer" src="assets/ui/hands-edge-navy.png" alt="Hands gripping the outer bezel">
+            <img class="hands" id="hand-layer" src="assets/ui/hands-edge-navy-v2.png" alt="Hands gripping the outer bezel">
             <button class="home-hit" id="home-hit" aria-label="Home: one press for the app grid, or to lower the phone from the home screen; double press or hold to lower the phone"></button>
             <button class="raise-hit" id="raise-hit" aria-label="Tap the top of the phone to raise it"></button>
           </div>
@@ -898,11 +898,15 @@
     const choose = values => values[Math.floor(Math.random()*values.length)];
     // A computer (a mouse or trackpad, and a wide window) gets the bigger hands.
     let handsBig=null;
+    // A wide window (wider than it is tall, like a computer screen) gets the PC hands; a tall,
+    // phone-shaped one gets the phone hands. Resizing the window switches between them.
     function bigScreen(){
-      const coarse=typeof window.matchMedia==='function'&&window.matchMedia('(pointer: coarse)').matches;
-      return !coarse&&window.innerWidth>=900;
+      return window.innerWidth>window.innerHeight;
     }
-    window.addEventListener('resize',()=>{if(handsBig!==null&&bigScreen()!==handsBig)setGrip();});
+    const regrip=()=>{if(handsBig!==null&&bigScreen()!==handsBig)setGrip();};
+    window.addEventListener('resize',regrip);
+    if(typeof window.setInterval==='function')window.setInterval(regrip,1000); // and a once-a-second look, for browsers and previews that send neither
+    try{const shape=window.matchMedia('(orientation: landscape)');shape.addEventListener?shape.addEventListener('change',regrip):shape.addListener(regrip);}catch{} // also when the window turns from tall to wide, in browsers that skip the resize
     // Where the hands sit in a picture, measured once per picture: the gap between the hands (where
     // the phone goes) as fractions of the picture's width. The big computer hands are drawn on a wider
     // canvas than the phone-size ones, so they're sized and placed from these measurements, so their
@@ -975,8 +979,8 @@
         layer.src=assetUrl(phoneTries[0]);
       };
       handsBig=large;
-      place(g.width,g.left); // a valid grip straight away; the big hands replace it once measured
-      if(!large){phoneHands();return;}
+      phoneHands(); // the difficulty's own hands straight away; on a computer the big ones replace them once measured
+      if(!large)return;
       const big=`assets/ui/hands/${selectedDifficulty}/${name}-large.png`;
       const pairBig=`assets/ui/hands/${selectedDifficulty}/hands-edge-navy-large.png`,pairBase='assets/ui/hands-edge-navy-v2.png';
       Promise.all([measureHands(base),measureHands(big),measureHands(pairBase),measureHands(pairBig)]).then(([small,bigFit,pairSmall,pairLarge])=>{
