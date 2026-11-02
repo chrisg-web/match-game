@@ -1,6 +1,6 @@
-# MATCH: playable build
+# Matchfall: playable build
 
-The published copy of MATCH, a retro phone dating and mystery game. Fiction throughout.
+The published copy of Matchfall, a retro phone dating and mystery game. Fiction throughout.
 
 - Game: [index.html](https://matchfall.com/)
 - Playtest, with the testing menu: [testing.html](https://matchfall.com/testing.html)

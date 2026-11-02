@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-build="c989bc35b6">
+<html lang="en" data-build="68c99facfd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>MATCH Game | | Portrait Device Art Preview</title>
+  <title>Matchfall</title>
   <style>
     :root { color-scheme: dark; font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace; --reading-scale: 1.15; }
     * { box-sizing: border-box; }
@@ -608,17 +608,17 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c989bc35b6"></script>
+  <script src="chapel_at_midnight.js?v=68c99facfd"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c989bc35b6"></script>
+  <script src="marriage.js?v=68c99facfd"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c989bc35b6"></script>
+  <script src="quests/professor-vale.js?v=68c99facfd"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
     <aside>
       <div class="eyebrow">Environment art, batch 01</div>
-      <h1>MATCH</h1>
+      <h1>MATCHFALL</h1>
       <p>Mobile portrait composition study. A fictional 2008 iPhone sits within a present-day iPhone screen. Try every size before we lock the gameplay layout.</p>
       <div class="settings">
         <h2>Difficulty portrait</h2>
@@ -697,7 +697,7 @@
         <button class="bar-button" id="police-warning-preview">Police warning call now (Truecel)</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
-      <p>Tap an app to open it. Press the physical Home button once to return to MATCH; press it once more on the home screen to put the phone down. Double-press or hold it to lower the phone and hide your hands from anywhere. Tap the top of the lowered phone to raise it again. The game is a local simulation and makes no real calls.</p>
+      <p>Tap an app to open it. Press the physical Home button once to return to Matchfall; press it once more on the home screen to put the phone down. Double-press or hold it to lower the phone and hide your hands from anywhere. Tap the top of the lowered phone to raise it again. The game is a local simulation and makes no real calls.</p>
     </aside>
     <section class="preview-area" aria-label="Portrait iPhone artwork preview">
       <div class="device-label" id="size-label">393 × 852 points | iPhone standard</div>
@@ -721,7 +721,7 @@
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
               <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go forward in time</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
-                <div class="screen-header"><strong>MATCH</strong></div>
+                <div class="screen-header"><strong>MATCHFALL</strong></div>
                 <div class="app-grid">
                   <button class="app" data-app="hinge"><span class="app-mark"><img src="assets/icons/hinge.png" alt=""></span><small>Hinge</small></button>
                   <button class="app" data-app="news"><span class="app-mark"><img src="assets/icons/news.png" alt=""></span><small>News</small></button>
@@ -2135,7 +2135,7 @@
         add('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>',2);
       }
       // Always offered. After her first picture it becomes "Another one?".
-      add(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">♡ ${picturesSent(thread,hingeProfile(thread.id)).length?'Another one?':'Ask for a picture'}</button>`,3);
+      add(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">${esc(flirtAskLabel(thread,hingeProfile(thread.id),picturesSent(thread,hingeProfile(thread.id)).length>0))}</button>`,3);
       const done=doneForToday(thread); // a few questions a day: after that, only story events
       const shown=(done?choices.filter(choice=>choice.rank===0&&!QUEST_ASK_HTML.test(choice.html)):[...choices]).sort((a,b)=>a.rank-b.rank||a.order-b.order).slice(0,MAX_CHAT_CHOICES).sort((a,b)=>a.order-b.order).map(choice=>choice.html);
       if(done)shown.push(`<div class="story-tag">${esc(talkKit()?.dayDoneNote||'She’s done talking for today. Try her again tomorrow.')}</div>`);
@@ -2294,7 +2294,7 @@
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
-        thread.log.push({who:'you',text:another?choose(['Another one?','Got another one?','Another one? Please?']):'Will you send me a picture of yourself?'});
+        thread.log.push({who:'you',text:flirtAskLine(thread,profile,another)});
         if(profile.factionId==='sisters_of_mercy'){
           thread.blocked=true;
           thread.log.push({who:'her',text:'That is completely inappropriate. Do not contact me again.',block:true});
@@ -2321,7 +2321,7 @@
           const unseen=(profile.privatePhotos||[]).filter(picture=>!sent.includes(picture.src));
           const personality=personalityOf(profile);
           const needs={eager:0,teasing:1,'after-trust':2,reluctant:3,never:99}[personality?.pictures]??1;
-          const talked=thread.topics.length+warmthOf(thread); // warmth counts, and a cold woman needs more talk
+          const talked=thread.topics.length+warmthOf(thread)+heatOf(thread); // warmth counts, and a cold woman needs more talk; so does the heat between you
           const willing=tone()==='mogger'||(tone()==='normie'?talked>=needs:talked>=needs+2&&gameRandom()<.5);
           const refused=thread.photoRefusals||0; // how many times she has already said no
           if(unseen.length&&!willing&&refused>=1&&gameRandom()<pushRisk(refused,warmthOf(thread))){
@@ -2336,9 +2336,15 @@
           if(unseen.length&&willing){
             thread.photoRefusals=0;
             const picture=gamePick(unseen);
-            const line=another?(personality?.another||gamePick(['Greedy! Okay, one more.','Here’s another. Don’t say I never spoil you.','Fine, but this one’s just for you.','Since you asked so nicely…']))
-              :gamePick(['All right, here you go. What do you think?','Found this on my camera roll. Be nice!','Fine, but now you owe me a better conversation.']);
-            thread.log.push({who:'her',text:line,image:picture.src});
+            if(flirtable(profile)){ // flirting: she may make you work for it, then a caption that fits the picture
+              const kit=flirtFaction(profile);
+              if(!another&&heatOf(thread)<3&&gameRandom()<.45){lineSpeaker=profile.id;thread.log.push({who:'her',text:flirtFill(variedPick(kit.tempt,profile.id+'|tempt|'+world.day),profile)});thread.followUp={kind:'tempt',id:picture.src};}
+              else flirtSendPhoto(thread,profile,picture,null);
+            }else{
+              const line=another?(personality?.another||gamePick(['Greedy! Okay, one more.','Here’s another. Don’t say I never spoil you.','Fine, but this one’s just for you.','Since you asked so nicely…']))
+                :gamePick(['All right, here you go. What do you think?','Found this on my camera roll. Be nice!','Fine, but now you owe me a better conversation.']);
+              thread.log.push({who:'her',text:line,image:picture.src});
+            }
           }else if(unseen.length||!another){
             if(unseen.length)thread.photoRefusals=refused+1;
             maybeReported(profile,.05,'asking'); // Truecel: asking at all can be enough
@@ -2555,7 +2561,7 @@
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
-        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,callTold:words(src.callTold),
+        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),callTold:words(src.callTold),
         later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
         gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
@@ -2627,6 +2633,7 @@
     function followChoices(follow){
       const kit=talkKit();
       if(!follow||!kit)return [];
+      if(['flirt','tempt','pic'].includes(follow.kind))return flirtFollowChoices(follow); // flirting
       const moods=options=>['warm','challenge','joke'].filter(key=>options?.[key]).map(key=>({id:key,label:options[key].label,player:options[key].player,mood:key,tags:[]}));
       if(follow.kind==='question'){
         const question=kit.herQuestions?.find(item=>item.id===follow.id);
@@ -3266,6 +3273,7 @@
       const follow=thread.followUp,choice=followChoices(follow).find(item=>item.id===choiceId);
       if(!choice)return;
       thread.followUp=null;
+      if(choice.flirt)return answerFlirt(choice,thread,profile,follow); // flirting
       const kit=talkKit(),c=convo(),state=talkState(thread),personality=personalityOf(profile),faction=profile.factionId;
       const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[tone()];
       const reaction=(delta,key)=>{
@@ -4530,6 +4538,134 @@
       },0);
     }
 
+    // ===== Flirting (characters/flirt.json; Chris, 2 November 2026) =====
+    // Heat: how charged it is between you (0 to 3), apart from how much she likes you. She messages
+    // first now and then (more often the hotter it is), you react instead of interviewing her, and a
+    // picture is a scene: she may tease first, sends it with a caption that fits the photo, and you
+    // compliment, neg, say something filthy or play it cool. A neg or a filthy line can make her melt,
+    // or end it (and, on Truecel, get you reported). Never with a Sister, an older woman or a jeweler.
+    const flirtKit=()=>talkKit()?.flirt||null;
+    const flirtFaction=profile=>flirtKit()?.factions?.[profile?.factionId]||null;
+    function heatOf(thread){const h=Number(talkState(thread).heat);return Number.isFinite(h)?Math.max(0,Math.min(3,Math.round(h))):0;}
+    function heatBy(thread,n){talkState(thread).heat=Math.max(0,Math.min(3,heatOf(thread)+n));}
+    function flirtFill(text,profile){return fillIn(text,{first:firstName(profile),job:String(profile?.canonicalOccupation||'job').toLowerCase()});}
+    function photoKind(picture){const d=String(picture?.description||'').toLowerCase();return /swimsuit|bikini|pool/.test(d)?'pool':/lingerie|sleepwear|camisole|satin|robe|underwear/.test(d)?'night':/dress|crop top|shirt|blazer/.test(d)?'dress':'roll';}
+    const flirtable=profile=>!!profile&&!!flirtFaction(profile)&&profile.factionId!=='sisters_of_mercy'&&(profile.age||0)<=OLDER_WOMAN_AGE&&!profile.jeweller;
+    // How a risky line lands: her nature, the heat between you, how much she likes you, the difficulty.
+    function flirtOdds(thread,profile,kind){
+      const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3],bold=CONTRARIANS.has(p?.id)||A<=2||E>=4;
+      let odds={neg:.3,filthy:.25,flirt:.6,cocky:.4}[kind]??.5;
+      if(bold)odds+=kind==='flirt'?.1:.2;
+      odds+=heatOf(thread)*(kind==='flirt'?.1:.12)+Math.max(0,warmthOf(thread))*.04;
+      odds+={mogger:.2,normie:0,truecel:-.15}[tone()]??0; // on LPC-A365, tone() is mogger
+      return Math.max(.05,Math.min(.92,odds));
+    }
+    const flirtBold=profile=>{const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3];return CONTRARIANS.has(p?.id)||A<=2||E>=4;};
+    // She talks first: a few warm women each morning, the hotter it is the likelier and the filthier.
+    function flirtNewDay(){
+      if(!flirtKit()||!revampOn())return;
+      let sent=0;
+      for(const thread of [...hingeThreads.values()].sort((a,b)=>heatOf(b)-heatOf(a)||warmthOf(b)-warmthOf(a))){
+        if(sent>=3)break;
+        const profile=hingeProfile(thread.id),st=talkState(thread);
+        if(!flirtable(profile)||!eventReady(thread)||thread.quiet||thread.followUp||mustReply(profile)||warmthOf(thread)<1)continue;
+        if(st.musedDay===world.day||!(st.days||[]).length)continue;
+        if(gameRandom()>=.22+heatOf(thread)*.14+Math.min(3,warmthOf(thread))*.05)continue;
+        const kit=flirtFaction(profile),tier=Math.min(2,heatOf(thread));
+        lineSpeaker=profile.id;
+        herLine(thread,flirtFill(variedPick(kit.musings[tier]||kit.musings[0],profile.id+'|muse|'+world.day),profile));
+        st.musedDay=world.day;thread.followUp={kind:'flirt',id:String(tier)};sent++;
+      }
+    }
+    // Your replies to her: after something she said, before a picture, after a picture.
+    function flirtFollowChoices(follow){
+      const p=flirtKit()?.player;
+      if(!p)return [];
+      const key=k=>world.seed+'|'+follow.kind+'|'+follow.id+'|'+world.day+'|'+k;
+      if(follow.kind==='flirt'){
+        const tier=Math.max(0,Math.min(2,Number(follow.id)||0));
+        return ['flirt','filthy','sweet','away'].map(k=>{const r=p.react[k],lines=Array.isArray(r.player[0])?r.player[tier]:r.player;return {id:k,label:r.label,player:seededPick(lines,key(k)),flirt:true};});
+      }
+      if(follow.kind==='tempt')return ['sweet','cheeky','cocky'].map(k=>({id:k,label:p.tempt[k].label,player:p.tempt[k].player,flirt:true}));
+      if(follow.kind==='pic'){
+        const kind=['dress','pool','night','roll'].includes(follow.id)?follow.id:'roll';
+        return ['compliment','neg','filthy','cool'].map(k=>{const r=p.pic[k];return {id:k,label:r.label,player:seededPick(k==='cool'?r.player:r[kind],key(k)),flirt:true};});
+      }
+      return [];
+    }
+    // She sends one: her caption fits the picture, and you get to react.
+    function flirtSendPhoto(thread,profile,picture,lead){
+      const kit=flirtFaction(profile),kind=photoKind(picture);
+      lineSpeaker=profile.id;
+      const caption=flirtFill(variedPick(kit.captions[kind]||kit.captions.roll,profile.id+'|cap|'+picture.src),profile);
+      thread.log.push({who:'her',text:lead?lead+' '+caption:caption,image:picture.src});
+      thread.followUp={kind:'pic',id:kind};
+    }
+    function flirtUnseen(thread,profile){const sent=picturesSent(thread,profile);return (profile.privatePhotos||[]).filter(picture=>!sent.includes(picture.src));}
+    function flirtBlock(thread,profile,text,reason){
+      thread.blocked=true;
+      thread.log.push({who:'her',text,block:true});
+      maybeReported(profile,.5,reason); // Truecel: she reports you
+      flashBlocked();
+    }
+    function answerFlirt(choice,thread,profile,follow){
+      const kit=flirtFaction(profile);
+      if(!kit)return;
+      thread.log.push({who:'you',text:choice.player});
+      lineSpeaker=profile.id;
+      const reply=(list,key)=>flirtFill(variedPick(list,profile.id+'|'+key+'|'+world.day+'|'+thread.log.length),profile);
+      const say=(text,after)=>deliverTalk(thread,profile,[text],'talk',after,true);
+      const later=fn=>{thread.pending=true;renderHinge();window.setTimeout(()=>{thread.pending=false;fn();if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();saveRun(true);},hingeReplyDelay(profile,'talk'));};
+      const win=k=>gameRandom()<flirtOdds(thread,profile,k);
+      if(follow.kind==='flirt'){
+        if(choice.id==='sweet'){warmBy(thread,1);return say(reply(kit.sweet,'sweet'));}
+        if(choice.id==='away')return say(variedPick(talkKit()?.neutral||['Okay.'],profile.id+'|away|'+world.day));
+        if(choice.id==='flirt'){if(win('flirt')){heatBy(thread,1);warmBy(thread,1);return say(reply(kit.flirt.win,'fw'));}return say(reply(kit.flirt.lose,'fl'));}
+        if(choice.id==='filthy'){
+          if(win('filthy')){heatBy(thread,2);warmBy(thread,1);return say(reply(kit.filthy.win,'xw'));}
+          warmBy(thread,-2);heatBy(thread,-1);
+          if(gameRandom()<.3||warmthOf(thread)<0)return later(()=>flirtBlock(thread,profile,reply(kit.filthy.block,'xb'),'filthy'));
+          return say(reply(kit.filthy.lose,'xl'));
+        }
+      }
+      if(follow.kind==='tempt'){
+        const unseen=flirtUnseen(thread,profile),picture=unseen.find(p=>p.src===follow.id)||unseen[0];
+        if(!picture)return say(reply(kit.sweet,'sweet'));
+        if(choice.id==='cocky'&&!win('cocky'))return say(reply([kit.temptRefuse],'tr'));
+        if(choice.id!=='sweet')heatBy(thread,1);
+        return later(()=>flirtSendPhoto(thread,profile,picture,null));
+      }
+      if(follow.kind==='pic'){
+        if(choice.id==='compliment'){
+          if(flirtBold(profile)&&gameRandom()<.35)return say(reply(kit.compliment.meh,'cm')); // a contrarian is bored by flattery
+          warmBy(thread,1);if(heatOf(thread)<2)heatBy(thread,1);
+          return say(reply(kit.compliment.win,'cw'));
+        }
+        if(choice.id==='cool'){if(flirtBold(profile))warmBy(thread,1);return say(reply(kit.cool,'co'));}
+        const k=choice.id==='neg'?'neg':'filthy';
+        if(win(k)){
+          warmBy(thread,2);heatBy(thread,2);
+          const text=reply(kit[k].win,k+'w');
+          const unseen=flirtUnseen(thread,profile);
+          return say(text,()=>{ // it worked: sometimes she sends another, unasked
+            if(unseen.length&&gameRandom()<.5){const picture=gamePick(unseen);later(()=>flirtSendPhoto(thread,profile,picture,reply(kit.another,'an')));}
+          });
+        }
+        warmBy(thread,-2);talkState(thread).heat=0;
+        if(gameRandom()<.35||warmthOf(thread)<0)return later(()=>flirtBlock(thread,profile,reply(kit[k].block,k+'b'),k));
+        return say(reply(kit[k].lose,k+'l'));
+      }
+    }
+    function flirtAskLine(thread,profile,another){
+      const p=flirtKit()?.player,seed=world.seed+profile.id+'|'+thread.log.length;
+      if(!p||!flirtable(profile))return another?choose(['Another one?','Got another one?','Another one? Please?']):'Will you send me a picture of yourself?';
+      return another?seededPick(p.another,seed):seededPick(p.photoAsk[heatOf(thread)]||p.photoAsk[0],seed);
+    }
+    function flirtAskLabel(thread,profile,another){
+      const p=flirtKit()?.player;
+      if(another)return '♡ Another one?';
+      return flirtable(profile)&&p?p.photoAskLabel[heatOf(thread)]||p.photoAskLabel[0]:'♡ Ask for a picture';
+    }
     // ===== Undeniable: Cole Halloran, the LPC-A365 follow-up (LPC_FOLLOWUP_QUEST.md) =====
     // In a run where you ordered LPC-A365, Sunfall's most popular new politician turns out to take
     // the same pills, and his pot lands on your floor. The students ask you to swap one tablet. It all
@@ -5027,7 +5163,9 @@
         sister:'A woman from the Sisters of Mercy says you asked her for pictures of herself.',
         older:'A woman old enough to be your mother says you asked her for pictures.',
         accused:'A young woman says you accused her of spreading your messages round a group chat, and kept on at her.',
-        halloran:'A young woman says you’ve been making threats about Cole Halloran.'
+        halloran:'A young woman says you’ve been making threats about Cole Halloran.',
+        filthy:'A young woman says you sent her something filthy after she sent you a photo.',
+        neg:'A young woman says you made fun of her body after she sent you a photo.'
       },
       open:'Sunfall Police, the duty sergeant speaking. We’ve had a complaint about you. {reason} Nobody’s coming around tonight. This is your warning.',
       sorry:'Good. Keep it that way. If your name crosses my desk again, we come to your door.',
@@ -5875,6 +6013,7 @@
       quietNewDay(); // conversations run out
       laterNewDay(); // answers she slept on
       lifeNewDay(); // her life moves on
+      flirtNewDay(); // and now and then she just talks: the hotter it is, the filthier
       const kit=talkKit();
       if(!kit?.morning)return;
       let sent=0;
@@ -6289,7 +6428,7 @@
     // Settings ▸ About. GAME_VERSION shows at the bottom; Credits appear from the second
     // playthrough (counted on this device, across runs). Edit DEVELOPER_NOTE and DONATE_URL here.
     const GAME_VERSION='0.9';
-    const DEVELOPER_NOTE=['Thank you so much for playing MATCH.','I made this game because I wanted to make a commentary on dating apps, but more importantly, on wokeness itself.','If you’d like to support me, here’s my Bitcoin address:'];
+    const DEVELOPER_NOTE=['Thank you so much for playing Matchfall.','I made this game because I wanted to make a commentary on dating apps, but more importantly, on wokeness itself.','If you’d like to support me, here’s my Bitcoin address:'];
     const BITCOIN_ADDRESS='3QRQ7UyFoeB3GiTisk5DAvcYoWQi5hrzfR'; // shown in Credits, with a Copy button
     const DEVELOPER_SIGNATURE='Chris, the developer';
     const DONATE_URL=''; // the donate button appears once this is set
@@ -6305,14 +6444,14 @@
         return;
       }
       if(settingsView==='credits'&&creditsUnlocked()){
-        $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<div class="settings-btc"><code>${esc(BITCOIN_ADDRESS)}</code><button data-copy-btc>Copy address</button></div><p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support MATCH</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Chris</p></div><p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
+        $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<div class="settings-btc"><code>${esc(BITCOIN_ADDRESS)}</code><button data-copy-btc>Copy address</button></div><p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support Matchfall</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Chris</p></div><p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
         return;
       }
       settingsView='main';
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">MATCH version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -6538,7 +6677,7 @@
     });
     // New game, from anywhere: three big faces. Tap one and a new game starts at that level.
     function pickDifficulty(confirmFirst=false){
-      if(confirmFirst&&typeof window.confirm==='function'&&!window.confirm('Start a fresh MATCH run? Your current unsaved progress will be lost.'))return;
+      if(confirmFirst&&typeof window.confirm==='function'&&!window.confirm('Start a fresh Matchfall run? Your current unsaved progress will be lost.'))return;
       document.querySelectorAll('[data-pick-difficulty]').forEach(button=>button.classList.toggle('current',button.dataset.pickDifficulty===selectedDifficulty));
       $('difficulty-pick').classList.add('visible');
     }
@@ -7879,7 +8018,7 @@
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
-            followUp:raw.followUp&&['topic','question','news','day','tone'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
+            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
@@ -7936,7 +8075,7 @@
       }
     }
     function startNewRun(skipConfirmation=false){
-      if(!skipConfirmation&&typeof window.confirm==='function'&&!window.confirm('Start a fresh MATCH run? Your current unsaved progress will be lost.'))return;
+      if(!skipConfirmation&&typeof window.confirm==='function'&&!window.confirm('Start a fresh Matchfall run? Your current unsaved progress will be lost.'))return;
       countPlaythrough(); // a second playthrough unlocks Credits in Settings
       stopRinging();herCall=null;
       endSimulatedCall();

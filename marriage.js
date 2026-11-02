@@ -283,7 +283,7 @@
       // The single place in the game that records a win.
       api.world().victory={type:'marriage',bride:id,day:today()};
       refreshDesk();
-      api.status(`${sister(id).name} said yes. You won MATCH.`);
+      api.status(`${sister(id).name} said yes. You won Matchfall.`);
       api.save();
       playWedding(id,false);
     }

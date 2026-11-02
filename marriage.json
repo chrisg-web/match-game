@@ -2,7 +2,7 @@
   "version": 1,
   "id": "sisters_of_mercy_marriage",
   "title": "Marriage: the Sisters of Mercy",
-  "summary": "The only way to win MATCH. Pass a Sister of Mercy's traditional Catholic examination (five correct answers in a row), get a free wedding ring from one of five Sunfall jewelers, then propose.",
+  "summary": "The only way to win Matchfall. Pass a Sister of Mercy's traditional Catholic examination (five correct answers in a row), get a free wedding ring from one of five Sunfall jewelers, then propose.",
   "fellowship": "The Sisters of Mercy are a lay fellowship of traditional Catholic women in Sunfall, not a vowed religious congregation. Every member is free to marry.",
   "timeRule": "Time advances only through Start Another Day. No weekdays, calendar dates or clock times are needed to play.",
   "rules": {
@@ -999,7 +999,7 @@
     ]
   },
   "thunderbirds": {
-    "status": "You married {name}. The Bluebirds have a new member. You won MATCH.",
+    "status": "You married {name}. The Bluebirds have a new member. You won Matchfall.",
     "backdrop": "assets/marriage/thunderbirds/victory-backdrop.png",
     "scenes": [
       {

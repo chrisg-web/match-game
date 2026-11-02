@@ -25371,7 +25371,828 @@
       "Gotta go. Don’t do anything interesting without me. Tomorrow.",
       "Okay, I’m putting you down now. Gently. Tomorrow."
     ],
-    "dayDoneNote": "She’s done talking for today. Try her again tomorrow."
+    "dayDoneNote": "She’s done talking for today. Try her again tomorrow.",
+    "flirt": {
+      "player": {
+        "photoAsk": [
+          [
+            "So when do I get a picture?",
+            "Your profile is lying to me, isn’t it. Prove it.",
+            "Send me a picture. For science."
+          ],
+          [
+            "Show me what you’re wearing tonight.",
+            "What are you up to right now? Show me.",
+            "Send me a picture of whatever you’re doing. Don’t tidy up first."
+          ],
+          [
+            "What are you wearing right now? Be honest.",
+            "Send me something your mother wouldn’t like.",
+            "I want a picture you’d delete in the morning."
+          ],
+          [
+            "Send me something you’d never post.",
+            "Show me what you were going to send the last guy.",
+            "I’ve been good all day. I’d like a reward."
+          ]
+        ],
+        "photoAskLabel": [
+          "♡ Ask for a picture",
+          "♡ Ask what she’s wearing tonight",
+          "🔥 Ask what she’s wearing right now",
+          "🔥 Ask for one she’d never post"
+        ],
+        "another": [
+          "Another one?",
+          "I wasn’t finished looking. Another.",
+          "That one’s my wallpaper now. Send its sister."
+        ],
+        "tempt": {
+          "sweet": {
+            "label": "♡ Tell her you’ll be grateful forever",
+            "player": "I’ll be grateful. Embarrassingly grateful."
+          },
+          "cheeky": {
+            "label": "😏 Offer her one back",
+            "player": "I’ll send you one back. Fair trade."
+          },
+          "cocky": {
+            "label": "😎 Tell her she wants to send it",
+            "player": "Nothing. You want to send it anyway."
+          }
+        },
+        "pic": {
+          "compliment": {
+            "label": "♡ Compliment her",
+            "dress": [
+              "That dress should be illegal. Where are you going and can I come?",
+              "Okay, the dress is incredible, but it’s the look on your face that got me.",
+              "You clean up dangerously well."
+            ],
+            "pool": [
+              "Jealous of that pool. Genuinely.",
+              "That smile in the sun is my new favorite thing.",
+              "You look like the reason people move to Arizona."
+            ],
+            "night": [
+              "You can’t just send that at this hour. I’m wide awake now.",
+              "Satin and that look. I’m not going to sleep at all.",
+              "You look unreal. I mean it."
+            ],
+            "roll": [
+              "You’re even better than your profile.",
+              "That’s a great picture. You’re a great picture.",
+              "I’ve been staring at this for an embarrassing amount of time."
+            ]
+          },
+          "neg": {
+            "label": "😈 Neg her",
+            "dress": [
+              "Bold of you to wear that with those shoes. Somehow it works.",
+              "You look great for someone who clearly got dressed in the dark.",
+              "Cute dress. Did your friend take it in for you?"
+            ],
+            "pool": [
+              "Nice. Most people can’t pull off that tan line. You almost do.",
+              "You look good for someone who clearly forgot sunscreen.",
+              "Pool’s nice. You’re fine too."
+            ],
+            "night": [
+              "Cute. You were going for sexy and landed on adorable.",
+              "Is that your sister’s set? It’s a little big on you.",
+              "Very brave of you to send that with your hair like that."
+            ],
+            "roll": [
+              "You’re prettier than your profile. Not by much, but still.",
+              "Good picture. Bad angle, but good picture.",
+              "You’re a solid seven. In this light, maybe an eight."
+            ]
+          },
+          "filthy": {
+            "label": "🔥 Say something filthy",
+            "dress": [
+              "That dress is going to look incredible on my bedroom floor.",
+              "How many buttons is that? I’m asking for practical reasons.",
+              "I’d like to be the reason you’re late tonight."
+            ],
+            "pool": [
+              "If I were that pool I’d never let you out.",
+              "I need you to know I just got very, very thirsty.",
+              "Lucky towel."
+            ],
+            "night": [
+              "My phone screen just fogged up. I need a minute alone.",
+              "I’m going to be thinking about that until I see it in person.",
+              "That set is coming off with my teeth. Eventually."
+            ],
+            "roll": [
+              "I want the version of this picture where you’re in my bed.",
+              "Delete every other guy’s number. Now.",
+              "I’d ruin your whole weekend if you let me."
+            ]
+          },
+          "cool": {
+            "label": "😎 Play it cool",
+            "player": [
+              "Not bad.",
+              "Cute. What are you doing later?",
+              "I’ve seen worse. Keep going."
+            ]
+          }
+        },
+        "react": {
+          "flirt": {
+            "label": "😏 Flirt back",
+            "player": [
+              [
+                "Tell me more, I’m listening very closely.",
+                "You say that like you want me to do something about it.",
+                "I’m going to need a picture to understand the situation."
+              ],
+              [
+                "That’s a dangerous thing to tell a man at this hour.",
+                "Describe it. Slowly.",
+                "You did that on purpose."
+              ],
+              [
+                "Keep talking like that and I’m coming over.",
+                "You know exactly what you’re doing to me.",
+                "Careful. I might hold you to that."
+              ]
+            ]
+          },
+          "filthy": {
+            "label": "🔥 Say something filthy",
+            "player": [
+              [
+                "Is it hot in there or is it just you?",
+                "I’d keep you up all night. In a fun way.",
+                "Lucky sheets."
+              ],
+              [
+                "I’d have you so late for work they’d send a search party.",
+                "I know exactly what I’d do about that and none of it is polite.",
+                "Unlock your door and don’t ask questions."
+              ],
+              [
+                "I’m going to say something I can’t take back. I want to taste you.",
+                "Put the phone down. I’m coming over and you won’t need clothes.",
+                "I’d make the neighbors file a complaint."
+              ]
+            ]
+          },
+          "sweet": {
+            "label": "♡ Keep it sweet",
+            "player": [
+              "That made me smile.",
+              "I like it when you message first.",
+              "You’re my favorite notification."
+            ]
+          },
+          "away": {
+            "label": "↪ Change the subject",
+            "player": [
+              "Anyway. How was your day, really?",
+              "Changing the subject before I say something stupid.",
+              "Okay, new topic. What’s for dinner?"
+            ]
+          }
+        }
+      },
+      "factions": {
+        "normie_girls": {
+          "musings": [
+            [
+              "I’m lying on the kitchen floor because it’s the only cool thing in this apartment. Come lie on the floor with me. Hypothetically.",
+              "Long day at work. A {job} needs a foot rub and a bad movie. Two out of three isn’t bad.",
+              "Saw a couple kissing at the gas station and got weirdly jealous. Of the gas station."
+            ],
+            [
+              "Just got out of the shower and realized I have nobody to tell. Now I’ve told you. Do with that what you will.",
+              "My friend says I flirt like a golden retriever. Is that bad? Be honest.",
+              "Bed. Fresh sheets. One pillow too many. You can probably guess where this is going."
+            ],
+            [
+              "I’m in bed, I’m bored, and I’m wearing less than I should be. That’s all. Goodnight. Or not.",
+              "I had a dream about you and I’m not allowed to tell you about it at work.",
+              "Wine is open. Inhibitions are closed for renovation."
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "Going out. Should I stay in? Convince me either way.",
+              "Rate the dress. Wrong answers only.",
+              "First time I’ve worn this. Don’t make it weird. Make it a little weird."
+            ],
+            "pool": [
+              "Pool day. Don’t ask about the tan lines.",
+              "My friend took this. She says I’m showing off. Am I?",
+              "Too hot to wear more than this. Blame Arizona."
+            ],
+            "night": [
+              "This is what bored looks like. Thoughts?",
+              "Couldn’t sleep. Took this instead. Don’t screenshot it.",
+              "Deleting this in five minutes. Look fast."
+            ],
+            "roll": [
+              "Found this on my camera roll. Be nice.",
+              "Okay, one. Don’t get used to it.",
+              "Here. Now say something good."
+            ]
+          },
+          "tempt": [
+            "What do I get if I do?",
+            "Hmm. What’s in it for me?",
+            "Say please properly."
+          ],
+          "temptRefuse": "Then nothing it is. Try again tomorrow, cocky.",
+          "compliment": {
+            "win": [
+              "Stop. You’re making me blush at my desk.",
+              "Okay, that was really sweet. Smooth, too.",
+              "I’m screenshotting that for the group chat."
+            ],
+            "meh": [
+              "Thanks. That’s what everyone says though."
+            ]
+          },
+          "neg": {
+            "win": [
+              "Excuse me?? ...Okay. Why is that working on me. I’m literally blushing. Do it again.",
+              "Nobody talks to me like that. I hate how much I liked it.",
+              "Oh, you’re trouble. I need to prove you wrong now. Tomorrow you’re getting a better one."
+            ],
+            "lose": [
+              "Wow. Okay. Enjoy that picture, because it’s the last one.",
+              "Was that supposed to be charming? Because it wasn’t."
+            ],
+            "block": [
+              "Unmatching you is the best thing I’ll do all week."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "Okay, you can’t just say that. I had to put my phone face down. Say it again.",
+              "God. You’re disgusting. Keep going.",
+              "I just bit my lip so hard it hurts. Your fault."
+            ],
+            "lose": [
+              "Wow. Calm down. I sent you a picture, not an invitation.",
+              "Yikes. Maybe say hi first next time."
+            ],
+            "block": [
+              "Yeah, no. Blocked. Get help."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "You’re really good at this. Suspiciously good.",
+              "Okay, now I’m smiling at my phone like an idiot."
+            ],
+            "lose": [
+              "Haha. Okay. Anyway."
+            ]
+          },
+          "sweet": [
+            "You’re cute. Did you know that?",
+            "Aw. You’re making my whole day."
+          ],
+          "cool": [
+            "Not bad? NOT BAD? Fine. I’ll take it.",
+            "Playing hard to get. I respect it. I hate it."
+          ],
+          "another": [
+            "Since you’re so hard to impress. Here. Try not to say anything stupid.",
+            "Fine. One more. This is the good one."
+          ]
+        },
+        "thunderbirds": {
+          "musings": [
+            [
+              "I’ve been seated next to a man who talks about yachts for an hour. Rescue me with something vulgar.",
+              "Mother wants me married by next spring. I want a cigarette and a bad decision.",
+              "The Foundation luncheon had a string quartet. I spent it thinking about your hands."
+            ],
+            [
+              "Just got out of the bath. The good one, with the claw feet. You’d like it. Everybody does.",
+              "Daddy has his men follow me sometimes. I like to give them something to report.",
+              "I’m wearing pearls and nothing that would interest the board."
+            ],
+            [
+              "I’ve had three glasses of something very old and very expensive. Tell me something filthy before I come to my senses.",
+              "There’s a key under the third flowerpot. I’m not saying it’s for you. I’m not saying it isn’t.",
+              "I’m in Mother’s robe and Mother is in Paris. Do what you want with that information."
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "The gala dress. Do I look like a donation?",
+              "Mother picked it. I made it worse. Better?",
+              "They’ll talk about this one at the club for weeks."
+            ],
+            "pool": [
+              "The pool at the club. Members only. Nobody’s looking.",
+              "Rich girl, cheap tan. Discuss.",
+              "Daddy paid for this pool and I’m wasting it on you."
+            ],
+            "night": [
+              "If this gets to the club, I’ll know it was you.",
+              "Silk, because I’m a cliché. Say something worth it.",
+              "Mother would faint. Look quickly."
+            ],
+            "roll": [
+              "One. For a very discreet man.",
+              "Fine. But you’re signing a nondisclosure agreement.",
+              "Here. Don’t frame it."
+            ]
+          },
+          "tempt": [
+            "And what does the gentleman offer in return?",
+            "Darling, everything has a price.",
+            "Persuade me."
+          ],
+          "temptRefuse": "How disappointingly cocky. Ask me again when you’ve learned some manners.",
+          "compliment": {
+            "win": [
+              "Charming. You may continue.",
+              "Flattery. I approve. Carry on."
+            ],
+            "meh": [
+              "Everyone says that. Say something expensive."
+            ]
+          },
+          "neg": {
+            "win": [
+              "How dare you. ...Say it again, slowly.",
+              "Nobody at the club would dare. I think I’m in love with your nerve.",
+              "Mother would have you shot. I might have you for dinner."
+            ],
+            "lose": [
+              "Do you know who my father is? You will.",
+              "Sweetheart, I’ve had better insults from the help."
+            ],
+            "block": [
+              "You’ve been removed from the guest list. Permanently."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "You vulgar, vulgar man. I’ve gone pink to the ears. Continue.",
+              "That’s not how one speaks to a lady. Do it again.",
+              "I had to excuse myself from the table. You’re a menace."
+            ],
+            "lose": [
+              "I’m not a waitress at your cousin’s wedding. Try again with breeding.",
+              "How terribly common."
+            ],
+            "block": [
+              "Security will see you out. Goodbye."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "You’re wicked. I adore wicked.",
+              "Oh, you’re good. Daddy would hate you."
+            ],
+            "lose": [
+              "How quaint."
+            ]
+          },
+          "sweet": [
+            "You’re terribly sweet. I may keep you.",
+            "That was lovely. Don’t tell anyone I said so."
+          ],
+          "cool": [
+            "Not bad? I’ve had sonnets written about less.",
+            "Indifference. How novel. I’m intrigued."
+          ],
+          "another": [
+            "Since you insist on being difficult. Here. Mind your manners.",
+            "One more, for your audacity."
+          ]
+        },
+        "goth_girls": {
+          "musings": [
+            [
+              "It’s raining somewhere and I’m jealous. Talk to me about something dead.",
+              "I lit too many candles and now my apartment smells like a séance. Come over and haunt it.",
+              "Bats are out. I’m out. Where are you?"
+            ],
+            [
+              "I just got out of a bath so hot it nearly killed me. Worth it.",
+              "The black lipstick comes off on everything. Coffee cups. Pillows. Fair warning.",
+              "My corset’s on the floor and I’m too lazy to pick it up. Picture that."
+            ],
+            [
+              "I’m lying in the dark in black lace thinking very unholy thoughts. About you, mostly.",
+              "Bite marks are a love language. Discuss.",
+              "Come over after midnight. Knock three times. Don’t bring garlic."
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "Club night at the Rialto. I’m dressed for a funeral. Yours, if you’re lucky.",
+              "Velvet. Because it feels like sin.",
+              "Rate my outfit on a scale of ghost to banshee."
+            ],
+            "pool": [
+              "I went outside. In the sun. For you. Don’t ruin it.",
+              "Pale girl, hot pool. Tragic.",
+              "Witness me. Daylight."
+            ],
+            "night": [
+              "Black lace, candlelight, poor decisions.",
+              "Taken at the witching hour. Don’t show anyone.",
+              "This is what I wear to summon things."
+            ],
+            "roll": [
+              "A rare photograph of the creature in its habitat.",
+              "Here. Don’t steal my soul with it.",
+              "One, for my favorite mortal."
+            ]
+          },
+          "tempt": [
+            "What will you sacrifice?",
+            "Every offering demands a price.",
+            "Kneel and ask again."
+          ],
+          "temptRefuse": "Arrogance. Delicious, but no. Ask again when you’re humbler.",
+          "compliment": {
+            "win": [
+              "Darling. Mortals have died for less. I’m keeping you.",
+              "Okay that was gorgeous. I feel seen in a haunted way."
+            ],
+            "meh": [
+              "Sweet. Bit vanilla. I like my men darker."
+            ]
+          },
+          "neg": {
+            "win": [
+              "Oh. Oh, you’re cruel. I like cruel. Come closer.",
+              "Nobody insults me that beautifully. My heart is racing and I don’t have one.",
+              "Say something mean again. Slower. I want to savor it."
+            ],
+            "lose": [
+              "Cute. Now crawl back into whatever made you.",
+              "I’ve been insulted by better ghosts."
+            ],
+            "block": [
+              "I’ve cursed you. Goodbye."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "You filthy thing. I bit my own lip and drew blood. Keep going.",
+              "That’s the most romantic thing anyone’s ever said to me. Disgusting. Perfect.",
+              "Now I need a cold shower and a priest."
+            ],
+            "lose": [
+              "Even I have limits, and you just found one.",
+              "That was gross in the boring way."
+            ],
+            "block": [
+              "Banished. Don’t follow."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "You’re darker than you look. I like that.",
+              "Careful. I might fall for you and then eat you."
+            ],
+            "lose": [
+              "Hm. You’re a bit sunshine for me."
+            ]
+          },
+          "sweet": [
+            "You’re sweet. Like poison is sweet.",
+            "Ugh. That was nice. Stop it. Don’t stop it."
+          ],
+          "cool": [
+            "Not bad? I’ll haunt you for that.",
+            "Indifference. My favorite flavor."
+          ],
+          "another": [
+            "Since you’re so impossible to please. Here. Worship accordingly.",
+            "Fine. One more offering to the cold, cruel god of you."
+          ]
+        },
+        "progressives": {
+          "musings": [
+            [
+              "Just spent three hours at a meeting about bike lanes. Distract me with something unproductive.",
+              "I’m reading theory in the bath. It’s going badly. The bath is going great.",
+              "Someone at the co-op called me intense today. I took it as foreplay."
+            ],
+            [
+              "I don’t believe in monogamy as a system but I believe in you texting me back faster.",
+              "Just got home from the protest, sweaty and furious. Come and be the reason I calm down.",
+              "I’m wearing your hypothetical hoodie. It’s a metaphor. It’s also cold."
+            ],
+            [
+              "Smash the patriarchy. Then come over and smash something else.",
+              "I’m in bed reading about mutual aid and thinking about mutual something else.",
+              "Consent is sexy. So: can I tell you exactly what I’m thinking about?"
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "Fundraiser dress, thrifted, unethically hot.",
+              "Dressed up for a cause. The cause is you.",
+              "I look like a person who owns a blazer. I don’t. I borrowed it."
+            ],
+            "pool": [
+              "Community pool. Communal joy. Mild sunburn.",
+              "Body neutrality, but also: look at me.",
+              "The pool is a public good. So is this picture."
+            ],
+            "night": [
+              "This is my late-night activism outfit.",
+              "I’m sending this as an act of radical vulnerability.",
+              "Don’t make this a power thing. Make it a little bit of a power thing."
+            ],
+            "roll": [
+              "One picture. Non-transferable.",
+              "Here. Consensually given, gratefully received.",
+              "My camera roll, my rules."
+            ]
+          },
+          "tempt": [
+            "What’s the exchange here? Mutual aid works both ways.",
+            "I need to know your intentions. In writing.",
+            "Ask me with feeling."
+          ],
+          "temptRefuse": "That’s entitled and gross. Try again with less ego.",
+          "compliment": {
+            "win": [
+              "Okay, that was respectful and hot. Rare combination.",
+              "I’m unpacking how much I liked that. With my therapist. Tomorrow."
+            ],
+            "meh": [
+              "Thanks. Could you be more specific? I’m a qualitative person."
+            ]
+          },
+          "neg": {
+            "win": [
+              "That’s so problematic and I’m so into it. I need to unpack this immediately.",
+              "I should be offended. I am offended. Why am I also turned on?",
+              "You absolute menace. Say it again so I can be properly furious."
+            ],
+            "lose": [
+              "Wow. Textbook negging. I literally wrote a zine about men like you.",
+              "That’s a backhanded compliment and I see right through it."
+            ],
+            "block": [
+              "Blocked. Reported. Discussed at the co-op."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "Wow. Okay. Consent given, enthusiastically. Continue.",
+              "That was obscene and I’ve never felt more seen.",
+              "I need to lie down. On a bed. Preferably yours."
+            ],
+            "lose": [
+              "Did you ask if I wanted that? You didn’t.",
+              "That’s a lot. Read the room, buddy."
+            ],
+            "block": [
+              "Absolutely not. Blocked."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "Okay you’re good at this. Suspicious. Are you a cop?",
+              "You’re making it very hard to stay principled."
+            ],
+            "lose": [
+              "Hm. That’s a bit much for a weekday."
+            ]
+          },
+          "sweet": [
+            "That’s gentle and lovely. Who raised you?",
+            "Soft boy energy. I’m into it."
+          ],
+          "cool": [
+            "Not bad? Wow. The patriarchy lives in your thumbs.",
+            "Detached. Interesting. I’ll allow it."
+          ],
+          "another": [
+            "Since apparently I need your approval now. Ugh. Here.",
+            "Fine. One more, as a treat. For me."
+          ]
+        },
+        "fourth_estate": {
+          "musings": [
+            [
+              "Deadline in an hour. I’m texting you instead. That’s how much trouble you are.",
+              "My editor cut my best line. Here it is, just for you: nothing. I forgot it. You distracted me.",
+              "Off the record: I’ve been thinking about you all day."
+            ],
+            [
+              "I’m working late in the empty newsroom. It’s very quiet. Very private. Just saying.",
+              "Just got out of the shower and I’m writing a headline about it. GIRL, WET, BORED.",
+              "Confession, strictly off the record: I wear nothing under this trench coat sometimes."
+            ],
+            [
+              "Exclusive: local woman in bed, thinking filthy thoughts. Developing story.",
+              "I have a source who says you’d be very good in bed. The source is me. I’m guessing.",
+              "Tonight’s question for the reader: how fast can you get here?"
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "Press night. I look like I’m about to expose a senator.",
+              "Dressed up for the awards. Lost the award, kept the dress.",
+              "Front page material?"
+            ],
+            "pool": [
+              "On assignment at the hotel pool. Very serious journalism.",
+              "Off the clock, on the lounger.",
+              "This is what my editor thinks I do all day."
+            ],
+            "night": [
+              "Exclusive. Do not syndicate.",
+              "Off the record. Very off the record.",
+              "Embargoed until you say something nice."
+            ],
+            "roll": [
+              "Here’s a photo. Don’t print it.",
+              "My byline photo is better. This one’s more honest.",
+              "For your eyes only. Literally."
+            ]
+          },
+          "tempt": [
+            "Everything’s a trade. What’s your scoop?",
+            "Give me a quote first.",
+            "What’s the angle here?"
+          ],
+          "temptRefuse": "Arrogant source. Unreliable. No photo.",
+          "compliment": {
+            "win": [
+              "Can I quote you on that? I’m quoting you on that.",
+              "That’s going in my diary under GOOD NEWS."
+            ],
+            "meh": [
+              "Nice. A little generic. I’d have cut it."
+            ]
+          },
+          "neg": {
+            "win": [
+              "WHO DOES HE THINK HE IS. That’s my headline. And I’m blushing.",
+              "You’re a terrible person and I want to write a long profile of you. In bed.",
+              "I’ve interviewed killers who were kinder. I’m into it. Continue."
+            ],
+            "lose": [
+              "Noted. On the record. Bye.",
+              "I’ll be filing that under: men to avoid."
+            ],
+            "block": [
+              "Your story’s been killed. So has this conversation."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "I just spilled coffee on a press release. That’s your fault. Say more.",
+              "That’s unprintable. Keep it coming.",
+              "You’ve given me nothing I can use and everything I want."
+            ],
+            "lose": [
+              "That’s not a quote. That’s an HR complaint.",
+              "Wow. Spike it."
+            ],
+            "block": [
+              "Blocked. Off the record: ew."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "You’re very quotable.",
+              "Okay, that’s going on the front page of my heart. Ugh. Delete that."
+            ],
+            "lose": [
+              "Hm. Needs an edit."
+            ]
+          },
+          "sweet": [
+            "That was sweet. I’ll pretend I didn’t smile.",
+            "Okay, you get a nice headline today."
+          ],
+          "cool": [
+            "Not bad? That’s a terrible review. I’ll take it.",
+            "Restrained. Like a good editor."
+          ],
+          "another": [
+            "Since you’re such a tough critic. Exclusive follow-up.",
+            "Fine. Second edition."
+          ]
+        },
+        "police": {
+          "musings": [
+            [
+              "Twelve hours on a cordon. My feet hate me. Want to hear about the guy who tried to bribe me with a burrito?",
+              "Off shift. Still have the handcuffs. Just saying.",
+              "I wrote three parking tickets today and thought about you during all of them."
+            ],
+            [
+              "Just got home and took off the uniform. Every piece of it.",
+              "I’ve frisked a lot of men. None of them were you. Unfortunately.",
+              "The shower radio is playing something filthy. I didn’t change the station."
+            ],
+            [
+              "I’m off duty, in bed, and feeling very lawless.",
+              "You have the right to remain silent. I’d rather you didn’t.",
+              "Tonight I’m going to break a few rules. You’re one of them."
+            ]
+          ],
+          "captions": {
+            "dress": [
+              "Out of uniform for once. Don’t get used to it.",
+              "Night out with the girls from the station. Behave.",
+              "Civilian clothes. Feels illegal."
+            ],
+            "pool": [
+              "Off duty. Still armed with a very good tan.",
+              "Station barbecue at the pool. I won the cannonball contest.",
+              "This is what I do on my day off. You should see what I do on my night off."
+            ],
+            "night": [
+              "Strictly off the record. And off duty.",
+              "This is evidence. Don’t tamper with it.",
+              "Do not forward. That’s an order."
+            ],
+            "roll": [
+              "Here. Consider it a warning.",
+              "One photo. Mug shot quality.",
+              "You’re lucky I’m in a good mood."
+            ]
+          },
+          "tempt": [
+            "What are you offering, citizen?",
+            "That sounds like a bribe. Go on.",
+            "Ask nicely or I’ll write you up."
+          ],
+          "temptRefuse": "Disrespecting an officer. No photo for you.",
+          "compliment": {
+            "win": [
+              "Flattery is a misdemeanor. I’ll let it slide. Twice.",
+              "Okay, that was sweet. Don’t tell the station."
+            ],
+            "meh": [
+              "Thanks. That’s what they all say before they ask to be let off."
+            ]
+          },
+          "neg": {
+            "win": [
+              "I could arrest you for that. I’m considering it. Hands where I can see them.",
+              "Nobody talks to me like that. I’m locking you up. In my apartment.",
+              "You’re under arrest for being exactly my type."
+            ],
+            "lose": [
+              "I’ve heard better lines from drunks in the back of my car.",
+              "Wow. You have the right to stop talking."
+            ],
+            "block": [
+              "Case closed. Blocked."
+            ]
+          },
+          "filthy": {
+            "win": [
+              "That’s indecent. I’m going to need you to say it again, for the report.",
+              "I just had to sit down in the patrol car. You’re a menace to public order.",
+              "Keep talking. I’m off duty and out of patience."
+            ],
+            "lose": [
+              "That’s harassment, buddy. Careful.",
+              "I’ve arrested men for less than that."
+            ],
+            "block": [
+              "Blocked. Don’t make me run your plates."
+            ]
+          },
+          "flirt": {
+            "win": [
+              "You’re trouble. I know trouble. I like trouble.",
+              "Smooth. Suspiciously smooth. Are you hiding something?"
+            ],
+            "lose": [
+              "That’s a ticket for trying too hard."
+            ]
+          },
+          "sweet": [
+            "Okay, that was nice. Don’t tell anyone I have feelings.",
+            "You’re sweet. I’ll go easy on you."
+          ],
+          "cool": [
+            "Not bad? I’ll remember that.",
+            "Cool customer. I like a man who doesn’t sweat."
+          ],
+          "another": [
+            "Since you’re so hard to impress. Here. Exhibit B.",
+            "Fine. One more. For the file."
+          ]
+        }
+      }
+    }
   },
   "minis": {
     "pills": {
