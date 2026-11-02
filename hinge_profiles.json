@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 164,
-  "imageCount": 1057,
-  "publicImageCount": 587,
-  "privateImageCount": 470,
+  "characterCount": 170,
+  "imageCount": 1105,
+  "publicImageCount": 617,
+  "privateImageCount": 488,
   "characters": [
     {
       "id": "MATCH-001",
@@ -5262,6 +5262,82 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-256",
+      "slug": "celia_bradford",
+      "name": "Celia Bradford",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/roster_expansion/celia_bradford_01.webp",
+        "assets/hinge/roster_expansion/celia_bradford_02.webp",
+        "assets/hinge/roster_expansion/celia_bradford_03.webp",
+        "assets/hinge/roster_expansion/celia_bradford_04.webp",
+        "assets/hinge/roster_expansion/celia_bradford_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/celia_bradford_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Celia Bradford, consistent Warm brown skin, glossy black ponytail, a gap-toothed smile, coral cropped cardigan",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/celia_bradford_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Celia Bradford, consistent Warm brown skin, glossy black ponytail, a gap-toothed smile, coral cropped cardigan",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/celia_bradford_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Celia Bradford, consistent Warm brown skin, glossy black ponytail, a gap-toothed smile, coral cropped cardigan",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and collecting unusual cookbooks.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-258",
+      "slug": "savannah_patel",
+      "name": "Savannah Patel",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Museum attendant",
+      "gallery": [
+        "assets/hinge/roster_expansion/savannah_patel_01.webp",
+        "assets/hinge/roster_expansion/savannah_patel_02.webp",
+        "assets/hinge/roster_expansion/savannah_patel_03.webp",
+        "assets/hinge/roster_expansion/savannah_patel_04.webp",
+        "assets/hinge/roster_expansion/savannah_patel_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/savannah_patel_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Savannah Patel, consistent Freckled fair skin, chestnut curly bob, a wide bright smile, coral cropped cardigan",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/savannah_patel_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Savannah Patel, consistent Freckled fair skin, chestnut curly bob, a wide bright smile, coral cropped cardigan",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/savannah_patel_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Savannah Patel, consistent Freckled fair skin, chestnut curly bob, a wide bright smile, coral cropped cardigan",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum attendant and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-260",
       "slug": "georgina_wells",
       "name": "Georgina Wells",
@@ -5411,6 +5487,44 @@
       ],
       "personality": "playful until someone crosses a line",
       "personalGoal": "Make a life for herself in Sunfall while balancing primary school teacher and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-264",
+      "slug": "joan_ramirez",
+      "name": "Joan Ramirez",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Dog walker",
+      "gallery": [
+        "assets/hinge/roster_expansion/joan_ramirez_01.webp",
+        "assets/hinge/roster_expansion/joan_ramirez_02.webp",
+        "assets/hinge/roster_expansion/joan_ramirez_03.webp",
+        "assets/hinge/roster_expansion/joan_ramirez_04.webp",
+        "assets/hinge/roster_expansion/joan_ramirez_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/joan_ramirez_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Joan Ramirez, consistent Rosy fair skin, honey-blonde beach waves, gold hoop earrings, red gingham shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/joan_ramirez_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Joan Ramirez, consistent Rosy fair skin, honey-blonde beach waves, gold hoop earrings, red gingham shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/joan_ramirez_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Joan Ramirez, consistent Rosy fair skin, honey-blonde beach waves, gold hoop earrings, red gingham shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing dog walker and desert stargazing.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -5677,6 +5791,120 @@
       ],
       "personality": "calm in a crisis and terrible at small talk",
       "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-272",
+      "slug": "courtney_vance",
+      "name": "Courtney Vance",
+      "age": 30,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Tour guide",
+      "gallery": [
+        "assets/hinge/roster_expansion/courtney_vance_01.webp",
+        "assets/hinge/roster_expansion/courtney_vance_02.webp",
+        "assets/hinge/roster_expansion/courtney_vance_03.webp",
+        "assets/hinge/roster_expansion/courtney_vance_04.webp",
+        "assets/hinge/roster_expansion/courtney_vance_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/courtney_vance_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Courtney Vance, consistent Rosy fair skin, cornrows into a low bun, gray-green eyes, gray sweatshirt and leggings",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/courtney_vance_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Courtney Vance, consistent Rosy fair skin, cornrows into a low bun, gray-green eyes, gray sweatshirt and leggings",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/courtney_vance_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Courtney Vance, consistent Rosy fair skin, cornrows into a low bun, gray-green eyes, gray sweatshirt and leggings",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing tour guide and collecting vintage postcards.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-273",
+      "slug": "lena_fischer",
+      "name": "Lena Fischer",
+      "age": 21,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Receptionist",
+      "gallery": [
+        "assets/hinge/roster_expansion/lena_fischer_01.webp",
+        "assets/hinge/roster_expansion/lena_fischer_02.webp",
+        "assets/hinge/roster_expansion/lena_fischer_03.webp",
+        "assets/hinge/roster_expansion/lena_fischer_04.webp",
+        "assets/hinge/roster_expansion/lena_fischer_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lena_fischer_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lena Fischer, consistent Golden-tan skin, jet-black waist-length hair, freckles across her nose, lavender knit top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lena_fischer_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lena Fischer, consistent Golden-tan skin, jet-black waist-length hair, freckles across her nose, lavender knit top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lena_fischer_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lena Fischer, consistent Golden-tan skin, jet-black waist-length hair, freckles across her nose, lavender knit top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and restoring vintage dresses.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-274",
+      "slug": "marisol_ibarra",
+      "name": "Marisol Ibarra",
+      "age": 32,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Primary school teacher",
+      "gallery": [
+        "assets/hinge/roster_expansion/marisol_ibarra_01.webp",
+        "assets/hinge/roster_expansion/marisol_ibarra_02.webp",
+        "assets/hinge/roster_expansion/marisol_ibarra_03.webp",
+        "assets/hinge/roster_expansion/marisol_ibarra_04.webp",
+        "assets/hinge/roster_expansion/marisol_ibarra_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/marisol_ibarra_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Marisol Ibarra, consistent Light olive skin, platinum pixie cut, deep dimples, pink zip hoodie",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marisol_ibarra_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Marisol Ibarra, consistent Light olive skin, platinum pixie cut, deep dimples, pink zip hoodie",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marisol_ibarra_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Marisol Ibarra, consistent Light olive skin, platinum pixie cut, deep dimples, pink zip hoodie",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing primary school teacher and baking elaborate cakes badly.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],
