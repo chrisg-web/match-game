@@ -11463,7 +11463,117 @@
       "look": "Light olive skin, box braids to the waist, amber eyes, powder-blue twinset",
       "status": "awaiting portrait",
       "type": "glamorous-rival",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_duchess",
+            "label": "Ask if she has any pets",
+            "player": "Do you have any pets?",
+            "reply": "Duchess. A spaniel, thirteen, deaf, and extremely sure of herself. I adopted her the week I came to Sunfall because nobody else was going to. I aspire to be Duchess."
+          },
+          {
+            "id": "b_books",
+            "label": "Ask about her work",
+            "player": "What’s it like doing the books at the Foundation?",
+            "reply": "I keep the food program honest, or I try. Suppliers, invoices, pantry deliveries. I like numbers. They don’t care what you looked like at nine."
+          },
+          {
+            "id": "b_pageant",
+            "label": "Ask how she’s always so put together",
+            "player": "How are you always so put together?",
+            "reply": "My mother put me on a stage at four. Pageants until fourteen. She lost the house doing it. I’ve never found the off switch, so here I am, doing the books in a twinset like it’s the talent round.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_mass",
+            "label": "Ask what she does on her day off",
+            "player": "What do you do on your day off?",
+            "reply": "Mass at St. Brigid’s. I sit at the back, near the girls in black, and I don’t feel at home with them or with the front rows. One of the Sisters turns around to smile at me sometimes. I’ve started looking forward to it.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_supplier",
+            "label": "Ask about anything odd in the books",
+            "player": "Anything odd in the food program’s books?",
+            "reply": "A supplier called Late Service Catering. It invoices the pantry every month and has never once delivered food. And next to one of the deliveries there’s a note in Augustus Pell’s hand: see C.P. My initials are C.P. I don’t know if it means me.",
+            "needsWarmth": 1,
+            "note": "Cecilia Prado says Late Service Catering invoices the Foundation’s pantry every month and never delivers, and a note in Augustus Pell’s hand beside it says see C.P.",
+            "quest": "br"
+          },
+          {
+            "id": "b_invitation",
+            "label": "Ask if the club has asked anything strange of her",
+            "player": "Has the club ever asked anything strange of you?",
+            "reply": "There’s an invitation to a private dinner at the lodge with my name on it, in very good handwriting, accepted by someone who wasn’t me. The girls at Simone Ellery’s book club told me what those dinners are. A girl goes up to the lodge and comes down a member, with something settled on her. I stopped going to the book club.",
+            "needsWarmth": 2,
+            "note": "Cecilia Prado has an invitation to a private dinner at the lodge that someone else accepted for her; a girl goes up and comes down a member.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_duchess",
+            "label": "Ask how Duchess is doing",
+            "player": "How’s Duchess doing?",
+            "reply": "Slower. She sleeps in the sun and wakes up surprised it moved. My mother says the lodge has the best vet in the county and he’d see her tonight, as a favor. I know what kind of favor. Duchess and I will manage.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_naomi",
+            "label": "Ask if there’s anyone at work she looks out for",
+            "player": "Is there anyone at work you look out for?",
+            "reply": "Naomi Whitlock. She’s the youngest at the club, and everybody calls her sweetheart and asks her to fix their phone. I check her invoices before anyone else sees them. She hasn’t noticed. That’s the idea.",
+            "needsWarmth": 1
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Duchess barked at a pigeon today. She’s deaf. She heard nothing and barked anyway. Pure confidence.",
+            "more": "She can’t hear a thing, so she barks at what she sees, on principle. The pigeon left. She looked at me like she’d arranged it. I want to walk into a board meeting exactly like that."
+          },
+          {
+            "feel": "odd",
+            "news": "My mother rang to ask what I’m wearing to the luncheon. I’m not going to the luncheon.",
+            "more": "She has a seat in mind for herself, two tables from the committee, and I’m how she gets there. I said I’d be at the pantry. She said nobody important goes to the pantry. Which is exactly why I like it."
+          },
+          {
+            "feel": "bad",
+            "news": "Found an invoice for a delivery that never came. Third one this month.",
+            "more": "It doesn’t sound like much. A pantry that should have had bread this week and didn’t. But there’s a family on the list for that bread, and somebody got paid for it. I wrote it down. I always write it down."
+          },
+          {
+            "feel": "good",
+            "news": "Tessa Larkin rang to ask after Duchess. She always does. I love her for it.",
+            "more": "She found Duchess sitting by the highway the week I arrived. Tessa mostly rescues lizards and hawks, and she still rings every month to ask how the old lady is. Duchess doesn’t remember her. I do."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-076",
+            "warmth": 0,
+            "says": "Naomi Whitlock is the youngest at the club and everyone asks her to fix their phone. She says yes every time. Somebody should teach her to say no.",
+            "note": "Cecilia Prado says everyone at the club asks Naomi Whitlock to fix their phone.",
+            "ask": "Cecilia says everyone at the club gets you to fix their phone.",
+            "answer": "They do. Mrs. Ellery has asked me to turn her ringtone off nine times. It’s the same button every time. I don’t mind. Cecilia minds for me, I think. She checks my work when she thinks I’m not looking. I always look.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-070",
+            "warmth": 1,
+            "says": "Tessa Larkin found my dog sitting by the highway and has rung every month since to ask after her. Nobody does that.",
+            "note": "Cecilia Prado says Tessa Larkin found her dog and rings every month to ask after her.",
+            "ask": "Cecilia says you found her dog and you still ring to ask after her.",
+            "answer": "Duchess! She was sitting by the highway like she was waiting for a bus. I ring because you can’t love something into staying, but you can check on it. Gregory doesn’t approve. Gregory doesn’t approve of anything.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-085",
@@ -11474,7 +11584,118 @@
       "look": "Olive skin, chin-length raven bob with a fringe, freckles across her nose, pale pink sheath dress",
       "status": "awaiting portrait",
       "type": "charming-schemer",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What does a compliance administrator actually do?",
+            "reply": "I look after the club’s own accounts. Dues, the bar, the sailing annex, the lodge’s upkeep. Where the Foundation’s money becomes the club’s comfort. Very dull. People tell me everything, because they think I’m dull."
+          },
+          {
+            "id": "b_darkroom",
+            "label": "Ask what she does outside the club",
+            "player": "What do you do when you’re not at the club?",
+            "reply": "I restore old film cameras, and I develop film in my basement for people who don’t want a shop to see their pictures. You would be amazed. Actually, you wouldn’t."
+          },
+          {
+            "id": "b_memory",
+            "label": "Ask how she remembers everything",
+            "player": "How do you remember everything people tell you?",
+            "reply": "Practice. People find it flattering. It isn’t flattery. It’s filing.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_evening",
+            "label": "Ask about her perfect evening",
+            "player": "What’s a perfect evening for you?",
+            "reply": "One glass of something very cold at the end of the day, never a second. A camera in pieces on the bench. Nobody ringing. You may ring.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_family",
+            "label": "Ask about her family",
+            "player": "Is your family from Sunfall?",
+            "reply": "A founding family, once. My great-grandfather lost the house to the Van Dorens in a card game. The club still tells it as a joke. I laugh along. I have an excellent memory for jokes.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_film",
+            "label": "Ask what she’s developed lately",
+            "player": "Developed anything interesting lately?",
+            "reply": "A roll somebody brought me from the police station, very quietly. I printed none of it. I looked at all of it. That’s all you get, darling.",
+            "needsWarmth": 2,
+            "fromDay": 3,
+            "note": "Genevieve Locke develops film privately in her basement darkroom, and recently looked at a roll brought quietly from the police station without printing it.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_motive",
+            "label": "Ask what she really thinks of the club",
+            "player": "What do you really think of the club?",
+            "reply": "I think everyone in it has a motive smaller than they’d admit. Mine is very small indeed. Somebody wanted something first, and now I have it. That’s all motives ever are.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_shelf",
+            "label": "Ask what she keeps in the darkroom",
+            "player": "What do you keep down in the darkroom?",
+            "reply": "Negatives, in canisters labeled with the names of old cameras. Nobody steals a canister marked Brownie Hawkeye. That’s the whole trick to keeping anything: make it look like nothing.",
+            "needsWarmth": 2,
+            "note": "Genevieve Locke keeps negatives in film canisters labeled with old camera names on her darkroom shelf.",
+            "quest": "br"
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Brought an old rangefinder back to life tonight. The shutter sings. I may be in love.",
+            "more": "Forty years in a drawer and it still wanted to work. That’s all anything wants, really. A steady hand and someone who knows where the screws go. I took one picture of my glass. Then I put the glass down."
+          },
+          {
+            "feel": "odd",
+            "news": "Someone at the club told me a secret today to see if I’d repeat it. I didn’t. Now they trust me. Silly.",
+            "more": "It was a test, and a clumsy one. Everyone at the club is testing someone. I passed by doing nothing at all, which is how you pass most things there. I’ll remember what they told me forever, of course."
+          },
+          {
+            "feel": "bad",
+            "news": "The bar laughed at the old joke about my family again tonight. I laughed too. I always do.",
+            "more": "The Lockes lost a house in a card game two generations ago. It’s been the funniest thing at the bar ever since. I laugh beautifully. I’ve had practice. I also remember exactly who starts it, every time."
+          },
+          {
+            "feel": "good",
+            "news": "Developed a roll of a stranger’s vacation tonight. Beaches, a dog, a man asleep. Lovely. Nobody I know.",
+            "more": "Most of what people bring me is that. Vacations, babies, a dog in a hat. I like the ones that are nothing. It’s restful, looking at pictures that don’t mean anything."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-110",
+            "warmth": 0,
+            "says": "Alisha Benton from the police lab restores old film cameras, like me. We met at a camera fair. She’s the only other person in Sunfall who knows what a light leak is.",
+            "note": "Genevieve Locke says she met Alisha Benton at a camera fair; they both restore old film cameras.",
+            "ask": "Genevieve Locke says you two met at a camera fair.",
+            "answer": "We did. She knew more about rangefinders than the man selling them. Lovely hands. Steady. She keeps inviting me to see her darkroom. I keep meaning to go. Something always comes up.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-043",
+            "warmth": 1,
+            "says": "Caroline Prescott once bought a painting she hated just to stop a man from having it. I clapped. I was the only one.",
+            "note": "Genevieve Locke says Caroline Prescott bought a painting she hated to beat a man who wanted it.",
+            "ask": "Genevieve says you bought a painting you hated just to beat a man to it.",
+            "answer": "I did. It’s hideous. It hangs in my guest bathroom, and every time he visits he has to look at it. Genevieve clapped. Genevieve always claps. I keep my handbag closed around her too.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-086",
@@ -12795,7 +13016,118 @@
       "look": "Golden-tan skin, auburn shag with a curtain fringe, rosy cheeks, charcoal blazer and turtleneck",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What does a public safety statistician do?",
+            "reply": "I build models that count things. Protests, calls, car crashes. Sasha Mahoney is my boss. She tells me the odds. I go and look anyway."
+          },
+          {
+            "id": "b_car",
+            "label": "Ask how she gets around",
+            "player": "How do you get around town?",
+            "reply": "The station’s pool car, too fast. I can’t leave a mystery alone, and I can’t drive slowly toward one either. I’ve had two warnings from my own department."
+          },
+          {
+            "id": "b_guitar",
+            "label": "Ask what she does on her day off",
+            "player": "What do you do on your day off?",
+            "reply": "I teach my cousin Mateo guitar, because my mom taught me. He’s twelve and he only wants to play one song. It’s a good song. I’m starting to hate it.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_home",
+            "label": "Ask who’s at home",
+            "player": "Who’s at home?",
+            "reply": "My dad, who’s slow since his stroke. My big sister Paz comes for family lunch every week, argues with him about everything, then does the dishes. I’m the one who stays.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_promise",
+            "label": "Ask about her mom",
+            "player": "What was your mom like?",
+            "reply": "A school secretary who knew every kid’s name. On her last night she asked me to look after Paz. Paz was always the one with the matches. I promised. Paz doesn’t know.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_count",
+            "label": "Ask what she’s been counting lately",
+            "player": "Counting anything interesting lately?",
+            "reply": "The Back Row’s meetings, against the professor’s accidents. Nobody asked me to. The pattern was just there. The campus security logs have names in them, and one of the names is my sister’s.",
+            "needsWarmth": 1,
+            "note": "Monica Herrera has counted the Back Row’s meetings against Professor Vale’s accidents; campus security logs put her sister Paz Herrera in the room.",
+            "quest": "vale"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_sedan",
+            "label": "Ask if anything has turned up twice in her data",
+            "player": "Has anything turned up twice in your data?",
+            "reply": "A grey sedan. Logged on campus the night before the fire, and on the Sunfall Road after the gala, same plate. I have the registration. I haven’t told anyone. The first person I’d tell is the problem.",
+            "needsWarmth": 1,
+            "fromDay": 2,
+            "note": "Monica Herrera says the same grey sedan was logged on campus the night before Vale’s fire and on the Sunfall Road after the gala.",
+            "quest": "vale"
+          },
+          {
+            "id": "c_engaged",
+            "label": "Ask if she’s ever been engaged",
+            "player": "Have you ever been engaged?",
+            "reply": "Once, to a Bluebird’s cousin. He took me to dinner at the lodge, and the dinner had a guest list. I read it. I gave him the ring back in the parking lot.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Mateo played the whole song through without stopping. Twelve years old and he bowed. I cried a bit.",
+            "more": "Three months of the same four chords. Today he got the change in the middle right and looked up at me like he’d invented music. My mom taught me that song. I didn’t tell him. I just clapped too long."
+          },
+          {
+            "feel": "odd",
+            "news": "My model says more trouble happens on nights with no moon. Sasha says that’s a coincidence. Sasha also says coincidences are rare.",
+            "more": "I ran it three ways. Burglaries, calls about lights, a bear. Nights with no moon win every time. Keiko Nakamura saw the same thing and stopped talking about it. I haven’t stopped. I just talk about it more quietly."
+          },
+          {
+            "feel": "bad",
+            "news": "Paz and Dad had the big fight at lunch again. I did the dishes this time. She left without saying bye.",
+            "more": "Politics, always. Dad says she wants to burn everything down. She says somebody has to. I stood at the sink and didn’t take a side, which is the only side anyone in my family ever leaves for me."
+          },
+          {
+            "feel": "good",
+            "news": "Got a speeding warning from my own department. In the pool car. On the way to a meeting about road safety.",
+            "more": "The officer was very kind about it. He said, Monica, you made the slides. I said I know. He said, the slide with the speed limits. I said I know. It was a really good slide."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-103",
+            "warmth": 0,
+            "says": "Sasha Mahoney, my boss, knows the odds of everything and runs a book club where nobody has finished a book since spring.",
+            "note": "Monica Herrera says her boss Sasha Mahoney runs a book club where nobody finishes the book.",
+            "ask": "Monica Herrera says nobody in your book club has finished a book since spring.",
+            "answer": "Statistically, somebody should have by now. We’re on chapter two. We drink wine and talk about our exes. Monica came once, finished the book in a night and was never invited back. She broke the model.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-050",
+            "warmth": 1,
+            "says": "Keiko Nakamura gets a box of crime novels from her grandmother every few weeks and reads them all. She’s the only analyst I know who solves the made-up ones too.",
+            "note": "Monica Herrera says Keiko Nakamura reads the boxes of crime novels her grandmother sends.",
+            "ask": "Monica says you solve the crime novels your grandmother sends before the end.",
+            "answer": "Usually by chapter four. Grandmother chooses them to defeat me. She has not succeeded in two years. Monica borrows them and tells me who did it before I start. I have stopped lending.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-115",
@@ -12806,7 +13138,113 @@
       "look": "Fair skin, rose-gold bob, a gap-toothed smile, black leather jacket over a white tee",
       "status": "awaiting portrait",
       "type": "organised-brave",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What’s it like in the evidence archive?",
+            "reply": "Nine years in the basement with the boxes. Quiet. I like the quiet. Imani Harper started a while back and labels everything like it’s a birthday present. I’ve got very protective of her."
+          },
+          {
+            "id": "b_records",
+            "label": "Ask what she does after hours",
+            "player": "What do you do after hours?",
+            "reply": "I play records in the archive. Singers who made one album and vanished. The archive doesn’t mind. The boxes have heard worse."
+          },
+          {
+            "id": "b_jacket",
+            "label": "Ask about her leather jacket",
+            "player": "Is that leather jacket a statement?",
+            "reply": "I bought it at seventeen and I’m not giving it up. I know how it looks. Some things you keep because they knew you before.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_start",
+            "label": "Ask how she ended up at the station",
+            "player": "How did you end up at the station?",
+            "reply": "I was seventeen and in trouble. A young detective got me a civilian job instead of a record. Eighteen years ago. I’d do anything for him. He’s never once noticed.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_new",
+            "label": "Ask what’s new with her",
+            "player": "Anything new with you?",
+            "reply": "New furniture. An inheritance from an aunt in the city. Nobody asks which aunt. The guys at work don’t ask much. You’re not going to ask, are you?",
+            "needsWarmth": 1,
+            "fromDay": 3,
+            "note": "Kelsey Donovan’s apartment is newly furnished with what she calls an inheritance from an aunt in the city.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_mom",
+            "label": "Ask about her mom",
+            "player": "Is your mom in Sunfall?",
+            "reply": "In a home on the edge of town. A nice one now. I see her every week. She ran room service on the motel strip when I was a kid. She still folds napkins into swans for the nurses.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_box",
+            "label": "Ask if anything in the archive bothers her",
+            "player": "Is there anything in the archive that bothers you?",
+            "reply": "Shelf nine, bottom row. A box with a case number that doesn’t exist. It was there before Imani started. If anything ever happens to me, I want Imani to open it. Not anyone else. Promise me that.",
+            "needsWarmth": 2,
+            "fromDay": 3,
+            "note": "Kelsey Donovan says a box on shelf nine of the evidence archive has a case number that does not exist, and wants Imani Harper to open it if anything happens to her.",
+            "quest": "br"
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Found a record at the market by a singer who made one album and vanished. Played it in the archive until the lights clicked off.",
+            "more": "A woman with a voice like a cracked bell. Nine songs and then nothing. I like the ones who stopped. You wonder if they were happier after. I hope so. Somebody should be."
+          },
+          {
+            "feel": "odd",
+            "news": "Imani labeled an evidence box today with a little drawing of a cactus on it. Against regulations. I let it go.",
+            "more": "It was a box of stolen garden gnomes, so honestly, it fit. She looked so worried when I noticed. I said it was the best label in the building. It is. I may start drawing on mine."
+          },
+          {
+            "feel": "bad",
+            "news": "Saw my mom today. She didn’t know who I was for a minute. Then she did. That minute.",
+            "more": "Some weeks she’s sharp as anything and folds napkins into swans for the nurses. Today she looked at me like a stranger, and then she said, Kels, you’ve cut your hair. I haven’t. I said yes."
+          },
+          {
+            "feel": "good",
+            "news": "A detective I’ve known forever said thanks today. Just thanks. I’ve been floating all afternoon.",
+            "more": "Eighteen years and he says thanks maybe twice a year. I filed something for him fast, and he tapped the desk on his way past and said, thanks, Kels. That’s it. That’s the whole story. I’m embarrassed by how good it was."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-104",
+            "warmth": 0,
+            "says": "Imani Harper labels every evidence box like it’s a birthday present and keeps thirty-two cacti at home. I’d fight anyone who was mean to her.",
+            "note": "Kelsey Donovan says she is protective of Imani Harper at the evidence archive.",
+            "ask": "Kelsey Donovan says she’d fight anyone who was mean to you.",
+            "answer": "She would. She nearly did, once, to a detective who called me the new girl for six months. Kelsey plays old records in the archive after hours. Sad ones. I pretend I don’t notice she’s crying. She pretends I’m not there. It works.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-071",
+            "warmth": 2,
+            "says": "Nadia Okafor from the lab does the hardest crossword in the paper in pencil, in under an hour. She looks at people like they’re clues. Including me.",
+            "note": "Kelsey Donovan says Nadia Okafor looks at people like crossword clues.",
+            "ask": "Kelsey says you look at people like they’re clues, including her.",
+            "answer": "Everyone’s a clue. Most are easy. Kelsey is a hard one. Lovely, kind, plays sad records, and lately she wears a watch that costs more than my car. A good clue hides in plain sight.",
+            "mood": 0,
+            "fromDay": 3
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-116",
@@ -13430,7 +13868,117 @@
       "look": "Light-brown skin, golden-brown ringlets, freckles across her nose, oversized thrifted cardigan",
       "status": "awaiting portrait",
       "type": "dignified-outsider",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_minutes",
+            "label": "Ask what she does in the climate group",
+            "player": "What do you do in the climate group?",
+            "reply": "I write the minutes. I say very little. People think that means I don’t notice anything. It means I’m writing it down."
+          },
+          {
+            "id": "b_journal",
+            "label": "Ask about the journal she carries",
+            "player": "What’s that journal you carry?",
+            "reply": "A trip I haven’t taken yet. The coast, a train, a city with a river. I’ve written the whole thing already. I’ll go when the jar is full. The jar is slow."
+          },
+          {
+            "id": "b_diner",
+            "label": "Ask what she does in the mornings",
+            "player": "What do you do in the mornings?",
+            "reply": "Three mornings a week at the Lucky Cactus with Madison Pike. She talks enough for both of us, which suits me. I carry plates and listen. You learn a lot about a town from what it orders.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_why",
+            "label": "Ask why she joined the climate group",
+            "player": "Why the climate group?",
+            "reply": "A girl called Nora Hadley argued with me in a seminar, and I’d never been argued with before. I went to a meeting to argue back. I’m still there. So is the argument.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_aunt",
+            "label": "Ask who’s at home",
+            "player": "Who’s at home?",
+            "reply": "My aunt. She raised me, kindly, with no money. I got to the university on a scholarship that wasn’t the Foundation’s. I’m proud of that in a way I know is small.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_accounts",
+            "label": "Ask about the evening before the fire",
+            "player": "Were you at the campaign office the evening before the fire?",
+            "reply": "Late, writing up the minutes. Two people left. Since then the two people I trust most have each told me a different reason why. Vanessa Greer says she took Rosa home because Rosa was in a state. Dev Okafor says Vanessa left with Caleb Marsh and a bag from a garden center. One of them is lying. I have to decide which. I don’t want to.",
+            "needsWarmth": 1,
+            "note": "Zoe Whitaker was at the campaign office the evening before Vale’s fire: Vanessa Greer says she took Rosa home, Dev Okafor says Vanessa left with Caleb Marsh and a garden-center bag.",
+            "quest": "vale"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_bag",
+            "label": "Ask what she saw with her own eyes",
+            "player": "What did you see with your own eyes?",
+            "reply": "Only one thing, and I wrote it in my travel journal under the city with a river, where nobody would look. The bag was heavy. Caleb Marsh carried it with both hands.",
+            "needsWarmth": 1,
+            "note": "Zoe Whitaker saw Caleb Marsh carry a heavy garden-center bag out of the campaign office with both hands.",
+            "quest": "vale"
+          },
+          {
+            "id": "c_first",
+            "label": "Ask if she’s okay",
+            "player": "You sound tired. Are you okay?",
+            "reply": "I went to the city today. I go once a month. My mom’s in a hospital there, and her mind comes and goes. Today it came. She knew me for an hour. Don’t tell anyone. I don’t.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Put four dollars in the jar today. Tips from the Lucky Cactus. The jar is getting less slow.",
+            "more": "Madison told a man his pie was her grandma’s recipe, which it isn’t, and he tipped like he believed her. She gave me half. I wrote it in the journal under the train. Four dollars closer to a city with a river."
+          },
+          {
+            "feel": "odd",
+            "news": "Somebody at the meeting asked me to stop writing everything down. I wrote that down.",
+            "more": "He said the minutes should be a summary, not a transcript. I said a summary is just a transcript somebody edited. Nobody laughed except Nora, and Nora never laughs, so I’m counting it."
+          },
+          {
+            "feel": "bad",
+            "news": "Long day. I don’t want to talk about where I was. Tell me something about yours instead.",
+            "more": "I was in the city. It’s family. I’m fine. Mostly I’m tired from pretending I’m fine on the bus home. Tell me something stupid that happened to you. Please."
+          },
+          {
+            "feel": "good",
+            "news": "Nora argued with me for an hour about trains versus planes. I won. She says I didn’t.",
+            "more": "Trains, obviously. You can write on a train. Nora says the carbon math is closer than I think and pulled up a chart. I said a chart can’t look out of a window. She said that isn’t an argument. It’s the best one I have."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-016",
+            "warmth": 0,
+            "says": "Madison Pike tells customers the pie is her grandma’s recipe. It comes frozen in a box. They tip double.",
+            "note": "Zoe Whitaker says Madison Pike tells diner customers the frozen pie is her grandma’s recipe.",
+            "ask": "Zoe says you tell customers the pie is your grandma’s recipe.",
+            "answer": "It is my grandma’s recipe. My grandma also bought it frozen. That’s the recipe. Zoe won’t lie to a customer, so she carries the plates and I do the talking. Together we’re one great waitress.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-131",
+            "warmth": 1,
+            "says": "Nora Hadley is the only person who has ever argued with me properly. She says nuclear in the group chat just to watch people leave.",
+            "note": "Zoe Whitaker says Nora Hadley says nuclear in the group chat to watch people leave.",
+            "ask": "Zoe says you say nuclear in the group chat just to watch people leave.",
+            "answer": "Not to watch them leave. To see who stays to argue. Zoe stayed. She writes down everything I say and reads it back to me when I contradict myself. It’s the most annoying thing anyone’s ever done for me.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-134",
@@ -13857,7 +14405,116 @@
       "look": "Warm beige skin, sleek middle-parted dark hair, deep dimples, hand-knitted sweater",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask what she does in the climate group",
+            "player": "What do you do in the climate group?",
+            "reply": "I make the leaflets funny. Somebody has to. You can’t save the planet in a font that looks like a tax form. I also make Adriana Ponce laugh, which nobody else can do. That’s my real job."
+          },
+          {
+            "id": "b_evenings",
+            "label": "Ask what she does in the evenings",
+            "player": "What do you do in the evenings?",
+            "reply": "Book club on the sofa. We drink, we argue, we never finish the book. It’s the most honest reading group in Sunfall."
+          },
+          {
+            "id": "b_plays",
+            "label": "Ask if she writes",
+            "player": "Do you write?",
+            "reply": "Plays nobody stages and stories nobody reads. I was the funny girl at school. Now I’m the funny girl with a stack of unstaged plays. It’s a living. It is not a living.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_sweater",
+            "label": "Ask where her sweater is from",
+            "player": "Where’s that sweater from?",
+            "reply": "My grandmother knits. She’s made me one every winter since I was born. They get bigger every year, like she’s worried I’ll stop growing. I wear them all.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_coats",
+            "label": "Ask if she’s always in other people’s drama",
+            "player": "Are you always this busy with other people’s drama?",
+            "reply": "Since I was six. Somebody has to hold the coats. Eden and the group, Nora and everyone, my best friend Tamsin Wilde and the whole world. I’m the coat rack.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_kitchen",
+            "label": "Ask if her friend is okay",
+            "player": "Is your friend okay?",
+            "reply": "Two men came to Tamsin’s kitchen while I was in the next room. One of them said scholarship. The other one said mother. Her mom is in a home the Foundation pays for. The next morning she went to the police and said she saw nothing. I drove her.",
+            "needsWarmth": 2,
+            "fromDay": 3,
+            "note": "Jasmin Malik heard two men in Tamsin Wilde’s kitchen say scholarship and mother; the next morning Tamsin told the police she saw nothing.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_enemy",
+            "label": "Ask if she has any enemies",
+            "player": "Got any enemies?",
+            "reply": "One. Zadie Foster, the music reviewer. She gave my brother’s band two stars and called his drumming enthusiastic. Enthusiastic! He sends her a postcard every year that just says no. I helped him pick the first one.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_brooch",
+            "label": "Ask what her mom does",
+            "player": "What does your mom do?",
+            "reply": "She sews for Rinaldi Bridal. Forty years of hems. She says the owner wears a little swallow brooch every day and never takes it off, and she says it the way you’d say someone keeps a gun in the drawer.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Book club tonight. Nobody read the book. Eden cried at the blurb. Best meeting yet.",
+            "more": "It was a short novel about a lighthouse keeper. Eden read the back cover out loud and burst into tears before chapter one. Adriana laughed so hard she had to go outside. I wrote it all down for a play. Nobody will stage it."
+          },
+          {
+            "feel": "odd",
+            "news": "Grandma knitted me a sweater with a polar bear on it for the climate group. The ice floe is unraveling. On purpose.",
+            "more": "She said she wanted to support the cause. The bear is standing on a little ice floe and the ice floe is coming apart, stitch by stitch. My grandmother is the most effective activist in the whole group, and she’s never been to a meeting."
+          },
+          {
+            "feel": "bad",
+            "news": "Eden gave away her wages again. I bought the groceries again. I love her. I’m also broke.",
+            "more": "She meets someone who needs it more and that’s it, gone. I can’t even be mad, because she’s right, they did need it more. But somebody in this apartment has to eat, so I made a pot of lentils the size of a bathtub."
+          },
+          {
+            "feel": "good",
+            "news": "My brother’s band played the Furnace tonight. He drummed like the building owed him money. I screamed myself hoarse.",
+            "more": "Nixie Adler put them on second, which is a huge deal. Twelve people in the crowd and I was three of them. He threw a drumstick into the crowd at the end and I caught it. He wants it back. He’s not getting it back."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-137",
+            "warmth": 0,
+            "says": "Eden Sutherland, my roommate, gives most of her wages away and then sings in a church choir she doesn’t believe in. I feed her lentils. Somebody has to.",
+            "note": "Jasmin Malik says Eden Sutherland gives most of her wages away.",
+            "ask": "Jasmin Malik says you give most of your wages away and she feeds you lentils.",
+            "answer": "Most of them. Not all. I kept enough for soup. Jasmin makes lentils in a pot the size of a bathtub and complains the whole time she’s stirring. It’s the nicest thing anyone does for me.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-167",
+            "warmth": 1,
+            "says": "Zadie Foster gave my brother’s band two stars and called his drumming enthusiastic. We are at war. She knows.",
+            "note": "Jasmin Malik is feuding with Zadie Foster over a two-star review of her brother’s band.",
+            "ask": "Jasmin says you gave her brother’s band two stars, and now it’s war.",
+            "answer": "Two stars was generous. He plays like he’s angry at the drums. He sends me a postcard every year that just says no. I’ve kept every one. Tell Jasmin I’d give him three now. Don’t tell her I said that.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-142",
@@ -13868,7 +14525,117 @@
       "look": "Medium-brown skin, twist-out coils, freckles across her nose, mustard turtleneck",
       "status": "awaiting portrait",
       "type": "principled-plainspoken",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What do you do for the art collective?",
+            "reply": "I write the grants and tell everyone when the money’s gone. Somebody has to be the kitchen. I keep the film night’s projector running on paperwork alone."
+          },
+          {
+            "id": "b_house",
+            "label": "Ask where she lives",
+            "player": "Where do you live?",
+            "reply": "My grandmother’s house on the Old Mission road. I built a little desert inside it: a glass room full of cacti. Yes, I know there’s a desert outside. Mine has rules."
+          },
+          {
+            "id": "b_grant",
+            "label": "Ask if money is hard to find",
+            "player": "Is it hard keeping the collective funded?",
+            "reply": "A trust up on the ridge offered us money for our membership list. Twice. I said no twice. The projector can starve.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_godchild",
+            "label": "Ask what she does with her weekends",
+            "player": "What do you do with your weekends?",
+            "reply": "Some weekends I have my goddaughter. She’s eight and she names every cactus. There’s one called Mr. Stabs. He is thriving.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_sister",
+            "label": "Ask if she has family in town",
+            "player": "Do you have family in town?",
+            "reply": "A sister, Agnes. We haven’t spoken in six years. After our dad died, I said God let him die in that chapel. She said he died happy. It was in a kitchen. It’s always a kitchen.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_nextdoor",
+            "label": "Ask who lives next door",
+            "player": "Who lives next door to you?",
+            "reply": "Nobody, for a year. Then, on the last three nights with no moon, candles behind the blinds and cars outside. I count the cars. I’ve heard singing. I’ve heard a bell that can’t ring.",
+            "needsWarmth": 1,
+            "note": "Freya Castillo says the dark house next to hers on the Old Mission road has candles behind the blinds and cars outside on nights with no moon, and she has heard a bell.",
+            "quest": "chapel"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_diary",
+            "label": "Ask if her dad left her anything",
+            "player": "Did your dad leave you anything?",
+            "reply": "His sacristan’s diary. It stops the week before his stroke, with one line I didn’t understand until now: they are coming back to the crypt, and the bell knows. I haven’t shown my sister. I’d have to speak to her.",
+            "needsWarmth": 2,
+            "note": "Freya Castillo has her father’s sacristan diary; its last line says they are coming back to the crypt, and the bell knows.",
+            "quest": "chapel"
+          },
+          {
+            "id": "c_church",
+            "label": "Ask if she still goes to church",
+            "player": "Do you still go to church?",
+            "reply": "No. I drive past St. Brigid’s every day and don’t look. My sister is in there somewhere, pruning roses and praying for me by name. I know she is. That’s worse than if she weren’t.",
+            "needsWarmth": 1
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "A cactus I’d given up on flowered today. Bright pink. Out of nowhere. I said thank you out loud.",
+            "more": "Three years it sat there doing nothing, sulking in the corner of the glass room. I nearly threw it out. Then this morning, a flower the size of my fist. My goddaughter says it was waiting for me to stop looking. She’s usually right."
+          },
+          {
+            "feel": "odd",
+            "news": "Counted six cars on the Old Mission road last night. On a road with four houses.",
+            "more": "I count things. It’s a grant writer’s habit. Six cars, no moon, nobody walking. They were gone by morning. I wrote the plates down, because I don’t know what else to do with a feeling like that."
+          },
+          {
+            "feel": "bad",
+            "news": "Drove past St. Brigid’s and caught myself looking. Six years, and today I looked.",
+            "more": "Just for a second. The roses by the gate were pruned the way our dad taught us. Agnes did those. I know her cuts. I nearly stopped the car. I didn’t. I drove around the block twice instead, like an idiot."
+          },
+          {
+            "feel": "good",
+            "news": "Got the projector grant renewed. Film night lives. Khadija hugged me so hard my glasses fell off.",
+            "more": "Eleven pages of forms for a machine that shows pie fights. Worth every page. Khadija says the hall would riot without it. She brought cookies to the meeting and opened the tin first, which has never happened. History."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-134",
+            "warmth": 0,
+            "says": "Khadija Rahman runs the film night and guards the cookie tin like it’s the collective’s treasury. I write the grants that keep her projector alive.",
+            "note": "Freya Castillo writes the grants that keep Khadija Rahman’s film night projector running.",
+            "ask": "Freya Castillo says she writes the grants that keep your projector alive.",
+            "answer": "She does, and she reminds me at every meeting. Freya is the only person in the collective who says exactly what she means. No workshop needed. I give her the first cookie. Nobody else gets the first cookie.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-158",
+            "warmth": 2,
+            "says": "My sister Agnes Castillo looks after the gardens at St. Brigid’s. We haven’t spoken in six years. I still know her pruning when I see it.",
+            "note": "Freya Castillo says she and her sister Agnes Castillo have not spoken in six years.",
+            "ask": "Freya Castillo says you two haven’t spoken in six years.",
+            "answer": "Six years. I pray for her every night, by name. She drives past the gate every day and doesn’t look. I always look. One of us has to keep the door open, and God gave me the gate.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-143",
@@ -14519,7 +15286,116 @@
       "look": "Deep brown skin, long locs with gold cuffs, strong dark brows, blouse with a Peter Pan collar",
       "status": "awaiting portrait",
       "type": "earnest-heart",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_shop",
+            "label": "Ask about the charity shop",
+            "player": "What’s it like running the charity shop?",
+            "reply": "Donated coats, donated books, donated secrets. People give the shop what they can’t keep. I sort it. I don’t ask."
+          },
+          {
+            "id": "b_city",
+            "label": "Ask where she’s from",
+            "player": "You’re not from Sunfall, are you?",
+            "reply": "The city. My parents still live there, and they’re bewildered that their daughter runs a nuns’ junk shop in the desert. I tell them it’s a calling. They ask if the calling has air conditioning."
+          },
+          {
+            "id": "b_collar",
+            "label": "Ask about her collar",
+            "player": "What’s with the Peter Pan collar?",
+            "reply": "It’s a joke on myself. I look like a teacher from an old film, so I dress like one, and then nobody can say it first. The Sisters think it’s modest. It is. It’s also a joke.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_aunt",
+            "label": "Ask how she came to the Sisters",
+            "player": "How did you end up with the Sisters?",
+            "reply": "My aunt Rosaria founded the shop. She was a Sister. When she died she left me the building, the shop and a trunk I can’t open. The shop needed a Sister to run it, and the city had stopped needing me. So.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_swallow",
+            "label": "Ask if her aunt left her anything else",
+            "player": "Did your aunt leave you anything else?",
+            "reply": "A letter. One line: never sell to the swallow. I didn’t know what the swallow was. I’ve learned. Somebody keeps asking the diocese about our building. I keep saying no.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_lunches",
+            "label": "Ask why she cooks so much",
+            "player": "Do you always cook this much?",
+            "reply": "Two lunches. The shop thinks it’s one and a big appetite. The shop is kind and not clever. I’m the same. Please don’t ask me who the other one is for. I tell the truth when I’m asked plainly, and then I’d have to live with it.",
+            "needsWarmth": 2,
+            "fromDay": 3,
+            "note": "Lucia Romano cooks two lunches every day and carries one up the stairs above the Sisters’ charity shop.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_trunk",
+            "label": "Ask about her aunt’s trunk",
+            "player": "Did you ever open your aunt’s trunk?",
+            "reply": "No. The key isn’t anywhere I’ve looked, and I’ve looked everywhere except the places I can’t bring myself to. It’s in the cellar under the shop. Some nights I go down and just sit with it.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_balcony",
+            "label": "Ask what she can see from her balcony",
+            "player": "What can you see from your balcony?",
+            "reply": "The laundromat’s yard, and a van that parks there every night with a man asleep in the front. Basil, rosemary and mint in pots. I water the herbs and pray for the man in the van. Both seem to help.",
+            "needsWarmth": 1
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Someone donated a wedding dress today with the tags still on. I put it in the window. Three women stopped to look.",
+            "more": "No note, no name, just the dress in a bag on the step. I don’t ask. I steamed it, put it in the window and prayed for whoever couldn’t keep it. By closing a girl had tried it on and cried. I gave her a discount the size of the whole price."
+          },
+          {
+            "feel": "odd",
+            "news": "Found a love letter in the pocket of a donated coat. 1971. Still sealed.",
+            "more": "I didn’t open it. One of the Sisters said I should. I said a sealed letter is somebody’s choice. It’s in the shop safe now, waiting for whoever comes asking. Fifty years is a long time to change your mind."
+          },
+          {
+            "feel": "bad",
+            "news": "My mother rang from the city and asked when I’m coming home. I said I am home. She went quiet.",
+            "more": "She means well. She thinks the desert took her daughter. I told her about the shop, the regulars, the herbs on the balcony. She asked if I’d made any friends. I said the Sisters. She said that’s not the same. Some days I’m not sure she’s wrong."
+          },
+          {
+            "feel": "good",
+            "news": "Sold a terrible lamp to a man who said it was exactly like his mother’s. He nearly cried. Best sale of the year.",
+            "more": "Brass, a fringe, a shade with a hunting scene. It’s been in the back for two years. He walked in, saw it and stopped. His mother had the same one in her front room. Four dollars. He carried it out like a baby."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-136",
+            "warmth": 0,
+            "says": "Cassandra Finch rents a room in my building and paints the sky from the roof every evening. She brings me the cake left over from her meetings. I have never once seen her not smiling.",
+            "note": "Lucia Romano says Cassandra Finch paints the sky from the roof of her building every evening.",
+            "ask": "Lucia says you paint the sky from the roof every evening.",
+            "answer": "Every evening. Lucia leaves the roof door unlocked for me and pretends she forgot. I bring her lemon drizzle and pretend it’s left over. It never is. We’re both very bad liars, which is how I know we’re friends.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-045",
+            "warmth": 1,
+            "says": "Sofia Delgado’s mother bakes shortbread in open war with Sister Sophia’s. Sofia carries the trays and refuses to take a side. She’d make a good diplomat.",
+            "note": "Lucia Romano says Sofia Delgado’s mother and Sister Sophia Moretti are shortbread rivals.",
+            "ask": "Lucia says your mom’s shortbread is at war with Sister Sophia’s.",
+            "answer": "Total war. My mother says Sophia’s is too dry. Sophia says my mother’s is too sweet. Sophia and I are friends, which makes it funnier. I carry the trays and say everyone’s is wonderful. That’s my whole job at the Foundation too, honestly.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-163",
@@ -15661,7 +16537,110 @@
       "look": "Fair skin, brown waves with teal tips, gold hoop earrings, press lanyard and denim jacket",
       "status": "awaiting portrait",
       "type": "thrill-seeker",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What does an archive researcher do all day?",
+            "reply": "I index what the reporters bring down. A hundred years of Sunfall in boxes. Nobody indexes what they don’t bring, so I’ve started going to see for myself."
+          },
+          {
+            "id": "b_neon",
+            "label": "Ask if she takes pictures",
+            "player": "Do you take pictures?",
+            "reply": "Neon. The Lucky Cactus, the motel strip, the casino sign, all shot from my car on the way home. My apartment walls are covered in it. It’s like living inside a jukebox."
+          },
+          {
+            "id": "b_arielle",
+            "label": "Ask who she works with",
+            "player": "Who do you work with down there?",
+            "reply": "Arielle Brooks. I trained her. She reads every headline like it’s lying to her, which it usually is. Best student I’ve had. Only student I’ve had.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_adventure",
+            "label": "Ask about the boldest thing she’s done for work",
+            "player": "What’s the most adventurous thing you’ve done for work?",
+            "reply": "I borrowed the photo desk’s camera and went to the goth night at the Cellar Door, on a night with no moon, to find out what the flyers meant. I took forty pictures. I deleted one.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_dad",
+            "label": "Ask about her family",
+            "player": "What does your family do?",
+            "reply": "My dad’s a retired engineer. He built the Foundation’s lodge up on the ridge, thirty years ago. He’s never talked about it. Lately he drives up there at night and sits in his car outside the gate. I followed him once.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_frame",
+            "label": "Ask what was in the picture she deleted",
+            "player": "What was in the picture you deleted?",
+            "reply": "My dad. At the back of the goth night, in his coat, watching the girls in the circle. I couldn’t read his face. I’ve known that face for thirty-four years.",
+            "needsWarmth": 2,
+            "note": "Ellen Yamada deleted a photograph of her father, Ken Yamada, watching the circle’s girls at the back of a goth night at the Cellar Door.",
+            "quest": "chapel"
+          },
+          {
+            "id": "c_cellar",
+            "label": "Ask what her dad said about the lodge",
+            "player": "What did your dad say about the lodge?",
+            "reply": "He said he poured the lodge’s cellar floor himself, and he knows what’s under it. He wouldn’t say more. The Daily printed a plan of that cellar years ago, in a feature about the Foundation’s new retreat. I have it in a box.",
+            "needsWarmth": 2,
+            "note": "Ellen Yamada’s father poured the lodge’s cellar floor and says he knows what is under it; the Daily’s archive holds a printed plan of the cellar.",
+            "quest": "chapel"
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Shot the casino sign tonight with half its letters out. It says CAS NO. Best picture I’ve taken all year.",
+            "more": "I sat in the car for twenty minutes waiting for the I to flicker back on, and it never did. CAS NO. It’s going on the wall above the bed. Every town needs a sign that tells the truth by accident."
+          },
+          {
+            "feel": "odd",
+            "news": "Found a box in the archive with no label, full of photos of the same parking lot over thirty years. Who does that?",
+            "more": "Same angle, same lamp post, once a year. The cars change, the lot doesn’t. No name, no note. I’ve indexed it under Mysteries, Pleasant. Arielle says that isn’t a category. It is now."
+          },
+          {
+            "feel": "bad",
+            "news": "Followed my dad’s car again tonight. Turned around halfway. I couldn’t do it.",
+            "more": "He went up the ridge road again, late. I got as far as the bend by the reservoir and turned back. Some things you want to know, and some things you want to have known. I don’t know which one this is yet."
+          },
+          {
+            "feel": "good",
+            "news": "A drink at the Vestry after work, alone, with a good book and a bartender who leaves you alone. Perfect night.",
+            "more": "The bar in the old church, with the hum in the walls that everyone says is a ghost. I think it’s the plumbing. Either way, it’s company. Two chapters, one drink, nobody asked me anything. I may move in."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-164",
+            "warmth": 0,
+            "says": "Arielle Brooks reads every headline in the archive like it’s lying to her. I trained her. Best student I’ve ever had.",
+            "note": "Ellen Yamada trained Arielle Brooks at the Daily’s archive.",
+            "ask": "Ellen Yamada says she trained you, and you’re her best student.",
+            "answer": "I’m her only student. She’ll tell you that too, eventually. Ellen taught me that a headline is a guess somebody got paid for. She also taught me to go and look. She goes and looks at things nobody should. I worry about her.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-191",
+            "warmth": 1,
+            "says": "Sable Marlow runs the Cellar Door and mops it more than she enjoys it. She’s glamorous for ten minutes a night. I saw the ten minutes once.",
+            "note": "Ellen Yamada says Sable Marlow runs the Cellar Door.",
+            "ask": "Ellen says you’re glamorous for ten minutes a night and mopping for the rest.",
+            "answer": "Ten minutes if the bar’s quiet. The rest is mops and a bucket and a man asleep in the restroom. Ellen came in once with a camera, very brave, very out of place. I stood in her way all night. She got past me anyway. I respect that.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-176",
@@ -16981,7 +17960,110 @@
       "look": "Warm brown skin, blunt black bob, sharp winged eyeliner, plum corset dress",
       "status": "awaiting portrait",
       "type": "velvet-mystery",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What do you do?",
+            "reply": "I run the goth night at the casino lounge out on the state road. Velvet, a smoke machine, slot machines in the next room. It shouldn’t work. It works."
+          },
+          {
+            "id": "b_name",
+            "label": "Ask if Wraith is her real name",
+            "player": "Is Wraith your real name?",
+            "reply": "It’s the one I chose. The one I was born with belongs to a man on the radio. You’d know his voice. Everybody does. That’s the problem with it."
+          },
+          {
+            "id": "b_home",
+            "label": "Ask where she lives",
+            "player": "Where do you live?",
+            "reply": "An apartment near the casino, paid for by the lounge’s fee. It’s more than any goth night has ever paid. I haven’t asked why. I’m good at not asking.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_reading",
+            "label": "Ask what she’s reading",
+            "player": "What are you reading?",
+            "reply": "One page a week, with six friends, from a photocopy of an old book Victoria made before the museum took the original. It’s a book club. It’s also the circle’s catechism class. We’re six pages in.",
+            "needsWarmth": 1,
+            "note": "Billie Wraith runs a book club for the circle that reads Victoria’s photocopy of the founders’ book, one page a week.",
+            "quest": "chapel"
+          },
+          {
+            "id": "b_mother",
+            "label": "Ask if she’s close to her family",
+            "player": "Are you close to your family?",
+            "reply": "My mother left when I was twelve, for a Bluebird’s second husband’s brother. I’ve said that sentence out loud once before. Now twice.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_contract",
+            "label": "Ask how she got the casino booking",
+            "player": "How did you get the casino booking?",
+            "reply": "My father’s paycheck comes from the casino, so a goth girl got a casino booking at nineteen. I signed something. I’ve read it since. On paper, every invitation that goes out through the Black Lace shop is a casino promotion, and my name is on the paper.",
+            "needsWarmth": 1,
+            "note": "Billie Wraith signed the casino lounge contract at nineteen; on paper every invitation through the Black Lace shop is a casino promotion with her name on it.",
+            "quest": "chapel"
+          },
+          {
+            "id": "c_sloane",
+            "label": "Ask if she’s seeing anyone",
+            "player": "Are you seeing anyone?",
+            "reply": "Sloane Mercer, on the nights she’s sober enough to find me. She makes me laugh, and when I laugh I say things I shouldn’t. I told her something in bed I’ve never told anyone. I haven’t asked myself why. I think I know.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "dodge",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Full house at the lounge tonight. A man lost his rent on the slots and danced it off to a dirge. Beautiful.",
+            "more": "He came through from the casino side looking like the end of the world, stood at the back for one song, then danced until we closed. Black tie, no partner, eyes shut. Some people need a funeral for their money. We provide."
+          },
+          {
+            "feel": "odd",
+            "news": "Somebody booked a bachelorette party at the lounge and asked for black roses on every table. I didn’t ask.",
+            "more": "Black roses, black candles, a cake shaped like a coffin. The bride wanted it. Or her mother did. Morrigan Hale did the place cards in silver ink. We looked at them and laughed until we had to sit down. Weddings are getting very goth."
+          },
+          {
+            "feel": "bad",
+            "news": "My father said my name on the radio tonight. Wished me luck with the lounge. Live. I turned it off.",
+            "more": "The name I was born with. On Sunfall FM, in that voice everyone in town knows. He thinks it’s a kindness. It’s a leash. I sat in the car outside the casino until the next song was over, then went in and did my eyeliner again."
+          },
+          {
+            "feel": "good",
+            "news": "Sloane turned up sober and on time. Twice this week. I don’t know what to do with myself.",
+            "more": "She brought coffee and remembered how I take it. We sat on the fire escape and watched the casino lights come on, and I laughed at something she said so hard I said something I meant. Careful, Billie."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-197",
+            "warmth": 0,
+            "says": "Nixie Adler runs the Furnace and leaves the back door open for anyone who needs to get out of something. She’s the only venue manager who scares me.",
+            "note": "Billie Wraith says Nixie Adler leaves the Furnace’s back door open for people who need to get out.",
+            "ask": "Billie Wraith says you leave the Furnace’s back door open for anyone who needs it.",
+            "answer": "Always. Old foundry rule. Heat needs somewhere to go, and so do people. Billie came in through the front once, years ago, and I’ve been waiting for her to use the back. She will. People always do.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-194",
+            "warmth": 1,
+            "says": "Morrigan Hale does the calligraphy on my envelopes and makes tiny silver coffins that brides buy for their bridesmaids. Weddings are getting very goth.",
+            "note": "Billie Wraith says Morrigan Hale does the calligraphy on her lounge’s envelopes.",
+            "ask": "Billie says brides buy your little silver coffins for their bridesmaids now.",
+            "answer": "They do. Death is in this season. I tell them the coffins mean a love that outlasts everything, which is true if you squint. Billie sends me envelopes to letter. Some of them I letter very slowly, and think about who they’re going to.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-204",
@@ -18037,7 +19119,119 @@
       "look": "Freckled fair skin, short silver-dyed crop, a small nose stud, yellow sundress",
       "status": "awaiting portrait",
       "type": "earnest-heart",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_firm",
+            "label": "Ask about her business",
+            "player": "What’s Dawson & Dawson?",
+            "reply": "Me, mostly. My sister Faye is the second Dawson, and she bakes. The second Dawson is a joke. The van doesn’t know that, so we keep it."
+          },
+          {
+            "id": "b_heritage",
+            "label": "Ask what she’s decorating at the moment",
+            "player": "What are you working on at the moment?",
+            "reply": "Heritage work. The old Rialto’s lobby, a shop downtown with its original tiles, and the Bluebird Club’s committee room. Old rooms tell you how to paint them if you’re patient."
+          },
+          {
+            "id": "b_sketch",
+            "label": "Ask what she draws in her sketchbook",
+            "player": "What do you draw in that sketchbook?",
+            "reply": "Shopfronts, before they’re gone. I’ve drawn the old cobbler’s from the curb outside the laundromat. Funny thing: I’ve seen other women sketching the same cobbler’s from different curbs. We’ve never spoken. It’s like a club with no meetings.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_river",
+            "label": "Ask if there’s someone special",
+            "player": "Is there someone in your life?",
+            "reply": "A river man. Which in Sunfall means a boy who rents out boats on the reservoir. He smells of engine oil and sunscreen, and he’s the kindest person I know. Don’t tell him I said that.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_dad",
+            "label": "Ask if decorating runs in the family",
+            "player": "Is decorating a family thing?",
+            "reply": "My dad did the Bluebird Club’s rooms for thirty years. He fell from a ladder in the lodge’s dining room when I was little. The club called it an accident and paid for everything. I could paint a straight line at eight. I took the firm.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_brushes",
+            "label": "Ask if anything strange happened at the club",
+            "player": "Did anything strange happen while you worked at the club?",
+            "reply": "They asked me to leave the committee room at a certain hour, and I did. Then I came back for my brushes, because I don’t leave tools. They were still in there. Nine of them around the table, and a woman in a creased linen suit holding an envelope. I told the club I’d left when asked. I told my sister the truth.",
+            "needsWarmth": 1,
+            "fromDay": 2,
+            "note": "Riley Dawson went back to the Bluebird Club’s committee room for her brushes and saw nine people at the table and a woman in a creased linen suit holding an envelope.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_collages",
+            "label": "Ask about the pictures in the committee room",
+            "player": "What are the pictures on the committee room walls like?",
+            "reply": "Collages. I took them down to paint and put them back, twice. The second time I looked properly. I’ve got one made of receipts in my kitchen, by Daisy Chen, so I know a story when it’s glued. Those ones are stories. I just don’t know whose.",
+            "needsWarmth": 1,
+            "quest": "br"
+          },
+          {
+            "id": "c_ladder",
+            "label": "Ask about her dad’s accident",
+            "player": "What happened after your dad’s accident?",
+            "reply": "The club paid my mom. Generously, everyone said. And she signed something. She keeps the paper in a cookie tin under her bed. She says nobody has ever asked her about it. I think she wants somebody to.",
+            "needsWarmth": 2,
+            "note": "Riley Dawson says the club paid her mother after her father’s fall in the lodge’s dining room, and her mother signed a paper she still keeps.",
+            "quest": "br"
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Painted a ceiling today without a single drip. Thirty feet up. Nobody saw. Tell me I’m amazing.",
+            "more": "The Rialto lobby. Plaster roses all the way around and a sky in the middle that somebody painted in 1931. I matched the blue by eye. Faye says nobody looks at ceilings. That’s the point. You do it right for the one person who looks up."
+          },
+          {
+            "feel": "odd",
+            "news": "Faye brought home a cake that failed. It looks like a hat. It tastes incredible.",
+            "more": "She bakes for a group of pastry chefs who bet on each other’s cakes. When one collapses, it comes home to me. Tonight’s was meant to be a cathedral. It’s a hat. We ate half of it with spoons, standing at the counter."
+          },
+          {
+            "feel": "bad",
+            "news": "Drove past the lodge today on a job. Didn’t go in. I never do.",
+            "more": "My dad worked there for years. That’s where he fell. The club paid for everything and sent flowers. I’ll paint any room in Sunfall but that one. Faye says that’s not very professional. I say it’s the most professional thing I do."
+          },
+          {
+            "feel": "good",
+            "news": "Took the van to the reservoir after work and got rowed around by my favorite boat man. Sunset. Engine oil. Perfect.",
+            "more": "He can’t row in a straight line to save his life, which is funny for a boat man. We went in circles for an hour and talked about nothing. I’d paint that sky if anyone would believe the colors."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-132",
+            "warmth": 0,
+            "says": "Daisy Chen made a collage out of receipts and I bought it for my kitchen. Every time I look at it I find another story. One receipt is for a single birthday candle.",
+            "note": "Riley Dawson says she bought one of Daisy Chen’s receipt collages for her kitchen.",
+            "ask": "Riley says she has one of your receipt collages in her kitchen.",
+            "answer": "She does. She argued me up on the price, which nobody does. That one has the receipt for a single birthday candle in it. Riley’s the only person who ever asked me who it was for. I said I don’t know. That’s the point.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-107",
+            "warmth": 1,
+            "says": "A woman from the police records office sketches the same old cobbler’s that I do, from across the street. Cassidy Boone. We nod. We’ve never spoken. It’s perfect.",
+            "note": "Riley Dawson says Cassidy Boone sketches the same old cobbler’s shop she does.",
+            "ask": "Riley says you sketch the same cobbler’s she does, from across the street.",
+            "answer": "The cobbler’s downtown, before they knock it down. I take the curb by the bus stop. She takes the laundromat side. We nod and never talk. It’s the best friendship I have. Don’t ruin it by introducing us.",
+            "mood": 1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-233",
@@ -18048,7 +19242,115 @@
       "look": "Deep brown skin, twist-out coils, a small nose stud, red gingham shirt",
       "status": "awaiting portrait",
       "type": "shy-gentle",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_shop",
+            "label": "Ask about the flower shop",
+            "player": "What’s it like running a flower shop?",
+            "reply": "It’s my mom’s shop, Wilson’s Flowers on Brown Avenue. People only come in when something big happens. Love, a death, an apology. You see the whole town’s heart from behind the counter."
+          },
+          {
+            "id": "b_roof",
+            "label": "Ask what she does in the evenings",
+            "player": "What do you do in the evenings?",
+            "reply": "I go up on the roof and look at the stars. Other people drive out past the canyon to see them properly. I see them from the poor end of Brown Avenue. They’re the same stars."
+          },
+          {
+            "id": "b_customers",
+            "label": "Ask who her biggest customers are",
+            "player": "Who are your biggest customers?",
+            "reply": "The parish altar, the Cemetery Chapel’s chrysanthemums, and the Foundation’s committee room. The Foundation’s flowers are always white. Always. I’ve never been told why. I think I know.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_journal",
+            "label": "Ask if she keeps a diary",
+            "player": "Do you keep a diary?",
+            "reply": "A journal of what I want. That’s new for me. I used to write down what other people wanted from me. Now it’s one line a night, for me. It’s harder than it sounds.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_love",
+            "label": "Ask if she’s ever been in love",
+            "player": "Have you ever been in love?",
+            "reply": "At nineteen. A Bluebird’s nephew. He dressed me, took me to the club, had a gown made, and proposed in St. Brigid’s with a ring from Whitmore’s. The committee didn’t approve. He was gone within a month. Someone else’s now.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_stones",
+            "label": "Ask why the white flowers bother her",
+            "player": "Why do the white flowers bother you?",
+            "reply": "Because I know which stones they go to in the end. Twelve of them, at the Cemetery Chapel. I know whose. The twelfth one is his. I wrote in my journal what I’d say to the Foundation’s man about it. My mom tore the page out. She said the shop is the shop.",
+            "needsWarmth": 2,
+            "note": "Lacey Wilson says the Foundation’s white flowers end up on twelve stones at the Cemetery Chapel, and the twelfth is her former fiancé’s.",
+            "quest": "br"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_mom",
+            "label": "Ask how her mom is",
+            "player": "How’s your mom?",
+            "reply": "Ill, in a slow way. She still does the altar flowers when she can stand long enough. She taught me lilies at twelve, next to Elena Vargas. We were the two littlest florists in the parish.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "c_ring",
+            "label": "Ask if she still has the ring",
+            "player": "Do you still have the ring?",
+            "reply": "I kept it. Clara Whitmore from the jeweler’s has asked for it back twice. She says rings remember. I don’t know what she means. I don’t like how she says it.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Clear night. I counted shooting stars from the roof. Seven. I made the same wish seven times.",
+            "more": "My dog sat with me and my cat sat on the dog. We stayed up until the canyon went dark. I wished the same thing every time, which is either very sensible or a waste of six wishes. I’m not telling you what it was. Yet."
+          },
+          {
+            "feel": "odd",
+            "news": "Someone ordered a single white rose with no card, paid cash, and asked me to leave it on the shop step overnight. I did.",
+            "more": "In the morning it was gone. No one saw who took it. My mom said not to ask. She says that a lot about the white orders. I wrote it in my journal anyway, under things I want to know."
+          },
+          {
+            "feel": "bad",
+            "news": "My mom had a bad day. I did the altar flowers alone for the first time. My hands shook.",
+            "more": "She’s been ill a long time, slowly. Today she couldn’t stand long enough. I did the lilies the way she taught me, and nobody at the parish noticed it wasn’t her. That was the worst part. And the best part. I cried in the van after."
+          },
+          {
+            "feel": "good",
+            "news": "Wrote something new in my journal tonight. Something I want. First time I didn’t cross it out.",
+            "more": "One line. It’s small, but it’s mine, and it isn’t about the shop or my mom or anybody else. I read it back three times. I’m stronger when I’m pushed. I just never used to push myself."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-035",
+            "warmth": 0,
+            "says": "Elena Vargas and I learned the altar lilies side by side when we were twelve. We still help each other out when one shop runs short.",
+            "note": "Lacey Wilson learned altar flowers alongside Elena Vargas as a girl.",
+            "ask": "Lacey Wilson says you two learned the altar lilies side by side at twelve.",
+            "answer": "We did, under Agnes Castillo’s eye. Lacey was the neat one. I was the one who talked to the flowers. We still swap chrysanthemums when one of us runs out. She always gives me more than I ask for.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-038",
+            "warmth": 1,
+            "says": "Daniela Cruz made me a gown once, for the club. The most beautiful thing I’ve ever worn. I wore it one time.",
+            "note": "Lacey Wilson says Daniela Cruz made her a gown for the club that she wore once.",
+            "ask": "Lacey says you made her a gown for the club and she only wore it once.",
+            "answer": "Once. I remember it. Ivory, a low back, pockets because she asked. Every dress I make should outlast the evening it was made for. That one didn’t get the chance. I’d make her another tomorrow.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-234",
@@ -26268,6 +27570,11 @@
           "caption": "Places nobody visits on purpose. Visit on purpose.",
           "melt": "That was a hidden gem. The kind with no gift shop. I’m reviewing it. Five stars, would return."
         },
+        "MATCH-175": {
+          "muse": "Driving around shooting neon after midnight. The motel sign just flickered VACANCY at me. I took it personally.",
+          "caption": "Neon, after hours. The last frame on the roll.",
+          "melt": "I index everything. I’m not indexing that. That goes straight on the wall above my bed."
+        },
         "MATCH-003": {
           "caption": "Hecate took this. She stares at corners where nothing is. Now she stares at you.",
           "melt": "Sweetheart. You said that like you meant to hurt me. The moon approves. So do I."
@@ -26336,6 +27643,11 @@
           "muse": "Sang hymns in black lipstick tonight. Now I’m home and the lipstick needs somewhere else to go.",
           "caption": "Black scarf number nine. Nothing else to report.",
           "melt": "I usually say nothing and people decide it means something. That means exactly what you think."
+        },
+        "MATCH-203": {
+          "muse": "The lounge is closed and the smoke machine is still going. Velvet, slot machines humming through the wall. I say things I shouldn’t when it’s like this. Ask me something.",
+          "caption": "Plum corset, no audience. Until now.",
+          "melt": "I speak in hints. That wasn’t a hint. That was a door kicked in. Again."
         },
         "MATCH-005": {
           "muse": "Pancake is asleep on my feet and I’m diagnosing myself. Verdict: touch-starved, with a side of very bad ideas about you.",
@@ -26583,6 +27895,16 @@
           "caption": "The visitor book says: you. I wrote it down.",
           "melt": "I write everyone down. I’m underlining you. Twice."
         },
+        "MATCH-232": {
+          "muse": "Covered in paint, on a ladder in an empty room with the radio on. Nobody looks at ceilings. Somebody should be looking at me.",
+          "caption": "Dawson and Dawson, after hours. The van doesn’t know about this one.",
+          "melt": "Thirty feet up and you just made me drop the brush. Nobody has ever done that. Again."
+        },
+        "MATCH-233": {
+          "muse": "On the roof under every star in Sunfall, in a shirt that’s too big. I wrote something I want in my journal tonight. It’s about you.",
+          "caption": "Fresh from the shop. Still smells of roses.",
+          "melt": "I’m soft-spoken until somebody pushes. You just pushed. I liked it. Push again."
+        },
         "MATCH-002": {
           "muse": "Major checked every room and went to sleep. I checked every room and I’m lying here rereading your messages. Give me something to investigate.",
           "caption": "Off duty. Cuffs not included. Ask nicely.",
@@ -26663,6 +27985,16 @@
           "caption": "One frame. I meant it.",
           "melt": "I watch people’s hands. I’m picturing yours. Nobody has ever said enhance to me. Enhance."
         },
+        "MATCH-114": {
+          "muse": "My model says the odds of you texting me tonight are low. Prove the model wrong. I love it when that happens.",
+          "caption": "Off the spreadsheet. Not in any report.",
+          "melt": "I count everything. I just lost count. That never happens to me. Do it again."
+        },
+        "MATCH-115": {
+          "muse": "Playing sad records in the archive after hours with a glass of something. Somebody should come and make it less sad.",
+          "caption": "Out of the leather jacket. For once.",
+          "melt": "Eighteen years and nobody’s looked at me like that. I’m playing you a record. A happy one, for once."
+        },
         "MATCH-008": {
           "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
           "caption": "Seized the means of production. Produced this.",
@@ -26730,6 +28062,21 @@
           "muse": "Four hours leafleting in the rain. Soaked to the skin, shirt see-through. Not one man in a big car offered me a lift. Would you?",
           "caption": "No leaflets. No rain. Just me.",
           "melt": "Nice comes afterwards, I always say. That wasn’t nice. Good. I’ll bring soup afterwards."
+        },
+        "MATCH-133": {
+          "muse": "Writing my travel journal in bed. The city with a river has a hotel room in it now, and you’re in the hotel room. I’ve never written anything like that down before.",
+          "caption": "Not for the minutes.",
+          "melt": "I say very little. You just made me say a lot of things out loud to an empty room. Do it again."
+        },
+        "MATCH-141": {
+          "muse": "Book club’s over and I’m the only one left. Wine, sofa, a book nobody read. Come and argue with me about something you’ll lose.",
+          "caption": "Grandma knitted the sweater. Grandma did not approve the rest.",
+          "melt": "I’ve held everyone’s coat since I was six. You just made me drop all of them. Again."
+        },
+        "MATCH-142": {
+          "muse": "Writing a grant at midnight in the cactus room. Nothing in it is going to plan. Neither am I, tonight. Say something unprofessional.",
+          "caption": "Prickly, honest, well watered.",
+          "melt": "I’m the one who says exactly what she means. So: more of that. Right now."
         },
         "MATCH-001": {
           "muse": "Eating chips in the bath again with a terrible novel. The novel just got very steamy. So did the bath. Come and read me the next chapter.",
@@ -26839,6 +28186,16 @@
             "dress"
           ],
           "melt": "The club hasn’t seen me like this in years. Neither have I. Say it again, messenger."
+        },
+        "MATCH-084": {
+          "muse": "Duchess is asleep across my feet and I’m still in the twinset. I’ve been perfectly behaved since I was four. I’m so tired of it. Say something that would make my mother faint.",
+          "caption": "Pageant smile, retired. This is the other one.",
+          "melt": "Oh. Nobody has ever been rude to me on purpose. I think I’ve been waiting my whole life for it. Again, please."
+        },
+        "MATCH-085": {
+          "muse": "One glass, never a second. I’ve had my one glass. Now I’m deciding whether you’re the second.",
+          "caption": "Developed this myself. Nobody at a shop has seen it. Only you.",
+          "melt": "I remember everything anyone says to me. I’m going to remember that particularly well."
         }
       }
     },
