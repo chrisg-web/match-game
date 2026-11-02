@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="f2f3a20436">
+<html lang="en" data-build="28bed83a61">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -74,6 +74,14 @@
     .fatal-overlay p { font: bold 12px/1.6 ui-monospace,Consolas,monospace; letter-spacing: .09em; text-transform: uppercase; color: #ffd9c2; text-shadow: 2px 2px #16070b; }
     .fatal-overlay button { font: bold 12px ui-monospace,Consolas,monospace; text-transform: uppercase; letter-spacing: .1em; color: #ffe9d0; background: #1a0e12; border: 2px solid #ed7d56; padding: 12px 20px; cursor: pointer; }
     .fatal-overlay.visible { animation: deathFlicker .55s steps(4,end) both; }
+    .run-recap { width: min(320px, 92%); max-height: 34%; overflow: auto; text-align: left; color: #ffe9d0; background: #1a0e12d9; border: 1px solid #ed7d56; padding: 6px 10px; font: 11px/1.45 Tahoma, sans-serif; }
+    .run-recap:empty { display: none; }
+    .run-recap summary { cursor: pointer; font: bold 11px ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; }
+    .fatal-overlay .run-recap p { font: 11px/1.45 Tahoma, sans-serif; text-transform: none; letter-spacing: 0; text-shadow: none; margin: 6px 0 2px; color: #ffd9c2; }
+    .run-recap ul, .ending-run { margin: 4px 0; padding-left: 16px; }
+    .ending-row { padding: 6px 8px; margin: 4px 0; border: 1px dashed #afb7c2; border-radius: 5px; color: #8a96a6; font: bold 11px Tahoma, sans-serif; }
+    .ending-row.found { border-style: solid; color: #27374d; background: #fff; }
+    .ending-row small { display: block; margin-top: 3px; font-weight: normal; color: #4d657a; }
     @keyframes deathFlicker { 0% { filter: brightness(2); transform: translateX(3px); } 20% { filter: brightness(.5); transform: translateX(-3px); } 40% { filter: brightness(1.7); transform: translateX(2px); } 100% { filter: brightness(1); transform: none; } }
     .leg-layer { position: absolute; left: 0; bottom: -2%; width: 100%; height: 64%; object-fit: contain; object-position: bottom; pointer-events: none; opacity: .80; image-rendering: pixelated; }
     .phone-wrap { position: absolute; z-index: 5; width: var(--phone-width,90%); aspect-ratio: 830 / 1536; top: var(--phone-top,50%); left: 50%; transform: translate(-50%,-50%) rotate(var(--phone-angle,-1.2deg)); transform-origin: 50% 85%; transition: transform .55s cubic-bezier(.2,.7,.15,1),width .3s; filter: drop-shadow(8px 18px 10px #000b); }
@@ -612,11 +620,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=f2f3a20436"></script>
+  <script src="chapel_at_midnight.js?v=28bed83a61"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=f2f3a20436"></script>
+  <script src="marriage.js?v=28bed83a61"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=f2f3a20436"></script>
+  <script src="quests/professor-vale.js?v=28bed83a61"></script>
 </head>
 <body>
   <main class="workbench">
@@ -768,7 +776,7 @@
           <div class="bear-attack" id="bear-attack" role="img" aria-label="Animated bear charge across the bedroom"><img id="bear-attack-image" src="assets/events/bear-threshold.webp" alt=""></div>
           <div class="swap-game" id="swap-game" hidden><p class="swap-title">The Swap</p><div class="swap-steps-track" aria-hidden="true"><i id="swap-steps"></i></div><canvas id="swap-canvas" width="480" height="480" aria-label="The open pot, from above"></canvas><p id="swap-hint"></p></div>
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
-          <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><div class="death-actions"><button id="new-game">New game</button></div></div>
+          <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><details class="run-recap" id="run-recap"></details><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
           <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose a difficulty for the new game"><div class="pick-cards"><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button></div></div><!-- New game: tap a face -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
@@ -1071,6 +1079,7 @@
       setClutterPlacement();
     }
     function drawDeathTitle(cause='A BEAR',verb='KILLED') {
+      if(arguments.length){lastDeathKey=`death:${verb}|${cause}`;noteEnding(lastDeathKey,'');renderRunRecap();} // Endings: found, and this run's recap
       const canvas=$('death-title');
       // Draw at half display resolution, then magnify individual text pixels.
       canvas.width=170; canvas.height=69;
@@ -7536,11 +7545,130 @@
     function playthroughs(){try{return Number(localStorage.getItem(PLAYTHROUGH_KEY))||1;}catch{return 1;}}
     function countPlaythrough(){try{localStorage.setItem(PLAYTHROUGH_KEY,String(playthroughs()+1));}catch{}}
     function creditsUnlocked(){return playthroughs()>=2;}
+    // ===== Endings found, and what happened this run (Chris, 2 November 2026) =====
+    // Every way a run can end (deaths and arrests, the two weddings) and how each big story turned out,
+    // kept beside the save and never reset by a new game. Settings › Endings lists them, ??? for the
+    // ones not found yet, and every death screen offers a recap of this run, with the stories you missed.
+    const ENDINGS_KEY=SAVE_KEY+':endings';
+    let endingsCache=null;
+    function endingsFound(){
+      if(endingsCache)return endingsCache;
+      try{const v=JSON.parse(localStorage.getItem(ENDINGS_KEY)||'{}');endingsCache=v&&typeof v==='object'&&!Array.isArray(v)?v:{};}catch{endingsCache={};}
+      return endingsCache;
+    }
+    function noteEnding(key,line){
+      if(typeof key!=='string'||!key||key.length>120)return false;
+      const found=endingsFound();
+      if(found[key])return false;
+      found[key]={line:String(line||'').slice(0,300),day:world?.day||null,difficulty:selectedDifficulty};
+      try{localStorage.setItem(ENDINGS_KEY,JSON.stringify(found));}catch{}
+      return true;
+    }
+    const deathTitle=(verb,cause)=>`${verb} BY ${cause}`;
+    const MINI_TITLES={pills:'The pharmacist',husband:'The husband',envelope:'The envelope',cleaner:'The cleaner',watch:'The watch'};
+    const BR_ENDINGS=[['success','The federal inquiry opens'],['failed','The investigation fails'],['withdrawn','You walk away']];
+    const CHAPEL_ENDINGS=[['stopped','The vigil holds'],['reconciled','Half the goths walk away from Victoria'],['wrong_place','The wrong chapel'],['ignored','Nobody stands against it']];
+    function endingsCatalog(){
+      const out=[],seen=new Set();
+      const add=(group,key,title)=>{if(key&&!seen.has(key)){seen.add(key);out.push({group,key,title});}};
+      const death=(group,verb,cause)=>{if(cause)add(group,`death:${verb}|${cause}`,deathTitle(verb,cause));};
+      const vale=window.ProfessorVale?.DATA?.endings||{};
+      death('Every run','EATEN','A BEAR');
+      death('Truecel','ARRESTED','POLICE');
+      death('Truecel','KILLED','SOMETHING');
+      for(const d of Object.values(HAL.deaths))death('Truecel',d.verb,d.cause);
+      death('Mogger','KILLED',(hingeProfile(CALLER_ID)?.name||'Moira Bell').toUpperCase());
+      death('Mogger','KILLED','HER FATHER');
+      death('Mogger','KILLED','THEON');
+      death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
+      death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
+      for(const e of Object.values(vale))if(e.death)death('Professor Vale',e.death.verb,e.death.cause);
+      for(const k of Object.values(miniKit()||{}))if(k&&typeof k==='object')death('Mini quests','KILLED',k.deathCause);
+      death('Room quests','KILLED',rqKit()?.robe?.celeste?.deathCause);
+      death('Room quests','KILLED',rqKit()?.spotter?.deathCause);
+      for(const q of Object.values(fqKit()||{}))death('Her thing','KILLED',q?.deathCause);
+      add('Weddings','win:marriage','Married a Sister of Mercy');
+      add('Weddings','win:thunderbirds','Married into the Bluebirds');
+      for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
+      for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
+      for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
+      return out;
+    }
+    // The death screen's line is set just after its title: kept once the run saves or a new game starts.
+    var lastDeathKey=null;
+    function captureDeathLine(){
+      const f=lastDeathKey&&endingsFound()[lastDeathKey],line=$('fatal-overlay')?.querySelector('p')?.textContent;
+      if(!f||f.line||!line)return;
+      f.line=String(line).slice(0,300);
+      try{localStorage.setItem(ENDINGS_KEY,JSON.stringify(endingsFound()));}catch{}
+    }
+    // Weddings and stories that closed: checked whenever the run saves.
+    function noteRunEndings(){
+      if(!world)return;
+      captureDeathLine();
+      const v=world.victory;
+      if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
+      const pv=world.professorVale,e=pv?.ending&&window.ProfessorVale?.DATA?.endings?.[pv.ending];
+      if(e&&['complete','failure'].includes(e.kind))noteEnding('vale:'+pv.ending,'');
+      const br=world.blueRibbon;
+      if(br?.outcome&&BR_ENDINGS.some(([id])=>id===br.outcome))noteEnding('br:'+br.outcome,'');
+      const ch=world.chapel;
+      if(ch?.outcome&&CHAPEL_ENDINGS.some(([id])=>id===ch.outcome))noteEnding('chapel:'+ch.outcome,'');
+    }
+    // This run, story by story, including the ones you missed.
+    function recapLine(title,st,host,dead){
+      const who=host&&hingeProfile(host)?firstName(hingeProfile(host)):'';
+      if(dead||st?.stage==='gone')return [title,'It killed you'];
+      if(!st)return [title,'Hadn’t started yet'];
+      if(st.stage==='skipped')return [title,who?`Missed: you never matched ${who}`:'Missed'];
+      if(st.stage==='deck')return [title,who?`Waiting for you to match ${who}`:'Waiting for you'];
+      if(st.stage==='hook')return [title,who?`${who} asked, and you never answered`:'You never answered'];
+      if(st.stage==='done')return [title,'Played through'];
+      return [title,'Still going'];
+    }
+    function runRecap(){
+      const rows=[],big={br:'Blue Ribbon Ledger',vale:'Professor Vale',chapel:'Chapel at Midnight',fionn:'Theon'};
+      for(const [id,title] of Object.entries(big)){
+        const start=questStart(id);
+        if(!Number.isInteger(start))continue;
+        if(world.day<start){rows.push([title,'Hadn’t started yet']);continue;}
+        if(id==='br'){const s=brState();rows.push([title,s.retaliated?'They silenced you':s.outcome==='success'?'The federal inquiry opened':s.outcome==='failed'?'The investigation failed':s.outcome==='withdrawn'?'You walked away':'Still open']);}
+        else if(id==='vale'){const s=world.professorVale,e=s?.ending&&window.ProfessorVale?.DATA?.endings?.[s.ending];rows.push([title,e?e.title:!s||s.stage==='dormant'?'You never opened the case':({open:'Still investigating',withdrawn:'You walked away',backrow:'You joined the Back Row',resolved:'Vale is safe'}[s.stage]||'Still open')]);}
+        else if(id==='chapel'){const s=world.chapel,o=CHAPEL_ENDINGS.find(([k])=>k===s?.outcome);rows.push([title,s?.dead?'Victoria took you':o?o[1]:'Still unfolding']);}
+        else rows.push([title,'He was in this run']);
+      }
+      for(const id of rqOn())rows.push(recapLine(rqKit()?.[id]?.title||id,rqs(id),rqKit()?.[id]?.host,rqState().dead?.id===id));
+      for(const id of fqOn())rows.push(recapLine(fqKit()?.[id]?.title||id,fqs(id),fqKit()?.[id]?.host,fqState().dead?.id===id));
+      for(const id of minisOn())rows.push(recapLine(MINI_TITLES[id]||id,minisState().st[id],null,minisState().dead?.id===id));
+      const matched=[...hingeThreads.values()].filter(t=>!t.unmatched&&hingeProfile(t.id));
+      const closest=matched.slice().sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
+      rows.push(['Matches',String(matched.length)]);
+      if(closest&&warmthOf(closest)>0)rows.push(['Closest to you',hingeProfile(closest.id).name]);
+      return rows;
+    }
+    const DIFFICULTY_LABEL={truecel:'Truecel',normie:'Normie',mogger:'Mogger'};
+    function endingsCount(){const cat=endingsCatalog(),found=endingsFound();return [cat.filter(e=>found[e.key]).length,cat.length];}
+    function runRecapHtml(){
+      const [n,total]=endingsCount();
+      return `<summary>What happened this run</summary><p class="recap-head">${esc(DIFFICULTY_LABEL[selectedDifficulty]||'')} · Day ${world.day}</p><ul>${runRecap().map(([t,s])=>`<li><b>${esc(t)}:</b> ${esc(s)}</li>`).join('')}</ul><p class="recap-foot">Endings found: ${n} of ${total}. All of them are in Settings › Endings.</p>`;
+    }
+    function renderRunRecap(){const el=$('run-recap');if(el)el.innerHTML=runRecapHtml();}
+    function endingsPageHtml(){
+      const found=endingsFound(),cat=endingsCatalog(),groups=[...new Set(cat.map(e=>e.group))];
+      const extra=Object.keys(found).filter(k=>!cat.some(e=>e.key===k)&&k.startsWith('death:'));
+      const [n,total]=endingsCount();
+      const item=(title,f)=>f?`<div class="ending-row found"><b>${esc(title)}</b>${f.line?`<small>${esc(f.line)}</small>`:''}</div>`:'<div class="ending-row">???</div>';
+      return `<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Endings</h3><p>${n} of ${total} found. They stay found when you start a new game.</p>`
+        +`<h4>This run</h4><div class="settings-note"><p>${esc(DIFFICULTY_LABEL[selectedDifficulty]||'')} · Day ${world.day}</p><ul class="ending-run">${runRecap().map(([t,s])=>`<li><b>${esc(t)}:</b> ${esc(s)}</li>`).join('')}</ul></div>`
+        +groups.map(g=>`<h4>${esc(g)}</h4>${cat.filter(e=>e.group===g).map(e=>item(e.title,found[e.key])).join('')}`).join('')
+        +(extra.length?`<h4>Other</h4>${extra.map(k=>item(k.slice(6).replace('|',' BY '),found[k])).join('')}`:'')+'</div>';
+    }
     function renderSettings(){
       if(settingsView==='newgame'){ // asked inside the phone: some browsers block their own confirm box
         $('opened').innerHTML='<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>New game</h3><p>Start again from day one? This run ends here.</p><div class="settings-options"><button data-settings-newgame-yes>Start a new game</button><button data-settings-view="main">Keep playing</button></div></div>';
         return;
       }
+      if(settingsView==='endings'){$('opened').innerHTML=endingsPageHtml();return;} // Endings found, and this run
       if(settingsView==='credits'&&creditsUnlocked()){
         $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<div class="settings-btc"><code>${esc(BITCOIN_ADDRESS)}</code><button data-copy-btc>Copy address</button></div><p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support Matchfall</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Chris</p></div><p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
         return;
@@ -7549,7 +7677,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -9072,6 +9200,7 @@
       try{
         if(typeof localStorage==='undefined')throw new Error('Storage unavailable');
         localStorage.setItem(SAVE_KEY,JSON.stringify(snapshotRun()));
+        noteRunEndings(); // Endings: a wedding, or a story that closed
         if(!silent)updateRunStatus(`Day ${world.day} saved locally. No account or server needed.`);
         return true;
       }catch{
@@ -9183,6 +9312,7 @@
     function startNewRun(skipConfirmation=false){
       if(!skipConfirmation&&typeof window.confirm==='function'&&!window.confirm('Start a fresh Matchfall run? Your current unsaved progress will be lost.'))return;
       countPlaythrough(); // a second playthrough unlocks Credits in Settings
+      captureDeathLine();lastDeathKey=null; // Endings: keep how the last run ended
       stopRinging();herCall=null;
       endSimulatedCall();
       clearBearTimers();clearBearVisuals();clearPoliceArrest();closeEvidenceSheet(false);closeCupboard();
