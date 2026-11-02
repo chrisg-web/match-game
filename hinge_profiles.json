@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 151,
-  "imageCount": 953,
-  "publicImageCount": 522,
-  "privateImageCount": 431,
+  "characterCount": 164,
+  "imageCount": 1057,
+  "publicImageCount": 587,
+  "privateImageCount": 470,
   "characters": [
     {
       "id": "MATCH-001",
@@ -3723,6 +3723,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-149",
+      "slug": "sloane_mercer",
+      "name": "Sloane Mercer",
+      "age": 26,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/sloane_mercer_01.webp",
+        "assets/hinge/roster_expansion/sloane_mercer_02.webp",
+        "assets/hinge/roster_expansion/sloane_mercer_03.webp",
+        "assets/hinge/roster_expansion/sloane_mercer_04.webp",
+        "assets/hinge/roster_expansion/sloane_mercer_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/sloane_mercer_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Sloane Mercer, consistent Dark skin, chestnut curly bob, gray-green eyes, hand-knitted sweater",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sloane_mercer_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Sloane Mercer, consistent Dark skin, chestnut curly bob, gray-green eyes, hand-knitted sweater",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sloane_mercer_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Sloane Mercer, consistent Dark skin, chestnut curly bob, gray-green eyes, hand-knitted sweater",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-156",
       "slug": "tamsin_wilde",
       "name": "Tamsin Wilde",
@@ -3758,6 +3796,44 @@
       ],
       "personality": "unflappable with a mischievous streak",
       "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and baking elaborate cakes badly.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-157",
+      "slug": "paz_herrera",
+      "name": "Paz Herrera",
+      "age": 30,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/paz_herrera_01.webp",
+        "assets/hinge/roster_expansion/paz_herrera_02.webp",
+        "assets/hinge/roster_expansion/paz_herrera_03.webp",
+        "assets/hinge/roster_expansion/paz_herrera_04.webp",
+        "assets/hinge/roster_expansion/paz_herrera_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/paz_herrera_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Paz Herrera, consistent Golden-tan skin, dirty-blonde ponytail, deep dimples, hand-knitted sweater",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paz_herrera_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Paz Herrera, consistent Golden-tan skin, dirty-blonde ponytail, deep dimples, hand-knitted sweater",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paz_herrera_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Paz Herrera, consistent Golden-tan skin, dirty-blonde ponytail, deep dimples, hand-knitted sweater",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and photographing diner neon signs.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -5183,6 +5259,424 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-260",
+      "slug": "georgina_wells",
+      "name": "Georgina Wells",
+      "age": 24,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Swimming coach",
+      "gallery": [
+        "assets/hinge/roster_expansion/georgina_wells_01.webp",
+        "assets/hinge/roster_expansion/georgina_wells_02.webp",
+        "assets/hinge/roster_expansion/georgina_wells_03.webp",
+        "assets/hinge/roster_expansion/georgina_wells_04.webp",
+        "assets/hinge/roster_expansion/georgina_wells_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/georgina_wells_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Georgina Wells, consistent Medium-brown skin, copper waist-length waves, thin wire-rimmed glasses, white tank top and denim shorts",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/georgina_wells_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Georgina Wells, consistent Medium-brown skin, copper waist-length waves, thin wire-rimmed glasses, white tank top and denim shorts",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/georgina_wells_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Georgina Wells, consistent Medium-brown skin, copper waist-length waves, thin wire-rimmed glasses, white tank top and denim shorts",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-261",
+      "slug": "rosie_vasquez",
+      "name": "Rosie Vasquez",
+      "age": 36,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Tour guide",
+      "gallery": [
+        "assets/hinge/roster_expansion/rosie_vasquez_01.webp",
+        "assets/hinge/roster_expansion/rosie_vasquez_02.webp",
+        "assets/hinge/roster_expansion/rosie_vasquez_03.webp",
+        "assets/hinge/roster_expansion/rosie_vasquez_04.webp",
+        "assets/hinge/roster_expansion/rosie_vasquez_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/rosie_vasquez_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Rosie Vasquez, consistent Deep brown skin, soft brown fringe and a low knot, a silver ear cuff, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosie_vasquez_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Rosie Vasquez, consistent Deep brown skin, soft brown fringe and a low knot, a silver ear cuff, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosie_vasquez_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Rosie Vasquez, consistent Deep brown skin, soft brown fringe and a low knot, a silver ear cuff, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing tour guide and planting a balcony herb garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-262",
+      "slug": "katrina_meyer",
+      "name": "Katrina Meyer",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Receptionist",
+      "gallery": [
+        "assets/hinge/roster_expansion/katrina_meyer_01.webp",
+        "assets/hinge/roster_expansion/katrina_meyer_02.webp",
+        "assets/hinge/roster_expansion/katrina_meyer_03.webp",
+        "assets/hinge/roster_expansion/katrina_meyer_04.webp",
+        "assets/hinge/roster_expansion/katrina_meyer_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/katrina_meyer_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Katrina Meyer, consistent Warm brown skin, natural afro puff, freckles across her nose, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/katrina_meyer_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Katrina Meyer, consistent Warm brown skin, natural afro puff, freckles across her nose, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/katrina_meyer_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Katrina Meyer, consistent Warm brown skin, natural afro puff, freckles across her nose, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and making pottery after work.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-263",
+      "slug": "bethany_sinclair",
+      "name": "Bethany Sinclair",
+      "age": 37,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Primary school teacher",
+      "gallery": [
+        "assets/hinge/roster_expansion/bethany_sinclair_01.webp",
+        "assets/hinge/roster_expansion/bethany_sinclair_02.webp",
+        "assets/hinge/roster_expansion/bethany_sinclair_03.webp",
+        "assets/hinge/roster_expansion/bethany_sinclair_04.webp",
+        "assets/hinge/roster_expansion/bethany_sinclair_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/bethany_sinclair_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Bethany Sinclair, consistent Dark skin, box braids to the waist, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bethany_sinclair_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Bethany Sinclair, consistent Dark skin, box braids to the waist, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bethany_sinclair_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Bethany Sinclair, consistent Dark skin, box braids to the waist, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "playful until someone crosses a line",
+      "personalGoal": "Make a life for herself in Sunfall while balancing primary school teacher and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-265",
+      "slug": "therese_kim",
+      "name": "Therese Kim",
+      "age": 19,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Interior decorator",
+      "gallery": [
+        "assets/hinge/roster_expansion/therese_kim_01.webp",
+        "assets/hinge/roster_expansion/therese_kim_02.webp",
+        "assets/hinge/roster_expansion/therese_kim_03.webp",
+        "assets/hinge/roster_expansion/therese_kim_04.webp",
+        "assets/hinge/roster_expansion/therese_kim_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/therese_kim_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Therese Kim, consistent Medium-brown skin, short silver-dyed crop, a gap-toothed smile, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/therese_kim_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Therese Kim, consistent Medium-brown skin, short silver-dyed crop, a gap-toothed smile, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/therese_kim_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Therese Kim, consistent Medium-brown skin, short silver-dyed crop, a gap-toothed smile, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing interior decorator and caring for an elderly rescue dog.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-266",
+      "slug": "martha_delaney",
+      "name": "Martha Delaney",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Florist",
+      "gallery": [
+        "assets/hinge/roster_expansion/martha_delaney_01.webp",
+        "assets/hinge/roster_expansion/martha_delaney_02.webp",
+        "assets/hinge/roster_expansion/martha_delaney_03.webp",
+        "assets/hinge/roster_expansion/martha_delaney_04.webp",
+        "assets/hinge/roster_expansion/martha_delaney_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/martha_delaney_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Martha Delaney, consistent Light-brown skin, sleek middle-parted dark hair, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/martha_delaney_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Martha Delaney, consistent Light-brown skin, sleek middle-parted dark hair, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/martha_delaney_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Martha Delaney, consistent Light-brown skin, sleek middle-parted dark hair, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing florist and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-267",
+      "slug": "claudette_duval",
+      "name": "Claudette Duval",
+      "age": 19,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/roster_expansion/claudette_duval_01.webp",
+        "assets/hinge/roster_expansion/claudette_duval_02.webp",
+        "assets/hinge/roster_expansion/claudette_duval_03.webp",
+        "assets/hinge/roster_expansion/claudette_duval_04.webp",
+        "assets/hinge/roster_expansion/claudette_duval_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/claudette_duval_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Claudette Duval, consistent Light olive skin, soft brown fringe and a low knot, thin wire-rimmed glasses, mint polo shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/claudette_duval_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Claudette Duval, consistent Light olive skin, soft brown fringe and a low knot, thin wire-rimmed glasses, mint polo shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/claudette_duval_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Claudette Duval, consistent Light olive skin, soft brown fringe and a low knot, thin wire-rimmed glasses, mint polo shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-268",
+      "slug": "susannah_cole",
+      "name": "Susannah Cole",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pharmacy assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/susannah_cole_01.webp",
+        "assets/hinge/roster_expansion/susannah_cole_02.webp",
+        "assets/hinge/roster_expansion/susannah_cole_03.webp",
+        "assets/hinge/roster_expansion/susannah_cole_04.webp",
+        "assets/hinge/roster_expansion/susannah_cole_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/susannah_cole_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Susannah Cole, consistent Rosy fair skin, brown waves with teal tips, thin wire-rimmed glasses, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/susannah_cole_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Susannah Cole, consistent Rosy fair skin, brown waves with teal tips, thin wire-rimmed glasses, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/susannah_cole_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Susannah Cole, consistent Rosy fair skin, brown waves with teal tips, thin wire-rimmed glasses, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pharmacy assistant and fixing up a used bicycle.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-269",
+      "slug": "lillian_duarte",
+      "name": "Lillian Duarte",
+      "age": 21,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Museum attendant",
+      "gallery": [
+        "assets/hinge/roster_expansion/lillian_duarte_01.webp",
+        "assets/hinge/roster_expansion/lillian_duarte_02.webp",
+        "assets/hinge/roster_expansion/lillian_duarte_03.webp",
+        "assets/hinge/roster_expansion/lillian_duarte_04.webp",
+        "assets/hinge/roster_expansion/lillian_duarte_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lillian_duarte_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lillian Duarte, consistent Light olive skin, dirty-blonde ponytail, gray-green eyes, white tank top and denim shorts",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lillian_duarte_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lillian Duarte, consistent Light olive skin, dirty-blonde ponytail, gray-green eyes, white tank top and denim shorts",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lillian_duarte_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lillian Duarte, consistent Light olive skin, dirty-blonde ponytail, gray-green eyes, white tank top and denim shorts",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum attendant and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-270",
+      "slug": "tasha_greenwood",
+      "name": "Tasha Greenwood",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Real estate agent",
+      "gallery": [
+        "assets/hinge/roster_expansion/tasha_greenwood_01.webp",
+        "assets/hinge/roster_expansion/tasha_greenwood_02.webp",
+        "assets/hinge/roster_expansion/tasha_greenwood_03.webp",
+        "assets/hinge/roster_expansion/tasha_greenwood_04.webp",
+        "assets/hinge/roster_expansion/tasha_greenwood_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/tasha_greenwood_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Tasha Greenwood, consistent Rosy fair skin, burgundy-dyed curls, a gap-toothed smile, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tasha_greenwood_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Tasha Greenwood, consistent Rosy fair skin, burgundy-dyed curls, a gap-toothed smile, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tasha_greenwood_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Tasha Greenwood, consistent Rosy fair skin, burgundy-dyed curls, a gap-toothed smile, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing real estate agent and teaching her younger cousin guitar.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-271",
+      "slug": "holly_marsh",
+      "name": "Holly Marsh",
+      "age": 21,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Swimming coach",
+      "gallery": [
+        "assets/hinge/roster_expansion/holly_marsh_01.webp",
+        "assets/hinge/roster_expansion/holly_marsh_02.webp",
+        "assets/hinge/roster_expansion/holly_marsh_03.webp",
+        "assets/hinge/roster_expansion/holly_marsh_04.webp",
+        "assets/hinge/roster_expansion/holly_marsh_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/holly_marsh_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Holly Marsh, consistent Fair skin, layered caramel shoulder-length hair, rosy cheeks, lavender knit top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/holly_marsh_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Holly Marsh, consistent Fair skin, layered caramel shoulder-length hair, rosy cheeks, lavender knit top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/holly_marsh_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Holly Marsh, consistent Fair skin, layered caramel shoulder-length hair, rosy cheeks, lavender knit top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and building a collection of forgotten records.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],
