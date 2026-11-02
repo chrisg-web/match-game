@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="68c99facfd">
+<html lang="en" data-build="b08056bd76">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -608,11 +608,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=68c99facfd"></script>
+  <script src="chapel_at_midnight.js?v=b08056bd76"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=68c99facfd"></script>
+  <script src="marriage.js?v=b08056bd76"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=68c99facfd"></script>
+  <script src="quests/professor-vale.js?v=b08056bd76"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1446,7 +1446,7 @@
         const matchedThread=[...hingeThreads.values()].find(thread=>thread.number===dialledNumber);
         if(matchedThread){
           const woman=hingeProfile(matchedThread.id);
-          if(!matchedThread.blocked&&!matchedThread.fumbled){callerCalledBack(woman.id);spurnForgiven(woman.id);} // Mogger: keeping in touch with her; and a woman you'd been ignoring
+          if(!matchedThread.blocked&&!matchedThread.fumbled){callerCalledBack(woman.id);spurnForgiven(woman.id);matchedThread.calledDay=world.day;} // Mogger: keeping in touch with her; and a woman you'd been ignoring
           startSimulatedCall({id:woman.id,name:woman.name,portrait:woman.gallery[0],generic:false,noAnswer:!!(matchedThread.fumbled||matchedThread.blocked)});return;
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
@@ -1898,8 +1898,12 @@
     // What her card says she does. (Cards used to show a random job from her group's list, which
     // clashed with her own topics and could change mid-game.)
     function realJobs(){return Object.fromEntries(hingeProfiles.map(profile=>[profile.id,profile.canonicalOccupation]));}
+    // A woman you've matched with is never in Discover again. One you passed on, or who didn't match
+    // with you, comes round again when the deck is dealt again.
+    const everMatched=id=>id!==bearHingeCard.id&&hingeThreads.has(id);
+    function skipMatchedCards(){while(hingeDeck[hingeIndex]&&everMatched(hingeDeck[hingeIndex].id))hingeDeck.splice(hingeIndex,1);}
     function setupHingeDeck(){
-      hingeDeck=gameShuffleList(hingeProfiles);
+      hingeDeck=gameShuffleList(hingeProfiles.filter(profile=>!everMatched(profile.id)));
       if(!world.bearOffered&&gameRandom()<.07){
         hingeDeck.splice(Math.min(6,hingeDeck.length),0,bearHingeCard);
         world.bearOffered=true;
@@ -2007,7 +2011,7 @@
       if(hingeThreads.has(profile.id))return hingeThreads.get(profile.id);
       const awaiting=responseMode==='tomorrow'||responseMode==='ghost';
       const thread={id:profile.id,topics:[],number:null,pending:false,fumbled:false,blocked:false,photoRequests:0,photoRefusals:0,
-        warmth:0,followUp:null,deeper:null,talk:sanitizeTalk(null),
+        warmth:0,followUp:null,deeper:null,talk:sanitizeTalk(null),matchDay:world.day,
         awaiting,replyOnDay:responseMode==='tomorrow'?world.day+1:responseMode==='ghost'?world.day+2+hashSeed(world.seed+'|ghost|'+profile.id)%3:null,ghosted:responseMode==='ghost',
         log:awaiting?[]:[{who:'her',text:introFor(profile)}],callLog:[]};
       hingeThreads.set(profile.id,thread);
@@ -2036,7 +2040,7 @@
         if(thread.ghosted&&thread.replyOnDay===null){thread.replyOnDay=world.day+1;continue;} // saves from before ghosts came back
         if(thread.replyOnDay>world.day)continue;
         const late=thread.ghosted;
-        thread.awaiting=false;thread.ghosted=false;thread.replyOnDay=null;
+        thread.awaiting=false;thread.ghosted=false;thread.replyOnDay=null;thread.matchDay=world.day; // she has only just written: the two days start now
         if(late&&!mustReply(profile)&&hashSeed(world.seed+'|unmatch|'+profile.id)%2===0){thread.blocked=true;thread.unmatched=true;continue;}
         thread.log.push({who:'her',text:late?`${gamePick(LATE_REPLIES)} ${introFor(profile)}`:introFor(profile)});
       }
@@ -2149,6 +2153,7 @@
     function renderHinge(){
       touchThreads(); // the chat list order, and closed chats
       let body='';
+      skipMatchedCards(); // never someone you've already matched with
       const current=hingeDeck[hingeIndex];
       if(hingeView==='discover'){
         addJewellersToDeck(); // the marriage data may arrive after the first deck was dealt
@@ -2196,6 +2201,7 @@
     }
     function takeHingeSwipe(action){
       if(swipeLocked||hingeView!=='discover'||hingeSwipesToday>=10)return;
+      skipMatchedCards();
       const profile=hingeDeck[hingeIndex];
       if(!profile)return;
       swipeLocked=true;
@@ -2561,7 +2567,7 @@
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
-        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),callTold:words(src.callTold),
+        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),flirtOwn:words(src.flirtOwn).filter(key=>['muse','caption','melt'].includes(key)),callTold:words(src.callTold),
         later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
         gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
@@ -4561,6 +4567,16 @@
       return Math.max(.05,Math.min(.92,odds));
     }
     const flirtBold=profile=>{const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3];return CONTRARIANS.has(p?.id)||A<=2||E>=4;};
+    // Her own lines (characters/flirt-women): her muse, her caption (on a picture it fits) and her melt,
+    // each once per run, so the faction lines fill in around something only she would say.
+    function flirtOwn(thread,profile,key,kind){
+      const mine=flirtKit()?.women?.[profile?.id],text=mine?.[key];
+      if(typeof text!=='string'||!text)return null;
+      if((talkState(thread).flirtOwn||[]).includes(key))return null;
+      if(key==='caption'&&Array.isArray(mine.fits)&&!mine.fits.includes(kind))return null;
+      return text;
+    }
+    function flirtOwnUsed(thread,key){const st=talkState(thread);st.flirtOwn=[...(st.flirtOwn||[]),key];}
     // She talks first: a few warm women each morning, the hotter it is the likelier and the filthier.
     function flirtNewDay(){
       if(!flirtKit()||!revampOn())return;
@@ -4573,7 +4589,9 @@
         if(gameRandom()>=.22+heatOf(thread)*.14+Math.min(3,warmthOf(thread))*.05)continue;
         const kit=flirtFaction(profile),tier=Math.min(2,heatOf(thread));
         lineSpeaker=profile.id;
-        herLine(thread,flirtFill(variedPick(kit.musings[tier]||kit.musings[0],profile.id+'|muse|'+world.day),profile));
+        const own=flirtOwn(thread,profile,'muse'),mine=own&&(tier>=1||gameRandom()<.4);
+        if(mine)flirtOwnUsed(thread,'muse');
+        herLine(thread,flirtFill(mine?own:variedPick(kit.musings[tier]||kit.musings[0],profile.id+'|muse|'+world.day),profile));
         st.musedDay=world.day;thread.followUp={kind:'flirt',id:String(tier)};sent++;
       }
     }
@@ -4597,7 +4615,9 @@
     function flirtSendPhoto(thread,profile,picture,lead){
       const kit=flirtFaction(profile),kind=photoKind(picture);
       lineSpeaker=profile.id;
-      const caption=flirtFill(variedPick(kit.captions[kind]||kit.captions.roll,profile.id+'|cap|'+picture.src),profile);
+      const own=flirtOwn(thread,profile,'caption',kind);
+      if(own)flirtOwnUsed(thread,'caption');
+      const caption=flirtFill(own||variedPick(kit.captions[kind]||kit.captions.roll,profile.id+'|cap|'+picture.src),profile);
       thread.log.push({who:'her',text:lead?lead+' '+caption:caption,image:picture.src});
       thread.followUp={kind:'pic',id:kind};
     }
@@ -4617,12 +4637,13 @@
       const say=(text,after)=>deliverTalk(thread,profile,[text],'talk',after,true);
       const later=fn=>{thread.pending=true;renderHinge();window.setTimeout(()=>{thread.pending=false;fn();if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();saveRun(true);},hingeReplyDelay(profile,'talk'));};
       const win=k=>gameRandom()<flirtOdds(thread,profile,k);
+      const melt=(list,key)=>{const own=flirtOwn(thread,profile,'melt');if(own){flirtOwnUsed(thread,'melt');return flirtFill(own,profile);}return reply(list,key);}; // her own line, the first time it really lands
       if(follow.kind==='flirt'){
         if(choice.id==='sweet'){warmBy(thread,1);return say(reply(kit.sweet,'sweet'));}
         if(choice.id==='away')return say(variedPick(talkKit()?.neutral||['Okay.'],profile.id+'|away|'+world.day));
         if(choice.id==='flirt'){if(win('flirt')){heatBy(thread,1);warmBy(thread,1);return say(reply(kit.flirt.win,'fw'));}return say(reply(kit.flirt.lose,'fl'));}
         if(choice.id==='filthy'){
-          if(win('filthy')){heatBy(thread,2);warmBy(thread,1);return say(reply(kit.filthy.win,'xw'));}
+          if(win('filthy')){heatBy(thread,2);warmBy(thread,1);return say(melt(kit.filthy.win,'xw'));}
           warmBy(thread,-2);heatBy(thread,-1);
           if(gameRandom()<.3||warmthOf(thread)<0)return later(()=>flirtBlock(thread,profile,reply(kit.filthy.block,'xb'),'filthy'));
           return say(reply(kit.filthy.lose,'xl'));
@@ -4645,7 +4666,7 @@
         const k=choice.id==='neg'?'neg':'filthy';
         if(win(k)){
           warmBy(thread,2);heatBy(thread,2);
-          const text=reply(kit[k].win,k+'w');
+          const text=melt(kit[k].win,k+'w');
           const unseen=flirtUnseen(thread,profile);
           return say(text,()=>{ // it worked: sometimes she sends another, unasked
             if(unseen.length&&gameRandom()<.5){const picture=gamePick(unseen);later(()=>flirtSendPhoto(thread,profile,picture,reply(kit.another,'an')));}
@@ -6005,8 +6026,46 @@
         if(v.mood==='spite'&&world.day>=v.act){v.mood='done';spiteAct(thread,profile);}
       }
     }
+    // ===== Ignored matches (Chris, 2 November 2026) =====
+    // Two days without a word from you (a chat or a call) and a match nudges you. Ignore the nudge as
+    // well and the next morning she blocks you: you see it that day, then the chat leaves the list.
+    // A woman a quest needs (and Victoria, the Sisters, the jewelers, the bear) waits however long it takes,
+    // and so does one in the middle of her own story or a mini quest with you.
+    const IGNORE_DAYS=2;
+    function lastWordDay(thread){
+      const days=talkState(thread).days||[],last=days.length?days[days.length-1]:0;
+      return Math.max(last,Number.isInteger(thread.matchDay)?thread.matchDay:0,Number.isInteger(thread.calledDay)?thread.calledDay:0);
+    }
+    function ignoreHolds(thread,profile){
+      if(!profile||thread.id===bearHingeCard.id||mustReply(profile))return true;
+      if(thread.id===CALLER_ID&&callerActive())return true; // Moira does her own thing
+      if((world.spurn?.[thread.id]?.n||0)>0||['plead','spite','done'].includes(world.spurn?.[thread.id]?.mood))return true; // she's ringing and you keep declining: that has its own ending
+      if(['dilemma','waiting','errand'].includes(arcsState().st?.[thread.id]?.stage))return true;
+      return Object.entries(minisState().st||{}).some(([id,st])=>miniLive(id)&&Object.values(st).some(v=>v===thread.id||(Array.isArray(v)&&v.includes(thread.id))));
+    }
+    function ignoreNewDay(){
+      const kit=talkKit()?.ignored;
+      if(!kit)return;
+      for(const thread of hingeThreads.values()){
+        if(thread.blocked||thread.unmatched||thread.left||thread.missing||thread.fumbled||thread.awaiting||thread.ghosted||thread.quiet||thread.pending)continue;
+        const profile=hingeProfile(thread.id);
+        if(ignoreHolds(thread,profile))continue;
+        if(!Number.isInteger(thread.matchDay))thread.matchDay=world.day-1; // a save from before this: the count starts yesterday
+        const last=lastWordDay(thread),st=talkState(thread),nudged=Number.isInteger(thread.nudgeDay)&&last<thread.nudgeDay;
+        if(nudged&&world.day>thread.nudgeDay){ // she nudged you and still nothing
+          thread.log.push({who:'her',text:seededPick(kit.block,world.seed+'|ignoreblock|'+thread.id),block:true});
+          thread.blocked=true;thread.followUp=null;st.unread=true;
+          continue;
+        }
+        if(!nudged&&world.day-last>=IGNORE_DAYS){
+          thread.log.push({who:'her',text:seededPick(kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
+          thread.nudgeDay=world.day;st.unread=true;st.morningDay=world.day;st.musedDay=world.day; // that's her message for the morning
+        }
+      }
+    }
     function talkNewDay(){
       toneNewDay(); // the difficulty's own luck
+      ignoreNewDay(); // matches you never talk to nudge you, then block you
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       miniNewDay(); // the mini quests
@@ -6172,6 +6231,7 @@
       if(isStranger(id)){herCall=strangerAnswer(id);saveRun(true);renderCalls();return;} // Theon, or her dad
       if(!profile||!kit)return renderCalls();
       const sister=profile.factionId==='sisters_of_mercy',wasSpurned=spurnForgiven(id); // you picked up
+      {const picked=hingeThreads.get(id);if(picked)picked.calledDay=world.day;} // a call counts as talking to her
       if(laviniaCallingToday(id)){ // Truecel: Lavinia, then Brad
         const l=laviniaState();
         l.callDay=world.day;
@@ -8022,6 +8082,7 @@
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
+            matchDay:Number.isInteger(raw.matchDay)?raw.matchDay:null,calledDay:Number.isInteger(raw.calledDay)?raw.calledDay:null,nudgeDay:Number.isInteger(raw.nudgeDay)?raw.nudgeDay:null,
             log,callLog:Array.isArray(raw.callLog)?raw.callLog.filter(l=>l&&typeof l.text==='string').slice(-100):[]}];
         }));
         stopRinging();herCall=null;scheduleHerCalls();

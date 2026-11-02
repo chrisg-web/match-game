@@ -26191,7 +26191,678 @@
             "Fine. One more. For the file."
           ]
         }
+      },
+      "women": {
+        "MATCH-004": {
+          "muse": "Found an eight-out-of-ten coffee today and now I’m too wired to sleep. Give me something to rate. Anything. You.",
+          "caption": "Off the record, off the work phone, off duty.",
+          "melt": "No comment. Beautifully. Okay, one comment: say that again and I’m filing it under HOT."
+        },
+        "MATCH-012": {
+          "muse": "In the darkroom with the red light on, developing a roll and thinking about things nobody should photograph. Mostly you.",
+          "caption": "Whatever people don’t want photographed. Here’s me.",
+          "melt": "I’d frame that. Then I’d take it down because my mother visits. Then I’d put it back."
+        },
+        "MATCH-058": {
+          "muse": "Three stories on my wall and I think two are the same story. Here’s a fourth: girl alone in apartment, thinking about a man she shouldn’t. Developing.",
+          "caption": "Follow the money. Or follow me.",
+          "melt": "That was off the record and on my mind. Give me your source. I need more."
+        },
+        "MATCH-059": {
+          "muse": "I decide what Sunfall knows tomorrow. Tonight I’ve decided I’d like to know what you’d do to me. Off the front page.",
+          "caption": "The editor, unedited.",
+          "melt": "I’d spike any other man for that. You, I’m running above the fold."
+        },
+        "MATCH-060": {
+          "muse": "Wrote a sex scene in my Sunfall novel tonight and I gave the man your terrible jokes. Behave, or you’re in chapter twelve.",
+          "caption": "Got paid on time. Celebrating like this.",
+          "melt": "That’s going in the novel. Word for word. Chapter twelve is now very long."
+        },
+        "MATCH-069": {
+          "muse": "Shooting a motel tonight with one working sign. Room 6 has a heart-shaped bed and a terrible past. Want to give it a better one?",
+          "caption": "Every motel sign is a promise somebody broke. This one I’ll keep.",
+          "melt": "That’s the kind of line motel walls remember. I’m blushing like a pink neon flamingo."
+        },
+        "MATCH-163": {
+          "muse": "Late show, empty studio, one lonely caller at a time. I’m the loneliest one tonight. Call in.",
+          "caption": "On air, off the record.",
+          "melt": "If that had gone out live, the switchboard would have melted. Mine did."
+        },
+        "MATCH-164": {
+          "muse": "Out past the canyon under a sky so full it’s almost loud. Blanket, wine, nobody for miles. One spare space on the blanket.",
+          "caption": "Rain expected any day now. Me expected right now.",
+          "melt": "A hundred years of headlines and nobody’s written one like that. I’m archiving it, permanently."
+        },
+        "MATCH-165": {
+          "muse": "Pickle is snoring under my desk and I’m doing the crossword in my underwear. Seven letters: something I want. You know the answer.",
+          "caption": "Weekend edition. Supplement included.",
+          "melt": "That beats the crossword. Pickle barked once. She agrees. Say it again."
+        },
+        "MATCH-166": {
+          "muse": "Developed a roll I shot a month ago and every frame came out. Patience pays. I’m not feeling very patient tonight.",
+          "caption": "Shot on film. Think before you look. Then look again.",
+          "melt": "I want to be right, not viral. Right now I just want you. That was unprofessional. I liked it."
+        },
+        "MATCH-167": {
+          "muse": "Lost at pool for once and owe the neighbors dish duty. I’d rather owe you something worse.",
+          "caption": "Five stars. No notes.",
+          "melt": "One drummer sends me a postcard that says no. I’m sending you one that says yes."
+        },
+        "MATCH-168": {
+          "muse": "Fixing the bike chain with grease up to my elbows. I need someone to tell me where to put my hands.",
+          "caption": "Today I held the reflector. Tonight I hold the camera.",
+          "melt": "Neither wheel goes round on my bike, but you just got everything else spinning."
+        },
+        "MATCH-169": {
+          "muse": "Nine seconds of silence in court today before a witness answered. You learn to hear what people don’t say. Here’s what I’m not saying: come over.",
+          "caption": "Off the record. Every word.",
+          "melt": "I write down every word. I’m not writing that one down. I’m keeping it."
+        },
+        "MATCH-170": {
+          "muse": "I remember everything anyone tells me. Tell me something I’ll never be able to forget.",
+          "caption": "One true thing about me. Look closely.",
+          "melt": "That was a true thing. A filthy true thing. I’ll remember it word for word, forever."
+        },
+        "MATCH-171": {
+          "muse": "Riding the night coach to the coast. Six hours, nowhere to be, a row of empty seats in the back. Wish you were in one.",
+          "caption": "Places nobody visits on purpose. Visit on purpose.",
+          "melt": "That was a hidden gem. The kind with no gift shop. I’m reviewing it. Five stars, would return."
+        },
+        "MATCH-003": {
+          "caption": "Hecate took this. She stares at corners where nothing is. Now she stares at you.",
+          "melt": "Sweetheart. You said that like you meant to hurt me. The moon approves. So do I."
+        },
+        "MATCH-061": {
+          "muse": "Four hours on the decks and my ears are still ringing. Everything sounds like a heartbeat. Mine’s going very fast tonight.",
+          "caption": "After the set. Sweat, smudged eyeliner, ringing ears. Encore?",
+          "melt": "That hit like a bass drop. I need to sit down. I need you to make me stand back up."
+        },
+        "MATCH-062": {
+          "muse": "I always leave before it gets serious. It’s late, I’m in velvet, and I’m staying up for you. That’s serious, for me.",
+          "caption": "Velvet, silver and despair, at reasonable prices. Tonight, free.",
+          "melt": "Nobody makes me stay. You’re making me want to stay. That’s worse. Do it again."
+        },
+        "MATCH-063": {
+          "muse": "Seven sittings on a back piece today. I’ve been touching skin all day and I want some of mine touched back.",
+          "caption": "Healed, mostly. There’s one you can only see in person.",
+          "melt": "That stung. Like a good needle. I want the whole sleeve."
+        },
+        "MATCH-068": {
+          "muse": "People confess everything in my chair. Here’s mine: I’ve been thinking about tattooing my name somewhere only you’d see.",
+          "caption": "Priest with needles, off duty. Confess something.",
+          "melt": "That was cruel and beautiful. I’d ink it on you. Somewhere private."
+        },
+        "MATCH-191": {
+          "muse": "Knee’s gone again. I’m on the sofa with ice, wine and absolutely no shame. Come and stand in the way of something.",
+          "caption": "Goalkeeper. I stand in the way of things. Try to get past.",
+          "melt": "You just put one past the keeper. Nobody does that. Shoot again."
+        },
+        "MATCH-192": {
+          "muse": "Set a widow’s locket under the lamp tonight, very slowly. Slow hands. Hot silver. I’m thinking about all of it differently now.",
+          "caption": "Silver at my throat. Cold, then warm. Like me.",
+          "melt": "That was a love that refuses to stop. Or a curse. I want it either way."
+        },
+        "MATCH-193": {
+          "muse": "Trying to learn the Italian for I want to be ruined. Help me practice.",
+          "caption": "Dramatic, in a language that deserves it.",
+          "melt": "Mamma mia. That’s all the Italian I have left. You took the rest."
+        },
+        "MATCH-194": {
+          "muse": "I always leave before men get attached. I’m in bed with old funeral cards and I don’t want to leave. That’s new.",
+          "caption": "Silver thorns and little coffins. Also me.",
+          "melt": "That was a thorn ring right to the heart. I’m staying. Slowly. Make me."
+        },
+        "MATCH-195": {
+          "muse": "The hum in the old vestry is louder tonight. I left the light on. I’d rather leave the door open for you.",
+          "caption": "Bad acoustics, good bar, better company.",
+          "melt": "Twelve years in a haunted church and you’re the first thing that’s scared me. In the best way."
+        },
+        "MATCH-196": {
+          "muse": "Horror night’s over, the projector’s cooling and I’m still jumpy. Come and make me jump.",
+          "caption": "Lost wax, a gas torch and swearing. The swearing gives it character.",
+          "melt": "I’d argue with that, but I’m too busy biting my lip. Vampires are landlords. You’re worse. Keep going."
+        },
+        "MATCH-197": {
+          "muse": "Bought a haunted plastic alien at the market. It’s watching me get undressed. I’d rather you were.",
+          "caption": "Souvenir of tonight. Population: one.",
+          "melt": "I have socks older than your soul and you still made my knees go. Respect."
+        },
+        "MATCH-198": {
+          "muse": "Painted the desert purple again. My tutor says that’s not how color works. Come and show me how anything works.",
+          "caption": "Everything here is purple. Including my thoughts.",
+          "melt": "You didn’t reload. You fired. I’m painting you. Purple."
+        },
+        "MATCH-199": {
+          "muse": "Sang hymns in black lipstick tonight. Now I’m home and the lipstick needs somewhere else to go.",
+          "caption": "Black scarf number nine. Nothing else to report.",
+          "melt": "I usually say nothing and people decide it means something. That means exactly what you think."
+        },
+        "MATCH-005": {
+          "muse": "Pancake is asleep on my feet and I’m diagnosing myself. Verdict: touch-starved, with a side of very bad ideas about you.",
+          "caption": "Pancake took this. He’s a terrible photographer and a worse wingman. Diagnose me.",
+          "melt": "That was textbook manipulation and I have a whole chapter on it. I’m still blushing. I need to lie down on a couch. Yours."
+        },
+        "MATCH-009": {
+          "muse": "Biscuit ate a sock and I’m lying in bed telling my plants about you. They think you should come over. The plants are very forward.",
+          "caption": "Biscuit tried to photobomb this, so I locked him in the kitchen. That’s how much effort you’re getting.",
+          "melt": "Rude! ...Okay, I’m giggling into my pillow like an idiot. Say something else mean. Nicely."
+        },
+        "MATCH-011": {
+          "muse": "Marking essays in bed with a bottle of red. Every one of them is about forbidden desire and none of them understand it. You might.",
+          "caption": "Faculty party. I wore this to distract the dean. It worked. Your turn.",
+          "melt": "Darling, nobody has spoken to me like that since my thesis defense. I’m flushed. Write me something filthy, in iambs."
+        },
+        "MATCH-013": {
+          "muse": "I’m braver in writing, so here goes. I think about your hands sometimes. Okay. Sent. I’m putting the phone in a drawer.",
+          "caption": "I took twenty of these and deleted nineteen. This is the brave one. Be gentle. Or don’t.",
+          "melt": "I don’t know what to do with that. I read it six times. My face is hot. Say it again so I can read it a seventh."
+        },
+        "MATCH-014": {
+          "muse": "Twelve-hour shift, still in scrubs, still buzzing. I need a cold shower or a terrible decision. Pitch me.",
+          "caption": "Off shift. The scrubs are in the wash. This is what’s left.",
+          "fits": [
+            "night",
+            "pool"
+          ],
+          "melt": "My heart rate just did something I’d normally page a doctor for. Keep going. I’m trained for this."
+        },
+        "MATCH-015": {
+          "muse": "Just wrote the slogan for a scented candle called Seduction Linen. I lit it. I’m alone with it. Come and elevate my journey.",
+          "caption": "Elevate your viewing journey. I wrote that. I hate myself. Look anyway.",
+          "melt": "That was the best ad copy anyone’s ever written for me and it was an insult. I’m so into it. Pitch me again."
+        },
+        "MATCH-016": {
+          "muse": "Closing up the Lucky Cactus. Kicked the jukebox and it played a slow song. Nobody to dance with. What a waste.",
+          "caption": "Off shift. Smells like pie. Probably tastes like pie too. You’ll have to find out.",
+          "melt": "The cowboy tips in quarters and you tip in insults. Weirdly, I like yours better. More, please. Extra whipped cream."
+        },
+        "MATCH-017": {
+          "muse": "Showed a house with a mirrored ceiling in the bedroom today. The buyers blushed. I took notes. Thoughts?",
+          "caption": "Viewing by appointment only. Original features. Cozy. You know what cozy means.",
+          "melt": "That was a lowball offer and somehow I’m accepting it. Close the deal. In person."
+        },
+        "MATCH-018": {
+          "muse": "Balanced every account today and now I want something deeply irresponsible. A budget is a list of what you love. You’re on mine. Line item.",
+          "caption": "Tax season is over and I bought a dress I can’t justify. Justify it.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "That was the least romantic thing anyone has ever said to me and my knees went weak. I need to recalculate everything."
+        },
+        "MATCH-019": {
+          "muse": "The afterparty’s winding down. The pool’s still warm. The no-boring-people policy has one opening. Interested?",
+          "caption": "Guest list only. You’re on it. Don’t make me regret it. Make me regret it a little.",
+          "melt": "Darling, nobody insults me at my own party. I’m kicking everyone else out. You stay."
+        },
+        "MATCH-020": {
+          "muse": "Taught three classes, my legs are shaking, and all I can think about is someone else doing the work for once.",
+          "caption": "Post-workout. Still sweaty. Rate the form.",
+          "fits": [
+            "roll"
+          ],
+          "melt": "Nobody critiques my form. I hate that you were right. Drop and give me twenty more of those."
+        },
+        "MATCH-021": {
+          "muse": "Spent all day being a responsible adult. Tonight I want to be a terrible influence. Volunteer?",
+          "caption": "Off duty. Hair down. Nobody here needs a permission slip.",
+          "melt": "Consider yourself on my naughty list. It’s short. You’re at the top of it."
+        },
+        "MATCH-022": {
+          "muse": "Painting a nude for class tomorrow and the model canceled. I need someone who can hold very still while I stare.",
+          "caption": "Painted this sky all afternoon. Then took a picture of myself instead. Priorities.",
+          "melt": "My tutor gave me a C and you just gave me a fever. I’m sketching you from memory. It isn’t a landscape."
+        },
+        "MATCH-023": {
+          "muse": "Three days folding butter into dough. My hands are soft, I smell like croissants, and I’m thinking about what else I could knead.",
+          "caption": "Flour everywhere. I mean everywhere. Want to help me clean up?",
+          "fits": [
+            "roll"
+          ],
+          "melt": "That was rude and buttery and I want it again. Love is laminated dough. I’m folding."
+        },
+        "MATCH-024": {
+          "muse": "Animals bite honestly. People don’t. I’m feeling honest tonight. Fair warning.",
+          "caption": "No ferrets were harmed in this picture. One pirate hat was.",
+          "melt": "You bite honestly. I like that in a man. Bite again."
+        },
+        "MATCH-025": {
+          "muse": "I can tell everything about a person from their mouth. I’ve been thinking about yours. Professionally. Mostly.",
+          "caption": "Off-duty smile. Fully flossed. You’re welcome.",
+          "melt": "You’re grinding something and I want to find out what. Open wide. I’m coming over."
+        },
+        "MATCH-026": {
+          "muse": "I wrote something about you in my notebook and now I can’t stop reading it. It is not safe for a seminar.",
+          "caption": "History will judge me for this one. Be kinder than history.",
+          "melt": "Nobody’s ever been that bold with me. I’m writing it down so it’s on the record. My face is on fire."
+        },
+        "MATCH-027": {
+          "muse": "Late showing, empty theater, and I just watched the sex scene of a film I’ve never seen the start of. Explain the plot to me.",
+          "caption": "Box office girl, off the clock. No popcorn included.",
+          "melt": "That was a twist I didn’t see coming. Best ending I’ve had in ages. Sequel, please."
+        },
+        "MATCH-028": {
+          "muse": "Planned a wedding today where the couple couldn’t keep their hands off each other at the cake. I need a stiff drink and a worse idea.",
+          "caption": "Event dress. Event over. The afterparty is just me.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "I’ve planned a hundred weddings and nobody’s ever made me forget the seating chart. Sit next to me. Closer."
+        },
+        "MATCH-029": {
+          "muse": "Watched men try to ride bulls all night. Not one lasted eight seconds. I bet you’d last longer.",
+          "caption": "Dust, boots and nothing else worth mentioning.",
+          "melt": "Yeehaw. I mean it. Saddle up."
+        },
+        "MATCH-030": {
+          "muse": "Locked up the library late. Just me and the restricted section. I’ll waive your late fees if you come over.",
+          "caption": "Shh. Off the clock. The glasses stay on.",
+          "melt": "That was so overdue. I’m fining you. In person. Bring nothing."
+        },
+        "MATCH-031": {
+          "muse": "Eight hours watching people almost drown. I want someone to save me for once. Or ruin me. Either is fine.",
+          "caption": "Whistle, sunscreen, bad tan lines. Come and check my tan lines.",
+          "fits": [
+            "roll",
+            "night"
+          ],
+          "melt": "Mouth to mouth. That’s all I’m saying. Get over here."
+        },
+        "MATCH-032": {
+          "muse": "Rode the motorcycle out to the canyon. I can still feel the engine in my legs. I need someone to calm me down. Or not.",
+          "caption": "Helmet off. Hair ruined. Worth it.",
+          "melt": "Nobody at the office talks to me like that. Clearly I’ve been working at the wrong office. Report to my desk."
+        },
+        "MATCH-033": {
+          "muse": "The van’s freezer broke, so I’m eating all the melting stock in my underwear. Sticky situation. Thoughts?",
+          "caption": "Prickly pear sorbet and me. Both sweet. Both slightly dangerous.",
+          "melt": "You’re supposed to be nice to the ice cream girl. I’m melting. Come and deal with it."
+        },
+        "MATCH-034": {
+          "muse": "Spent all day earning a horse’s trust. Patience, gentle hands, no sudden moves. Funny how it all works on me too.",
+          "caption": "Ranch dust, golden hour. The horse took it. Mostly.",
+          "fits": [
+            "roll"
+          ],
+          "melt": "Easy. Easy. That’s exactly how you break something wild. Do it again."
+        },
+        "MATCH-035": {
+          "muse": "Red roses mean love. I’m sitting in a bath full of the petals I didn’t sell. They mean something else tonight.",
+          "caption": "Taken among the peonies. Peonies mean bashful. I’m not, tonight.",
+          "fits": [
+            "roll"
+          ],
+          "melt": "There isn’t a flower for what that just did to me. I’ll have to invent one. It’s red and it blushes."
+        },
+        "MATCH-036": {
+          "muse": "Did a full face of makeup just to sit in bed alone. Wasteful. Unless someone wants to ruin it.",
+          "caption": "Full glam. Brenda helped. She’s jealous.",
+          "fits": [
+            "roll",
+            "night"
+          ],
+          "melt": "Brenda never talks to me like that. Brenda should take notes. I’m smudging my lipstick on purpose."
+        },
+        "MATCH-037": {
+          "muse": "Pulled cactus spines out of tourists all day. Now I want someone who knows exactly where not to touch. Or exactly where to.",
+          "caption": "Ranger hat off. Rules off.",
+          "melt": "Wild behavior. I should report it. I’m keeping you instead."
+        },
+        "MATCH-038": {
+          "muse": "Locked the boutique and tried on everything in the window. Spinning in front of the mirror with nobody to unzip me.",
+          "caption": "Fresh from dressing the new window. One of a kind. Not for sale.",
+          "melt": "Main character energy. I usually sell that. You just took it. Unzip me."
+        },
+        "MATCH-039": {
+          "muse": "Designing a logo for an adult store tonight. Research is required. I’m being very thorough.",
+          "caption": "Flat, beige and friendly. Kidding. Look closer.",
+          "melt": "That was an ugly font in the best way. I’m redesigning myself around it. Come and approve the draft."
+        },
+        "MATCH-040": {
+          "muse": "People tell me everything in my chair. Tonight I want to be the one telling secrets. Here’s one: I think about you.",
+          "caption": "Did my own hair for once. Messed it up for you.",
+          "melt": "I’m quiet, so you won’t hear me say it. I liked that. A lot. Keep going."
+        },
+        "MATCH-041": {
+          "muse": "Died beautifully in act one again. Then I sat backstage in a corset with nobody to unlace it.",
+          "caption": "Costume fitting. They let me keep the corset. Should I?",
+          "fits": [
+            "night"
+          ],
+          "melt": "Bravo. Encore. I’m swooning, and this time I’m not acting."
+        },
+        "MATCH-064": {
+          "muse": "Long shift. Ate a whole packet of cookies in my car. Now I want something sweeter and much worse for me.",
+          "caption": "After a shift. Scrubs in the hamper. I left something else in there too.",
+          "melt": "Nurse’s note: patient is dangerous, highly recommended, needs observation overnight."
+        },
+        "MATCH-070": {
+          "muse": "Gregory the hawk is judging me from his shoebox because I’m in bed texting you in a very small shirt.",
+          "caption": "Gregory took this. He has no shame. Neither do I, tonight.",
+          "melt": "That was savage. Like a raptor. I’m nursing a crush now. Feed it."
+        },
+        "MATCH-221": {
+          "muse": "Film night’s over, everyone went home, and I’m on the floor in velvet pajamas thinking about the airport scene. Run to me.",
+          "caption": "Neutral palette, you said? Not tonight.",
+          "melt": "Gray is a mood, not a personality. You are not gray. You’re flamingo pink. Get on my sofa."
+        },
+        "MATCH-222": {
+          "muse": "Bought a snow globe of a motel that burned down. Now I want to go to a motel. One that hasn’t burned down. Yet.",
+          "caption": "Souvenir from my day. It’s me.",
+          "melt": "I’m adding you to my shelf of things that no longer exist, because after that, my self-control doesn’t."
+        },
+        "MATCH-223": {
+          "muse": "The dough is rising, I’m not wearing much, and I’m thinking about a man who isn’t you. Kidding. It’s you.",
+          "caption": "Watercolor rule: you can’t fix a mistake, only paint over it. This is the mistake.",
+          "melt": "In St. Petersburg men are rude like that and I always forgive them. Come and be forgiven."
+        },
+        "MATCH-224": {
+          "muse": "I rehearsed this message in the shower for twenty minutes. Here it is: I can’t stop thinking about you. Oh no. Sent.",
+          "caption": "Took this in the shower mirror. Rehearsed the caption. Forgot it.",
+          "fits": [
+            "night"
+          ],
+          "melt": "I just said you too out loud to my phone. I’m mortified. Do it again."
+        },
+        "MATCH-225": {
+          "muse": "Locked the museum. Me and a thousand things nobody’s allowed to touch. It’s making me want to be touched.",
+          "caption": "Do not touch the exhibits. Except this one. With permission.",
+          "melt": "That was vintage filth. I’m cataloging it under: please, more."
+        },
+        "MATCH-228": {
+          "muse": "Took a couple to the hot spring past the drive-in and left them alone. Now I can’t stop thinking about who I’d take.",
+          "caption": "Off the books, off the map, off the clock.",
+          "melt": "In my book club, the husband always did it. I’m beginning to hope you do it."
+        },
+        "MATCH-229": {
+          "muse": "Said good morning three hundred times today. Now I want someone to say goodnight to me. Slowly.",
+          "caption": "Gerald the Second is prickly. I’m not.",
+          "melt": "Okay. Wow. I talk too much when I’m nervous, and I can’t think of a single word. That’s a first."
+        },
+        "MATCH-240": {
+          "muse": "Night shift at the front desk, playing a record by a woman who sang one perfect album about a man who ruined her. Very relatable. Be that man.",
+          "caption": "The visitor book says: you. I wrote it down.",
+          "melt": "I write everyone down. I’m underlining you. Twice."
+        },
+        "MATCH-002": {
+          "muse": "Major checked every room and went to sleep. I checked every room and I’m lying here rereading your messages. Give me something to investigate.",
+          "caption": "Off duty. Cuffs not included. Ask nicely.",
+          "melt": "I look hard at everything. I can’t stop looking at that. Say it again, slower, for the record."
+        },
+        "MATCH-047": {
+          "muse": "Fixed the station coffee machine again and they put my name on it. I’d like my name on something else tonight. You, preferably.",
+          "caption": "The dress my mother wanted for her lunch. I said I had a murder. I wore it for you instead.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "My job is sad families and bad coffee. That was neither. That was a crime and I’m not reporting it."
+        },
+        "MATCH-048": {
+          "muse": "The dog ate a whole cake off the counter again. I’ve stopped clever people doing clever things all day. Tonight I’d like to do something stupid.",
+          "caption": "Sergeant, out of uniform. Stand to attention.",
+          "melt": "Unflappable, they call me. I just flapped. Do it again and I’ll write you up. Then I’ll read it in bed."
+        },
+        "MATCH-049": {
+          "muse": "Spent all day being someone else. Tonight I’m just me, in bed, and the one thing I can’t fake is how much I want you to text me.",
+          "caption": "No cover tonight. Just me.",
+          "melt": "I fake everything for a living. That wasn’t faked. My face is on fire."
+        },
+        "MATCH-050": {
+          "muse": "Plotted a month of calls against the weather. Hot nights, more fights. Tonight is very hot and I’m not in the mood to fight.",
+          "caption": "An outlier. Study it closely.",
+          "melt": "That’s statistically impossible and it happened anyway. My pulse just broke the chart."
+        },
+        "MATCH-071": {
+          "muse": "Doing a cryptic at the Lucky Cactus. Clue: undressed in a diner, she gives herself away. I’ve solved it. Have you?",
+          "caption": "Everything you need is here, disguised. Barely.",
+          "melt": "Details don’t lie. That detail is going in a bag, labeled, and kept forever."
+        },
+        "MATCH-102": {
+          "muse": "Got a forty-year-old watch ticking tonight and I shouted. I’d like to shout about something else. Patient hands. You know where this is going.",
+          "caption": "A problem of light. You solve it.",
+          "melt": "My pulse just went like a wound spring. That doesn’t happen to me. Wind it again."
+        },
+        "MATCH-103": {
+          "muse": "Book club tonight. Nobody read the book. Everyone talked about their exes and I talked about you. Statistically, that’s a problem.",
+          "caption": "Most accidents happen in the kitchen. This was taken in the bedroom.",
+          "fits": [
+            "dress",
+            "night"
+          ],
+          "melt": "I know the odds of that working on me. Tiny. It just did. I want to see it happen again."
+        },
+        "MATCH-104": {
+          "muse": "Thirty-two cacti and not one of them can hold me. They thrive on neglect. I don’t. Text me back.",
+          "caption": "Bought another cactus. Took this while I was at it.",
+          "melt": "I keep telling Mom I’m coming home soon. You’re the reason I’m staying. Again."
+        },
+        "MATCH-105": {
+          "muse": "Off shift, lavender bath, revenge chillies finally red. Everyone’s polite to the nurse. I don’t want you to be polite.",
+          "caption": "Off shift. Scrubs off.",
+          "melt": "Someone bit me today. You just did worse. Do it again, I’m a nurse, I can take it."
+        },
+        "MATCH-106": {
+          "muse": "Hands covered in clay, bowl number twelve collapsing. Very ghost movie in here. I just need the ghost.",
+          "caption": "Calm voice, steady hands. Not right now.",
+          "melt": "I stay calm on every call. You made me shake. Not the bad kind. Call again."
+        },
+        "MATCH-107": {
+          "muse": "Reading an old unsolved case in the basement at midnight. Dusty, quiet, nobody around. I own a van, you know. Plenty of room in the back.",
+          "caption": "Drew the old theater lobby. Then drew a bath.",
+          "fits": [
+            "night"
+          ],
+          "melt": "Paper never lies to me. I’m filing that under things I’ll read again and again."
+        },
+        "MATCH-109": {
+          "muse": "Biscuit is asleep on my feet and I can’t move. Somebody else should be pinning me down tonight.",
+          "caption": "Nothing comes out of nowhere. Except this.",
+          "melt": "Every man says he’s a great driver. You just proved it. I’m measuring the skid marks."
+        },
+        "MATCH-110": {
+          "muse": "Thirty-six frames and I’ve used thirty-five on my toast. One left. I’d like to mean it.",
+          "caption": "One frame. I meant it.",
+          "melt": "I watch people’s hands. I’m picturing yours. Nobody has ever said enhance to me. Enhance."
+        },
+        "MATCH-008": {
+          "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
+          "caption": "Seized the means of production. Produced this.",
+          "melt": "I contain contradictions. Right now every one of them wants you. Comrade, that was obscene. More."
+        },
+        "MATCH-051": {
+          "muse": "Won the poetry slam tonight. I’m loud, I’m smug and I’ve got a new poem. It’s about you and it can’t be read in public.",
+          "caption": "Loud isn’t dangerous. Quiet is. This is me being quiet.",
+          "melt": "Four megaphones and I’ve got no words. You just won the slam. Read it to me again."
+        },
+        "MATCH-052": {
+          "muse": "Lit every candle in the apartment again. History is a list of people who stopped asking nicely. I’m not asking nicely tonight.",
+          "caption": "Candlelight, two hundred pages, nothing else on.",
+          "fits": [
+            "night"
+          ],
+          "melt": "That wasn’t polite. Polite people lose. You just won. Come and take your prize."
+        },
+        "MATCH-053": {
+          "muse": "I know where my boss will be before he does. I don’t know where you’ll be tonight. I’d like it to be somewhere near me.",
+          "caption": "Read the whole thing before you judge it.",
+          "melt": "Annoyingly good. I meant to burn you. I’m keeping you on the top shelf instead."
+        },
+        "MATCH-054": {
+          "muse": "Can’t sleep. Checked the lock twice. A water rights case on my lap and nothing else. Distract me with something wrong.",
+          "caption": "Whoever gets there first owns the rain. Get here first.",
+          "melt": "The court rules in your favor. Fully. I need a very cold glass of desert water."
+        },
+        "MATCH-067": {
+          "muse": "Trying to meditate in the Honda again. Back seat, windows fogging up, not meditating. Send help, or come and fog them worse.",
+          "caption": "Screen-printed, illegal, beautiful. Like this.",
+          "melt": "The goths pay in drinks and the punks pay in nothing. You just paid in something better. I’m making a poster of it."
+        },
+        "MATCH-129": {
+          "muse": "Scored at five-on-five tonight. Slower and dirtier than the others. I’m still dirty. Knock on my door.",
+          "caption": "Not my soccer uniform. Embarrassing, I’m told. You tell me.",
+          "melt": "Knock on doors or go home, I always say. You knocked. Come in."
+        },
+        "MATCH-130": {
+          "muse": "Drumming in my underwear and the neighbor is banging on the wall in time again. I’d like that wall to shake for a better reason.",
+          "caption": "Drafted this for ten minutes. Sent it anyway.",
+          "melt": "I’m putting a period on this because I mean it. More."
+        },
+        "MATCH-131": {
+          "muse": "Four hours on one canto of Dante. All I understood was that the lustful get blown around forever. Sounds worth it.",
+          "caption": "Grazie, said wrong. Everything else said right.",
+          "melt": "That was nuclear. Clean, efficient and very, very hot. Say it again."
+        },
+        "MATCH-132": {
+          "muse": "Danced in the kitchen for an hour with nobody watching. Now I want somebody watching.",
+          "caption": "Things people threw away, made into something worth stopping for. Stop.",
+          "melt": "I’d rather know what you’re afraid of. Now I know what you want. I’m cutting that out and keeping it."
+        },
+        "MATCH-134": {
+          "muse": "Film night’s over, the hall is dark and I’m alone with the popcorn machine. Come and be rude to me. You can’t fix rude with a workshop.",
+          "caption": "Slapstick and popcorn. And this.",
+          "melt": "That was rude. Gloriously rude. I just fell off my chair like the pie man."
+        },
+        "MATCH-136": {
+          "muse": "Painted the sky from the roof again in a bikini top. Everyone below was looking at their phones. Nobody noticed. You would.",
+          "caption": "Sunfall has the best skies in the world. Look up. Then down.",
+          "melt": "I decided to be cheerful years ago. I’ve decided something else now and it isn’t cheerful. Out of spite."
+        },
+        "MATCH-137": {
+          "muse": "Four hours leafleting in the rain. Soaked to the skin, shirt see-through. Not one man in a big car offered me a lift. Would you?",
+          "caption": "No leaflets. No rain. Just me.",
+          "melt": "Nice comes afterwards, I always say. That wasn’t nice. Good. I’ll bring soup afterwards."
+        },
+        "MATCH-001": {
+          "muse": "Eating chips in the bath again with a terrible novel. The novel just got very steamy. So did the bath. Come and read me the next chapter.",
+          "caption": "Not the green dress. The green dress has been to four parties this month. This hasn’t been anywhere. Yet.",
+          "melt": "Oh, you beast. Nobody at the gala ever talks to me like that. I’m giggling in the bath. Do it again."
+        },
+        "MATCH-006": {
+          "muse": "Beat a man at tennis this morning. I’m still sweaty and smug and in need of a rematch. Indoors, this time.",
+          "caption": "Tennis whites. I win in these. You’ve been warned.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "Forty-love, to you. I hate losing. I think I love losing to you. Serve again."
+        },
+        "MATCH-010": {
+          "muse": "Dinner alone at the end of my twelve-seat table again. The other eleven chairs are very jealous of whoever ends up on this one.",
+          "caption": "Husband number one bought the house. Husband number two bought this. Neither of them got to see it. You can.",
+          "melt": "Darling. I’ve been married twice and nobody ever said that to me. I’m going to need a third husband or a very cold shower."
+        },
+        "MATCH-042": {
+          "muse": "Rode at dawn, chaired a committee at noon, and now I’m in a silk robe with a very large gin. Say something unsayable.",
+          "caption": "Seating plan for one. You’re next to me. Closely.",
+          "melt": "How dare you. Father would have you shot. I’d have you for dessert. Same table, darling."
+        },
+        "MATCH-043": {
+          "muse": "Won an auction tonight just to beat a man who wanted it more. Winning makes me hungry. And not for food.",
+          "caption": "I don’t do taking part. I do this.",
+          "melt": "Nobody beats me. You just did. I’m furious and I’m flushed and I want a rematch in private."
+        },
+        "MATCH-044": {
+          "muse": "Ran the canyon before sunrise with no phone. Now I’m back, showered, and I’ve got the phone. Dangerous combination.",
+          "caption": "After the run. The nuns won’t see this one.",
+          "fits": [
+            "roll"
+          ],
+          "melt": "That was out of line. I like out of line. I’ve never once been out of line. Teach me."
+        },
+        "MATCH-045": {
+          "muse": "Matched two strangers at a funeral and now they’re getting married. My abuela says I should try matching myself. With you, she says. She’s very forward.",
+          "caption": "Abuela says this dress is too short. Abuela is right. Good.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "Ay. My abuela would slap you and then she’d set a date. I’m blushing to my toes."
+        },
+        "MATCH-046": {
+          "muse": "Did my face in eleven minutes and nobody checked my work all day. I’d like someone to check my work tonight. Thoroughly.",
+          "caption": "Everything here is on purpose.",
+          "melt": "Nobody audits me. You just did, and I failed, and I liked it. Flag me again."
+        },
+        "MATCH-065": {
+          "muse": "Stripping an old chest of drawers down to the honest wood. Three coats off and I’m only getting warmer. Metaphor intended.",
+          "caption": "Underneath the paint. Honest oak. You’re welcome.",
+          "melt": "Receipts, please. For that. I want to file it under: deeply improper, deeply wanted."
+        },
+        "MATCH-072": {
+          "muse": "Twenty years at the club and nobody has ever said one filthy thing to me. I’d like to know what I’ve been missing.",
+          "caption": "Older than the club’s carpets, better kept than the club’s books.",
+          "melt": "That young? You flatterer. That rude? You darling. I’m blushing like it’s my first gala."
+        },
+        "MATCH-073": {
+          "muse": "Visited Overdraft at the ranch. He ate my scarf and nuzzled my neck for ten minutes. You could learn a lot from that horse.",
+          "caption": "Watercolor badly painted, me badly behaved.",
+          "melt": "I’m spoken to by no one at every party. You just spoke to all of me. More."
+        },
+        "MATCH-074": {
+          "muse": "Choir practice. I sang about heaven for an hour and thought about something considerably less holy.",
+          "caption": "Borrowed this from a photo shoot. Oh, it’s old. Nobody believes me.",
+          "melt": "I was charming at the right party and now you’re being filthy at the right time. That’s how everything here works."
+        },
+        "MATCH-075": {
+          "muse": "Cooked a whole dinner from a hundred-year-old cookbook. There’s a chapter on aphrodisiacs. I made all of them.",
+          "caption": "Every era thinks it has taste. This era has me.",
+          "melt": "That was in very poor taste and I’m devouring it. Second helping, please."
+        },
+        "MATCH-076": {
+          "muse": "Ballroom class again. My instructor says I need to stop counting and start feeling. I’d like a private lesson in feeling.",
+          "caption": "Practicing the waltz in my room. One, two, three. You.",
+          "melt": "I stopped counting. That’s never happened. What did you do to me?"
+        },
+        "MATCH-077": {
+          "muse": "Fixed a watch tonight. Tiny screws, steady hands, no talking. Imagine what those hands could do with no watch.",
+          "caption": "Theater, darling, with staples. And a dress.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "That kept perfect time with my pulse. Which is now racing. Wind me up again."
+        },
+        "MATCH-080": {
+          "muse": "Out on the balcony in a robe watering the basil. The mint is spreading everywhere. So am I, honestly.",
+          "caption": "The rosemary is thriving. So am I. Look.",
+          "melt": "I put two columns side by side and waited for a confession. Here it is: I want you."
+        },
+        "MATCH-081": {
+          "muse": "Eleven dresses in eleven shades of blue and nobody has ever photographed me in any of them. Tonight you can photograph me in none of them.",
+          "caption": "Blue, number seven. Mother would approve. Of the dress.",
+          "fits": [
+            "dress"
+          ],
+          "melt": "I curtsy to the mayor. I think I’d kneel for you. Oh dear."
+        },
+        "MATCH-092": {
+          "muse": "Restoring a dead Bluebird’s silk slip, stitch by stitch. It fits perfectly. She was trouble. So am I, tonight.",
+          "caption": "Green silk, 1962. She outlived two husbands. I might outlast you.",
+          "fits": [
+            "night",
+            "dress"
+          ],
+          "melt": "The club hasn’t seen me like this in years. Neither have I. Say it again, messenger."
+        }
       }
+    },
+    "ignored": {
+      "nudge": [
+        "Hey there, sent you a message.",
+        "Hey there. Sent you a message. Just checking you’re alive.",
+        "Hello? I messaged you.",
+        "You matched with me and then vanished. Bold strategy.",
+        "Hi. Still there? I sent you something.",
+        "Did you match with me by accident? You can say.",
+        "I don’t usually chase. This is me not chasing. Hi.",
+        "Two days. I’m counting. Hi."
+      ],
+      "block": [
+        "Okay. Clearly not. Bye.",
+        "Never mind. Blocking you.",
+        "You had two days. Enjoy the silence.",
+        "Matching and vanishing is a choice. So is this. Blocked.",
+        "I’m not doing this. Bye.",
+        "Fine. Unmatching you.",
+        "Go and ignore someone else. Bye.",
+        "I gave you a nudge and you gave me nothing. Goodbye."
+      ]
     }
   },
   "minis": {
