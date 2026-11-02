@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="28bed83a61">
+<html lang="en" data-build="677f26f1a7">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -620,11 +620,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=28bed83a61"></script>
+  <script src="chapel_at_midnight.js?v=677f26f1a7"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=28bed83a61"></script>
+  <script src="marriage.js?v=677f26f1a7"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=28bed83a61"></script>
+  <script src="quests/professor-vale.js?v=677f26f1a7"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -5425,7 +5425,45 @@
       }
       return m.on;
     }
-    function miniStartDay(id){const i=minisOn().indexOf(id);return i<0?null:i===0?2+hashSeed(world.seed+'|minid0')%2:4+hashSeed(world.seed+'|minid'+i)%3;}
+    // ===== Pacing (Chris, 2 November 2026) =====
+    // One director decides when each smaller story starts (two mini quests, two room quests, two of her
+    // thing), so a run doesn't pile up in its first week: never two new stories on the same day, never on
+    // the day a big quest starts, a quiet day between most of them, and two waves: one of each kind in
+    // the first week, the other three from Day 8. Worked out once a run and kept in the save.
+    function paceState(){
+      const p=world.pace;
+      if(!p||typeof p!=='object'||Array.isArray(p)||!p.days||typeof p.days!=='object')world.pace={days:null};
+      return world.pace;
+    }
+    function sanitizePace(raw){
+      const days={};
+      if(raw&&typeof raw==='object'&&raw.days&&typeof raw.days==='object')for(const [key,day] of Object.entries(raw.days).slice(0,12))if(/^(mini|rq|fq):[a-z]{2,20}$/.test(key)&&Number.isInteger(day)&&day>=2&&day<=40)days[key]=day;
+      return {days:Object.keys(days).length?days:null};
+    }
+    function paceDays(){
+      const p=paceState();
+      if(p.days)return p.days;
+      const taken=new Set([1]); // Day 1: the gala, and the Blue Ribbon paper
+      for(const id of ['br','vale','chapel','fionn']){const d=questStart(id);if(Number.isInteger(d))taken.add(d);}
+      const kinds=['mini','rq','fq'].sort((a,b)=>hashSeed(world.seed+'|pace|'+a)-hashSeed(world.seed+'|pace|'+b));
+      const on={mini:minisOn(),rq:rqOn(),fq:fqOn()},days={};
+      for(const [wave,from,to] of [[0,2,7],[1,8,14]]){
+        const list=(wave?kinds.slice().reverse():kinds).filter(kind=>on[kind][wave]);
+        let day=from;
+        list.forEach((kind,k)=>{
+          const id=on[kind][wave];
+          while(taken.has(day))day++;
+          days[kind+':'+id]=day;taken.add(day);
+          const free=n=>{let c=0;for(let d=n;d<=to;d++)if(!taken.has(d))c++;return c;};
+          const quiet=hashSeed(world.seed+'|gap|'+kind+':'+id)%2===1&&free(day+2)>=list.length-k-1; // a quiet day between most of them, while the week has room
+          day+=quiet?2:1;
+        });
+      }
+      p.days=days;
+      return days;
+    }
+    function paceDay(kind,id){const d=paceDays()[kind+':'+id];return Number.isInteger(d)?d:null;}
+    function miniStartDay(id){const i=minisOn().indexOf(id);return i<0?null:paceDay('mini',id)??(i===0?2+hashSeed(world.seed+'|minid0')%2:4+hashSeed(world.seed+'|minid'+i)%3);}
     const ms=id=>minisState().st[id]||null;
     const miniLive=id=>{const st=ms(id);return !!st&&!['done','skipped','quit','arrested','gone'].includes(st.stage);};
     function sanitizeMinis(raw){
@@ -5777,7 +5815,7 @@
       }
       return r.on;
     }
-    function rqStartDay(id){const i=rqOn().indexOf(id);return i<0?null:i===0?2+hashSeed(world.seed+'|rqd0')%2:3+hashSeed(world.seed+'|rqd'+i)%4;}
+    function rqStartDay(id){const i=rqOn().indexOf(id);return i<0?null:paceDay('rq',id)??(i===0?2+hashSeed(world.seed+'|rqd0')%2:3+hashSeed(world.seed+'|rqd'+i)%4);} // the pacing director, or (tests with every quest on) the old days
     const rqs=id=>rqState().st[id]||null;
     const rqLive=id=>{const st=rqs(id);return !!st&&!RQ_OVER.includes(st.stage);};
     function sanitizeRq(raw,ids=RQ_IDS){
@@ -6422,7 +6460,7 @@
       }
       return r.on;
     }
-    function fqStartDay(id){const i=fqOn().indexOf(id);return i<0?null:i===0?3+hashSeed(world.seed+'|fqd0')%3:5+hashSeed(world.seed+'|fqd'+i)%4;}
+    function fqStartDay(id){const i=fqOn().indexOf(id);return i<0?null:paceDay('fq',id)??(i===0?3+hashSeed(world.seed+'|fqd0')%3:5+hashSeed(world.seed+'|fqd'+i)%4);}
     const fqs=id=>fqState().st[id]||null;
     const sanitizeFq=raw=>sanitizeRq(raw,FQ_IDS);
     const fqThread=(id,who)=>{const t=hingeThreads.get(who||fqKit()?.[id]?.host);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
@@ -9225,7 +9263,7 @@
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
