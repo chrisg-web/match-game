@@ -149,7 +149,7 @@
       "when": {
         "label": "Ask which night",
         "player": "You keep saying the moonless night. Which night is it?",
-        "reply": "When there’s no moon. {night}, if you can’t read a sky. ☾"
+        "reply": "When there’s no moon. {Night}, if you can’t read a sky. ☾"
       }
     },
     "afterStopped": "You did that, didn't you. ☾",
@@ -275,10 +275,10 @@
   },
   "moon": {
     "goth": {
-      "loyal": "The new moon? {night}. She’d kill me for telling you. Not literally. Probably.",
+      "loyal": "The new moon? {Night}. She’d kill me for telling you. Not literally. Probably.",
       "gossip": "Oh, everyone knows. The moon goes dark {night}. That’s the night.",
       "fedup": "The new moon’s {night}. Don’t go. I mean it.",
-      "other": "The moonless night? {night}. Everyone in the scene has it circled."
+      "other": "The moonless night? {Night}. Everyone in the scene has it circled."
     },
     "sister": {
       "label": "Ask when the next new moon is",

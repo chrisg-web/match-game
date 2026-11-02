@@ -199,7 +199,7 @@
         warnedPlace:placeName(st.warned),riddle:data.places[st.location].riddle,
         fedup:nameOf(st.fedupId||holder(st,'fedup')),gossip:nameOf(holder(st,'gossip')),
         djNumber:flyerNumber(st,FLYER_NUMBERS[0]),shopNumber:flyerNumber(st,FLYER_NUMBERS[1]),
-        when:st.riteDay===null?'soon':st.nightKnown?relNights(st.riteDay):'on the moonless night',night:st.riteDay===null?'soon':relNights(st.riteDay),...extra};
+        when:st.riteDay===null?'soon':st.nightKnown?relNights(st.riteDay):'on the moonless night',night:st.riteDay===null?'soon':relNights(st.riteDay),Night:cap(st.riteDay===null?'soon':relNights(st.riteDay)),...extra};
       return String(text).replace(/\{(\w+)\}/g,(match,key)=>vars[key]!==undefined?String(vars[key]):match);
     }
     // The numbers printed on the flyer, made once per run (the game hands out unused ones).
@@ -430,7 +430,7 @@
         if(st.attackDueDay===null||st.attackDueDay>today()+1){st.attackDueDay=today()+1;st.attackReason='confront';}
         journal(st,'You told Victoria you know what she is planning.');
       };
-      converse(VICTORIA,line.player,reply,after);
+      converse(VICTORIA,line.player,fill(reply),after); // her lines can name the night ({night}, {Night})
     }
 
     // Someone tells you which night the moon goes dark: now the case file can count down.

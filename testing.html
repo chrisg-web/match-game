@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c72ca63c25">
+<html lang="en" data-build="d68f590980">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c72ca63c25"></script>
+  <script src="chapel_at_midnight.js?v=d68f590980"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c72ca63c25"></script>
+  <script src="marriage.js?v=d68f590980"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c72ca63c25"></script>
+  <script src="quests/professor-vale.js?v=d68f590980"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2313,10 +2313,14 @@
           }else if(unseen.length||!another){
             if(unseen.length)thread.photoRefusals=refused+1;
             maybeReported(profile,.05,'asking'); // Truecel: asking at all can be enough
-            const refusal=personality?.refuse||choose(['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.']);
+            lineSpeaker=profile.id;
+            const refusal=reactionFrom(personality?.refuse?[personality.refuse]:[],['Maybe when I know you a bit better.','Not right now, my camera roll is a disaster!','Haha, ask me another time.','Patience. You’ll get one when I’m ready.','Not yet. Earn it.','Ask me again some other day.'],profile.id+'|refuse|'+thread.log.length);
             thread.log.push({who:'her',text:tone()==='truecel'?choose(['Lol, no. ','Ew, no. ','Why would I? ','Absolutely not. '])+refusal:refusal});
           }else{
-            thread.log.push({who:'her',text:personality?.out||choose(['That’s all of them, I promise!','You’ve seen everything on my camera now.','No more! A girl needs some mystery.'])});
+            const outs=['That’s all of them, I promise!','You’ve seen everything on my camera now.','No more! A girl needs some mystery.','Still no more. You’ve seen the lot.','You already asked. The answer is still no new ones.'];
+            const saidOut=line=>thread.log.some(entry=>entry.who==='her'&&entry.text===line);
+            const own=personality?.out&&!saidOut(personality.out)?personality.out:null;
+            thread.log.push({who:'her',text:own||choose(outs.filter(line=>!saidOut(line)).length?outs.filter(line=>!saidOut(line)):outs)});
           }
           thread.pending=false;
           if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
@@ -2333,7 +2337,8 @@
         thread.log.push({who:'you',text:hingeDialogue?.phoneNumber?.player||'Could I have your number?'});
         if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'){ // she's gone cold on you: not today
           talkState(thread).numberRefusedDay=world.day;
-          reply=gamePick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.']);
+          lineSpeaker=profile.id;
+          reply=variedPick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.','Not today.','You’ll have to earn that one.'],profile.id+'|nonumber|'+world.day);
         }else{
           if(!thread.number)thread.number=profile.jeweller?(marriage?.meetJeweller?.(profile.jeweller)||unusedContactNumber()):unusedContactNumber();
           reply=profile.jeweller?`That’s my shop line: ${thread.number}. If you ever need a ring, you know who to call.`:(hingeDialogue?.phoneNumber?.reply||'My number is {number}.').replace('{number}',thread.number);
@@ -2447,8 +2452,17 @@
       if(!list?.length)return null;
       if(!world.saidBy||typeof world.saidBy!=='object'||Array.isArray(world.saidBy))world.saidBy={};
       const said=world.saidBy,sig=line=>hashSeed(String(line)).toString(36);
-      const fresh=list.filter(line=>{const who=said[sig(line)];return !who||who===lineSpeaker;});
+      let fresh=list.filter(line=>{const who=said[sig(line)];return !who||who===lineSpeaker;});
       if(strict&&!fresh.length)return null;
+      // Not the same line twice in her chat with you, while she has others left.
+      const her=lineSpeaker&&hingeThreads.get(lineSpeaker);
+      if(her){
+        const hers=her.log.filter(entry=>entry.who==='her').map(entry=>entry.text).join('\n');
+        const unsaid=pool=>pool.filter(line=>!hers.includes(String(line).trim()));
+        const mine=unsaid(fresh);
+        if(mine.length)fresh=mine;
+        else if(!strict){const any=unsaid(list);if(any.length)fresh=any;} // better a line another woman used than the same one to you twice
+      }
       const choice=seededPick(fresh.length?fresh:list,key);
       if(choice&&lineSpeaker&&!said[sig(choice)])said[sig(choice)]=lineSpeaker;
       return choice;
@@ -2699,7 +2713,16 @@
 
     // ---------- Next-day answers ----------
     // Now and then she thinks about a question overnight; the answer arrives in the morning.
-    const LATER_LINES=['Ooh. Let me think about that one. I’ll tell you tomorrow.','Hm. Not over text, not tonight. Tomorrow.','I’ve got an answer but it’s a long one. Tomorrow, I promise.','Give me till tomorrow on that one.','Good question. I’m going to sleep on it.'];
+    const LATER_LINES=['Ooh. Let me think about that one. I’ll tell you tomorrow.','Hm. Not over text, not tonight. Tomorrow.','I’ve got an answer but it’s a long one. Tomorrow, I promise.','Give me till tomorrow on that one.','Good question. I’m going to sleep on it.','That deserves a proper answer. Tomorrow.','Let me think about how to say it. Ask me tomorrow.','Oh, that one needs coffee first. Tomorrow.'];
+    // Shared reactions for when she has used her own (each personality has two of each).
+    const WARM_REACTIONS=['Okay, I like that.','Ha. Good answer.','See, this is why I keep replying.','That’s a really nice way to put it.','You’re better at this than you let on.','Okay, that made me smile.','Right answer. Annoyingly.','I’ll allow it. Happily.','That’s sweet. Don’t let it go to your head.','You have your moments.','Okay, points for that one.','I didn’t expect to agree with you, but I do.','Smooth. Very smooth.','Good. I hoped you’d say that.'];
+    const COOL_REACTIONS=['Hm. Not my favorite answer.','Okay. That’s a choice.','I’m going to pretend you didn’t say that.','Wow. Okay.','That’s a little much.','I don’t know about that.','Not your best moment.','Right. Moving on.','I see. Interesting. Not in a good way.','Bold of you.','Not sure what to do with that.','Mm. I’ll file that away.'];
+    function reactionFrom(own,shared,key){ // her own reactions first; once she has used them, the shared ones
+      const her=lineSpeaker&&hingeThreads.get(lineSpeaker);
+      const hers=her?her.log.filter(entry=>entry.who==='her').map(entry=>entry.text).join('\n'):'';
+      const unsaid=(own||[]).filter(line=>!hers.includes(line));
+      return variedPick(unsaid.length?unsaid:[...(own||[]),...shared],key);
+    }
     const LATER_LEAD=['About what you asked yesterday.','So, your question from yesterday.','Right. I thought about it.','I promised you an answer.'];
     function laterOK(thread,profile,item){
       if(!revampOn()||item.quest||item.gives||talkState(thread).later||thread.topics.length<3)return false;
@@ -2758,11 +2781,12 @@
     const REMEMBER=['You told me {told}. I’ve been thinking about that.','I told my sister you said {told}. She has opinions.','You said {told}. Did you mean it? I’m holding you to it.','Still thinking about how you said {told}.'];
     function recallLine(thread,profile){
       if(!revampOn())return null;
+      lineSpeaker=profile.id;
       const st=talkState(thread),kit=talkKit(),mem=String(st.memory.tone||'').split(':');
       const day=Number(mem[0]);
       if(day&&day>=world.day-2&&day<world.day&&st.memory.toneSaid!==String(day)&&TONE_RECALL[mem[1]]){
         st.memory.toneSaid=String(day);
-        return seededPick(TONE_RECALL[mem[1]][Number(mem[2])<0?'neg':'pos'],profile.id+day);
+        return variedPick(TONE_RECALL[mem[1]][Number(mem[2])<0?'neg':'pos'],profile.id+day);
       }
       const recalled=st.recalled||(st.recalled=[]);
       for(const [question,list] of Object.entries(convo().told)){
@@ -2914,6 +2938,7 @@
     // mentioned you, her mood today, or something you told her earlier.
     function talkOpener(thread,profile,topicId){
       const kit=talkKit(),c=convo(),state=talkState(thread);
+      lineSpeaker=profile.id;
       if(topicId){
         const others=(c.asked[topicId]||[]).filter(id=>id!==profile.id&&hingeProfile(id)?.factionId===profile.factionId);
         if(others.length>=2)return fillIn(seededPick(kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});
@@ -2926,11 +2951,11 @@
         if(recall)return recall;
         const friend=friendOf(profile);
         if(friend&&!state.friendShown&&hingeThreads.get(friend.id)?.topics?.length){state.friendShown=true;return fillIn(seededPick(kit.asides.friendKnows,profile.id),{friend:firstName(friend)});}
-        if(gameRandom()<.45)return seededPick(kit.moods[moodOf(profile)],profile.id+world.day);
+        if(gameRandom()<.45)return variedPick(kit.moods[moodOf(profile)],profile.id+world.day);
       }
       if(state.cbDay!==world.day&&state.tags?.length&&gameRandom()<.3){
         const tag=[...state.tags].reverse().find(item=>kit.callbacks[item]);
-        if(tag){state.cbDay=world.day;return seededPick(kit.callbacks[tag],profile.id+tag);}
+        if(tag){state.cbDay=world.day;return variedPick(kit.callbacks[tag],profile.id+tag+world.day);}
       }
       return null;
     }
@@ -2988,7 +3013,7 @@
         admirer:['I liked you first. Thought you should know.','I never message first. Making an exception.','My friend dared me to say hi. She also said you’re out of my league. Hi.','You popped up and I panicked and pressed like. Hi.','Okay, I’m doing the thing where I message first. Be nice.']
       },
       truecel:{
-        close:[' Anyway.',' Not that it matters.',' lol',' Why do you ask?',' Sorry, I’m talking to a few people.',' Okay.',' My friend is reading this over my shoulder, by the way.',' You type a lot.',' Cool.',' That’s a lot to share.'],
+        close:[' Anyway.',' Not that it matters.',' lol',' Whatever.',' Sorry, I’m talking to a few people.',' Okay.',' My friend is reading this over my shoulder, by the way.',' You type a lot.',' Cool.',' That’s a lot to share.'],
         warm:['Huh. That’s actually a decent answer.','Okay, that’s better than I expected.','Wait, you’re kind of funny?','Didn’t expect that from you. Nice.','Okay. Fine. That was good.','I wasn’t going to reply, but okay, that was decent.','Hm. You’re not as bad as your photos.','Don’t make it weird, but that was sweet.'],
         cool:['Yikes.','That explains a lot.','And you wonder why you’re on here.','Okay, that’s a red flag.','Noted. Not in a good way.','Wow. Okay.','I’m showing my friends this one.','That’s why the photos are all from far away.','Mm. No.'],
         dare:['Sorry. My friends matched you as a joke. I’m unmatching.','This was a dare. Sorry.','My friend had my phone. Bye.','I think I swiped by accident. Sorry.']
@@ -2998,20 +3023,29 @@
     function toned(text,profile,key){
       const kit=TONE_TALK[tone()];
       if(!kit||!text||!profile||profile.factionId==='sisters_of_mercy'||profile.jeweller)return text;
+      lineSpeaker=profile.id;
       if(tone()==='truecel'&&kindred(profile))return text; // the outsiders are never curt with you
       if(hashSeed(world.seed+'|tone|'+profile.id+'|'+key)%3!==0)return text;
-      return text+seededPick(kit.close,profile.id+key);
+      return text+variedPick(kit.close,profile.id+key);
     }
     // On Truecel the outsiders like you more than anyone: goths, and the shy and dignified types.
     function kindred(profile){
       return profile?.factionId==='goth_girls'||['dignified-outsider','shy-gentle'].includes(personalityOf(profile)?.id);
+    }
+    function withoutRetold(thread,text){ // drop long sentences she has already said to you, if anything new is left
+      if(typeof text!=='string'||text.length<60)return text;
+      const hers=thread.log.filter(entry=>entry.who==='her').map(entry=>entry.text).join('\n');
+      const parts=text.split(/(?<=[.!?…])\s+/);
+      const kept=parts.filter(part=>part.length<40||!hers.includes(part));
+      const left=kept.join(' ');
+      return kept.length<parts.length&&left.length>=40?left:text;
     }
     function deliverTalk(thread,profile,lines,delayKey,after,scripted=false){
       if(lines.length&&!scripted)lines[0]=toned(lines[0],profile,thread.log.length+'|'+world.day); // her first reply, never an Easter egg after it; scripted event lines stay as written
       thread.pending=true;
       renderHinge();
       window.setTimeout(()=>{
-        for(const text of lines)if(text)thread.log.push({who:'her',text});
+        for(const text of lines)if(text)thread.log.push({who:'her',text:scripted?text:withoutRetold(thread,text)});
         thread.pending=false;
         if(after)after();
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
@@ -3061,7 +3095,7 @@
         // Easter egg: she knew the last person in your room.
         if(['sunfall','leave'].includes(topic.id)&&!state.tenant&&warmthOf(thread)>=2&&hashSeed(world.seed+'|tenant|'+profile.id)%4===0){state.tenant=true;lines.push(seededPick(kit.eggs.lastTenant,profile.id));}
         const ask=topic.ask||topic.follow?.question;
-        if(ask?.length){lines.push(seededPick(ask,profile.id+topic.id+world.day));thread.followUp={kind:'topic',id:topic.id};}
+        if(ask?.length){lines.push(variedPick(ask,profile.id+topic.id+world.day));thread.followUp={kind:'topic',id:topic.id};}
         const askedBy=c.asked[topic.id]||(c.asked[topic.id]=[]);
         if(!askedBy.includes(profile.id))askedBy.push(profile.id);
         after=()=>moggerPicture(thread,profile);
@@ -3074,7 +3108,7 @@
         if(laterOK(thread,profile,own)){ // she'll think about it overnight
           const told=topicTold(own,profile);
           state.later={day:world.day+1,lines:[told.text],note:own.note||null};
-          lines.push(seededPick(LATER_LINES,profile.id+world.day));
+          lines.push(variedPick(LATER_LINES,profile.id+world.day));
           if(tone()!=='truecel')warmBy(thread,1);
           after=()=>moggerPicture(thread,profile);
         }else{
@@ -3137,7 +3171,7 @@
         if(!serviceAskable(key,thread,profile))return;
         thread.followUp=null;
         thread.log.push({who:'you',text:ask.player});
-        if(warmthOf(thread)<=-2&&tone()!=='mogger'){state.svcRefusedDay=world.day;lines.push(seededPick(SERVICE_REFUSALS,profile.id+key));}
+        if(warmthOf(thread)<=-2&&tone()!=='mogger'){state.svcRefusedDay=world.day;lines.push(variedPick(SERVICE_REFUSALS,profile.id+key));}
         else{
           lines.push(fillIn(seededPick(ask.reply,profile.id+key),{number:contactNumbers[key]}));
           after=()=>{learnService(key);updateRunStatus(`${SERVICE_CONTACTS[key][0]} saved to Contacts.`);};
@@ -3193,8 +3227,8 @@
       const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[tone()];
       const reaction=(delta,key)=>{
         // Now and then, she reacts the way your difficulty makes her react.
-        if(toneKit&&delta!==0&&hashSeed(world.seed+'|react|'+key)%4===0)return seededPick(delta>0?toneKit.warm:toneKit.cool,key); // one reaction in four
-        return delta>0?variedPick(personality?.reactions?.warm||kit.neutral,key):delta<0?variedPick(personality?.reactions?.cool||kit.neutral,key):variedPick(kit.neutral,key);
+        if(toneKit&&delta!==0&&hashSeed(world.seed+'|react|'+key)%4===0)return variedPick(delta>0?toneKit.warm:toneKit.cool,key); // one reaction in four
+        return delta>0?reactionFrom(personality?.reactions?.warm,WARM_REACTIONS,key):delta<0?reactionFrom(personality?.reactions?.cool,COOL_REACTIONS,key):variedPick(kit.neutral,key);
       };
       const otherName=id=>firstName(hingeProfile(id));
       thread.log.push({who:'you',text:choice.player});
@@ -3212,17 +3246,17 @@
           lines.push(fillIn(seededPick(kit.eggs.twoFaced,profile.id+follow.id),{other:otherName(contradicted.id),told}));
           delta=Math.min(delta,0)-1;
         }else{
-          lines.push(delta>0?variedPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+follow.id+world.day):delta<0?variedPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+follow.id+world.day):variedPick(kit.neutral,profile.id+follow.id));
+          lines.push(delta>0?reactionFrom([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),WARM_REACTIONS,profile.id+follow.id+world.day):delta<0?reactionFrom([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),COOL_REACTIONS,profile.id+follow.id+world.day):variedPick(kit.neutral,profile.id+follow.id));
           if(agreed&&gameRandom()<.3){lines.push(fillIn(seededPick(kit.eggs.consistent,profile.id+follow.id),{other:otherName(agreed.id)}));delta+=1;}
         }
         c.told[follow.id]=[...(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id),{id:profile.id,answer:choice.id,day:world.day}];
       }else if(follow.kind==='day'){
         delta=settleScore(choice.tags.reduce((sum,tag)=>sum+(kit.affinity[faction]?.[tag]||0),0),{personality,profile});
-        lines.push(delta>0?variedPick([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),profile.id+'day'+world.day):delta<0?variedPick([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),profile.id+'day'+world.day):variedPick(kit.neutral,profile.id+world.day));
+        lines.push(delta>0?reactionFrom([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),WARM_REACTIONS,profile.id+'day'+world.day):delta<0?reactionFrom([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),COOL_REACTIONS,profile.id+'day'+world.day):variedPick(kit.neutral,profile.id+world.day));
       }else if(follow.kind==='tone'){
         delta=settleScore(toneScore(choice.tone,profile,follow.id),{personality,profile});
         const pool=TONE_REACT[choice.tone][delta<0?'neg':'pos'];
-        lines.push(delta===0?variedPick(kit.neutral,profile.id+'tone'+world.day):delta>0?variedPick([...pool,...(personality?.reactions?.warm||[])],profile.id+choice.tone+world.day):variedPick([...pool,...(personality?.reactions?.cool||[])],profile.id+choice.tone+world.day));
+        lines.push(delta===0?variedPick(kit.neutral,profile.id+'tone'+world.day):delta>0?reactionFrom([...pool,...(personality?.reactions?.warm||[])],WARM_REACTIONS,profile.id+choice.tone+world.day):reactionFrom([...pool,...(personality?.reactions?.cool||[])],COOL_REACTIONS,profile.id+choice.tone+world.day));
         state.memory.tone=`${world.day}:${choice.tone}:${Math.sign(delta)}`;
       }else if(follow.kind==='lie'){
         const game=kit.games.twoTruths,set=twoTruthsSet(follow);
@@ -3812,7 +3846,7 @@
         over:{caught:'The police took him away.',sorted:'Somebody dealt with him.',hidden:'He won’t be writing to anyone again.',shot:'He won’t be writing to anyone again.'}},
       hints:{none:'Hint: men like him leave a trail. Read the paper.',profile:'Hint: he has been seen on campus. Someone there knows him better than she’d like.',name:'Hint: a man who writes this much has written to someone who keeps the envelopes.',home:'Hint: you know where he lives now. So could someone with a badge, or someone with friends.'},
       news:{
-        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested Theon, a former drama student, at a apartment above the old Rialto. Neighbors called him polite and said he spoke in verse. Police thanked a member of the public.'},
+        caught:{section:'Crime',title:'MAN ARRESTED OVER VERSES SENT TO WOMEN',summary:'Police say he used another man’s photographs on a dating profile.',body:'Officers arrested Theon, a former drama student, at an apartment above the old Rialto. Neighbors called him polite and said he spoke in verse. Police thanked a member of the public.'},
         sorted:{section:'Crime',title:'MAN FOUND DEAD ON RAILWAY LINE',summary:'Police name him as Theon, a university dropout known to them for stalking.',body:'A man in a black cloak was found tied to the railway line outside Sunfall. Police named him as Theon, who dropped out of Sunfall University, and said he had been known to them for stalking women for several years. Nobody has come forward.',image:'theon_tracks',fallbackImage:'crime_motel'},
         hidden:{section:'Missing',title:'LOCAL POET NOT SEEN FOR DAYS',summary:'His landlord says the rent was paid in advance.',body:'Friends of a former drama student say nobody has seen him at the old cemetery, where he read to the graves. He leaves a wardrobe of black cloaks and forty unpublished sonnets.'}
       }
@@ -7019,7 +7053,7 @@
       university:{who:profile=>profile.factionId==='progressives'||/universit|lectur|campus|college|research|student|professor/i.test(`${profile.canonicalOccupation} ${hingeJobs[profile.id]||''}`),label:'Ask for the University Office number',player:'Do you have the number for the University Office?',
         reply:['The campus switchboard is {number}. Good luck getting past the hold music.','{number}. Ask for the dean’s office if you want anyone to actually listen.','Sure: {number}. Don’t tell them I gave it to you.']}
     };
-    const SERVICE_REFUSALS=['Look it up yourself.','I don’t think I’ll be giving you numbers, sorry.','Ask someone who likes you.'];
+    const SERVICE_REFUSALS=['Look it up yourself.','I don’t think I’ll be giving you numbers, sorry.','Ask someone who likes you.','I’m not your phone book.','I’m not a directory, sorry.'];
     function serviceAskable(key,thread,profile){
       const ask=SERVICE_ASKS[key];
       return !!ask&&!serviceKnown(key)&&ask.who(profile)&&thread.topics.length>=1&&talkState(thread).svcRefusedDay!==world.day;

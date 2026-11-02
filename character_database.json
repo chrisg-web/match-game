@@ -3568,7 +3568,7 @@
         "life": [
           {
             "feel": "odd",
-            "news": "Showed a apartment today that I described as cozy. Cozy means you can touch both walls. The buyer touched both walls.",
+            "news": "Showed an apartment today that I described as cozy. Cozy means you can touch both walls. The buyer touched both walls.",
             "more": "Up-and-coming means bring a dog. Characterful means haunted or damp. He stood in the middle, put his arms out, touched both walls, and said, I’ll take it. Respect."
           },
           {
@@ -3592,7 +3592,7 @@
             "id": "g1",
             "about": "MATCH-060",
             "warmth": 0,
-            "says": "Linh Tran lives down the landing and she’s writing a novel with everyone in Sunfall in it. I’m in chapter four as an real estate agent who’s secretly a poet. I’m not a poet. I’m a little bit a poet.",
+            "says": "Linh Tran lives down the landing and she’s writing a novel with everyone in Sunfall in it. I’m in chapter four as a real estate agent who’s secretly a poet. I’m not a poet. I’m a little bit a poet.",
             "note": "Olivia Reid says she is in chapter four of Linh Tran’s novel.",
             "ask": "Olivia says she’s in chapter four of your novel as a secret poet.",
             "answer": "She is. She’s good in it. A bit mean, very funny, writes sonnets about kitchens. I didn’t make up the sonnets. She leaves them on the laundromat noticeboard, unsigned. Everyone knows.",
@@ -3825,7 +3825,7 @@
           {
             "feel": "good",
             "news": "Slept till lunch, worked till dawn, had cereal for dinner. I’m living my truth.",
-            "more": "A apartment with a wardrobe and no kitchen. One bowl, one spoon and a box of cereal I share with no one. My accountant hates me. My mirror loves me. Somewhere in the middle there’s a person. She’s fine."
+            "more": "An apartment with a wardrobe and no kitchen. One bowl, one spoon and a box of cereal I share with no one. My accountant hates me. My mirror loves me. Somewhere in the middle there’s a person. She’s fine."
           }
         ],
         "gossip": [
@@ -4633,7 +4633,7 @@
             "id": "future",
             "label": "Ask what she’s scared of",
             "player": "What scares you about leaving college?",
-            "reply": "That I’ll get a job I hate, a apartment I can’t afford, and nobody to come home to. Everyone says you have time. Do I?",
+            "reply": "That I’ll get a job I hate, an apartment I can’t afford, and nobody to come home to. Everyone says you have time. Do I?",
             "needsWarmth": 1
           },
           {
@@ -4683,7 +4683,7 @@
           {
             "feel": "bad",
             "news": "Worked out how long it’ll take to pay back my student loan. I’ll be forty.",
-            "more": "A degree I picked at eighteen, a debt, and a fear of a job I hate, a apartment I can’t afford and nobody to come home to. Everyone says you have time. They say it like it’s free. I’m going to make a cup of tea and not think about it until tomorrow."
+            "more": "A degree I picked at eighteen, a debt, and a fear of a job I hate, an apartment I can’t afford and nobody to come home to. Everyone says you have time. They say it like it’s free. I’m going to make a cup of tea and not think about it until tomorrow."
           },
           {
             "feel": "good",
@@ -6198,7 +6198,7 @@
             "id": "b_studio",
             "label": "Ask where she works",
             "player": "Where do you work?",
-            "reply": "A apartment above the dance studio. I can hear ballroom lessons through the floor. My logos all have a waltz in them now, very faintly."
+            "reply": "An apartment above the dance studio. I can hear ballroom lessons through the floor. My logos all have a waltz in them now, very faintly."
           }
         ],
         "views": {},
@@ -8987,7 +8987,7 @@
             "about": "MATCH-017",
             "warmth": 0,
             "says": "Olivia Reid lives down the landing from me above the laundromat, and she sells houses she could never afford. She describes every apartment as a film genre. Funniest woman in Sunfall.",
-            "note": "Linh Tran says Olivia Reid, an real estate agent, lives on her landing above the laundromat.",
+            "note": "Linh Tran says Olivia Reid, a real estate agent, lives on her landing above the laundromat.",
             "ask": "Linh says you describe every apartment as a film genre.",
             "answer": "Because they are. For buyers, a horror film. For sellers, a heist film. For anyone under thirty, a tragedy. Linh’s room is found footage. Nobody’s sure what’s happening in there and there’s a lot of shaking.",
             "mood": 1
@@ -10102,7 +10102,7 @@
           {
             "feel": "good",
             "news": "Found an old motel sign in a scrapyard. A pink flamingo with one leg. I’m in love.",
-            "more": "Every motel sign is a promise somebody broke. This one says VACANCY in letters that only light up NANA. I’ve hung it over my bed and it glows pink all night. I sleep worse and I’m happier."
+            "more": "Every motel sign is a promise somebody broke. This one says VACANCY, and only the CAN still lights up. I’ve hung it over my bed and it glows pink all night. I sleep worse and I’m happier."
           },
           {
             "feel": "odd",
@@ -24790,8 +24790,8 @@
           "errand": "ad",
           "hook": "I have to be out of my apartment soon and I’ve found nothing. I’m going to end up in a tent.",
           "ask": {
-            "label": "Ask what she needs in a apartment",
-            "player": "What are you looking for in a apartment?",
+            "label": "Ask what she needs in an apartment",
+            "player": "What are you looking for in an apartment?",
             "reply": "A roof. A window. No mold, ideally. Tell me if you see anything in the paper."
           },
           "ad": {
@@ -25087,11 +25087,23 @@
       "I have to go. Talk tomorrow?",
       "That’s me done for today. Message me tomorrow.",
       "I’m being summoned. Tomorrow, yes?",
-      "Right, I need to get on. Same time tomorrow?",
+      "Right, I need to get going. Same time tomorrow?",
       "My battery’s dying and so am I. Tomorrow.",
       "Enough of me for one day. Talk tomorrow.",
       "I have to run. Don’t be a stranger tomorrow.",
-      "Okay, phone down. I’ll talk to you tomorrow."
+      "Okay, phone down. I’ll talk to you tomorrow.",
+      "Okay, I’m being called away. Tomorrow?",
+      "That’s all the phone I’m allowed today. Talk tomorrow.",
+      "I’ve got to go do real things. Text me tomorrow.",
+      "Signing off before I say something I regret. Tomorrow.",
+      "I need to sleep at some point. Talk tomorrow?",
+      "My dinner is getting cold and it’s your fault. Tomorrow.",
+      "To be continued. Tomorrow, same place.",
+      "I’m out of words for today. Catch me tomorrow.",
+      "Someone needs me. Pick this up tomorrow?",
+      "That’s enough screen for one day. Tomorrow, probably.",
+      "Gotta go. Don’t do anything interesting without me. Tomorrow.",
+      "Okay, I’m putting you down now. Gently. Tomorrow."
     ],
     "dayDoneNote": "She’s done talking for today. Try her again tomorrow."
   },
