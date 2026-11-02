@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d7ecfeeb3d">
+<html lang="en" data-build="bf53cca243">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -635,11 +635,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d7ecfeeb3d"></script>
+  <script src="chapel_at_midnight.js?v=bf53cca243"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d7ecfeeb3d"></script>
+  <script src="marriage.js?v=bf53cca243"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d7ecfeeb3d"></script>
+  <script src="quests/professor-vale.js?v=bf53cca243"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1735,6 +1735,7 @@
           dialStatus=`No answer from ${called.name}.`;
           renderCalls();return;
         }
+        if(!called.generic&&rqSpotterPickUp(called.id))return; // Lauren: a set, her pitch, or your turn to count
         if(called.generic)activeGenericCall=called;
         else activeCallId=called.id;
         callSpeechState='line';renderConnectedCall();
@@ -5852,7 +5853,9 @@
     // until the club's committee rings about her new husband. Olivia Reid's open house: pictures from
     // places she shouldn't be, until the homeowner, Caroline Prescott, wants a rematch. The hotline in
     // the classifieds: Candy is Jessica Rivera, which you can only tell her if you've met Jessica.
-    // Lauren Bishop the spotter: three mornings on her count (safeword: protein shake). A woman a room
+    // Lauren Bishop the spotter: three mornings on her count (safeword: protein shake). She rings you, or you
+    // ring her (miss her and ring back the same day); before each set you can oink, talk back or beg, and
+    // after each one ask about her. Three asks in, you can offer to count for her instead. A woman a room
     // quest waits on turns up in your deck and likes you back. Tests switch them off with MATCH_NO_MINIS
     // unless MATCH_ALL_RQ is set.
     const rqKit=()=>characterDB?.rooms||null;
@@ -5862,7 +5865,7 @@
       robe:{table:'assets/rooms/diana-table.png'},
       openhouse:{island:'assets/rooms/olivia-island.png',bed:'assets/rooms/olivia-bed.png',tub:'assets/rooms/olivia-tub.png',closet:'assets/rooms/olivia-closet.png',master:'assets/rooms/olivia-master.png',cbed:'assets/rooms/caroline-bed.png',court:'assets/rooms/caroline-court.png'},
       hotline:{counter:'assets/rooms/jessica-counter.png'},
-      spotter:{whistle:'assets/rooms/lauren-whistle.png',bench:'assets/rooms/lauren-bench.png',floor:'assets/rooms/spotter-floor.png',bar:'assets/rooms/spotter-bar.png'}
+      spotter:{whistle:'assets/rooms/lauren-whistle.png',bench:'assets/rooms/lauren-bench.png',floor:'assets/rooms/spotter-floor.png',bar:'assets/rooms/spotter-bar.png',count:'assets/rooms/spotter-count.png',squat:'assets/rooms/lauren-squat.png'}
     };
     const RQ_OVER=['done','skipped','gone'];
     // A line that changes with the difficulty is {mogger, normie, truecel}; anything else is the line.
@@ -5963,6 +5966,7 @@
         if(id==='robe')rqRobeDay(st,kit);
         else if(id==='openhouse')rqHouseDay(st,kit);
         else if(id==='hotline')rqHotlineDay(st,kit);
+        else if(id==='spotter')rqSpotterDay(st,kit);
       }
     }
     function rqAfterDayStart(){
@@ -5994,6 +5998,11 @@
         const st=rqs(id);
         if(st?.stage==='hook'&&st.host===profile.id)out.push([`rq:${id}:yes`,kit[id].yes.label],[`rq:${id}:no`,kit[id].no.label]);
       }
+      const sp=rqs('spotter'),T=kit.spotter?.talk;
+      if(sp&&T&&sp.host===profile.id&&!sp.quit&&sp.stage!=='gone'){
+        if(sp.await==='answer')for(const k of ['pretty','turn','quiet'])out.push([`rq:spotter:ans:${k}`,T.answers[k].label]);
+        else if((sp.talk||0)<Math.min(3,sp.session||0)&&sp.talkDay!==world.day)out.push(['rq:spotter:talk',T.label]); // one a day, one per set you've done
+      }
       const h=rqs('openhouse');
       if(h?.stage==='dare'&&h.host===profile.id&&h.await==='pick')for(const spot of ['bed','tub','closet'].filter(s=>!(h.seen||[]).includes(s)))out.push([`rq:openhouse:pick:${spot}`,kit.openhouse.pick.label[spot]]);
       if(h?.stage==='rematch'){
@@ -6014,6 +6023,18 @@
         if(id==='openhouse')Object.assign(st,{stage:'dare',seen:[],dareDay:world.day+1,await:''});
         if(id==='spotter')Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
         return say(kit.yes.player,fillIn(rqT(kit.yes.reply),{number:thread.number||''}),()=>ensureCallSchedule());
+      }
+      if(id==='spotter'&&st.host===profile.id&&kit.talk&&!st.quit){
+        const T=kit.talk;
+        if(act==='talk'&&st.await!=='answer'&&(st.talk||0)<Math.min(3,st.session||0)&&st.talkDay!==world.day){
+          const n=st.talk||0;st.talk=n+1;st.talkDay=world.day;if(n===2)st.await='answer';
+          return say(T.player[n],T.reply[n],()=>warmBy(thread,1));
+        }
+        if(act==='ans'&&st.await==='answer'&&T.answers[arg]){
+          const a=T.answers[arg];st.await='';
+          if(arg==='turn')Object.assign(st,{turn:'asked',turnDay:world.day+1,turnMissed:0});
+          return say(a.player,rqT(a.reply),()=>{if(arg==='pretty')warmBy(thread,1);if(arg==='turn')ensureCallSchedule();});
+        }
       }
       if(id==='openhouse'&&act==='pick'&&st.stage==='dare'&&st.await==='pick'&&['bed','tub','closet'].includes(arg)&&!st.seen.includes(arg)){
         st.await='';st.next=arg;st.dareDay=world.day+1;
@@ -6160,6 +6181,7 @@
       if(r?.stage==='committee'&&r.callDay!==world.day&&world.day>=r.celesteDay)return 'x:rq-celeste';
       if(h?.stage==='twist'&&h.callDay!==world.day&&world.day>=h.twistDay)return 'x:rq-caroline';
       if(s?.stage==='sessions'&&s.callDay!==world.day&&world.day>=s.nextCall&&s.session<3&&rqThread('spotter'))return 'x:rq-spotter';
+      if(s?.turn==='asked'&&s.stage!=='gone'&&s.callDay!==world.day&&world.day>=s.turnDay&&rqThread('spotter'))return 'x:rq-spotter'; // you count for her
       return null;
     }
     function rqRang(id){const st=rqs(RQ_CALLERS[id]);if(st)st.callDay=world.day;}
@@ -6173,8 +6195,8 @@
       else if(id==='x:rq-caroline'){st.carolineKnown=true;st.still=true;call.phase='caroline';call.said=rqT(kit.caroline.open);}
       else{
         const t=rqThread('spotter');if(t)t.calledDay=world.day;
-        const sess=kit.sessions[st.session];
-        call.phase='session';call.said=sess.move==='pull'&&!st.bar?sess.noBar:rqT(sess.open);
+        if(st.stage==='sessions'&&st.session<3){const sess=kit.sessions[st.session];call.phase='session';call.said=sess.move==='pull'&&!st.bar?sess.noBar:rqT(sess.open);}
+        else{call.phase='turn';call.said=rqT(kit.turn.open);}
       }
       return call;
     }
@@ -6187,7 +6209,14 @@
       }
       if(call.phase==='celeste')return ['available','not','hang'].map(k=>({id:'rq:'+k,label:kit.celeste.choices[k]}));
       if(call.phase==='caroline')return ['what','sorry','hang'].map(k=>({id:'rq:'+k,label:kit.caroline.choices[k]}));
-      if(call.phase==='session')return ['go','safe','hang'].map(k=>({id:'rq:'+k,label:kit.choices[k]}));
+      if(call.phase==='session'){
+        const sp=rqs('spotter'),P=kit.pre,out=[{id:'rq:go',label:kit.choices.go}];
+        if(P&&!call.pre){if(sp?.nose)out.push({id:'rq:oink',label:P.oink.label});out.push({id:'rq:sass',label:P.sass.label},{id:'rq:beg',label:P.beg.label});} // one before each set
+        out.push({id:'rq:safe',label:kit.choices.safe},{id:'rq:hang',label:kit.choices.hang});
+        return out;
+      }
+      if(call.phase==='pitch')return [{id:'rq:yes',label:kit.yes.label},{id:'rq:no',label:kit.no.label}];
+      if(call.phase==='turn')return ['go','hang'].map(k=>({id:'rq:'+k,label:kit.turn.choices[k]}));
       return [{id:'hangup',label:'☎ Hang up'}];
     }
     function rqChooseCall(call,choice){
@@ -6227,10 +6256,28 @@
         call.said=choice==='rq:sorry'?kit.caroline.sorry:rqT(kit.caroline.what);
         return done();
       }
+      if(call.phase==='pitch'){ // you rang her before you'd answered her message
+        if(st.stage!=='hook')return done();
+        if(choice==='rq:no'){st.stage='done';if(thread)warmBy(thread,-1);call.said=rqT(kit.no.reply);return done();}
+        Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
+        if(thread)warmBy(thread,1);
+        call.said=rqT(kit.ring.yes);ensureCallSchedule();return done();
+      }
+      if(call.phase==='turn'){
+        if(choice==='rq:hang'){st.turn='off';if(thread){lineSpeaker=st.host;herLine(thread,kit.turn.hang);warmBy(thread,-1);}endHerCall();saveRun(true);return;}
+        endHerCall();rqTurnStart();return;
+      }
       if(call.phase==='session'){
         if(choice==='rq:safe'){call.said=kit.safe;st.stage='done';if(thread)warmBy(thread,1);return done();} // she stops, every time
+        if(['rq:oink','rq:sass','rq:beg'].includes(choice)&&!call.pre&&kit.pre){ // before the set: it changes how she runs it
+          const P=kit.pre,k=choice.slice(3);call.pre=true;
+          if(k==='oink'){st.mod='slow';if(thread)heatBy(thread,1);call.said=rqT(P.oink.reply);}
+          else if(k==='sass'){st.mod='fast';if(thread)heatBy(thread,1);call.said=rqT(P.sass.reply);}
+          else{const easy=hashSeed(world.seed+'|beg|'+st.session+'|'+world.day)%2===0;st.mod=easy?'few':'fast';call.said=rqT(easy?P.beg.easy:P.beg.hard);}
+          saveRun(true);renderCalls();return;
+        }
         endHerCall();
-        if(choice==='rq:hang'){rqSpotterMiss(st,kit,rqT(kit.hangText));return;}
+        if(choice==='rq:hang'){Object.assign(st,{today:'hang',todayDay:world.day});rqSpotterMiss(st,kit,rqT(kit.hangText));return;}
         rqRepsStart(st.session);
       }
     }
@@ -6244,7 +6291,8 @@
         if(st.celesteMissed>=2)Object.assign(st,{stage:'after',after:'not',afterDay:world.day+1});
       }
       else if(id==='x:rq-caroline'){Object.assign(st,{stage:'rival',rivalDay:world.day,still:true,carolineKnown:true});deckSoon(st.rival,'rq');rqHeard(st);strangerVoicemail(kit.caroline.name,kit.caroline.vm);}
-      else{strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',rqT(kit.missedVm));rqSpotterMiss(st,kit,null);}
+      else if(st.stage==='sessions'&&st.session<3){st.owed=world.day;st.nextCall=world.day;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',rqT(kit.missedVm));} // ring her back today or it counts
+      else if(st.turn==='asked'){st.turnMissed=(st.turnMissed||0)+1;st.turnDay=world.day+1;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',kit.turn.missedVm);if(st.turnMissed>=2)st.turn='off';}
       saveRun(true);
     }
     // ----- Lauren: three mornings on her count
@@ -6254,16 +6302,52 @@
       if(!t){st.stage='done';return;}
       lineSpeaker=st.host;
       if(text)herLine(t,text);
-      if(st.missed>=2){herLine(t,kit.quit);st.stage='done';warmBy(t,-1);}
+      if(st.missed>=2){herLine(t,kit.quit);st.stage='done';st.quit=true;warmBy(t,-1);}
       saveRun(true);
+    }
+    // A call she rang you for and you missed, and never rang back: next morning it counts.
+    function rqSpotterDay(st,kit){
+      if(!Number.isInteger(st.owed)||world.day<=st.owed)return;
+      delete st.owed;
+      if(st.stage==='sessions'){rqSpotterMiss(st,kit,null);if(st.stage==='sessions')st.nextCall=world.day;}
+    }
+    // You ring her. Before you've said yes she pitches it; on a day she's due (or rang and you missed) the set
+    // starts now; otherwise she tells you when. Nothing quest-related: an ordinary call.
+    function rqSpotterYouRang(st,kit){
+      const R=kit.ring,base={id:'x:rq-spotter',stranger:true,kind:'rq',rq:'spotter',step:'open',said:'',you:true};
+      if(!R)return null;
+      if(st.stage==='hook')return {...base,phase:'pitch',said:rqT(R.pitch)};
+      if(st.stage==='sessions'&&st.session<3){
+        if(st.todayDay===world.day)return {...base,step:'bye',said:R[{done:'doneToday',fail:'failedToday',hang:'hungUp'}[st.today]]||R.doneToday};
+        if(world.day<st.nextCall)return {...base,step:'bye',said:R.early};
+        st.callDay=world.day; // she won't ring as well
+        const back=st.owed===world.day,sess=kit.sessions[st.session];
+        if(back){delete st.owed;st.mod='fast';}
+        const open=sess.move==='pull'&&!st.bar?sess.noBar:rqT(sess.rang||sess.open);
+        return {...base,phase:'session',said:`${rqT(back?R.back:R.self)} ${open}`};
+      }
+      if(st.turn==='asked'&&world.day>=st.turnDay){st.callDay=world.day;return {...base,phase:'turn',said:rqT(kit.turn.open)};}
+      return null;
+    }
+    function rqSpotterPickUp(id){
+      const kit=rqKit()?.spotter,st=rqs('spotter'),t=rqThread('spotter');
+      if(!kit||!st||st.host!==id||!t||herCall||st.stage==='gone')return false;
+      const call=rqSpotterYouRang(st,kit);
+      if(!call)return false;
+      t.calledDay=world.day;
+      endSimulatedCall();herCall=call;saveRun(true);renderCalls();
+      return true;
     }
     let rqRun=null;
     function rqRepsStart(index){
       const kit=rqKit().spotter,st=rqs('spotter'),sess=kit.sessions[index];
       if(!sess)return;
-      const pull=sess.move==='pull'&&!!st.bar,reps=sess.move==='pull'&&!st.bar?10:sess.reps;
+      const mod=st.mod;delete st.mod; // oink: slower; talk back, or beg and lose: faster; beg and win: fewer
+      const pull=sess.move==='pull'&&!!st.bar;
+      let reps=sess.move==='pull'&&!st.bar?10:sess.reps;
+      if(mod==='few')reps=Math.max(3,Math.ceil(reps*.6));
       const dies=pull&&hashSeed(world.seed+'|rqbar')%3===0; // the bar, the door frame, the building: no warning
-      rqRun={index,reps,hits:0,miss:0,pull,dieAt:dies?2+hashSeed(world.seed+'|rqbarat')%3:-1,window:{truecel:900,normie:1000,mogger:1200}[tone()]??1000,tire:{truecel:.6,normie:.45,mogger:.3}[tone()]??.45,open:false}; // arms tire: Truecel fastest, Mogger slowest
+      rqRun={index,reps,hits:0,miss:0,pull,dieAt:dies?2+hashSeed(world.seed+'|rqbarat')%3:-1,window:Math.round(({truecel:900,normie:1000,mogger:1200}[tone()]??1000)*(mod==='slow'?1.25:mod==='fast'?.8:1)),tire:{truecel:.6,normie:.45,mogger:.3}[tone()]??.45,open:false}; // arms tire: Truecel fastest, Mogger slowest
       playScene([{image:pull?RQ_PICS.spotter.bar:RQ_PICS.spotter.floor,stand:'room',caption:kit.scene[pull?'pull':'push']}],()=>rqRepNext(),{keep:true,gap:1700});
     }
     function rqRepNext(){
@@ -6276,7 +6360,7 @@
       // Your arms tire as the set goes on: less time to tap, and the button shakes harder.
       const spent=run.hits/Math.max(1,run.reps);
       run.cur=Math.round(run.window*(1-run.tire*spent));
-      q.innerHTML=`<button class="rq-rep" data-rq-rep style="--shake:${(run.tire*spent*22).toFixed(1)}px">${esc(kit.down[run.pull?'pull':'push'])}</button>`;
+      q.innerHTML=`<button class="rq-rep" data-rq-rep style="--shake:${(run.tire*spent*22).toFixed(1)}px">${esc(run.turn?kit.turn.down:kit.down[run.pull?'pull':'push'])}</button>`;
       const button=q.querySelector('[data-rq-rep]');
       if(button)button.onpointerdown=event=>{event.preventDefault?.();rqRepTap();};
       window.clearTimeout(qteTimer);
@@ -6289,7 +6373,7 @@
       run.open=false;window.clearTimeout(qteTimer);
       const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
       run.hits++;
-      const count=rqT(kit.count);
+      const count=run.turn?kit.turn.count:rqT(kit.count);
       $('invasion-caption').textContent=count[(run.hits-1)%count.length];
       playUiSound(260+run.hits*12);
       if(run.hits===run.dieAt){rqRun=null;invasionTimers.push(window.setTimeout(()=>{clearInvasion();rqDeath('spotter');},700));return;}
@@ -6301,26 +6385,45 @@
       run.open=false;run.miss++;
       const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
       if(run.miss>=3){ // she gives up on you for today
-        $('invasion-caption').textContent=kit.fail;
-        const st=rqs('spotter');st.nextCall=world.day+1;rqRun=null;
+        $('invasion-caption').textContent=run.turn?kit.turn.fail:kit.fail;
+        const st=rqs('spotter');
+        if(run.turn)st.turnDay=world.day+1; // she'll let you try again tomorrow
+        else Object.assign(st,{nextCall:world.day+1,today:'fail',todayDay:world.day});
+        rqRun=null;
         invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},2600));
         return;
       }
-      const miss=rqT(kit.miss);
+      const miss=run.turn?kit.turn.miss:rqT(kit.miss);
       $('invasion-caption').textContent=miss[(run.miss-1)%miss.length];
       invasionTimers.push(window.setTimeout(rqRepNext,1000));
     }
     function rqRepsDone(){
       const run=rqRun,kit=rqKit().spotter,st=rqs('spotter'),t=rqThread('spotter'),p=hingeProfile(st.host);
       rqRun=null;
+      if(run.turn)return rqTurnDone();
       $('invasion-caption').textContent=rqT(kit.done)[run.index];
-      st.session=run.index+1;st.nextCall=world.day+1;
+      Object.assign(st,{session:run.index+1,nextCall:world.day+1,today:'done',todayDay:world.day});
       if(t){
         warmBy(t,1);heatBy(t,1);lineSpeaker=st.host;
         if(run.index===1)rqPicture(t,p,RQ_PICS.spotter.whistle,rqT(kit.picture.whistle));
         if(run.index===2){rqPicture(t,p,RQ_PICS.spotter.bench,rqT(kit.picture.bench));warmBy(t,1);heatBy(t,3);}
       }
       if(st.session>=3)st.stage='done';
+      invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},3000));
+    }
+    // ----- you count for her: ten squats on her breath, from your bed
+    function rqTurnStart(){
+      const T=rqKit()?.spotter?.turn;
+      if(!T)return;
+      rqRun={turn:true,index:3,reps:T.count.length,hits:0,miss:0,pull:false,dieAt:-1,window:1300,tire:.25,open:false};
+      playScene([{image:RQ_PICS.spotter.count,stand:'room',caption:T.scene}],()=>rqRepNext(),{keep:true,gap:1700});
+    }
+    function rqTurnDone(){
+      const kit=rqKit().spotter,st=rqs('spotter'),t=rqThread('spotter'),p=hingeProfile(st.host);
+      $('invasion-caption').textContent=rqT(kit.turn.done);
+      st.turn='done';st.turnDone=world.day;
+      if(t){warmBy(t,2);heatBy(t,2);lineSpeaker=st.host;rqPicture(t,p,RQ_PICS.spotter.squat,rqT(kit.turn.picture));}
+      noteEnding('rq:spotter:turn',`You counted for ${p?.name||'Lauren'}.`);
       invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},3000));
     }
     // ----- things on your doorstep
@@ -7894,7 +7997,7 @@
       $('opened').classList.remove('calls-mode');
       $('opened').classList.add('connected-mode');
       $('opened').style.backgroundImage=`url("${assetUrl('assets/hinge/ui/connected-call-bg.png')}")`;
-      $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · ${isStranger(herCall.id)?'HE':'SHE'} CALLED YOU</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
+      $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · ${herCall.you?'YOU CALLED HER':`${isStranger(herCall.id)&&!['rq','fq'].includes(herCall.kind)?'HE':'SHE'} CALLED YOU`}</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
       hydrateInlineImages($('opened'));
       $('call-bubble').innerHTML=`<img src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(profile.name)}</strong><p class="speech" aria-live="off">${esc(herCall.said)}</p><div class="call-bubble-buttons">${herCallChoices().map(choice=>`<button data-her-call="${esc(choice.id)}">${esc(choice.label)}</button>`).join('')}</div></div>`;
       $('call-bubble').classList.add('visible');
@@ -8005,6 +8108,7 @@
       for(const k of Object.values(miniKit()||{}))if(k&&typeof k==='object')death('Mini quests','KILLED',k.deathCause);
       death('Room quests','KILLED',rqKit()?.robe?.celeste?.deathCause);
       death('Room quests','KILLED',rqKit()?.spotter?.deathCause);
+      add('Room quests','rq:spotter:turn','You counted for Lauren');
       for(const q of Object.values(fqKit()||{}))death('Her thing','KILLED',q?.deathCause);
       add('Weddings','win:marriage','Married a Sister of Mercy');
       add('Weddings','win:thunderbirds','Married into the Bluebirds');

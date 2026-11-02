@@ -30699,9 +30699,9 @@
         "label": "Tell her to train you",
         "player": "Train me.",
         "reply": {
-          "normie": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good piggy.",
-          "mogger": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good boy. Piggy.",
-          "truecel": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Clean that desk, piggy."
+          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good piggy.",
+          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good boy. Piggy.",
+          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Clean that desk, piggy."
         }
       },
       "no": {
@@ -30737,6 +30737,11 @@
             "normie": "You picked up. Good piggy. Floor. Hands under your shoulders. Ten push-ups on my count, and every time you go down, you say thank you, Coach.",
             "mogger": "Look at you, picking up like a good boy. Floor. Ten push-ups on my count. Pretty boys hate this part. That’s why I love it.",
             "truecel": "You picked up. Of course you did, you don’t sleep. Floor. Push the cans out of the way. Ten on my count, piggy."
+          },
+          "rang": {
+            "normie": "Floor. Hands under your shoulders. Ten push-ups on my count, and every time you go down, you say thank you, Coach.",
+            "mogger": "Floor, pretty boy. Ten push-ups on my count. Pretty boys hate this part. That’s why I love it.",
+            "truecel": "Floor. Push the cans out of the way. Ten on my count, piggy."
           }
         },
         {
@@ -30776,9 +30781,9 @@
       },
       "quit": "Twice. We’re done. I don’t train quitters.",
       "missedVm": {
-        "normie": "Coach here. You didn’t pick up. That’s ten extra tomorrow, piggy.",
-        "mogger": "Coach here. You didn’t pick up, pretty boy. That costs you.",
-        "truecel": "Coach. You didn’t pick up. Probably asleep in the crumbs."
+        "normie": "Coach here. You didn’t pick up. Ring me back today, piggy, or it counts as a miss.",
+        "mogger": "Coach here. You didn’t pick up, pretty boy. Ring me back today or it costs you.",
+        "truecel": "Coach. You didn’t pick up. Probably asleep in the crumbs. Ring me back today or it counts."
       },
       "down": {
         "push": "⬇ DOWN",
@@ -30886,6 +30891,147 @@
           "normie": "Good piggy. Keep the nose.",
           "mogger": "You earned one. Don’t get used to it.",
           "truecel": "You earned this. Barely."
+        }
+      },
+      "ring": {
+        "pitch": {
+          "normie": "You rang me? Brave. I’ve seen your photos. That little belly. I’m a trainer. I could train you, or I could punish you, and with me it’s the same thing. Want in?",
+          "mogger": "You rang me first? Pretty boy. I bet nobody has ever told you what to do. I’m a trainer. I could train you, or I could punish you, and with me it’s the same thing. Want in?",
+          "truecel": "You rang me? From the sty? Okay. I’m a trainer. I could fix you, or I could just enjoy you, and with me it’s the same thing. Want in?"
+        },
+        "yes": {
+          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Good piggy.",
+          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Good boy. Piggy.",
+          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Clean that desk, piggy."
+        },
+        "self": {
+          "normie": "You rang me first. Eager little piggy. I like eager.",
+          "mogger": "You rang me first. Nobody rings me first, pretty boy. I like it.",
+          "truecel": "You rang me first. Couldn’t sleep in the crumbs? Fine."
+        },
+        "back": {
+          "normie": "Oh, now you ring. I rang you this morning, piggy. You made me wait, so it’s faster today.",
+          "mogger": "Oh, now you ring. You made me wait, pretty boy. Nobody makes me wait. Faster today.",
+          "truecel": "Oh, now you ring. Too busy in the sty to pick up? Faster today."
+        },
+        "early": "Not yet. I ring you, early, when it’s time. Eat something green and go to sleep, piggy.",
+        "doneToday": "You already did today. Greedy piggy. Rest. Tomorrow.",
+        "failedToday": "You already let me down once today. Tomorrow, early. Sleep.",
+        "hungUp": "You hung up on me this morning. You don’t get to ring me now. Tomorrow."
+      },
+      "pre": {
+        "oink": {
+          "label": "🐽 Oink",
+          "player": "Oink.",
+          "reply": {
+            "normie": "Oh my God. You’re wearing it. Okay. I’ll go slow for that. My good piggy.",
+            "mogger": "You’re wearing it. A pretty boy in a pig nose. I’ll go easy for that, and only that.",
+            "truecel": "You’re actually wearing it. That was the best noise anyone has made at me all year. Slow today."
+          }
+        },
+        "sass": {
+          "label": "Talk back",
+          "player": "Make me.",
+          "reply": {
+            "normie": "Make you? Okay. Faster, then. And you’ll thank me for every one.",
+            "mogger": "Make you? Oh, I was hoping you’d say that. Faster, pretty boy.",
+            "truecel": "Make you? From the floor of your sty? Faster. Now."
+          }
+        },
+        "beg": {
+          "label": "Beg her to go easy",
+          "player": "Please, Coach. Go easy on me today.",
+          "easy": {
+            "normie": "Since you asked so nicely. Fewer today. Don’t get used to it.",
+            "mogger": "Begging suits you. Fewer today, pretty boy.",
+            "truecel": "Fine. Fewer. You sounded like you meant it."
+          },
+          "hard": {
+            "normie": "Begging? That’s faster, piggy.",
+            "mogger": "Begging? You? That’s faster, pretty boy.",
+            "truecel": "Begging gets you nothing in here. Faster."
+          }
+        }
+      },
+      "talk": {
+        "label": "Ask about her",
+        "player": [
+          "Can I ask you something, Coach? Why this?",
+          "Who taught you to be like this, Lauren?",
+          "Who trains you, Coach?"
+        ],
+        "reply": [
+          "I danced for nine years. Every week somebody with a clipboard told me what was wrong with my body. Now I’m the one holding the stopwatch. It’s nicer on this side.",
+          "Six years with a man who weighed my dinner plate. I never said a word. The first time I told you to drop, it was the first time in my life I was the one saying it.",
+          "Nobody. I tell women all day they’re fine as they are. Then I go home and pinch my thighs in the mirror. You’re where I get to put it. Don’t make it weird."
+        ],
+        "answers": {
+          "pretty": {
+            "label": "Tell her she’s beautiful",
+            "player": "You’re beautiful, Lauren. Thighs and all.",
+            "reply": {
+              "normie": "Stop it. No. Okay. Say it again tomorrow.",
+              "mogger": "Coming from you, that almost counts. Almost. Say it again.",
+              "truecel": "You’d say that to anyone who rang you. No. You wouldn’t, would you. Thank you."
+            }
+          },
+          "turn": {
+            "label": "Tell her it’s your turn to count",
+            "player": "Tomorrow I count. You drop.",
+            "reply": {
+              "normie": "You count for me? Nobody ever has. Fine. Tomorrow, I ring you. Don’t be nice to me. I’ll know if you’re lying.",
+              "mogger": "You, counting for me? Bossy. I didn’t know you had it in you. Tomorrow. I ring you.",
+              "truecel": "You want to count for me. From your bed. Okay. Tomorrow. If you laugh at me I’ll know."
+            }
+          },
+          "quiet": {
+            "label": "Say nothing",
+            "player": "Okay.",
+            "reply": "Good. Don’t make it a thing. Same time next week, piggy."
+          }
+        }
+      },
+      "turn": {
+        "choices": {
+          "go": "Count for her",
+          "hang": "Hang up"
+        },
+        "open": {
+          "normie": "You said you’d count for me. So count. Squats. Ten. The phone’s on the gym floor and I’m right over it. Count me down, and mean it.",
+          "mogger": "Okay, bossy. Squats. Ten. The phone’s on the gym floor and I’m right over it. Count me down.",
+          "truecel": "You said you’d count. Squats. Ten. The phone’s on the floor and I’m right over it. Count, and don’t laugh."
+        },
+        "scene": "On your bed, the phone on speaker on your chest. Across town she’s over her own phone on a gym floor. Tap on her breath.",
+        "down": "⬇ COUNT",
+        "count": [
+          "One. Good, Coach.",
+          "Two. Lower.",
+          "Three. Say thank you.",
+          "Four. I can hear you smiling.",
+          "Five. Halfway. Don’t you dare stop.",
+          "Six. Your thighs are fine. Six.",
+          "Seven. Who owns you this morning?",
+          "Eight. Almost there.",
+          "Nine. Beg for the last one.",
+          "Ten. That’s my coach."
+        ],
+        "miss": [
+          "You lost count. Typical.",
+          "Did you skip one? That one doesn’t count. Again.",
+          "Keep up. I’m doing all the work here."
+        ],
+        "fail": "You can’t even count. Tomorrow, then. I’m keeping score now.",
+        "done": {
+          "normie": "Ten. I’m on the floor. Nobody has ever counted for me. Okay. I need a minute. Thank you, piggy. Thank you.",
+          "mogger": "Ten. I’m flat on the floor and laughing. Nobody has ever counted for me, pretty boy. Thank you.",
+          "truecel": "Ten. I’m on the floor. You meant every one of them. I could hear it. Nobody has ever done that for me."
+        },
+        "hang": "You said you would. Never mind. Forget I said anything.",
+        "missedVm": "You were going to count for me. I waited on the gym floor like an idiot. Ring me if you still want to.",
+        "picture": {
+          "normie": "Proof. Look what you did to me.",
+          "mogger": "Proof. Don’t show anyone. Especially not the pretty girls.",
+          "truecel": "Proof. I never send these. Delete it. Don’t delete it."
         }
       },
       "deathCause": "A PULL-UP BAR",
