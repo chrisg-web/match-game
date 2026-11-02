@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="837890be10">
+<html lang="en" data-build="bedb46b3ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=837890be10"></script>
+  <script src="chapel_at_midnight.js?v=bedb46b3ca"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=837890be10"></script>
+  <script src="marriage.js?v=bedb46b3ca"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=837890be10"></script>
+  <script src="quests/professor-vale.js?v=bedb46b3ca"></script>
 </head>
 <body>
   <main class="workbench">
@@ -3531,12 +3531,13 @@
       return {id:'lpc_ad_'+day,section:GLOW.ad.section,title:GLOW.ad.title,summary:GLOW.ad.summary,body:fillIn(GLOW.ad.body,{number:g.number}),image:'classifieds',locked:true,glowAd:true};
     }
     let glowNotices=[];
+    const GLOW_DAYS=3; // how long LPC-A365 lasts
     function glowNewDay(){
       const g=glowState();
       if(g.stage==='none'&&glowAdRunning(world.day)){g.stage='advertised';g.adDay=world.day;}
       if(g.stage==='ordered'&&world.day>=g.deliverDay){g.stage='delivered';glowNotices.push(GLOW.delivered);}
       if(g.stage==='active'&&g.startDay===null){
-        g.startDay=world.day;g.endDay=world.day+3; // four days, starting this morning
+        g.startDay=world.day;g.endDay=world.day+GLOW_DAYS-1; // three days (Chris), starting this morning
         glowNotices.push(GLOW.awake);
         const warm=[...hingeThreads.values()].filter(eventReady).sort((a,b)=>warmthOf(b)-warmthOf(a)).slice(0,2);
         warm.forEach((thread,i)=>{thread.log.push({who:'her',text:GLOW.gush[(i+world.day)%GLOW.gush.length]});warmBy(thread,1);});
