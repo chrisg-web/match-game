@@ -27147,5 +27147,656 @@
       "tbCool": "Did you go to the paper about Constance? Half the club isn’t speaking to the other half.",
       "othersWarm": "Was it you who exposed that Ashworth woman? She had a file on my mom. Thank you."
     }
+  },
+  "rooms": {
+    "robe": {
+      "title": "Husband Number Three",
+      "host": "MATCH-010",
+      "hook": {
+        "mogger": "Darling, confession. I’m at the end of my twelve-seat table, three glasses into a very good red, looking at your photos instead of my soup. I was married twice. Tommy for love, Walter for the house. Neither of them ever looked like you. Would you be my husband tonight? On the telephone. I’ll do all the remembering.",
+        "normie": "Darling. I’m at the end of my twelve-seat table again with a bottle I promised myself I’d ration. I was married twice: Tommy for love, Walter for the house. Both gone. Some nights I’d give the house to hear Tommy say goodnight again. Would you be him? On the telephone. Just for an evening.",
+        "truecel": "Don’t read anything into this. I’m at the end of my twelve-seat table, I’m drunk, and you’re the only man on this app who answers at this hour. I was married twice: Tommy for love, Walter for the house. Both gone. I need a man’s voice on the telephone saying Tommy’s things. In the dark you could be anyone. Would you do it?"
+      },
+      "yes": {
+        "label": "Tell her to ring you tonight",
+        "player": "Ring me tonight. I’ll be whoever you need.",
+        "reply": {
+          "mogger": "Oh, you angel. Tonight, then. My number is {number}, so you know it’s me.",
+          "normie": "Tonight, then. My number is {number}, so you know it’s me. Don’t laugh at me.",
+          "truecel": "Fine. Tonight. My number is {number}. Don’t make it weird."
+        }
+      },
+      "no": {
+        "label": "Tell her it’s too strange",
+        "player": "That’s a bit too strange for me, Diana.",
+        "reply": {
+          "mogger": "Of course. Forget I asked. I’m blushing at a soup tureen.",
+          "normie": "No. You’re right. Forget I asked, darling.",
+          "truecel": "Fine. I don’t know why I asked you anyway."
+        }
+      },
+      "call1": {
+        "said": {
+          "mogger": "It’s me. I’m on the sofa in the small sitting room with the lights off. Here’s how it works. Tommy wrote me letters from every rodeo on the circuit. I’m sending them to you, with his belt buckle and Walter’s robe, because Tommy never owned a robe in his life. Learn him. Then I’ll ring, and you’ll say his things back to me.",
+          "normie": "It’s me. Lights off, sofa, the small sitting room. Here’s how it works. Tommy wrote me letters from every rodeo on the circuit. I’m sending them to you, with his belt buckle and Walter’s robe. Learn him. Then I’ll ring, and you’ll say his things back to me.",
+          "truecel": "It’s me. Lights off, so I can’t see the phone and remember who’s on it. Tommy wrote me letters from every rodeo on the circuit. I’m sending them to you, with his belt buckle and Walter’s robe. Learn him. Don’t improvise. You’re not a natural."
+        },
+        "send": {
+          "label": "Tell her to send them",
+          "player": "Send them. I’ll learn him.",
+          "reply": {
+            "mogger": "Tomorrow, then. Wear the robe when I ring. And darling? Nobody has ever learned anything for me.",
+            "normie": "Tomorrow, then. Wear the robe when I ring.",
+            "truecel": "Tomorrow, then. Wear the robe. It won’t fit you. Wear it anyway."
+          }
+        },
+        "hang": {
+          "mogger": "Coward. A lovely coward, but a coward.",
+          "normie": "You hung up on me. Coward.",
+          "truecel": "Typical."
+        }
+      },
+      "parcel": {
+        "label": "Diana’s parcel: a robe, a buckle and letters",
+        "text": "A heavy wine-red silk robe with W.H. stitched in gold on the pocket, smelling of cigars and somebody else’s cologne. A tarnished rodeo belt buckle, a bull’s head worn smooth by a thumb. And a bundle of letters in a cowboy’s capitals, tied with a blue ribbon. Every one starts the same way: Evening, Dee. Saddle up. The one from the desert says: The desert keeps no secrets, Dee, but I keep yours. And the last, from the night before the bull: I’d ride a thousand miles of bad road for one more supper at your table.",
+        "wear": {
+          "label": "👘 Put on Walter’s robe",
+          "notice": {
+            "mogger": "It fits like it was cut for you. Walter must have been a big man once. You look like the portrait in a house you could never afford.",
+            "normie": "It’s tight across the middle and smells of cigars. You tie it anyway. You feel like a man who owns a dam.",
+            "truecel": "It hangs off your shoulders like a tent on a coat hanger. It smells of cigars and of a man who was everything you aren’t. You tie it twice."
+          }
+        }
+      },
+      "cues": [
+        {
+          "said": "Lights off. I’m in the dining room now, at his end of the table. Start the way he always started. Go on.",
+          "right": "Evening, Dee. Saddle up.",
+          "wrong": "Good evening, Mrs. Moore.",
+          "dirty": "Forget the letters. Tell me what you’re wearing at the end of that table."
+        },
+        {
+          "said": "Now the desert one. The one he wrote from the trailer in the dark. What does the desert keep?",
+          "right": "The desert keeps no secrets, Dee. But I keep yours.",
+          "wrong": "The desert keeps the heat. Like you do.",
+          "dirty": "The desert keeps nothing. I want to keep you up all night."
+        },
+        {
+          "said": "The last letter. The night before the bull. Say it the way he said it.",
+          "right": "I’d ride a thousand miles of bad road for one more supper at your table.",
+          "wrong": "I’ll always love you, Dee. Always.",
+          "dirty": "Forget supper. Clear the table."
+        }
+      ],
+      "cueLabels": {
+        "right": "Say his line",
+        "wrong": "Say something sweet",
+        "dirty": "Improvise something filthy"
+      },
+      "right": {
+        "mogger": [
+          "Oh. That’s him. Except he never sounded like that. Again, slower.",
+          "Darling, I’ve had to put the glass down. Keep the robe on. Keep talking.",
+          "I’m lying on his end of the table and I can’t breathe. Tommy never once made me feel like this. You did it with his words."
+        ],
+        "normie": [
+          "That’s him. That’s exactly him. Say it again, slower.",
+          "I’ve put the glass down. Keep talking like that. Is the robe on?",
+          "I’m on the table. His end. I haven’t felt like this since the bull. Thank you, darling. Goodnight, Tommy."
+        ],
+        "truecel": [
+          "That’s him. Don’t talk after you say it. Just breathe.",
+          "Better. You sound like him when you don’t sound like you. Keep it like that.",
+          "I’m lying on the table in the dark and for a minute you were him. Don’t say anything. Don’t ruin it. Goodnight."
+        ]
+      },
+      "wrong": {
+        "mogger": "No, darling. He’d never say that. You can make it up to me tomorrow.",
+        "normie": "He’d never say that. You haven’t read them, have you? Tomorrow.",
+        "truecel": "That’s not him. That’s you. I can hear the difference. Tomorrow."
+      },
+      "dirty": {
+        "win": {
+          "mogger": "Tommy never had a mouth like yours. Forget Tommy. Say it again, and say it to me.",
+          "normie": "Oh. Tommy never said things like that. Maybe he should have. Again.",
+          "truecel": "Oh. Okay. Don’t stop."
+        },
+        "lose": {
+          "mogger": "Not yet, darling. Him first. Then you.",
+          "normie": "Don’t. That’s not him. Do it properly tomorrow.",
+          "truecel": "Don’t. You were doing so well when you were him."
+        }
+      },
+      "picture": {
+        "mogger": "So you know what you did to me.",
+        "normie": "So you know what Tommy’s words did. Your voice, I mean.",
+        "truecel": "Don’t show anyone. I mean it."
+      },
+      "missedVm": {
+        "mogger": "It’s Diana. I sat at his end of the table for an hour with the robe over the chair. Ring me, darling.",
+        "normie": "It’s Diana. I sat at his end of the table for an hour. Ring me tomorrow.",
+        "truecel": "It’s Diana. You didn’t pick up. Nobody ever does."
+      },
+      "celeste": {
+        "name": "Celeste Van Doren",
+        "open": {
+          "mogger": "Good evening. This is Celeste Van Doren, from the club. Diana tells me she has found a new husband on the telephone. She says you’re very handsome. The committee does so like to meet a girl’s husbands.",
+          "normie": "Good evening. This is Celeste Van Doren, from the club. Diana tells me she has found a new husband on the telephone. The committee does so like to meet a girl’s husbands.",
+          "truecel": "Good evening. This is Celeste Van Doren, from the club. Diana tells me she has found a new husband on the telephone. I asked to see a picture. She showed me your profile. Oh dear."
+        },
+        "choices": {
+          "available": "Tell her you’re available",
+          "not": "Say you’re not her husband",
+          "hang": "Hang up"
+        },
+        "player": {
+          "available": "Tell the committee I’m available.",
+          "not": "I’m not her husband. We just talk."
+        },
+        "available": {
+          "mogger": "Oh, you’ll do beautifully. You’ll have a little something in the post. Welcome to the family.",
+          "normie": "How lovely. The committee will vote. You’ll have a little something in the post either way.",
+          "truecel": "Available. Yes, I imagine you are. The committee doesn’t vote in men like you, dear. It would be cruel to the furniture."
+        },
+        "not": {
+          "mogger": "Of course not. Nobody ever is, at first. Goodnight.",
+          "normie": "Of course not. Nobody ever is, at first. Goodnight.",
+          "truecel": "No. I didn’t think so. Goodnight."
+        },
+        "vm": "Celeste Van Doren again. Hanging up on a lady is very rude. The committee will remember it.",
+        "missedVm": "Good evening. This is Celeste Van Doren, from the club, about Diana. I shall try you again tomorrow.",
+        "ribbon": {
+          "label": "A cream envelope with a blue ribbon",
+          "text": "Inside, a length of blue ribbon, the exact blue of the club, and a card in fountain pen: Welcome to the family. No name. No date."
+        },
+        "voted": {
+          "mogger": "The committee voted. Darling, they voted yes. I’ve never been so frightened or so happy.",
+          "normie": "The committee voted. They voted yes. I don’t know whether to kiss you or warn you."
+        },
+        "after": {
+          "not": {
+            "mogger": "Celeste rang you. I’m sorry. I still want Tommy’s voice tonight. Yours, I mean.",
+            "normie": "Celeste rang you, didn’t she. I’m so sorry. Let’s stop for a while.",
+            "truecel": "You told Celeste you’re not my husband. As if anyone would think you were. Goodnight."
+          },
+          "hang": {
+            "mogger": "Did you hang up on Celeste? Nobody hangs up on Celeste. I think I’m in love.",
+            "normie": "Did you hang up on Celeste? Darling, nobody hangs up on Celeste. Be careful.",
+            "truecel": "You hung up on Celeste. Now I have to hear about it at lunch for a year. Thanks."
+          },
+          "joke": "Celeste told the whole club. They’re calling you my charity case. Don’t ring me."
+        },
+        "deathCause": "THE FAMILY",
+        "deaths": [
+          "The window was open. You never open the window.",
+          "Walter fell too.",
+          "There was a blue ribbon tied to your door handle when they found you."
+        ],
+        "news": {
+          "hang": {
+            "section": "Society",
+            "title": "WHO HUNG UP ON CELESTE?",
+            "summary": "The club is agog: a gentleman caller put the phone down on Mrs. Van Doren.",
+            "body": "Members of the Bluebird Club report that a gentleman, a telephone friend of one of the club’s most generous donors, hung up on Celeste Van Doren this week. Mrs. Van Doren declined to comment, beyond saying that the committee has a long memory."
+          },
+          "joke": {
+            "section": "Society",
+            "title": "THE CLUB’S LATEST JOKE",
+            "summary": "A donor’s late-night telephone friend is not, we hear, committee material.",
+            "body": "Laughter at the Bluebird Club this week over a much-loved donor’s late-night telephone companion, who offered himself to the committee and was told, kindly, that he would be cruel to the furniture."
+          }
+        }
+      }
+    },
+    "openhouse": {
+      "title": "Open House",
+      "host": "MATCH-017",
+      "rival": "MATCH-043",
+      "hook": {
+        "mogger": "Confession: we’re neighbors. Across the landing, above the laundromat. I’ve seen you on the stairs and I’ve thought about it all week. I show rich people’s houses all day. Want to see where I’m not supposed to be?",
+        "normie": "You know we’re neighbors? Across the landing, above the laundromat. I hear your TV. Anyway. I show rich people’s houses all day and I get bored between viewings. Want to see where I’m not supposed to be?",
+        "truecel": "So my friends and I have a game. I show rich people’s houses, and between viewings I send pictures from places I shouldn’t be, to someone who’ll appreciate it. They picked you. We’re neighbors, by the way. Across the landing. I’ve heard you through the wall. Want to see?"
+      },
+      "yes": {
+        "label": "Tell her to show you",
+        "player": "Show me.",
+        "reply": {
+          "mogger": "First viewing at ten tomorrow. Watch your phone, neighbor.",
+          "normie": "First viewing at ten tomorrow. Watch your phone.",
+          "truecel": "First viewing at ten tomorrow. Don’t be gross about it."
+        }
+      },
+      "no": {
+        "label": "Tell her to behave",
+        "player": "Behave yourself, Olivia.",
+        "reply": {
+          "mogger": "Boring. Gorgeous, but boring.",
+          "normie": "Boring. Fine.",
+          "truecel": "Wow. Okay. My friends are going to love that."
+        }
+      },
+      "spots": {
+        "island": "Show home on Mesa Vista. The buyers are in the garden arguing about a pool. I’m on their kitchen island.",
+        "bed": "Their bed. Eight hundred thread count and a husband who sleeps on the left. I’m on the left.",
+        "tub": "Their bathtub. Clawfoot, original features. The buyers are downstairs measuring the curtains.",
+        "closet": "Her closet. Her silk robe. She has nineteen of them. She won’t miss one for ten minutes.",
+        "master": "Last one. A big house on the ridge road, the old judge’s place. The owner is some tennis woman who never smiles. Her master bedroom. Her sheets."
+      },
+      "after": {
+        "mogger": "My heart is going. That’s you, not the house. Where next, neighbor?",
+        "normie": "Your turn. Where next?",
+        "truecel": "My friends are screaming. Where next?"
+      },
+      "masterAfter": {
+        "mogger": "Okay. That one felt like being watched. Later, neighbor.",
+        "normie": "Okay. That one felt like being watched. Later.",
+        "truecel": "That house was creepy. Felt like being watched. Bye."
+      },
+      "pick": {
+        "label": {
+          "bed": "Their bed",
+          "tub": "Their bathtub",
+          "closet": "The walk-in closet"
+        },
+        "player": {
+          "bed": "Their bed.",
+          "tub": "Their bathtub.",
+          "closet": "Their closet. Try something on."
+        },
+        "reply": "Tomorrow. Eleven o’clock viewing."
+      },
+      "caroline": {
+        "name": "Caroline Prescott",
+        "open": {
+          "mogger": "This is Caroline Prescott. You don’t know me. You know my bed. I have cameras in every room of my father’s house, because of the kind of people I’m building a case against, and yesterday they watched a realtor photograph herself on my sheets and send it to you. I’ve left you a still. Then I looked at your profile. Twice.",
+          "normie": "This is Caroline Prescott. You don’t know me. You know my bed. I have cameras in every room of my father’s house, because of the kind of people I’m building a case against, and yesterday they watched a realtor photograph herself on my sheets and send it to you. I’ve left you a still. I want to know what the fuss is about.",
+          "truecel": "This is Caroline Prescott. You don’t know me. You know my bed. I have cameras in every room of my father’s house, because of the kind of people I’m building a case against, and yesterday they watched a realtor photograph herself on my sheets and send it to you. I’ve left you a still. I looked at your profile. I want to know what she was laughing about."
+        },
+        "choices": {
+          "what": "Ask what she wants",
+          "sorry": "Apologize",
+          "hang": "Hang up"
+        },
+        "player": {
+          "what": "What do you want?",
+          "sorry": "I’m sorry. I didn’t know it was your house."
+        },
+        "what": {
+          "mogger": "A rematch. She sent you my bed from the edge of it. I’ll send you my bed from the middle. Then you choose. I always win.",
+          "normie": "A rematch. She used my house to impress you. I’ll show you how it’s done properly. Then you choose.",
+          "truecel": "I want her to lose something. You’re what she was playing with. So I’ll play with it better."
+        },
+        "sorry": "Don’t apologize. Compete. I’ll be in your phone tomorrow.",
+        "vm": "You hung up on me. Nobody hangs up on me. Check your floor, then check your phone.",
+        "still": {
+          "label": "A security camera still",
+          "text": "A grainy black-and-white print from a camera high in the corner of a big bedroom: Olivia Reid on the bed, phone held up, mid-laugh, a time stamp in the corner. On the back, in hard capitals: SHE LOSES. C.P."
+        },
+        "bed": {
+          "mogger": "My bed, from the middle. Now you know the difference.",
+          "normie": "My bed, from the middle. Now you know the difference.",
+          "truecel": "My bed, from the middle. Look as long as you like. That’s all you get to do."
+        },
+        "court": {
+          "mogger": "My court. I play against the wall because nobody else will play me. Play me.",
+          "normie": "My court. I play against the wall because nobody else will play me. Your move.",
+          "truecel": "My court. I play against the wall. The wall has more going for it than you. Choose anyway."
+        }
+      },
+      "heard": {
+        "mogger": "Someone called my office about a house on the ridge road. She called you too? I’m the better view and you know it.",
+        "normie": "Someone called my office about a house on the ridge road. I think I’m in trouble. Did she call you?",
+        "truecel": "Someone called my office about the ridge road house. Did you tell on me? My friends say you did."
+      },
+      "choose": {
+        "olivia": {
+          "label": "Tell Olivia it’s her",
+          "player": "It’s you, Olivia. It was always going to be you."
+        },
+        "caroline": {
+          "label": "Tell Caroline it’s her",
+          "player": "It’s you, Caroline. You win."
+        }
+      },
+      "won": {
+        "olivia": {
+          "mogger": "Neighbor. I’m going to knock on your wall three times tonight. Knock back.",
+          "normie": "Me? Okay. I’m smiling at a wall. It’s your wall, technically.",
+          "truecel": "Wait, you actually picked me? That’s sweet. My friends are crying. No, obviously."
+        },
+        "caroline": {
+          "mogger": "Of course. I always win. Stay on the phone with me tonight. I’ve never had anyone to beat.",
+          "normie": "Of course I win. I always win. It’s nicer than usual.",
+          "truecel": "You chose me. Good. That’s all I needed: her to lose. We’re done."
+        }
+      },
+      "lost": {
+        "olivia": {
+          "mogger": "Seriously? Her? Fine. I’m telling the whole ridge road about her bed.",
+          "normie": "Her? Fine. Then everyone gets to hear about her bed.",
+          "truecel": "You chose her? Over me? I was never going to choose you either. Bye."
+        },
+        "caroline": {
+          "mogger": "Second place. I’ve never been second. I hate how interesting that is. She still loses her job.",
+          "normie": "Fine. Second place. She still loses her job.",
+          "truecel": "Of course you chose her. She still loses her job, and I still never think about you again."
+        }
+      },
+      "fired": {
+        "mogger": "I got fired. A client’s camera. Worth it. Mostly.",
+        "normie": "I got fired. A client’s camera. Was I worth it?"
+      },
+      "news": {
+        "fired": {
+          "section": "Property",
+          "title": "REALTOR LET GO AFTER PRIVATE VIEWING",
+          "summary": "A Sunfall agency parts ways with an agent after footage from a ridge road house.",
+          "body": "A Sunfall realty agency has let an agent go after a homeowner on the ridge road produced security footage of her photographing herself in the master bedroom during a viewing. The homeowner said she had installed cameras for reasons of her own and was glad she had."
+        },
+        "ridge": {
+          "section": "Society",
+          "title": "THE JUDGE’S HOUSE, SHOWN IN PERSON",
+          "summary": "Buyers say the owner of the old Prescott house gives very personal tours.",
+          "body": "Prospective buyers of the late Judge Prescott’s house on the ridge road report that the master bedroom is the most talked about room in Sunfall this month. The owner, a keen tennis player, did not return calls."
+        }
+      }
+    },
+    "hotline": {
+      "title": "1-900-SUNFALL",
+      "host": "MATCH-224",
+      "line": "Sunfall After Dark",
+      "operator": "Candy",
+      "ad": {
+        "section": "Classifieds",
+        "title": "SUNFALL AFTER DARK",
+        "summary": "Lonely? Real local girls, live on the line, all night.",
+        "body": "Real local girls who want to hear from you. Live, discreet, all night long. Call {number}. Four ninety-nine a minute. Adults only. Ask for Candy."
+      },
+      "greeting": {
+        "mogger": "Hi, you’ve reached Sunfall After Dark, this is Candy. Oh. Your voice is nice. That’s not in the script. Sorry. What would you like to hear?",
+        "normie": "Hi, you’ve reached Sunfall After Dark, this is Candy. I’m, um, lying on a satin bed. Allegedly. What would you like to hear?",
+        "truecel": "Sunfall After Dark, this is Candy. You’re being charged four ninety-nine a minute. What do you want to hear?"
+      },
+      "busy": "Candy is with another caller tonight. Try tomorrow, handsome. That’s the recording. It says handsome to everyone.",
+      "topics": [
+        {
+          "label": "Ask what she’s wearing",
+          "player": "What are you wearing, Candy?",
+          "reply": {
+            "mogger": "A red slip, and nothing under it, and I’m. Wow, I lost my place. Sorry. I’ve got ointment on my hands, I was doing inventory. Ignore that. The slip. Red.",
+            "normie": "A little red slip, and nothing underneath, and I’m thinking about you. Hold on, I lost the page. Sorry, I have hydrocortisone on my hands from work. Never mind. Red. Slip.",
+            "truecel": "Red slip. Nothing underneath. Thinking about you. That’s the script. I’m reading it off a page next to a box of hemorrhoid cream, so let’s not pretend."
+          },
+          "clue": "Candy on Sunfall After Dark had ointment on her hands from work. Inventory."
+        },
+        {
+          "label": "Ask her to tell you a secret",
+          "player": "Tell me a secret, Candy. A real one.",
+          "reply": {
+            "mogger": "A real one? I sing second soprano in a church choir and I’ve mouthed the high notes for four years. Oh no. That’s real. Pretend I said something about a hot tub. Actually, don’t. I liked telling you.",
+            "normie": "A secret. Okay. I sing second soprano in a church choir and I’ve been mouthing the high notes for four years. Oh no. That’s a real one. Pretend I said something about a hot tub.",
+            "truecel": "A secret. I sing in a church choir and mouth the high notes. There. That’s the only secret you’re getting for four ninety-nine."
+          },
+          "clue": "Candy on Sunfall After Dark sings second soprano in a church choir and mouths the high notes."
+        },
+        {
+          "label": "Ask why she does this",
+          "player": "Why do you do this, Candy?",
+          "reply": {
+            "mogger": "Because it’s a script. I rehearse everything, even phone calls, out loud in the shower. Here the script never runs out and nobody sees my face go red. And it pays for a course I can’t afford. You’re the first caller I’ve wanted to go off script for.",
+            "normie": "Because it’s a script. I rehearse everything, even phone calls, out loud in the shower. Here the script never runs out and nobody sees my face go red. And it pays for a course I can’t afford.",
+            "truecel": "Because it’s a script. I rehearse phone calls in the shower and here the script never runs out, and nobody I know would ever call this line. Right?"
+          },
+          "clue": "Candy on Sunfall After Dark rehearses phone calls out loud in the shower."
+        }
+      ],
+      "name": {
+        "label": "Ask her real name",
+        "player": "What’s your real name?",
+        "reply": "Candy. It says so in the paper. Well, it doesn’t. But it’s Candy."
+      },
+      "know": {
+        "label": "Tell her you know she’s Jessica",
+        "player": "Ointment, the choir, the shower. You’re Jessica Rivera."
+      },
+      "outed": {
+        "yes": {
+          "mogger": "Oh my God. You. It’s you? I’ve been reading this script to you and pretending you were nobody. Hang up. Text me on Hinge. I want to say all of it again without the page.",
+          "normie": "Nobody can know. Not even you. Okay. You know. I’m going to hang up and die in the shower. Then text me."
+        },
+        "no": {
+          "normie": "No. No, no. You can’t know that. I’m hanging up. Please never call this number again.",
+          "truecel": "Not you. Anyone but you. I’m hanging up. Please never call this number again."
+        }
+      },
+      "chat": {
+        "yes": {
+          "mogger": "No script this time. I’m still at the counter after closing. Here.",
+          "normie": "Okay. No script. I rehearsed this text forty times. Here."
+        },
+        "no": {
+          "normie": "Please don’t. I’m so embarrassed.",
+          "truecel": "Please don’t ever message me. Please."
+        }
+      },
+      "goodbye": {
+        "mogger": "You’re my favorite caller. I’m not supposed to say that. I’m quitting tomorrow. Don’t tell anyone.",
+        "normie": "Same time tomorrow? No. I’m quitting. I think I just wanted someone to hear me say things.",
+        "truecel": "You called three nights in a row. Do you know what that says about you? Don’t answer. That was my last shift."
+      },
+      "closed": "The number you have dialed is no longer in service.",
+      "bill": {
+        "label": "Your phone bill",
+        "text": "Sunfall After Dark, forty-one minutes at four ninety-nine a minute. You read it twice. It doesn’t get smaller."
+      }
+    },
+    "spotter": {
+      "title": "Spotter",
+      "host": "MATCH-020",
+      "hook": {
+        "normie": "I looked at your photos. Can I be honest? That little belly. You’re soft. I like soft things I can boss around. I’m a trainer. I could train you. Or I could punish you. With me it’s the same thing.",
+        "mogger": "I looked at your photos. Pretty boy. I bet nobody has ever told you what to do in your whole life. I want to. I’m a trainer. I could train you. Or I could punish you. With me it’s the same thing.",
+        "truecel": "I looked at your photos. The cans on the desk behind you. The pizza box. You live like a pig in a sty. I’m a trainer. I could fix you. Or I could just enjoy you. With me it’s the same thing."
+      },
+      "yes": {
+        "label": "Tell her to train you",
+        "player": "Train me.",
+        "reply": {
+          "normie": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good piggy.",
+          "mogger": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good boy. Piggy.",
+          "truecel": "Rules. Three mornings. I ring early. You answer. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Clean that desk, piggy."
+        }
+      },
+      "no": {
+        "label": "Tell her no thanks",
+        "player": "No thanks, Lauren.",
+        "reply": {
+          "normie": "Your loss. I was going to be so mean to you.",
+          "mogger": "Your loss, pretty boy. I was going to be so mean to you.",
+          "truecel": "Your loss. Enjoy your sty."
+        }
+      },
+      "parcel": {
+        "label": "Lauren’s box: a pull-up bar and a pig nose",
+        "text": "A long box. A door-frame pull-up bar, a rubber pig nose on an elastic band, and a note in thick marker: WEAR THE NOSE. FIT THE BAR. DAY THREE. COACH.",
+        "nose": {
+          "label": "🐽 Put on the pig nose",
+          "notice": {
+            "normie": "You put it on. You catch yourself in the dark window. You make a noise you didn’t know you could make.",
+            "mogger": "You put it on. Even like this you’re annoyingly handsome. That’s probably the point.",
+            "truecel": "You put it on. It fits. That’s the worst part."
+          }
+        },
+        "bar": {
+          "label": "🔩 Fit the bar to the door frame",
+          "notice": "It takes twenty minutes and most of your patience. It holds when you hang off it. Mostly."
+        }
+      },
+      "sessions": [
+        {
+          "reps": 10,
+          "move": "push",
+          "open": {
+            "normie": "You picked up. Good piggy. Floor. Hands under your shoulders. Ten push-ups on my count, and every time you go down, you say thank you, Coach.",
+            "mogger": "Look at you, picking up like a good boy. Floor. Ten push-ups on my count. Pretty boys hate this part. That’s why I love it.",
+            "truecel": "You picked up. Of course you did, you don’t sleep. Floor. Push the cans out of the way. Ten on my count, piggy."
+          }
+        },
+        {
+          "reps": 15,
+          "move": "push",
+          "open": {
+            "normie": "Day two. Are you wearing the nose? Don’t tell me. Oink if you are. Fifteen today. Faster.",
+            "mogger": "Day two. My class this morning was twelve women and none of them were as much fun as you. Fifteen. Faster.",
+            "truecel": "Day two. I broke a girl’s nose sparring once. Don’t make me miss you. Fifteen."
+          }
+        },
+        {
+          "reps": 5,
+          "move": "pull",
+          "open": {
+            "normie": "Day three. Is the bar up? Then hang off it. Five pull-ups. Every one, you tell me what you are.",
+            "mogger": "Day three. The bar. Five pull-ups, pretty boy, and you thank me for every one.",
+            "truecel": "Day three. The bar. Five pull-ups. I don’t think you can do one. Prove me wrong, piggy."
+          },
+          "noBar": "You didn’t fit the bar? Floor, then. Ten burpees, and you’ll think about why you disobeyed me."
+        }
+      ],
+      "choices": {
+        "go": "Yes, Coach",
+        "safe": "Say the safeword: protein shake",
+        "hang": "Hang up"
+      },
+      "player": {
+        "go": "Yes, Coach.",
+        "safe": "Protein shake."
+      },
+      "safe": "Safeword. Okay. We stop, right now. You did the right thing saying it. Drink some water, eat something green. I’m proud of you. No sulking from me, I promised.",
+      "hangText": {
+        "normie": "You hung up on me. You don’t get to waste me, piggy. Tomorrow you do double.",
+        "mogger": "You hung up on me. Nobody hangs up on me, pretty boy. Tomorrow you pay for it.",
+        "truecel": "You hung up on me. In your sty. Tomorrow."
+      },
+      "quit": "Twice. We’re done. I don’t train quitters.",
+      "missedVm": {
+        "normie": "Coach here. You didn’t pick up. That’s ten extra tomorrow, piggy.",
+        "mogger": "Coach here. You didn’t pick up, pretty boy. That costs you.",
+        "truecel": "Coach. You didn’t pick up. Probably asleep in the crumbs."
+      },
+      "down": {
+        "push": "⬇ DOWN",
+        "pull": "⬆ PULL"
+      },
+      "scene": {
+        "push": "On the floor by the bed, the phone on speaker by your face. Tap on her count.",
+        "pull": "Hanging off the bar in the door frame, the phone on speaker on the floor below. Tap on her count."
+      },
+      "count": {
+        "normie": [
+          "One. Good piggy.",
+          "Two. Feel that belly touch the floor?",
+          "Three. Say thank you, Coach.",
+          "Four. Dirty little piggy.",
+          "Five. You’re sweating already. Disgusting. Keep going.",
+          "Six. I can hear you wheezing. I love it.",
+          "Seven. Lower.",
+          "Eight. Who owns you this morning?",
+          "Nine. Almost, piggy.",
+          "Ten. Stay down there. I like you down there.",
+          "Eleven. Oink for me.",
+          "Twelve. Filthy.",
+          "Thirteen. I’m not even tired. You are.",
+          "Fourteen. Beg for the last one.",
+          "Fifteen. Good piggy."
+        ],
+        "mogger": [
+          "One. Pretty boy.",
+          "Two. Not so pretty now.",
+          "Three. Thank me.",
+          "Four. Dirty little piggy. Even you.",
+          "Five. Nobody’s ever made you sweat for it, have they?",
+          "Six. Lower, gorgeous.",
+          "Seven. I could do this all day.",
+          "Eight. Say it. Thank you, Coach.",
+          "Nine. That face, ruined. Perfect.",
+          "Ten. Stay there. Look at you.",
+          "Eleven. Oink, pretty boy.",
+          "Twelve. I’d frame this.",
+          "Thirteen. All those girls who think you’re perfect.",
+          "Fourteen. Beg.",
+          "Fifteen. Good boy. Good piggy."
+        ],
+        "truecel": [
+          "One. Piggy.",
+          "Two. Your arms are shaking already.",
+          "Three. Thank me.",
+          "Four. Dirty little piggy in your little sty.",
+          "Five. When did you last see sunlight?",
+          "Six. Lower. Into the crumbs.",
+          "Seven. I can hear the cans rolling.",
+          "Eight. Who owns you?",
+          "Nine. Pathetic. Don’t stop.",
+          "Ten. Stay down there. It suits you.",
+          "Eleven. Oink.",
+          "Twelve. You’re not even fat. You’re just filthy.",
+          "Thirteen. Nobody else would bother with you.",
+          "Fourteen. Beg.",
+          "Fifteen. Good. Piggy."
+        ]
+      },
+      "miss": {
+        "normie": [
+          "Too slow, piggy. That one doesn’t count.",
+          "Did I say stop? Again.",
+          "Lazy. You’ll pay for that."
+        ],
+        "mogger": [
+          "Too slow, pretty boy.",
+          "Did I say stop? Again.",
+          "Lazy. Even beautiful things get punished."
+        ],
+        "truecel": [
+          "Too slow, piggy.",
+          "Did I say stop? Again.",
+          "Lazy. Like everything else about you."
+        ]
+      },
+      "fail": "Three misses. Pathetic. Get up. Same time tomorrow, and you’ll beg for it.",
+      "done": {
+        "normie": [
+          "Ten. Good piggy. I’m breathing harder than you are and I didn’t do anything. Same time tomorrow.",
+          "Fifteen. Look what you did. I had to sit down. Tomorrow, the bar.",
+          "Five. Good piggy. My good piggy. I’m going to think about that noise you made all day."
+        ],
+        "mogger": [
+          "Ten. Look at you, flushed. I want a picture of your face right now and I’d never show anyone.",
+          "Fifteen. I had to put the phone face down so I could hear you breathe. Tomorrow, the bar.",
+          "Five. Pretty boy, ruined, and thanking me for it. That’s the best thing anyone has ever given me."
+        ],
+        "truecel": [
+          "Ten. You did it. I hate how much I liked listening to that.",
+          "Fifteen. Disgusting. Again tomorrow. I mean it. I want it.",
+          "Five. You know why I do this? I tell women all day they’re fine as they are, and I go home and hate my thighs. You’re where I get to put it. Same time next week, piggy."
+        ]
+      },
+      "picture": {
+        "whistle": {
+          "normie": "So you remember who you answer to.",
+          "mogger": "So you remember who you answer to, pretty boy.",
+          "truecel": "Look. Don’t touch. Not that you could."
+        },
+        "bench": {
+          "normie": "Good piggy. Keep the nose.",
+          "mogger": "You earned one. Don’t get used to it.",
+          "truecel": "You earned this. Barely."
+        }
+      },
+      "deathCause": "A PULL-UP BAR",
+      "deaths": [
+        "The door frame was older than the building.",
+        "She was still counting when the line went quiet.",
+        "Five was always going to be one too many."
+      ]
+    }
   }
 }

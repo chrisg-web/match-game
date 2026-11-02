@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="b08056bd76">
+<html lang="en" data-build="b597c11f30">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -495,6 +495,10 @@
     .home-invasion .qte.choices button { width: 80%; padding: 10px; font-size: calc(13px * var(--reading-scale)); letter-spacing: 0; background: #1b1420ee; animation: none; }
     @keyframes qtePulse { 50% { transform: scale(1.1); } }
     @media (prefers-reduced-motion: reduce) { .home-invasion .qte button { animation: none; } }
+    /* Lauren's count (room quests): your arms tire, so the button shakes harder as the set goes on (--shake grows) */
+    .home-invasion .qte button.rq-rep { animation: rqShake .12s linear infinite; }
+    @keyframes rqShake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(var(--shake),calc(var(--shake) * -.5)); } 50% { transform: translate(calc(var(--shake) * -.7),calc(var(--shake) * .6)); } 75% { transform: translate(calc(var(--shake) * .5),var(--shake)); } }
+    @media (prefers-reduced-motion: reduce) { .home-invasion .qte button.rq-rep { animation: none; } }
     /* Theon's messages, shown to you by the women he sent them to */
     .hinge-bubble.shot-message { max-width: 88%; }
     .shot-img { display: block; width: 100%; margin-top: 6px; border-radius: 8px; image-rendering: pixelated; }
@@ -608,11 +612,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=b08056bd76"></script>
+  <script src="chapel_at_midnight.js?v=b597c11f30"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=b08056bd76"></script>
+  <script src="marriage.js?v=b597c11f30"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=b08056bd76"></script>
+  <script src="quests/professor-vale.js?v=b597c11f30"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -695,6 +699,10 @@
         <button class="bar-button" id="halloran-preview">Undeniable: Cole Halloran in the paper, his parcel on your floor (Truecel)</button>
         <button class="bar-button" id="halloran-door-preview">Undeniable: Halloran at your door (revolver in the cupboard: try Steady)</button>
         <button class="bar-button" id="police-warning-preview">Police warning call now (Truecel)</button>
+        <button class="bar-button" id="rq-robe-preview">Room quest: Diana Moore messages now (Husband Number Three)</button>
+        <button class="bar-button" id="rq-house-preview">Room quest: Olivia Reid messages now (Open House)</button>
+        <button class="bar-button" id="rq-hotline-preview">Room quest: the Sunfall After Dark ad in today’s paper (1-900-SUNFALL)</button>
+        <button class="bar-button" id="rq-spotter-preview">Room quest: Lauren Bishop messages now (Spotter)</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
       <p>Tap an app to open it. Press the physical Home button once to return to Matchfall; press it once more on the home screen to put the phone down. Double-press or hold it to lower the phone and hide your hands from anywhere. Tap the top of the lowered phone to raise it again. The game is a local simulation and makes no real calls.</p>
@@ -1220,6 +1228,7 @@
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
+        if(rqAfterDayStart())return; // room quests
         if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
         if(halAfterDayStart())return; // Undeniable: an arrest, a visitor, a knock
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
@@ -1371,6 +1380,7 @@
       visibleNewsDay=world.day;world.paperDay=world.day;
       const items=getNewsEdition(world.day).items;
       if(items.some(item=>item.glowAd))glowState().seen=true; // Truecel: LPC-A365
+      if(items.some(item=>item.id==='rq_hotline_ad')&&rqs('hotline'))rqs('hotline').seen=true; // room quests: the hotline
       if(items.some(item=>item.halProfile))halState().knowsName=true; // Undeniable: his name, from the paper
       if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
       if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; // the Day 1 paper only announces the benefit; Elena is missing from Day 2
@@ -1433,6 +1443,8 @@
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
         const halLine=halOfficeLine(dialledNumber); // Undeniable: his campaign office
         if(halLine){startSimulatedCall(halLine);return;}
+        const hotLine=rqHotlineLine(dialledNumber); // room quests: the hotline in the classifieds
+        if(hotLine){startSimulatedCall(hotLine);return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
         const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Oakley
         if(gunLine){startSimulatedCall(gunLine);return;}
@@ -1801,7 +1813,7 @@
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
       return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
-...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
+...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
     // ringing the device) are marked ⚠ and happen on the first tap, like every choice.
@@ -1820,6 +1832,7 @@
       if(topic.dispatch)reply=topic.say?topic.say():topic.reply; // 911: Doreen
       else if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
       else if(topic.mini)reply=chooseMiniService(id); // mini quests
+      else if(topic.rq)reply=chooseRqService(id); // room quests: the hotline
       else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
       else if(topic.hal)reply=chooseHalTopic(id); // Undeniable
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
@@ -2046,7 +2059,7 @@
       }
     }
     function unusedContactNumber(){
-      const used=new Set([...Object.values(contactNumbers),...Object.values(world.chapel?.numbers||{}),...Object.values(world.blueRibbon?.numbers||{}),...Object.values(world.marriage?.numbers||{}),...Object.values(world.professorVale?.numbers||{}),...[...hingeThreads.values()].map(t=>t.number).filter(Boolean)]);
+      const used=new Set([...Object.values(contactNumbers),...Object.values(world.chapel?.numbers||{}),...Object.values(world.blueRibbon?.numbers||{}),...Object.values(world.marriage?.numbers||{}),...Object.values(world.professorVale?.numbers||{}),...Object.values(world.rq?.st||{}).map(st=>st?.number).filter(Boolean),...[...hingeThreads.values()].map(t=>t.number).filter(Boolean)]);
       return uniqueDemoNumber(used);
     }
     function replyFor(entry,profile){
@@ -2116,6 +2129,7 @@
       for(const [id,label] of callerFriendChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: ask her friend about Moira
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
+      for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
@@ -2180,7 +2194,7 @@
         if(!thread||!profile){hingeView='chats';return renderHinge();}
         if(thread.id!==bearHingeCard.id)talkState(thread).unread=false;
         signOffIfDone(thread); // a few questions a day
-        body=`<div class="hinge-chat-head"><button data-chat-back>‹</button><button class="face-button" data-profile-open="${profile.id}" aria-label="View ${esc(profile.name)}'s pictures"><img src="${profile.gallery[0]}" alt="${esc(profile.name)}"></button><strong data-name-tap>${esc(profile.name)} · Tap photo for profile</strong></div><div class="hinge-messages" id="hinge-messages">${thread.log.map(line=>line.shot?shotChatBubble(line):line.evidence?evidenceChatBubble(line):line.image?`<div class="hinge-bubble her image-message"><img src="${line.image}" data-chat-selfie alt="Picture sent by ${esc(profile.name)}"><small>${esc(line.text)}</small></div>`:`<div class="hinge-bubble ${line.who}${line.block?' block-message':''}">${esc(line.text)}</div>`).join('')}${thread.pending?'<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>':''}</div><div class="hinge-options">${thread.pending?'':hingeOptionsFor(thread)}</div>`;
+        body=`<div class="hinge-chat-head"><button data-chat-back>‹</button><button class="face-button" data-profile-open="${profile.id}" aria-label="View ${esc(profile.name)}'s pictures"><img src="${profile.gallery[0]}" alt="${esc(profile.name)}"></button><strong data-name-tap>${esc(profile.name)} · Tap photo for profile</strong></div><div class="hinge-messages" id="hinge-messages">${thread.log.map(line=>line.shot?shotChatBubble(line):line.evidence?evidenceChatBubble(line):line.image?`<div class="hinge-bubble her image-message"><img src="${line.image}" data-chat-selfie alt="Picture sent by ${esc(profile.name)}"${line.fb?` data-fb="${esc(assetUrl(line.fb))}" onerror="this.onerror=null;this.src=this.dataset.fb"`:''}><small>${esc(line.text)}</small></div>`:`<div class="hinge-bubble ${line.who}${line.block?' block-message':''}">${esc(line.text)}</div>`).join('')}${thread.pending?'<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>':''}</div><div class="hinge-options">${thread.pending?'':hingeOptionsFor(thread)}</div>`;
       }else if(hingeView==='profile'){
         const profile=hingeProfile(activeProfileId);
         if(!profile){hingeView='chats';return renderHinge();}
@@ -2220,12 +2234,13 @@
             hingeLikes++;
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
-            else if(fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
-              const responseMode=hingeLikes===1||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
+            else if(fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
+              const responseMode=hingeLikes===1||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               fionnGirlMatched(profile.id); // Theon: she knows your face
               showHingeToast(profile.name+' matched with you!');
               chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
+              rqOnMatch(profile.id); // room quests: the woman one was waiting on
             }
           }
         }
@@ -2292,6 +2307,7 @@
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
+      if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
@@ -4065,6 +4081,7 @@
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
+      if(RQ_CALLERS[id])return rqCallCard(id); // room quests
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
@@ -4085,10 +4102,11 @@
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
-      return miniCallerDue(); // mini quests
+      return miniCallerDue()||rqCallerDue(); // mini quests, room quests
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
+      if(RQ_CALLERS[id]){rqRang(id);return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:police')policeWarnState().called=true;
@@ -4106,6 +4124,7 @@
     // Not answered, or declined: they leave a message. Her dad, when it's about the messages, comes anyway.
     function strangerMissed(id){
       if(MINI_CALLERS[id]){miniMissed(id);return;}
+      if(RQ_CALLERS[id]){rqMissed(id);return;}
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
@@ -4121,6 +4140,7 @@
     }
     function strangerAnswer(id){
       if(MINI_CALLERS[id])return miniAnswer(id);
+      if(RQ_CALLERS[id])return rqAnswer(id);
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
@@ -4133,6 +4153,7 @@
     }
     function strangerChoices(call){
       if(call.kind==='mini')return miniCallChoices(call);
+      if(call.kind==='rq')return rqCallChoices(call); // room quests
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
@@ -4151,6 +4172,7 @@
     }
     function chooseStrangerCall(call,choice){
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
+      if(call.kind==='rq'){rqChooseCall(call,choice);return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
@@ -4461,6 +4483,7 @@
       invasionTimers.push(qteTimer);
     }
     $('home-invasion').onclick=event=>{
+      if(event.target.closest?.('[data-rq-rep]')){rqRepTap();return;} // room quests: Lauren's count
       if(event.target.closest?.('[data-qte-shoot]')){fionnShoot();return;}
       if(event.target.closest?.('[data-hal-shoot]')){halSteadyEnd('shoot');return;} // Undeniable: Steady
       if(event.target.closest?.('[data-hal-lower]')){halSteadyEnd('lower');return;}
@@ -5670,6 +5693,527 @@
       if(act==='mini:pills:take'){if(dayTransitionInFlight)return;closeCupboard();showGameNotice(kit.pills.take.notice);advanceToNextDay();return;} // you sleep straight through
       if(act==='mini:envelope:take'){ms('envelope').took=true;showGameNotice(kit.envelope.take.notice);renderCupboard();saveRun(true);}
     }
+    // ===== Room quests (characters/rooms.json; Chris, 2 November 2026) =====
+    // Four seedy stories played from your room, two a run, on every difficulty, each line tuned to
+    // how she sees you. Diana Moore's robe: be her dead first husband on the phone, from his letters,
+    // until the club's committee rings about her new husband. Olivia Reid's open house: pictures from
+    // places she shouldn't be, until the homeowner, Caroline Prescott, wants a rematch. The hotline in
+    // the classifieds: Candy is Jessica Rivera, which you can only tell her if you've met Jessica.
+    // Lauren Bishop the spotter: three mornings on her count (safeword: protein shake). A woman a room
+    // quest waits on turns up in your deck and likes you back. Tests switch them off with MATCH_NO_MINIS
+    // unless MATCH_ALL_RQ is set.
+    const rqKit=()=>characterDB?.rooms||null;
+    const RQ_IDS=['robe','openhouse','hotline','spotter'];
+    const RQ_CALLERS={'x:rq-robe':'robe','x:rq-celeste':'robe','x:rq-caroline':'openhouse','x:rq-spotter':'spotter'};
+    const RQ_PICS={
+      robe:{table:'assets/rooms/diana-table.png'},
+      openhouse:{island:'assets/rooms/olivia-island.png',bed:'assets/rooms/olivia-bed.png',tub:'assets/rooms/olivia-tub.png',closet:'assets/rooms/olivia-closet.png',master:'assets/rooms/olivia-master.png',cbed:'assets/rooms/caroline-bed.png',court:'assets/rooms/caroline-court.png'},
+      hotline:{counter:'assets/rooms/jessica-counter.png'},
+      spotter:{whistle:'assets/rooms/lauren-whistle.png',bench:'assets/rooms/lauren-bench.png',floor:'assets/rooms/spotter-floor.png',bar:'assets/rooms/spotter-bar.png'}
+    };
+    const RQ_OVER=['done','skipped','gone'];
+    // A line that changes with the difficulty is {mogger, normie, truecel}; anything else is the line.
+    const rqT=value=>value&&typeof value==='object'&&!Array.isArray(value)?(value[tone()]??value.normie??Object.values(value)[0]):value;
+    function rqState(){
+      const r=world.rq;
+      if(!r||typeof r!=='object'||Array.isArray(r)||!r.st||typeof r.st!=='object')world.rq={on:null,st:{},dead:null};
+      return world.rq;
+    }
+    function rqOn(){
+      const r=rqState();
+      if(!Array.isArray(r.on)){
+        const order=RQ_IDS.slice().sort((a,b)=>hashSeed(world.seed+'|rq|'+a)-hashSeed(world.seed+'|rq|'+b));
+        r.on=window.MATCH_ALL_RQ?RQ_IDS.slice():window.MATCH_NO_MINIS?[]:order.slice(0,2);
+      }
+      return r.on;
+    }
+    function rqStartDay(id){const i=rqOn().indexOf(id);return i<0?null:i===0?2+hashSeed(world.seed+'|rqd0')%2:3+hashSeed(world.seed+'|rqd'+i)%4;}
+    const rqs=id=>rqState().st[id]||null;
+    const rqLive=id=>{const st=rqs(id);return !!st&&!RQ_OVER.includes(st.stage);};
+    function sanitizeRq(raw){
+      const out={on:null,st:{},dead:null};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      if(Array.isArray(raw.on))out.on=raw.on.filter(id=>RQ_IDS.includes(id));
+      for(const [id,st] of Object.entries(raw.st||{})){
+        if(!RQ_IDS.includes(id)||!st||typeof st!=='object'||typeof st.stage!=='string')continue;
+        const o={};
+        for(const [k,v] of Object.entries(st).slice(0,40)){
+          if(typeof v==='boolean'||Number.isInteger(v))o[k]=v;
+          else if(typeof v==='string')o[k]=v.slice(0,60);
+          else if(Array.isArray(v))o[k]=v.filter(x=>typeof x==='string').slice(0,12).map(x=>x.slice(0,40));
+        }
+        out.st[id]=o;
+      }
+      if(raw.dead&&RQ_IDS.includes(raw.dead.id))out.dead={id:raw.dead.id};
+      return out;
+    }
+    const rqThread=(id,who)=>{const t=hingeThreads.get(who||rqKit()?.[id]?.host);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
+    // The woman a room quest is waiting on likes you back, and won't nudge or block you while it's on.
+    function rqLikesYou(id){return Object.values(rqState().st).some(st=>(st.stage==='deck'&&st.host===id)||(st.stage==='rival'&&st.rival===id&&!st.rivalMet));}
+    function rqHolds(id){return Object.values(rqState().st).some(st=>!RQ_OVER.includes(st.stage)&&(st.host===id||st.rival===id));}
+    function rqImages(id){return Object.entries(RQ_PICS).filter(([q])=>rqKit()?.[q]&&[rqKit()[q].host,rqKit()[q].rival].includes(id)).flatMap(([,pics])=>Object.values(pics));}
+    // A picture the quest needs: until it's drawn, one of her own stands in (NEW_IMAGE_REQUESTS.md).
+    function rqPicture(thread,profile,path,text){
+      const own=profile?.privatePhotos||[],fb=own.length?own[hashSeed(world.seed+'|rqfb|'+path)%own.length].src:profile?.gallery?.[0]||null;
+      thread.log.push({who:'her',text:text||'',image:path,...(fb?{fb}:{})});
+      rqSpoke(thread);
+    }
+    // A room quest's message is her message for the morning: no good-morning or flirty text on top of it.
+    function rqSpoke(thread){const ts=talkState(thread);ts.unread=true;ts.morningDay=world.day;ts.musedDay=world.day;}
+    function rqHook(id){
+      const kit=rqKit()[id],st=rqs(id),thread=rqThread(id),profile=hingeProfile(st.host);
+      if(!thread||!profile||thread.awaiting||thread.ghosted||thread.pending||thread.followUp)return false;
+      lineSpeaker=profile.id;
+      herLine(thread,rqT(kit.hook));rqSpoke(thread);
+      st.stage='hook';st.hookDay=world.day;
+      return true;
+    }
+    function rqStart(id){
+      const kit=rqKit()?.[id],r=rqState();
+      if(!kit||r.st[id])return r.st[id]||null;
+      if(id==='hotline'){
+        r.st[id]={stage:'ad',day:world.day,number:unusedContactNumber(),calls:0,callDay:0};
+        queueNews(rqAdItem(),world.day);
+        return r.st[id];
+      }
+      const t=hingeThreads.get(kit.host);
+      if(!hingeProfile(kit.host)||(t&&(t.blocked||t.unmatched||t.left||t.missing||t.fumbled))){r.st[id]={stage:'skipped',day:world.day};return r.st[id];}
+      const st=r.st[id]={stage:'deck',host:kit.host,day:world.day,deckDay:world.day};
+      if(kit.rival)st.rival=kit.rival;
+      if(t)rqHook(id);else deckSoon(kit.host,'rq'); // she turns up in your swipes
+      return st;
+    }
+    // A match the quest was waiting on: she starts straight away (Caroline sends her bed).
+    function rqOnMatch(id){
+      for(const q of RQ_IDS){
+        const st=rqs(q);
+        if(st?.stage==='deck'&&st.host===id)rqHook(q);
+        if(q==='openhouse'&&st?.stage==='rival'&&st.rival===id&&!st.rivalMet)rqRivalMet(st);
+      }
+    }
+    // Each morning: start what's due and move the stories on.
+    function rqNewDay(){
+      if(!rqKit())return;
+      for(const id of rqOn()){
+        const st=rqs(id),kit=rqKit()[id];
+        if(!st){if(world.day>=rqStartDay(id))rqStart(id);continue;}
+        if(RQ_OVER.includes(st.stage))continue;
+        if(st.stage==='deck'){
+          const t=hingeThreads.get(st.host);
+          if(t&&(t.blocked||t.unmatched||t.left)){st.stage='skipped';continue;}
+          if(t){if(!rqHook(id)&&world.day>st.day+7)st.stage='skipped';continue;}
+          if(world.day>st.day+7){st.stage='skipped';continue;}
+          if(world.day-st.deckDay>=2){st.deckDay=world.day;deckSoon(st.host,'rq');}
+          continue;
+        }
+        if(st.stage==='hook'&&world.day>st.hookDay+3){st.stage='done';continue;} // she asked and you never said
+        if(id==='robe')rqRobeDay(st,kit);
+        else if(id==='openhouse')rqHouseDay(st,kit);
+        else if(id==='hotline')rqHotlineDay(st,kit);
+      }
+    }
+    function rqAfterDayStart(){
+      if(!rqKit())return false;
+      for(const id of RQ_IDS){const st=rqs(id);if(st&&Number.isInteger(st.dieDay)&&world.day>=st.dieDay&&st.stage!=='gone'){rqDeath(id);return true;}}
+      return false;
+    }
+    function rqDeath(id){
+      rqState().dead={id};
+      if(rqs(id))rqs(id).stage='gone';
+      rqDeathScreen();
+      saveRun(true);
+    }
+    function rqDeathScreen(){
+      const id=rqState().dead?.id,kit=rqKit()?.[id],d=id==='robe'?kit?.celeste:kit;
+      if(!d?.deaths)return;
+      stopRinging();herCall=null;
+      drawDeathTitle(d.deathCause,'KILLED');
+      $('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|rqdeath|'+id)%d.deaths.length];
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // ----- her chat
+    function rqChoices(thread,profile){
+      const kit=rqKit(),out=[];
+      if(!kit||!profile)return out;
+      for(const id of RQ_IDS){
+        const st=rqs(id);
+        if(st?.stage==='hook'&&st.host===profile.id)out.push([`rq:${id}:yes`,kit[id].yes.label],[`rq:${id}:no`,kit[id].no.label]);
+      }
+      const h=rqs('openhouse');
+      if(h?.stage==='dare'&&h.host===profile.id&&h.await==='pick')for(const spot of ['bed','tub','closet'].filter(s=>!(h.seen||[]).includes(s)))out.push([`rq:openhouse:pick:${spot}`,kit.openhouse.pick.label[spot]]);
+      if(h?.stage==='rematch'){
+        if(profile.id===h.host)out.push(['rq:openhouse:choose:olivia',kit.openhouse.choose.olivia.label]);
+        if(profile.id===h.rival&&h.rivalMet)out.push(['rq:openhouse:choose:caroline',kit.openhouse.choose.caroline.label]);
+      }
+      return out;
+    }
+    function chooseRq(choice,thread,profile){
+      const [,id,act,arg]=choice.split(':'),kit=rqKit()?.[id],st=rqs(id);
+      if(!kit||!st)return;
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[reply],'talk',after,true);};
+      if(st.stage==='hook'&&st.host===profile.id&&(act==='yes'||act==='no')){
+        if(act==='no'){st.stage='done';warmBy(thread,-1);return say(kit.no.player,rqT(kit.no.reply));}
+        if(id!=='openhouse'&&!thread.number)thread.number=unusedContactNumber(); // she rings you
+        warmBy(thread,1);
+        if(id==='robe')Object.assign(st,{stage:'calls',call:0,nextCall:world.day,right:0});
+        if(id==='openhouse')Object.assign(st,{stage:'dare',seen:[],dareDay:world.day+1,await:''});
+        if(id==='spotter')Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
+        return say(kit.yes.player,fillIn(rqT(kit.yes.reply),{number:thread.number||''}),()=>ensureCallSchedule());
+      }
+      if(id==='openhouse'&&act==='pick'&&st.stage==='dare'&&st.await==='pick'&&['bed','tub','closet'].includes(arg)&&!st.seen.includes(arg)){
+        st.await='';st.next=arg;st.dareDay=world.day+1;
+        return say(kit.pick.player[arg],kit.pick.reply);
+      }
+      if(id==='openhouse'&&act==='choose'&&st.stage==='rematch'&&(arg==='olivia'?profile.id===st.host:profile.id===st.rival&&st.rivalMet))return rqHouseChoose(arg,thread,profile);
+    }
+    // ----- Diana's robe
+    function rqRobeDay(st,kit){
+      if(['calls','hook'].includes(st.stage)&&!rqThread('robe')){st.stage='done';return;}
+      const t=rqThread('robe'),c=kit.celeste;
+      if(st.stage==='after'&&world.day>=st.afterDay){
+        if(t){
+          lineSpeaker=st.host;
+          if(st.after==='joke'){herLine(t,c.after.joke,{block:true});t.blocked=true;}
+          else{herLine(t,rqT(c.after[st.after]));if(st.after==='not'&&tone()==='truecel')warmBy(t,-1);if(st.after==='hang'&&tone()==='mogger')warmBy(t,1);}
+          rqSpoke(t);
+        }
+        st.stage='done';
+      }
+      if(st.stage==='ribbon'&&Number.isInteger(st.votedDay)&&world.day>=st.votedDay){
+        if(t){lineSpeaker=st.host;herLine(t,rqT(c.voted));rqSpoke(t);warmBy(t,1);heatBy(t,1);}
+        st.stage='done';
+      }
+    }
+    // ----- Olivia's open house
+    function rqHouseDay(st,kit){
+      const t=rqThread('openhouse'),p=hingeProfile(st.host);
+      if(st.stage==='dare'){
+        if(!t){st.stage='done';return;}
+        if(st.await==='pick'){if(world.day>st.pickDay+2)st.stage='done';return;} // you stopped answering
+        if(world.day<st.dareDay)return;
+        const seen=st.seen||(st.seen=[]),spot=!seen.length?'island':seen.length>=3?'master':st.next;
+        if(!spot)return;
+        lineSpeaker=st.host;
+        rqPicture(t,p,RQ_PICS.openhouse[spot],kit.spots[spot]);
+        seen.push(spot);st.next=null;
+        if(spot==='master'){herLine(t,rqT(kit.masterAfter));st.stage='twist';st.twistDay=world.day+1;return;}
+        if(seen.length<3){herLine(t,rqT(kit.after));st.await='pick';st.pickDay=world.day;}
+        else st.dareDay=world.day+1; // the last house comes tomorrow
+        return;
+      }
+      if(st.stage==='rival'&&world.day>st.rivalDay+3&&!st.rivalMet){st.stage='rematch';st.rematchDay=world.day;return;}
+      if(st.stage==='rematch'){
+        const c=rqThread('openhouse',st.rival);
+        if(st.rivalMet&&c&&st.courtDay===world.day){lineSpeaker=st.rival;rqPicture(c,hingeProfile(st.rival),RQ_PICS.openhouse.court,rqT(kit.caroline.court));}
+        if(world.day>st.rematchDay+4)st.stage='done'; // you never chose
+        return;
+      }
+      if(st.stage==='after'&&world.day>=st.afterDay){
+        if(st.choice==='olivia'&&t&&tone()!=='truecel'){lineSpeaker=st.host;herLine(t,rqT(kit.fired));rqSpoke(t);}
+        st.stage='done';
+      }
+    }
+    function rqRivalMet(st){
+      const kit=rqKit().openhouse,c=hingeThreads.get(st.rival),p=hingeProfile(st.rival);
+      if(!c||!p)return;
+      lineSpeaker=st.rival;
+      rqPicture(c,p,RQ_PICS.openhouse.cbed,rqT(kit.caroline.bed));
+      Object.assign(st,{rivalMet:true,stage:'rematch',rematchDay:world.day,courtDay:world.day+1});
+    }
+    function rqHeard(st){
+      const t=rqThread('openhouse');
+      if(t){lineSpeaker=st.host;herLine(t,rqT(rqKit().openhouse.heard));}
+    }
+    // You choose: the winner's reply, the loser's revenge in tomorrow's paper. On Truecel it was a game to them both.
+    function rqHouseChoose(arg,thread,profile){
+      const kit=rqKit().openhouse,st=rqs('openhouse'),other=arg==='olivia'?'caroline':'olivia',cruel=tone()==='truecel';
+      const otherThread=rqThread('openhouse',arg==='olivia'?st.rival:st.host);
+      Object.assign(st,{choice:arg,stage:'after',afterDay:world.day+1});
+      thread.log.push({who:'you',text:kit.choose[arg].player});
+      deliverTalk(thread,profile,[rqT(kit.won[arg])],'talk',()=>{
+        if(cruel){thread.log[thread.log.length-1].block=true;thread.blocked=true;}
+        else{warmBy(thread,tone()==='mogger'?2:1);heatBy(thread,tone()==='mogger'?3:2);}
+      },true);
+      if(otherThread){lineSpeaker=otherThread.id;herLine(otherThread,rqT(kit.lost[other]),cruel?{block:true}:{});if(cruel)otherThread.blocked=true;else warmBy(otherThread,-2);}
+      const story=arg==='olivia'?'fired':'ridge';
+      queueNews({id:'rq_house_'+story,...kit.news[story],image:story==='fired'?'realtor_fired':'ridge_house',fallbackImage:'local_ad'},world.day+1);
+    }
+    // ----- the hotline
+    function rqAdItem(){
+      const kit=rqKit().hotline,st=rqs('hotline');
+      return {id:'rq_hotline_ad',section:kit.ad.section,title:kit.ad.title,summary:kit.ad.summary,body:fillIn(kit.ad.body,{number:st.number}),image:'hotline_ad',fallbackImage:'classifieds'};
+    }
+    function rqHotlineDay(st){
+      if(st.stage==='ad'&&world.day>st.day+7)st.stage='done'; // the ad stopped running
+      if(st.stage==='calls'&&st.calls>=3&&world.day>st.callDay)st.stage='done'; // she quit
+    }
+    function rqMetJessica(){const t=hingeThreads.get(rqKit()?.hotline?.host);return !!t&&((talkState(t).days||[]).length>0||(t.topics||[]).length>0);}
+    function rqHotlineLine(number){
+      const st=rqs('hotline'),kit=rqKit()?.hotline;
+      if(!st?.number||!kit||st.number!==String(number))return null;
+      const open=['ad','calls'].includes(st.stage);
+      return {id:'service:hotline',name:kit.line,portrait:'assets/contacts/hotline.png',generic:true,greeting:!open?kit.closed:st.callDay===world.day?kit.busy:rqT(kit.greeting)};
+    }
+    function rqServiceTopics(serviceId){
+      const st=rqs('hotline'),kit=rqKit()?.hotline;
+      if(serviceId!=='service:hotline'||!st||!kit||!['ad','calls'].includes(st.stage)||st.callDay===world.day)return [];
+      const out=[];
+      if(st.calls<kit.topics.length)out.push({id:'rq:hotline:talk',label:kit.topics[st.calls].label,rq:true});
+      out.push({id:'rq:hotline:name',label:kit.name.label,rq:true});
+      if(st.calls>=2&&rqMetJessica())out.push({id:'rq:hotline:know',label:kit.know.label,rq:true}); // only if you've met her
+      return out;
+    }
+    function chooseRqService(id){
+      const st=rqs('hotline'),kit=rqKit().hotline,act=id.split(':')[2];
+      if(!st)return '';
+      if(act==='name')return kit.name.reply;
+      if(act==='talk'){
+        const topic=kit.topics[st.calls];
+        if(!topic)return kit.closed;
+        st.calls++;st.callDay=world.day;st.stage='calls';
+        recordClue(topic.clue);
+        if(st.calls===2&&!Number.isInteger(st.billDay))st.billDay=world.day+1;
+        let reply=rqT(topic.reply);
+        if(st.calls>=kit.topics.length&&!rqMetJessica()){reply+=' '+rqT(kit.goodbye);st.stage='done';}
+        return reply;
+      }
+      if(act==='know'&&st.calls>=2&&rqMetJessica()){
+        const t=hingeThreads.get(kit.host),p=hingeProfile(kit.host);
+        const yes=tone()==='mogger'||(tone()==='normie'&&hashSeed(world.seed+'|candy')%2===0);
+        Object.assign(st,{stage:'done',outed:yes?'yes':'no',callDay:world.day});
+        if(t&&p&&!t.blocked){
+          lineSpeaker=p.id;
+          if(yes){herLine(t,rqT(kit.chat.yes));rqPicture(t,p,RQ_PICS.hotline.counter,'');warmBy(t,tone()==='mogger'?2:1);heatBy(t,2);}
+          else{herLine(t,rqT(kit.chat.no),{block:true});t.blocked=true;}
+        }
+        return rqT(yes?kit.outed.yes:kit.outed.no);
+      }
+      return '';
+    }
+    // ----- the phone: Diana, Celeste Van Doren, Caroline Prescott, Lauren
+    function rqCallCard(id){
+      const kit=rqKit(),which=RQ_CALLERS[id];
+      if(id==='x:rq-celeste'){const known=!!rqs('robe')?.celesteKnown,name=known?kit.robe.celeste.name:'Unknown number';return {id,name,gallery:['assets/contacts/celeste.png'],banner:'assets/contacts/celeste.png',ringName:name,sub:'Mobile'};}
+      if(id==='x:rq-caroline'){const known=!!rqs('openhouse')?.carolineKnown;return {id,name:known?kit.openhouse.caroline.name:'Unknown number',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Unknown number',sub:'Mobile'};}
+      const p=hingeProfile(kit?.[which]?.host),face=p?.gallery?.[0]||'assets/icons/calls.png';
+      return {id,name:p?.name||'Unknown number',gallery:[face],banner:face,ringName:p?.name||'Unknown number',sub:'Mobile'};
+    }
+    function rqCallerDue(){
+      if(!rqKit())return null;
+      const r=rqs('robe'),h=rqs('openhouse'),s=rqs('spotter');
+      if(r?.stage==='calls'&&r.callDay!==world.day&&world.day>=r.nextCall&&rqThread('robe'))return 'x:rq-robe';
+      if(r?.stage==='committee'&&r.callDay!==world.day&&world.day>=r.celesteDay)return 'x:rq-celeste';
+      if(h?.stage==='twist'&&h.callDay!==world.day&&world.day>=h.twistDay)return 'x:rq-caroline';
+      if(s?.stage==='sessions'&&s.callDay!==world.day&&world.day>=s.nextCall&&s.session<3&&rqThread('spotter'))return 'x:rq-spotter';
+      return null;
+    }
+    function rqRang(id){const st=rqs(RQ_CALLERS[id]);if(st)st.callDay=world.day;}
+    function rqAnswer(id){
+      const which=RQ_CALLERS[id],kit=rqKit()[which],st=rqs(which),call={id,stranger:true,kind:'rq',rq:which,step:'open',said:''};
+      if(id==='x:rq-robe'){
+        const t=rqThread('robe');if(t)t.calledDay=world.day;
+        if(!st.call){call.phase='first';call.said=rqT(kit.call1.said);}
+        else{call.phase='cue';call.cue=Math.min(2,st.call-1);call.said=kit.cues[call.cue].said;}
+      }else if(id==='x:rq-celeste'){st.celesteKnown=true;call.phase='celeste';call.said=rqT(kit.celeste.open);}
+      else if(id==='x:rq-caroline'){st.carolineKnown=true;st.still=true;call.phase='caroline';call.said=rqT(kit.caroline.open);}
+      else{
+        const t=rqThread('spotter');if(t)t.calledDay=world.day;
+        const sess=kit.sessions[st.session];
+        call.phase='session';call.said=sess.move==='pull'&&!st.bar?sess.noBar:rqT(sess.open);
+      }
+      return call;
+    }
+    function rqCallChoices(call){
+      const kit=rqKit()[call.rq];
+      if(call.phase==='first')return [{id:'rq:send',label:kit.call1.send.label},{id:'rq:hang',label:'Hang up'}];
+      if(call.phase==='cue'){
+        const cue=kit.cues[call.cue],keys=['right','wrong','dirty'],shift=hashSeed(world.seed+'|cue|'+call.cue)%3;
+        return keys.map((_,i)=>keys[(i+shift)%3]).map(k=>({id:'rq:'+k,label:k==='dirty'?kit.cueLabels.dirty:cue[k]}));
+      }
+      if(call.phase==='celeste')return ['available','not','hang'].map(k=>({id:'rq:'+k,label:kit.celeste.choices[k]}));
+      if(call.phase==='caroline')return ['what','sorry','hang'].map(k=>({id:'rq:'+k,label:kit.caroline.choices[k]}));
+      if(call.phase==='session')return ['go','safe','hang'].map(k=>({id:'rq:'+k,label:kit.choices[k]}));
+      return [{id:'hangup',label:'☎ Hang up'}];
+    }
+    function rqChooseCall(call,choice){
+      const which=call.rq,kit=rqKit()[which],st=rqs(which);
+      if(!st)return;
+      const done=()=>{call.step='bye';saveRun(true);renderCalls();};
+      const thread=rqThread(which);
+      if(call.phase==='first'){
+        if(choice==='rq:hang'){st.stage='done';if(thread){lineSpeaker=st.host;herLine(thread,rqT(kit.call1.hang));}endHerCall();return;}
+        Object.assign(st,{call:1,nextCall:world.day+1,parcelDay:world.day+1});
+        call.said=rqT(kit.call1.send.reply);return done();
+      }
+      if(call.phase==='cue'){
+        const k=choice.slice(3);
+        const good=k==='right'||(k==='dirty'&&(tone()==='mogger'||(tone()==='normie'&&hashSeed(world.seed+'|dirty|'+call.cue)%2===0)));
+        if(good){st.right=(st.right||0)+1;if(thread){warmBy(thread,1);heatBy(thread,1);}}
+        call.said=k==='dirty'?rqT(good?kit.dirty.win:kit.dirty.lose):good?rqT(kit.right)[call.cue]:rqT(kit.wrong);
+        st.call++;st.nextCall=world.day+1;
+        if(st.call>3){
+          Object.assign(st,{stage:'committee',celesteDay:world.day+1});
+          if(thread&&(st.right||0)>=2){lineSpeaker=st.host;rqPicture(thread,hingeProfile(st.host),RQ_PICS.robe.table,rqT(kit.picture));}
+        }
+        return done();
+      }
+      if(call.phase==='celeste'){
+        const c=kit.celeste;
+        if(choice==='rq:hang'){Object.assign(st,{stage:'after',after:'hang',afterDay:world.day+1});strangerVoicemail(c.name,c.vm);queueNews({id:'rq_celeste_hang',...c.news.hang,image:'society_club',fallbackImage:'charity_gala'},world.day+1);endHerCall();return;}
+        if(choice==='rq:not'){call.said=rqT(c.not);Object.assign(st,{stage:'after',after:'not',afterDay:world.day+1});return done();}
+        call.said=rqT(c.available);
+        if(tone()==='truecel'){Object.assign(st,{stage:'after',after:'joke',afterDay:world.day+1});queueNews({id:'rq_celeste_joke',...c.news.joke,image:'society_club',fallbackImage:'charity_gala'},world.day+1);}
+        else{Object.assign(st,{stage:'ribbon',ribbonDay:world.day+1});if(hashSeed(world.seed+'|family')%2===0)st.dieDay=world.day+2;else st.votedDay=world.day+2;} // voted in: the family, or the blue ribbon
+        return done();
+      }
+      if(call.phase==='caroline'){
+        Object.assign(st,{stage:'rival',rivalDay:world.day,still:true});deckSoon(st.rival,'rq');rqHeard(st);
+        if(choice==='rq:hang'){strangerVoicemail(kit.caroline.name,kit.caroline.vm);endHerCall();return;}
+        call.said=choice==='rq:sorry'?kit.caroline.sorry:rqT(kit.caroline.what);
+        return done();
+      }
+      if(call.phase==='session'){
+        if(choice==='rq:safe'){call.said=kit.safe;st.stage='done';if(thread)warmBy(thread,1);return done();} // she stops, every time
+        endHerCall();
+        if(choice==='rq:hang'){rqSpotterMiss(st,kit,rqT(kit.hangText));return;}
+        rqRepsStart(st.session);
+      }
+    }
+    function rqMissed(id){
+      const which=RQ_CALLERS[id],kit=rqKit()[which],st=rqs(which);
+      if(!st)return;
+      if(id==='x:rq-robe'){st.nextCall=world.day+1;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',rqT(kit.missedVm));}
+      else if(id==='x:rq-celeste'){
+        st.celesteMissed=(st.celesteMissed||0)+1;st.celesteDay=world.day+1;
+        strangerVoicemail('Unknown number',kit.celeste.missedVm);
+        if(st.celesteMissed>=2)Object.assign(st,{stage:'after',after:'not',afterDay:world.day+1});
+      }
+      else if(id==='x:rq-caroline'){Object.assign(st,{stage:'rival',rivalDay:world.day,still:true,carolineKnown:true});deckSoon(st.rival,'rq');rqHeard(st);strangerVoicemail(kit.caroline.name,kit.caroline.vm);}
+      else{strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',rqT(kit.missedVm));rqSpotterMiss(st,kit,null);}
+      saveRun(true);
+    }
+    // ----- Lauren: three mornings on her count
+    function rqSpotterMiss(st,kit,text){
+      const t=rqThread('spotter');
+      st.missed=(st.missed||0)+1;st.nextCall=world.day+1;
+      if(!t){st.stage='done';return;}
+      lineSpeaker=st.host;
+      if(text)herLine(t,text);
+      if(st.missed>=2){herLine(t,kit.quit);st.stage='done';warmBy(t,-1);}
+      saveRun(true);
+    }
+    let rqRun=null;
+    function rqRepsStart(index){
+      const kit=rqKit().spotter,st=rqs('spotter'),sess=kit.sessions[index];
+      if(!sess)return;
+      const pull=sess.move==='pull'&&!!st.bar,reps=sess.move==='pull'&&!st.bar?10:sess.reps;
+      const dies=pull&&hashSeed(world.seed+'|rqbar')%3===0; // the bar, the door frame, the building: no warning
+      rqRun={index,reps,hits:0,miss:0,pull,dieAt:dies?2+hashSeed(world.seed+'|rqbarat')%3:-1,window:{truecel:900,normie:1000,mogger:1200}[tone()]??1000,tire:{truecel:.6,normie:.45,mogger:.3}[tone()]??.45,open:false}; // arms tire: Truecel fastest, Mogger slowest
+      playScene([{image:pull?RQ_PICS.spotter.bar:RQ_PICS.spotter.floor,stand:'room',caption:kit.scene[pull?'pull':'push']}],()=>rqRepNext(),{keep:true,gap:1700});
+    }
+    function rqRepNext(){
+      const run=rqRun,kit=rqKit().spotter;
+      if(!run)return;
+      if(run.hits>=run.reps){rqRepsDone();return;}
+      const q=$('qte');
+      qteOpen=true;run.open=true;
+      q.className='qte';q.hidden=false;
+      // Your arms tire as the set goes on: less time to tap, and the button shakes harder.
+      const spent=run.hits/Math.max(1,run.reps);
+      run.cur=Math.round(run.window*(1-run.tire*spent));
+      q.innerHTML=`<button class="rq-rep" data-rq-rep style="--shake:${(run.tire*spent*22).toFixed(1)}px">${esc(kit.down[run.pull?'pull':'push'])}</button>`;
+      const button=q.querySelector('[data-rq-rep]');
+      if(button)button.onpointerdown=event=>{event.preventDefault?.();rqRepTap();};
+      window.clearTimeout(qteTimer);
+      qteTimer=window.setTimeout(rqRepMiss,run.cur);
+      invasionTimers.push(qteTimer);
+    }
+    function rqRepTap(){
+      const run=rqRun,kit=rqKit()?.spotter;
+      if(!run||!run.open)return;
+      run.open=false;window.clearTimeout(qteTimer);
+      const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
+      run.hits++;
+      const count=rqT(kit.count);
+      $('invasion-caption').textContent=count[(run.hits-1)%count.length];
+      playUiSound(260+run.hits*12);
+      if(run.hits===run.dieAt){rqRun=null;invasionTimers.push(window.setTimeout(()=>{clearInvasion();rqDeath('spotter');},700));return;}
+      invasionTimers.push(window.setTimeout(rqRepNext,750));
+    }
+    function rqRepMiss(){
+      const run=rqRun,kit=rqKit()?.spotter;
+      if(!run||!run.open)return;
+      run.open=false;run.miss++;
+      const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
+      if(run.miss>=3){ // she gives up on you for today
+        $('invasion-caption').textContent=kit.fail;
+        const st=rqs('spotter');st.nextCall=world.day+1;rqRun=null;
+        invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},2600));
+        return;
+      }
+      const miss=rqT(kit.miss);
+      $('invasion-caption').textContent=miss[(run.miss-1)%miss.length];
+      invasionTimers.push(window.setTimeout(rqRepNext,1000));
+    }
+    function rqRepsDone(){
+      const run=rqRun,kit=rqKit().spotter,st=rqs('spotter'),t=rqThread('spotter'),p=hingeProfile(st.host);
+      rqRun=null;
+      $('invasion-caption').textContent=rqT(kit.done)[run.index];
+      st.session=run.index+1;st.nextCall=world.day+1;
+      if(t){
+        warmBy(t,1);heatBy(t,1);lineSpeaker=st.host;
+        if(run.index===1)rqPicture(t,p,RQ_PICS.spotter.whistle,rqT(kit.picture.whistle));
+        if(run.index===2){rqPicture(t,p,RQ_PICS.spotter.bench,rqT(kit.picture.bench));warmBy(t,1);heatBy(t,3);}
+      }
+      if(st.session>=3)st.stage='done';
+      invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},3000));
+    }
+    // ----- things on your doorstep
+    function rqItems(){
+      const kit=rqKit(),out=[];
+      if(!kit)return out;
+      const r=rqs('robe'),h=rqs('openhouse'),l=rqs('hotline'),s=rqs('spotter');
+      if(r&&Number.isInteger(r.parcelDay)&&world.day>=r.parcelDay)out.push({id:'rq:robe',door:true,floor:'parcel',label:kit.robe.parcel.label,short:'Robe',image:'assets/items/diana-parcel.png',text:kit.robe.parcel.text,actions:r.wearing?[]:[{id:'rq:robe:wear',label:kit.robe.parcel.wear.label}]});
+      if(r&&Number.isInteger(r.ribbonDay)&&world.day>=r.ribbonDay)out.push({id:'rq:ribbon',door:true,floor:'envelope',label:kit.robe.celeste.ribbon.label,short:'Ribbon',image:'assets/items/blue-ribbon-card.png',text:kit.robe.celeste.ribbon.text});
+      if(h?.still)out.push({id:'rq:still',door:true,floor:'letter',label:kit.openhouse.caroline.still.label,short:'Still',image:'assets/items/cctv-still.png',text:kit.openhouse.caroline.still.text});
+      if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:null,text:kit.hotline.bill.text});
+      if(s&&Number.isInteger(s.parcelDay)&&world.day>=s.parcelDay)out.push({id:'rq:spotter',door:true,floor:'shoebox',label:kit.spotter.parcel.label,short:'Pig nose',image:'assets/items/lauren-box.png',text:kit.spotter.parcel.text,actions:[...(s.nose?[]:[{id:'rq:spotter:nose',label:kit.spotter.parcel.nose.label}]),...(s.bar?[]:[{id:'rq:spotter:bar',label:kit.spotter.parcel.bar.label}])]});
+      return out;
+    }
+    function rqCupAct(act){
+      const kit=rqKit(),r=rqs('robe'),s=rqs('spotter');
+      if(act==='rq:robe:wear'&&r){r.wearing=true;showGameNotice(rqT(kit.robe.parcel.wear.notice));}
+      else if(act==='rq:spotter:nose'&&s){s.nose=true;showGameNotice(rqT(kit.spotter.parcel.nose.notice));}
+      else if(act==='rq:spotter:bar'&&s){s.bar=true;showGameNotice(kit.spotter.parcel.bar.notice);}
+      else return;
+      renderCupboard();saveRun(true);
+    }
+    // Testing menu: start one now (she messages you, or the ad is in today's paper).
+    function rqTestStart(id){
+      if(!rqKit())return;
+      const r=rqState();
+      if(!Array.isArray(r.on))rqOn();
+      if(!r.on.includes(id))r.on.push(id);
+      delete r.st[id];
+      if(id==='hotline'){
+        rqStart(id);
+        const edition=getNewsEdition();if(!edition.items.some(item=>item.id==='rq_hotline_ad'))edition.items.push(rqAdItem());
+        saveRun(true);setLowered(false);openApp('news');
+        updateRunStatus('Preview: the Sunfall After Dark ad is in today’s paper. Ring the number. Meet Jessica Rivera on Hinge first if you want to unmask Candy.');
+        return;
+      }
+      const kit=rqKit()[id],profile=hingeProfile(kit.host);
+      if(!profile)return;
+      const t=hingeThreads.get(kit.host)||ensureHingeThread(profile,'now');
+      Object.assign(t,{blocked:false,unmatched:false,left:false,fumbled:false,awaiting:false,ghosted:false,pending:false,followUp:null});
+      if(warmthOf(t)<1)t.warmth=1;
+      r.st[id]={stage:'deck',host:kit.host,day:world.day,deckDay:world.day,...(kit.rival?{rival:kit.rival}:{})};
+      rqHook(id);
+      saveRun(true);closeCupboard();setLowered(false);hingeView='thread';activeChatId=kit.host;openApp('hinge');
+      updateRunStatus(`Preview: ${profile.name} has messaged you (${kit.title}).`);
+    }
     // ---------- Her own story (character_database.json talk.stories) ----------
     // Each run some women have something going on in their lives. She brings it up herself one
     // morning once you've talked a little (or on the phone, or when you ask about her family). You
@@ -6039,6 +6583,7 @@
     function ignoreHolds(thread,profile){
       if(!profile||thread.id===bearHingeCard.id||mustReply(profile))return true;
       if(thread.id===CALLER_ID&&callerActive())return true; // Moira does her own thing
+      if(rqHolds(thread.id))return true; // a room quest with her
       if((world.spurn?.[thread.id]?.n||0)>0||['plead','spite','done'].includes(world.spurn?.[thread.id]?.mood))return true; // she's ringing and you keep declining: that has its own ending
       if(['dilemma','waiting','errand'].includes(arcsState().st?.[thread.id]?.stage))return true;
       return Object.entries(minisState().st||{}).some(([id,st])=>miniLive(id)&&Object.values(st).some(v=>v===thread.id||(Array.isArray(v)&&v.includes(thread.id))));
@@ -6069,6 +6614,7 @@
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       miniNewDay(); // the mini quests
+      rqNewDay(); // the room quests
       quietNewDay(); // conversations run out
       laterNewDay(); // answers she slept on
       lifeNewDay(); // her life moves on
@@ -7602,6 +8148,7 @@
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
       items.push(...miniItems()); // mini quests: on your doorstep
+      items.push(...rqItems()); // room quests: Diana's parcel, the ribbon, Caroline's still, the bill, Lauren's box
       items.push(...halItems()); // Undeniable: his parcel, the library book, the shoebox
       for(const item of arcsState().items)items.push({id:item.id,door:true,floor:/card|postcard|letter|note|photo|ticket/i.test(item.label)?'letter':'parcel',label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
@@ -7839,6 +8386,7 @@
         if(act.dataset.cupAct==='take-lpc2'){takeGlow2();return;} // Never two
         if(act.dataset.cupAct.startsWith('hal:')){halCupAct(act.dataset.cupAct);return;} // Undeniable
         if(act.dataset.cupAct.startsWith('mini:')){miniCupAct(act.dataset.cupAct);return;} // mini quests
+        if(act.dataset.cupAct.startsWith('rq:')){rqCupAct(act.dataset.cupAct);return;} // room quests
         if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
         else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
         else if(act.dataset.cupAct==='connect'){connectItems(cupboardPicked);return;}
@@ -7894,6 +8442,7 @@
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
+      {const h=rqs('hotline');if(h?.seen&&h.number&&rqKit())list.push({key:'service:hotline',name:rqKit().hotline.line,detail:'From the classifieds',number:h.number,portrait:'assets/contacts/hotline.png',fallback:'assets/icons/calls.png'});} // room quests: the hotline
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
       for(const thread of hingeThreads.values()){
         if(!thread.number)continue;
@@ -8053,7 +8602,7 @@
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
@@ -8073,8 +8622,8 @@
         const entries=Array.isArray(saved.threads)?saved.threads.filter(entry=>Array.isArray(entry)&&ids.has(entry[0])):[];
         hingeThreads=new Map(entries.map(([id,raw])=>{
           const profile=ids.get(id);
-          const allowedImages=new Set([...profile.gallery,...(profile.privatePhotos||[]).map(photo=>photo.src)]);
-          const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{}),...(typeof line.shot==='string'?{shot:line.shot.slice(0,20)}:{}),...(line.block?{block:true}:{})})):[];
+          const allowedImages=new Set([...profile.gallery,...(profile.privatePhotos||[]).map(photo=>photo.src),...rqImages(id)]); // room quests: their pictures too
+          const log=Array.isArray(raw.log)?raw.log.filter(line=>line&&typeof line.text==='string').slice(-150).map(line=>({who:line.who==='you'?'you':'her',text:line.text.slice(0,1500),...(allowedImages.has(line.image)?{image:line.image,...(typeof line.fb==='string'&&allowedImages.has(line.fb)?{fb:line.fb}:{})}:{}),...(brScrapIndex.has(line.evidence)?{evidence:line.evidence}:{}),...(typeof line.shot==='string'?{shot:line.shot.slice(0,20)}:{}),...(line.block?{block:true}:{})})):[];
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
@@ -8114,6 +8663,7 @@
         if(world.policeArrested){showPoliceArrestDeath();return true;}
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
         if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
+        if(world.rq?.dead){rqDeathScreen();return true;} // a room quest
         if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
         if(world.halloran?.dead){halDeathScreen();return true;} // Undeniable
         if(world.halloran?.shot==='down')playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true}); // he's still in your doorway
@@ -8324,7 +8874,12 @@
       Object.assign(policeWarnState(),{stage:'due',day:world.day,reason:'asking',called:false});
       testRing('x:police');
       updateRunStatus('Preview: Sunfall Police are ringing with a warning. A second report now means arrest.');
-    };
+    };    // Room quests: start one now, on the current difficulty
+    $('rq-robe-preview').onclick=()=>rqTestStart('robe');
+    $('rq-house-preview').onclick=()=>rqTestStart('openhouse');
+    $('rq-hotline-preview').onclick=()=>rqTestStart('hotline');
+    $('rq-spotter-preview').onclick=()=>rqTestStart('spotter');
+
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.
     $('marriage-preview').onclick=()=>{
       if(!marriage?.hasData()){updateRunStatus('The marriage storyline is still loading. Try again in a moment.');return;}
