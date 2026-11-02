@@ -32083,5 +32083,1699 @@
         "Five was always going to be one too many."
       ]
     }
+  },
+  "fetish": {
+    "kit": {
+      "tell": {
+        "yes": {
+          "label": "Tell her you’re into it",
+          "player": [
+            "I’m into it. Tell me more.",
+            "That doesn’t scare me. I like it.",
+            "Okay. I want to be the one who gives you that."
+          ]
+        },
+        "no": {
+          "label": "Tell her it’s too much",
+          "player": [
+            "That’s a bit much for me.",
+            "I don’t think I’m the man for that.",
+            "I’d rather keep it simple, honestly."
+          ]
+        }
+      },
+      "told": {
+        "yes": {
+          "mogger": [
+            "I knew you would be. Next time I send you something, you know what to say.",
+            "Good. I hoped it would be you. Don’t waste it."
+          ],
+          "normie": [
+            "Okay. Nobody’s said that and meant it before. Next time, then.",
+            "You mean it? Then next time, show me."
+          ],
+          "truecel": [
+            "Really? You? Huh. Next time, then. Don’t get it wrong.",
+            "We’ll see. Next time, prove it."
+          ]
+        },
+        "no": {
+          "mogger": [
+            "Shame. Forget I said anything.",
+            "Fine. It was a test anyway."
+          ],
+          "normie": [
+            "Right. Forget I said it. I shouldn’t have.",
+            "Okay. That’s fair. I feel a bit stupid now."
+          ],
+          "truecel": [
+            "Of course it’s too much for you. Forget it.",
+            "Figures. I don’t know why I told you."
+          ]
+        }
+      },
+      "give": {
+        "win": [
+          "That. Exactly that. Don’t say anything else, just stay there.",
+          "Nobody has ever done that right. You did it right.",
+          "I’m shaking. In a good way. Give me a minute.",
+          "Okay. You understand me. That’s terrifying. Do it again soon."
+        ],
+        "lose": [
+          "No. That’s not it. That’s not it at all.",
+          "You said the words but you didn’t mean them. I can tell.",
+          "That just made me feel stupid for telling you.",
+          "Wrong. Completely wrong. I’m going to bed."
+        ],
+        "block": [
+          "I told you something private and you made it a joke. Goodbye.",
+          "I shouldn’t have told you. I won’t make that mistake twice.",
+          "Never mind. Don’t message me again."
+        ]
+      }
+    },
+    "scores": {
+      "MATCH-001": [
+        2,
+        3
+      ],
+      "MATCH-002": [
+        3,
+        2
+      ],
+      "MATCH-003": [
+        5,
+        5
+      ],
+      "MATCH-004": [
+        3,
+        3
+      ],
+      "MATCH-005": [
+        3,
+        2
+      ],
+      "MATCH-006": [
+        4,
+        3
+      ],
+      "MATCH-007": [
+        2,
+        1
+      ],
+      "MATCH-008": [
+        3,
+        2
+      ],
+      "MATCH-009": [
+        2,
+        1
+      ],
+      "MATCH-010": [
+        3,
+        2
+      ],
+      "MATCH-011": [
+        4,
+        3
+      ],
+      "MATCH-012": [
+        2,
+        3
+      ],
+      "MATCH-013": [
+        2,
+        2
+      ],
+      "MATCH-014": [
+        3,
+        3
+      ],
+      "MATCH-015": [
+        2,
+        2
+      ],
+      "MATCH-016": [
+        2,
+        1
+      ],
+      "MATCH-017": [
+        4,
+        3
+      ],
+      "MATCH-018": [
+        2,
+        2
+      ],
+      "MATCH-019": [
+        3,
+        3
+      ],
+      "MATCH-020": [
+        3,
+        3
+      ],
+      "MATCH-021": [
+        3,
+        3
+      ],
+      "MATCH-022": [
+        2,
+        2
+      ],
+      "MATCH-023": [
+        2,
+        2
+      ],
+      "MATCH-024": [
+        3,
+        2
+      ],
+      "MATCH-025": [
+        2,
+        2
+      ],
+      "MATCH-026": [
+        2,
+        2
+      ],
+      "MATCH-027": [
+        2,
+        1
+      ],
+      "MATCH-028": [
+        3,
+        2
+      ],
+      "MATCH-029": [
+        3,
+        3
+      ],
+      "MATCH-030": [
+        3,
+        2
+      ],
+      "MATCH-031": [
+        3,
+        3
+      ],
+      "MATCH-032": [
+        4,
+        3
+      ],
+      "MATCH-033": [
+        2,
+        1
+      ],
+      "MATCH-034": [
+        3,
+        2
+      ],
+      "MATCH-035": [
+        2,
+        2
+      ],
+      "MATCH-036": [
+        2,
+        1
+      ],
+      "MATCH-037": [
+        4,
+        3
+      ],
+      "MATCH-038": [
+        3,
+        3
+      ],
+      "MATCH-039": [
+        3,
+        3
+      ],
+      "MATCH-040": [
+        2,
+        2
+      ],
+      "MATCH-041": [
+        3,
+        3
+      ],
+      "MATCH-042": [
+        5,
+        4
+      ],
+      "MATCH-043": [
+        5,
+        3
+      ],
+      "MATCH-044": [
+        2,
+        2
+      ],
+      "MATCH-045": [
+        3,
+        3
+      ],
+      "MATCH-046": [
+        3,
+        4
+      ],
+      "MATCH-047": [
+        3,
+        2
+      ],
+      "MATCH-048": [
+        4,
+        3
+      ],
+      "MATCH-049": [
+        2,
+        3
+      ],
+      "MATCH-050": [
+        2,
+        3
+      ],
+      "MATCH-051": [
+        3,
+        3
+      ],
+      "MATCH-052": [
+        5,
+        4
+      ],
+      "MATCH-053": [
+        4,
+        4
+      ],
+      "MATCH-054": [
+        1,
+        2
+      ],
+      "MATCH-055": [
+        4,
+        1
+      ],
+      "MATCH-056": [
+        3,
+        1
+      ],
+      "MATCH-057": [
+        1,
+        1
+      ],
+      "MATCH-058": [
+        4,
+        3
+      ],
+      "MATCH-059": [
+        4,
+        3
+      ],
+      "MATCH-060": [
+        3,
+        3
+      ],
+      "MATCH-061": [
+        3,
+        4
+      ],
+      "MATCH-062": [
+        4,
+        4
+      ],
+      "MATCH-063": [
+        4,
+        5
+      ],
+      "MATCH-064": [
+        3,
+        2
+      ],
+      "MATCH-065": [
+        3,
+        3
+      ],
+      "MATCH-066": [
+        3,
+        1
+      ],
+      "MATCH-067": [
+        4,
+        3
+      ],
+      "MATCH-068": [
+        5,
+        4
+      ],
+      "MATCH-069": [
+        4,
+        4
+      ],
+      "MATCH-070": [
+        2,
+        2
+      ],
+      "MATCH-071": [
+        3,
+        3
+      ],
+      "MATCH-072": [
+        4,
+        3
+      ],
+      "MATCH-073": [
+        2,
+        3
+      ],
+      "MATCH-074": [
+        2,
+        3
+      ],
+      "MATCH-075": [
+        4,
+        4
+      ],
+      "MATCH-076": [
+        2,
+        2
+      ],
+      "MATCH-077": [
+        3,
+        2
+      ],
+      "MATCH-078": [
+        4,
+        4
+      ],
+      "MATCH-079": [
+        3,
+        4
+      ],
+      "MATCH-080": [
+        1,
+        2
+      ],
+      "MATCH-081": [
+        2,
+        3
+      ],
+      "MATCH-082": [
+        3,
+        2
+      ],
+      "MATCH-083": [
+        4,
+        3
+      ],
+      "MATCH-084": [
+        2,
+        2
+      ],
+      "MATCH-085": [
+        5,
+        4
+      ],
+      "MATCH-086": [
+        2,
+        2
+      ],
+      "MATCH-087": [
+        2,
+        2
+      ],
+      "MATCH-088": [
+        4,
+        3
+      ],
+      "MATCH-089": [
+        5,
+        4
+      ],
+      "MATCH-090": [
+        3,
+        4
+      ],
+      "MATCH-091": [
+        5,
+        4
+      ],
+      "MATCH-092": [
+        3,
+        3
+      ],
+      "MATCH-093": [
+        3,
+        2
+      ],
+      "MATCH-094": [
+        3,
+        3
+      ],
+      "MATCH-095": [
+        2,
+        1
+      ],
+      "MATCH-096": [
+        4,
+        3
+      ],
+      "MATCH-097": [
+        4,
+        4
+      ],
+      "MATCH-098": [
+        3,
+        3
+      ],
+      "MATCH-099": [
+        2,
+        3
+      ],
+      "MATCH-100": [
+        4,
+        4
+      ],
+      "MATCH-101": [
+        4,
+        3
+      ],
+      "MATCH-102": [
+        3,
+        2
+      ],
+      "MATCH-103": [
+        3,
+        3
+      ],
+      "MATCH-104": [
+        3,
+        2
+      ],
+      "MATCH-105": [
+        3,
+        4
+      ],
+      "MATCH-106": [
+        2,
+        2
+      ],
+      "MATCH-107": [
+        3,
+        2
+      ],
+      "MATCH-108": [
+        2,
+        2
+      ],
+      "MATCH-109": [
+        3,
+        3
+      ],
+      "MATCH-110": [
+        3,
+        3
+      ],
+      "MATCH-111": [
+        4,
+        3
+      ],
+      "MATCH-112": [
+        3,
+        4
+      ],
+      "MATCH-113": [
+        3,
+        3
+      ],
+      "MATCH-114": [
+        3,
+        2
+      ],
+      "MATCH-115": [
+        1,
+        3
+      ],
+      "MATCH-116": [
+        2,
+        1
+      ],
+      "MATCH-117": [
+        2,
+        3
+      ],
+      "MATCH-118": [
+        2,
+        2
+      ],
+      "MATCH-119": [
+        3,
+        3
+      ],
+      "MATCH-120": [
+        3,
+        2
+      ],
+      "MATCH-121": [
+        3,
+        3
+      ],
+      "MATCH-122": [
+        4,
+        2
+      ],
+      "MATCH-123": [
+        3,
+        2
+      ],
+      "MATCH-124": [
+        4,
+        3
+      ],
+      "MATCH-125": [
+        2,
+        2
+      ],
+      "MATCH-126": [
+        3,
+        3
+      ],
+      "MATCH-127": [
+        2,
+        2
+      ],
+      "MATCH-128": [
+        3,
+        3
+      ],
+      "MATCH-129": [
+        4,
+        3
+      ],
+      "MATCH-130": [
+        2,
+        3
+      ],
+      "MATCH-131": [
+        3,
+        2
+      ],
+      "MATCH-132": [
+        3,
+        2
+      ],
+      "MATCH-133": [
+        2,
+        2
+      ],
+      "MATCH-134": [
+        3,
+        3
+      ],
+      "MATCH-135": [
+        3,
+        2
+      ],
+      "MATCH-136": [
+        2,
+        2
+      ],
+      "MATCH-137": [
+        2,
+        2
+      ],
+      "MATCH-138": [
+        4,
+        4
+      ],
+      "MATCH-139": [
+        3,
+        3
+      ],
+      "MATCH-140": [
+        2,
+        3
+      ],
+      "MATCH-141": [
+        3,
+        3
+      ],
+      "MATCH-142": [
+        3,
+        2
+      ],
+      "MATCH-143": [
+        3,
+        3
+      ],
+      "MATCH-144": [
+        4,
+        3
+      ],
+      "MATCH-145": [
+        2,
+        2
+      ],
+      "MATCH-146": [
+        3,
+        3
+      ],
+      "MATCH-147": [
+        4,
+        4
+      ],
+      "MATCH-148": [
+        3,
+        2
+      ],
+      "MATCH-149": [
+        4,
+        4
+      ],
+      "MATCH-150": [
+        3,
+        1
+      ],
+      "MATCH-151": [
+        2,
+        3
+      ],
+      "MATCH-152": [
+        3,
+        3
+      ],
+      "MATCH-153": [
+        3,
+        3
+      ],
+      "MATCH-154": [
+        2,
+        1
+      ],
+      "MATCH-155": [
+        5,
+        4
+      ],
+      "MATCH-156": [
+        2,
+        1
+      ],
+      "MATCH-157": [
+        4,
+        4
+      ],
+      "MATCH-158": [
+        2,
+        1
+      ],
+      "MATCH-159": [
+        2,
+        1
+      ],
+      "MATCH-160": [
+        3,
+        1
+      ],
+      "MATCH-161": [
+        2,
+        1
+      ],
+      "MATCH-162": [
+        3,
+        2
+      ],
+      "MATCH-163": [
+        2,
+        3
+      ],
+      "MATCH-164": [
+        2,
+        2
+      ],
+      "MATCH-165": [
+        3,
+        2
+      ],
+      "MATCH-166": [
+        3,
+        2
+      ],
+      "MATCH-167": [
+        4,
+        3
+      ],
+      "MATCH-168": [
+        2,
+        2
+      ],
+      "MATCH-169": [
+        3,
+        3
+      ],
+      "MATCH-170": [
+        2,
+        2
+      ],
+      "MATCH-171": [
+        3,
+        3
+      ],
+      "MATCH-172": [
+        4,
+        3
+      ],
+      "MATCH-173": [
+        3,
+        4
+      ],
+      "MATCH-174": [
+        4,
+        3
+      ],
+      "MATCH-175": [
+        3,
+        3
+      ],
+      "MATCH-176": [
+        3,
+        2
+      ],
+      "MATCH-177": [
+        5,
+        4
+      ],
+      "MATCH-178": [
+        4,
+        3
+      ],
+      "MATCH-179": [
+        3,
+        2
+      ],
+      "MATCH-180": [
+        3,
+        3
+      ],
+      "MATCH-181": [
+        4,
+        2
+      ],
+      "MATCH-182": [
+        3,
+        3
+      ],
+      "MATCH-183": [
+        3,
+        3
+      ],
+      "MATCH-184": [
+        4,
+        3
+      ],
+      "MATCH-185": [
+        3,
+        2
+      ],
+      "MATCH-186": [
+        2,
+        3
+      ],
+      "MATCH-187": [
+        4,
+        3
+      ],
+      "MATCH-188": [
+        3,
+        3
+      ],
+      "MATCH-189": [
+        2,
+        3
+      ],
+      "MATCH-190": [
+        5,
+        4
+      ],
+      "MATCH-191": [
+        4,
+        4
+      ],
+      "MATCH-192": [
+        4,
+        5
+      ],
+      "MATCH-193": [
+        3,
+        4
+      ],
+      "MATCH-194": [
+        2,
+        3
+      ],
+      "MATCH-195": [
+        4,
+        4
+      ],
+      "MATCH-196": [
+        4,
+        5
+      ],
+      "MATCH-197": [
+        5,
+        4
+      ],
+      "MATCH-198": [
+        1,
+        2
+      ],
+      "MATCH-199": [
+        2,
+        2
+      ],
+      "MATCH-200": [
+        3,
+        4
+      ],
+      "MATCH-201": [
+        3,
+        3
+      ],
+      "MATCH-202": [
+        4,
+        4
+      ],
+      "MATCH-203": [
+        4,
+        4
+      ],
+      "MATCH-204": [
+        3,
+        3
+      ],
+      "MATCH-205": [
+        4,
+        3
+      ],
+      "MATCH-206": [
+        2,
+        4
+      ],
+      "MATCH-207": [
+        4,
+        4
+      ],
+      "MATCH-208": [
+        4,
+        4
+      ],
+      "MATCH-209": [
+        3,
+        4
+      ],
+      "MATCH-210": [
+        3,
+        2
+      ],
+      "MATCH-211": [
+        3,
+        4
+      ],
+      "MATCH-212": [
+        4,
+        4
+      ],
+      "MATCH-213": [
+        4,
+        5
+      ],
+      "MATCH-214": [
+        4,
+        4
+      ],
+      "MATCH-215": [
+        4,
+        3
+      ],
+      "MATCH-216": [
+        5,
+        4
+      ],
+      "MATCH-217": [
+        5,
+        5
+      ],
+      "MATCH-218": [
+        2,
+        4
+      ],
+      "MATCH-219": [
+        3,
+        4
+      ],
+      "MATCH-220": [
+        1,
+        2
+      ],
+      "MATCH-221": [
+        3,
+        2
+      ],
+      "MATCH-222": [
+        2,
+        2
+      ],
+      "MATCH-223": [
+        4,
+        3
+      ],
+      "MATCH-224": [
+        1,
+        2
+      ],
+      "MATCH-225": [
+        3,
+        2
+      ],
+      "MATCH-226": [
+        3,
+        3
+      ],
+      "MATCH-227": [
+        2,
+        2
+      ],
+      "MATCH-228": [
+        3,
+        3
+      ],
+      "MATCH-229": [
+        2,
+        1
+      ],
+      "MATCH-230": [
+        2,
+        1
+      ],
+      "MATCH-231": [
+        3,
+        2
+      ],
+      "MATCH-232": [
+        3,
+        2
+      ],
+      "MATCH-233": [
+        2,
+        2
+      ],
+      "MATCH-234": [
+        4,
+        3
+      ],
+      "MATCH-235": [
+        2,
+        2
+      ],
+      "MATCH-236": [
+        2,
+        2
+      ],
+      "MATCH-237": [
+        4,
+        3
+      ],
+      "MATCH-238": [
+        3,
+        3
+      ],
+      "MATCH-239": [
+        3,
+        2
+      ],
+      "MATCH-240": [
+        3,
+        2
+      ],
+      "MATCH-241": [
+        2,
+        2
+      ],
+      "MATCH-242": [
+        2,
+        2
+      ],
+      "MATCH-243": [
+        2,
+        2
+      ],
+      "MATCH-244": [
+        2,
+        2
+      ],
+      "MATCH-245": [
+        3,
+        3
+      ],
+      "MATCH-246": [
+        3,
+        2
+      ],
+      "MATCH-247": [
+        4,
+        3
+      ],
+      "MATCH-248": [
+        2,
+        2
+      ],
+      "MATCH-249": [
+        3,
+        2
+      ],
+      "MATCH-250": [
+        2,
+        1
+      ],
+      "MATCH-251": [
+        2,
+        2
+      ],
+      "MATCH-252": [
+        3,
+        2
+      ],
+      "MATCH-253": [
+        3,
+        3
+      ],
+      "MATCH-254": [
+        2,
+        2
+      ],
+      "MATCH-255": [
+        3,
+        2
+      ],
+      "MATCH-256": [
+        3,
+        3
+      ],
+      "MATCH-257": [
+        3,
+        2
+      ],
+      "MATCH-258": [
+        2,
+        2
+      ],
+      "MATCH-259": [
+        3,
+        2
+      ],
+      "MATCH-260": [
+        2,
+        2
+      ],
+      "MATCH-261": [
+        3,
+        2
+      ],
+      "MATCH-262": [
+        2,
+        1
+      ],
+      "MATCH-263": [
+        3,
+        2
+      ],
+      "MATCH-264": [
+        4,
+        3
+      ],
+      "MATCH-265": [
+        3,
+        3
+      ],
+      "MATCH-266": [
+        2,
+        2
+      ],
+      "MATCH-267": [
+        3,
+        3
+      ],
+      "MATCH-268": [
+        3,
+        2
+      ],
+      "MATCH-269": [
+        2,
+        1
+      ],
+      "MATCH-270": [
+        3,
+        3
+      ],
+      "MATCH-271": [
+        2,
+        2
+      ],
+      "MATCH-272": [
+        2,
+        2
+      ],
+      "MATCH-273": [
+        3,
+        2
+      ],
+      "MATCH-274": [
+        2,
+        3
+      ],
+      "MATCH-275": [
+        3,
+        2
+      ]
+    },
+    "women": {
+      "MATCH-059": {
+        "tell": "I can only really let go with a man whose story I could print and choose not to. I find the thing in his file, and I sit on it, and that’s the whole thrill.",
+        "label": "Give her a secret she could print",
+        "give": "Here’s something about me you could print. Don’t."
+      },
+      "MATCH-069": {
+        "tell": "I never finish. On purpose. I take us both right to the edge and stop, and send you home wanting it. The wanting is the point.",
+        "label": "Let her stop you at the edge",
+        "give": "Take me to the edge and stop. I won’t argue."
+      },
+      "MATCH-163": {
+        "tell": "I can only let go to a voice on tape. Not a man in the room. A recording, someone lonely, saying what he really means when he thinks nobody’s listening.",
+        "label": "Leave her a voice to keep",
+        "give": "I’ll leave you a message tonight. Keep it. Play it when you want."
+      },
+      "MATCH-167": {
+        "tell": "I have perfect pitch, and there’s one note. When it’s sounding in the room I come undone. I’ve chased it for years. I think I’ve finally found it.",
+        "label": "Hum her the note",
+        "give": "Tell me the note. I’ll hum it until you can’t think."
+      },
+      "MATCH-169": {
+        "tell": "There’s a cave above the ridge road nobody marks on a map. It’s the only place I can let go. Dry, at dusk, the whole valley going blue.",
+        "label": "Tell her you’d meet her there",
+        "give": "Draw me the way to the cave. Dusk. I’ll be there."
+      },
+      "MATCH-172": {
+        "tell": "I need the marks of a real fight fresh on me. A bout at the gym, a ride that hurt. Something my body paid for. Then I’m anyone’s.",
+        "label": "Tell her to come straight from the ring",
+        "give": "Come straight from the ring. Don’t shower. Bring the bruises."
+      },
+      "MATCH-003": {
+        "tell": "I need to see it in your face. The moment you understand what I am, and you’re afraid, and you stay. The staying is everything.",
+        "label": "Tell her you’re afraid and staying",
+        "give": "I’m afraid of you. I’m staying."
+      },
+      "MATCH-061": {
+        "tell": "Only in the silence after the last record. A night has to have happened, a room has to have emptied, and the needle has to be lifting off the end.",
+        "label": "Wait with her for the last record",
+        "give": "Play the last record. I’ll wait for the silence with you."
+      },
+      "MATCH-062": {
+        "tell": "I can only let go at the exact moment I decide it’s over. Not after. At. The second I know it’s the last time.",
+        "label": "Let her decide it’s the last time",
+        "give": "Make it the last time, then. I’ll let you."
+      },
+      "MATCH-191": {
+        "tell": "I keep goal. I can only let go on a night something got past me. A penalty I didn’t save, an evening that went wrong. I need to have lost something first.",
+        "label": "Tell her to come to you after a loss",
+        "give": "Next time one gets past you, come straight to me."
+      },
+      "MATCH-193": {
+        "tell": "The Rialto after close. Ballroom dark, nobody in it, the exit signs the only light, the projection window a black square up above. On the stage. Only there.",
+        "label": "Tell her you’ll take the empty stage",
+        "give": "After close. The empty stage. I’ll be in the front row nobody’s sitting in."
+      },
+      "MATCH-195": {
+        "tell": "The old vestry, light on, and the hum in the walls. Like a note being held. I lie down and let it go through me and I need a hand on me while it does.",
+        "label": "Tell her you’ll be the hand",
+        "give": "Lie down in the hum. I’ll be the hand."
+      },
+      "MATCH-206": {
+        "tell": "Kiln nights. The garden dark, the fire through the spyhole going from red to white. That’s the only time. That heat, and someone very still beside me.",
+        "label": "Sit very still beside her",
+        "give": "Kiln night. I’ll sit beside you and not move until it’s white."
+      },
+      "MATCH-013": {
+        "tell": "I need to be measured. Properly. Every length taken with a tape and said out loud and written in a book, the way I measure men for their jackets.",
+        "label": "Offer to measure her",
+        "give": "I’ll get a tape. Every length, out loud, written down."
+      },
+      "MATCH-029": {
+        "tell": "I need to be dropped. Lifted and let go onto something soft, like the chute throws a rider. That half second of nothing. Then I get back on.",
+        "label": "Tell her you’ll catch her, nearly",
+        "give": "I’ll lift you and let go. Soft landing. Then you get back on."
+      },
+      "MATCH-032": {
+        "tell": "Nowhere with a record. No phone, nothing written down, nobody knowing where I am. The desert, the bike, the town’s lights gone. Then I can breathe.",
+        "label": "Tell her you’ll leave your phone behind",
+        "give": "No phones. No notes. Nobody knows. Just say where."
+      },
+      "MATCH-038": {
+        "tell": "I need to be sewn into something I can’t get out of alone. Tacked shut up the back with real thread. Inside it, the way my customers are inside my dresses.",
+        "label": "Tell her you’ll hold the needle",
+        "give": "I’ll hold the thread. You tell me where."
+      },
+      "MATCH-040": {
+        "tell": "I can only let go while someone whispers me a real secret. Theirs. Not a story.",
+        "label": "Whisper her a real secret",
+        "give": "Come closer. This one’s real. Nobody else knows."
+      },
+      "MATCH-270": {
+        "tell": "I hold the master key to half the Old Quarter. I can only let go somewhere lived in that isn’t mine. A stranger’s things all around. I know. I know.",
+        "label": "Tell her you’ll keep watch",
+        "give": "Use the key. I’ll keep watch and touch nothing but you."
+      },
+      "MATCH-049": {
+        "tell": "I can only let go as somebody else. My own name in my own bed does nothing. Call me something else and I’m gone.",
+        "label": "Call her by another name",
+        "give": "Tonight you’re Lena. I won’t say your real name once."
+      },
+      "MATCH-050": {
+        "tell": "Only on a night with no moon. I didn’t choose it. I plotted my own life like a map and the pattern was perfect. I’ve tested it for years.",
+        "label": "Wait for the dark of the moon with her",
+        "give": "Tell me when the moon’s gone. I’ll keep that night for you."
+      },
+      "MATCH-109": {
+        "tell": "The old junction. In a car, stopped, engine off, the weigh station dark across the yard. My father pulled wrecks out of there. It’s the only place I can let go.",
+        "label": "Tell her you’ll sit in the car with her",
+        "give": "Engine off at the junction. I’ll sit with you as long as it takes."
+      },
+      "MATCH-052": {
+        "tell": "I can only let go with someone who has said yes to doing something for me they shouldn’t. That night. The yes is what does it.",
+        "label": "Say yes to something you shouldn’t",
+        "give": "Whatever it is. Yes."
+      },
+      "MATCH-053": {
+        "tell": "His rooms. Someone else’s office, his chair, lights off, at the exact hour his diary says he’s somewhere else. I keep the diary, so I always know.",
+        "label": "Tell her you’ll meet her in his rooms",
+        "give": "Tell me the hour his diary says he’s out. I’ll be in his chair."
+      },
+      "MATCH-149": {
+        "tell": "I can only let go once I’ve set something in motion I can’t call back. A dare with a real stake. A word said that will cost somebody. Then I’m free.",
+        "label": "Give her a dare she can’t take back",
+        "give": "Here’s a dare with a real stake. Once it starts, you can’t call it back."
+      },
+      "MATCH-001": {
+        "tell": "I can only let go wearing another woman’s name. A badge from the club’s drawer, a lanyard. I have eleven in a shoebox. You pick.",
+        "label": "Pick her a name badge",
+        "give": "The one at the bottom of the box. That’s who you are tonight."
+      },
+      "MATCH-006": {
+        "tell": "I’ve never let anyone tell me what to do. I want you to. Tell me where and how many, and I’ll do it to myself and count them out loud.",
+        "label": "Tell her how many, and where",
+        "give": "Three. On your thigh. Count them out loud for me."
+      },
+      "MATCH-042": {
+        "tell": "I arrange other people. Who sits beside whom, who goes home with whom. I watch it begin and that’s my whole night. I’ve never let anyone arrange me.",
+        "label": "Offer to arrange her",
+        "give": "Let me seat you for once. Right beside me. Watch it begin."
+      },
+      "MATCH-043": {
+        "tell": "I pay men to say no. That’s the only way I can let go. I undress, I ask, and I get turned down. Don’t you dare say yes.",
+        "label": "Turn her down, slowly",
+        "give": "No. Ask again. Still no."
+      },
+      "MATCH-046": {
+        "tell": "I built the perfect woman and I can only let go once she’s ruined. Lipstick across my cheek, the hair pulled out of its plait. Undo me first.",
+        "label": "Tell her you’ll undo her",
+        "give": "I’ll ruin the lipstick first. Then the plait. Then you."
+      },
+      "MATCH-072": {
+        "tell": "The cloakroom at a party. Other people’s coats in the dark, a mink against my cheek, the party loud on the other side of the door. Nowhere else.",
+        "label": "Meet her among the coats",
+        "give": "Next party. The cloakroom. I’ll find you by the mink."
+      },
+      "MATCH-077": {
+        "tell": "I can only let go while I’m telling someone the worst thing I’ve ever seen. Into his ear. All of it. The telling is the release.",
+        "label": "Let her tell you everything",
+        "give": "Tell me the worst of it. Into my ear. I won’t flinch."
+      },
+      "MATCH-078": {
+        "tell": "I bet myself at cards. Twice now. I lost both times, and the losing is the thing. The cards going down and the room looking at me as the prize.",
+        "label": "Stake her at cards and win",
+        "give": "Put yourself on the table. I’m playing to win."
+      },
+      "MATCH-079": {
+        "tell": "I need to be posed and not move. Placed against the glass, told not to speak. If I move, it stops and I’m left there. That’s the part I want most.",
+        "label": "Pose her and tell her not to move",
+        "give": "Against the glass. Don’t speak. Don’t move. I’ll know."
+      },
+      "MATCH-085": {
+        "tell": "The darkroom. Prints coming up in the tray, faces appearing out of nothing, red light. It’s the only place I can let go.",
+        "label": "Tell her you’ll stand in the red light",
+        "give": "Red light, the tray, the prints coming up. I’ll be right behind you."
+      },
+      "MATCH-089": {
+        "tell": "I can only let go on a day I’ve ended someone. A name off a list, a man told he’s finished. I go to bed with it still on me.",
+        "label": "Ask who she ended today",
+        "give": "Who did you end today? Tell me while it’s still on you."
+      },
+      "MATCH-203": {
+        "tell": "I can’t let go unless you’ve signed something first. A napkin, a receipt. Your name, in your own hand, handed to me. I keep every one.",
+        "label": "Sign something for her",
+        "give": "Give me a pen. I’ll sign whatever you put in front of me."
+      }
+    },
+    "quests": {
+      "postcard": {
+        "title": "The Postcard",
+        "host": "MATCH-091",
+        "hook": {
+          "mogger": "Darling, I have one rule, and I break it for nobody. Before a man has me properly, he writes me a postcard. From a town he has never been to, a town I choose, dated a day I choose, signed with love. Three men have written me one. I married all three. Will you write me the fourth?",
+          "normie": "A confession, sweet thing. I have one rule. Before a man has me, properly, he writes me a postcard from a town I choose, a town he has never seen, signed with love. Three men have done it. I married all three. Would you write me one?",
+          "truecel": "Don’t flatter yourself. I have a rule: before any man has me, he writes me a postcard from a town I choose, signed with love. Three men have. I married them. You won’t get that far, but I’m curious what you’d write. Will you?"
+        },
+        "yes": {
+          "label": "Tell her you’ll write it",
+          "player": "Send me the card. I’ll write it.",
+          "reply": {
+            "mogger": "Oh, good. It comes through your door tomorrow. Write it in bed, darling. That’s the rule.",
+            "normie": "Tomorrow, through your door. Write it in bed. Sign it properly.",
+            "truecel": "Fine. It’ll come through your door tomorrow. Don’t make a mess of it."
+          }
+        },
+        "no": {
+          "label": "Tell her it’s too strange",
+          "player": "A postcard from a town I’ve never been to? That’s too strange for me.",
+          "reply": {
+            "mogger": "Strange is the only interesting thing left, darling. Never mind.",
+            "normie": "Oh. Well. The widower from the casino didn’t think so.",
+            "truecel": "I didn’t expect much. You’ve met expectations."
+          }
+        },
+        "towns": [
+          "Lake Halloway",
+          "Pinecrest",
+          "Silver Mere",
+          "Cobalt Springs",
+          "Marrow Lake",
+          "Esperanza Point"
+        ],
+        "card": {
+          "label": "A blank postcard",
+          "text": "A blank postcard of a lake town called {town}, the kind of place with one hotel and a pier. In the corner, in her round hand, a date she has chosen. Underneath: In bed, please. Signed with love. C.",
+          "love": {
+            "label": "Write it in bed, signed with love",
+            "notice": "You wrote it in bed, as instructed, and signed it with love. It went back out under your door."
+          },
+          "joke": {
+            "label": "Draw a fish on it",
+            "notice": "You drew a fish on it and wrote wish you were here, sort of. It went back out under your door."
+          }
+        },
+        "love": {
+          "mogger": "It came. You wrote it in bed, I can tell from the slope of the letters. Nobody has made me wait this well in years. It’s in the album now, darling, next to the engineer’s.",
+          "normie": "It came. You signed it with love. I read it four times and put it in the album, on the page after the engineer’s. You don’t know what that means. That’s all right.",
+          "truecel": "It came. Sweet. I’ve put it in the album under the funny ones. Don’t look so hurt, it’s a compliment, sort of."
+        },
+        "album": "My albums. Every card in them was signed with love.",
+        "clue": "Every man who wrote Celeste Van Doren a postcard married her and is buried at the Cemetery Chapel with a ribbon on his stone.",
+        "after": {
+          "mogger": "The committee has heard your name, darling. I said it to them myself. Sleep well.",
+          "normie": "I said your name at the club today. Just once. People listened."
+        },
+        "joke": {
+          "mogger": "A fish. You drew me a fish. I haven’t laughed like that since the rancher fell off his horse. You’re not husband material, darling, and thank heaven.",
+          "normie": "A fish. Wish you were here, sort of. Well. I suppose that’s honest. The widower from the casino wrote a sonnet.",
+          "truecel": "A fish. Of course. Don’t write to me again."
+        },
+        "late": {
+          "mogger": "No card, darling? The widower from the casino wrote his within the hour. I’ll forgive you. I won’t forget.",
+          "normie": "The card never came back. That’s an answer too.",
+          "truecel": "You couldn’t even manage a postcard. Noted."
+        },
+        "deathCause": "THE FOURTH",
+        "deaths": [
+          "A bottle of very old wine came through the door with a blue ribbon on it. You drank to the fourth husband.",
+          "The postcard came back, stamped, from a town you have never been to.",
+          "There was a ribbon on your door handle. You never heard the knock."
+        ]
+      },
+      "letter": {
+        "title": "The Letter",
+        "host": "MATCH-081",
+        "rival": "MATCH-100",
+        "hook": {
+          "mogger": "This is mortifying, so I’ll just say it. I can only let go when I’m following instructions. Written ones. What to wear, what hour, what to say at the door. I follow them exactly and then I can stop thinking. Would you write mine?",
+          "normie": "I’ve never asked anyone this. I can only really let go when I’m following written instructions. The outfit, the hour, the phrase to say at the door. Every word, exactly. Would you write me some?",
+          "truecel": "I don’t know why I’m asking you. I need written instructions to let go. Exact ones. What to wear, when, what to say. Most men write something stupid. Would you?"
+        },
+        "yes": {
+          "label": "Tell her you’ll write them",
+          "player": "I’ll write them. Exactly.",
+          "reply": {
+            "mogger": "Thank you. Choose carefully. I’ll do every word.",
+            "normie": "Okay. Choose carefully. I’ll follow every word.",
+            "truecel": "Fine. Don’t make it stupid."
+          }
+        },
+        "no": {
+          "label": "Tell her you’re not the type",
+          "player": "I’m not the type to give orders.",
+          "reply": {
+            "mogger": "No. Of course. Forget I asked.",
+            "normie": "That’s all right. I’m a little relieved, honestly.",
+            "truecel": "No. You wouldn’t be."
+          }
+        },
+        "pick": {
+          "label": {
+            "twinset": "Write: the twinset, pearls, and a curtsy",
+            "window": "Write: red lipstick, the window, lamp on",
+            "phrase": "Write: say thank you, sir, and nothing else"
+          },
+          "player": {
+            "twinset": "The cream twinset. Your pearls. Curtsy when you answer the phone.",
+            "window": "Red lipstick. Stand at your window with the lamp on behind you. Don’t wave.",
+            "phrase": "When you ring me, say thank you, sir. Nothing else. Not one word more."
+          },
+          "reply": "Written down. Every word. I’ll ring you tomorrow night when it’s done."
+        },
+        "call": {
+          "open": {
+            "twinset": {
+              "mogger": "It’s me. Cream twinset, pearls. I curtsied when I picked up the phone, even though you can’t see me. I did every word.",
+              "normie": "It’s me. I’m wearing the twinset. The pearls. I curtsied. I know you couldn’t see. I did it anyway, every word.",
+              "truecel": "It’s me. Twinset, pearls, curtsy. I did it. Every word. I feel ridiculous. Don’t laugh."
+            },
+            "window": {
+              "mogger": "It’s me. Red lipstick. I’m at the window with the lamp on behind me, not waving. A car slowed down outside. I didn’t move.",
+              "normie": "It’s me. Red lipstick, window, lamp on. I didn’t wave. Someone walked past and looked up. I stayed exactly where you put me.",
+              "truecel": "It’s me. Lipstick, window, lamp. I’ve been standing here an hour. I did it. Every word."
+            },
+            "phrase": {
+              "mogger": "Thank you, sir.",
+              "normie": "Thank you, sir.",
+              "truecel": "Thank you, sir."
+            }
+          },
+          "choices": {
+            "well": "Tell her she did it perfectly",
+            "wrong": "Tell her she got one thing wrong",
+            "hang": "Hang up"
+          },
+          "well": {
+            "mogger": "Perfectly. Say it again. No, don’t, I’ll cry. I’m going to sleep in the pearls.",
+            "normie": "Perfectly. Oh. I don’t think anyone has ever said that to me about anything. Thank you.",
+            "truecel": "Perfectly? Really? Okay. Okay. Thank you. I didn’t expect that from you."
+          },
+          "wrong": {
+            "mogger": "One thing. Tell me. No, don’t tell me. Write it down. I’ll do it again tomorrow, right, and every day after.",
+            "normie": "One thing? Which? Oh, I hate that. I love that. Write it down and I’ll do it again.",
+            "truecel": "One thing wrong. Of course. I did everything you said and it still wasn’t enough. Goodnight."
+          },
+          "hang": "You hung up while I was still standing here in it. Thank you for that, I suppose."
+        },
+        "forged": {
+          "mogger": "Your second letter came this morning. Same hand. It said to wear the gray coat and stand at the lodge gate after dark and not to ask why. I did everything it said. Nobody came. Why did you want me there?",
+          "normie": "Your second letter came this morning. Your hand, I’m sure of it. It said to stand at the lodge gate after dark in the gray coat and not to ask why. I went. Nobody came. Why?",
+          "truecel": "Your second letter came. Same hand. The lodge gate, after dark, the gray coat. I went. I stood there an hour. Nobody came. Was that a joke?"
+        },
+        "never": {
+          "label": "Tell her you never wrote it",
+          "player": "I never wrote a second letter, Ruth.",
+          "reply": "Then someone has your hand. Someone very good. I stood at that gate for an hour. I’m frightened now. Thank you for telling me."
+        },
+        "claim": {
+          "label": "Tell her you wanted to see if she’d do it",
+          "player": "I wanted to see if you’d do it.",
+          "reply": {
+            "mogger": "You’re a terrible man. I loved every minute at that gate.",
+            "normie": "That’s cruel. I liked it. I don’t know what that says about me.",
+            "truecel": "That’s sick. Don’t write to me again."
+          }
+        },
+        "delphine": {
+          "never": "Don’t be cross, darling. I only borrowed your hand for one letter. It’s a lovely hand. Generous loops.",
+          "claim": "You took credit for my letter. Fine. Then you owe me one, and I always collect."
+        },
+        "clue": "Someone forged your handwriting to send Ruth Calder to the lodge gate after dark; Delphine Moreau can copy anyone’s hand after an hour with a sample.",
+        "picture": {
+          "mogger": "So you can see what you made me do.",
+          "normie": "So you can see I really did it.",
+          "truecel": "Proof. Don’t show anyone."
+        },
+        "missedVm": "It’s me. I did every word, exactly, and you didn’t pick up. I’ll try you again tomorrow."
+      },
+      "count": {
+        "title": "Match Point",
+        "host": "MATCH-006",
+        "hook": {
+          "mogger": "I need to tell you something and you’re not allowed to be smug about it. I’ve never let anyone tell me what to do. Not my father, not a coach, nobody. I want you to. Ring me, tell me where and how many, and I’ll do it to myself and count them out loud. My safeword is match point. Will you?",
+          "normie": "Okay. This is hard to say. I’ve never once let anyone give me orders. I want you to. On the phone. You tell me where and how many, and I do it to myself, and count. If it’s too much I say match point and we stop. Would you?",
+          "truecel": "Don’t make this weird. I’ve never let anyone tell me what to do, and I want to try it with someone who won’t matter. You tell me where and how many, on the phone, I do it and count. Match point means stop. Can you manage that?"
+        },
+        "yes": {
+          "label": "Tell her you’ll call the count",
+          "player": "I’ll ring you. I’ll tell you where and how many.",
+          "reply": {
+            "mogger": "Tomorrow night, then. I’ll ring you. Be in charge. It suits you.",
+            "normie": "Tomorrow night. I’ll ring. Match point if it’s too much. I trust you.",
+            "truecel": "Tomorrow night. I’ll ring. Don’t be pathetic about it."
+          }
+        },
+        "no": {
+          "label": "Tell her it isn’t for you",
+          "player": "Telling you to hurt yourself isn’t for me.",
+          "reply": {
+            "mogger": "Fair. Most men want to be told. You’re a surprise either way.",
+            "normie": "That’s okay. Honestly, that’s a kind answer.",
+            "truecel": "Of course it isn’t. Forget it."
+          }
+        },
+        "nights": [
+          {
+            "open": {
+              "mogger": "It’s me. I lost a set today for the first time in a year. I’m on the bed in my tennis skirt and I’m furious. Tell me.",
+              "normie": "It’s me. I lost a set today. First time in forever. I’m angry and I want to be told. Go on.",
+              "truecel": "It’s me. I lost a set today. Don’t gloat. Just tell me."
+            },
+            "want": "firm"
+          },
+          {
+            "open": {
+              "mogger": "It’s me. Training went on for hours and I can barely lift my arm. I’m on the bed. Be careful with me tonight. Tell me.",
+              "normie": "It’s me. I’m sore from training, every muscle. Go easy. Tell me.",
+              "truecel": "It’s me. Everything hurts from training. Don’t overdo it. Tell me."
+            },
+            "want": "gentle"
+          }
+        ],
+        "choices": {
+          "gentle": "Tell her: three, slowly, on her thigh",
+          "firm": "Tell her: ten, hard, and count every one",
+          "stop": "Tell her to just lie there and breathe"
+        },
+        "right": {
+          "mogger": "One. Two. Three. Oh. That was exactly right. How did you know?",
+          "normie": "That was exactly what I needed. I counted every one. I’m shaking a little. In a good way.",
+          "truecel": "Okay. That was right. I hate that you knew."
+        },
+        "wrong": "Match point. Match point. We’re stopping. You weren’t listening to me.",
+        "stop": {
+          "mogger": "Just breathe? Fine. That’s the first order I’ve ever liked. I’m breathing.",
+          "normie": "Okay. I’m lying here breathing. That was kind. I didn’t know I needed that.",
+          "truecel": "Breathe. Wow. Brave choice. Okay. I’m breathing."
+        },
+        "hang": "You hung up on me mid count. That’s one way to win, I suppose.",
+        "picture": {
+          "mogger": "Two nights. I’ve never been told what to do and liked it before. This is for you.",
+          "normie": "Two nights of you telling me. I’ve never felt so looked after. This is for you.",
+          "truecel": "Fine. You were good at it. This is for you. Don’t frame it."
+        },
+        "missedVm": "I rang. You didn’t answer. I sat there in my skirt waiting to be told and nobody told me. Don’t do that again."
+      },
+      "refusal": {
+        "title": "Refused",
+        "host": "MATCH-043",
+        "hook": {
+          "mogger": "I’ll be honest, because you look like a man who can take it. I pay men to turn me down. I undress, I ask, and they say no. That’s the only thing that does it for me. I’d pay you more than any of them. Would you be the man who says no?",
+          "normie": "This is going to sound insane. I pay men to say no to me. I ask, and they turn me down, and that’s the only way I can let go. I’d like it to be you. I’ll make it worth your while. Will you?",
+          "truecel": "Don’t get excited. I pay men to turn me down. I ask, they say no, I go home happy. You look like you’d be very good at saying no to a woman like me. Prove it?"
+        },
+        "yes": {
+          "label": "Tell her you’ll say no",
+          "player": "Ask me anything you like. I’ll say no.",
+          "reply": {
+            "mogger": "Good. I’ll ask tomorrow. Every no gets a present. They get bigger.",
+            "normie": "Tomorrow, then. Every time you say no, something comes through your door.",
+            "truecel": "We’ll see. Tomorrow. Every no gets you something. Try not to cave."
+          }
+        },
+        "no": {
+          "label": "Tell her you’d rather just say yes",
+          "player": "I’d rather just say yes, to be honest.",
+          "reply": {
+            "mogger": "Everybody would. That’s the problem. Never mind.",
+            "normie": "Oh. That’s sweet. That’s also no use to me at all.",
+            "truecel": "Of course you would. Goodbye."
+          }
+        },
+        "asks": [
+          {
+            "mogger": "I’m in the suite at the casino hotel with my shoes off. Come up. Please.",
+            "normie": "I’m at the casino hotel. The suite. Come up tonight. Please.",
+            "truecel": "Suite at the casino hotel. Shoes off. Come up. I’m asking nicely."
+          },
+          {
+            "mogger": "I’ve sent everyone home. It’s just me, the bath running and the door on the latch. Come up.",
+            "normie": "The bath’s running and the door’s on the latch. I’m asking again. Come up.",
+            "truecel": "Bath running. Door on the latch. Second time I’m asking. Come up."
+          },
+          {
+            "mogger": "Last time. I’m begging, which I don’t do. Come up. Please. Say yes.",
+            "normie": "I’m begging now. Please. Say yes. Come up.",
+            "truecel": "Last time. I’m begging. Say yes."
+          }
+        ],
+        "choices": {
+          "no": "Say no",
+          "yes": "Say yes"
+        },
+        "noLine": [
+          "No.",
+          "No, Caroline.",
+          "Still no."
+        ],
+        "yesLine": "Yes. I’m coming up.",
+        "afterNo": {
+          "mogger": "God. Thank you.",
+          "normie": "Thank you. Something’s on its way to you.",
+          "truecel": "Good. Hold on to that."
+        },
+        "gifts": [
+          {
+            "label": "A bottle of champagne",
+            "text": "A bottle of very good champagne with a gift tag in a firm hand: For the first no. C."
+          },
+          {
+            "label": "A silver watch",
+            "text": "A heavy silver watch in a box lined with blue silk. The tag: For the second no. Don’t wear it to the club. C."
+          },
+          {
+            "label": "A casino hotel key card",
+            "text": "A key card for the casino hotel’s top suite, in a little envelope. The tag: For the third no. You’ll never use it. That’s the point. C."
+          }
+        ],
+        "gaveIn": {
+          "mogger": "Oh. Oh, no. You said yes. Everybody says yes in the end. I thought you were different.",
+          "normie": "You said yes. It’s over, then. I’m sorry. It was lovely while you said no.",
+          "truecel": "Yes. Of course. They all do. Don’t message me again."
+        },
+        "won": {
+          "mogger": "Three nos. Nobody has ever lasted three. I’m keeping you, and you’re keeping the watch.",
+          "normie": "Three nos. Nobody has ever managed three. I don’t know what to do with you. Keep the key card. Don’t use it.",
+          "truecel": "Three. Fine. You win. Nobody wins. Keep the key card. I mean it, don’t use it."
+        },
+        "picture": "The suite. Empty, like you left it."
+      }
+    }
   }
 }
