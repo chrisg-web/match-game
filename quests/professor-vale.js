@@ -155,7 +155,10 @@
       gravesArrest: { from: 'graves', text: 'Detective Graves. We had people at bay fourteen on Day {A}, and we got them with it in their hands. Somebody gave us a name and a day. Call me back on this line.' },
       alice: { from: 'alice', text: 'Alice Beaumont. Adrian is alive, sulking, and staying in our guest room. Somebody warned us, and I know it was you. The Bluebirds would like you as guest of honor at the gala ball. Do call.' },
       vanessaInvite: { from: 'vanessa', text: 'It’s Vanessa. Days now, and nobody has knocked on your door. You did what three of us couldn’t. Call me.' },
-      rosaPanic: { from: 'rosa', text: 'It’s Rosa. I can’t sleep. I keep thinking about walking into the police station. Please call me.' }
+      rosaPanic: { from: 'rosa', text: 'It’s Rosa. I can’t sleep. I keep thinking about walking into the police station. Please call me.' },
+      valeVm1: { from: 'vale', text: 'Adrian Vale. Lorraine in the office says someone keeps asking about my car. If that’s you, ring me back on this number. I’m curious. I’m always curious.' },
+      valeVm2: { from: 'vale', text: 'Adrian again. They threw eggs. Organic. Tomorrow I read the complaints in my car, the way I always do. Ring me if you’re still worried. You won’t. Nobody does.' },
+      valeThanks: { from: 'vale', text: 'Adrian Vale. My car went up in bay fourteen with nobody in it. I took a cab, like you said. I don’t know how you knew and I don’t think I want to. Thank you. Don’t tell the faculty. They’ll be so disappointed.' }
     },
 
     // ----- Hinge chat topics, keyed by the woman's factionId. `as` overrides a topic for one named
@@ -234,7 +237,75 @@
       hendry: { name: 'Hendry’s Hardware', portrait: 'assets/quests/professor/hendry.png', greeting: 'Hendry’s Hardware, we deliver! How can I help?' },
       phones: { name: 'Phones – Unlocked – Delivered', portrait: 'assets/quests/professor/phones.png', greeting: 'Phones. What do you want?' },
       device: { name: 'The number on the masking tape', portrait: 'assets/quests/professor/item-phone.png', greeting: 'It’s ringing.' },
-      alice: { name: 'Alice Beaumont', portrait: 'assets/quests/professor/alice-line.png', greeting: 'Alice Beaumont. Oh, it’s you. Darling.' }
+      alice: { name: 'Alice Beaumont', portrait: 'assets/quests/professor/alice-line.png', greeting: 'Alice Beaumont. Oh, it’s you. Darling.' },
+      vale: { name: 'Professor Adrian Vale', portrait: 'assets/quests/professor/vale.png', greeting: 'Vale. Who is this? Ah. You.' }
+    },
+
+    // ----- Vale himself (Chris, 2 November 2026: he should be a person, not a portrait). He rings you
+    // once someone tells him you've been asking, and again on the night of the lecture. What you say
+    // decides whether he goes near his car. Taking a cab saves him, unless Pemberton borrows it.
+    vale: {
+      name: 'Adrian Vale', portrait: 'assets/quests/professor/vale.png',
+      call1: {
+        open: 'Is this the person who keeps ringing my department? Adrian Vale. Lorraine in the office says you ask about my car the way other people ask about the weather. I’m flattered. Nobody has worried about me since my mother. What do you want?',
+        choices: { warn: 'Tell him someone wants him dead', fan: 'Tell him you admire his nerve', ask: 'Ask who he’s bringing next', hang: 'Hang up' },
+        warn: 'Dead? My dear, half the faculty wants me dead. They’ve been trying for years, by committee. The brakes were old and the wiring in that house was older. Come and watch me not die at Founders’ Hall on Day {T}. Nathan Cofnas. Bring your fears, he’ll enjoy them.',
+        fan: 'Nerve! Nobody says nerve anymore, they say harm. Thank you. Nathan Cofnas, Founders’ Hall, Day {T}. My assistant, Allison, sends out the invitations. She’ll put you on the list. She’s been terribly quiet lately. I think she disapproves of me. Everyone sensible does.',
+        ask: 'Nathan Cofnas. Founders’ Hall, Day {T}. The petition against him has more signatures than his book has readers. I’ve read both. Come, if you can bear daylight.'
+      },
+      call2: {
+        known: 'It’s Adrian. They threw eggs. Organic eggs, which I think was the protest. Cofnas was magnificent and nobody listened. Tomorrow I go in early and read the complaints in my car, the way I always do. You sounded worried last time. Are you still worried?',
+        stranger: 'You don’t know me. Adrian Vale. Lorraine gave me this number and said you’d been worried about me. Tonight they threw eggs. Tomorrow I read the complaints in my car, the way I always do. Is there something you want to tell me?',
+        choices: { car: 'Tell him not to go near his car tomorrow', stay: 'Tell him to spend the night with the Bluebirds', luck: 'Wish him luck', hang: 'Hang up' },
+        carYes: 'Not my car. A long breath. Fine. I’ll take a cab and read the complaints in the back of it, and the driver will hate me too. You’ll owe me an explanation.',
+        carNo: 'Not my car? You sound like my insurer. Goodnight, whoever you are.',
+        stayYes: 'Alice has been begging me to stay at theirs since the fire. I’ll ring her now. If nothing happens, I’m blaming you at dinner.',
+        stayNo: 'Hide with the Bluebirds? They’d make me wear a ribbon. Goodnight.',
+        luck: 'Luck is for people without tenure. Goodnight.'
+      },
+      chat: 'Alive, against the odds and the faculty. I’m reading. Ring me when you have something interesting to say.'
+    },
+
+    // ----- The University Office has a person on the desk. Lorraine notices who keeps ringing about Vale,
+    // so the case's suspicion shows in her voice (and in Word on campus in the case file), not a number.
+    university: {
+      greet: [
+        'Founders’ Hall office, Lorraine speaking. How can I help?',
+        'Founders’ Hall office. Oh. It’s you again. What is it this time?',
+        'Founders’ Hall office. …Look. Professor Vale’s assistant was in here asking who keeps ringing about him. I gave her your number. I didn’t know what else to do. Make it quick.'
+      ],
+      word: [
+        'Nobody on campus has noticed you yet.',
+        'Lorraine at the University Office knows your voice now.',
+        'Allison Kent has been asking who keeps calling about Vale. Lorraine gave her your number.'
+      ]
+    },
+
+    // ----- The wiretap (Chris, 2 November 2026). Give Graves Vanessa’s name without the plan and she asks
+    // you to ring Vanessa while she listens. Get Vanessa to say when and where without making her
+    // suspicious. Too careful, too pushy or too strange, and she hangs up knowing.
+    wiretap: {
+      setup: '{name}? A name isn’t a case. Graves is quiet for a moment. Ring her. I’ll be on the line, and she won’t know. Get her to say when and where, in her own words. Then hang up and leave the rest to me.',
+      open: 'Vanessa. …You never ring me. What do you want?',
+      burnAt: 4,
+      steps: [
+        { choices: {
+          calm: { label: 'Say you’ve been thinking about her offer', sus: 0, reply: 'Thinking. That’s a start. Most people just panic.' },
+          bold: { label: 'Tell her you know what she’s planning', sus: 2, reply: 'Do you. That’s a funny thing to say on a phone.' },
+          safe: { label: 'Ask her if this line is safe', sus: 3, reply: 'Is it? You tell me. A long pause.' } } },
+        { choices: {
+          when: { label: 'Ask when it would happen', sus: 1, got: 'day', reply: 'After the lecture. The day after. He always reads his complaints in the car. Don’t ask me again.' },
+          what: { label: 'Ask what you’d have to do', sus: 0, reply: 'Nothing clever. You build something at your place and leave it on your step. Somebody collects. You make one call.' },
+          flatter: { label: 'Tell her the brakes and the fire were brilliant', sus: 2, reply: 'Brilliant? They failed. Twice. Don’t flatter me. I can hear you smiling.' } } },
+        { choices: {
+          where: { label: 'Ask where he’ll be', sus: 1, got: 'place', reply: 'Bay fourteen. The faculty lot. Where he always is the day after he humiliates us.' },
+          plain: { label: 'Ask her to say it plainly', sus: 3, reply: 'Plainly? Nobody says anything plainly on a phone. Who taught you to talk like that?' },
+          soft: { label: 'Tell her you’re scared', sus: -1, reply: 'Good. Scared people are careful. Careful people are useful.' } } }
+      ],
+      win: 'Vanessa hangs up first. A second later, a click, and Graves’s voice, very close: That’s her, in her own words. Day {A}, bay fourteen. Go to bed. Don’t ring anyone.',
+      partial: 'Vanessa hangs up. A click, then Graves: Not enough. She never said it straight. We’ll keep an eye on her, but don’t ring her again.',
+      burned: 'Who else is on this line? Silence. Then the dial tone, and somewhere a long way off, Graves swearing.',
+      hungUp: 'You. Don’t ring this number again. Click.'
     },
     vanessaPitch: 'You called back. Good. Paglia, then Houellebecq, and now he’s bringing Cofnas onto our campus. The brakes, the fire: rehearsals, and we were bad at them. The Cofnas lecture is the last one he hosts. Third time we do it properly, and we need someone nobody is watching. You. Choose carefully. There’s no taking it back.',
 
@@ -301,6 +372,7 @@
       'pv:device': [
         { id: 'pv_d_call', label: 'Let it ring' }
       ],
+      'pv:vale': [],
       'pv:alice': [
         { id: 'pv_al_yes', label: 'Accept her invitation to the gala ball (ending)' },
         { id: 'pv_al_later', label: 'Say you’re just glad he’s safe', reply: 'Modest. How very un-Bluebird of you. The invitation stands, darling.' }
@@ -393,6 +465,7 @@
       house_blast: { section: 'Front page', headline: 'Blast Destroys Bedroom on Quiet Road', summary: 'Police found the remains of a desk.', body: 'An explosion destroyed an upstairs bedroom on a quiet residential road. Police found the remains of a desk and a garden-center bag.', image: 'police_evidence' },
       parcel_blast: { section: 'Front page', headline: 'Resident Killed by Parcel Left on Doorstep', summary: 'The parcel was wrapped in a garden-center bag.', body: 'A resident was killed by a parcel left on their doorstep. Police linked it to the campus group known as the Back Row.', image: 'police_evidence' },
       informant: { section: 'Front page', headline: 'Informant Foils Plot Against Professor', summary: 'A member of a campus clique turned themselves in.', body: 'A plot against Professor Adrian Vale was foiled when a member of the group rang police and confessed. Other members were arrested.', image: 'police_station' },
+      empty_bay: { section: 'Front page', headline: 'Blast Wrecks Professor’s Empty Car', summary: 'Professor Vale’s car was destroyed in the faculty parking lot on Day {A}. He had taken a cab.', body: 'An explosion destroyed Professor Adrian Vale’s car in bay fourteen of the faculty parking lot on Day {A}, the day after the Cofnas lecture. Nobody was hurt. Professor Vale, who took a cab that morning for reasons he declined to give, said he had never been so pleased to be inconvenienced. Police are hunting those responsible.', image: 'professor_car_blast' },
       bin_fire: { section: 'Local', headline: 'Professor Unhurt as Bin Fire Ends Fourth Accident', summary: 'Arrests after a bin caught fire near Professor Vale’s car.', body: 'Professor Adrian Vale was unhurt when a bin caught fire near his car, the fourth accident so far. Arrests were made at the scene, one suspect still holding the matches.', image: 'professor_fire' }
     },
 
@@ -405,6 +478,8 @@
         dateText: '{name} says yes before you’ve finished typing. At the next Bluebird gala ball she walks you to the top table on her arm, and every Bluebird in Sunfall raises a glass to the person who saved Professor Vale.\n\nNobody applies to join the Bluebirds. They decide, and by the coffee they have decided about you. Her mother has the wedding booked before the band packs up. At the reception two cheerful men introduce themselves as her other half. Both of them. They could not be more welcoming.\n\nYour search for love is over. Hers, you gather, never quite is.' },
       back_row_forever: { kind: 'complete', title: 'One of Us', image: 'assets/quests/professor/ending-vanessa.png',
         text: 'Then come over. Vanessa’s apartment is all candles and books with cracked spines. She pours two glasses and doesn’t say his name once. The university has canceled his speaker series, she says. Ellis, Curtis, all of them. The papers will call it unsolved. Let them. The Back Row has a new seat at the front.' },
+      pemberton: { kind: 'failure', title: 'The Borrowed Car',
+        text: 'Vale took a cab, like you told him. Nobody told Dr. Hal Pemberton, who borrowed the car that morning, the way he always does. The Sunfall Daily runs Pemberton’s photograph with a black border. Vale gives the eulogy, and for once he doesn’t make a joke.' },
       vale_dies: { kind: 'failure', title: 'The Professor Disappeared',
         text: 'The Back Row got it right the third time. The Sunfall Daily runs Vale’s photograph with a black border, and the university quietly cancels the rest of his speakers. You knew, and it wasn’t enough.',
         variants: { walked: 'You walked away, and the Back Row got it right the third time. The Sunfall Daily runs Vale’s photograph with a black border. You’ll always wonder.' } },
@@ -486,6 +561,8 @@
         carIntel: false, oldWire: false, wireFrom: null,
         inv: { semtex: 'none', wire: 'none', phone: 'none' }, due: { semtex: null, wire: null, phone: null },
         device: 'none', assemblyFails: 0, handoverDay: null, detonatedDay: null, wrongMan: false, invited: false,
+        valeTalk1: false, valeTalk2: false, valeTrust: 0, valeCar: false, valeCallDay: null, valeOn: 0,
+        wireSet: null, wireStep: 0, wireSus: 0, wireGot: [], wireDone: false, wireBurned: false,
         news: [], log: [],
         ending: null, endingDay: null, endingVariant: null, endingName: null, endingBride: null, endingBrideName: null
       };
@@ -505,6 +582,7 @@
           case 'facts': s.facts = strList(val, FACT_IDS); break;
           case 'flags': s.flags = strList(val, FLAGS); break;
           case 'accused': s.accused = strList(val, PEOPLE); break;
+          case 'wireGot': s.wireGot = strList(val, ['day', 'place']); break;
           case 'numbers': s.numbers = {}; if (val && typeof val === 'object') for (const id of LINES) if (validNumber(val[id])) s.numbers[id] = val[id]; break;
           case 'asked': s.asked = {}; if (val && typeof val === 'object') for (const key of Object.keys(val).slice(0, 300)) if (key.length <= 60) s.asked[key] = strList(val[key], null, 40); break;
           case 'daily': s.daily = {}; if (val && typeof val === 'object') for (const key of ['rosa', 'assemble']) if (Number.isInteger(val[key])) s.daily[key] = val[key]; break;
@@ -528,6 +606,8 @@
         }
       }
       for (const m of ['exposure', 'rosaTrust', 'heat', 'conf', 'rosaFear']) s[m] = clamp(s[m]);
+      s.valeTrust = clamp(Math.floor(s.valeTrust), 0, 5); s.valeOn = [0, 1, 2].includes(s.valeOn) ? s.valeOn : 0;
+      s.wireStep = clamp(Math.floor(s.wireStep), 0, D.wiretap.steps.length); s.wireSus = clamp(Math.floor(s.wireSus), -3, 10);
       s.assemblyFails = clamp(Math.floor(s.assemblyFails), 0, 1);
       if (s.ending) s.stage = 'ended';
       if (s.stage !== 'dormant' && (s.debateDay === null || s.attackDay === null)) s.stage = 'dormant';
@@ -694,6 +774,14 @@
           vm('alice');
           return out;
         }
+        if (s.valeCar) { // he took a cab, like you told him
+          if (s.pemberton) { news(s, day, 'wrong_man'); end(s, 'pemberton', day); return finish(); }
+          s.cellAtLarge = true; s.stage = 'resolved';
+          news(s, day, 'empty_bay');
+          if (s.exposure >= TH.silencedExposure) s.silencedDay = day + 2;
+          vm('valeThanks');
+          return out;
+        }
         news(s, day, 'vale_dead'); news(s, day + 1, 'memorial');
         end(s, 'vale_dies', day, s.stage === 'withdrawn' ? 'walked' : null);
         return finish();
@@ -796,6 +884,8 @@
       return { id: 'pv:' + id, name: c.name, portrait: c.portrait, greeting: lineGreeting(s, id) };
     }
     function lineGreeting(s, id) {
+      if (id === 'vanessa' && wireLive(s)) return D.wiretap.open;
+      if (id === 'vanessa' && s.wireBurned) return D.wiretap.hungUp;
       if (id === 'vanessa' && s.stage === 'open' && (s.offerState === 'waiting' || s.offerState === 'stalled')) return D.vanessaPitch;
       if (id === 'rosa' && s.rosaBurned) return D.rosaLines.burned;
       return D.contacts[id].greeting;
@@ -839,6 +929,12 @@
           if (s.stage === 'backrow') add('pv_r_calm', label('pv_r_calm'));
           break;
         case 'vanessa':
+          if (wireLive(s, day)) { // Graves is listening
+            const ch = D.wiretap.steps[s.wireStep].choices, keys = Object.keys(ch), shift = hash(s.seed + ':wire:' + s.wireStep) % keys.length;
+            keys.map((_, i) => keys[(i + shift) % keys.length]).forEach(k => add('pv_w_' + k, ch[k].label));
+            break;
+          }
+          if (s.wireBurned) break; // she knows you're with the police
           if (s.stage === 'open' && (s.offerState === 'waiting' || s.offerState === 'stalled')) {
             add('pv_v_join', label('pv_v_join')); add('pv_v_refuse', label('pv_v_refuse'));
             if (s.offerState === 'waiting') add('pv_v_stall', label('pv_v_stall'));
@@ -868,6 +964,12 @@
           break;
         case 'device': if (s.stage === 'backrow') add('pv_d_call', label('pv_d_call')); break;
         case 'alice': if (s.stage === 'resolved' && s.aliceCall) { add('pv_al_yes', label('pv_al_yes')); add('pv_al_later', label('pv_al_later')); } break;
+        case 'vale': {
+          const phase = valePhase(s, day);
+          if (phase) for (const [k, text] of Object.entries(D.vale['call' + phase].choices)) { if (k !== 'hang') add(`pv_va_${phase}_${k}`, text); }
+          else add('pv_va_chat', 'Ask how he is');
+          break;
+        }
         default: break;
       }
       return out;
@@ -876,6 +978,7 @@
     // Returns { ok, reply } where reply is what the other person says, plus ending info if any.
     function chooseLine(s, lineId, topicId, day) {
       if (s.ending) return no(L.over);
+      if (lineId === 'pv:vale' && topicId === 'pv_va_chat' && s.numbers.vale) return ok(s, D.vale.chat);
       if (!lineTopics(s, lineId, day).some(t => t.id === topicId)) return no(L.unavailable);
       const r = withEnding(s, runLine(s, lineId, topicId, day));
       r.reply = r.text;
@@ -883,6 +986,8 @@
     }
 
     function runLine(s, lineId, id, day) {
+      if (lineId === 'pv:vale' && id.startsWith('pv_va_')) { const [, , phase, k] = id.split('_'); return valeAnswerChoice(s, Number(phase), k, day); }
+      if (lineId === 'pv:vanessa' && id.startsWith('pv_w_')) return wireChoice(s, id.slice(5), day);
       if (lineId.startsWith('service:')) {
         const t = D.calls[lineId].find(x => x.id === id);
         s.asked[lineId] = (s.asked[lineId] || []).concat(id);
@@ -900,6 +1005,11 @@
             if (D.cell.includes(n)) {
               if (s.cellAtLarge) { s.cellArrested = true; s.cellAtLarge = false; s.silencedDay = null; s.favour.police = true; news(s, day + 1, 'cell_arrested_late'); return ok(s, D.gravesLines.tipEvidence, { name: name(n) }); }
               if (has(s, 'car_plan')) { s.tip = { name: n, day, withPlan: true }; return ok(s, D.gravesLines.tipPlan, { name: name(n) }); }
+              if (n === 'vanessa' && s.numbers.vanessa && !s.wireDone && s.stage === 'open' && day < s.attackDay) { // ring her, I'll listen
+                s.wireSet = day; s.wireStep = 0; s.wireSus = 0; s.wireGot = [];
+                s.accused = s.accused.filter(x => x !== 'vanessa');
+                return ok(s, D.wiretap.setup, { name: name(n) });
+              }
               if (!s.tip) s.tip = { name: n, day, withPlan: false };
               risk(s, 25, day);
               return ok(s, D.gravesLines.tipNoPlan, { name: name(n) });
@@ -987,6 +1097,100 @@
       }
     }
 
+    // ----- Vale rings you -----
+    // 1: the first time, once someone has told him you've been asking (before the lecture).
+    // 2: the night of the lecture, whatever happened before. Returns 0 when he isn't due.
+    function valePhase(s, day) {
+      if (s.ending || s.stage !== 'open' || s.attackResolved) return 0;
+      if (day >= s.debateDay && day < s.attackDay) return s.valeTalk2 ? 0 : 2;
+      if (day < s.debateDay) return s.valeTalk1 ? 0 : 1;
+      return 0;
+    }
+    function valeDue(s, day) {
+      const phase = valePhase(s, day);
+      if (!phase || s.valeCallDay === day) return 0;
+      if (phase === 1) return !s.inbox.some(m => m.key === 'valeVm1') && day > s.openedDay && (s.exposure >= 8 || has(s, 'rule')) ? 1 : 0;
+      return !s.inbox.some(m => m.key === 'valeVm2') ? 2 : 0;
+    }
+    function valeRang(s, day) { s.valeOn = valeDue(s, day); s.valeCallDay = day; return s.valeOn; }
+    function valeOpening(s) {
+      if (s.valeOn === 1) return fill(D.vale.call1.open, vars(s));
+      if (s.valeOn === 2) return fill(s.valeTalk1 ? D.vale.call2.known : D.vale.call2.stranger, vars(s));
+      return '';
+    }
+    function valeCallChoices(s) {
+      if (!s.valeOn) return [];
+      return Object.entries(D.vale['call' + s.valeOn].choices).map(([k, label]) => ({ id: 'vale:' + k, label }));
+    }
+    function valeCallChoose(s, id, day) {
+      const phase = s.valeOn; s.valeOn = 0;
+      if (!phase || s.ending) return no(L.unavailable);
+      return valeAnswerChoice(s, phase, String(id).replace(/^vale:/, ''), day);
+    }
+    function valeAnswerChoice(s, phase, k, day) {
+      const C = D.vale['call' + phase];
+      if (!C || !C.choices[k]) return no(L.unavailable);
+      giveNumber(s, 'vale');
+      if (phase === 1) {
+        s.valeTalk1 = true;
+        if (k === 'hang') return Object.assign(ok(s, ''), { hang: true });
+        s.valeTrust = clamp(s.valeTrust + (k === 'fan' ? 2 : 1), 0, 5);
+        learn(s, 'debate');
+        if (k === 'fan') learn(s, 'allison');
+        return ok(s, C[k]);
+      }
+      s.valeTalk2 = true;
+      if (k === 'hang') return Object.assign(ok(s, ''), { hang: true });
+      if (k === 'car') {
+        const yes = s.valeTrust >= 2 || (s.valeTrust >= 1 && has(s, 'car_plan'));
+        if (yes) s.valeCar = true;
+        return ok(s, yes ? C.carYes : C.carNo);
+      }
+      if (k === 'stay') {
+        const yes = s.valeTrust >= 1 || has(s, 'car_plan');
+        if (yes && s.thunderbirdsWarned === null) s.thunderbirdsWarned = day; // he stays with Alice: the Bluebirds find it
+        return ok(s, yes ? C.stayYes : C.stayNo);
+      }
+      return ok(s, C.luck);
+    }
+    function valeMissed(s, day) {
+      const phase = s.valeOn; s.valeOn = 0;
+      if (phase === 1) voicemail(s, day, 'valeVm1');
+      if (phase === 2) voicemail(s, day, 'valeVm2');
+      return phase;
+    }
+
+    // ----- the University Office: Lorraine notices you -----
+    const campusTier = s => (s.exposure >= TH.exposureWarn ? 2 : s.exposure >= 25 ? 1 : 0);
+    function serviceGreeting(s, lineId) {
+      if (lineId !== 'service:university' || s.stage === 'dormant') return null;
+      return D.university.greet[campusTier(s)];
+    }
+
+    // ----- the wiretap: ring Vanessa while Graves listens -----
+    const wireLive = (s, day) => s.wireSet !== null && !s.wireDone && s.stage === 'open' && !s.attackResolved && (day === undefined || day < s.attackDay);
+    function wireChoice(s, k, day) {
+      const step = D.wiretap.steps[s.wireStep], c = step && step.choices[k];
+      if (!c || !wireLive(s, day)) return no(L.unavailable);
+      s.wireSus += c.sus;
+      if (c.got && !s.wireGot.includes(c.got)) s.wireGot.push(c.got);
+      if (s.wireSus >= D.wiretap.burnAt) { // she knows someone's listening
+        s.wireDone = true; s.wireBurned = true; s.offerState = 'refused';
+        risk(s, 40, day);
+        if (s.exposure >= TH.silencedExposure) s.silencedDay = day + 2;
+        return ok(s, c.reply + ' ' + D.wiretap.burned);
+      }
+      s.wireStep++;
+      if (s.wireStep < D.wiretap.steps.length) return ok(s, c.reply);
+      s.wireDone = true;
+      if (['day', 'place'].every(g => s.wireGot.includes(g))) {
+        learn(s, 'vanessa'); learn(s, 'car_bay'); learn(s, 'car_plan');
+        s.tip = { name: 'vanessa', day, withPlan: true }; s.offerState = 'refused';
+        return ok(s, c.reply + ' ' + D.wiretap.win);
+      }
+      return ok(s, c.reply + ' ' + D.wiretap.partial);
+    }
+
     // ----- things done in the player's own room (buttons in the case file in the bedside cupboard) -----
     function roomActions(s) {
       const out = [];
@@ -1025,6 +1229,7 @@
         if (s.inv.phone === 'none') return 'Somebody in the classifieds sells phones.';
         return allItems(s) ? 'Your desk is waiting.' : null;
       }
+      if (wireLive(s)) return 'Graves is waiting for you to ring Vanessa.';
       if (!has(s, 'rule')) return 'Two accidents. Look at what happened the day before each.';
       if (!has(s, 'debate')) return 'Who is Vale bringing to campus next?';
       if (!has(s, 'allison')) return 'Somebody keeps Vale’s diary.';
@@ -1117,6 +1322,7 @@
         device: s.device,
         actions: roomActions(s),
         hint: hintFor(s),
+        campus: isProtect(s) || s.stage === 'withdrawn' ? D.university.word[campusTier(s)] : null,
         log: s.log.slice(-5),
         ending: endingInfo(s)
       };
@@ -1128,6 +1334,7 @@
       contactForNumber, knownLines, lineTopics, chooseLine,
       roomActions, roomAction, workbenchConfig, assembleResult, wireNeeded, wireFromFriend,
       caseFile, endingInfo,
+      valeDue, valeRang, valeOpening, valeCallChoices, valeCallChoose, valeMissed, serviceGreeting,
       profileToPerson: profileId => PEOPLE.find(p => D.cast[p].profileId === profileId) || null
     };
   }
@@ -1189,6 +1396,7 @@
       let h = `<div class="pv-case"><h3>${esc(v.title)}</h3><div class="pv-sub">${esc(v.routeName)} · Day ${v.day}${v.debateDay ? ` · Cofnas lecture Day ${v.debateDay}` : ''}${v.attackDay ? ` · Attack Day ${v.attackDay}` : ''}</div>`;
       if (lastText) h += `<div class="pv-last">${esc(lastText)}</div>`;
       if (v.hint) h += `<div class="pv-hint">Hint: ${esc(v.hint)}</div>`;
+      if (v.campus) h += `<div class="pv-sub">Word on campus: ${esc(v.campus)}</div>`;
       if (v.meters.length && !(host.elsewhere && host.elsewhere.meters)) h += `<div class="pv-meters">${v.meters.map(m => `<div class="pv-meter${m.danger ? ' pv-danger' : ''}"><span>${esc(m.label)}</span><i><b style="width:${m.value}%"></b></i><em>${m.value}</em><small>${esc(m.hint)}</small></div>`).join('')}</div>`;
       if (v.todo.length && !(host.elsewhere && host.elsewhere.todo)) h += `<h4>Next</h4><ul class="pv-list">${v.todo.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
       if (v.voicemails.length && !(host.elsewhere && host.elsewhere.voicemails)) h += `<h4>Voicemail</h4>${v.voicemails.map(m => `<div class="pv-vm"><b>Day ${m.day} · ${esc(m.from)}</b><br>${esc(m.text)}</div>`).join('')}`;
@@ -1376,6 +1584,15 @@ body>.pv-overlay{position:fixed}
       hingeTopics, chooseHingeTopic,
       serviceTopics, chooseServiceTopic, contactForNumber,
       isOpen: () => state().stage !== 'dormant',
+      // Vale rings you (the host's incoming-call screen): due, ring, answer, choices, choose, missed.
+      valeCallerDue: () => (E.valeDue(state(), day()) ? 'x:vale' : null),
+      valeCallCard: () => { const s = state(); const known = s.valeTalk1 || s.valeTalk2 || !!s.numbers.vale; return { name: known ? DATA.vale.name : 'Unknown number', portrait: known ? DATA.vale.portrait : DATA.contacts.rosa.portrait }; }, // a stranger until you know him
+      valeRang: () => { E.valeRang(state(), day()); if (host.save) host.save(); },
+      valeAnswer: () => E.valeOpening(state()),
+      valeChoices: () => E.valeCallChoices(state()),
+      valeChoose: id => after(E.valeCallChoose(state(), id, day())),
+      valeMissed: () => { E.valeMissed(state(), day()); if (host.save) host.save(); if (host.onChange) host.onChange(); render(); },
+      serviceGreeting: lineId => E.serviceGreeting(state(), lineId),
       caseCard: () => { const v = E.caseFile(state(), day()); return { title: DATA.title, status: v.routeName, alert: v.todo[0] || '' }; }
     };
   }

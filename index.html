@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="dd764a01ae">
+<html lang="en" data-build="f2f3a20436">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -612,11 +612,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=dd764a01ae"></script>
+  <script src="chapel_at_midnight.js?v=f2f3a20436"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=dd764a01ae"></script>
+  <script src="marriage.js?v=f2f3a20436"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=dd764a01ae"></script>
+  <script src="quests/professor-vale.js?v=f2f3a20436"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1469,7 +1469,7 @@
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
         const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St. Brigid’s Chapel',university:'University Office'};
-        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?DISPATCH.greeting:`${names[contact[0]]}. Hello, how may I help you?`});return;}
+        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?DISPATCH.greeting:(contact[0]==='university'&&questOn('vale')&&valeKnown()&&PV?.serviceGreeting?.('service:university'))||`${names[contact[0]]}. Hello, how may I help you?`});return;} // Professor Vale: Lorraine notices who keeps ringing
         const jewellerLine=marriage?.contactForNumber(dialledNumber); // Marriage: the five jewellers
         if(jewellerLine){startSimulatedCall({...jewellerLine,generic:true});return;}
         const valeLine=PV?.contactForNumber(dialledNumber); // Professor Vale: numbers found during the case
@@ -3873,6 +3873,7 @@
     // is in it is the usual reason; Theon's once he has rung you or a woman has shown you a screenshot.
     function brKnown(){return !!world.flags.brPaperSeen;}
     function valeKnown(){return !!world.flags.valePaperSeen||!!PV?.isOpen?.();}
+    function valeCallerDue(){return questOn('vale')&&PV?.isOpen?.()&&!window.MATCH_NO_VALE_CALLS?PV.valeCallerDue?.()||null:null;} // Professor Vale rings you himself (the conversation tests switch it off)
     function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
     function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='vale'?questOn('vale')&&valeKnown():true);}
     // ===== Mogger: her dad, and Theon =====
@@ -4096,6 +4097,7 @@
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
       if(RQ_CALLERS[id])return rqCallCard(id); // room quests
       if(FQ_CALLERS[id])return fqCallCard(id); // her thing
+      if(id==='x:vale'){const c=PV?.valeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Unknown number',gallery:[face],banner:face,ringName:c?.name||'Unknown number',sub:'Mobile'};} // Professor Vale rings you
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
@@ -4116,12 +4118,13 @@
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
-      return miniCallerDue()||rqCallerDue()||fqCallerDue(); // mini quests, room quests, her thing
+      return miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // mini quests, room quests, her thing, Professor Vale
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
       if(RQ_CALLERS[id]){rqRang(id);return;}
       if(FQ_CALLERS[id]){fqRang(id);return;}
+      if(id==='x:vale'){PV.valeRang();return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:police')policeWarnState().called=true;
@@ -4141,6 +4144,7 @@
       if(MINI_CALLERS[id]){miniMissed(id);return;}
       if(RQ_CALLERS[id]){rqMissed(id);return;}
       if(FQ_CALLERS[id]){fqMissed(id);return;}
+      if(id==='x:vale'){PV.valeMissed();saveRun(true);return;} // he leaves a voicemail
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
@@ -4158,6 +4162,7 @@
       if(MINI_CALLERS[id])return miniAnswer(id);
       if(RQ_CALLERS[id])return rqAnswer(id);
       if(FQ_CALLERS[id])return fqAnswer(id);
+      if(id==='x:vale')return {id,stranger:true,kind:'vale',step:'open',said:PV.valeAnswer()};
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
@@ -4172,6 +4177,7 @@
       if(call.kind==='mini')return miniCallChoices(call);
       if(call.kind==='rq')return rqCallChoices(call); // room quests
       if(call.kind==='fq')return fqCallChoices(call); // her thing
+      if(call.kind==='vale')return PV.valeChoices(); // Professor Vale
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
@@ -4192,6 +4198,7 @@
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
       if(call.kind==='rq'){rqChooseCall(call,choice);return;}
       if(call.kind==='fq'){fqChooseCall(call,choice);return;}
+      if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}

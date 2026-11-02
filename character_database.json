@@ -11644,7 +11644,7 @@
       "age": 23,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
-      "look": "Light olive skin, cornrows into a low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
+      "look": "Pale skin, a sleek low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
       "status": "awaiting portrait",
       "type": "cool-sporty",
       "notes": ""
@@ -11655,7 +11655,7 @@
       "age": 36,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
-      "look": "Dark skin, dark French braid, a small nose stud, powder-blue twinset",
+      "look": "Fair skin, dark French braid, a small nose stud, powder-blue twinset",
       "status": "awaiting portrait",
       "type": "meddling-matchmaker",
       "notes": ""
@@ -11909,7 +11909,7 @@
       "age": 25,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
-      "look": "Light olive skin, burgundy-dyed curls, sharp winged eyeliner, pale pink sheath dress",
+      "look": "Lightly tanned fair skin, burgundy-dyed curls, sharp winged eyeliner, pale pink sheath dress",
       "status": "awaiting portrait",
       "type": "meddling-matchmaker",
       "notes": ""
@@ -11920,7 +11920,7 @@
       "age": 38,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
-      "look": "Light-brown skin, chestnut curly bob, long lashes and a sleepy gaze, white linen trouser suit",
+      "look": "Fair skin, chestnut curly bob, long lashes and a sleepy gaze, white linen trouser suit",
       "status": "awaiting portrait",
       "type": "golden-careless",
       "notes": ""
@@ -12412,11 +12412,11 @@
     },
     {
       "id": "MATCH-094",
-      "name": "Lorena Sato",
+      "name": "Lorna Sutton",
       "age": 28,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
-      "look": "Warm beige skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
+      "look": "Fair skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
       "status": "awaiting portrait",
       "type": "glamorous-rival",
       "notes": ""
@@ -12427,36 +12427,36 @@
       "age": 19,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
-      "look": "Light olive skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
+      "look": "Lightly tanned fair skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
       "status": "awaiting portrait",
       "type": "golden-careless",
       "notes": ""
     },
     {
       "id": "MATCH-096",
-      "name": "Mariana Cabrera",
+      "name": "Maren Caldwell",
       "age": 33,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
-      "look": "Golden-tan skin, platinum pixie cut, hazel eyes, cream blazer over a silk camisole",
+      "look": "Fair skin, platinum pixie cut, hazel eyes, cream blazer over a silk camisole",
       "status": "awaiting portrait",
       "type": "cool-sporty",
       "notes": ""
     },
     {
       "id": "MATCH-097",
-      "name": "Estelle Park",
+      "name": "Estelle Parker",
       "age": 20,
       "faction": "thunderbirds",
       "job": "Compliance administrator",
-      "look": "Warm beige skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
+      "look": "Rosy fair skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
       "status": "awaiting portrait",
       "type": "charming-schemer",
       "notes": ""
     },
     {
       "id": "MATCH-098",
-      "name": "Irene Valencia",
+      "name": "Irene Vaughn",
       "age": 34,
       "faction": "thunderbirds",
       "job": "Charity bookkeeper",
@@ -13700,11 +13700,11 @@
     },
     {
       "id": "MATCH-111",
-      "name": "Mireya Solis",
+      "name": "Miranda Sowerby",
       "age": 32,
       "faction": "police",
       "job": "Community safety officer",
-      "look": "Fair skin, cornrows into a low bun, a wide bright smile, charcoal blazer and turtleneck",
+      "look": "Fair skin, a sleek low bun, a wide bright smile, charcoal blazer and turtleneck",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
@@ -13715,7 +13715,7 @@
       "age": 22,
       "faction": "police",
       "job": "Detective constable",
-      "look": "Medium-brown skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
+      "look": "Rosy fair skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
       "status": "awaiting portrait",
       "type": "organised-brave",
       "notes": ""
@@ -13972,11 +13972,11 @@
     },
     {
       "id": "MATCH-116",
-      "name": "Shirin Abbasi",
+      "name": "Sheryl Abbott",
       "age": 25,
       "faction": "police",
       "job": "Custody nurse",
-      "look": "Freckled fair skin, cornrows into a low bun, tortoiseshell glasses, navy polo shirt and khaki pants",
+      "look": "Freckled fair skin, a sleek low bun, tortoiseshell glasses, navy polo shirt and khaki pants",
       "status": "awaiting portrait",
       "type": "reserved-sensible",
       "notes": ""
@@ -13987,18 +13987,18 @@
       "age": 34,
       "faction": "police",
       "job": "Police dispatcher",
-      "look": "Olive skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black pants",
+      "look": "Lightly tanned fair skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black pants",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
     },
     {
       "id": "MATCH-118",
-      "name": "Renee Salazar",
+      "name": "Renee Saunders",
       "age": 25,
       "faction": "police",
       "job": "Police records clerk",
-      "look": "Light-brown skin, twist-out coils, a gap-toothed smile, denim shirt with rolled sleeves",
+      "look": "Freckled fair skin, loose spiral curls, a gap-toothed smile, denim shirt with rolled sleeves",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
@@ -14009,7 +14009,7 @@
       "age": 35,
       "faction": "police",
       "job": "Victim liaison adviser",
-      "look": "Warm beige skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
+      "look": "Porcelain skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
       "status": "awaiting portrait",
       "type": "organised-brave",
       "notes": ""
@@ -14020,7 +14020,7 @@
       "age": 27,
       "faction": "police",
       "job": "Traffic collision investigator",
-      "look": "Light-brown skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
+      "look": "Freckled fair skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
       "status": "awaiting portrait",
       "type": "practical-princess",
       "notes": ""
@@ -14031,7 +14031,7 @@
       "age": 18,
       "faction": "police",
       "job": "Forensic lab analyst",
-      "look": "Light-brown skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
+      "look": "Fair skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
@@ -14042,7 +14042,7 @@
       "age": 29,
       "faction": "police",
       "job": "Community safety officer",
-      "look": "Golden-tan skin, long red curls, gold hoop earrings, gray hoodie and running shoes",
+      "look": "Sun-kissed fair skin, long red curls, gold hoop earrings, gray hoodie and running shoes",
       "status": "awaiting portrait",
       "type": "organised-brave",
       "notes": ""
@@ -14064,14 +14064,14 @@
       "age": 29,
       "faction": "police",
       "job": "Crime scene photographer",
-      "look": "Warm brown skin, sandy shag with a fringe, a beauty mark above her lip, plain white shirt and slim black pants",
+      "look": "Rosy fair skin, sandy shag with a fringe, a beauty mark above her lip, plain white shirt and slim black pants",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
     },
     {
       "id": "MATCH-125",
-      "name": "Yolanda Vega",
+      "name": "Yvonne Barlow",
       "age": 21,
       "faction": "police",
       "job": "Public safety statistician",
@@ -14086,29 +14086,29 @@
       "age": 31,
       "faction": "police",
       "job": "Evidence archive assistant",
-      "look": "Warm beige skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
+      "look": "Fair skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
     },
     {
       "id": "MATCH-127",
-      "name": "Gwen Alvarado",
+      "name": "Gwen Alder",
       "age": 21,
       "faction": "police",
       "job": "Custody nurse",
-      "look": "Light-brown skin, dark brown messy bun, a gap-toothed smile, gray hoodie and running shoes",
+      "look": "Fair skin, dark brown messy bun, a gap-toothed smile, gray hoodie and running shoes",
       "status": "awaiting portrait",
       "type": "practical-princess",
       "notes": ""
     },
     {
       "id": "MATCH-128",
-      "name": "Simone Achebe",
+      "name": "Simone Ashby",
       "age": 32,
       "faction": "police",
       "job": "Police dispatcher",
-      "look": "Deep brown skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
+      "look": "Sun-kissed fair skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
       "status": "awaiting portrait",
       "type": "organised-brave",
       "notes": ""
@@ -15192,7 +15192,7 @@
     },
     {
       "id": "MATCH-138",
-      "name": "Luz Palacios",
+      "name": "Lucille Pembrook",
       "age": 31,
       "faction": "progressives",
       "job": "Community art organizer",
@@ -15203,7 +15203,7 @@
     },
     {
       "id": "MATCH-139",
-      "name": "Lara Nwosu",
+      "name": "Lara Newsome",
       "age": 22,
       "faction": "progressives",
       "job": "Climate campaigner",
@@ -15466,7 +15466,7 @@
     },
     {
       "id": "MATCH-143",
-      "name": "Nicolette Park",
+      "name": "Nicolette Parrish",
       "age": 23,
       "faction": "progressives",
       "job": "Climate campaigner",
@@ -15477,22 +15477,22 @@
     },
     {
       "id": "MATCH-144",
-      "name": "Alma Sandoval",
+      "name": "Alma Sanders",
       "age": 33,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Light olive skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
+      "look": "Lightly tanned fair skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
       "notes": ""
     },
     {
       "id": "MATCH-145",
-      "name": "Marlene Choi",
+      "name": "Marlene Coates",
       "age": 25,
       "faction": "progressives",
       "job": "Climate campaigner",
-      "look": "Olive skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
+      "look": "Pale skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
       "status": "awaiting portrait",
       "type": "principled-plainspoken",
       "notes": ""
@@ -15503,18 +15503,18 @@
       "age": 34,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Golden-tan skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
+      "look": "Lightly tanned fair skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
       "notes": ""
     },
     {
       "id": "MATCH-147",
-      "name": "Carla Haddad",
+      "name": "Carla Hadley",
       "age": 27,
       "faction": "progressives",
       "job": "Climate campaigner",
-      "look": "Olive skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
+      "look": "Porcelain skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
       "status": "awaiting portrait",
       "type": "witty-sceptic",
       "notes": ""
@@ -15525,7 +15525,7 @@
       "age": 36,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Warm brown skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
+      "look": "Lightly tanned fair skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
       "status": "awaiting portrait",
       "type": "principled-plainspoken",
       "notes": ""
@@ -15648,11 +15648,11 @@
     },
     {
       "id": "MATCH-150",
-      "name": "April Khoury",
+      "name": "April Kearney",
       "age": 18,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Warm brown skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
+      "look": "Fair skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
       "notes": ""
@@ -15663,51 +15663,51 @@
       "age": 28,
       "faction": "progressives",
       "job": "Climate campaigner",
-      "look": "Rosy fair skin, twist-out coils, rosy cheeks, vintage windbreaker",
+      "look": "Rosy fair skin, loose spiral curls, rosy cheeks, vintage windbreaker",
       "status": "awaiting portrait",
       "type": "dignified-outsider",
       "notes": ""
     },
     {
       "id": "MATCH-152",
-      "name": "Kiki Okada",
+      "name": "Kiki O’Dell",
       "age": 20,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Medium-brown skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
+      "look": "Freckled fair skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
       "status": "awaiting portrait",
       "type": "witty-sceptic",
       "notes": ""
     },
     {
       "id": "MATCH-153",
-      "name": "Anika Joseph",
+      "name": "Annika Joseph",
       "age": 28,
       "faction": "progressives",
       "job": "Climate campaigner",
-      "look": "Golden-tan skin, brown waves with teal tips, a gap-toothed smile, corduroy jacket with enamel pins",
+      "look": "Freckled fair skin, brown waves with teal tips, a gap-toothed smile, corduroy jacket with enamel pins",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
       "notes": ""
     },
     {
       "id": "MATCH-154",
-      "name": "Amina Youssef",
+      "name": "Annabel Yates",
       "age": 21,
       "faction": "progressives",
       "job": "Community art organizer",
-      "look": "Light-brown skin, box braids to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
+      "look": "Fair skin, a long braid to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
       "status": "awaiting portrait",
       "type": "principled-plainspoken",
       "notes": ""
     },
     {
       "id": "MATCH-155",
-      "name": "Rhea Kapoor",
+      "name": "Rhea Cooper",
       "age": 31,
       "faction": "progressives",
       "job": "Climate campaigner",
-      "look": "Dark skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
+      "look": "Freckled fair skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
       "notes": ""
@@ -17753,11 +17753,11 @@
     },
     {
       "id": "MATCH-173",
-      "name": "Asha Grant",
+      "name": "Ashley Grant",
       "age": 32,
       "faction": "fourth_estate",
       "job": "Television camera operator",
-      "look": "Warm brown skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit sweater and leather satchel",
+      "look": "Fair skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit sweater and leather satchel",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
@@ -17768,7 +17768,7 @@
       "age": 23,
       "faction": "fourth_estate",
       "job": "Local radio researcher",
-      "look": "Olive skin, cornrows into a low bun, a tiny scar through one eyebrow, bomber jacket and graphic tee",
+      "look": "Pale skin, a sleek low bun, a tiny scar through one eyebrow, bomber jacket and graphic tee",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
@@ -17893,29 +17893,29 @@
       "age": 23,
       "faction": "fourth_estate",
       "job": "Weekend newspaper editor",
-      "look": "Golden-tan skin, glossy black ponytail, a silver ear cuff, bomber jacket and graphic tee",
+      "look": "Fair skin, glossy black ponytail, a silver ear cuff, bomber jacket and graphic tee",
       "status": "awaiting portrait",
       "type": "spellbinding-storyteller",
       "notes": ""
     },
     {
       "id": "MATCH-177",
-      "name": "Leanne Duarte",
+      "name": "Leanne Dalton",
       "age": 35,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
-      "look": "Dark skin, cornrows into a low bun, a beauty mark above her lip, striped shirt and trench coat",
+      "look": "Freckled fair skin, a sleek low bun, a beauty mark above her lip, striped shirt and trench coat",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
       "notes": ""
     },
     {
       "id": "MATCH-178",
-      "name": "Mina Kaur",
+      "name": "Mina Kerr",
       "age": 24,
       "faction": "fourth_estate",
       "job": "Freelance music reviewer",
-      "look": "Light-brown skin, long locs with gold cuffs, thin wire-rimmed glasses, press lanyard and denim jacket",
+      "look": "Pale skin, long wavy hair with gold clips, thin wire-rimmed glasses, press lanyard and denim jacket",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
@@ -17926,47 +17926,47 @@
       "age": 36,
       "faction": "fourth_estate",
       "job": "Photography assistant",
-      "look": "Medium-brown skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
+      "look": "Porcelain skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
       "status": "awaiting portrait",
       "type": "spellbinding-storyteller",
       "notes": ""
     },
     {
       "id": "MATCH-180",
-      "name": "Suki Matsuda",
+      "name": "Susie Mathers",
       "age": 27,
       "faction": "fourth_estate",
       "job": "Court reporter",
-      "look": "Dark skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
+      "look": "Rosy fair skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
       "status": "awaiting portrait",
       "type": "tomboy-writer",
       "notes": ""
     },
     {
       "id": "MATCH-181",
-      "name": "Gina Flores",
+      "name": "Gina Fowler",
       "age": 35,
       "faction": "fourth_estate",
       "job": "Newsroom fact-checker",
-      "look": "Warm beige skin, twist-out coils, rosy cheeks, utility vest with many pockets",
+      "look": "Freckled fair skin, loose spiral curls, rosy cheeks, utility vest with many pockets",
       "status": "awaiting portrait",
       "type": "spellbinding-storyteller",
       "notes": ""
     },
     {
       "id": "MATCH-182",
-      "name": "Wendy Cho",
+      "name": "Wendy Chalmers",
       "age": 28,
       "faction": "fourth_estate",
       "job": "Travel columnist",
-      "look": "Medium-brown skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
+      "look": "Freckled fair skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
     },
     {
       "id": "MATCH-183",
-      "name": "Jules Moreno",
+      "name": "Jules Moreland",
       "age": 19,
       "faction": "fourth_estate",
       "job": "Sports journalist",
@@ -17981,7 +17981,7 @@
       "age": 29,
       "faction": "fourth_estate",
       "job": "Television camera operator",
-      "look": "Deep brown skin, glossy black ponytail, a small nose stud, chambray shirt and chinos",
+      "look": "Rosy fair skin, glossy black ponytail, a small nose stud, chambray shirt and chinos",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
@@ -18003,7 +18003,7 @@
       "age": 30,
       "faction": "fourth_estate",
       "job": "Archive researcher",
-      "look": "Olive skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
+      "look": "Pale skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
       "status": "awaiting portrait",
       "type": "spellbinding-storyteller",
       "notes": ""
@@ -18014,18 +18014,18 @@
       "age": 20,
       "faction": "fourth_estate",
       "job": "Weekend newspaper editor",
-      "look": "Light olive skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
+      "look": "Fair skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
     },
     {
       "id": "MATCH-188",
-      "name": "Priyanka Das",
+      "name": "Polly Dashwood",
       "age": 29,
       "faction": "fourth_estate",
       "job": "Investigative reporter",
-      "look": "Warm brown skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit sweater and leather satchel",
+      "look": "Freckled fair skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit sweater and leather satchel",
       "status": "awaiting portrait",
       "type": "spellbinding-storyteller",
       "notes": ""
@@ -18036,7 +18036,7 @@
       "age": 21,
       "faction": "fourth_estate",
       "job": "Freelance music reviewer",
-      "look": "Pale skin, natural afro puff, tortoiseshell glasses, rolled-sleeve oxford shirt",
+      "look": "Pale skin, a high curly ponytail, tortoiseshell glasses, rolled-sleeve oxford shirt",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
       "notes": ""
@@ -18047,7 +18047,7 @@
       "age": 31,
       "faction": "fourth_estate",
       "job": "Photography assistant",
-      "look": "Dark skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
+      "look": "Rosy fair skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
       "notes": ""
@@ -19076,7 +19076,7 @@
             "id": "b_aunt",
             "label": "Ask who looks after her",
             "player": "Who looks after you?",
-            "reply": "My aunt Mireya. She’s a police officer and pays for my room above the hall and pretends she doesn’t. I pretend not to know. It works for both of us.",
+            "reply": "My aunt Miranda. She’s a police officer and pays for my room above the hall and pretends she doesn’t. I pretend not to know. It works for both of us.",
             "needsWarmth": 1
           },
           {
@@ -19169,7 +19169,7 @@
       "age": 29,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Deep brown skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
+      "look": "Sun-kissed fair skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
       "status": "awaiting portrait",
       "type": "restless-heartbreaker",
       "notes": ""
@@ -19180,7 +19180,7 @@
       "age": 20,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Light-brown skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
+      "look": "Pale skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
       "status": "awaiting portrait",
       "type": "dignified-outsider",
       "notes": ""
@@ -19191,7 +19191,7 @@
       "age": 30,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Pale skin, cornrows into a low bun, long lashes and a sleepy gaze, velvet choker and black slip dress",
+      "look": "Pale skin, a sleek low bun, long lashes and a sleepy gaze, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
       "notes": ""
@@ -19327,7 +19327,7 @@
       "age": 21,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Warm brown skin, wavy dark hair with a deep side part, a beauty mark above her lip, silver-buckled platform boots and black jeans",
+      "look": "Porcelain skin, wavy dark hair with a deep side part, a beauty mark above her lip, silver-buckled platform boots and black jeans",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
       "notes": ""
@@ -19466,7 +19466,7 @@
       "age": 33,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Medium-brown skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
+      "look": "Lightly tanned fair skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "velvet-mystery",
       "notes": ""
@@ -19484,11 +19484,11 @@
     },
     {
       "id": "MATCH-210",
-      "name": "Juno Varela",
+      "name": "Juno Varley",
       "age": 34,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Deep brown skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
+      "look": "Fair skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
       "status": "awaiting portrait",
       "type": "dignified-outsider",
       "notes": ""
@@ -19499,7 +19499,7 @@
       "age": 25,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Dark skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
+      "look": "Lightly tanned fair skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
       "status": "awaiting portrait",
       "type": "restless-heartbreaker",
       "notes": ""
@@ -19510,7 +19510,7 @@
       "age": 33,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Warm beige skin, cornrows into a low bun, rosy cheeks, velvet choker and black slip dress",
+      "look": "Rosy fair skin, a sleek low bun, rosy cheeks, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "wild-heart",
       "notes": ""
@@ -19521,7 +19521,7 @@
       "age": 26,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Warm brown skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
+      "look": "Lightly tanned fair skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
       "status": "awaiting portrait",
       "type": "velvet-mystery",
       "notes": ""
@@ -19543,7 +19543,7 @@
       "age": 27,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Light-brown skin, copper waist-length waves, strong dark brows, studded leather jacket",
+      "look": "Pale skin, copper waist-length waves, strong dark brows, studded leather jacket",
       "status": "awaiting portrait",
       "type": "dignified-outsider",
       "notes": ""
@@ -19554,7 +19554,7 @@
       "age": 36,
       "faction": "goth_girls",
       "job": "Gothic jewelry maker",
-      "look": "Warm brown skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
+      "look": "Rosy fair skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
       "status": "awaiting portrait",
       "type": "restless-heartbreaker",
       "notes": ""
@@ -19565,7 +19565,7 @@
       "age": 27,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Warm brown skin, long red curls, strong dark brows, plum corset dress",
+      "look": "Lightly tanned fair skin, long red curls, strong dark brows, plum corset dress",
       "status": "awaiting portrait",
       "type": "wild-heart",
       "notes": ""
@@ -19611,9 +19611,9 @@
             "id": "b_letter",
             "label": "Ask about the most reckless thing she’s done",
             "player": "What’s the most reckless thing you’ve done?",
-            "reply": "I opened a letter that came to the Furnace for a girl called Mariana. An invitation to dinner at the lodge. I answered it. As her. It sounded like an adventure. Now they think Mariana Cabrera is coming to dinner, and I’m going instead.",
+            "reply": "I opened a letter that came to the Furnace for a girl called Maren. An invitation to dinner at the lodge. I answered it. As her. It sounded like an adventure. Now they think Maren Caldwell is coming to dinner, and I’m going instead.",
             "needsWarmth": 2,
-            "note": "Hex Morrow answered a lodge dinner invitation addressed to Mariana Cabrera, as Mariana, and plans to go in her place.",
+            "note": "Hex Morrow answered a lodge dinner invitation addressed to Maren Caldwell, as Maren, and plans to go in her place.",
             "quest": "br"
           }
         ],
@@ -19691,7 +19691,7 @@
       "age": 28,
       "faction": "goth_girls",
       "job": "Music venue manager",
-      "look": "Deep brown skin, short silver-dyed crop, gray-green eyes, velvet choker and black slip dress",
+      "look": "Porcelain skin, short silver-dyed crop, gray-green eyes, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "velvet-mystery",
       "notes": ""
@@ -20754,7 +20754,7 @@
       "age": 28,
       "faction": "normie_girls",
       "job": "Primary school teacher",
-      "look": "Light-brown skin, cornrows into a low bun, a wide bright smile, sporty tracksuit jacket",
+      "look": "Lightly tanned fair skin, a sleek low bun, a wide bright smile, sporty tracksuit jacket",
       "status": "awaiting portrait",
       "type": "all-in-romantic",
       "notes": ""
@@ -20765,7 +20765,7 @@
       "age": 20,
       "faction": "normie_girls",
       "job": "Dog walker",
-      "look": "Warm beige skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
+      "look": "Pale skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
       "status": "awaiting portrait",
       "type": "golden-careless",
       "notes": ""
@@ -21036,11 +21036,11 @@
     },
     {
       "id": "MATCH-236",
-      "name": "Jenna Nguyen",
+      "name": "Jenna Newton",
       "age": 31,
       "faction": "normie_girls",
       "job": "Museum attendant",
-      "look": "Olive skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
+      "look": "Freckled fair skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
       "status": "awaiting portrait",
       "type": "dreamy-chatterbox",
       "notes": ""
@@ -21051,7 +21051,7 @@
       "age": 22,
       "faction": "normie_girls",
       "job": "Real estate agent",
-      "look": "Dark skin, natural afro puff, rosy cheeks, pink zip hoodie",
+      "look": "Fair skin, a high curly ponytail, rosy cheeks, pink zip hoodie",
       "status": "awaiting portrait",
       "type": "witty-sceptic",
       "notes": ""
@@ -21069,7 +21069,7 @@
     },
     {
       "id": "MATCH-239",
-      "name": "Eva Castillo",
+      "name": "Eva Castle",
       "age": 25,
       "faction": "normie_girls",
       "job": "Tour guide",
@@ -21204,7 +21204,7 @@
       "age": 26,
       "faction": "normie_girls",
       "job": "Primary school teacher",
-      "look": "Warm beige skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
+      "look": "Rosy fair skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
       "status": "awaiting portrait",
       "type": "all-in-romantic",
       "notes": ""
@@ -21215,18 +21215,18 @@
       "age": 35,
       "faction": "normie_girls",
       "job": "Dog walker",
-      "look": "Dark skin, copper waist-length waves, a gap-toothed smile, turquoise peasant top",
+      "look": "Freckled fair skin, copper waist-length waves, a gap-toothed smile, turquoise peasant top",
       "status": "awaiting portrait",
       "type": "shy-gentle",
       "notes": ""
     },
     {
       "id": "MATCH-243",
-      "name": "Alyssa Kim",
+      "name": "Alyssa Kimball",
       "age": 25,
       "faction": "normie_girls",
       "job": "Interior decorator",
-      "look": "Light olive skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
+      "look": "Porcelain skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
       "status": "awaiting portrait",
       "type": "earnest-heart",
       "notes": ""
@@ -21237,7 +21237,7 @@
       "age": 37,
       "faction": "normie_girls",
       "job": "Florist",
-      "look": "Golden-tan skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
+      "look": "Rosy fair skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
       "status": "awaiting portrait",
       "type": "chaotic-sweetheart",
       "notes": ""
@@ -21255,7 +21255,7 @@
     },
     {
       "id": "MATCH-246",
-      "name": "Nikki Mendoza",
+      "name": "Nikki Maddox",
       "age": 19,
       "faction": "normie_girls",
       "job": "Pharmacy assistant",
@@ -21292,7 +21292,7 @@
       "age": 28,
       "faction": "normie_girls",
       "job": "Swimming coach",
-      "look": "Fair skin, box braids to the waist, thin wire-rimmed glasses, red gingham shirt",
+      "look": "Fair skin, a long braid to the waist, thin wire-rimmed glasses, red gingham shirt",
       "status": "awaiting portrait",
       "type": "all-in-romantic",
       "notes": ""
