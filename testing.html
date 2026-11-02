@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="2b60a7399d">
+<html lang="en" data-build="dd764a01ae">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -612,11 +612,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=2b60a7399d"></script>
+  <script src="chapel_at_midnight.js?v=dd764a01ae"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=2b60a7399d"></script>
+  <script src="marriage.js?v=dd764a01ae"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=2b60a7399d"></script>
+  <script src="quests/professor-vale.js?v=dd764a01ae"></script>
 </head>
 <body>
   <main class="workbench">
@@ -708,6 +708,7 @@
         <button class="bar-button" id="fq-count-preview">Her thing: Catherine Bell messages now (Match Point)</button>
         <button class="bar-button" id="fq-refusal-preview">Her thing: Caroline Prescott messages now (Refused)</button>
         <button class="bar-button" id="thing-preview">Her thing: a woman with one tells you it now</button>
+        <button class="bar-button" id="into-preview">Her thing: a woman who likes you messages, so you can ask what she’s into</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
       <p>Tap an app to open it. Press the physical Home button once to return to Matchfall; press it once more on the home screen to put the phone down. Double-press or hold it to lower the phone and hide your hands from anywhere. Tap the top of the lowered phone to raise it again. The game is a local simulation and makes no real calls.</p>
@@ -2135,7 +2136,7 @@
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
-      for(const [id,label] of fqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
+      for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
@@ -2315,6 +2316,7 @@
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
+      if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
@@ -2590,7 +2592,7 @@
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
-        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),thing:['told','yes','no'].includes(src.thing)?src.thing:null,flirtOwn:words(src.flirtOwn).filter(key=>['muse','caption','melt'].includes(key)),callTold:words(src.callTold),
+        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),thing:['told','yes','no'].includes(src.thing)?src.thing:null,into:Number.isInteger(src.into)?Math.max(0,Math.min(3,src.into)):0,intoDay:day(src.intoDay),intoAskedDay:day(src.intoAskedDay),intoShut:day(src.intoShut),flirtOwn:words(src.flirtOwn).filter(key=>['muse','caption','melt'].includes(key)),callTold:words(src.callTold),
         later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
         gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
@@ -2664,6 +2666,7 @@
       if(!follow||!kit)return [];
       if(['flirt','tempt','pic'].includes(follow.kind))return flirtFollowChoices(follow,thread); // flirting
       if(follow.kind==='thing')return thingFollowChoices(follow); // her thing
+      if(follow.kind==='into')return intoFollowChoices(follow); // digging for it
       const moods=options=>['warm','challenge','joke'].filter(key=>options?.[key]).map(key=>({id:key,label:options[key].label,player:options[key].player,mood:key,tags:[]}));
       if(follow.kind==='question'){
         const question=kit.herQuestions?.find(item=>item.id===follow.id);
@@ -3304,6 +3307,7 @@
       if(!choice)return;
       thread.followUp=null;
       if(choice.thing)return answerThing(choice,thread,profile); // her thing
+      if(choice.into)return answerInto(choice,thread,profile); // digging for it
       if(choice.flirt)return answerFlirt(choice,thread,profile,follow); // flirting
       const kit=talkKit(),c=convo(),state=talkState(thread),personality=personalityOf(profile),faction=profile.factionId;
       const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[tone()];
@@ -6260,7 +6264,7 @@
       if(!fetishKit()||!revampOn())return;
       for(const thread of [...hingeThreads.values()].sort((a,b)=>warmthOf(b)-warmthOf(a))){
         const profile=hingeProfile(thread.id),st=talkState(thread),mine=thingOf(thread.id);
-        if(!mine||st.thing||!flirtable(profile)||heatOf(thread)<3||warmthOf(thread)<2)continue;
+        if(!mine||st.thing||!flirtable(profile)||heatOf(thread)<3||warmthOf(thread)<2||thingNerve(profile)>1)continue; // a nervous one you have to dig for
         if(!eventReady(thread)||thread.unmatched||thread.left||thread.missing||thread.quiet||thread.followUp||mustReply(profile)||st.musedDay===world.day||rqHolds(thread.id))continue;
         lineSpeaker=profile.id;
         herLine(thread,mine.tell);
@@ -6291,6 +6295,98 @@
     function thingOdds(thread){
       const odds=.5+heatOf(thread)*.1+Math.max(0,warmthOf(thread))*.04+({mogger:.15,normie:0,truecel:-.2}[tone()]??0);
       return Math.max(.05,Math.min(.92,odds));
+    }
+    // ----- Asking what she's into (Chris, 2 November 2026). With a woman who really likes you, now and
+    // then, on a day she messages you first, you can ask. She gives you a bit of it. The more extreme her
+    // thing (level 1 to 3) and the more nervous her nature, the more you have to dig: each answer gets
+    // closer, until she tells you the whole of it. Push after she dodges and she may shut the subject for a
+    // few days; let it drop and she likes you for it.
+    const INTO_WARMTH=3;
+    function thingNerve(profile){
+      const mine=thingOf(profile?.id),[,,E,,N]=personalityOf(profile)?.bigFive||[3,3,3,3,3];
+      return (mine?.level||1)+(mine?.shy?1:0)+(N>=4?1:0)+(E<=2?1:0)-(E>=4?1:0)-(flirtBold(profile)?1:0);
+    }
+    function digOdds(thread,profile){
+      const odds=.85-.14*thingNerve(profile)+.05*(warmthOf(thread)-INTO_WARMTH)+.04*heatOf(thread)+({mogger:.1,normie:0,truecel:-.1}[tone()]??0);
+      return Math.max(.1,Math.min(.95,odds));
+    }
+    const intoLines=mine=>[mine.hint,mine.closer,mine.closest].filter(Boolean);
+    function intoOpen(thread,profile){
+      const st=talkState(thread),mine=thingOf(profile?.id);
+      return !!mine&&!!fetishKit()?.kit?.ask&&flirtable(profile)&&!st.thing&&warmthOf(thread)>=INTO_WARMTH&&!(st.intoShut>world.day)&&!thread.blocked&&!thread.unmatched&&!rqHolds(thread.id);
+    }
+    // Each morning: a woman who likes you a lot and messaged you first may be in the mood to be asked.
+    function intoNewDay(){
+      if(!fetishKit()||!revampOn())return;
+      for(const thread of hingeThreads.values()){
+        const profile=hingeProfile(thread.id),st=talkState(thread);
+        if(st.musedDay!==world.day||!intoOpen(thread,profile))continue;
+        if(gameRandom()<.5)st.intoDay=world.day;
+      }
+    }
+    function intoChoices(thread,profile){
+      const st=talkState(thread);
+      if(st.intoDay!==world.day||st.intoAskedDay===world.day||!intoOpen(thread,profile))return [];
+      return [['thing:ask',fetishKit().kit.ask.label]];
+    }
+    // What she says next: her hint, closer, closest, then the whole of it (and you say if you're into it).
+    function intoNext(thread,profile){
+      const st=talkState(thread),mine=thingOf(profile.id),lines=intoLines(mine),at=Math.max(0,Math.min(lines.length,st.into||0));
+      if(at<lines.length){st.into=at+1;return [lines[at],{kind:'into',id:'more'}];}
+      st.thing='told';
+      return [mine.tell,{kind:'thing',id:'tell'}];
+    }
+    function intoSay(thread,profile,text,follow,after){
+      deliverTalk(thread,profile,[text],'talk',()=>{if(follow)thread.followUp=follow;after?.();},true);
+    }
+    const intoPick=(thread,profile,list)=>variedPick(rqT(list),profile.id+'|into|'+thread.log.length);
+    function chooseInto(thread,profile){
+      const kit=fetishKit()?.kit,st=talkState(thread);
+      if(!kit||!intoOpen(thread,profile))return;
+      st.intoAskedDay=world.day;thread.followUp=null;
+      thread.log.push({who:'you',text:seededPick(kit.ask.player,world.seed+'|into|'+profile.id+'|'+world.day)});
+      lineSpeaker=profile.id;
+      // The first time, she always gives you a bit of it. After that, asking again is digging.
+      if(!st.into||gameRandom()<digOdds(thread,profile)){const [text,follow]=intoNext(thread,profile);return intoSay(thread,profile,text,follow);}
+      intoSay(thread,profile,intoPick(thread,profile,kit.dodge),{kind:'into',id:'dodged'});
+    }
+    function intoFollowChoices(follow){
+      const kit=fetishKit()?.kit;
+      if(!kit)return [];
+      const key=k=>world.seed+'|into|'+follow.id+'|'+world.day+'|'+k;
+      const keys=follow.id==='dodged'?['push','drop']:['dig','leave'];
+      return keys.map(k=>({id:'into-'+k,label:kit[k].label,player:seededPick(kit[k].player,key(k)),into:true}));
+    }
+    function answerInto(choice,thread,profile){
+      const kit=fetishKit()?.kit,st=talkState(thread);
+      if(!kit)return;
+      thread.log.push({who:'you',text:choice.player});
+      lineSpeaker=profile.id;
+      const pick=list=>intoPick(thread,profile,list);
+      if(choice.id==='into-leave'){if(thingOf(profile.id)?.shy)warmBy(thread,1);return intoSay(thread,profile,pick(kit.leave.reply));}
+      if(choice.id==='into-drop'){warmBy(thread,1);return intoSay(thread,profile,pick(kit.drop.reply));}
+      if(choice.id==='into-dig'){
+        if(gameRandom()<digOdds(thread,profile)){const [text,follow]=intoNext(thread,profile);return intoSay(thread,profile,text,follow);}
+        return intoSay(thread,profile,pick(kit.dodge),{kind:'into',id:'dodged'});
+      }
+      if(choice.id==='into-push'){
+        if(gameRandom()<digOdds(thread,profile)-.25){const [text,follow]=intoNext(thread,profile);return intoSay(thread,profile,text,follow);}
+        warmBy(thread,tone()==='truecel'?-2:-1);st.intoShut=world.day+3; // she shuts the subject for a few days
+        return intoSay(thread,profile,pick(kit.push.fail));
+      }
+    }
+    function intoTestStart(){
+      const hosts=new Set(Object.values(fqKit()||{}).map(q=>q.host));
+      const ids=Object.keys(fetishKit()?.women||{}).filter(id=>flirtable(hingeProfile(id))&&!hosts.has(id)&&(thingOf(id).level||1)>=2);
+      if(!ids.length)return;
+      const id=ids.find(x=>{const t=hingeThreads.get(x);return t&&!t.blocked&&!t.unmatched;})||ids[hashSeed(world.seed+'|intotest|'+world.day)%ids.length];
+      const profile=hingeProfile(id),t=hingeThreads.get(id)||ensureHingeThread(profile,'now'),st=talkState(t),kit=flirtFaction(profile);
+      Object.assign(t,{blocked:false,unmatched:false,left:false,fumbled:false,awaiting:false,ghosted:false,pending:false,followUp:null});
+      if(warmthOf(t)<INTO_WARMTH)t.warmth=INTO_WARMTH;
+      Object.assign(st,{thing:null,into:0,intoDay:world.day,intoAskedDay:null,intoShut:null,musedDay:world.day});
+      lineSpeaker=id;herLine(t,flirtFill(variedPick(kit.musings[1]||kit.musings[0],id+'|intotest'),profile));
+      saveRun(true);closeCupboard();setLowered(false);hingeView='thread';activeChatId=id;openApp('hinge');
+      updateRunStatus(`Preview: ${profile.name} likes you a lot and has just messaged you. Ask what she’s into, then keep digging (a level ${thingOf(id).level} thing).`);
     }
     // ----- the mini quests
     const FQ_IDS=['postcard','letter','count','refusal'];
@@ -7007,6 +7103,7 @@
       lifeNewDay(); // her life moves on
       thingNewDay(); // at full heat she tells you her thing, once
       flirtNewDay(); // and now and then she just talks: the hotter it is, the filthier
+      intoNewDay(); // a woman who likes you a lot may let you ask what she's into
       const kit=talkKit();
       if(!kit?.morning)return;
       let sent=0;
@@ -9017,7 +9114,7 @@
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
-            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing'].includes(raw.followUp.kind)&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
+            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing','into'].includes(raw.followUp.kind)&&(raw.followUp.kind!=='into'||['more','dodged'].includes(raw.followUp.id))&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
@@ -9275,6 +9372,7 @@
     $('fq-count-preview').onclick=()=>fqTestStart('count');
     $('fq-refusal-preview').onclick=()=>fqTestStart('refusal');
     $('thing-preview').onclick=()=>thingTestStart();
+    $('into-preview').onclick=()=>intoTestStart();
 
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.
     $('marriage-preview').onclick=()=>{
