@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="22b8559fd3">
+<html lang="en" data-build="7912e839b1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -625,11 +625,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=22b8559fd3"></script>
+  <script src="chapel_at_midnight.js?v=7912e839b1"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=22b8559fd3"></script>
+  <script src="marriage.js?v=7912e839b1"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=22b8559fd3"></script>
+  <script src="quests/professor-vale.js?v=7912e839b1"></script>
 </head>
 <body>
   <main class="workbench">
@@ -721,6 +721,7 @@
         <button class="bar-button" id="fq-count-preview">Her thing: Catherine Bell messages now (Match Point)</button>
         <button class="bar-button" id="fq-refusal-preview">Her thing: Caroline Prescott messages now (Refused)</button>
         <button class="bar-button" id="thing-preview">Her thing: a woman with one tells you it now</button>
+        <button class="bar-button" id="coyote-preview">The Coyote: he takes your closest match and rings now</button>
         <button class="bar-button" id="into-preview">Her thing: a woman who likes you messages, so you can ask what she’s into</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
@@ -1248,7 +1249,7 @@
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
-        if(rqAfterDayStart()||fqAfterDayStart())return; // room quests, her thing
+        if(rqAfterDayStart()||fqAfterDayStart()||coyoteAfterDayStart())return; // room quests, her thing, the Coyote
         if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
         if(halAfterDayStart())return; // Undeniable: an arrest, a visitor, a knock
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
@@ -1833,7 +1834,7 @@
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
       return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
-...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
+...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
     // ringing the device) are marked ⚠ and happen on the first tap, like every choice.
@@ -1859,6 +1860,7 @@
       else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
       else if(topic.pv)reply=chooseValeServiceTopic(topic); // Professor Vale
+      else if(topic.coyote)reply=chooseCoyoteTopic(id); // the Coyote: where she is
       else if(topic.quest)reply=brHandleServiceTopic(topic,activeGenericCall);
       else if(topic.policeReport)reply=filePoliceCrimeReport();
       else{
@@ -4128,6 +4130,7 @@
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
       if(RQ_CALLERS[id])return rqCallCard(id); // room quests
       if(FQ_CALLERS[id])return fqCallCard(id); // her thing
+      if(id==='x:coyote')return coyoteCallCard(id); // the Coyote
       if(id==='x:vale'){const c=PV?.valeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Unknown number',gallery:[face],banner:face,ringName:c?.name||'Unknown number',sub:'Mobile'};} // Professor Vale rings you
       if(id==='x:pv-fake'){const c=PV?.fakeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Detective Graves',gallery:[face],banner:face,ringName:c?.name||'Detective Graves',sub:`Mobile${c?.number?' · '+displayNumber(c.number):''}`};} // a fake detective: not her number
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
@@ -4150,12 +4153,13 @@
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
-      return miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // mini quests, room quests, her thing, Professor Vale
+      return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
       if(RQ_CALLERS[id]){rqRang(id);return;}
       if(FQ_CALLERS[id]){fqRang(id);return;}
+      if(id==='x:coyote'){coyoteRang();return;}
       if(id==='x:vale'){PV.valeRang();return;}
       if(id==='x:pv-fake'){PV.fakeRang();return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
@@ -4177,6 +4181,7 @@
       if(MINI_CALLERS[id]){miniMissed(id);return;}
       if(RQ_CALLERS[id]){rqMissed(id);return;}
       if(FQ_CALLERS[id]){fqMissed(id);return;}
+      if(id==='x:coyote'){coyoteMissed();return;} // he leaves the clue anyway
       if(id==='x:vale'){PV.valeMissed();saveRun(true);return;} // he leaves a voicemail
       if(id==='x:pv-fake'){PV.fakeMissed();saveRun(true);return;}
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
@@ -4196,6 +4201,7 @@
       if(MINI_CALLERS[id])return miniAnswer(id);
       if(RQ_CALLERS[id])return rqAnswer(id);
       if(FQ_CALLERS[id])return fqAnswer(id);
+      if(id==='x:coyote')return {id,stranger:true,kind:'coyote',step:'open',said:coyoteAnswer()};
       if(id==='x:vale')return {id,stranger:true,kind:'vale',step:'open',said:PV.valeAnswer()};
       if(id==='x:pv-fake')return {id,stranger:true,kind:'pvfake',step:'open',said:PV.fakeAnswer()};
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
@@ -4212,6 +4218,7 @@
       if(call.kind==='mini')return miniCallChoices(call);
       if(call.kind==='rq')return rqCallChoices(call); // room quests
       if(call.kind==='fq')return fqCallChoices(call); // her thing
+      if(call.kind==='coyote')return coyoteChoices(); // the Coyote
       if(call.kind==='vale')return PV.valeChoices(); // Professor Vale
       if(call.kind==='pvfake')return PV.fakeChoices();
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
@@ -4234,6 +4241,7 @@
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
       if(call.kind==='rq'){rqChooseCall(call,choice);return;}
       if(call.kind==='fq'){fqChooseCall(call,choice);return;}
+      if(call.kind==='coyote'){coyoteChoose(call,choice);return;}
       if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
@@ -6346,6 +6354,153 @@
       saveRun(true);closeCupboard();setLowered(false);hingeView='thread';activeChatId=kit.host;openApp('hinge');
       updateRunStatus(`Preview: ${profile.name} has messaged you (${kit.title}).`);
     }
+    // ===== The Coyote (characters/coyote.json; Chris, 2 November 2026) =====
+    // In about a third of runs, in the second week, a man in a cheap rubber coyote mask takes the woman
+    // you're closest to. He rings each night for three nights with a sound to tell you where she is,
+    // vaguer first, clearer later. Tell Doreen on 911 the right place and she's found alive; guess wrong
+    // twice or run out of nights and she's found dead. Either way he's still out there, and now and then,
+    // with no warning, he comes for you.
+    const coyoteKit=()=>characterDB?.coyote||null;
+    function coyoteState(){const c=world.coyote;if(!c||typeof c!=='object'||Array.isArray(c)||typeof c.stage!=='string')world.coyote={stage:'none'};return world.coyote;}
+    function sanitizeCoyote(raw){
+      const out={stage:'none'};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      if(['none','seen','taken','saved','lost','skipped'].includes(raw.stage))out.stage=raw.stage;
+      for(const k of ['victim','place','first','lastWrong'])if(typeof raw[k]==='string')out[k]=raw[k].slice(0,60);
+      for(const k of ['start','takenDay','night','wrong','callDay','dieDay','rescueDay','loseDay'])if(Number.isInteger(raw[k]))out[k]=raw[k];
+      out.dead=raw.dead===true;out.on=raw.on===true||raw.on===false?raw.on:undefined;
+      return out;
+    }
+    function coyoteOn(){
+      const c=coyoteState();
+      if(typeof c.on!=='boolean')c.on=window.MATCH_ALL_COYOTE?true:window.MATCH_NO_MINIS?false:hashSeed(world.seed+'|coyote')%10<3;
+      return c.on;
+    }
+    const coyoteStartDay=()=>9+hashSeed(world.seed+'|coyoted')%3;
+    const coyotePlace=id=>coyoteKit()?.places.find(place=>place.id===id)||null;
+    function coyoteVictim(){
+      const pick=min=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&warmthOf(t)>=min&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id&&(talkState(t).days||[]).length>0;}).sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
+      return pick(3)||pick(2)||null;
+    }
+    function coyoteNews(key,c){
+      const n=coyoteKit().news[key],vars={name:hingeProfile(c.victim)?.name||'a local woman',place:coyotePlace(c.place)?.name||'the edge of town'};
+      return {id:'coyote_'+key,section:n.section,title:fillIn(n.title,vars),summary:fillIn(n.summary,vars),body:fillIn(n.body,vars),image:'coyote_'+(key==='seen'?'seen':'found'),fallbackImage:key==='seen'?'police_roadblock':'police_evidence'};
+    }
+    function coyoteBegin(t){
+      const c=coyoteState(),kit=coyoteKit();
+      Object.assign(c,{stage:'seen',victim:t.id,first:firstName(hingeProfile(t.id)),start:world.day,place:kit.places[hashSeed(world.seed+'|coyoteplace')%kit.places.length].id});
+      queueNews(coyoteNews('seen',c),world.day);
+      lineSpeaker=t.id;herLine(t,kit.texts.seen);rqSpoke(t);
+    }
+    function coyoteTake(){
+      const c=coyoteState(),kit=coyoteKit(),t=hingeThreads.get(c.victim);
+      Object.assign(c,{stage:'taken',takenDay:world.day,night:0,wrong:0});
+      if(t){lineSpeaker=t.id;herLine(t,kit.texts.taken);t.missing=true;t.followUp=null;talkState(t).unread=true;}
+      queueNews(coyoteNews('taken',c),world.day);
+    }
+    function coyoteNewDay(){
+      const kit=coyoteKit();
+      if(!kit)return;
+      const c=coyoteState();
+      if(c.stage==='none'){
+        if(!coyoteOn()||world.day<coyoteStartDay())return;
+        if(world.day>coyoteStartDay()+4){c.stage='skipped';return;} // nobody close enough to take
+        const t=coyoteVictim();
+        if(t)coyoteBegin(t);
+        return;
+      }
+      if(c.stage==='seen'){coyoteTake();return;}
+      if(c.stage==='taken'){
+        if(Number.isInteger(c.rescueDay)&&world.day>=c.rescueDay)return coyoteRescued();
+        if((Number.isInteger(c.loseDay)&&world.day>=c.loseDay)||world.day>=c.takenDay+3)return coyoteLost();
+      }
+    }
+    // He's still out there: sometimes he comes for you, a few days later, with no warning.
+    function coyoteMaybeComes(){const c=coyoteState();if(hashSeed(world.seed+'|coyotecomes')%10<3)c.dieDay=world.day+2+hashSeed(world.seed+'|coyotewhen')%3;}
+    function coyoteRescued(){
+      const c=coyoteState(),kit=coyoteKit(),t=hingeThreads.get(c.victim);
+      c.stage='saved';
+      queueNews(coyoteNews('alive',c),world.day);
+      if(t){t.missing=false;t.blocked=false;t.warmth=5;talkState(t).heat=3;lineSpeaker=t.id;herLine(t,kit.texts.rescued);rqSpoke(t);}
+      coyoteMaybeComes();
+    }
+    function coyoteLost(){
+      const c=coyoteState(),t=hingeThreads.get(c.victim);
+      c.stage='lost';
+      queueNews(coyoteNews('dead',c),world.day);
+      if(t){t.missing=true;t.blocked=true;}
+      coyoteMaybeComes();
+    }
+    function coyoteAfterDayStart(){
+      const c=world.coyote;
+      if(!c||c.dead||!Number.isInteger(c.dieDay)||world.day<c.dieDay)return false;
+      c.dead=true;saveRun(true);coyoteDeathScreen();
+      return true;
+    }
+    function coyoteDeathScreen(){
+      const kit=coyoteKit();
+      if(!kit)return;
+      stopRinging();herCall=null;
+      drawDeathTitle(kit.deathCause,'KILLED');
+      $('fatal-overlay').querySelector('p').textContent=kit.deaths[hashSeed(world.seed+'|coyotedeath')%kit.deaths.length];
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // ----- his calls, one each night she's gone
+    function coyoteCallerDue(){
+      const c=world.coyote;
+      return !!c&&c.stage==='taken'&&!Number.isInteger(c.rescueDay)&&!Number.isInteger(c.loseDay)&&c.callDay!==world.day&&world.day>=c.takenDay&&world.day<=c.takenDay+2;
+    }
+    function coyoteClue(c,ahead=0){const place=coyotePlace(c.place);return place?place.clues[Math.min(2,Math.max(0,c.night-1+ahead))]:'';}
+    function coyoteRang(){const c=coyoteState();c.callDay=world.day;c.night=Math.min(3,world.day-c.takenDay+1);}
+    function coyoteAnswer(){
+      const c=coyoteState(),kit=coyoteKit();
+      const open=c.lastWrong?fillIn(kit.afterWrong,{place:c.lastWrong}):kit.nights[Math.max(0,c.night-1)];
+      c.lastWrong=null;
+      return `${open} ${coyoteClue(c)}`;
+    }
+    function coyoteChoices(){const kit=coyoteKit();return Object.entries(kit.choices).map(([k,label])=>({id:'coyote:'+k,label}));}
+    function coyoteChoose(call,choice){
+      const c=coyoteState(),kit=coyoteKit(),k=String(choice).replace(/^coyote:/,'');
+      if(k==='hang'){endHerCall();return;}
+      if(k==='keep')call.said=`${kit.keep} ${coyoteClue(c,1)}`;
+      else if(k==='beg')call.said=kit.beg;
+      else{ // the police: he moves her somewhere else
+        const others=kit.places.filter(place=>place.id!==c.place);
+        c.place=others[hashSeed(world.seed+'|coyotemove|'+world.day)%others.length].id;
+        call.said=kit.police;
+      }
+      call.step='bye';saveRun(true);renderCalls();
+    }
+    function coyoteMissed(){const c=coyoteState(),kit=coyoteKit();strangerVoicemail('Unknown number',`${kit.missedVm} ${coyoteClue(c)}`);saveRun(true);}
+    // ----- telling Doreen on 911 where she is
+    function coyoteServiceTopics(serviceId){
+      const c=world.coyote,kit=coyoteKit();
+      if(serviceId!=='service:police'||!kit||!c||c.stage!=='taken'||c.night<1||Number.isInteger(c.rescueDay)||Number.isInteger(c.loseDay))return [];
+      return kit.places.map(place=>({id:'coyote:'+place.id,label:fillIn(kit.doreen.label,{first:c.first||'her',place:place.name}),coyote:true,final:true}));
+    }
+    function chooseCoyoteTopic(id){
+      const c=coyoteState(),kit=coyoteKit(),place=coyotePlace(id.slice(7));
+      if(!place||c.stage!=='taken')return '…';
+      if(place.id===c.place){c.rescueDay=world.day+1;saveRun(true);return kit.doreen.right;}
+      c.wrong=(c.wrong||0)+1;c.lastWrong=place.name;
+      if(c.wrong>=2)c.loseDay=world.day+1; // twice wrong: he's done waiting
+      saveRun(true);
+      return fillIn(kit.doreen.wrong,{place:place.name});
+    }
+    function coyoteCallCard(id){const face='assets/contacts/coyote.png';return {id,name:'Unknown number',gallery:[face],banner:face,ringName:'Unknown number',sub:'Mobile'};}
+    // Testing menu: he takes your closest match now and rings straight away.
+    function coyoteTestStart(){
+      if(!coyoteKit())return;
+      let t=coyoteVictim();
+      if(!t){const p=hingeProfiles.find(x=>!mustReply(x)&&x.factionId==='normie_girls'&&x.gallery?.length);if(!p)return;t=hingeThreads.get(p.id)||ensureHingeThread(p,'now');t.warmth=3;const st=talkState(t);if(!(st.days||[]).length)st.days=[world.day];}
+      world.coyote={stage:'none',on:true};
+      coyoteBegin(t);coyoteTake();
+      saveRun(true);closeCupboard();setLowered(false);
+      if(coyoteCallerDue()){incomingCall=null;herCall=null;strangerRang('x:coyote');startIncomingCall('x:coyote');}
+      updateRunStatus(`Preview: the Coyote has taken ${hingeProfile(t.id).name}. He is ringing now. Listen for the sound, then ring 911 and tell Doreen where she is.`);
+    }
     // ===== Town talk (Chris, 2 November 2026): the stories notice each other =====
     // The morning after a big story ends up in the paper, a woman you're talking to brings it up (one a
     // morning, never a woman who was part of it, and only within a few days), and you react in your own
@@ -6371,6 +6526,8 @@
       if(house?.choice)add(house.choice==='olivia'?'olivia_fired':'ridge_house',house.afterDay,[house.host,house.rival]);
       const robe=rqs('robe');
       if(robe?.after==='joke')add('celeste_joke',robe.afterDay,[robe.host]);
+      const co=world.coyote;
+      if(co?.stage==='saved'||co?.stage==='lost')add('coyote_'+co.stage,Number.isInteger(co.rescueDay)?co.rescueDay:(co.loseDay??(co.takenDay||0)+3),[co.victim]);
       return out;
     }
     function townTalkNewDay(){
@@ -7256,6 +7413,7 @@
       miniNewDay(); // the mini quests
       rqNewDay(); // the room quests
       fqNewDay(); // her thing: the mini quests
+      coyoteNewDay(); // the Coyote
       quietNewDay(); // conversations run out
       laterNewDay(); // answers she slept on
       lifeNewDay(); // her life moves on
@@ -7724,6 +7882,7 @@
       death('Mogger','KILLED','HER FATHER');
       death('Mogger','KILLED','THEON');
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
+      death('The Coyote','KILLED',coyoteKit()?.deathCause||'THE COYOTE');
       death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
       for(const e of Object.values(vale))if(e.death)death('Professor Vale',e.death.verb,e.death.cause);
       for(const k of Object.values(miniKit()||{}))if(k&&typeof k==='object')death('Mini quests','KILLED',k.deathCause);
@@ -7735,6 +7894,8 @@
       for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
+      add('The Coyote','coyote:saved','You found her in time');
+      add('The Coyote','coyote:lost','Too late');
       return out;
     }
     // The death screen's line is set just after its title: kept once the run saves or a new game starts.
@@ -7757,6 +7918,8 @@
       if(br?.outcome&&BR_ENDINGS.some(([id])=>id===br.outcome))noteEnding('br:'+br.outcome,'');
       const ch=world.chapel;
       if(ch?.outcome&&CHAPEL_ENDINGS.some(([id])=>id===ch.outcome))noteEnding('chapel:'+ch.outcome,'');
+      const co=world.coyote;
+      if(co?.stage==='saved'||co?.stage==='lost')noteEnding('coyote:'+co.stage,`${hingeProfile(co.victim)?.name||'She'} was at ${coyotePlace(co.place)?.name||'the edge of town'}.`);
     }
     // This run, story by story, including the ones you missed.
     function recapLine(title,st,host,dead){
@@ -7780,6 +7943,8 @@
         else if(id==='chapel'){const s=world.chapel,o=CHAPEL_ENDINGS.find(([k])=>k===s?.outcome);rows.push([title,s?.dead?'Victoria took you':o?o[1]:'Still unfolding']);}
         else rows.push([title,'He was in this run']);
       }
+      const co=world.coyote;
+      if(co&&(co.on||co.stage!=='none'))rows.push(['The Coyote',co.dead?'He came for you':{saved:'You found her in time',lost:`Too late: ${co.first||'she'} was at ${coyotePlace(co.place)?.name||'the edge of town'}`,taken:`He still has ${co.first||'her'}`,seen:'He was seen on Brown Avenue',skipped:'He passed through'}[co.stage]||'Hadn’t started yet']);
       for(const id of rqOn())rows.push(recapLine(rqKit()?.[id]?.title||id,rqs(id),rqKit()?.[id]?.host,rqState().dead?.id===id));
       for(const id of fqOn())rows.push(recapLine(fqKit()?.[id]?.title||id,fqs(id),fqKit()?.[id]?.host,fqState().dead?.id===id));
       for(const id of minisOn())rows.push(recapLine(MINI_TITLES[id]||id,minisState().st[id],null,minisState().dead?.id===id));
@@ -9368,7 +9533,7 @@
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.coyote=sanitizeCoyote(saved.world.coyote);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
@@ -9431,6 +9596,7 @@
         if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
         if(world.rq?.dead){rqDeathScreen();return true;} // a room quest
         if(world.fq?.dead){fqDeathScreen();return true;} // her thing
+        if(world.coyote?.dead){coyoteDeathScreen();return true;} // the Coyote
         if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
         if(world.halloran?.dead){halDeathScreen();return true;} // Undeniable
         if(world.halloran?.shot==='down')playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true}); // he's still in your doorway
@@ -9653,6 +9819,7 @@
     $('fq-refusal-preview').onclick=()=>fqTestStart('refusal');
     $('thing-preview').onclick=()=>thingTestStart();
     $('into-preview').onclick=()=>intoTestStart();
+    $('coyote-preview').onclick=()=>coyoteTestStart();
 
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.
     $('marriage-preview').onclick=()=>{

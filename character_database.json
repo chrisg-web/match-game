@@ -32918,7 +32918,137 @@
         "lines": [
           "The society column ran a story about Diana Moore’s telephone friend. The club thinks it’s hilarious. I think it’s a bit sad."
         ]
+      },
+      "coyote_saved": {
+        "mood": "good",
+        "lines": [
+          "They found that missing woman alive. Somebody tipped off the police. The man in the coyote mask is still out there, though.",
+          "She’s alive. The one the coyote man took. I cried in the shower, which is ridiculous. I don’t even know her."
+        ]
+      },
+      "coyote_lost": {
+        "mood": "bad",
+        "lines": [
+          "They found her. The woman who went missing. I can’t stop checking my locks.",
+          "I keep thinking about that woman they found. And the mask. Who wears a coyote mask?"
+        ]
       }
     }
+  },
+  "coyote": {
+    "texts": {
+      "seen": "Did you see the paper? The man in the coyote mask. I think he was on my street last night. It’s probably nothing.",
+      "taken": "He’s here. The coyote mask. He’s in my kitchen. Please.",
+      "rescued": "They found me. They said somebody told them where to look. It was you. I don’t know what to say. Come over. I mean it."
+    },
+    "nights": [
+      "You’re the one she texts. She talks about you, you know. She’s fine. She’s with me. You have three nights to find her, and I’ll help, because otherwise it’s no fun. Listen.",
+      "Night two. She’s cold, and she’s cross with you for taking so long. Listen carefully.",
+      "Last night. Tomorrow I get bored. Listen."
+    ],
+    "afterWrong": "You sent the police to {place}. That was rude. She heard the sirens going the other way.",
+    "choices": {
+      "keep": "Keep him talking",
+      "beg": "Beg him to let her go",
+      "police": "Tell him the police are coming",
+      "hang": "Hang up"
+    },
+    "keep": "Ha. You want more. Fine. One more, because I like you.",
+    "beg": "Begging. She tried that too. It didn’t work for her either.",
+    "police": "Are they. Then I’d better move her. There. Now you’ll have to start again.",
+    "missedVm": "You didn’t pick up. She was disappointed. Here’s tonight’s for free.",
+    "doreen": {
+      "label": "Tell Doreen {first} is at {place}",
+      "right": "Sending everyone. Every car I’ve got. Stay by your phone, love.",
+      "wrong": "Officers went to {place}. Nothing. Not a thing. Are you sure about any of this?"
+    },
+    "places": [
+      {
+        "id": "junction",
+        "name": "the old junction weigh station",
+        "clues": [
+          "Hear that? Engines. Big ones. They never stop out here.",
+          "There’s a light that buzzes all night, and a sign telling the trucks how heavy they are.",
+          "The trucks pull onto the scale, stop, and pull off again. Every one of them weighs more than she does."
+        ]
+      },
+      {
+        "id": "quarry",
+        "name": "the quarry",
+        "clues": [
+          "It’s dusty here. She keeps coughing.",
+          "Every so often a horn sounds, long, and then the whole ground shakes.",
+          "She’s at the bottom of something they dug out of the hill. They blast in the morning."
+        ]
+      },
+      {
+        "id": "rialto",
+        "name": "the Rialto",
+        "clues": [
+          "It’s dark here, but it’s a dark that used to be full of people.",
+          "There’s a stage, and exit signs, and a little square window high up where the light used to come from.",
+          "Velvet seats in rows. Nobody’s sat in them for years. She’s sitting in one now."
+        ]
+      },
+      {
+        "id": "garage",
+        "name": "the casino parking garage",
+        "clues": [
+          "It’s concrete here, and it hums. Something bright is singing on the other side of the wall.",
+          "Cars come and go on the level above. Every one of them lost money tonight.",
+          "The jackpot bells come down through the ceiling. She’s counting them."
+        ]
+      },
+      {
+        "id": "drivein",
+        "name": "the old drive-in",
+        "clues": [
+          "It’s open here. She can see the stars. She’s cold.",
+          "There’s a screen as big as a house, blank, and posts with little speakers on them. None of them work.",
+          "Row after row of empty parking spaces, all facing the same white wall."
+        ]
+      },
+      {
+        "id": "canal",
+        "name": "the canal tunnel",
+        "clues": [
+          "There’s water here. You can hear it, not see it.",
+          "It echoes. A tunnel. People jog past overhead and never look down.",
+          "The water runs past her feet toward the old pumping house. The joggers will be back in the morning."
+        ]
+      }
+    ],
+    "news": {
+      "seen": {
+        "section": "Local",
+        "title": "Man in Coyote Mask Seen on Brown Avenue",
+        "summary": "Residents report a man in a rubber coyote mask standing in front gardens after dark.",
+        "body": "Several residents on and around Brown Avenue say a man in a cheap rubber coyote mask has been standing in front gardens after dark, watching windows. Police ask anyone who sees him to call 911 and not to approach him."
+      },
+      "taken": {
+        "section": "Front page",
+        "title": "Woman Missing From Her Home",
+        "summary": "Police are searching for {name}, last seen at home.",
+        "body": "Police are searching for {name}, who has not been seen since she sent a message from her kitchen. Her phone is off. Officers want to hear from anyone who saw a man in a rubber coyote mask."
+      },
+      "alive": {
+        "section": "Front page",
+        "title": "Missing Woman Found Alive",
+        "summary": "{name} was found at {place} after a tip-off. The man in the coyote mask is still at large.",
+        "body": "Officers found {name} at {place} after a caller told 911 where to look. She is shaken but unhurt. The man in the coyote mask was gone before they arrived, and police say he is still at large."
+      },
+      "dead": {
+        "section": "Front page",
+        "title": "Missing Woman Found Dead",
+        "summary": "{name} was found at {place}. The man in the coyote mask is still at large.",
+        "body": "Police found {name} at {place}. Detectives believe the man in the coyote mask is responsible. Nobody has been arrested, and residents are asked to keep their doors locked."
+      }
+    },
+    "deathCause": "THE COYOTE",
+    "deaths": [
+      "There was a rubber coyote mask on your pillow when you woke. You didn’t stay awake for long.",
+      "The door was open. Somebody was humming in the hallway. Something smelled of rubber.",
+      "You heard yipping outside, like a coyote. Then it was inside."
+    ]
   }
 }
