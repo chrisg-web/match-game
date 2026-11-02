@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d68f590980">
+<html lang="en" data-build="4d7356ac7b">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d68f590980"></script>
+  <script src="chapel_at_midnight.js?v=4d7356ac7b"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d68f590980"></script>
+  <script src="marriage.js?v=4d7356ac7b"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d68f590980"></script>
+  <script src="quests/professor-vale.js?v=4d7356ac7b"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2460,6 +2460,7 @@
         const hers=her.log.filter(entry=>entry.who==='her').map(entry=>entry.text).join('\n');
         const unsaid=pool=>pool.filter(line=>!hers.includes(String(line).trim()));
         const mine=unsaid(fresh);
+        if(strict&&!mine.length)return null; // strict: she's said all of hers, so the caller finds something else
         if(mine.length)fresh=mine;
         else if(!strict){const any=unsaid(list);if(any.length)fresh=any;} // better a line another woman used than the same one to you twice
       }
@@ -2664,7 +2665,9 @@
       if(!revampOn())return null;
       const st=talkState(thread),g=gossipState();
       if(st.gossipDay===world.day||gameRandom()>=chance)return null;
-      const fact=gossipOf(profile).find(item=>!g.told[profile.id+':'+item.id]&&warmthOf(thread)>=(item.warmth||0)&&hingeProfile(item.about)&&ownTopicInRun({label:'',player:unquest(item.ask),reply:unquest(item.says+' '+item.answer),note:unquest(item.note),fromDay:item.fromDay},profile)); // quest gossip only in a run with that quest
+      const facts=gossipOf(profile).filter(item=>!g.told[profile.id+':'+item.id]&&warmthOf(thread)>=(item.warmth||0)&&hingeProfile(item.about)&&ownTopicInRun({label:'',player:unquest(item.ask),reply:unquest(item.says+' '+item.answer),note:unquest(item.note),fromDay:item.fromDay},profile)); // quest gossip only in a run with that quest
+      const talking=id=>{const t=hingeThreads.get(id);return !!t&&!t.blocked&&!t.unmatched&&!t.left&&!t.quiet&&!t.missing;};
+      const fact=facts.find(item=>talking(item.about))||facts[0]; // about someone you can ask, if she knows something
       if(!fact)return null;
       st.gossipDay=world.day;
       g.told[profile.id+':'+fact.id]={day:world.day};
@@ -2737,7 +2740,7 @@
         const profile=hingeProfile(thread.id);
         if(!profile||thread.blocked||thread.fumbled||thread.quiet||thread.unmatched||thread.left||thread.missing)continue;
         lineSpeaker=profile.id;
-        later.lines.forEach((text,i)=>thread.log.push({who:'her',text:i===0?`${seededPick(LATER_LEAD,profile.id+world.day)} ${text}`:text}));
+        later.lines.forEach((text,i)=>thread.log.push({who:'her',text:i===0?`${variedPick(LATER_LEAD,profile.id+world.day)} ${text}`:text}));
         if(later.note)recordClue(later.note);
         st.unread=true;
       }
@@ -2795,7 +2798,7 @@
         const told=kit?.herQuestions?.find(item=>item.id===question)?.answers?.find(answer=>answer.id===mine.answer)?.told;
         if(!told)continue;
         recalled.push(question);
-        return fillIn(seededPick(REMEMBER,profile.id+question),{told});
+        return fillIn(variedPick(REMEMBER,profile.id+question),{told});
       }
       return null;
     }
@@ -2836,6 +2839,7 @@
       if(!lines?.length)return;
       for(const thread of hingeThreads.values()){
         if(thread.quiet||thread.blocked||thread.unmatched||thread.left||thread.fumbled||thread.awaiting||thread.pending||thread.missing||thread.followUp)continue; // she asked you something: she waits for your answer first
+        if(talkState(thread).later)continue; // she owes you an answer: she gives it before she goes quiet
         const profile=hingeProfile(thread.id);
         if(!profile||chatEndless(thread,profile)||chatsUsed(thread)<chatBudget(thread,profile))continue;
         thread.quiet=true;
@@ -4188,7 +4192,7 @@
       if(faction==='fourth_estate'&&warmth>=2&&!has('profile')&&fionnKnown())out.push(['fionn:look','Ask her to find who’s using your pictures']);
       if(faction==='goth_girls'&&warmth>=2&&has('profile')&&!has('name'))out.push(['fionn:verse','Ask if she knows a man who writes in verse']);
       if(faction==='police'&&warmth>=3&&has('name')&&!has('home'))out.push(['fionn:run','Ask her to look up a man called Theon']);
-      if(FIONN.sort[faction]&&warmth>=2&&has('home'))out.push(['fionn:sort',`Ask her to have someone deal with ${has('name')?'Theon':'the man above the old Rialto'}`,true]); // his name only once you know it
+      if(FIONN.sort[faction]&&warmth>=2&&has('home')&&!f.pendingEnd)out.push(['fionn:sort',`Ask her to have someone deal with ${has('name')?'Theon':'the man above the old Rialto'}`,true]); // his name only once you know it
       return out;
     }
     function fionnReply(thread,profile,entries,after){
@@ -4219,7 +4223,7 @@
       if(id==='fionn:look'){fionnClue('profile');return fionnReply(thread,profile,[{text:FIONN.look,shot:'profile'}]);}
       if(id==='fionn:verse'){fionnClue('name');return fionnReply(thread,profile,[{text:FIONN.goth}]);}
       if(id==='fionn:run'){fionnClue('home');return fionnReply(thread,profile,[{text:FIONN.police}]);}
-      if(id==='fionn:sort'){f.pendingEnd='sorted';return fionnReply(thread,profile,[{text:FIONN.sort[profile.factionId]}]);}
+      if(id==='fionn:sort'){if(f.pendingEnd)return;f.pendingEnd='sorted';return fionnReply(thread,profile,[{text:FIONN.sort[profile.factionId]}]);}
     }
     // The screenshot she shows you: the picture once it's made, his words until then.
     function fionnShot(key){
