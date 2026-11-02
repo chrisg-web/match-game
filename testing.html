@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="677f26f1a7">
+<html lang="en" data-build="22b8559fd3">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -285,6 +285,11 @@
     .hinge-bubble.typing i { display: block; width: 4px; height: 4px; border-radius: 50%; background: #f1e7e6; animation: typingPulse 900ms steps(2,end) infinite; }
     .hinge-bubble.typing i:nth-child(2) { animation-delay: 180ms; }
     .hinge-bubble.typing i:nth-child(3) { animation-delay: 360ms; }
+    .typing-wrap { position: relative; min-height: 29px; }
+    .typing-wrap.hesitant .hinge-bubble.typing { animation: hesitateDots var(--d) linear var(--late) both; }
+    .typing-seen { position: absolute; left: 4px; top: 6px; font: 10px Tahoma, sans-serif; color: #8d97a5; opacity: 0; animation: hesitateSeen var(--d) linear var(--late) both; }
+    @keyframes hesitateDots { 0%, 30% { opacity: 1; } 34%, 62% { opacity: 0; } 66%, 100% { opacity: 1; } }
+    @keyframes hesitateSeen { 0%, 30% { opacity: 0; } 34%, 62% { opacity: 1; } 66%, 100% { opacity: 0; } }
     .hinge-bubble.her.image-message { max-width: 88%; padding: 5px; }
     .image-message img { display: block; width: 100%; max-height: 210px; object-fit: cover; object-position: center 24%; image-rendering: pixelated; border-radius: 6px; cursor: zoom-in; }
     .image-message small { display: block; font: 9px/1.35 Verdana,sans-serif; margin-top: 5px; color: #4b4751; }
@@ -620,11 +625,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=677f26f1a7"></script>
+  <script src="chapel_at_midnight.js?v=22b8559fd3"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=677f26f1a7"></script>
+  <script src="marriage.js?v=22b8559fd3"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=677f26f1a7"></script>
+  <script src="quests/professor-vale.js?v=22b8559fd3"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1478,7 +1483,7 @@
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
         const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St. Brigid’s Chapel',university:'University Office'};
-        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?DISPATCH.greeting:(contact[0]==='university'&&questOn('vale')&&valeKnown()&&PV?.serviceGreeting?.('service:university'))||`${names[contact[0]]}. Hello, how may I help you?`});return;} // Professor Vale: Lorraine notices who keeps ringing
+        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?(gravesKnowsYou()?DISPATCH.known:DISPATCH.greeting):(contact[0]==='university'&&questOn('vale')&&valeKnown()&&PV?.serviceGreeting?.('service:university'))||`${names[contact[0]]}. Hello, how may I help you?`});return;} // Professor Vale: Lorraine notices who keeps ringing
         const jewellerLine=marriage?.contactForNumber(dialledNumber); // Marriage: the five jewellers
         if(jewellerLine){startSimulatedCall({...jewellerLine,generic:true});return;}
         const valeLine=PV?.contactForNumber(dialledNumber); // Professor Vale: numbers found during the case
@@ -2101,7 +2106,7 @@
     const chatListed=thread=>!((thread.blocked||thread.left)&&Number.isInteger(thread.goneDay)&&thread.goneDay<world.day);
     function hingeOptionsFor(thread){
       if(thread.awaiting)return `<div class="story-tag">${thread.ghosted?'Seen · no response yet':'Message pending · check tomorrow'}</div>`;
-      if(thread.pending)return '<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>';
+      if(thread.pending)return typingHtml(thread); // she may stop typing for a moment
       if(thread.id===bearHingeCard.id){
         if(bearState==='escaped')return '<div class="story-tag">The bear wandered away. You survived.</div>';
         if(bearState==='warning'||bearState==='attack')return '<div class="story-tag">Something heavy is scratching at your door. Put the phone down.</div>';
@@ -2334,7 +2339,7 @@
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
-        thread.log.push({who:'you',text:flirtAskLine(thread,profile,another)});
+        thread.log.push({who:'you',text:myVoice(flirtAskLine(thread,profile,another),profile.id)});
         if(profile.factionId==='sisters_of_mercy'){
           thread.blocked=true;
           thread.log.push({who:'her',text:'That is completely inappropriate. Do not contact me again.',block:true});
@@ -2425,7 +2430,7 @@
         if(id==='case'&&!caseTopicOpen(thread))return; // the paper first
         thread.followUp=null;
         thread.topics.push(id);
-        thread.log.push({who:'you',text:topic.player});
+        thread.log.push({who:'you',text:id==='case'?topic.player:myVoice(topic.player,profile.id)});
         reply=id==='date'?dateReply(thread,profile,replyFor(topic,profile)):toned(replyFor(topic,profile),profile,id+'|'+world.day);
         if(id==='case'){
           if(profile.factionId==='thunderbirds'){recordClue(`${profile.name} said the Blue Ribbon committee had a dispute before Elena Cross disappeared.`);world.flags.galaRumour=true;brAddSuspicion(5,`You asked ${profile.name} (Bluebirds) about Elena Cross.`);}
@@ -2601,7 +2606,7 @@
       return {memory,tags:words(src.tags).slice(-12),roots:words(src.roots),asked:words(src.asked),informed:words(src.informed),
         newsDay:day(src.newsDay),qDay:day(src.qDay),lastDay:day(src.lastDay),asideDay:day(src.asideDay),cbDay:day(src.cbDay),numberRefusedDay:day(src.numberRefusedDay),
         dateDay:day(src.dateDay),dayDay:day(src.dayDay),morningDay:day(src.morningDay),svcRefusedDay:day(src.svcRefusedDay),askDay:day(src.askDay),signOffDay:day(src.signOffDay),asks:Number.isInteger(src.asks)?Math.max(0,Math.min(20,src.asks)):0,
-        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),thing:['told','yes','no'].includes(src.thing)?src.thing:null,into:Number.isInteger(src.into)?Math.max(0,Math.min(3,src.into)):0,intoDay:day(src.intoDay),intoAskedDay:day(src.intoAskedDay),intoShut:day(src.intoShut),flirtOwn:words(src.flirtOwn).filter(key=>['muse','caption','melt'].includes(key)),callTold:words(src.callTold),
+        days:Array.isArray(src.days)?src.days.filter(value=>Number.isInteger(value)&&value>0).slice(-60):[],bonus:Number.isInteger(src.bonus)?Math.max(0,Math.min(3,src.bonus)):0,heat:Number.isInteger(src.heat)?Math.max(0,Math.min(3,src.heat)):0,musedDay:day(src.musedDay),thing:['told','yes','no'].includes(src.thing)?src.thing:null,thingDay:day(src.thingDay),thingWon:!!src.thingWon,into:Number.isInteger(src.into)?Math.max(0,Math.min(3,src.into)):0,intoDay:day(src.intoDay),intoAskedDay:day(src.intoAskedDay),intoShut:day(src.intoShut),flirtOwn:words(src.flirtOwn).filter(key=>['muse','caption','melt'].includes(key)),callTold:words(src.callTold),
         later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
         gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
@@ -3134,14 +3139,30 @@
     }
     function deliverTalk(thread,profile,lines,delayKey,after,scripted=false){
       if(lines.length&&!scripted)lines[0]=toned(lines[0],profile,thread.log.length+'|'+world.day); // her first reply, never an Easter egg after it; scripted event lines stay as written
-      thread.pending=true;
+      const delay=hingeReplyDelay(profile,delayKey);
+      thread.pending=true;thread.typing={ms:delay,start:Date.now(),hesitant:hesitates(thread)};
       renderHinge();
       window.setTimeout(()=>{
         for(const text of lines)if(text)thread.log.push({who:'her',text:scripted?text:withoutRetold(thread,text)});
-        thread.pending=false;
+        thread.pending=false;delete thread.typing;
         if(after)after();
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
-      },hingeReplyDelay(profile,delayKey));
+      },delay);
+    }
+    // Texting tension (Chris, 2 November 2026). Sometimes she starts typing, stops (Seen), and starts again,
+    // all inside the same wait: more often when it's charged between you, or when she's going cold.
+    // A woman who dislikes you answers your topics in one sentence (never her questions, jokes or quest lines).
+    function hesitates(thread){
+      const chance=warmthOf(thread)<=0?.35:heatOf(thread)>=2?.3:.12;
+      return hashSeed(world.seed+'|hesitate|'+thread.id+'|'+thread.log.length)%100<chance*100;
+    }
+    const coldTrim=(text,thread)=>warmthOf(thread)<=-1?cooled(text):text;
+    function cooled(text){const first=String(text).split(/(?<=[.!?])\s+/)[0];return first||text;}
+    function typingHtml(thread){
+      const t=thread.typing,dots='<div class="hinge-bubble her typing" aria-label="Typing"><i></i><i></i><i></i></div>';
+      if(!t?.hesitant)return dots;
+      const elapsed=Math.max(0,Math.min(t.ms,Date.now()-t.start));
+      return `<div class="typing-wrap hesitant" style="--d:${t.ms}ms;--late:-${elapsed}ms">${dots}<div class="typing-seen">Seen</div></div>`;
     }
     const isTalkTopic=id=>/^(own|world|follow|egg|svc|gossip|life):/.test(id)||id==='news'||id==='deeper'||id==='daily'||id==='game';
     function chooseTalk(id,thread,profile){
@@ -3156,7 +3177,7 @@
         const ask=gossipAsksFor(thread).find(item=>item.key===id.slice(7));
         if(!ask)return;
         thread.followUp=null;gossipState().asked.push(ask.key);
-        thread.log.push({who:'you',text:ask.fact.ask});
+        thread.log.push({who:'you',text:myVoice(ask.fact.ask,profile.id)});
         lines.push(ask.fact.answer);
         if(ask.fact.mood)warmBy(thread,ask.fact.mood);
         thread.followUp={kind:'tone',id:ask.fact.mood<0?'bad':ask.fact.mood>0?'good':'odd'};
@@ -3167,7 +3188,7 @@
         if(!lifeAskOpen(thread,profile))return;
         const item=lifeOf(profile)[state.lifeOpen];
         state.lifeOpen=null;thread.followUp=null;
-        thread.log.push({who:'you',text:seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day)});
+        thread.log.push({who:'you',text:myVoice(seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day),profile.id)});
         lines.push(item.more);
         gossip=pickGossip(thread,profile,.8);
         if(gossip)lines.push(gossip.says);
@@ -3178,9 +3199,9 @@
         const topic=characterDB.worldTopics.find(item=>'world:'+item.id===id);
         if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic))return;
         thread.followUp=null;thread.topics.push(id);
-        thread.log.push({who:'you',text:topic.player});
+        thread.log.push({who:'you',text:myVoice(topic.player,profile.id)});
         lines.push(talkOpener(thread,profile,topic.id));
-        lines.push(voiced(topicView(topic,profile),profile,topic.id));
+        lines.push(coldTrim(voiced(topicView(topic,profile),profile,topic.id),thread)); // texting tension: short when she's cold
         if(topic.id==='bear')lines.push(...bearEgg());
         lines.push(talkAside(thread,profile));
         gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says); // something she's heard
@@ -3195,7 +3216,7 @@
         const own=womanOf(profile)?.conversation?.own?.find(item=>'own:'+item.id===id);
         if(!own||thread.topics.includes(id)||!warmEnough(warmthOf(thread),own))return;
         thread.followUp=null;thread.topics.push(id);
-        thread.log.push({who:'you',text:own.player});
+        thread.log.push({who:'you',text:myVoice(own.player,profile.id)});
         lines.push(talkOpener(thread,profile,null));
         if(laterOK(thread,profile,own)){ // she'll think about it overnight
           const told=topicTold(own,profile);
@@ -3205,7 +3226,7 @@
           after=()=>moggerPicture(thread,profile);
         }else{
           const told=topicTold(own,profile);
-          lines.push(told.text);
+          lines.push(coldTrim(told.text,thread)); // short when she's cold (the clue is in your notes)
           gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
           if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
           maybeHerQuestion(thread,profile,lines);
@@ -3217,7 +3238,7 @@
         thread.followUp=null;state.newsDay=world.day;
         if(!thread.topics.includes('news'))thread.topics.push('news');
         const phrase=kit.newsFollow.phrases[kind]||'the paper';
-        thread.log.push({who:'you',text:`${news.player} ${phrase.charAt(0).toUpperCase()+phrase.slice(1)}?`});
+        thread.log.push({who:'you',text:myVoice(`${news.player} ${phrase.charAt(0).toUpperCase()+phrase.slice(1)}?`,profile.id)});
         lines.push(talkOpener(thread,profile,null));
         lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
@@ -3236,7 +3257,7 @@
         if(!daily||state.dayDay===world.day)return;
         thread.followUp=null;state.dayDay=world.day;state.lastDay=world.day;
         if(!thread.topics.includes('daily'))thread.topics.push('daily');
-        thread.log.push({who:'you',text:seededPick(daily.player,profile.id+world.day)});
+        thread.log.push({who:'you',text:myVoice(seededPick(daily.player,profile.id+world.day),profile.id)});
         lines.push(reputationLine(thread,profile));
         lines.push(variedPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
         lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
@@ -3253,7 +3274,7 @@
         thread.deeper=null;
         if(!category)return;
         state.roots.push(category);
-        thread.log.push({who:'you',text:seededPick(kit.deeper.player,profile.id+category)});
+        thread.log.push({who:'you',text:myVoice(seededPick(kit.deeper.player,profile.id+category),profile.id)});
         lines.push(personalityOf(profile).roots[category]);
         warmBy(thread,1); // she opened up to you
         maybeHerQuestion(thread,profile,lines);
@@ -3262,7 +3283,7 @@
         const key=id.slice(4),ask=SERVICE_ASKS[key];
         if(!serviceAskable(key,thread,profile))return;
         thread.followUp=null;
-        thread.log.push({who:'you',text:ask.player});
+        thread.log.push({who:'you',text:myVoice(ask.player,profile.id)});
         if(warmthOf(thread)<=-2&&tone()!=='mogger'){state.svcRefusedDay=world.day;lines.push(variedPick(SERVICE_REFUSALS,profile.id+key));}
         else{
           lines.push(fillIn(seededPick(ask.reply,profile.id+key),{number:contactNumbers[key]}));
@@ -3326,7 +3347,7 @@
         return delta>0?reactionFrom(personality?.reactions?.warm,WARM_REACTIONS,key):delta<0?reactionFrom(personality?.reactions?.cool,COOL_REACTIONS,key):variedPick(kit.neutral,key);
       };
       const otherName=id=>firstName(hingeProfile(id));
-      thread.log.push({who:'you',text:choice.player});
+      thread.log.push({who:'you',text:myVoice(choice.player,profile.id)});
       const lines=[];
       let score=0,delta=0;
       if(follow.kind==='question'){
@@ -3859,6 +3880,7 @@
     // read the paper, a bear is about, a woman won't stop ringing, an officer rang you.
     var DISPATCH={
       greeting:'Sunfall 911, this is Doreen. What’s your emergency?',
+      known:'Sunfall 911, this is Doreen. Oh, it’s you. The one who called it in about Professor Vale. Detective Graves said to put you straight through if you ever rang. What’s happened?', // town talk: she remembers you
       topics:[
         {id:'d911_voice',label:'Admit you just wanted to hear a voice',reply:'This line is for emergencies, love. But it’s quiet, and I’ve got two minutes. Go on. Tell me about your day.',when:()=>true},
         {id:'d911_name',label:'Ask who you’re talking to',reply:'Doreen. Twenty-two years on these phones. I’ve heard everything twice and believed about half.',when:()=>true},
@@ -4107,6 +4129,7 @@
       if(RQ_CALLERS[id])return rqCallCard(id); // room quests
       if(FQ_CALLERS[id])return fqCallCard(id); // her thing
       if(id==='x:vale'){const c=PV?.valeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Unknown number',gallery:[face],banner:face,ringName:c?.name||'Unknown number',sub:'Mobile'};} // Professor Vale rings you
+      if(id==='x:pv-fake'){const c=PV?.fakeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Detective Graves',gallery:[face],banner:face,ringName:c?.name||'Detective Graves',sub:`Mobile${c?.number?' · '+displayNumber(c.number):''}`};} // a fake detective: not her number
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
@@ -4134,6 +4157,7 @@
       if(RQ_CALLERS[id]){rqRang(id);return;}
       if(FQ_CALLERS[id]){fqRang(id);return;}
       if(id==='x:vale'){PV.valeRang();return;}
+      if(id==='x:pv-fake'){PV.fakeRang();return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:police')policeWarnState().called=true;
@@ -4154,6 +4178,7 @@
       if(RQ_CALLERS[id]){rqMissed(id);return;}
       if(FQ_CALLERS[id]){fqMissed(id);return;}
       if(id==='x:vale'){PV.valeMissed();saveRun(true);return;} // he leaves a voicemail
+      if(id==='x:pv-fake'){PV.fakeMissed();saveRun(true);return;}
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
@@ -4172,6 +4197,7 @@
       if(RQ_CALLERS[id])return rqAnswer(id);
       if(FQ_CALLERS[id])return fqAnswer(id);
       if(id==='x:vale')return {id,stranger:true,kind:'vale',step:'open',said:PV.valeAnswer()};
+      if(id==='x:pv-fake')return {id,stranger:true,kind:'pvfake',step:'open',said:PV.fakeAnswer()};
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
@@ -4187,6 +4213,7 @@
       if(call.kind==='rq')return rqCallChoices(call); // room quests
       if(call.kind==='fq')return fqCallChoices(call); // her thing
       if(call.kind==='vale')return PV.valeChoices(); // Professor Vale
+      if(call.kind==='pvfake')return PV.fakeChoices();
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
@@ -4208,6 +4235,7 @@
       if(call.kind==='rq'){rqChooseCall(call,choice);return;}
       if(call.kind==='fq'){fqChooseCall(call,choice);return;}
       if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
+      if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
@@ -4602,6 +4630,22 @@
       },0);
     }
 
+    // ===== Your own voice by difficulty (Chris, 2 November 2026) =====
+    // In everyday chat (never quest lines) Truecel apologizes and over-explains, Mogger is lazy and cocky,
+    // and Normie says it straight. About two lines in three get it, seeded so a line always reads the same.
+    const VOICE={
+      truecel:{pre:['Sorry.','Um.','Okay, random question.','Not to be weird.','Hope this is okay to ask.'],
+        post:['Sorry if that’s a weird thing to say.','I mean that in a good way, by the way.','Ha. Sorry.','I’ve been working out how to say that for a while, honestly.','That came out wrong. Or maybe not. I don’t know.','Feel free to ignore that.']},
+      mogger:{pre:['So.','Right.','Go on, then.','Quick one.'],
+        post:['Obviously.','Keep up.','You’re welcome.','Easy.','Don’t overthink it.','I already know the answer, by the way.']}
+    };
+    function myVoice(text,key){
+      const v=VOICE[tone()];
+      if(!v||typeof text!=='string'||!text)return text;
+      const h=hashSeed(world.seed+'|voice|'+key+'|'+text);
+      if(h%3===0)return text;
+      return h%2===0?`${v.pre[(h>>>3)%v.pre.length]} ${text}`:`${text} ${v.post[(h>>>5)%v.post.length]}`;
+    }
     // ===== Flirting (characters/flirt.json; Chris, 2 November 2026) =====
     // Heat: how charged it is between you (0 to 3), apart from how much she likes you. She messages
     // first now and then (more often the hotter it is), you react instead of interviewing her, and a
@@ -4695,7 +4739,7 @@
     function answerFlirt(choice,thread,profile,follow){
       const kit=flirtFaction(profile);
       if(!kit)return;
-      thread.log.push({who:'you',text:choice.player});
+      thread.log.push({who:'you',text:myVoice(choice.player,profile.id)});
       lineSpeaker=profile.id;
       const reply=(list,key)=>flirtFill(variedPick(list,profile.id+'|'+key+'|'+world.day+'|'+thread.log.length),profile);
       const say=(text,after)=>deliverTalk(thread,profile,[text],'talk',after,true);
@@ -4730,7 +4774,7 @@
         if(choice.id==='thing'){ // her thing: the biggest swing of all
           const g=fetishKit()?.kit?.give;
           if(!g)return;
-          if(gameRandom()<thingOdds(thread)){warmBy(thread,3);talkState(thread).heat=3;return say(reply(g.win,'tw'));}
+          if(gameRandom()<thingOdds(thread)){warmBy(thread,3);talkState(thread).heat=3;talkState(thread).thingWon=true;return say(reply(g.win,'tw'));}
           warmBy(thread,-3);talkState(thread).heat=0;
           if(gameRandom()<.5||warmthOf(thread)<0)return later(()=>flirtBlock(thread,profile,reply(g.block,'tb'),'thing'));
           return say(reply(g.lose,'tl'));
@@ -6302,6 +6346,52 @@
       saveRun(true);closeCupboard();setLowered(false);hingeView='thread';activeChatId=kit.host;openApp('hinge');
       updateRunStatus(`Preview: ${profile.name} has messaged you (${kit.title}).`);
     }
+    // ===== Town talk (Chris, 2 November 2026): the stories notice each other =====
+    // The morning after a big story ends up in the paper, a woman you're talking to brings it up (one a
+    // morning, never a woman who was part of it, and only within a few days), and you react in your own
+    // tone. Doreen on 911 remembers you if you called in the plot against Professor Vale.
+    const townKit=()=>characterDB?.townTalk?.events||null;
+    function townState(){const t=world.townTalk;if(!t||typeof t!=='object'||!Array.isArray(t.told))world.townTalk={told:[]};return world.townTalk;}
+    const sanitizeTownTalk=raw=>({told:Array.isArray(raw?.told)?raw.told.filter(key=>typeof key==='string'&&key.length<40).slice(0,40):[]});
+    // What has happened in the stories, the day the town hears of it, and who was part of it.
+    function townEvents(){
+      const out=[],add=(key,day,cast)=>{if(Number.isInteger(day))out.push({key,day,cast:(cast||[]).filter(Boolean)});};
+      const pv=world.professorVale;
+      if(pv&&Array.isArray(pv.news)){
+        const map={arrest:'vale_saved',device_found:'vale_device',empty_bay:'vale_empty',vale_dead:'vale_dead',wrong_man:'pemberton'};
+        const cast=Object.values(window.ProfessorVale?.DATA?.cast||{}).map(person=>person.profileId);
+        for(const story of pv.news)if(map[story.key])add(map[story.key],story.day,cast);
+      }
+      const br=world.blueRibbon;
+      if(br?.outcome==='success'||br?.outcome==='failed')add('br_'+br.outcome,(br.outcomeDay||0)+1);
+      const ch=world.chapel,chapelIds=window.MATCH_CHAPEL_ENGINE?.ids;
+      const chapelKey={stopped:'chapel_stopped',reconciled:'chapel_reconciled',wrong_place:'chapel_wrong',ignored:'chapel_ignored'}[ch?.outcome];
+      if(chapelKey)add(chapelKey,(ch.outcomeDay||0)+1,chapelIds?[chapelIds.VICTORIA,...(chapelIds.FLYER_GOTHS||[])]:[]);
+      const house=rqs('openhouse');
+      if(house?.choice)add(house.choice==='olivia'?'olivia_fired':'ridge_house',house.afterDay,[house.host,house.rival]);
+      const robe=rqs('robe');
+      if(robe?.after==='joke')add('celeste_joke',robe.afterDay,[robe.host]);
+      return out;
+    }
+    function townTalkNewDay(){
+      const kit=townKit();
+      if(!kit||!revampOn())return;
+      const t=townState();
+      const due=townEvents().filter(event=>kit[event.key]&&!t.told.includes(event.key)&&world.day>=event.day&&world.day<=event.day+4).sort((a,b)=>a.day-b.day)[0];
+      if(!due)return;
+      const thread=[...hingeThreads.values()].filter(th=>{
+        const profile=hingeProfile(th.id),st=talkState(th);
+        return profile&&eventReady(th)&&!th.unmatched&&!th.left&&!th.missing&&!th.quiet&&!th.followUp&&warmthOf(th)>=1&&st.musedDay!==world.day&&(st.days||[]).length>0&&!due.cast.includes(th.id);
+      }).sort((a,b)=>warmthOf(b)-warmthOf(a)||hashSeed(world.seed+'|town|'+a.id)-hashSeed(world.seed+'|town|'+b.id))[0];
+      if(!thread)return;
+      const event=kit[due.key],profile=hingeProfile(thread.id),st=talkState(thread);
+      lineSpeaker=profile.id;
+      herLine(thread,event.lines[hashSeed(world.seed+'|town|'+due.key+'|'+thread.id)%event.lines.length]);
+      st.musedDay=world.day;st.morningDay=world.day;
+      thread.followUp={kind:'tone',id:event.mood}; // react in your own tone
+      t.told.push(due.key);
+    }
+    function gravesKnowsYou(){const pv=world.professorVale;return !!(pv&&(pv.favour?.police||(pv.tip?.withPlan&&pv.cellArrested)));}
     // ===== Her thing (characters/fetish.json; Chris, 2 November 2026) =====
     // From the character bible's fetishes, kept tasteful. Her scores ([dominance, kink], 1 to 5) tune
     // how a neg, a filthy line or playing it cool lands. At full heat, a woman with a thing tells you it,
@@ -6325,6 +6415,20 @@
         st.thing='told';st.musedDay=world.day;st.morningDay=world.day;
         thread.followUp={kind:'thing',id:'tell'};
         return; // one a morning
+      }
+      // After she's told you and you said you're into it, she brings it up again now and then (Chris,
+      // 2 November 2026), every few days at most, and more fondly once you've got it right.
+      for(const thread of hingeThreads.values()){
+        const profile=hingeProfile(thread.id),st=talkState(thread),kit=fetishKit()?.kit;
+        if(st.thing!=='yes'||!kit?.remind||!flirtable(profile)||warmthOf(thread)<1)continue;
+        if(!eventReady(thread)||thread.unmatched||thread.left||thread.missing||thread.quiet||thread.followUp||st.musedDay===world.day||rqHolds(thread.id))continue;
+        if(Number.isInteger(st.thingDay)&&world.day-st.thingDay<3)continue;
+        if(hashSeed(world.seed+'|remind|'+thread.id+'|'+world.day)%100>=35)continue;
+        lineSpeaker=profile.id;
+        herLine(thread,variedPick(rqT(st.thingWon&&kit.remindWon?kit.remindWon:kit.remind),profile.id+'|remind|'+world.day));
+        st.thingDay=world.day;st.musedDay=world.day;st.morningDay=world.day;
+        thread.followUp={kind:'flirt',id:String(Math.min(2,heatOf(thread)))}; // flirt back
+        return;
       }
     }
     function thingFollowChoices(follow){
@@ -7155,6 +7259,7 @@
       quietNewDay(); // conversations run out
       laterNewDay(); // answers she slept on
       lifeNewDay(); // her life moves on
+      townTalkNewDay(); // the stories notice each other: a woman brings up the news
       thingNewDay(); // at full heat she tells you her thing, once
       flirtNewDay(); // and now and then she just talks: the hotter it is, the filthier
       intoNewDay(); // a woman who likes you a lot may let you ask what she's into
@@ -9263,7 +9368,7 @@
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;

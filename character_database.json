@@ -31063,6 +31063,37 @@
             "Huh. Okay. That was decent of you."
           ]
         }
+      },
+      "remind": {
+        "mogger": [
+          "I keep thinking about what I told you. You didn’t even blink. I liked that.",
+          "Still thinking about what you said when I told you. Next time I send you something, you know what to do.",
+          "You know my secret now. That makes you dangerous. I like dangerous."
+        ],
+        "normie": [
+          "I can’t stop thinking about what I told you. And that you didn’t run.",
+          "Is it weird that I told you that? You said you were into it. Were you really?",
+          "I told you something I’ve never told anyone. I keep checking that you’re still here."
+        ],
+        "truecel": [
+          "I don’t know why I told you that. You’re still here, though. Weird.",
+          "Don’t make it a thing. The thing I told you. Unless you want to.",
+          "I told you my secret and you didn’t laugh. Most men would have."
+        ]
+      },
+      "remindWon": {
+        "mogger": [
+          "Last time was exactly right. I’ve been useless all day because of it.",
+          "You got it right. Nobody gets it right. Do it again soon."
+        ],
+        "normie": [
+          "I keep replaying it. You got it exactly right. Thank you, honestly.",
+          "I’m still shaking a bit from last time. In the best way."
+        ],
+        "truecel": [
+          "Fine. You were good at it. Don’t let it go to your head.",
+          "I’ve thought about it more than I want to admit. Again sometime?"
+        ]
       }
     },
     "scores": {
@@ -32787,6 +32818,106 @@
           "truecel": "Three. Fine. You win. Nobody wins. Keep the key card. I mean it, don’t use it."
         },
         "picture": "The suite. Empty, like you left it."
+      }
+    }
+  },
+  "townTalk": {
+    "events": {
+      "vale_saved": {
+        "mood": "good",
+        "lines": [
+          "Did you see the paper? Somebody tipped off the police and they caught the Back Row in the faculty lot. Whoever that was, I’d buy them a drink.",
+          "Professor Vale is alive and the Back Row is in cells. Somebody made a phone call. I love a quiet hero.",
+          "They arrested students in the faculty parking lot. A plot against Professor Vale. Somebody knew. I keep wondering who."
+        ]
+      },
+      "vale_device": {
+        "mood": "good",
+        "lines": [
+          "A volunteer found a bomb under Professor Vale’s car. He was staying with the Bluebirds that night. Somebody warned them.",
+          "Professor Vale says he’s unbearably safe. Somebody sent him to the Bluebirds the night before. I want friends like that."
+        ]
+      },
+      "vale_empty": {
+        "mood": "odd",
+        "lines": [
+          "Professor Vale’s car blew up in the faculty lot with nobody in it. He took a cab that morning. Lucky man, or a warned one.",
+          "A car exploded on campus and nobody died. Vale took a cab and won’t say why. I believe him, which is the strange part."
+        ]
+      },
+      "vale_dead": {
+        "mood": "bad",
+        "lines": [
+          "They’re holding a vigil for Professor Vale. I argued with everything he ever said. I didn’t want this.",
+          "Professor Vale is dead. A car bomb, in the faculty lot. Everyone says they saw it coming. Nobody stopped it."
+        ]
+      },
+      "pemberton": {
+        "mood": "bad",
+        "lines": [
+          "Poor Dr. Pemberton. He only borrowed the car. He didn’t even like Vale’s speakers.",
+          "A lecturer died in a car that wasn’t his. Hal Pemberton. He taught my cousin. Gentle man. Terrible at parking."
+        ]
+      },
+      "br_success": {
+        "mood": "good",
+        "lines": [
+          "A federal inquiry into the Blue Ribbon Foundation. My mother rang me twice about it. She’s thrilled and pretending not to be.",
+          "The Blue Ribbon Foundation is under federal investigation. Somebody handed them a file. Very brave or very stupid. Maybe both."
+        ]
+      },
+      "br_failed": {
+        "mood": "bad",
+        "lines": [
+          "The Blue Ribbon investigation went nowhere. Of course it did. They own half the judges in Sunfall.",
+          "Nothing came of the Blue Ribbon case. Elena Cross is still missing and the gala will go ahead next year like nothing happened."
+        ]
+      },
+      "chapel_stopped": {
+        "mood": "good",
+        "lines": [
+          "The Sisters sang all night outside a chapel and somebody warned them first. The crescent flyers are gone.",
+          "Victoria Blackwood has left town. The goths are pretending they never heard of her. I heard a lot of her."
+        ]
+      },
+      "chapel_reconciled": {
+        "mood": "good",
+        "lines": [
+          "Half the goth crowd walked away from Victoria Blackwood and stood with the Sisters. Of all people. I loved it."
+        ]
+      },
+      "chapel_wrong": {
+        "mood": "bad",
+        "lines": [
+          "The Sisters kept a vigil at the wrong chapel. Whatever happened at the other one, nobody’s talking about it."
+        ]
+      },
+      "chapel_ignored": {
+        "mood": "bad",
+        "lines": [
+          "Something happened at the chapel. Nobody’s saying what. The candles were still burning when the sun came up.",
+          "Have you heard about the chapel? No? Good. Neither have I. That’s what everyone says."
+        ]
+      },
+      "olivia_fired": {
+        "mood": "odd",
+        "lines": [
+          "That realtor, Olivia Reid, got fired. Showing houses after dark, apparently. Showing them to whom, nobody says.",
+          "Olivia Reid lost her job. Something about the judge’s old house. Sunfall loves a scandal it can’t quite describe."
+        ]
+      },
+      "ridge_house": {
+        "mood": "odd",
+        "lines": [
+          "Caroline Prescott’s house on the ridge road made the paper. The judge’s old place. Somebody’s been very busy in it.",
+          "The house on the ridge road was in the paper. Caroline Prescott says it was shown in person. She sounded pleased about it."
+        ]
+      },
+      "celeste_joke": {
+        "mood": "odd",
+        "lines": [
+          "The society column ran a story about Diana Moore’s telephone friend. The club thinks it’s hilarious. I think it’s a bit sad."
+        ]
       }
     }
   }
