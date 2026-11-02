@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="7912e839b1">
+<html lang="en" data-build="d7ecfeeb3d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -76,6 +76,16 @@
     .fatal-overlay.visible { animation: deathFlicker .55s steps(4,end) both; }
     .run-recap { width: min(320px, 92%); max-height: 34%; overflow: auto; text-align: left; color: #ffe9d0; background: #1a0e12d9; border: 1px solid #ed7d56; padding: 6px 10px; font: 11px/1.45 Tahoma, sans-serif; }
     .run-recap:empty { display: none; }
+    .finale-overlay { position: absolute; z-index: 20; inset: 0; display: none; align-items: center; justify-content: center; padding: 18px; background: #0b1026 url('assets/source/founders-ball.png') center / cover; }
+    .finale-overlay.visible { display: flex; animation: finaleIn .8s ease-out both; }
+    @keyframes finaleIn { from { opacity: 0; } to { opacity: 1; } }
+    .finale-panel { width: min(340px, 94%); max-height: 92%; overflow: auto; background: #0b1026e6; border: 2px solid #d8b45a; padding: 14px 16px; color: #f4ead2; text-align: left; box-shadow: 0 0 0 4px #0b1026, 0 0 24px #d8b45a55; }
+    .finale-kind { font: bold 10px ui-monospace, Consolas, monospace; letter-spacing: .14em; color: #d8b45a; text-align: center; }
+    .finale-panel h2 { margin: 6px 0 10px; font: bold 17px/1.2 Georgia, serif; letter-spacing: .08em; color: #f7d98a; text-align: center; text-shadow: 2px 2px #000; }
+    .finale-panel p { margin: 0 0 9px; font: 13px/1.5 Georgia, serif; }
+    .finale-panel .run-recap { width: auto; max-height: none; background: #060a1ccc; border-color: #d8b45a; color: #f4ead2; margin: 10px 0 0; }
+    .finale-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+    .finale-actions button { font: bold 11px ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; color: #f7d98a; background: #1a1430; border: 2px solid #d8b45a; padding: 10px 14px; cursor: pointer; }
     .run-recap summary { cursor: pointer; font: bold 11px ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; }
     .fatal-overlay .run-recap p { font: 11px/1.45 Tahoma, sans-serif; text-transform: none; letter-spacing: 0; text-shadow: none; margin: 6px 0 2px; color: #ffd9c2; }
     .run-recap ul, .ending-run { margin: 4px 0; padding-left: 16px; }
@@ -625,11 +635,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=7912e839b1"></script>
+  <script src="chapel_at_midnight.js?v=d7ecfeeb3d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=7912e839b1"></script>
+  <script src="marriage.js?v=d7ecfeeb3d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=7912e839b1"></script>
+  <script src="quests/professor-vale.js?v=d7ecfeeb3d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -721,6 +731,7 @@
         <button class="bar-button" id="fq-count-preview">Her thing: Catherine Bell messages now (Match Point)</button>
         <button class="bar-button" id="fq-refusal-preview">Her thing: Caroline Prescott messages now (Refused)</button>
         <button class="bar-button" id="thing-preview">Her thing: a woman with one tells you it now</button>
+        <button class="bar-button" id="finale-preview">The finale: the Founders’ Ball tonight</button>
         <button class="bar-button" id="coyote-preview">The Coyote: he takes your closest match and rings now</button>
         <button class="bar-button" id="into-preview">Her thing: a woman who likes you messages, so you can ask what she’s into</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
@@ -1249,7 +1260,7 @@
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
-        if(rqAfterDayStart()||fqAfterDayStart()||coyoteAfterDayStart())return; // room quests, her thing, the Coyote
+        if(rqAfterDayStart()||fqAfterDayStart()||coyoteAfterDayStart()||finaleAfterDayStart())return; // room quests, her thing, the Coyote, the Founders' Ball
         if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
         if(halAfterDayStart())return; // Undeniable: an arrest, a visitor, a knock
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
@@ -2152,6 +2163,7 @@
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
+      for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
@@ -2333,6 +2345,7 @@
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
       if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
+      if(id==='finale:ask')return chooseFinale(thread,profile); // the Founders' Ball
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
@@ -6501,6 +6514,109 @@
       if(coyoteCallerDue()){incomingCall=null;herCall=null;strangerRang('x:coyote');startIncomingCall('x:coyote');}
       updateRunStatus(`Preview: the Coyote has taken ${hingeProfile(t.id).name}. He is ringing now. Listen for the sound, then ring 911 and tell Doreen where she is.`);
     }
+    // ===== The Founders' Ball (characters/finale.json; Chris, 2 November 2026) =====
+    // A finale in about a quarter of runs. The invitation comes through your door on Day 12; on Days 12
+    // and 13 you can ask a match to come with you; on Day 14 the ball plays like an ending, built from how
+    // this run's stories turned out and what the town thinks of you. Then a new game, or stay in Sunfall.
+    const finaleKit=()=>characterDB?.finale||null;
+    const FINALE_INVITE=12,FINALE_DAY=14,FINALE_INVITE_ART='assets/items/ball-invitation.png';
+    function finaleState(){const f=world.finale;if(!f||typeof f!=='object'||Array.isArray(f)||typeof f.stage!=='string')world.finale={stage:'none',asked:[]};return world.finale;}
+    function sanitizeFinale(raw){
+      const out={stage:'none',asked:[]};
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
+      if(['none','invited','done'].includes(raw.stage))out.stage=raw.stage;
+      if(typeof raw.date==='string')out.date=raw.date.slice(0,20);
+      if(Array.isArray(raw.asked))out.asked=raw.asked.filter(id=>typeof id==='string').slice(0,40);
+      if(typeof raw.on==='boolean')out.on=raw.on;
+      return out;
+    }
+    function finaleOn(){
+      const f=finaleState();
+      if(typeof f.on!=='boolean')f.on=window.MATCH_ALL_FINALE?true:window.MATCH_NO_MINIS?false:hashSeed(world.seed+'|finale')%4===0;
+      return f.on;
+    }
+    function finaleNewDay(){
+      const kit=finaleKit(),f=finaleState();
+      if(!kit||!finaleOn()||f.stage!=='none'||world.day<FINALE_INVITE)return;
+      f.stage='invited';
+      queueNews({id:'finale_ball',section:kit.news.section,title:kit.news.title,summary:kit.news.summary,body:kit.news.body,image:'founders_ball',fallbackImage:'charity_gala'},world.day);
+    }
+    function finaleItems(){
+      const kit=finaleKit(),f=world.finale;
+      if(!kit||!f||f.stage==='none')return [];
+      return [{id:'finale:invite',door:true,floor:'envelope',label:kit.invitation.label,short:kit.invitation.short,image:FINALE_INVITE_ART,text:kit.invitation.text}];
+    }
+    function finaleChoices(thread,profile){
+      const kit=finaleKit(),f=world.finale;
+      if(!kit||!f||f.stage!=='invited'||f.date||world.day>=FINALE_DAY||(f.asked||[]).includes(thread.id))return [];
+      if(!profile||!flirtable(profile)||thread.id===bearHingeCard.id||thread.blocked||thread.missing||thread.unmatched||thread.left||warmthOf(thread)<1)return [];
+      return [['finale:ask',kit.ask.label]];
+    }
+    function chooseFinale(thread,profile){
+      const kit=finaleKit(),f=finaleState();
+      if(!finaleChoices(thread,profile).length)return;
+      f.asked=[...(f.asked||[]),thread.id];
+      thread.log.push({who:'you',text:myVoice(seededPick(kit.ask.player,world.seed+'|ball|'+thread.id),profile.id)});
+      const need={mogger:1,normie:2,truecel:3}[tone()]??2,w=warmthOf(thread);
+      const yes=w>=need+1||(w>=need&&hashSeed(world.seed+'|ballyes|'+thread.id)%2===0);
+      if(yes)f.date=thread.id;
+      lineSpeaker=profile.id;
+      deliverTalk(thread,profile,[variedPick(rqT(yes?kit.yes:kit.no),profile.id+'|ball')],'talk',()=>{if(yes)warmBy(thread,1);},true);
+    }
+    function finaleAfterDayStart(){
+      const f=world.finale;
+      if(!f||f.stage!=='invited'||world.day<FINALE_DAY||!finaleKit())return false;
+      playFinale();
+      return true;
+    }
+    // The night, paragraph by paragraph: who came with you, how the stories ended, what the town thinks.
+    function finaleParagraphs(){
+      const S=finaleKit().scenes,f=finaleState(),out=[];
+      const date=f.date&&hingeThreads.get(f.date)&&!hingeThreads.get(f.date).missing?hingeProfile(f.date):null;
+      out.push(fillIn(date?S.arrive.date:S.arrive.alone,{first:date?firstName(date):''}));
+      const pv=world.professorVale;
+      if(pv&&pv.stage!=='dormant'){
+        const dead=(pv.news||[]).some(n=>n.key==='vale_dead'&&n.day<=world.day);
+        if(dead)out.push(S.vale.dead);else if(pv.stage==='resolved'||pv.ending)out.push(S.vale.alive);
+      }
+      const br=world.blueRibbon;if(S.br[br?.outcome])out.push(S.br[br.outcome]);
+      const ch=world.chapel;if(S.chapel[ch?.outcome])out.push(S.chapel[ch.outcome]);
+      const co=world.coyote;
+      if(co?.stage==='saved'||co?.stage==='lost')out.push(fillIn(S.coyote[co.stage],{name:hingeProfile(co.victim)?.name||'her'}));
+      const threads=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)&&t.id!==bearHingeCard.id);
+      const warm=threads.filter(t=>warmthOf(t)>=2&&!t.blocked).length,cold=threads.filter(t=>t.blocked||warmthOf(t)<0).length;
+      out.push(warm>=4&&warm>cold?S.town.loved:cold>=3&&cold>warm?S.town.shunned:S.town.mixed);
+      if(date)out.push(fillIn(warmthOf(hingeThreads.get(f.date))>=3?S.date.warm:S.date.cool,{first:firstName(date)}));
+      if(co&&(co.stage==='saved'||co.stage==='lost')&&!co.dead)out.push(S.coyote.atLarge); // he's still out there
+      out.push(S.close);
+      return out;
+    }
+    let finaleOverlay=null;
+    function playFinale(){
+      const kit=finaleKit(),f=finaleState(),paragraphs=finaleParagraphs();
+      f.stage='done';
+      noteEnding(f.date?'finale:date':'finale:alone',f.date?`You took ${hingeProfile(f.date)?.name||'her'}.`:'You went alone.');
+      saveRun(true);
+      stopRinging();herCall=null;closeCupboard();setLowered(true);
+      finaleOverlay?.remove();
+      const ov=finaleOverlay=document.createElement('div');
+      ov.className='finale-overlay visible';
+      ov.innerHTML=`<div class="finale-panel"><div class="finale-kind">THE END OF THIS RUN</div><h2>${esc(kit.title)}</h2>${paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}<details class="run-recap finale-recap">${runRecapHtml()}</details><div class="finale-actions"><button data-finale-new>New game</button><button data-finale-stay>Stay in Sunfall</button></div></div>`;
+      ov.addEventListener('click',event=>{
+        if(event.target.closest?.('[data-finale-new]')){ov.remove();startNewRun(true);return;}
+        if(event.target.closest?.('[data-finale-stay]')){ov.remove();setLowered(false);fit();}
+      });
+      $('stage').appendChild(ov);
+      updateRunStatus('The Founders’ Ball.');
+    }
+    // Testing menu: the invitation is here; the ball is tonight with your warmest match (if she says yes).
+    function finaleTestStart(){
+      if(!finaleKit())return;
+      world.finale={stage:'invited',asked:[],on:true};
+      const best=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)&&t.id!==bearHingeCard.id&&!t.blocked&&!t.missing).sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
+      if(best&&warmthOf(best)>=2)world.finale.date=best.id;
+      playFinale();
+    }
     // ===== Town talk (Chris, 2 November 2026): the stories notice each other =====
     // The morning after a big story ends up in the paper, a woman you're talking to brings it up (one a
     // morning, never a woman who was part of it, and only within a few days), and you react in your own
@@ -7414,6 +7530,7 @@
       rqNewDay(); // the room quests
       fqNewDay(); // her thing: the mini quests
       coyoteNewDay(); // the Coyote
+      finaleNewDay(); // the Founders' Ball: the invitation
       quietNewDay(); // conversations run out
       laterNewDay(); // answers she slept on
       lifeNewDay(); // her life moves on
@@ -7896,6 +8013,8 @@
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
       add('The Coyote','coyote:saved','You found her in time');
       add('The Coyote','coyote:lost','Too late');
+      add('The Founders’ Ball','finale:date','With someone on your arm');
+      add('The Founders’ Ball','finale:alone','Alone');
       return out;
     }
     // The death screen's line is set just after its title: kept once the run saves or a new game starts.
@@ -7945,6 +8064,8 @@
       }
       const co=world.coyote;
       if(co&&(co.on||co.stage!=='none'))rows.push(['The Coyote',co.dead?'He came for you':{saved:'You found her in time',lost:`Too late: ${co.first||'she'} was at ${coyotePlace(co.place)?.name||'the edge of town'}`,taken:`He still has ${co.first||'her'}`,seen:'He was seen on Brown Avenue',skipped:'He passed through'}[co.stage]||'Hadn’t started yet']);
+      const fi=world.finale,fiName=id=>hingeProfile(id)?.name||'her';
+      if(fi&&fi.stage!=='none')rows.push(['The Founders’ Ball',fi.stage==='done'?(fi.date?`You took ${fiName(fi.date)}`:'You went alone'):fi.date?`You’re taking ${fiName(fi.date)}`:'You have an invitation']);
       for(const id of rqOn())rows.push(recapLine(rqKit()?.[id]?.title||id,rqs(id),rqKit()?.[id]?.host,rqState().dead?.id===id));
       for(const id of fqOn())rows.push(recapLine(fqKit()?.[id]?.title||id,fqs(id),fqKit()?.[id]?.host,fqState().dead?.id===id));
       for(const id of minisOn())rows.push(recapLine(MINI_TITLES[id]||id,minisState().st[id],null,minisState().dead?.id===id));
@@ -9078,6 +9199,7 @@
       items.push(...miniItems()); // mini quests: on your doorstep
       items.push(...rqItems()); // room quests: Diana's parcel, the ribbon, Caroline's still, the bill, Lauren's box
       items.push(...fqItems()); // her thing: Celeste's postcard, Caroline's presents
+      items.push(...finaleItems()); // the Founders' Ball: the invitation
       items.push(...halItems()); // Undeniable: his parcel, the library book, the shoebox
       for(const item of arcsState().items)items.push({id:item.id,door:true,floor:/card|postcard|letter|note|photo|ticket/i.test(item.label)?'letter':'parcel',label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
@@ -9533,7 +9655,7 @@
         world.blueRibbon=sanitizeBlueRibbon(saved.world.blueRibbon);
         world.convo=sanitizeConvo(saved.world.convo);
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
-        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.coyote=sanitizeCoyote(saved.world.coyote);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
+        world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.coyote=sanitizeCoyote(saved.world.coyote);world.finale=sanitizeFinale(saved.world.finale);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
@@ -9820,6 +9942,7 @@
     $('thing-preview').onclick=()=>thingTestStart();
     $('into-preview').onclick=()=>intoTestStart();
     $('coyote-preview').onclick=()=>coyoteTestStart();
+    $('finale-preview').onclick=()=>finaleTestStart();
 
     // Testing menu: play a Sister's wedding and the victory screen without changing the run.
     $('marriage-preview').onclick=()=>{

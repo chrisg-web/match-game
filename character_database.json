@@ -33050,5 +33050,90 @@
       "The door was open. Somebody was humming in the hallway. Something smelled of rubber.",
       "You heard yipping outside, like a coyote. Then it was inside."
     ]
+  },
+  "finale": {
+    "title": "THE FOUNDERS’ BALL",
+    "invitation": {
+      "label": "An invitation",
+      "short": "Invitation",
+      "text": "Heavy cream card with a gold edge: The Founders’ Ball, at Founders’ Hall, on Day 14. You and a guest. The whole town will be there. Dress accordingly."
+    },
+    "news": {
+      "section": "Society",
+      "title": "Founders’ Ball Returns to Founders’ Hall",
+      "summary": "The town’s oldest party is back, on Day 14, and everyone who matters has been invited. So, somehow, have some people who don’t.",
+      "body": "The Founders’ Ball returns to Founders’ Hall on Day 14 after two years away. The organizers promise a string quartet, a dance floor and no speeches. Everyone in Sunfall seems to have an invitation, and everyone wants to know who is bringing whom."
+    },
+    "ask": {
+      "label": "Ask her to the Founders’ Ball",
+      "player": [
+        "Come to the Founders’ Ball with me.",
+        "I’ve got an invitation to the Founders’ Ball and a spare seat. Interested?",
+        "The Founders’ Ball. You and me. Say yes."
+      ]
+    },
+    "yes": {
+      "mogger": [
+        "Obviously yes. I’ve had a dress waiting for an excuse.",
+        "Yes. You’ll be the second best looking person there."
+      ],
+      "normie": [
+        "Yes! I mean, yes. I’ve never been. I’d love to.",
+        "I’d love to. Pick me up early. I want to see everyone arrive."
+      ],
+      "truecel": [
+        "Fine. Yes. Don’t make me regret it.",
+        "Okay. Yes. But we leave when I say."
+      ]
+    },
+    "no": {
+      "mogger": [
+        "Someone else asked first. Sorry, handsome.",
+        "I can’t. Ask me again next year."
+      ],
+      "normie": [
+        "Oh, that’s sweet. I’ve already said I’d go with friends. Sorry.",
+        "I don’t think so. Not yet. Sorry."
+      ],
+      "truecel": [
+        "No. Absolutely not.",
+        "In front of the whole town? No."
+      ]
+    },
+    "scenes": {
+      "arrive": {
+        "date": "A car comes for you at dusk. {first} is already in it, in a dress that makes the driver miss a turn. For the first time in two weeks you leave your room.",
+        "alone": "A car comes for you at dusk. For the first time in two weeks you leave your room. You go alone, which is its own kind of statement."
+      },
+      "vale": {
+        "alive": "Professor Vale holds court by the bar, telling anyone who’ll listen that Bret Easton Ellis is next. Several people pretend not to hear him.",
+        "dead": "There’s an empty chair at the top table with a card on it: Professor Adrian Vale. Nobody sits in it all night."
+      },
+      "br": {
+        "success": "The Blue Ribbon Foundation’s table is bare. Their place cards are still there, face down.",
+        "failed": "The Blue Ribbon table is the loudest in the room. Every so often one of them looks at you, and smiles."
+      },
+      "chapel": {
+        "stopped": "The Sisters sit together near the door, still a little hoarse from singing.",
+        "reconciled": "A table of goths and a table of Sisters have pushed their tables together. Nobody can explain it.",
+        "wrong_place": "Nobody mentions the chapel. Twice you see someone touch a crescent pendant at her throat.",
+        "ignored": "Nobody mentions the chapel. Twice you see someone touch a crescent pendant at her throat."
+      },
+      "coyote": {
+        "saved": "{name} finds you on the dance floor and hugs you for a long time without saying anything.",
+        "lost": "Someone has left a single white flower by the door for {name}. People step around it carefully.",
+        "atLarge": "On the way out, at the edge of the parking lot, a man in a rubber coyote mask stands very still under a streetlight. Then he isn’t there."
+      },
+      "town": {
+        "loved": "Half the room seems to know your name. Women you’ve only ever texted wave across the dance floor.",
+        "mixed": "A few women you’ve talked to say hello. One of them pretends she hasn’t seen you.",
+        "shunned": "Several women you matched with turn their backs when you walk past. Word gets around in Sunfall."
+      },
+      "date": {
+        "warm": "{first} dances badly and doesn’t care, and at the end of the night she tells you this was the best evening she’s had in years.",
+        "cool": "{first} is polite all night, and leaves a little early. You’re fairly sure she had a good time. Fairly."
+      },
+      "close": "It’s nearly light when you get home. Your room looks smaller than you remember."
+    }
   }
 }
