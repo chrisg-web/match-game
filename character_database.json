@@ -19469,7 +19469,119 @@
       "look": "Lightly tanned fair skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "velvet-mystery",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask about her work",
+            "player": "What do you do?",
+            "reply": "Gothic jewelry at the Canal Bench. I’m the senior one after Juno, which means I get the commissions nobody else wants and make the coffee nobody else makes. Old Quarter women hand my pieces down. I like knowing I’ll outlive myself."
+          },
+          {
+            "id": "b_roof",
+            "label": "Ask about the telescope",
+            "player": "Is that a telescope on your roof?",
+            "reply": "Bought at a charity auction. I outbid a man who wanted it for his boat. Some nights I drive it out past the canyon with a friend from the other side of town. We look at the stars. We don’t say what else we look at."
+          },
+          {
+            "id": "b_name",
+            "label": "Ask about her name",
+            "player": "Is Salem your real name?",
+            "reply": "It is now. I picked it the night I moved to the Old Quarter. The woman I was before had a different name and a house key. I still have the key. That’s all you get for free.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_wall",
+            "label": "Ask why her walls are bare",
+            "player": "Why is there nothing on your walls?",
+            "reply": "Every photograph from before I was eighteen has the same house in the background. I’d rather look at a blank wall and decide what goes there. Nothing has yet. I’m picky.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_sister",
+            "label": "Ask about her family",
+            "player": "Do you have family?",
+            "reply": "A younger sister. We didn’t speak for ten years. Then one night she rang me out of nowhere and asked me something only I could answer. Now we’re close the way two knives in a drawer are close.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_circle",
+            "label": "Ask about Victoria’s circle",
+            "player": "Are you part of Victoria’s circle?",
+            "reply": "I’m the one who says no. There are thirteen of us, and she lets exactly one person decide anything. I’ve said no twice. The first time I lost, and I don’t talk about where that ended up. The second time is still going.",
+            "needsWarmth": 2,
+            "note": "Salem Bell is in Victoria Blackwood’s circle of thirteen and is the only one allowed to tell her no. She has done it twice.",
+            "quest": "chapel"
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_ribbon",
+            "label": "Ask if her father left her anything",
+            "player": "Did your father leave you anything?",
+            "reply": "A blue ribbon. It was tied on his stone in the cemetery. I took it the week I left home, and it’s on my bedpost now. Men in this town who marry into the wrong families get a ribbon, and nobody asks why they all died young. I ask.",
+            "needsWarmth": 2,
+            "note": "Salem Bell took a blue ribbon from her father’s stone. She says men who marry into the wrong families get one, and die young.",
+            "quest": "br"
+          },
+          {
+            "id": "c_shape",
+            "label": "Ask what she knows",
+            "player": "You know more than you say, don’t you?",
+            "reply": "I know the whole shape of it. What the old families did, why the bell rang, and why my sister thinks she can undo it. She found it out from a trunk. She found it out wrong. Ask me again when it’s over.",
+            "needsWarmth": 2,
+            "note": "Salem Bell says she knows what the old families’ rite was for, and that Victoria learned it from a trunk and got it wrong.",
+            "quest": "chapel"
+          }
+        ],
+        "likes": "dodge",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Finished a mourning ring for a woman who’s worn her mother’s for forty years. She wanted her own, finally.",
+            "more": "Jet and silver, a plain band, her mother’s initials inside where only she’ll see them. She put it on, took the old one off and held both in her palm for a long time. Then she paid in cash and left without a word. Best kind of customer."
+          },
+          {
+            "feel": "odd",
+            "news": "A crow landed on the bench’s windowsill this morning and watched me solder for an hour.",
+            "more": "It didn’t blink, and it didn’t touch the crumbs Juno put out. It just watched my hands. When I finished the piece it tapped the glass once and left. Juno says it was critiquing. I say it was approving. We’ll never know."
+          },
+          {
+            "feel": "bad",
+            "news": "Up on the roof all night with the telescope, and the clouds never moved. Not one star.",
+            "more": "My friend drove out past the canyon anyway, and we sat on separate car hoods for three hours looking at nothing and not talking about it. Then the sun came up and we both pretended it had been worth it. It was, a little."
+          },
+          {
+            "feel": "good",
+            "news": "Taught the new apprentice to mark her work today. She cried. I pretended not to see.",
+            "more": "Your mark is the only thing about a piece that’s entirely yours. Mine is a bell with no clapper. I didn’t tell her why. She’ll make up her own reasons, and they’ll be better than mine."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-192",
+            "warmth": 0,
+            "says": "Lenore Vale marks her silver because I taught her to. She’s better at it than I am now, and she still checks my face before she shows anyone.",
+            "note": "Salem Bell says she taught Lenore Vale to mark her silver.",
+            "ask": "Salem says she taught you to mark your work.",
+            "answer": "She did. She held my hand on the punch the first time so I wouldn’t ruin the ring. Salem doesn’t teach anyone anything she doesn’t want them to keep forever. I still check her face. I always will.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-003",
+            "warmth": 1,
+            "says": "Victoria Blackwood listens to nobody. Nearly nobody. Ask her who gets to tell her no.",
+            "note": "Salem Bell says almost nobody can tell Victoria Blackwood no.",
+            "ask": "Salem says almost nobody gets to tell you no.",
+            "answer": "Salem says a great deal for a woman who only speaks in hints. Yes. One person. She’s used it twice, I let her, and I’m still deciding whether I’ll let her again.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-209",
@@ -29318,6 +29430,11 @@
           "muse": "Kiln’s cooling and my hands still smell of clay. I want them somewhere warmer. Any ideas?",
           "caption": "Black lace and a silver cuff. Everything else is negotiable.",
           "melt": "I don’t undress for anyone. I just did, in a sentence. Don’t make me regret it."
+        },
+        "MATCH-208": {
+          "muse": "The roof, the telescope, a blanket, and nobody to show the rings of Saturn to. You’d have to be quiet up there. Could you?",
+          "caption": "Velvet choker, black slip, and a blue ribbon somewhere you’ll have to find.",
+          "melt": "I speak in hints. That wasn’t one. Come here."
         },
         "MATCH-218": {
           "muse": "Band’s still playing downstairs and I can feel it through the floor. Come up. I’ll leave the door open.",

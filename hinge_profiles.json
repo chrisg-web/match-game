@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 153,
-  "imageCount": 969,
-  "publicImageCount": 532,
-  "privateImageCount": 437,
+  "characterCount": 154,
+  "imageCount": 977,
+  "publicImageCount": 537,
+  "privateImageCount": 440,
   "characters": [
     {
       "id": "MATCH-001",
@@ -4765,6 +4765,44 @@
       ],
       "personality": "warm-hearted and somewhat impulsive",
       "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and making pottery after work.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-208",
+      "slug": "salem_bell",
+      "name": "Salem Bell",
+      "age": 33,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/salem_bell_01.webp",
+        "assets/hinge/roster_expansion/salem_bell_02.webp",
+        "assets/hinge/roster_expansion/salem_bell_03.webp",
+        "assets/hinge/roster_expansion/salem_bell_04.webp",
+        "assets/hinge/roster_expansion/salem_bell_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/salem_bell_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Salem Bell, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/salem_bell_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Salem Bell, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/salem_bell_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Salem Bell, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, dirty-blonde ponytail, a small nose stud, velvet choker and black slip dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and desert stargazing.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {

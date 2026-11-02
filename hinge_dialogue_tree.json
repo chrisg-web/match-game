@@ -793,6 +793,14 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
+    "MATCH-208": {
+      "intro": "I have a confession: I've been desert stargazing instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a gothic jewelry maker. I tend to be restless, ambitious and charming. Outside work I've been desert stargazing.",
+      "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
+      "weekend": "I've been desert stargazing. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
     "MATCH-082": {
       "intro": "I have a confession: I've been sketching old shopfronts instead of doing my actual errands. How do you unwind?",
       "work": "I'm a charity bookkeeper. I tend to be sunny but stubborn. Outside work I've been sketching old shopfronts.",
@@ -1326,14 +1334,6 @@
       "work": "I'm a music venue manager. I tend to be poised and fiercely independent. Outside work I've been sketching old shopfronts.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
       "weekend": "I've been sketching old shopfronts. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
-    "MATCH-208": {
-      "intro": "I have a confession: I've been desert stargazing instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a gothic jewelry maker. I tend to be restless, ambitious and charming. Outside work I've been desert stargazing.",
-      "friends": "My friends say I'm restless, ambitious and charming. I suppose they know me better than I know myself.",
-      "weekend": "I've been desert stargazing. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
