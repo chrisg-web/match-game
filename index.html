@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="bedb46b3ca">
+<html lang="en" data-build="52de6b6c1b">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=bedb46b3ca"></script>
+  <script src="chapel_at_midnight.js?v=52de6b6c1b"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=bedb46b3ca"></script>
+  <script src="marriage.js?v=52de6b6c1b"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=bedb46b3ca"></script>
+  <script src="quests/professor-vale.js?v=52de6b6c1b"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1204,6 +1204,7 @@
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
+        if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
         if(toneNotice){showGameNotice(toneNotice);toneNotice=null;} // Mogger: someone liked you first
         if(enforceUnansweredBearAtNight())return;
@@ -2088,6 +2089,7 @@
       for(const [id,label] of callerFriendChoice(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: ask her friend about Moira
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
+      for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
@@ -2118,8 +2120,8 @@
     }
     const MAX_CHAT_CHOICES=5; // a conversation never shows more than five choices at once
     // Questions a quest lets you ask her. Free while she's talking, gone once she's done for the day.
-    const QUEST_ASK=/^(mini:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
-    const QUEST_ASK_HTML=/data-hinge-topic="(mini:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
+    const QUEST_ASK=/^(mini:|lpc:ask|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
+    const QUEST_ASK_HTML=/data-hinge-topic="(mini:|lpc:ask|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     function renderHinge(){
       touchThreads(); // the chat list order, and closed chats
       let body='';
@@ -2260,6 +2262,7 @@
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
+      if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
@@ -3511,6 +3514,16 @@
       awake:'You wake up and something is different. Your reflection is standing up straighter than you are.',
       gush:['Okay, did you change your photos? Because wow.','I don’t know what it is about you today, but I can’t stop texting you.','Have you always looked like this?'],
       weak:'You wake up feeling weak. Whatever LPC-A365 was, it’s gone. The pot is empty.',
+      again:'LPC Laboratories. Our records show you have finished your course. As a valued customer, you qualify for a second pot at half price. Discreet delivery, tomorrow. Shall we send it?',
+      againYes:'Wonderful. On your doorstep tomorrow. One tablet, at night.',
+      againNo:'Of course. The offer stands.',
+      againVm:'LPC Laboratories. You have finished your course. As a valued customer, you qualify for a second pot at half price. Ring us back to order.',
+      delivered2:'Another small unmarked parcel just inside your door. The same white pot. The leaflet is shorter this time.',
+      item2:'A second white pot with a blue lid. LPC-A365. The leaflet says one tablet at night, and nothing else.',
+      empty:'The empty pot. It still smells faintly of expensive cologne.',
+      deaths:['Your reflection was still smiling when they found you.','They said you looked wonderful. Nobody told you.','The second pot was empty. You only remember taking one.'],
+      pharm:{label:'Ask what’s really in LPC-A365',player:'I took something called LPC-A365. What’s actually in it?',note:'{name} says LPC-A365 is caffeine, cologne oil and chalk.',
+        replies:['I asked a friend at the lab to run one. Caffeine, cologne oil and chalk. That’s it. Whatever happened those three days, that was you.','Chalk, mostly. A little caffeine and something that smells like a department store. If people liked you more, that was all you.','It’s a sugar pill in a fancy pot. Caffeine, cologne oil and chalk. The only thing in it that works is believing it works. Which, apparently, it did.']},
       after:['You seem different today. Not in a good way. Sorry.','Did something happen? You were so much more fun a few days ago.']
     };
     function glowState(){
@@ -3536,6 +3549,7 @@
       const g=glowState();
       if(g.stage==='none'&&glowAdRunning(world.day)){g.stage='advertised';g.adDay=world.day;}
       if(g.stage==='ordered'&&world.day>=g.deliverDay){g.stage='delivered';glowNotices.push(GLOW.delivered);}
+      if(g.second==='ordered'&&world.day>=g.secondDay){g.second='delivered';glowNotices.push(GLOW.delivered2);} // Never two
       if(g.stage==='active'&&g.startDay===null){
         g.startDay=world.day;g.endDay=world.day+GLOW_DAYS-1; // three days (Chris), starting this morning
         glowNotices.push(GLOW.awake);
@@ -3543,9 +3557,11 @@
         warm.forEach((thread,i)=>{thread.log.push({who:'her',text:GLOW.gush[(i+world.day)%GLOW.gush.length]});warmBy(thread,1);});
       }else if(g.stage==='active'&&world.day>g.endDay){
         g.stage='spent';glowNotices.push(GLOW.weak);
+        if(!g.second)g.offer='due'; // LPC Laboratories rings today with a second pot
         const charmed=[...hingeThreads.values()].filter(eventReady).sort((a,b)=>warmthOf(b)-warmthOf(a)).slice(0,1);
         for(const thread of charmed){thread.log.push({who:'her',text:GLOW.after[world.day%GLOW.after.length]});warmBy(thread,-1);}
       }
+      if(g.stage==='active'&&Number.isInteger(g.endDay)&&world.day<=g.endDay)glowBear(); // the bear can smell the cologne
     }
     function glowLine(number){
       const g=glowState();
@@ -3555,11 +3571,12 @@
     }
     function glowTopics(){
       const g=glowState();
-      return [...(g.stage==='advertised'?[{id:'lpc_order',label:'Order a pot of LPC-A365',glow:true}]:[]),{id:'lpc_what',label:'Ask what it does',glow:true}];
+      return [...(g.stage==='advertised'?[{id:'lpc_order',label:'Order a pot of LPC-A365',glow:true}]:[]),...(glowSecondOnOffer()?[{id:'lpc_again',label:'Order a second pot',glow:true}]:[]),{id:'lpc_what',label:'Ask what it does',glow:true}];
     }
     function chooseGlowTopic(id){
       const g=glowState();
       if(id==='lpc_order'&&g.stage==='advertised'){g.stage='ordered';g.deliverDay=world.day+1;return GLOW.order;}
+      if(id==='lpc_again'&&glowSecondOnOffer()){glowOrderSecond();return GLOW.againYes;}
       return GLOW.what;
     }
     // Take one: a first-person scene at night, then the night is over.
@@ -3568,6 +3585,56 @@
       if(g.stage!=='delivered'||dayTransitionInFlight)return;
       g.taken=true;closeCupboard();
       playGlowScene(()=>{g.stage='active';g.startDay=null;saveRun(true);advanceToNextDay();});
+    }
+    // ----- Never two
+    const glowSecondOnOffer=()=>{const g=glowState();return g.stage==='spent'&&['due','called'].includes(g.offer)&&!g.second;};
+    const glowOfferDue=()=>{const g=glowState();return g.stage==='spent'&&g.offer==='due'&&!g.second;};
+    function glowOrderSecond(){const g=glowState();g.second='ordered';g.secondDay=world.day+1;saveRun(true);}
+    function takeGlow2(){
+      const g=glowState();
+      if(g.second!=='delivered'||dayTransitionInFlight)return;
+      g.second='taken';g.dieDay=world.day+2+hashSeed(world.seed+'|glow2')%2; // two or three nights from now
+      closeCupboard();
+      playGlowScene(()=>{g.stage='active';g.startDay=null;g.endDay=null;saveRun(true);advanceToNextDay();});
+    }
+    function glowAfterDayStart(){
+      const g=glowState();
+      if(!Number.isInteger(g.dieDay)||world.day<g.dieDay||g.dead)return false;
+      g.dead=true;saveRun(true);glowDeathScreen();
+      return true;
+    }
+    function glowDeathScreen(){
+      stopRinging();herCall=null;
+      drawDeathTitle('SOMETHING','KILLED');
+      $('fatal-overlay').querySelector('p').textContent=GLOW.deaths[hashSeed(world.seed+'|glowdeath')%GLOW.deaths.length];
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // ----- What's really in it: a nurse or a pharmacy worker you're talking to knows
+    function glowMedic(profile){return !!profile&&(/pharm|nurse/i.test(profile.canonicalOccupation||'')||ms('pills')?.host===profile.id);}
+    function glowChatChoices(thread,profile){
+      const g=glowState(),asked=Array.isArray(g.asked)?g.asked:[];
+      if(!g.taken||!glowMedic(profile)||asked.includes(profile.id)||warmthOf(thread)<1)return [];
+      return [['lpc:ask',GLOW.pharm.label]];
+    }
+    function chooseGlowChat(thread,profile){
+      const g=glowState();
+      if(!glowChatChoices(thread,profile).length)return;
+      g.asked=[...(Array.isArray(g.asked)?g.asked:[]),profile.id];
+      thread.log.push({who:'you',text:GLOW.pharm.player});
+      lineSpeaker=profile.id;
+      deliverTalk(thread,profile,[variedPick(GLOW.pharm.replies,profile.id+'|lpc')],'talk',()=>recordClue(fillIn(GLOW.pharm.note,{name:profile.name})),true);
+    }
+    // ----- The bear likes the cologne: while it lasts, he turns up in your swipes
+    function glowBear(){
+      if(bearState!=='none'||hingeThreads.has(bearHingeCard.id))return;
+      if(hingeDeck.slice(hingeIndex,hingeIndex+4).some(card=>card.id===bearHingeCard.id))return;
+      if(gameRandom()>=.6)return;
+      const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===bearHingeCard.id);
+      if(at>=0)hingeDeck.splice(at,1);
+      hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|glowbear|'+world.day)%3),0,bearHingeCard);
+      world.bearOffered=true;
     }
     function playGlowScene(done){
       preloadScene(GLOW.scene);
@@ -3957,6 +4024,7 @@
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
+      if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
@@ -3973,10 +4041,12 @@
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
       const f=fionnState();
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
+      if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
       return miniCallerDue(); // mini quests
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
+      if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
@@ -3992,6 +4062,7 @@
     // Not answered, or declined: they leave a message. Her dad, when it's about the messages, comes anyway.
     function strangerMissed(id){
       if(MINI_CALLERS[id]){miniMissed(id);return;}
+      if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
         const d=dadState();
@@ -4005,6 +4076,7 @@
     }
     function strangerAnswer(id){
       if(MINI_CALLERS[id])return miniAnswer(id);
+      if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
@@ -4015,6 +4087,7 @@
     }
     function strangerChoices(call){
       if(call.kind==='mini')return miniCallChoices(call);
+      if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
@@ -4031,6 +4104,11 @@
     }
     function chooseStrangerCall(call,choice){
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
+      if(call.kind==='lpc'){
+        if(choice==='l:hang'){endHerCall();return;}
+        if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
+        call.step='bye';saveRun(true);renderCalls();return;
+      }
       if(choice==='d:hang'||choice==='f:hang'||choice==='p:hang'){
         if(choice==='d:hang'&&dadState().variant)dadState().deadline=world.day+1;
         endHerCall();return;
@@ -6783,6 +6861,8 @@
     function bedsideItems(){ /* everything you have: in the cupboard, or still on the floor (door:true) */
       const items=[];
       if(glowState().stage==='delivered')items.push({id:'lpc',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
+      if(glowState().second==='delivered')items.push({id:'lpc2',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item2,action:{id:'take-lpc2',label:'💊 Take one tonight'}}); // Never two
+      if(glowState().taken&&glowState().stage!=='delivered'&&glowState().second!=='delivered')items.push({id:'lpc-empty',label:'LPC-A365 (empty)',short:'Empty pot',image:'assets/items/lpc-a365.png',text:GLOW.empty}); // what was in it?
       if(fionnRevolver())items.push({id:'revolver',door:true,floor:'shoebox',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
       const m=world.marriage;
       if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweler'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
@@ -7032,6 +7112,7 @@
       const act=target.closest('[data-cup-act]');
       if(act&&!act.disabled){
         if(act.dataset.cupAct==='take-lpc'){takeGlow();return;} // Truecel: LPC-A365
+        if(act.dataset.cupAct==='take-lpc2'){takeGlow2();return;} // Never two
         if(act.dataset.cupAct.startsWith('mini:')){miniCupAct(act.dataset.cupAct);return;} // mini quests
         if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
         else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
@@ -7306,6 +7387,7 @@
         if(world.policeArrested){showPoliceArrestDeath();return true;}
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
         if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
+        if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
         if(dadState().stage==='dead'||dadState().stage==='coming'){dadDeath();return true;} // her dad
         if(fionnState().stage==='dead'){fionnDeathScreen();return true;} // Theon
         if(fionnState().stage==='shot')playScene([FIONN.shot[1]],fionnHideChoices,{keep:true}); // the body is still on the floor
