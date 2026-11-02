@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="4d7356ac7b">
+<html lang="en" data-build="d6ea9b7a55">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=4d7356ac7b"></script>
+  <script src="chapel_at_midnight.js?v=d6ea9b7a55"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=4d7356ac7b"></script>
+  <script src="marriage.js?v=d6ea9b7a55"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=4d7356ac7b"></script>
+  <script src="quests/professor-vale.js?v=d6ea9b7a55"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2661,6 +2661,14 @@
     // Two women are linked when either knows something about the other: they talk.
     const linkedWomen=(a,b)=>gossipOf(hingeProfile(a)).some(fact=>fact.about===b)||gossipOf(hingeProfile(b)).some(fact=>fact.about===a);
     const unquest=text=>String(text).replace(/Lenore Vale/g,'Lenore'); // her surname is not Professor Vale's case
+    // A woman you've just heard about turns up within the next few cards (unless you already chat, or she's due soon anyway).
+    function deckSoon(id,why){
+      if(hingeThreads.has(id)||hingeDeck.slice(hingeIndex,hingeIndex+4).some(card=>card.id===id))return;
+      const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===id);
+      if(at>=0)hingeDeck.splice(at,1);
+      const card=hingeProfile(id);
+      if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|'+why+'|'+id)%3),0,card);
+    }
     function pickGossip(thread,profile,chance=.6){
       if(!revampOn())return null;
       const st=talkState(thread),g=gossipState();
@@ -2671,6 +2679,7 @@
       if(!fact)return null;
       st.gossipDay=world.day;
       g.told[profile.id+':'+fact.id]={day:world.day};
+      deckSoon(fact.about,'gossip'); // you've heard of her: she turns up in your deck, so you can match and ask her
       return fact;
     }
     function gossipAsksFor(thread){
@@ -7349,7 +7358,7 @@
       newNumber:unusedContactNumber,
       chatDone:id=>{const thread=hingeThreads.get(id);return !!thread&&doneForToday(thread);}, // she's signed off for today
       // A flyer girl you rang comes up in your Hinge deck within the next few cards.
-      toDeck:id=>{if(hingeThreads.has(id)||hingeDeck.slice(hingeIndex,hingeIndex+4).some(card=>card.id===id))return;const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===id);if(at>=0)hingeDeck.splice(at,1);const card=hingeProfile(id);if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|flyer|'+id)%3),0,card);},
+      toDeck:id=>deckSoon(id,'flyer'),
       setDoor:open=>{$('door').checked=open;fit();},
       openChat:id=>{closeCupboard();setLowered(false);hingeView='thread';activeChatId=id;openApp('hinge');},
       rerender:()=>{if(currentApp==='hinge')renderHinge();if(cupboardIsOpen()&&cupboardView==='shelf')renderCupboard();},
