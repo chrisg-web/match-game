@@ -3,9 +3,9 @@
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
   "characterCount": 125,
-  "imageCount": 712,
-  "publicImageCount": 372,
-  "privateImageCount": 340,
+  "imageCount": 748,
+  "publicImageCount": 392,
+  "privateImageCount": 356,
   "characters": [
     {
       "id": "MATCH-001",
@@ -2362,9 +2362,32 @@
       "factionId": "thunderbirds",
       "canonicalOccupation": "Compliance administrator",
       "gallery": [
-        "assets/hinge/roster_expansion/francesca_quinn_01.webp"
+        "assets/hinge/roster_expansion/francesca_quinn_01.webp",
+        "assets/hinge/roster_expansion/francesca_quinn_02.webp",
+        "assets/hinge/roster_expansion/francesca_quinn_03.webp",
+        "assets/hinge/roster_expansion/francesca_quinn_04.webp",
+        "assets/hinge/roster_expansion/francesca_quinn_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/francesca_quinn_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Francesca Quinn, consistent Dark skin, brown waves with teal tips, a silver ear cuff, white linen trouser suit",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/francesca_quinn_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Francesca Quinn, consistent Dark skin, brown waves with teal tips, a silver ear cuff, white linen trouser suit",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/francesca_quinn_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Francesca Quinn, consistent Dark skin, brown waves with teal tips, a silver ear cuff, white linen trouser suit",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "restless, ambitious and charming",
       "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and collecting unusual cookbooks.",
       "privatePicturePolicy": "optional later, only after mutual trust"
@@ -2953,7 +2976,26 @@
         "assets/hinge/roster_expansion/nora_hadley_04.webp",
         "assets/hinge/roster_expansion/nora_hadley_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nora_hadley_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nora Hadley, consistent Warm brown skin, sleek middle-parted dark hair, a silver ear cuff, vintage windbreaker",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nora_hadley_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nora Hadley, consistent Warm brown skin, sleek middle-parted dark hair, a silver ear cuff, vintage windbreaker",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nora_hadley_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nora Hadley, consistent Warm brown skin, sleek middle-parted dark hair, a silver ear cuff, vintage windbreaker",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and trying to learn Italian.",
       "privatePicturePolicy": "optional later, only after mutual trust"
@@ -3156,7 +3198,11 @@
       "factionId": "sisters_of_mercy",
       "canonicalOccupation": "Chapel archivist",
       "gallery": [
-        "assets/hinge/roster_expansion/rosalie_kemp_01.webp"
+        "assets/hinge/roster_expansion/rosalie_kemp_01.webp",
+        "assets/hinge/roster_expansion/rosalie_kemp_02.webp",
+        "assets/hinge/roster_expansion/rosalie_kemp_03.webp",
+        "assets/hinge/roster_expansion/rosalie_kemp_04.webp",
+        "assets/hinge/roster_expansion/rosalie_kemp_05.webp"
       ],
       "privatePhotos": [],
       "personality": "calm in a crisis and terrible at small talk",
@@ -3173,7 +3219,9 @@
       "gallery": [
         "assets/hinge/roster_expansion/bernadette_flores_01.webp",
         "assets/hinge/roster_expansion/bernadette_flores_02.webp",
-        "assets/hinge/roster_expansion/bernadette_flores_03.webp"
+        "assets/hinge/roster_expansion/bernadette_flores_03.webp",
+        "assets/hinge/roster_expansion/bernadette_flores_04.webp",
+        "assets/hinge/roster_expansion/bernadette_flores_05.webp"
       ],
       "privatePhotos": [],
       "personality": "skeptical but kind",
@@ -3302,9 +3350,32 @@
       "factionId": "fourth_estate",
       "canonicalOccupation": "Investigative reporter",
       "gallery": [
-        "assets/hinge/roster_expansion/delia_maher_01.webp"
+        "assets/hinge/roster_expansion/delia_maher_01.webp",
+        "assets/hinge/roster_expansion/delia_maher_02.webp",
+        "assets/hinge/roster_expansion/delia_maher_03.webp",
+        "assets/hinge/roster_expansion/delia_maher_04.webp",
+        "assets/hinge/roster_expansion/delia_maher_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/delia_maher_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Delia Maher, consistent Pale skin, twist-out coils, deep dimples, rolled-sleeve oxford shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/delia_maher_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Delia Maher, consistent Pale skin, twist-out coils, deep dimples, rolled-sleeve oxford shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/delia_maher_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Delia Maher, consistent Pale skin, twist-out coils, deep dimples, rolled-sleeve oxford shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "poised and fiercely independent",
       "personalGoal": "Make a life for herself in Sunfall while balancing investigative reporter and restoring old film cameras.",
       "privatePicturePolicy": "optional later, only after mutual trust"
@@ -3562,6 +3633,12 @@
           "src": "assets/hinge/private_expansion/lenore_vale_private_03.webp",
           "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lenore Vale, consistent Golden-tan skin, sandy shag with a fringe, strong dark brows, studded leather jacket",
           "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lenore_vale_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lenore Vale, consistent Golden-tan skin, sandy shag with a fringe, strong dark brows, studded leather jacket",
+          "camera": "2006 digital compact mirror selfie",
           "era": "2005–2010"
         }
       ],
@@ -3881,9 +3958,32 @@
       "factionId": "normie_girls",
       "canonicalOccupation": "Florist",
       "gallery": [
-        "assets/hinge/roster_expansion/brittany_hale_01.webp"
+        "assets/hinge/roster_expansion/brittany_hale_01.webp",
+        "assets/hinge/roster_expansion/brittany_hale_02.webp",
+        "assets/hinge/roster_expansion/brittany_hale_03.webp",
+        "assets/hinge/roster_expansion/brittany_hale_04.webp",
+        "assets/hinge/roster_expansion/brittany_hale_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/brittany_hale_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Brittany Hale, consistent Light-brown skin, soft brown fringe and a low knot, sharp winged eyeliner, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brittany_hale_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Brittany Hale, consistent Light-brown skin, soft brown fringe and a low knot, sharp winged eyeliner, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brittany_hale_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Brittany Hale, consistent Light-brown skin, soft brown fringe and a low knot, sharp winged eyeliner, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "poised and fiercely independent",
       "personalGoal": "Make a life for herself in Sunfall while balancing florist and collecting odd roadside souvenirs.",
       "privatePicturePolicy": "optional later, only after mutual trust"
@@ -3898,9 +3998,30 @@
       "gallery": [
         "assets/hinge/roster_expansion/nina_petrov_01.webp",
         "assets/hinge/roster_expansion/nina_petrov_03.webp",
-        "assets/hinge/roster_expansion/nina_petrov_04.webp"
+        "assets/hinge/roster_expansion/nina_petrov_04.webp",
+        "assets/hinge/roster_expansion/nina_petrov_02.webp",
+        "assets/hinge/roster_expansion/nina_petrov_05.webp"
       ],
-      "privatePhotos": [],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nina_petrov_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nina Petrov, consistent Rosy fair skin, soft brown fringe and a low knot, thin wire-rimmed glasses, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nina_petrov_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nina Petrov, consistent Rosy fair skin, soft brown fringe and a low knot, thin wire-rimmed glasses, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nina_petrov_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nina Petrov, consistent Rosy fair skin, soft brown fringe and a low knot, thin wire-rimmed glasses, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
       "personality": "restless, ambitious and charming",
       "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and practicing watercolour landscapes.",
       "privatePicturePolicy": "optional later, only after mutual trust"

@@ -21566,6 +21566,52 @@
           ]
         },
         "informed": {}
+      },
+      "halloran": {
+        "views": {
+          "thunderbirds": [
+            "Halloran sells cars to people who can’t afford them and calls it freedom. Father hates him. I find that very attractive in a man.",
+            "He wants to audit the Foundation. The old men at the club have stopped laughing at his jokes.",
+            "He came to one of our luncheons and ate every sandwich. Nobody’s been that honest at a luncheon in years.",
+            "He keeps saying the word audit on the radio. You can hear the club’s cutlery go quiet."
+          ],
+          "police": [
+            "Half the station listens to his show on the night shift. The other half pretends not to.",
+            "He promised us new cars. Literally. From his lot. We’ll see.",
+            "He says what a lot of my colleagues say in the break room. That isn’t the compliment he thinks it is.",
+            "He’s good with a crowd. Too good. Crowds are my whole job."
+          ],
+          "progressives": [
+            "He read out our names on his show. My mom heard it at work.",
+            "He’s promised to cut the university’s grant and close our office. And people cheer.",
+            "Every time he wins a poll, somebody in our group stops sleeping.",
+            "The worst part is he’s funny. People forgive anything if you make them laugh."
+          ],
+          "sisters_of_mercy": [
+            "I pray for him. I pray for the people who hate him too. It’s a long list on both sides.",
+            "He says he’s a man of faith. He hasn’t been to Mass in years. Sister Teresa checked.",
+            "He made a woman in the soup line laugh on the radio. Then he said something cruel about her son. Both were true.",
+            "He sent flowers to the convent after the storm. No card, no cameras. I don’t know what to do with that."
+          ],
+          "fourth_estate": [
+            "Every quote he gives us is a headline. Every headline is half true. It’s exhausting and it sells.",
+            "My editor wants a profile of him every week. He always says yes. That should worry us more than it does.",
+            "He calls the paper the Sunfall Daily Lie on air and then rings me with tips.",
+            "He’s the best copy in Sunfall and the worst source. Both at once."
+          ],
+          "goth_girls": [
+            "He wears a tie like he’s been told about ties. I find him fascinating, the way you find a car crash fascinating.",
+            "He called the Rialto a den of freaks on his show. Business has never been better.",
+            "Everyone’s scared of him or in love with him. I’m neither. I’m just watching.",
+            "He’s a bear in a blazer. The town wants a bear right now."
+          ],
+          "normie_girls": [
+            "My dad says Halloran’s the first one who talks like a real person. My mom changes the station.",
+            "He sold my brother his first car. Still runs. Still overpriced.",
+            "I don’t know if he’d be a good mayor, but he’d be a fun one.",
+            "Everyone at work argues about him. It’s the most anyone’s talked about the mayor in years."
+          ]
+        }
       }
     },
     "skimmed": [
@@ -22654,7 +22700,8 @@
         "protest": "the protest",
         "crime": "the crime report",
         "bear": "the bear",
-        "local": "the local news"
+        "local": "the local news",
+        "halloran": "the Halloran story"
       },
       "question": [
         "What did you make of it?",

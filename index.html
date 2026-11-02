@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="52de6b6c1b">
+<html lang="en" data-build="c989bc35b6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -475,6 +475,19 @@
     /* Theon: the quick-time shot, then where the body goes */
     .home-invasion .qte { position: absolute; left: 0; right: 0; top: 30%; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .home-invasion .qte[hidden] { display: none; }
+    /* Undeniable: The Swap (reseal his pot) and Steady (him, in your doorway) */
+    .swap-game { position: absolute; inset: 0; z-index: 60; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; background: #0d0a10f2; color: #ffe1d6; font: calc(13px * var(--reading-scale)) Verdana,sans-serif; touch-action: none; }
+    .swap-game[hidden] { display: none; }
+    .swap-game .swap-title { margin: 0; font-weight: bold; letter-spacing: .12em; text-transform: uppercase; }
+    .swap-game canvas { width: min(86%, 380px); height: auto; aspect-ratio: 1; border-radius: 50%; touch-action: none; }
+    .swap-game .swap-steps-track { width: 80%; height: 6px; border-radius: 3px; background: #ffffff22; overflow: hidden; }
+    .swap-game .swap-steps-track i { display: block; height: 100%; width: 0; background: #b8343f; }
+    .swap-game p { margin: 0; text-align: center; max-width: 90%; }
+    .home-invasion .qte.steady .steady-box { position: relative; width: 120px; height: 120px; border: 2px solid #ffe1d6aa; border-radius: 50%; }
+    .home-invasion .qte.steady .steady-box::before, .home-invasion .qte.steady .steady-box::after { content: ''; position: absolute; background: #ffe1d655; }
+    .home-invasion .qte.steady .steady-box::before { left: 50%; top: 8px; bottom: 8px; width: 1px; } .home-invasion .qte.steady .steady-box::after { top: 50%; left: 8px; right: 8px; height: 1px; }
+    .home-invasion .qte.steady .steady-dot { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #b8343f; box-shadow: 0 0 0 2px #ffe1d6; }
+    .home-invasion .qte.steady button { touch-action: none; } .home-invasion .qte.steady .steady-lower { background: #1b1420ee; animation: none; font-size: calc(13px * var(--reading-scale)); letter-spacing: 0; }
     .home-invasion .invasion-hands { position: absolute; inset: 0; opacity: 0; pointer-events: none; filter: none; } /* Theon's hands, from behind you */
     .home-invasion.hands .invasion-hands { opacity: 1; transition: opacity .35s; }
     .shot-card .shot-her { display: block; margin: 0 0 6px auto; max-width: 80%; padding: 5px 8px; border-radius: 9px; background: #2c3138; color: #d6dbe0; font-style: normal; text-align: right; }
@@ -595,11 +608,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=52de6b6c1b"></script>
+  <script src="chapel_at_midnight.js?v=c989bc35b6"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=52de6b6c1b"></script>
+  <script src="marriage.js?v=c989bc35b6"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=52de6b6c1b"></script>
+  <script src="quests/professor-vale.js?v=c989bc35b6"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -679,6 +692,8 @@
         <button class="bar-button" id="theon-attack-preview">Preview Theon at your door (revolver in the cupboard: try the shot)</button>
         <button class="bar-button" id="dad-preview">Her dad rings now (Mogger)</button>
         <button class="bar-button" id="lpc-preview">Put the LPC-A365 ad in today’s paper (Truecel)</button>
+        <button class="bar-button" id="halloran-preview">Undeniable: Cole Halloran in the paper, his parcel on your floor (Truecel)</button>
+        <button class="bar-button" id="halloran-door-preview">Undeniable: Halloran at your door (revolver in the cupboard: try Steady)</button>
         <button class="bar-button" id="police-warning-preview">Police warning call now (Truecel)</button>
         <button class="bar-button" id="cupboard-preview">Open the bedside cupboard</button><!-- Bedside cupboard (also: tap the cabinet by the bed) -->
       </div>
@@ -737,6 +752,7 @@
             <div class="bear-alert-options"><button data-bear-reaction="lock">Lock the door</button><button data-bear-reaction="hide">Hide and stay silent</button><button data-bear-reaction="honey">Throw the honey</button><button data-bear-reaction="peek">Look outside</button></div>
           </div>
           <div class="bear-attack" id="bear-attack" role="img" aria-label="Animated bear charge across the bedroom"><img id="bear-attack-image" src="assets/events/bear-threshold.webp" alt=""></div>
+          <div class="swap-game" id="swap-game" hidden><p class="swap-title">The Swap</p><div class="swap-steps-track" aria-hidden="true"><i id="swap-steps"></i></div><canvas id="swap-canvas" width="480" height="480" aria-label="The open pot, from above"></canvas><p id="swap-hint"></p></div>
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
@@ -1205,6 +1221,7 @@
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
         if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
+        if(halAfterDayStart())return; // Undeniable: an arrest, a visitor, a knock
         for(const note of glowNotices)showGameNotice(note);glowNotices=[]; // Truecel: LPC-A365
         if(toneNotice){showGameNotice(toneNotice);toneNotice=null;} // Mogger: someone liked you first
         if(enforceUnansweredBearAtNight())return;
@@ -1311,6 +1328,7 @@
       }
       const lpcAd=glowAdItem(day); // Truecel, rarely: LPC-A365
       if(lpcAd)items.push(lpcAd);
+      items.push(...halNewsItems(day)); // Undeniable: Cole Halloran
       const fionnStory=fionnNewsItem(day); // Theon: how it ended
       if(fionnStory)items.push(fionnStory);
       const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Oakley's ad
@@ -1353,6 +1371,7 @@
       visibleNewsDay=world.day;world.paperDay=world.day;
       const items=getNewsEdition(world.day).items;
       if(items.some(item=>item.glowAd))glowState().seen=true; // Truecel: LPC-A365
+      if(items.some(item=>item.halProfile))halState().knowsName=true; // Undeniable: his name, from the paper
       if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
       if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; // the Day 1 paper only announces the benefit; Elena is missing from Day 2
       if(questOn('vale'))world.flags.valePaperSeen=true;
@@ -1412,6 +1431,8 @@
       $('dial-call').onclick=()=>{
         if(dialledNumber.includes('*')||dialledNumber.includes('#')){dialStatus='Service code entered. No service in demo.';updateDialDisplay();return;}
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
+        const halLine=halOfficeLine(dialledNumber); // Undeniable: his campaign office
+        if(halLine){startSimulatedCall(halLine);return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
         const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Oakley
         if(gunLine){startSimulatedCall(gunLine);return;}
@@ -1776,7 +1797,8 @@
     function serviceTopicsFor(serviceId){
       const quest=(questOn('br')&&brKnown()?BR?.serviceTopics?.[serviceId]||[]:[]).filter(brServiceTopicAvailable).map(topic=>({...topic,quest:true}));
       if(serviceId==='service:caller-mom')return callerMomTopics(); // Mogger: Moira's mother
-      if(serviceId==='service:lpc')return glowTopics(); // Truecel: LPC-A365
+      if(serviceId==='service:lpc')return [...glowTopics(),...halLpcTopics()]; // Truecel: LPC-A365 (and Halloran's parcel)
+      if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
       return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
 ...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
@@ -1799,6 +1821,7 @@
       else if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
       else if(topic.mini)reply=chooseMiniService(id); // mini quests
       else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
+      else if(topic.hal)reply=chooseHalTopic(id); // Undeniable
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
       else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
@@ -2090,6 +2113,7 @@
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
+      for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
@@ -2120,8 +2144,8 @@
     }
     const MAX_CHAT_CHOICES=5; // a conversation never shows more than five choices at once
     // Questions a quest lets you ask her. Free while she's talking, gone once she's done for the day.
-    const QUEST_ASK=/^(mini:|lpc:ask|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
-    const QUEST_ASK_HTML=/data-hinge-topic="(mini:|lpc:ask|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
+    const QUEST_ASK=/^(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
+    const QUEST_ASK_HTML=/data-hinge-topic="(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     function renderHinge(){
       touchThreads(); // the chat list order, and closed chats
       let body='';
@@ -2263,6 +2287,7 @@
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
+      if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
@@ -2924,6 +2949,7 @@
       if(/^(br_|charity_|missing_)/.test(id))return 'charity';
       if(/^(professor_|pv_)/.test(id)||item?.pvReadKey)return 'professor';
       if(/^(bishop_|religion_)/.test(id))return 'faith';
+      if(/^hal_/.test(id))return 'halloran'; // Undeniable: what she thinks of him
       if(/^political_/.test(id))return 'protest';
       if(/^(crime_|police_)/.test(id))return 'crime';
       if(id==='local_bear')return 'bear';
@@ -3584,6 +3610,7 @@
       const g=glowState();
       if(g.stage!=='delivered'||dayTransitionInFlight)return;
       g.taken=true;closeCupboard();
+      const h=halState();if(!h.before)h.before=halWarmest(); // Undeniable: the one who liked you before
       playGlowScene(()=>{g.stage='active';g.startDay=null;saveRun(true);advanceToNextDay();});
     }
     // ----- Never two
@@ -4024,6 +4051,7 @@
     // What the phone shows for a caller: a Hinge match, or one of the two men.
     function callCard(id){
       if(MINI_CALLERS[id])return miniCallCard(id); // mini quests
+      if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
@@ -4041,11 +4069,13 @@
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
       const f=fionnState();
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
+      if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
       return miniCallerDue(); // mini quests
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
+      if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
@@ -4062,6 +4092,7 @@
     // Not answered, or declined: they leave a message. Her dad, when it's about the messages, comes anyway.
     function strangerMissed(id){
       if(MINI_CALLERS[id]){miniMissed(id);return;}
+      if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
@@ -4076,6 +4107,7 @@
     }
     function strangerAnswer(id){
       if(MINI_CALLERS[id])return miniAnswer(id);
+      if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
@@ -4087,6 +4119,7 @@
     }
     function strangerChoices(call){
       if(call.kind==='mini')return miniCallChoices(call);
+      if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
@@ -4104,6 +4137,7 @@
     }
     function chooseStrangerCall(call,choice){
       if(call.kind==='mini'){miniChooseCall(call,choice);return;}
+      if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
         if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
@@ -4414,6 +4448,10 @@
     }
     $('home-invasion').onclick=event=>{
       if(event.target.closest?.('[data-qte-shoot]')){fionnShoot();return;}
+      if(event.target.closest?.('[data-hal-shoot]')){halSteadyEnd('shoot');return;} // Undeniable: Steady
+      if(event.target.closest?.('[data-hal-lower]')){halSteadyEnd('lower');return;}
+      const halPlace=event.target.closest?.('[data-hal-hide]');
+      if(halPlace){halHide(halPlace.dataset.halHide);return;}
       const place=event.target.closest?.('[data-qte-hide]');
       if(place)fionnHide(place.dataset.qteHide);
     };
@@ -4492,6 +4530,491 @@
       },0);
     }
 
+    // ===== Undeniable: Cole Halloran, the LPC-A365 follow-up (LPC_FOLLOWUP_QUEST.md) =====
+    // In a run where you ordered LPC-A365, Sunfall's most popular new politician turns out to take
+    // the same pills, and his pot lands on your floor. The students ask you to swap one tablet. It all
+    // happens from your room: the paper, the phone, chats, the doorstep and the cupboard.
+    const HAL={
+      news:{
+        profile:{section:'Politics',title:'HALLORAN SURGES',summary:'The car dealer running for mayor is ahead in every poll.',body:'Cole Halloran, 44, a former high school football coach who sells cars on the interstate and hosts a call-in hour on Sunfall AM, has overtaken the mayor in every poll. He says out loud what half the town mutters at the gas station, and the town loves him for it. Asked how he keeps going, he laughed. I take a vitamin at night and I sleep like a baby. That’s my secret. His campaign office at Halloran Motors takes calls on {number}.',clue:'Cole Halloran is running for mayor. His campaign office at Halloran Motors: {number}.'},
+        debateSoon:{section:'Politics',title:'CHANNEL 4 DEBATE IN FOUR DAYS',summary:'Halloran and the mayor meet live on Channel 4.',body:'Cole Halloran and the mayor will debate live on Channel 4 in four days. Halloran says he’ll be there early. The mayor says he has a patient that afternoon.',clue:'The Channel 4 debate, Halloran against the mayor, is in four days.'},
+        debateToday:{section:'Politics',title:'TONIGHT: HALLORAN AND THE MAYOR, LIVE',summary:'The Channel 4 debate is tonight.',body:'Cole Halloran and the mayor debate live on Channel 4 tonight. The station expects its biggest audience since the flood.'},
+        won:{section:'Politics',title:'HALLORAN WINS THE DEBATE',summary:'Viewers say the car dealer wiped the floor with the mayor.',body:'Cole Halloran won last night’s Channel 4 debate by every measure the station could find. He was funny, he was rude, and he looked like he’d slept eight hours. The mayor was polite.'},
+        elected:{section:'Politics',title:'HALLORAN ELECTED MAYOR',summary:'A landslide for the car dealer from the interstate.',body:'Cole Halloran is Sunfall’s new mayor, by the widest margin anyone at the paper can remember. His first promise: an audit of every committee in town, starting with the Foundation.'},
+        debate:{section:'Politics',title:'HALLORAN DIES AFTER COLLAPSE ON AIR',summary:'The candidate went down mid-answer during the Channel 4 debate.',body:'Cole Halloran collapsed during last night’s live debate on Channel 4. Mid-answer, he stopped, smiled at the camera and went down. He was pronounced dead at the hospital. He was 44. Police say there is nothing to suggest anything but his heart.'},
+        quiet:{section:'Politics',title:'CANDIDATE DIES AT HOME',summary:'Cole Halloran, 44. No suspicious circumstances.',body:'Cole Halloran, the car dealer running for mayor, died at home on Mesa Vista Drive. His driver found him in the morning. Police say there are no suspicious circumstances. The race goes on.'},
+        driver:{section:'Crime',title:'HALLORAN’S DRIVER KILLED ON INTERSTATE',summary:'Mickey Ruiz lost control of the campaign car on a long night drive.',body:'Mickey Ruiz, driver and fixer to mayoral candidate Cole Halloran, died when the campaign car left the interstate on a long night drive. Halloran told reporters his friend had borrowed his vitamins to stay awake. Then he said: They tried to kill me, and they got Mickey.'},
+        crane:{section:'Politics',title:'CRANE ELECTED ON A WAVE OF GRIEF',summary:'Halloran’s running mate wins in a landslide.',body:'Rusty Crane, Cole Halloran’s running mate, is Sunfall’s new mayor, carried in on sympathy. Crane is a harder man than Halloran and less funny about it. His first promise: the university’s grant is finished.'},
+        driverWin:{section:'Politics',title:'HALLORAN ELECTED: THEY TRIED TO KILL ME',summary:'Sympathy and fury carry the candidate home.',body:'Cole Halloran is Sunfall’s new mayor. He campaigned on his driver’s death, and on his belief that someone tried to poison him. Police have found nothing. The voters did not need them to.'},
+        warned:{section:'Politics',title:'HALLORAN: SOMEONE TRIED TO POISON ME',summary:'The candidate says a young man warned him in time.',body:'Cole Halloran told his radio listeners that someone tried to poison his vitamins, and that a young man did the right thing and warned him. He would not give the young man’s name. I owe that kid, he said. The police say they are looking into it.'},
+        missing:{section:'Crime',title:'CANDIDATE MISSING',summary:'Cole Halloran has not been seen since last night.',body:'Cole Halloran, the car dealer running for mayor, has not been seen since late last night. His car was found outside an apartment building across town. His campaign asks anyone who saw him to call the police.'}
+      },
+      parcel:{label:'A parcel for C. Halloran',short:'Parcel',text:'A small unmarked parcel. The label says C. Halloran, Mesa Vista Drive. LPC Laboratories’ courier left it at the wrong door.',open:'📦 Open it',opened:'A white pot with a blue lid, LPC-A365, and a printed slip: Account HALLORAN. Repeat order every 30 days. Under the lid, a foil seal over a ring of tablets around a little notch.',swap:'💊 Swap a tablet',swapped:'Resealed. You can’t tell. One tablet isn’t what it says.'},
+      arrives:'A small parcel just inside your door. It isn’t yours. The label says C. Halloran.',
+      book:{label:'A library book',short:'Book',text:'Gardening in the Desert, from the university library. Something rattles inside the spine: a white tablet, the same size as LPC-A365. A slip of paper: You know which pot.'},
+      shoebox:{label:'A shoebox',short:'Revolver',text:'A shoebox on your floor. Inside, wrapped in a dish towel, a revolver. A note in the same handwriting as the library slip: In case it goes wrong.'},
+      bin:'🗑 Throw it away',binned:'Gone, in a stranger’s trash can three streets away.',
+      chat:{
+        tell:{label:'Tell her Halloran’s pills come to your door',player:'Funny thing. Cole Halloran’s vitamins got delivered to my door by mistake. It’s that LPC stuff.',reply:'Wait. His pills come to you? Don’t send them back yet. Let me think about something.'},
+        ask:'I thought about it all night. His pills come through your door now. Imagine if one of them didn’t do what it says. There are three of us, and one of us does pharmacology. Nobody would ever know it wasn’t his heart.',
+        yes:{label:'Tell her to send the tablet',player:'Send it.',reply:'Tomorrow, on your step, inside a library book. He reads our names out on his show. Remember that.'},
+        no:{label:'Tell her you won’t do it',player:'No. I’m not doing that.',reply:'Okay. Forget I said anything. I mean it. Forget it.'},
+        who:{label:'Ask who pays for her committee',player:'Who pays for your action committee?',reply:'A grant. A Foundation grant, through the university. We’ve never met the donor. Does it matter? The money’s good and the cause is right.'},
+        think:{label:'Ask what she thinks of Cole Halloran',player:'What do you think of Cole Halloran?'},
+        volunteer:'I phone-bank for him three nights a week! He’s the only one who talks like a normal person. He threw his dog a birthday party at the dealership. Blitz, a golden retriever in a party hat. I cried.',
+        others:['He says what my dad says at dinner, but funnier. I haven’t decided if that’s good.','He’s going to win, isn’t he. Everyone I know pretends they won’t vote for him.','I like him on the radio. I don’t know if I’d like him in charge.','He made fun of my whole department on air. It was funny. That’s the problem.'],
+        habits:{label:'Ask what he’s like up close',player:'What’s he like up close?',reply:'Exactly the same. Mickey, his driver, says the boss counts his vitamins like rosary beads. One a night, clockwise from the little notch in the pot, never skips. Mickey thinks it’s hilarious.'},
+        warn:{label:'Tell her someone wants to poison him',player:'Someone wants to poison Cole Halloran. Through his vitamins. Tell him to stop taking them.',reply:'Are you serious? Okay. Okay. I’m calling Mickey right now.'},
+        giselle:{label:'Ask if Cole Halloran’s ever been in',player:'Has Cole Halloran ever been in at the hospital?',reply:'Once, with his dog. Blitz cut his paw on a hubcap at the dealership, and Cole carried him in like a baby. I wrote the dog down in the visitor book. I write everyone down.'},
+        grant:{label:'Ask who’s behind the student committee’s grant',player:'Who’s really behind the Foundation grant for the student action committee?',reply:'I keep those books. The grant comes from the Table. The old men. Halloran has promised to audit the Foundation and open the planning committee’s books, and they’d rather he didn’t. So they found some angry students and gave them money and a reason. The students think it was their idea.'},
+        tablet:{label:'Ask her to make a tablet like LPC-A365',player:'Could you make a tablet that looks exactly like LPC-A365, but isn’t?',reply:'For you, or for someone else? Don’t answer that. It’ll be on your step tomorrow, inside a library book. We never had this conversation.'},
+        photo:'[A photo: you, at your door, taking in a parcel.] In case you ever feel like talking.',
+        before:'You used to be nicer. Before. I liked you before.',
+        confess:{label:'Tell her what you did',player:'I need to tell you something. Cole Halloran. That was me.',keep:'I’m going to pretend I didn’t hear that. And I’m going to stay. Somebody should know who you are.',leave:'I have to go.'},
+        deny:{label:'Tell her nothing happened',player:'Nothing happened. I’m the same.',reply:'Okay. If you say so.'}
+      },
+      notes:{
+        dog:'{name} says Cole Halloran’s dog is called Blitz.',
+        order:'{name} says Halloran takes one LPC-A365 tablet a night, clockwise from the notch in the pot.',
+        grant:'{name} says the students’ grant comes from the Table, who want to stop Halloran’s audit.',
+        ask:'{name} wants you to swap one of Halloran’s tablets for one of theirs.',
+        kept:'{name} knows what you did to Cole Halloran. She is keeping it.'
+      },
+      lpc:{
+        collect:{label:'Ask them to collect Mr. Halloran’s parcel',reply:'Of course. Our courier will collect it from your step tomorrow and take it to Mr. Halloran. Our apologies for the mix-up.'},
+        redirect:{label:'Say you’re Cole Halloran and ask for his refill',reply:'Of course, Mr. Halloran. Before I change anything: your security word?'},
+        words:[['blitz','Blitz'],['duke','Duke'],['coach','Coach']],
+        right:'Thank you, Mr. Halloran. Your refill comes to this address tomorrow. Enjoy the quiet.',
+        wrong:'I’m sorry, that isn’t what we have.',
+        flagged:'I’m afraid I have to flag this account. Goodbye.'
+      },
+      office:{greeting:'Halloran for Mayor. Cole’s busy saving Sunfall. What can we do for you?',
+        volunteer:{label:'Ask how to volunteer',reply:'Phone bank, three nights a week. Bring your own snacks. Cole brings the jokes.'},
+        warn:{label:'Tell them someone wants to poison him',reply:'Hold on. Hold on, I’m getting Mickey. Okay. Mickey says thank you. He says Cole’s pouring the vitamins down the sink right now.'}},
+      det:{
+        open:'Detective Eleanor Graves, Sunfall Police. LPC Laboratories tell me Cole Halloran’s pills went through your door. Can you tell me why?',
+        courier:'Their courier must have mixed us up',never:'I never had any parcel',
+        cleared:'That’s what LPC said too. Their couriers are a disgrace. Sorry to bother you.',
+        lying:'LPC has your signature on the redelivery. Stay where you are.',
+        cupboard:'That’s what LPC said. I’d still like to see your cupboard. Tomorrow.',
+        voicemail:'Detective Eleanor Graves, Sunfall Police. I need to ask you about a parcel. I’ll call again tomorrow.'
+      },
+      swap:{place:'He takes one a night, clockwise from the notch. Tap the tablet to swap.',seal:'Reseal the foil: drag the warm spoon around the rim. Not too slow, not too fast.',clean:'The foil sits flat. You can’t tell.',bad:'The foil is scorched in one place and lifting in another. You did your best.',late:'A van door. Footsteps. You press the lid down as the knock comes. It isn’t neat.'},
+      visit:{door:'Late. The door handle turns. It isn’t Mickey.',close:'Cole Halloran, in your doorway. He looks smaller than on TV. He’s smiling.',
+        lines:['Kid, I’ve sold cars for twenty years. I know a man who’s about to do something stupid.','My driver says the foil was wrong. Mickey notices everything. It’s why I keep him.','Who sent you? Don’t tell me. Let me guess. Somebody with a nice office and a nicer donor.'],
+        steady:'🫁 Hold to steady',shoot:'SHOOT',lower:'Lower the gun',
+        lowered:'He looks at you for a long time. Kid, you’re not even the guy who wanted it. Then he leaves.',
+        unarmed:'He looks around your room for a long time. Then he leaves, and you don’t hear his car.',
+        down:'He goes down in your doorway. The house is very quiet.',hideAsk:'What do you do with him?'},
+      hide:[
+        {id:'desert',label:'Drive him out to the desert',image:'assets/events/halloran-desert.png',done:'Out past the last streetlight. The desert takes him without a word.'},
+        {id:'canyon',label:'The canyon road, at the bend',image:'assets/events/halloran-canyon.png',done:'Over the guardrail at the bend. Nobody stops at the bend.'},
+        {id:'bins',label:'The dumpsters behind the motel',image:'assets/events/halloran-bins.png',done:'The dumpsters behind the motel. Collection is in the morning.'},
+        {id:'911',label:'Ring 911'}],
+      quiet:'You lie awake. Nobody comes. Not tonight.',
+      deaths:{
+        shot:{cause:'COLE HALLORAN',verb:'KILLED',line:'You missed. He didn’t.'},
+        unarmed:{cause:'COLE HALLORAN',verb:'KILLED',line:'He was smiling the whole time.'},
+        lodge:{cause:'A STRANGER',verb:'KILLED',line:'They knocked this time. Twice. Politely.'}
+      }
+    };
+    function halState(){
+      const h=world?.halloran;
+      if(!h||typeof h!=='object'||!['none','open','done'].includes(h.stage))world.halloran={stage:'none',profileDay:null,debateDay:null,officeNumber:null,parcel:'none',book:'none',gun:'none',volunteer:null,student:null,before:null,
+        knowsName:false,knowsDog:false,knowsOrder:false,knowsGrant:false,knowsDonor:false,askDay:null,asked:null,swapped:false,slot:null,seal:null,collectDay:null,redirect:null,redirectDay:null,tries:0,flagged:false,
+        effectDay:null,outcome:null,outcomeDay:null,photoDay:null,conscienceDay:null,conscience:null,detDay:null,detCalls:0,detRang:null,detDone:false,confessed:false,arrestDay:null,visitDay:null,visited:false,
+        shot:null,hideDay:null,foundDay:null,lodgeDay:null,dead:null,asks:{}};
+      if(!world.halloran.asks||typeof world.halloran.asks!=='object'||Array.isArray(world.halloran.asks))world.halloran.asks={};
+      return world.halloran;
+    }
+    const halOpen=()=>halState().stage==='open';
+    const halAlive=()=>!['debate','quiet','shot'].includes(halState().outcome);
+    const halHave=key=>halState()[key]==='have';
+    // Truecel (LPC-A365's own rule): once your own pot has arrived, he's in the paper the next day,
+    // in half the runs (Chris: not every time). The testing button starts it in any run.
+    const halInRun=()=>!!window.MATCH_ALL_QUESTS||hashSeed(world.seed+'|halloran')%2===0;
+    function halEligible(){const g=glowState();return halInRun()&&['delivered','active','spent'].includes(g.stage);}
+    function halWarmest(){return [...hingeThreads.values()].filter(eventReady).sort((a,b)=>warmthOf(b)-warmthOf(a))[0]?.id||null;}
+    function halThread(id){const t=id&&hingeThreads.get(id);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing?t:null;}
+    function halNewDay(){
+      const h=halState();
+      if(h.stage==='none'){
+        if(!halEligible())return;
+        if(!Number.isInteger(h.profileDay))h.profileDay=world.day+1;
+        if(world.day<h.profileDay)return;
+        h.stage='open';h.debateDay=h.profileDay+7;h.officeNumber=h.officeNumber||unusedContactNumber();
+      }
+      if(h.stage!=='open')return;
+      if(!h.volunteer)h.volunteer=[...hingeThreads.values()].filter(t=>eventReady(t)&&hingeProfile(t.id)?.factionId==='normie_girls').map(t=>t.id).sort((a,b)=>hashSeed(world.seed+a)-hashSeed(world.seed+b))[0]||null;
+      if(world.day===h.profileDay+1&&h.parcel==='none'){h.parcel='floor';glowNotices.push(HAL.arrives);}
+      if(h.redirectDay===world.day&&['none','gone'].includes(h.parcel)){h.parcel='floor';h.parcelN=(Number(h.parcelN)||1)+1;h.swapped=false;h.slot=null;h.seal=null;h.collectDay=null;glowNotices.push(HAL.arrives);}
+      if(h.bookDay===world.day&&h.book==='none')h.book='floor';
+      if(h.gunDay===world.day&&h.gun==='none')h.gun='floor';
+      if(h.askDay===world.day&&!h.asked){const t=halThread(h.student);if(t){lineSpeaker=t.id;herLine(t,HAL.chat.ask);h.asked='open';recordClue(fillIn(HAL.notes.ask,{name:hingeProfile(t.id).name}));}}
+      // The courier collects: he has it today, and takes one a night from the notch.
+      if(h.collectDay===world.day&&['have','opened','floor'].includes(h.parcel)){
+        h.parcel='gone';
+        if(h.outcome==='warned'){/* he's stopped taking them */}
+        else if(!h.swapped)h.outcome=h.outcome||'returned';
+        else if(h.seal!=='clean'){h.flagged=true;h.visitDay=world.day+2+hashSeed(world.seed+'|halvisit')%2;}
+        else{h.effectDay=world.day+h.slot;}
+      }
+      if(Number.isInteger(h.effectDay)&&world.day===h.effectDay+1&&!h.outcome){
+        h.outcome=h.effectDay===h.debateDay?'debate':h.slot===1?'quiet':'driver';h.outcomeDay=world.day;
+        halAftermath();
+      }
+      if(h.photoDay===world.day){const t=halThread(h.student);if(t){lineSpeaker=t.id;herLine(t,HAL.chat.photo);}}
+      if(h.conscienceDay===world.day&&!h.conscience){const t=halThread(h.before);if(t&&t.id!==h.student){lineSpeaker=t.id;herLine(t,HAL.chat.before);h.conscience='open';}}
+    }
+    // After he (or his driver) dies by your hand: the students, the woman who liked you before, the detective.
+    function halAftermath(){
+      const h=halState();
+      if(h.student&&h.asked==='yes')h.photoDay=world.day+1;
+      h.conscienceDay=world.day+1;
+      h.detDay=world.day+2+hashSeed(world.seed+'|haldet')%3;
+    }
+    function halNewsItems(day){
+      const h=halState(),out=[];
+      if(h.stage==='none'||!Number.isInteger(h.profileDay))return out;
+      const add=(key,extra={})=>out.push({id:`hal_${key}_${day}`,image:{debate:'halloran_debate',driver:'halloran_crash',missing:'police_roadblock'}[key]||'political_campaign',fallbackImage:{driver:'crime_motel'}[key]||'political_campaign',...HAL.news[key],
+        body:fillIn(HAL.news[key].body,{number:h.officeNumber}),...(HAL.news[key].clue?{clue:fillIn(HAL.news[key].clue,{number:h.officeNumber})}:{}),locked:true,...extra});
+      const dead=['debate','quiet','shot'].includes(h.outcome)&&Number.isInteger(h.outcomeDay)&&day>=h.outcomeDay;
+      if(day===h.profileDay)add('profile',{halProfile:true,image:'halloran_profile'});
+      if(day===h.debateDay-4&&!dead)add('debateSoon');
+      if(day===h.debateDay&&!dead)add('debateToday');
+      if(day===h.debateDay+1&&!dead)add('won');
+      if(day===h.outcomeDay&&['debate','quiet','driver','warned','shot'].includes(h.outcome))add(h.outcome==='shot'?'missing':h.outcome);
+      if(day===h.debateDay+4)add(h.outcome==='debate'||h.outcome==='quiet'||h.outcome==='shot'?'crane':h.outcome==='driver'?'driverWin':'elected');
+      return out;
+    }
+    // ----- The phone: LPC Laboratories (his parcel), his campaign office
+    function halLpcTopics(){
+      const h=halState(),t=HAL.lpc,out=[];
+      if(!halOpen())return out;
+      if(['have','opened'].includes(h.parcel)&&!Number.isInteger(h.collectDay))out.push({id:'hal_collect',label:t.collect.label,hal:true});
+      halSyncFloor();
+      if(h.redirect==='word'){for(const [id,label] of t.words)if(id!=='blitz'||h.knowsDog)out.push({id:'hal_w_'+id,label,hal:true});}
+      else if(h.knowsName&&!h.flagged&&!h.outcome&&['none','gone'].includes(h.parcel)&&!h.redirect)out.push({id:'hal_redirect',label:t.redirect.label,hal:true});
+      return out;
+    }
+    function halOfficeLine(number){
+      const h=halState();
+      if(!halOpen()||!h.officeNumber||String(number)!==h.officeNumber)return null;
+      return {id:'service:hal',name:'Halloran for Mayor',portrait:'assets/contacts/halloran.png',generic:true,greeting:HAL.office.greeting};
+    }
+    function halOfficeTopics(){
+      const h=halState(),o=HAL.office,out=[{id:'hal_vol',label:o.volunteer.label,hal:true}];
+      if(halCanWarn())out.push({id:'hal_warn',label:o.warn.label,hal:true});
+      return out;
+    }
+    const halCanWarn=()=>{const h=halState();return halOpen()&&!h.outcome&&(!!h.asked||h.swapped);};
+    function halWarned(){
+      const h=halState();
+      h.outcome='warned';h.outcomeDay=world.day+1;h.swapped=false;
+      const t=halThread(h.student);
+      if(t){t.blocked=true;halReported();} // the students: one blocks you, and reports you
+    }
+    function halReported(){ // Truecel's own rule: a warning call first, an arrest only on a second report
+      const w=policeWarnState();
+      if(w.stage==='due')return;
+      if(w.stage==='none'){w.stage='due';w.day=world.day+1;w.reason='halloran';w.called=false;return;}
+      world.reportedDay=world.day+1;
+    }
+    function chooseHalTopic(id){
+      const h=halState(),t=HAL.lpc;
+      if(id==='hal_collect'){h.collectDay=world.day+1;return t.collect.reply;}
+      if(id==='hal_redirect'){h.redirect='word';return t.redirect.reply;}
+      if(id.startsWith('hal_w_')){
+        if(id==='hal_w_blitz'&&h.knowsDog){h.redirect='done';h.redirectDay=world.day+1;return t.right;}
+        h.tries=(h.tries||0)+1;
+        if(h.tries>=2){h.redirect='done';h.flagged=true;h.visitDay=world.day+2+hashSeed(world.seed+'|halvisit')%2;return t.flagged;}
+        return t.wrong;
+      }
+      if(id==='hal_vol')return HAL.office.volunteer.reply;
+      if(id==='hal_warn'&&halCanWarn()){halWarned();return HAL.office.warn.reply;}
+      return '…';
+    }
+    // ----- Chats
+    function halChatChoices(thread,profile){
+      const h=halState(),c=HAL.chat,out=[];
+      if(!halOpen()||!profile)return out;
+      const w=warmthOf(thread),asked=key=>!!h.asks[profile.id+':'+key],job=profile.canonicalOccupation||'';
+      if(profile.factionId==='progressives'&&w>=2&&h.knowsName&&h.parcel!=='none'&&!h.student&&!h.outcome)out.push(['hal:tell',c.tell.label]);
+      if(thread.id===h.student&&h.asked==='open'){out.push(['hal:yes',c.yes.label],['hal:no',c.no.label]);}
+      if(thread.id===h.student&&h.asked&&!h.knowsGrant)out.push(['hal:who',c.who.label]);
+      if(profile.factionId==='normie_girls'&&w>=1&&h.knowsName&&!asked('think'))out.push(['hal:think',c.think.label]);
+      if(thread.id===h.volunteer&&asked('think')&&w>=2&&!h.knowsOrder)out.push(['hal:habits',c.habits.label]);
+      if(thread.id===h.volunteer&&asked('think')&&halCanWarn())out.push(['hal:warn',c.warn.label]);
+      if(thread.id==='MATCH-240'&&w>=1&&h.knowsName&&!asked('giselle'))out.push(['hal:giselle',c.giselle.label]);
+      if(profile.factionId==='thunderbirds'&&/bookkeeper/i.test(job)&&w>=2&&h.knowsGrant&&!h.knowsDonor)out.push(['hal:grant',c.grant.label]);
+      if(glowMedic(profile)&&w>=3&&h.knowsName&&h.book==='none'&&!h.outcome&&!asked('tablet'))out.push(['hal:tablet',c.tablet.label]);
+      if(thread.id===h.before&&h.conscience==='open')out.push(['hal:confess',c.confess.label],['hal:deny',c.deny.label]);
+      return out;
+    }
+    function chooseHalChat(id,thread,profile){
+      const h=halState(),c=HAL.chat,key=id.slice(4);
+      if(!halChatChoices(thread,profile).some(([choice])=>choice===id))return;
+      h.asks[profile.id+':'+key]=world.day;
+      lineSpeaker=profile.id;
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[reply],'talk',after,true);};
+      const note=(template)=>()=>recordClue(fillIn(template,{name:profile.name}));
+      if(key==='tell'){h.student=profile.id;h.askDay=world.day+1;return say(c.tell.player,c.tell.reply);}
+      if(key==='yes'){h.asked='yes';h.bookDay=world.day+1;return say(c.yes.player,c.yes.reply);}
+      if(key==='no'){h.asked='no';return say(c.no.player,c.no.reply);}
+      if(key==='who'){h.knowsGrant=true;return say(c.who.player,c.who.reply);}
+      if(key==='think'){
+        if(thread.id===h.volunteer){h.knowsDog=true;return say(c.think.player,c.volunteer,note(HAL.notes.dog));}
+        return say(c.think.player,variedPick(c.others,profile.id+'|hal'));
+      }
+      if(key==='habits'){h.knowsOrder=true;return say(c.habits.player,c.habits.reply,note(HAL.notes.order));}
+      if(key==='warn'){halWarned();return say(c.warn.player,c.warn.reply);}
+      if(key==='giselle'){h.knowsDog=true;return say(c.giselle.player,c.giselle.reply,note(HAL.notes.dog));}
+      if(key==='grant'){h.knowsDonor=true;return say(c.grant.player,c.grant.reply,note(HAL.notes.grant));}
+      if(key==='tablet'){h.bookDay=world.day+1;h.tabletFrom='medic';return say(c.tablet.player,c.tablet.reply);}
+      if(key==='confess'){
+        h.conscience='done';h.confessed=true;
+        if(hashSeed(world.seed+'|halkeep')%2){warmBy(thread,2);return say(c.confess.player,c.confess.keep,note(HAL.notes.kept));}
+        return say(c.confess.player,c.confess.leave,()=>{thread.blocked=true;h.detDay=world.day+1;h.detDone=false;});
+      }
+      if(key==='deny'){h.conscience='done';warmBy(thread,-1);return say(c.deny.player,c.deny.reply);}
+    }
+    // ----- The cupboard: his parcel, the library book, the shoebox
+    function halItems(){
+      const h=halState(),out=[];
+      if(h.stage==='none')return out;
+      if(['floor','have','opened'].includes(h.parcel)){
+        const p=HAL.parcel,actions=[];
+        if(h.parcel!=='opened')actions.push({id:'hal:open',label:p.open});
+        else if(!h.swapped&&halHave('book'))actions.push({id:'hal:swap',label:p.swap});
+        out.push({id:halParcelId(),door:true,floor:'parcel',label:p.label,short:p.short,image:'assets/items/lpc-a365.png',text:h.parcel==='opened'?(h.swapped?p.swapped:p.opened):p.text,actions});
+      }
+      if(['floor','have'].includes(h.book))out.push({id:'hal:book',door:true,floor:'parcel',label:HAL.book.label,short:HAL.book.short,image:'assets/items/library-book.png',text:HAL.book.text,actions:[{id:'hal:bin:book',label:HAL.bin}]});
+      if(['floor','have'].includes(h.gun))out.push({id:'hal:gun',door:true,floor:'shoebox',label:HAL.shoebox.label,short:HAL.shoebox.short,image:'assets/items/revolver.png',text:HAL.shoebox.text,actions:[{id:'hal:bin:gun',label:HAL.bin}]});
+      return out;
+    }
+    const halParcelId=()=>{const n=Number(halState().parcelN)||1;return n>1?'hal:parcel'+n:'hal:parcel';}; // a redirected refill is a new parcel on the floor
+    // Picked up off the floor: the cupboard has it now.
+    function halSyncFloor(){
+      const h=halState(),picked=new Set(floorPicked());
+      if(h.parcel==='floor'&&picked.has(halParcelId()))h.parcel='have';
+      if(h.book==='floor'&&picked.has('hal:book'))h.book='have';
+      if(h.gun==='floor'&&picked.has('hal:gun'))h.gun='have';
+    }
+    const halCanSwap=()=>{const h=halState();halSyncFloor();return halOpen()&&h.parcel==='opened'&&!h.swapped&&h.book==='have'&&!h.outcome;};
+    const halEvidence=()=>{const h=halState();halSyncFloor();return ['floor','have'].includes(h.book)||['floor','have'].includes(h.gun);};
+    function halCupAct(act){
+      const h=halState();halSyncFloor();
+      if(act==='hal:open'&&h.parcel==='have'){h.parcel='opened';saveRun(true);renderCupboard();return;}
+      if(act==='hal:swap'){halOpenSwap();return;}
+      if(act==='hal:bin:book'&&h.book==='have'){h.book='binned';showGameNotice(HAL.binned);saveRun(true);cupboardView='shelf';renderCupboard();return;}
+      if(act==='hal:bin:gun'&&h.gun==='have'){h.gun='binned';showGameNotice(HAL.binned);saveRun(true);cupboardView='shelf';renderCupboard();return;}
+    }
+    // ----- The Swap: put the tablet in the right slot, then reseal the foil before the courier knocks
+    const SWAP={slots:8,seconds:24,minSpeed:55,maxSpeed:230,scorch:1.6,lift:1.3};
+    let swapRun=null;
+    function halWobble(){
+      if(glowState().stage==='active')return 0; // on LPC-A365 your hands don't shake: the chalk works on you too
+      return {truecel:1,normie:.5,mogger:.25}[selectedDifficulty]??.5;
+    }
+    function halOpenSwap(){
+      if(!halCanSwap())return;
+      closeCupboard();
+      const box=$('swap-game');if(!box)return;
+      box.hidden=false;
+      swapRun={phase:'place',slot:null,progress:0,scorch:0,lift:0,started:Date.now(),angle:null,at:null,holding:false,wobble:halWobble(),x:0,y:0};
+      $('swap-hint').textContent=HAL.swap.place;
+      swapLoop();
+    }
+    {const canvas=$('swap-canvas');if(canvas?.addEventListener){
+      canvas.addEventListener('pointerdown',e=>{e.preventDefault();try{canvas.setPointerCapture(e.pointerId);}catch{}swapPointer(e,'down');});
+      canvas.addEventListener('pointermove',e=>swapPointer(e,'move'));
+      for(const type of ['pointerup','pointercancel'])canvas.addEventListener(type,e=>swapPointer(e,'up'));
+    }}
+    function halSwapDone(result){ // {slot:1-8, seal:'clean'|'bad'}
+      const h=halState();
+      if(!halCanSwap())return false;
+      h.swapped=true;h.slot=Math.max(1,Math.min(SWAP.slots,Number(result?.slot)||1));h.seal=result?.seal==='clean'?'clean':'bad';
+      h.book='used';
+      if(h.asked==='yes'&&h.gun==='none')h.gunDay=world.day+1; // the students' insurance
+      saveRun(true);
+      return true;
+    }
+    function swapGeometry(canvas){const s=canvas.width;return {cx:s/2,cy:s/2,rim:s*.41,ring:s*.27,pill:s*.045,band:s*.12};}
+    function swapSlotAngle(k){return -Math.PI/2+(k-.5)*(2*Math.PI/SWAP.slots);}
+    function swapDraw(){
+      const canvas=$('swap-canvas'),ctx=canvas?.getContext?.('2d');
+      if(!ctx||!swapRun)return;
+      const g=swapGeometry(canvas),r=swapRun;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle='#f4efe6';ctx.beginPath();ctx.arc(g.cx,g.cy,g.rim+g.band,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#d9e1e8';ctx.beginPath();ctx.arc(g.cx,g.cy,g.rim,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#3a5f8a';ctx.beginPath();ctx.moveTo(g.cx-10,g.cy-g.rim);ctx.lineTo(g.cx+10,g.cy-g.rim);ctx.lineTo(g.cx,g.cy-g.rim+16);ctx.fill(); // the notch
+      for(let k=1;k<=SWAP.slots;k++){
+        const a=swapSlotAngle(k),x=g.cx+Math.cos(a)*g.ring,y=g.cy+Math.sin(a)*g.ring;
+        ctx.fillStyle=r.slot===k?'#ffe8a3':'#ffffff';ctx.strokeStyle='#8a8f96';ctx.lineWidth=3;
+        ctx.beginPath();ctx.arc(x,y,g.pill,0,Math.PI*2);ctx.fill();ctx.stroke();
+      }
+      if(r.phase==='seal'){
+        ctx.strokeStyle='#c99a2e';ctx.lineWidth=g.band;ctx.globalAlpha=.35;ctx.beginPath();ctx.arc(g.cx,g.cy,g.rim,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
+        ctx.strokeStyle='#c99a2e';ctx.beginPath();ctx.arc(g.cx,g.cy,g.rim,-Math.PI/2,-Math.PI/2+Math.min(1,r.progress/360)*Math.PI*2);ctx.stroke();
+        if(r.at){ctx.fillStyle='#6b6f75';ctx.beginPath();ctx.arc(r.x,r.y,g.pill*.9,0,Math.PI*2);ctx.fill();}
+        const bar=(v,limit,y,color)=>{ctx.fillStyle='#00000033';ctx.fillRect(20,y,canvas.width-40,10);ctx.fillStyle=color;ctx.fillRect(20,y,(canvas.width-40)*Math.min(1,v/limit),10);};
+        bar(r.scorch,SWAP.scorch,canvas.height-44,'#b8343f');bar(r.lift,SWAP.lift,canvas.height-26,'#3a5f8a');
+      }
+      const steps=$('swap-steps');if(steps)steps.style.width=`${Math.min(100,(Date.now()-r.started)/(SWAP.seconds*10))}%`;
+    }
+    function swapLoop(){
+      if(!swapRun)return;
+      const r=swapRun;
+      if(r.phase==='seal'&&r.holding&&r.at&&Date.now()-r.at>120){r.scorch+=(Date.now()-r.at)/1000;r.at=Date.now();} // the spoon is resting in one place
+      swapDraw();
+      if(r.phase==='seal'&&(r.scorch>=SWAP.scorch||r.lift>=SWAP.lift))return swapFinish('bad');
+      if(Date.now()-r.started>=SWAP.seconds*1000)return swapFinish(r.phase==='seal'&&r.progress>=360?'clean':'late');
+      window.setTimeout(swapLoop,40);
+    }
+    function swapPointer(event,kind){
+      const r=swapRun,canvas=$('swap-canvas');
+      if(!r||!canvas)return;
+      const box=canvas.getBoundingClientRect(),sx=canvas.width/box.width,sy=canvas.height/box.height;
+      const px=(event.clientX-box.left)*sx,py=(event.clientY-box.top)*sy,g=swapGeometry(canvas);
+      if(r.phase==='place'){
+        if(kind!=='down')return;
+        for(let k=1;k<=SWAP.slots;k++){const a=swapSlotAngle(k);if(Math.hypot(px-(g.cx+Math.cos(a)*g.ring),py-(g.cy+Math.sin(a)*g.ring))<=g.pill*1.6){r.slot=k;r.phase='seal';$('swap-hint').textContent=HAL.swap.seal;playUiSound(260);return;}}
+        return;
+      }
+      if(kind==='up'){r.holding=false;r.at=null;return;}
+      if(kind==='down')r.holding=true;
+      if(!r.holding)return;
+      const dist=Math.hypot(px-g.cx,py-g.cy),angle=Math.atan2(py-g.cy,px-g.cx)*180/Math.PI,now=Date.now();
+      const shake=(Math.random()-.5)*2*r.wobble*g.pill*.8; // your hands: the spoon trembles on screen
+      r.x=g.cx+Math.cos(angle*Math.PI/180)*(dist+shake);r.y=g.cy+Math.sin(angle*Math.PI/180)*(dist+shake);
+      if(r.angle!==null&&r.at){
+        let d=angle-r.angle;if(d>180)d-=360;if(d<-180)d+=360;
+        const dt=Math.max(.001,(now-r.at)/1000),speed=Math.abs(d)/dt;
+        r.lift+=dt*r.wobble*.35; // shaky hands lift the foil a little all the way round
+        if(Math.abs(dist-g.rim)>g.band*.6)r.lift+=dt; // off the rim
+        else if(speed>SWAP.maxSpeed)r.lift+=dt; // too fast: it lifts
+        else if(speed<SWAP.minSpeed)r.scorch+=dt; // too slow: it scorches
+        else r.progress+=Math.abs(d);
+      }
+      r.angle=angle;r.at=now;
+      if(r.progress>=360)swapFinish('clean');
+    }
+    function swapFinish(how){
+      const r=swapRun;
+      if(!r)return;
+      swapRun=null;
+      $('swap-game').hidden=true;
+      halSwapDone({slot:r.slot||1,seal:how==='clean'?'clean':'bad'});
+      showGameNotice(how==='clean'?HAL.swap.clean:how==='late'?HAL.swap.late:HAL.swap.bad);
+    }
+    // ----- The detective
+    const halDetectiveDue=()=>{const h=halState();return Number.isInteger(h.detDay)&&world.day>=h.detDay&&!h.detDone&&!h.dead&&!world.policeArrested&&h.detRang!==world.day&&!Number.isInteger(h.arrestDay);};
+    function halDetectiveChoose(call,choice){
+      const h=halState();
+      if(choice==='det:hang'){h.arrestDay=world.day+1;h.detDone=true;endHerCall();return;}
+      const guilty=h.confessed||choice!=='det:courier'||halEvidence();
+      call.said=!guilty?HAL.det.cleared:choice==='det:never'?HAL.det.lying:HAL.det.cupboard;
+      h.detDone=true;if(guilty)h.arrestDay=world.day+1;
+      call.step='bye';saveRun(true);renderCalls();
+    }
+    // ----- At the start of a day: an arrest, a visitor, a body found, a knock
+    function halAfterDayStart(){
+      const h=halState();
+      if(h.stage==='none')return false;
+      if(Number.isInteger(h.arrestDay)&&world.day>=h.arrestDay){h.arrestDay=null;startPoliceArrest('halloran');return true;}
+      if(Number.isInteger(h.foundDay)&&world.day>=h.foundDay){h.foundDay=null;startPoliceArrest('body');return true;}
+      if(Number.isInteger(h.lodgeDay)&&world.day>=h.lodgeDay){h.lodgeDay=null;halDie('lodge');return true;}
+      if(Number.isInteger(h.visitDay)&&world.day>=h.visitDay&&!h.visited){h.visited=true;saveRun(true);halArrive();return true;}
+      return false;
+    }
+    function halDie(kind){halState().dead=kind;saveRun(true);halDeathScreen();}
+    function halDeathScreen(){
+      const d=HAL.deaths[halState().dead]||HAL.deaths.lodge;
+      stopRinging();herCall=null;
+      drawDeathTitle(d.cause,d.verb);
+      $('fatal-overlay').querySelector('p').textContent=d.line;
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // ----- Steady: Cole Halloran in your doorway
+    function halFrame(stage){
+      const phase=time.value==='bedroom-night'?'night':'dusk';
+      return {image:`assets/events/halloran-${phase}-${stage}.png`,stand:stage==='door'?'room-open':'shadow',caption:HAL.visit[stage]};
+    }
+    let steadyRun=null;
+    function halArrive(){
+      const h=halState();halSyncFloor();
+      const armed=h.gun==='have';
+      playScene([halFrame('door'),halFrame('close')],()=>{
+        if(armed){halSteadyOpen();return;}
+        const leaves=hashSeed(world.seed+'|halunarmed')%2===0;
+        if(leaves){$('invasion-caption').textContent=HAL.visit.unarmed;invasionTimers.push(window.setTimeout(()=>{clearInvasion();showGameNotice(HAL.quiet);halAfterLower();},2600));}
+        else invasionTimers.push(window.setTimeout(()=>{clearInvasion();halDie('unarmed');},1900));
+      },{keep:true});
+    }
+    function halSteadyOpen(){
+      const q=$('qte'),v=HAL.visit;
+      qteOpen=true;
+      q.className='qte steady';q.hidden=false;
+      q.innerHTML=`<div class="steady-box"><i class="steady-dot" id="steady-dot"></i></div><button data-hal-steady>${esc(v.steady)}</button><button data-hal-shoot>${esc(v.shoot)}</button><button data-hal-lower class="steady-lower">${esc(v.lower)}</button>`;
+      const amp={truecel:1,normie:.6,mogger:.3}[selectedDifficulty]??.6;
+      steadyRun={x:0,y:0,amp:glowState().stage==='active'?.15:amp,held:null,t:0};
+      const hold=q.querySelector('[data-hal-steady]');
+      if(hold){hold.onpointerdown=()=>{if(steadyRun)steadyRun.held=Date.now();};hold.onpointerup=hold.onpointerleave=()=>{if(steadyRun)steadyRun.held=null;};}
+      v.lines.forEach((line,i)=>invasionTimers.push(window.setTimeout(()=>{if(steadyRun)$('invasion-caption').textContent=line;},i*2600)));
+      const tick=()=>{
+        const s=steadyRun;if(!s)return;
+        s.t+=60;
+        const holding=s.held?Date.now()-s.held:0,calm=holding?(holding<1600?.25:1.7):1; // breathe in and it settles; hold too long and it shakes
+        s.x=Math.sin(s.t/310)*.55*s.amp*calm+(Math.random()-.5)*.25*s.amp*calm;
+        s.y=Math.cos(s.t/430)*.45*s.amp*calm+(Math.random()-.5)*.25*s.amp*calm;
+        const dot=$('steady-dot');if(dot)dot.style.transform=`translate(${(s.x*50).toFixed(1)}px,${(s.y*50).toFixed(1)}px)`;
+        if(s.t>=8000){halSteadyEnd('freeze');return;}
+        invasionTimers.push(window.setTimeout(tick,60));
+      };
+      tick();
+    }
+    function halSteadyEnd(choice){
+      const s=steadyRun;
+      if(!s)return;
+      steadyRun=null;closeQte();
+      const h=halState();
+      if(choice==='shoot'){
+        if(Math.hypot(s.x,s.y)<=.32){h.shot='down';h.outcome='shot';h.outcomeDay=world.day+1;h.gun='used';saveRun(true);
+          playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true});return;}
+        clearInvasion();halDie('shot');return;
+      }
+      if(choice==='lower'){$('invasion-caption').textContent=HAL.visit.lowered;invasionTimers.push(window.setTimeout(()=>{clearInvasion();halAfterLower();},2800));return;}
+      // froze: sometimes he leaves, sometimes he doesn't
+      if(hashSeed(world.seed+'|halfreeze')%2){$('invasion-caption').textContent=HAL.visit.lowered;invasionTimers.push(window.setTimeout(()=>{clearInvasion();halAfterLower();},2800));}
+      else{clearInvasion();halDie('unarmed');}
+    }
+    function halAfterLower(){ // whether he sends the police, the lodge or nobody is never explained
+      const h=halState(),roll=hashSeed(world.seed+'|hallower')%3;
+      if(roll===1)h.arrestDay=world.day+1;
+      else if(roll===2)h.lodgeDay=world.day+2;
+      saveRun(true);
+    }
+    function halHideChoices(){
+      const q=$('qte');
+      q.className='qte choices';q.hidden=false;
+      $('invasion-caption').textContent=HAL.visit.hideAsk;
+      q.innerHTML=HAL.hide.map(place=>`<button data-hal-hide="${esc(place.id)}">${esc(place.label)}</button>`).join('');
+    }
+    function halHide(placeId){
+      const h=halState(),place=HAL.hide.find(item=>item.id===placeId);
+      if(h.shot!=='down'||!place)return;
+      closeQte();
+      if(place.id==='911'){h.shot='reported';startPoliceArrest('body');return;}
+      h.shot='hidden';h.hideDay=world.day;
+      if(place.id===['desert','canyon','bins'][hashSeed(world.seed+'|halbody')%3])h.foundDay=world.day+2; // one place is never as safe as it looks
+      halAftermath();
+      saveRun(true);
+      playScene([{image:place.image,stand:'room',caption:place.done}],()=>{showGameNotice(HAL.quiet);saveRun(true);});
+    }
+
     // ===== Truecel: she might report you =====
     // The police come the next morning. Nothing tells you how close it was.
     // Truecel: the first time a woman reports you, the police ring the next day with a warning that
@@ -4503,7 +5026,8 @@
         asking:'A young woman on a dating app says your messages made her feel unsafe.',
         sister:'A woman from the Sisters of Mercy says you asked her for pictures of herself.',
         older:'A woman old enough to be your mother says you asked her for pictures.',
-        accused:'A young woman says you accused her of spreading your messages round a group chat, and kept on at her.'
+        accused:'A young woman says you accused her of spreading your messages round a group chat, and kept on at her.',
+        halloran:'A young woman says you’ve been making threats about Cole Halloran.'
       },
       open:'Sunfall Police, the duty sergeant speaking. We’ve had a complaint about you. {reason} Nobody’s coming around tonight. This is your warning.',
       sorry:'Good. Keep it that way. If your name crosses my desk again, we come to your door.',
@@ -4542,7 +5066,7 @@
 
     let toneNotice=null;
     function toneNewDay(){
-      glowNewDay();laviniaNewDay();leakNewDay(); // Truecel
+      glowNewDay();halNewDay();laviniaNewDay();leakNewDay(); // Truecel (halNewDay: Cole Halloran)
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
@@ -6433,7 +6957,7 @@
     const POLICE_ARREST_FRAMES=['threshold','approach','cuff','grab'];
     // Theon: arrested over his messages (nobody stopped him), or over him (somebody found him).
     var ARREST_CAPTIONS={pills:['KNOCK KNOCK. SUNFALL POLICE!','We’ve been through her list of customers.','Hold still. The handcuffs are coming out.','You are coming with me.'],ring:['KNOCK KNOCK. SUNFALL POLICE!','We’re tracing everything she sold.','Hold still. The handcuffs are coming out.','You are coming with me.'],fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
-    var ARREST_ENDINGS={pills:{text:'Your name was on her list of customers. You are under arrest.',status:'Game over · arrested over the pills.'},ring:{text:'The Ashworths’ ring was in your bedside cupboard. You are under arrest.',status:'Game over · arrested over the ring.'},fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
+    var ARREST_ENDINGS={halloran:{text:'LPC Laboratories kept records. Cole Halloran’s pills went through your door. You are under arrest.',status:'Game over · arrested over Cole Halloran.'},pills:{text:'Your name was on her list of customers. You are under arrest.',status:'Game over · arrested over the pills.'},ring:{text:'The Ashworths’ ring was in your bedside cupboard. You are under arrest.',status:'Game over · arrested over the ring.'},fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
     let policeArrestTimers=[];
     function clearPoliceArrest(){
       for(const id of policeArrestTimers)window.clearTimeout(id);
@@ -6451,7 +6975,7 @@
     }
     function startPoliceArrest(reason='false'){
       if(world.policeArrested)return;
-      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body','pills','ring'].includes(reason)?reason:'false';
+      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body','pills','ring','halloran'].includes(reason)?reason:'false';
       world.policeArrestPhase=dayPhases.includes(time.value)?time.value:'bedroom-night';
       saveRun(true);
       clearPoliceArrest();clearBearTimers();clearBearVisuals();closeEvidenceSheet(false);
@@ -6879,6 +7403,7 @@
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
       items.push(...miniItems()); // mini quests: on your doorstep
+      items.push(...halItems()); // Undeniable: his parcel, the library book, the shoebox
       for(const item of arcsState().items)items.push({id:item.id,door:true,floor:/card|postcard|letter|note|photo|ticket/i.test(item.label)?'letter':'parcel',label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
     }
@@ -7113,6 +7638,7 @@
       if(act&&!act.disabled){
         if(act.dataset.cupAct==='take-lpc'){takeGlow();return;} // Truecel: LPC-A365
         if(act.dataset.cupAct==='take-lpc2'){takeGlow2();return;} // Never two
+        if(act.dataset.cupAct.startsWith('hal:')){halCupAct(act.dataset.cupAct);return;} // Undeniable
         if(act.dataset.cupAct.startsWith('mini:')){miniCupAct(act.dataset.cupAct);return;} // mini quests
         if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
         else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
@@ -7167,6 +7693,7 @@
         list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
       }
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
+      {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
       for(const thread of hingeThreads.values()){
@@ -7388,6 +7915,8 @@
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
         if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
         if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
+        if(world.halloran?.dead){halDeathScreen();return true;} // Undeniable
+        if(world.halloran?.shot==='down')playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true}); // he's still in your doorway
         if(dadState().stage==='dead'||dadState().stage==='coming'){dadDeath();return true;} // her dad
         if(fionnState().stage==='dead'){fionnDeathScreen();return true;} // Theon
         if(fionnState().stage==='shot')playScene([FIONN.shot[1]],fionnHideChoices,{keep:true}); // the body is still on the floor
@@ -7570,6 +8099,25 @@
       if(ad&&!edition.items.some(item=>item.glowAd))edition.items.push(ad);
       setLowered(false);openApp('news');
       updateRunStatus('Preview: the LPC-A365 ad is in today’s paper. Ring the number to order it.');
+    };
+    $('halloran-preview').onclick=()=>{ // Undeniable: start it now
+      testOn('truecel');
+      const g=glowState();if(!['delivered','active','spent'].includes(g.stage))Object.assign(g,{stage:'spent',taken:true,seen:true,number:g.number||unusedContactNumber()});
+      const h=halState();
+      if(h.stage==='none')Object.assign(h,{stage:'open',profileDay:world.day,debateDay:world.day+7,officeNumber:unusedContactNumber()});
+      Object.assign(h,{parcel:['none','gone'].includes(h.parcel)?'floor':h.parcel,knowsName:true});
+      if(!h.volunteer)h.volunteer=[...hingeThreads.values()].filter(t=>eventReady(t)&&hingeProfile(t.id)?.factionId==='normie_girls').map(t=>t.id)[0]||null;
+      const edition=getNewsEdition();for(const item of halNewsItems(world.day))if(!edition.items.some(i=>i.id===item.id))edition.items.push(item);
+      saveRun(true);setLowered(true);renderFloor();updateCupboardHint();
+      updateRunStatus('Preview: Cole Halloran is in today’s paper, and his parcel is on your floor. His campaign office is in Contacts.');
+    };
+    $('halloran-door-preview').onclick=()=>{ // Undeniable: Steady
+      testOn('truecel');
+      const h=halState();
+      if(h.stage==='none')Object.assign(h,{stage:'open',profileDay:world.day,debateDay:world.day+7,officeNumber:unusedContactNumber()});
+      Object.assign(h,{gun:'have',flagged:true,visited:true,dead:null,shot:null});
+      if(!floorPicked().includes('hal:gun'))floorPicked().push('hal:gun');
+      saveRun(true);setLowered(true);halArrive();
     };
     $('police-warning-preview').onclick=()=>{
       testOn('truecel');
