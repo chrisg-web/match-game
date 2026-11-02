@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="6e83610ef6">
+<html lang="en" data-build="78b2c1e03d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=6e83610ef6"></script>
+  <script src="chapel_at_midnight.js?v=78b2c1e03d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=6e83610ef6"></script>
+  <script src="marriage.js?v=78b2c1e03d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=6e83610ef6"></script>
+  <script src="quests/professor-vale.js?v=78b2c1e03d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1018,6 +1018,7 @@
       layer.style.right=`${p.right+jitter/2}%`;
       layer.style.width=`${p.width}%`;
     }
+    const CLUTTER_CHANCE=.33; // how often a new day starts with mess in the room
     function randomiseRoomLook() {
       const grips=Object.keys(gripGeometry);
       $('hand-pose').value=choose(grips);
@@ -1026,7 +1027,7 @@
       $('clutter-type').value=choose(Object.keys(clutterPositions));
       $('hands').checked=true;
       $('legs').checked=Math.random()<.76;
-      $('clutter').checked=Math.random()<.70;
+      $('clutter').checked=Math.random()<CLUTTER_CHANCE; // some days only (Chris): about one in three
       $('hand-layer').classList.remove('hidden');
       $('leg-layer').classList.toggle('hidden',!$('legs').checked);
       $('leg-layer').src=assetUrl(`assets/ui/${$('legs-type').value}.png`);
