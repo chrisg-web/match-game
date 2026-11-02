@@ -553,6 +553,22 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
+    "MATCH-092": {
+      "intro": "I have a confession: I've been restoring vintage dresses instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a charity bookkeeper. I tend to be quietly intense and loyal. Outside work I've been restoring vintage dresses.",
+      "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
+      "weekend": "I've been restoring vintage dresses. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
+    "MATCH-240": {
+      "intro": "I have a confession: I've been building a collection of forgotten records instead of doing my actual errands. How do you unwind?",
+      "work": "I'm a receptionist. I tend to be quietly intense and loyal. Outside work I've been building a collection of forgotten records.",
+      "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
+      "weekend": "I've been building a collection of forgotten records. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
     "MATCH-078": {
       "intro": "I have a confession: I've been running an informal book club instead of doing my actual errands. How do you unwind?",
       "work": "I'm a charity bookkeeper. I tend to be calm in a crisis and terrible at small talk. Outside work I've been running an informal book club.",
@@ -646,14 +662,6 @@
       "work": "I'm a compliance administrator. I tend to be friendly and prone to overthinking. Outside work I've been collecting vintage postcards.",
       "friends": "My friends say I'm friendly and prone to overthinking. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
-    "MATCH-092": {
-      "intro": "I have a confession: I've been restoring vintage dresses instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a charity bookkeeper. I tend to be quietly intense and loyal. Outside work I've been restoring vintage dresses.",
-      "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
-      "weekend": "I've been restoring vintage dresses. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1403,7 +1411,7 @@
     },
     "MATCH-230": {
       "intro": "I have a confession: I've been planting a balcony herb garden instead of doing my actual errands. How do you unwind?",
-      "work": "I'm an elementary school teacher. I tend to be sunny but stubborn. Outside work I've been planting a balcony herb garden.",
+      "work": "I'm a primary school teacher. I tend to be sunny but stubborn. Outside work I've been planting a balcony herb garden.",
       "friends": "My friends say I'm sunny but stubborn. I suppose they know me better than I know myself.",
       "weekend": "I've been planting a balcony herb garden. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1481,17 +1489,9 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
-    "MATCH-240": {
-      "intro": "I have a confession: I've been building a collection of forgotten records instead of doing my actual errands. How do you unwind?",
-      "work": "I'm a receptionist. I tend to be quietly intense and loyal. Outside work I've been building a collection of forgotten records.",
-      "friends": "My friends say I'm quietly intense and loyal. I suppose they know me better than I know myself.",
-      "weekend": "I've been building a collection of forgotten records. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
     "MATCH-241": {
       "intro": "I have a confession: I've been collecting vintage postcards instead of doing my actual errands. How do you unwind?",
-      "work": "I'm an elementary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
+      "work": "I'm a primary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
       "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
       "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1579,7 +1579,7 @@
     },
     "MATCH-252": {
       "intro": "I have a confession: I've been organizing a neighborhood film night instead of doing my actual errands. How do you unwind?",
-      "work": "I'm an elementary school teacher. I tend to be poised and fiercely independent. Outside work I've been organizing a neighborhood film night.",
+      "work": "I'm a primary school teacher. I tend to be poised and fiercely independent. Outside work I've been organizing a neighborhood film night.",
       "friends": "My friends say I'm poised and fiercely independent. I suppose they know me better than I know myself.",
       "weekend": "I've been organizing a neighborhood film night. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1667,7 +1667,7 @@
     },
     "MATCH-263": {
       "intro": "I have a confession: I've been sketching old shopfronts instead of doing my actual errands. How do you unwind?",
-      "work": "I'm an elementary school teacher. I tend to be playful until someone crosses a line. Outside work I've been sketching old shopfronts.",
+      "work": "I'm a primary school teacher. I tend to be playful until someone crosses a line. Outside work I've been sketching old shopfronts.",
       "friends": "My friends say I'm playful until someone crosses a line. I suppose they know me better than I know myself.",
       "weekend": "I've been sketching old shopfronts. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
@@ -1755,7 +1755,7 @@
     },
     "MATCH-274": {
       "intro": "I have a confession: I've been baking elaborate cakes badly instead of doing my actual errands. How do you unwind?",
-      "work": "I'm an elementary school teacher. I tend to be earnest and occasionally awkward. Outside work I've been baking elaborate cakes badly.",
+      "work": "I'm a primary school teacher. I tend to be earnest and occasionally awkward. Outside work I've been baking elaborate cakes badly.",
       "friends": "My friends say I'm earnest and occasionally awkward. I suppose they know me better than I know myself.",
       "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",

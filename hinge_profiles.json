@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults have authored profiles and distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 123,
-  "imageCount": 696,
-  "publicImageCount": 362,
-  "privateImageCount": 334,
+  "characterCount": 125,
+  "imageCount": 712,
+  "publicImageCount": 372,
+  "privateImageCount": 340,
   "characters": [
     {
       "id": "MATCH-001",
@@ -2522,6 +2522,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-092",
+      "slug": "audra_beaumont",
+      "name": "Audra Beaumont",
+      "age": 27,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/audra_beaumont_01.webp",
+        "assets/hinge/roster_expansion/audra_beaumont_02.webp",
+        "assets/hinge/roster_expansion/audra_beaumont_03.webp",
+        "assets/hinge/roster_expansion/audra_beaumont_04.webp",
+        "assets/hinge/roster_expansion/audra_beaumont_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/audra_beaumont_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Audra Beaumont, consistent Dark skin, golden-brown ringlets, a small nose stud, camel trench coat and silk scarf",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/audra_beaumont_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Audra Beaumont, consistent Dark skin, golden-brown ringlets, a small nose stud, camel trench coat and silk scarf",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/audra_beaumont_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Audra Beaumont, consistent Dark skin, golden-brown ringlets, a small nose stud, camel trench coat and silk scarf",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and restoring vintage dresses.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-102",
       "slug": "danica_holt",
       "name": "Danica Holt",
@@ -4017,6 +4055,44 @@
       ],
       "personality": "earnest and occasionally awkward",
       "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-240",
+      "slug": "giselle_ford",
+      "name": "Giselle Ford",
+      "age": 35,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Receptionist",
+      "gallery": [
+        "assets/hinge/roster_expansion/giselle_ford_01.webp",
+        "assets/hinge/roster_expansion/giselle_ford_02.webp",
+        "assets/hinge/roster_expansion/giselle_ford_03.webp",
+        "assets/hinge/roster_expansion/giselle_ford_04.webp",
+        "assets/hinge/roster_expansion/giselle_ford_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/giselle_ford_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Giselle Ford, consistent Dark skin, ash-blonde lob, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/giselle_ford_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Giselle Ford, consistent Dark skin, ash-blonde lob, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/giselle_ford_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Giselle Ford, consistent Dark skin, ash-blonde lob, a gap-toothed smile, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and building a collection of forgotten records.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],

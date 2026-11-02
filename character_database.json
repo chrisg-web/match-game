@@ -11551,7 +11551,117 @@
       "look": "Dark skin, golden-brown ringlets, a small nose stud, camel trench coat and silk scarf",
       "status": "awaiting portrait",
       "type": "meddling-matchmaker",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_dresses",
+            "label": "Ask about her dresses",
+            "player": "Your dresses look like they have stories. Where are they from?",
+            "reply": "Estate sales. Bluebirds who died, wardrobes their daughters didn’t want. I restore them stitch by stitch and wear them to the club. The room sees its mothers walk in. Nobody has said a word in four years."
+          },
+          {
+            "id": "b_sister",
+            "label": "Ask about her sister",
+            "player": "You live with your sister?",
+            "reply": "Across the hall. Alice wanted the chair at the Foundation, and I wanted not to sit at that table. We both got what we wanted. One of us is happy."
+          },
+          {
+            "id": "b_books",
+            "label": "Ask what a bookkeeper actually does",
+            "player": "What does a charity bookkeeper actually do all day?",
+            "reply": "On paper I keep one account. In practice I keep the family’s books, which is a bigger job. I know what my father’s people cost. I add it up very neatly and never say the total out loud.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_weddings",
+            "label": "Ask about the weddings she arranges",
+            "player": "Do you really arrange weddings for the club’s daughters?",
+            "reply": "Four so far. Not one of them to a man the club voted in. It’s a quiet war and I’m winning it. I can’t run my own life, so I run everyone else’s. It’s very satisfying.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_cafe",
+            "label": "Ask what she does on her own",
+            "player": "What do you do when nobody needs you?",
+            "reply": "I sit in the same café in the gallery district with a silk scarf and a coffee, and I’m sad in public for an hour. It’s cheaper than therapy, and the croissants are better.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_engaged",
+            "label": "Ask if she’s ever been engaged",
+            "player": "Have you ever been engaged?",
+            "reply": "At twenty-two. A vet, one of the Whitlocks. The club didn’t approve. A gray sedan ran him off the canyon road the week before the wedding. He lived, he left the state, and he asked me to come. Alice was seventeen. I stayed.",
+            "needsWarmth": 1,
+            "note": "Audra Beaumont says her fiancé, a Whitlock vet, was run off the canyon road by a gray sedan the week before their wedding."
+          },
+          {
+            "id": "c_call",
+            "label": "Ask if she still hears from him",
+            "player": "Do you still hear from him?",
+            "reply": "Once a year he calls the house. Once a year I let it ring. One of these years I’ll ask someone to pick up for me and ask him one thing: did he see who was driving.",
+            "needsWarmth": 2
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Finished a dress tonight. Green silk, 1962, a Bluebird who married twice and outlived both husbands. It fits like it was waiting for me.",
+            "more": "The hem took three weeks. Her daughter sold it for forty dollars at an estate sale. I paid forty dollars and three weeks. I’m going to wear it somewhere she would have hated, which is exactly what she would have wanted."
+          },
+          {
+            "feel": "odd",
+            "news": "Matched two people today who don’t know they’ve been matched yet. One of them thinks it was her idea.",
+            "more": "A florist and a man who restores pianos. I sent them both to the same café at the same hour with a reason each. She thinks she found him. Let her. Being found is overrated. Finding is better."
+          },
+          {
+            "feel": "bad",
+            "news": "Father asked me to look at some numbers today. I looked. I wish I hadn’t.",
+            "more": "He has people for everything, and everything has a price, and I keep the list. Today one of the prices had a name next to it that I recognized. I closed the book and hemmed a dress for an hour so my hands would stop."
+          },
+          {
+            "feel": "good",
+            "news": "Alice and I ate breakfast in the same room without saying anything sharp. Historic.",
+            "more": "We used to share a bathroom and a secret language. Now we share a hall. This morning she passed me the marmalade without being asked. I nearly cried into my toast. Don’t tell her."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-028",
+            "warmth": 0,
+            "says": "Nicole Ashbury plans the weddings I arrange. I send her the brides, she sends me a bottle of wine, and neither of us mentions who the grooms aren’t.",
+            "note": "Audra Beaumont says she sends brides to Nicole Ashbury, the events planner.",
+            "ask": "Audra says she sends you the brides and you send her wine.",
+            "answer": "Good wine, too. Audra’s brides are the easy ones. They’ve already decided. It’s the mothers who need planning. I seat them by the exit and they think it’s an honor.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-076",
+            "warmth": 1,
+            "says": "Naomi Whitlock watches me at the club like she thinks I pity her. I don’t. Her cousin was the kindest man I ever met, and she has his eyes. That’s all it is.",
+            "note": "Audra Beaumont says Naomi Whitlock has the eyes of her cousin, the man Audra nearly married.",
+            "ask": "Audra says you have your cousin’s eyes.",
+            "answer": "Aaron’s? Everyone says that. He left the state before I was old enough to know why. Audra always looks at me like she’s about to say something and then doesn’t. I thought it was pity. Is it not?",
+            "mood": 0
+          },
+          {
+            "id": "g3",
+            "about": "MATCH-038",
+            "warmth": 2,
+            "says": "Daniela Cruz fixes the dresses I can’t. Beading, mostly. She holds them up to the light and tells me who wore them before I can. She’s always right.",
+            "note": "Audra Beaumont says Daniela Cruz restores the old dresses Audra can’t.",
+            "ask": "Audra says you can tell who wore a dress just by holding it up to the light.",
+            "answer": "Not who. What kind of night they had. Sweat at the collar means dancing. A mended seam at the hip means a baby later. Audra’s dresses all have one thing in common: somebody cried in them.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-093",
@@ -18015,7 +18125,116 @@
       "look": "Dark skin, ash-blonde lob, a gap-toothed smile, sporty tracksuit jacket",
       "status": "awaiting portrait",
       "type": "golden-careless",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_desk",
+            "label": "Ask about the front desk",
+            "player": "What’s it like working the hospital’s front desk?",
+            "reply": "Twelve years. Everyone’s worst night starts with me. I’m cheerful about it. That’s the job. If I looked worried, they’d really panic."
+          },
+          {
+            "id": "b_fun",
+            "label": "Ask what she does for fun",
+            "player": "What are you into outside work?",
+            "reply": "Old records. Singers who made one album and vanished. I buy them at a stall downtown and play them for the night porters. They pretend to hate it. One of them hums along now."
+          },
+          {
+            "id": "b_family",
+            "label": "Ask about her family",
+            "player": "Do you have family in Sunfall?",
+            "reply": "My sister Katrina. She’s the quiet one with the camera, and I’m the loud one with the desk. Our dad was a signalman. He taught us both to listen down the line for the train. She listens. I talk over it.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_book",
+            "label": "Ask about the visitor book",
+            "player": "Do you really write down everyone who comes in?",
+            "reply": "Everyone. Real names, fake names, the ones who sign with an X. Twelve years of it. I’ve never once read it like a story. My sister did once. She went quiet, and Katrina’s always quiet, so that’s saying something.",
+            "needsWarmth": 2
+          },
+          {
+            "id": "b_serious",
+            "label": "Ask her something serious",
+            "player": "Can I ask you something serious?",
+            "reply": "Ugh. Fine. One serious thing, and then you have to tell me something stupid. Those are the rules at my desk."
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_bay",
+            "label": "Ask if everyone comes in the front",
+            "player": "Does everyone come in through the front?",
+            "reply": "Mostly. A porter told me some men come in through the ambulance bay instead, so they never pass my desk. I asked if a receptionist is allowed to write the back door in the front desk’s book. Nobody’s said no yet.",
+            "needsWarmth": 1,
+            "note": "Giselle Ford says some men come into the hospital through the ambulance bay so they never pass the front desk."
+          },
+          {
+            "id": "c_porter",
+            "label": "Ask if there’s someone special",
+            "player": "Is there someone special at the hospital?",
+            "reply": "A night porter. Sometimes. He hums along to my records and pretends he isn’t. That’s about as serious as I get, so don’t push it.",
+            "needsWarmth": 1
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Found a record at the stall today by a woman who sang one perfect album and then just stopped. I’m obsessed.",
+            "more": "Nineteen seventy-four, one album, nine songs, and then nothing. No comeback, no explanation. I played it at the desk all night. A man waiting for his wife asked who it was. I said nobody knows. He said that was the saddest thing he’d ever heard, then asked me to write down the name."
+          },
+          {
+            "feel": "odd",
+            "news": "Someone checked in tonight as John Doe the Third. I wrote it down. I write everyone down.",
+            "more": "He had a burned thumb and a very bad mustache. I said, Mr. Doe, please take a seat, your family has been expecting you. He laughed so hard he forgot it hurt. That’s my whole medical training right there."
+          },
+          {
+            "feel": "bad",
+            "news": "Long night. Somebody’s kid. I smiled the whole time. Now my face won’t stop.",
+            "more": "That’s the part nobody tells you. You smile so the family doesn’t fall apart in the lobby, and then you get home and your face still won’t come down. I put a record on and lay on the floor until it was light out."
+          },
+          {
+            "feel": "good",
+            "news": "Dinner with my sister. We talked about absolutely nothing for two hours. Perfect.",
+            "more": "Katrina and I have a rule: no hospital, no cameras, nothing heavy. We talk about shoes and our dad’s terrible jokes. She laughed once, out loud. I’m counting it as a win for the whole year."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-064",
+            "warmth": 0,
+            "says": "Maya Serrano runs the emergency department like a bar at closing time. Nobody fights on her shift. I think they’re scared of her snacks running out.",
+            "note": "Giselle Ford says nobody fights on Maya Serrano’s shift in the emergency department.",
+            "ask": "Giselle says nobody dares start anything on your shift.",
+            "answer": "Because I feed them. A man can’t throw a punch with a granola bar in his hand. Giselle sends them to me smiling and I meet them with a snack. Between us we’ve calmed down half of Sunfall.",
+            "mood": 1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-196",
+            "warmth": 1,
+            "says": "Veda Thorn’s mom works the night ward. Veda comes in at the end of the shift with coffee for her mom and black lipstick for everyone else. The porters are terrified and delighted.",
+            "note": "Giselle Ford says Veda Thorn’s mother works the night ward at the hospital.",
+            "ask": "Giselle says you bring your mom coffee at the end of her night shift.",
+            "answer": "Every time. She’s worked nights since before I was born. Giselle always waves me through like I’m famous. The porters look at me like I’m about to curse the building. I might.",
+            "mood": 0
+          },
+          {
+            "id": "g3",
+            "about": "MATCH-014",
+            "warmth": 2,
+            "says": "Emily Fairchild stitches faster than anyone in the hospital and apologizes the whole time. Sorry, sorry, nearly done. Patients love her. The doctors find it exhausting.",
+            "note": "Giselle Ford says Emily Fairchild is the fastest stitcher at the hospital.",
+            "ask": "Giselle says you apologize the whole time you’re stitching someone up.",
+            "answer": "I do not. Well. Maybe a little. If someone’s bleeding, saying sorry feels like the least I can do. Giselle says hello to people having a heart attack. We all cope differently.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-241",
