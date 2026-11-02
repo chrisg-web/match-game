@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c039f1c41e">
+<html lang="en" data-build="837890be10">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c039f1c41e"></script>
+  <script src="chapel_at_midnight.js?v=837890be10"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c039f1c41e"></script>
+  <script src="marriage.js?v=837890be10"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c039f1c41e"></script>
+  <script src="quests/professor-vale.js?v=837890be10"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4151,8 +4151,8 @@
       f.waiting[thread.id]=world.day;
       return thread;
     }
-    // Arrested over his messages between day 5 and day 7 of the quest (Chris chose this).
-    const FIONN_ARREST={earliest:5,latest:7};
+    // Arrested over his messages between day 4 and day 7 of the quest (Chris chose this).
+    const FIONN_ARREST={earliest:4,latest:7};
     function fionnNewDay(){
       const f=fionnState();
       if(f.gun==='ordered'&&world.day>=f.gunDay){f.gun='delivered';fionnNotices.push(GUN.delivered);} // Mrs Oakley's grandson
@@ -4187,7 +4187,7 @@
         talkState(thread).unread=true;blockForEvent(thread);
         if(!f.complained.includes(thread.id))f.complained.push(thread.id);
       }
-      // Every woman has blocked you, or is waiting to: the police come (from day 5 of the quest).
+      // Every woman has blocked you, or is waiting to: the police come (from day 4 of the quest).
       if(n>=2&&!Number.isInteger(f.ruinedDay)&&f.complained.length>=3&&![...hingeThreads.values()].some(t=>fionnTarget(t)&&f.waiting[t.id]===undefined))f.ruinedDay=world.day;
     }
     // Chat choices: answer a woman who showed you a message, or ask a friend for help.
@@ -4295,7 +4295,7 @@
       if(f.stage==='hidden'&&Number.isInteger(f.foundDay)&&world.day>=f.foundDay){f.stage='jailed';startPoliceArrest('body');return true;} // somebody found him
       if(!fionnActive())return false;
       if(Number.isInteger(f.visitDay)&&world.day>=f.visitDay&&['bedroom-dusk','bedroom-night'].includes(time.value)){fionnArrive(f.invited);return true;} // only in the evening or at night
-      if(Number.isInteger(f.ruinedDay)&&world.day>f.ruinedDay&&world.day>=f.startDay+FIONN_ARREST.earliest){f.stage='jailed';startPoliceArrest('fionn');return true;} // every woman has blocked you: the police come, but never before day 5
+      if(Number.isInteger(f.ruinedDay)&&world.day>f.ruinedDay&&world.day>=f.startDay+FIONN_ARREST.earliest){f.stage='jailed';startPoliceArrest('fionn');return true;} // every woman has blocked you: the police come, but never before day 4
       if(world.day>=f.startDay+FIONN_ARREST.latest&&f.stage!=='lured'){f.stage='jailed';startPoliceArrest('fionn');return true;} // nobody stopped him
       return false;
     }
