@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="761f499f7e">
+<html lang="en" data-build="6e83610ef6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -595,11 +595,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=761f499f7e"></script>
+  <script src="chapel_at_midnight.js?v=6e83610ef6"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=761f499f7e"></script>
+  <script src="marriage.js?v=6e83610ef6"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=761f499f7e"></script>
+  <script src="quests/professor-vale.js?v=6e83610ef6"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -3517,9 +3517,9 @@
       if(!g||typeof g!=='object'||!['none','advertised','ordered','delivered','active','spent'].includes(g.stage))world.glow={stage:'none',adDay:null,number:null,deliverDay:null,startDay:null,endDay:null,seen:false,taken:false};
       return world.glow;
     }
-    // About one Truecel game in three, the ad runs for three days from day 3 to 6.
+    // One Truecel game in four (Chris chose this), the ad runs for three days from day 3 to 6.
     function glowAdDay(){
-      if(selectedDifficulty!=='truecel'||hashSeed(world.seed+'|glow')%3!==0)return null;
+      if(selectedDifficulty!=='truecel'||hashSeed(world.seed+'|glow')%4!==0)return null;
       return 3+hashSeed(world.seed+'|glowday')%4;
     }
     const glowAdRunning=day=>{const g=glowState(),first=g.adDay??glowAdDay();return first!==null&&['none','advertised'].includes(g.stage)&&day>=first&&day<first+3;};
