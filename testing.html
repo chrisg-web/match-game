@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="af9c78a74f">
+<html lang="en" data-build="c7c304a63e">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -522,6 +522,11 @@
     .home-invasion .qte button.rq-rep { animation: rqShake .12s linear infinite; }
     @keyframes rqShake { 0%,100% { transform: translate(0,0); } 25% { transform: translate(var(--shake),calc(var(--shake) * -.5)); } 50% { transform: translate(calc(var(--shake) * -.7),calc(var(--shake) * .6)); } 75% { transform: translate(calc(var(--shake) * .5),var(--shake)); } }
     @media (prefers-reduced-motion: reduce) { .home-invasion .qte button.rq-rep { animation: none; } }
+    /* Alice's place card (room quests): tap her words in order before the clock runs out */
+    .home-invasion .qte.seat button { font-size: calc(14px * var(--reading-scale)); }
+    .home-invasion .qte .seat-clock { width: 80%; height: 6px; border-radius: 3px; background: #ffffff22; overflow: hidden; }
+    .home-invasion .qte .seat-clock i { display: block; width: 100%; height: 100%; background: #b8343f; transform-origin: left; animation: seatClock var(--t) linear var(--spent) forwards; }
+    @keyframes seatClock { to { transform: scaleX(0); } }
     /* Theon's messages, shown to you by the women he sent them to */
     .hinge-bubble.shot-message { max-width: 88%; }
     .shot-img { display: block; width: 100%; margin-top: 6px; border-radius: 8px; image-rendering: pixelated; }
@@ -635,11 +640,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=af9c78a74f"></script>
+  <script src="chapel_at_midnight.js?v=c7c304a63e"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=af9c78a74f"></script>
+  <script src="marriage.js?v=c7c304a63e"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=af9c78a74f"></script>
+  <script src="quests/professor-vale.js?v=c7c304a63e"></script>
 </head>
 <body>
   <main class="workbench">
@@ -726,6 +731,7 @@
         <button class="bar-button" id="rq-house-preview">Room quest: Olivia Reid messages now (Open House)</button>
         <button class="bar-button" id="rq-hotline-preview">Room quest: the Sunfall After Dark ad in today’s paper (1-900-SUNFALL)</button>
         <button class="bar-button" id="rq-spotter-preview">Room quest: Lauren Bishop messages now (Spotter)</button>
+        <button class="bar-button" id="rq-seating-preview">Room quest: Alice Beaumont messages now (The Seating Plan)</button>
         <button class="bar-button" id="fq-postcard-preview">Her thing: Celeste Van Doren messages now (The Postcard)</button>
         <button class="bar-button" id="fq-letter-preview">Her thing: Ruth Calder messages now (The Letter)</button>
         <button class="bar-button" id="fq-count-preview">Her thing: Catherine Bell messages now (Match Point)</button>
@@ -2815,6 +2821,7 @@
         const days=st.days||[],n=st.lifeN||0;
         if(!days.length||Math.max(...days)<world.day-3||n>=life.length||st.lifeDay===world.day)continue; // only women you've been talking to
         if(st.lifeDay&&!days.some(day=>day>=st.lifeDay))continue; // you haven't talked since her last news
+        if(st.morningDay===world.day&&rqHolds(thread.id))continue; // her room quest message is her message this morning: the news can wait
         st.lifeN=n+1;st.lifeDay=world.day;st.lifeOpen=n;
         lineSpeaker=profile.id;
         thread.log.push({who:'her',text:life[n].news});
@@ -5855,17 +5862,22 @@
     // the classifieds: Candy is Jessica Rivera, which you can only tell her if you've met Jessica.
     // Lauren Bishop the spotter: three mornings on her count (safeword: protein shake). She rings you, or you
     // ring her (miss her and ring back the same day); before each set you can oink, talk back or beg, and
-    // after each one ask about her. Three asks in, you can offer to count for her instead. A woman a room
+    // after each one ask about her. Three asks in, you can offer to count for her instead. Alice Beaumont's
+    // seating plan: three mornings, a place card under your door with one of your matches on the front and
+    // your opening line on the back; tap her words in order and send it to that match word for word
+    // (safeword: centerpiece). The match may work out it was Alice. Three asks in, you write Alice's card,
+    // and she reads it at the committee luncheon with you on the phone. A woman a room
     // quest waits on turns up in your deck and likes you back. Tests switch them off with MATCH_NO_MINIS
     // unless MATCH_ALL_RQ is set.
     const rqKit=()=>characterDB?.rooms||null;
-    const RQ_IDS=['robe','openhouse','hotline','spotter'];
-    const RQ_CALLERS={'x:rq-robe':'robe','x:rq-celeste':'robe','x:rq-caroline':'openhouse','x:rq-spotter':'spotter'};
+    const RQ_IDS=['robe','openhouse','hotline','spotter','seating'];
+    const RQ_CALLERS={'x:rq-robe':'robe','x:rq-celeste':'robe','x:rq-caroline':'openhouse','x:rq-spotter':'spotter','x:rq-alice':'seating'};
     const RQ_PICS={
       robe:{table:'assets/rooms/diana-table.png'},
       openhouse:{island:'assets/rooms/olivia-island.png',bed:'assets/rooms/olivia-bed.png',tub:'assets/rooms/olivia-tub.png',closet:'assets/rooms/olivia-closet.png',master:'assets/rooms/olivia-master.png',cbed:'assets/rooms/caroline-bed.png',court:'assets/rooms/caroline-court.png'},
       hotline:{counter:'assets/rooms/jessica-counter.png'},
-      spotter:{whistle:'assets/rooms/lauren-whistle.png',bench:'assets/rooms/lauren-bench.png',floor:'assets/rooms/spotter-floor.png',bar:'assets/rooms/spotter-bar.png',count:'assets/rooms/spotter-count.png',squat:'assets/rooms/lauren-squat.png'}
+      spotter:{whistle:'assets/rooms/lauren-whistle.png',bench:'assets/rooms/lauren-bench.png',floor:'assets/rooms/spotter-floor.png',bar:'assets/rooms/spotter-bar.png',count:'assets/rooms/spotter-count.png',squat:'assets/rooms/lauren-squat.png'},
+      seating:{card:'assets/rooms/alice-card.png',chair:'assets/rooms/alice-chair.png',door:'assets/rooms/alice-door.png',table:'assets/rooms/alice-table.png',luncheon:'assets/rooms/alice-luncheon.png'}
     };
     const RQ_OVER=['done','skipped','gone'];
     // A line that changes with the difficulty is {mogger, normie, truecel}; anything else is the line.
@@ -5950,6 +5962,7 @@
     // Each morning: start what's due and move the stories on.
     function rqNewDay(){
       if(!rqKit())return;
+      if(rqs('seating')?.stage!=='cards')rqSeatingHeard(); // after the cards: what Alice heard
       for(const id of rqOn()){
         const st=rqs(id),kit=rqKit()[id];
         if(!st){if(world.day>=rqStartDay(id))rqStart(id);continue;}
@@ -5967,6 +5980,7 @@
         else if(id==='openhouse')rqHouseDay(st,kit);
         else if(id==='hotline')rqHotlineDay(st,kit);
         else if(id==='spotter')rqSpotterDay(st,kit);
+        else if(id==='seating')rqSeatingDay(st,kit);
       }
     }
     function rqAfterDayStart(){
@@ -6003,6 +6017,17 @@
         if(sp.await==='answer')for(const k of ['pretty','turn','quiet'])out.push([`rq:spotter:ans:${k}`,T.answers[k].label]);
         else if((sp.talk||0)<Math.min(3,sp.session||0)&&sp.talkDay!==world.day)out.push(['rq:spotter:talk',T.label]); // one a day, one per set you've done
       }
+      const se=rqs('seating'),SK=kit.seating;
+      if(se&&SK&&se.stage!=='gone'){
+        if(se.host===profile.id&&!se.quit){
+          if(se.stage==='cards')out.push(['rq:seating:safe',SK.choices.safe]);
+          if(se.await==='answer')for(const k of ['seat','kind','quiet'])out.push([`rq:seating:ans:${k}`,SK.talk.answers[k].label]);
+          else if(se.await==='write')for(const k of Object.keys(SK.turn.cards))out.push([`rq:seating:write:${k}`,SK.turn.cards[k].label]);
+          else if((se.talk||0)<Math.min(3,se.card||0)&&se.talkDay!==world.day)out.push(['rq:seating:talk',SK.talk.label]); // one a day, one per card you've sent
+        }
+        if(se.stage==='cards'&&se.target===profile.id&&!se.sent&&!thread.blocked)out.push(['rq:seating:read',SK.read]); // the woman on today's card
+        if(se.out===profile.id&&!thread.blocked)for(const k of ['admit','deny'])out.push([`rq:seating:out:${k}`,SK.out[k].label]); // she worked out it was Alice
+      }
       const h=rqs('openhouse');
       if(h?.stage==='dare'&&h.host===profile.id&&h.await==='pick')for(const spot of ['bed','tub','closet'].filter(s=>!(h.seen||[]).includes(s)))out.push([`rq:openhouse:pick:${spot}`,kit.openhouse.pick.label[spot]]);
       if(h?.stage==='rematch'){
@@ -6022,6 +6047,7 @@
         if(id==='robe')Object.assign(st,{stage:'calls',call:0,nextCall:world.day,right:0});
         if(id==='openhouse')Object.assign(st,{stage:'dare',seen:[],dareDay:world.day+1,await:''});
         if(id==='spotter')Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
+        if(id==='seating')Object.assign(st,{stage:'cards',card:0,cardDay:world.day+1,parcelDay:world.day+1,missed:0,perfect:0,seated:[]});
         return say(kit.yes.player,fillIn(rqT(kit.yes.reply),{number:thread.number||''}),()=>ensureCallSchedule());
       }
       if(id==='spotter'&&st.host===profile.id&&kit.talk&&!st.quit){
@@ -6036,6 +6062,7 @@
           return say(a.player,rqT(a.reply),()=>{if(arg==='pretty')warmBy(thread,1);if(arg==='turn')ensureCallSchedule();});
         }
       }
+      if(id==='seating')return rqSeatChoose(act,arg,thread,profile,say);
       if(id==='openhouse'&&act==='pick'&&st.stage==='dare'&&st.await==='pick'&&['bed','tub','closet'].includes(arg)&&!st.seen.includes(arg)){
         st.await='';st.next=arg;st.dareDay=world.day+1;
         return say(kit.pick.player[arg],kit.pick.reply);
@@ -6182,6 +6209,8 @@
       if(h?.stage==='twist'&&h.callDay!==world.day&&world.day>=h.twistDay)return 'x:rq-caroline';
       if(s?.stage==='sessions'&&s.callDay!==world.day&&world.day>=s.nextCall&&s.session<3&&rqThread('spotter'))return 'x:rq-spotter';
       if(s?.turn==='asked'&&s.stage!=='gone'&&s.callDay!==world.day&&world.day>=s.turnDay&&rqThread('spotter'))return 'x:rq-spotter'; // you count for her
+      const a=rqs('seating');
+      if(a?.turn==='asked'&&a.stage!=='gone'&&a.callDay!==world.day&&world.day>=a.turnDay&&rqThread('seating'))return 'x:rq-alice'; // she reads your card at the luncheon
       return null;
     }
     function rqRang(id){const st=rqs(RQ_CALLERS[id]);if(st)st.callDay=world.day;}
@@ -6193,6 +6222,7 @@
         else{call.phase='cue';call.cue=Math.min(2,st.call-1);call.said=kit.cues[call.cue].said;}
       }else if(id==='x:rq-celeste'){st.celesteKnown=true;call.phase='celeste';call.said=rqT(kit.celeste.open);}
       else if(id==='x:rq-caroline'){st.carolineKnown=true;st.still=true;call.phase='caroline';call.said=rqT(kit.caroline.open);}
+      else if(id==='x:rq-alice'){const t=rqThread('seating');if(t)t.calledDay=world.day;call.phase='luncheon';call.said=fillIn(rqT(kit.turn.open),{line:kit.turn.cards[st.turnLine]?.line||''});}
       else{
         const t=rqThread('spotter');if(t)t.calledDay=world.day;
         if(st.stage==='sessions'&&st.session<3){const sess=kit.sessions[st.session];call.phase='session';call.said=sess.move==='pull'&&!st.bar?sess.noBar:rqT(sess.open);}
@@ -6217,6 +6247,7 @@
       }
       if(call.phase==='pitch')return [{id:'rq:yes',label:kit.yes.label},{id:'rq:no',label:kit.no.label}];
       if(call.phase==='turn')return ['go','hang'].map(k=>({id:'rq:'+k,label:kit.turn.choices[k]}));
+      if(call.phase==='luncheon')return ['well','again','hang'].map(k=>({id:'rq:'+k,label:kit.turn.choices[k]}));
       return [{id:'hangup',label:'☎ Hang up'}];
     }
     function rqChooseCall(call,choice){
@@ -6263,6 +6294,16 @@
         if(thread)warmBy(thread,1);
         call.said=rqT(kit.ring.yes);ensureCallSchedule();return done();
       }
+      if(call.phase==='luncheon'){ // Alice reads your card to the committee
+        const T=kit.turn,p=hingeProfile(st.host);
+        if(choice==='rq:hang'){st.turn='off';if(thread){lineSpeaker=st.host;herLine(thread,T.hang);warmBy(thread,-1);}endHerCall();saveRun(true);return;}
+        const again=choice==='rq:again';
+        call.said=fillIn(rqT(again?T.again:T.well),{line:T.cards[st.turnLine]?.line||''});
+        st.turn='done';st.turnDone=world.day;
+        if(thread){warmBy(thread,2);heatBy(thread,again?3:2);lineSpeaker=st.host;rqPicture(thread,p,RQ_PICS.seating.luncheon,rqT(kit.picture.luncheon));}
+        noteEnding('rq:seating:turn',`You seated ${p?.name||'Alice'}.`);
+        return done();
+      }
       if(call.phase==='turn'){
         if(choice==='rq:hang'){st.turn='off';if(thread){lineSpeaker=st.host;herLine(thread,kit.turn.hang);warmBy(thread,-1);}endHerCall();saveRun(true);return;}
         endHerCall();rqTurnStart();return;
@@ -6291,6 +6332,7 @@
         if(st.celesteMissed>=2)Object.assign(st,{stage:'after',after:'not',afterDay:world.day+1});
       }
       else if(id==='x:rq-caroline'){Object.assign(st,{stage:'rival',rivalDay:world.day,still:true,carolineKnown:true});deckSoon(st.rival,'rq');rqHeard(st);strangerVoicemail(kit.caroline.name,kit.caroline.vm);}
+      else if(id==='x:rq-alice'){st.turnMissed=(st.turnMissed||0)+1;st.turnDay=world.day+1;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',kit.turn.missedVm);if(st.turnMissed>=2)st.turn='off';}
       else if(st.stage==='sessions'&&st.session<3){st.owed=world.day;st.nextCall=world.day;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',rqT(kit.missedVm));} // ring her back today or it counts
       else if(st.turn==='asked'){st.turnMissed=(st.turnMissed||0)+1;st.turnDay=world.day+1;strangerVoicemail(hingeProfile(st.host)?.name||'Unknown number',kit.turn.missedVm);if(st.turnMissed>=2)st.turn='off';}
       saveRun(true);
@@ -6426,6 +6468,162 @@
       noteEnding('rq:spotter:turn',`You counted for ${p?.name||'Lauren'}.`);
       invasionTimers.push(window.setTimeout(()=>{clearInvasion();saveRun(true);},3000));
     }
+    // ----- Alice's seating plan: a card a morning, read to the match on it, word for word
+    function rqSeatingDay(st,kit){
+      if(st.stage!=='cards')return;
+      const t=rqThread('seating'),p=hingeProfile(st.host);
+      if(!t){st.stage='done';return;}
+      lineSpeaker=st.host;
+      if(st.target&&!st.sent&&!rqThread('seating',st.target))delete st.target; // she blocked you first: a new card, no harm done
+      if(st.target&&!st.sent&&world.day>st.cardDay){ // you never read it to her
+        delete st.target;st.missed=(st.missed||0)+1;
+        if(st.missed>=2){herLine(t,kit.quit);Object.assign(st,{stage:'done',quit:true});warmBy(t,-1);rqSpoke(t);return;}
+        herLine(t,kit.missed);
+      }
+      if(st.target&&st.sent){ // how it landed
+        herLine(t,rqT(kit.verdict[st.result]));
+        if(st.result==='perfect'){warmBy(t,1);heatBy(t,1);if(st.perfect===1&&!st.doorSent){st.doorSent=true;rqPicture(t,p,RQ_PICS.seating.door,rqT(kit.picture.door));}}
+        delete st.target;delete st.result;st.sent=false;
+        rqSeatingHeard();
+        if(st.card>=3){rqPicture(t,p,RQ_PICS.seating.table,rqT(kit.picture.table));herLine(t,rqT(kit.end));st.stage='done';rqSpoke(t);return;}
+      }else rqSeatingHeard();
+      if(st.card<3&&!st.target&&world.day>=st.cardDay){
+        const pick=rqSeatPick(st);
+        if(!pick){st.none=(st.none||0)+1;if(st.none>=3){herLine(t,kit.noneQuit);st.stage='done';}else herLine(t,kit.none);rqSpoke(t);return;}
+        st.seated=(st.seated||[]).slice(0,st.card);st.seated.push(pick.id);
+        Object.assign(st,{target:pick.id,cardDay:world.day,sent:false});
+        herLine(t,fillIn(rqT(kit.morning[st.card]),{first:firstName(hingeProfile(pick.id))}));
+      }
+      rqSpoke(t);
+    }
+    // Alice always seats you beside the woman you like most.
+    function rqSeatPick(st){
+      const seated=new Set(st.seated||[]);
+      return [...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==st.host&&!seated.has(t.id)&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id;})
+        .sort((a,b)=>warmthOf(b)-warmthOf(a)||hashSeed(world.seed+'|seat|'+a.id)-hashSeed(world.seed+'|seat|'+b.id))[0]||null;
+    }
+    function rqSeatingHeard(){
+      const st=rqs('seating'),kit=rqKit()?.seating;
+      if(!st||!kit||!st.heard||world.day<(st.heardDay||0)||st.stage==='gone')return;
+      const t=rqThread('seating');
+      if(t){lineSpeaker=st.host;herLine(t,rqT(kit.heard[st.heard]));if(st.heard!=='deny')heatBy(t,1);rqSpoke(t);}
+      delete st.heard;delete st.heardDay;
+    }
+    function rqSeatChoose(act,arg,thread,profile,say){
+      const kit=rqKit().seating,st=rqs('seating'),T=kit.talk;
+      if(profile.id===st.host&&!st.quit){
+        if(act==='safe'&&st.stage==='cards'){st.stage='done';delete st.target;warmBy(thread,1);return say(kit.player.safe,kit.safe);} // she stops, every time
+        if(act==='talk'&&!st.await&&(st.talk||0)<Math.min(3,st.card||0)&&st.talkDay!==world.day){
+          const n=st.talk||0;st.talk=n+1;st.talkDay=world.day;if(n===2)st.await='answer';
+          return say(T.player[n],T.reply[n],()=>warmBy(thread,1));
+        }
+        if(act==='ans'&&st.await==='answer'&&T.answers[arg]){const a=T.answers[arg];st.await=arg==='seat'?'write':'';return say(a.player,rqT(a.reply),()=>{if(arg==='kind')warmBy(thread,1);});}
+        if(act==='write'&&st.await==='write'&&kit.turn.cards[arg]){
+          Object.assign(st,{await:'',turn:'asked',turnLine:arg,turnDay:world.day+1,turnMissed:0});
+          return say(fillIn(kit.turn.player,{line:kit.turn.cards[arg].line}),rqT(kit.turn.wrote),()=>ensureCallSchedule());
+        }
+      }
+      if(act==='read'&&st.stage==='cards'&&st.target===profile.id&&!st.sent)return rqSeatStart(thread,profile);
+      if(act==='out'&&st.out===profile.id&&kit.out[arg])return rqSeatOut(arg,thread,profile);
+    }
+    // Tap her words in the order she wrote them before the clock runs out. Whatever you tapped is what she gets.
+    let rqSeat=null;
+    function rqSeatStart(thread,profile){
+      const kit=rqKit().seating,st=rqs('seating'),i=st.card,chunks=kit.lines[i];
+      if(!chunks||rqSeat)return;
+      const order=chunks.map((_,k)=>k).sort((a,b)=>hashSeed(world.seed+'|seatmix|'+i+'|'+a)-hashSeed(world.seed+'|seatmix|'+i+'|'+b));
+      if(order.every((k,j)=>k===j))order.reverse(); // never already in order
+      const dieCard=hashSeed(world.seed+'|rqchair')%3===0?1+hashSeed(world.seed+'|rqchaircard')%2:-1; // her chair, on card two or three: no warning
+      rqSeat={id:thread.id,card:i,order,typed:[],open:false,start:0,ms:Math.round(({truecel:8000,normie:9500,mogger:11000}[tone()]??9500)*(st.chair?1.3:1)),dieAt:st.chair&&i===dieCard?2+hashSeed(world.seed+'|rqchairat')%2:-1};
+      playScene([{image:st.chair?RQ_PICS.seating.chair:RQ_PICS.seating.card,stand:'room',caption:fillIn(kit.scene[st.chair?'chair':'desk'],{first:firstName(profile)})}],()=>rqSeatOpen(),{keep:true,gap:1700});
+    }
+    function rqSeatOpen(){
+      const run=rqSeat;
+      if(!run)return;
+      run.open=true;run.start=Date.now();qteOpen=true;
+      rqSeatRender();
+      window.clearTimeout(qteTimer);
+      qteTimer=window.setTimeout(rqSeatFinish,run.ms);
+      invasionTimers.push(qteTimer);
+    }
+    function rqSeatRender(){
+      const run=rqSeat,kit=rqKit().seating,q=$('qte');
+      if(!run||!q)return;
+      const chunks=kit.lines[run.card],left=run.order.filter(k=>!run.typed.includes(k)),spent=run.start?Date.now()-run.start:0;
+      q.className='qte choices seat';q.hidden=false;
+      q.innerHTML=`<div class="seat-clock" style="--t:${run.ms}ms;--spent:-${spent}ms"><i></i></div>`+left.map(k=>`<button data-seat="${k}">${esc(chunks[k])}</button>`).join('');
+      q.onpointerdown=event=>{const b=event.target?.closest?.('[data-seat]');if(!b)return;event.preventDefault?.();rqSeatTap(Number(b.dataset.seat));};
+      $('invasion-caption').textContent=run.typed.length?run.typed.map(k=>chunks[k]).join(' '):kit.hint;
+    }
+    function rqSeatClose(){window.clearTimeout(qteTimer);closeQte();const q=$('qte');if(q)q.onpointerdown=null;}
+    function rqSeatTap(k){
+      const run=rqSeat;
+      if(!run||!run.open||!run.order.includes(k)||run.typed.includes(k))return;
+      run.typed.push(k);
+      playUiSound(240+run.typed.length*20);
+      if(run.typed.length===run.dieAt){run.open=false;rqSeat=null;rqSeatClose();invasionTimers.push(window.setTimeout(()=>{clearInvasion();rqDeath('seating');},700));return;}
+      if(run.typed.length>=run.order.length)return rqSeatFinish();
+      rqSeatRender();
+    }
+    function rqSeatFinish(){
+      const run=rqSeat,kit=rqKit()?.seating;
+      if(!run||!run.open||!kit)return;
+      run.open=false;rqSeat=null;
+      rqSeatClose();
+      const chunks=kit.lines[run.card],perfect=run.typed.length===chunks.length&&run.typed.every((k,j)=>k===j);
+      $('invasion-caption').textContent=kit.sent[perfect?'perfect':'sloppy'];
+      invasionTimers.push(window.setTimeout(()=>{clearInvasion();rqSeatSent(run,perfect);setLowered(false);hingeView='thread';activeChatId=run.id;openApp('hinge');},1600));
+    }
+    // How she takes it depends on her (her dominance and kink scores) and on how she sees you.
+    function rqSeatReaction(id,perfect){
+      if(!perfect)return 'garbled';
+      const [dom,kink]=thingScores(id);
+      let r=dom>=4?'into':dom===3||kink>=4?'laugh':'cold';
+      if(tone()==='mogger'&&r==='cold')r='laugh';
+      if(tone()==='truecel'&&r==='laugh')r='cold';
+      return r;
+    }
+    function rqSeatSent(run,perfect){
+      const kit=rqKit().seating,st=rqs('seating'),thread=hingeThreads.get(run.id),profile=hingeProfile(run.id);
+      if(!st||!thread||!profile)return;
+      const chunks=kit.lines[run.card],text=run.typed.map(k=>chunks[k]).join(' ')||'...';
+      Object.assign(st,{sent:true,result:perfect?'perfect':'sloppy',card:run.card+1});
+      if(perfect)st.perfect=(st.perfect||0)+1;
+      thread.log.push({who:'you',text});
+      const kind=rqSeatReaction(profile.id,perfect),cut=kind==='cold'&&tone()==='truecel';
+      const found=!cut&&(run.card===2||hashSeed(world.seed+'|seatfound|'+run.card+'|'+run.id)%3===0); // the third card all but names her
+      const lines=[kit.react[run.card][kind]];
+      if(found)lines.push(run.card===2?kit.found.who:variedPick(kit.found.ask,profile.id+'|seatfound'));
+      if(found)st.out=profile.id;
+      lineSpeaker=profile.id;
+      deliverTalk(thread,profile,lines,'talk',()=>{
+        if(kind==='into'){warmBy(thread,1);heatBy(thread,1);}
+        else warmBy(thread,kind==='cold'?-2:-1);
+        if(cut){herLine(thread,kit.block,{block:true});thread.blocked=true;}
+        if(found)noteEnding('rq:seating:caught','She worked out it was Alice.');
+      },true);
+      saveRun(true);
+    }
+    // She worked out it was Alice: own up, or say it was all you.
+    function rqSeatOut(arg,thread,profile){
+      const kit=rqKit().seating,st=rqs('seating'),O=kit.out[arg];
+      delete st.out;
+      thread.log.push({who:'you',text:O.player});
+      lineSpeaker=profile.id;
+      let reply,after;
+      if(arg==='admit'){
+        const join=thingScores(profile.id)[0]>=4; // a dominant one wants a pen of her own
+        reply=join?O.join:O.pity;st.heard=join?'join':'pity';
+        after=()=>{warmBy(thread,1);if(join)heatBy(thread,1);};
+      }else{
+        const cruel=tone()==='truecel';
+        reply=O.reply;st.heard='deny';
+        after=()=>{warmBy(thread,-2);if(cruel){herLine(thread,kit.block,{block:true});thread.blocked=true;}};
+        if(!st.news){st.news=true;queueNews({id:'rq_seating_opener',...kit.news,image:'society_club',fallbackImage:'charity_gala'},world.day+1);} // the club passes it round
+      }
+      st.heardDay=world.day+1;
+      deliverTalk(thread,profile,[reply],'talk',after,true);
+    }
     // ----- things on your doorstep
     function rqItems(){
       const kit=rqKit(),out=[];
@@ -6435,12 +6633,16 @@
       if(r&&Number.isInteger(r.ribbonDay)&&world.day>=r.ribbonDay)out.push({id:'rq:ribbon',door:true,floor:'envelope',label:kit.robe.celeste.ribbon.label,short:'Ribbon',image:'assets/items/blue-ribbon-card.png',text:kit.robe.celeste.ribbon.text});
       if(h?.still)out.push({id:'rq:still',door:true,floor:'letter',label:kit.openhouse.caroline.still.label,short:'Still',image:'assets/items/cctv-still.png',text:kit.openhouse.caroline.still.text});
       if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:null,text:kit.hotline.bill.text});
+      const a=rqs('seating'),A=kit.seating;
+      if(a&&A&&Number.isInteger(a.parcelDay)&&world.day>=a.parcelDay)out.push({id:'rq:chair',door:true,floor:'parcel',label:A.parcel.label,short:'Gilt chair',image:'assets/items/alice-chair.png',text:A.parcel.text,actions:a.chair?[]:[{id:'rq:seating:sit',label:A.parcel.sit.label}]});
+      if(a&&A)(a.seated||[]).forEach((who,i)=>{const first=firstName(hingeProfile(who))||'Her';out.push({id:'rq:card'+i+':'+who,door:true,floor:'envelope',label:fillIn(A.card.label,{first}),short:'Place card',image:'assets/items/place-card.png',text:fillIn(A.card.text,{first,line:(A.lines[i]||[]).join(' ')})});});
       if(s&&Number.isInteger(s.parcelDay)&&world.day>=s.parcelDay)out.push({id:'rq:spotter',door:true,floor:'shoebox',label:kit.spotter.parcel.label,short:'Pig nose',image:'assets/items/lauren-box.png',text:kit.spotter.parcel.text,actions:[...(s.nose?[]:[{id:'rq:spotter:nose',label:kit.spotter.parcel.nose.label}]),...(s.bar?[]:[{id:'rq:spotter:bar',label:kit.spotter.parcel.bar.label}])]});
       return out;
     }
     function rqCupAct(act){
-      const kit=rqKit(),r=rqs('robe'),s=rqs('spotter');
-      if(act==='rq:robe:wear'&&r){r.wearing=true;showGameNotice(rqT(kit.robe.parcel.wear.notice));}
+      const kit=rqKit(),r=rqs('robe'),s=rqs('spotter'),a=rqs('seating');
+      if(act==='rq:seating:sit'&&a){a.chair=true;showGameNotice(rqT(kit.seating.parcel.sit.notice));}
+      else if(act==='rq:robe:wear'&&r){r.wearing=true;showGameNotice(rqT(kit.robe.parcel.wear.notice));}
       else if(act==='rq:spotter:nose'&&s){s.nose=true;showGameNotice(rqT(kit.spotter.parcel.nose.notice));}
       else if(act==='rq:spotter:bar'&&s){s.bar=true;showGameNotice(kit.spotter.parcel.bar.notice);}
       else return;
@@ -8109,6 +8311,9 @@
       death('Room quests','KILLED',rqKit()?.robe?.celeste?.deathCause);
       death('Room quests','KILLED',rqKit()?.spotter?.deathCause);
       add('Room quests','rq:spotter:turn','You counted for Lauren');
+      death('Room quests','KILLED',rqKit()?.seating?.deathCause);
+      add('Room quests','rq:seating:caught','She worked out it was Alice');
+      add('Room quests','rq:seating:turn','You seated Alice');
       for(const q of Object.values(fqKit()||{}))death('Her thing','KILLED',q?.deathCause);
       add('Weddings','win:marriage','Married a Sister of Mercy');
       add('Weddings','win:thunderbirds','Married into the Bluebirds');
@@ -10039,6 +10244,7 @@
     $('rq-house-preview').onclick=()=>rqTestStart('openhouse');
     $('rq-hotline-preview').onclick=()=>rqTestStart('hotline');
     $('rq-spotter-preview').onclick=()=>rqTestStart('spotter');
+    $('rq-seating-preview').onclick=()=>rqTestStart('seating');
     $('fq-postcard-preview').onclick=()=>fqTestStart('postcard');
     $('fq-letter-preview').onclick=()=>fqTestStart('letter');
     $('fq-count-preview').onclick=()=>fqTestStart('count');

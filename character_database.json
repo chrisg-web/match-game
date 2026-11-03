@@ -31157,6 +31157,293 @@
         "She was still counting when the line went quiet.",
         "Five was always going to be one too many."
       ]
+    },
+    "seating": {
+      "title": "The Seating Plan",
+      "host": "MATCH-042",
+      "hook": {
+        "normie": "I’m going to be direct, because I always am. I arrange people. Who sits beside whom at every dinner this club gives, and who leaves with whom. I’ve been watching your matches, and I want to arrange you. Every morning I choose one of your women and write the first thing you say to her. You send it word for word. Interested?",
+        "mogger": "Pretty, popular, and nobody has ever once told you what to say. I arrange people. Who sits where, who leaves with whom. I want to arrange you. Every morning I pick one of your women and write your opening line, and you send it, word for word. You’ll hate it. Say yes.",
+        "truecel": "Nobody has ever written your lines for you. That’s obvious from your profile. I arrange people, more or less for a living. Every morning I’d pick one of your matches and write what you say to her, and you send it word for word. It can’t go worse than your own material. Yes?"
+      },
+      "yes": {
+        "label": "Tell her to seat you",
+        "player": "Seat me.",
+        "reply": {
+          "normie": "Rules. Three mornings. A card under your door, her name on the front and your line on the back. You send it word for word, no edits, no little faces. I’ll know. If it’s ever too much, say the safeword, centerpiece, and I stop, every time. Tomorrow, then.",
+          "mogger": "Rules. Three mornings. A card under your door, her name on the front and your line on the back. You send it word for word, no edits. I’ll know. If it’s ever too much, say the safeword, centerpiece, and I stop, every time. Good boy.",
+          "truecel": "Rules. Three mornings. A card under your door, her name on the front and your line on the back. You send it word for word, no edits. I’ll know. If it’s ever too much, say the safeword, centerpiece, and I stop, every time. Try not to embarrass me. Actually, do. That’s the point."
+        }
+      },
+      "no": {
+        "label": "Tell her no thanks",
+        "player": "I’ll write my own lines, thanks.",
+        "reply": {
+          "normie": "Of course you will. I’ve read them. Good luck.",
+          "mogger": "Pity. You’d have looked lovely humiliated.",
+          "truecel": "Bold, given the material. Never mind."
+        }
+      },
+      "parcel": {
+        "label": "Alice’s parcel: a gilt chair",
+        "text": "A gilt ballroom chair from the club’s store, wrapped in a moving blanket, red velvet seat, a brass number screwed underneath. A card tied to the back in her hand: SIT HERE WHEN YOU SEND THEM. I SEAT EVERYONE. A.B.",
+        "sit": {
+          "label": "🪑 Sit in her chair",
+          "notice": {
+            "normie": "Gilt and red velvet, absurd next to your bed. You sit. You feel seated.",
+            "mogger": "Gilt and red velvet. You sit in it like a prince. It doesn’t feel like a throne. It feels like a place card.",
+            "truecel": "Gilt and red velvet, the nicest thing in your room, and it isn’t yours. You sit."
+          }
+        }
+      },
+      "card": {
+        "label": "Alice’s place card: {first}",
+        "text": "Heavy cream card, gilt edge, her handwriting. On the front: {first}. On the back: {line}"
+      },
+      "morning": [
+        {
+          "normie": "Card one is under your door. You’re seated beside {first}. Read it to her word for word. No edits. I’ll know.",
+          "mogger": "Card one is under your door, pretty boy. You’re seated beside {first}. Word for word. I’ll know.",
+          "truecel": "Card one is under your door. {first} gets you today. Poor thing. Word for word. I’ll know."
+        },
+        {
+          "normie": "Card two. {first} today. This one is worse. Sit up straight.",
+          "mogger": "Card two. {first}. This one will cost you, pretty boy. Sit up straight.",
+          "truecel": "Card two. {first}. This one is worse, which, for you, is quite something."
+        },
+        {
+          "normie": "The last card. {first}. I saved the best one for her. Word for word, darling.",
+          "mogger": "The last card. {first}. I saved the best one for you, pretty boy.",
+          "truecel": "The last card. {first}. I saved the best one. Brace."
+        }
+      ],
+      "none": "You have nobody worth seating. Match someone, darling, and I’ll seat you tomorrow.",
+      "noneQuit": "Still nobody. I can’t seat an empty table. Come back when you have a life.",
+      "lines": [
+        [
+          "Before this goes anywhere,",
+          "you should know",
+          "I practice kissing",
+          "on the back of my hand,",
+          "and the hand is not impressed."
+        ],
+        [
+          "I should be honest.",
+          "I’m very small,",
+          "very eager,",
+          "and I’m always finished",
+          "before the song is."
+        ],
+        [
+          "A woman chooses where I sit,",
+          "what I say,",
+          "and who I say it to.",
+          "I do as I’m told.",
+          "Today she chose you."
+        ]
+      ],
+      "read": "📇 Read her Alice’s card",
+      "scene": {
+        "desk": "At your desk, Alice’s card propped against the lamp and {first}’s chat open. Tap her words in the order she wrote them.",
+        "chair": "Bolt upright in Alice’s gilt chair, her card on your knee and {first}’s chat open. Tap her words in the order she wrote them."
+      },
+      "hint": "Word for word. Tap them in order.",
+      "sent": {
+        "perfect": "Sent. Word for word.",
+        "sloppy": "Sent. That was not word for word."
+      },
+      "react": [
+        {
+          "into": "The back of your hand. Okay. Tomorrow you practice on mine, and I tell you everything you’re doing wrong.",
+          "laugh": "I just snorted coffee onto my phone. The hand is not impressed. I’m going to think about that all day.",
+          "cold": "Okay. I’m going to need a minute. Possibly several years.",
+          "garbled": "Are you okay? Those were all the right words in a frightening order."
+        },
+        {
+          "into": "Small, eager and quick. Honestly? I could do a lot with that. You’d have to ask very nicely.",
+          "laugh": "Before the song is. I’m crying. Which song? I need to know which song.",
+          "cold": "Why would you tell me that. Why would anyone tell anyone that.",
+          "garbled": "I read that four times. I think you just confessed to something, but I can’t tell what."
+        },
+        {
+          "into": "Someone chooses what you say. Oh, I like that very much.",
+          "laugh": "I’m sorry, what? You have a handler?",
+          "cold": "That is the creepiest thing a man has ever sent me, and I once dated a taxidermist.",
+          "garbled": "I don’t know who chose me, but she’d be disappointed in the delivery."
+        }
+      ],
+      "block": "Blocking you. Nothing personal. Actually, very personal.",
+      "found": {
+        "ask": [
+          "Wait. That isn’t how you talk. That’s Alice Beaumont. She seats people. She did this to my cousin at a wedding. Did Alice put you up to this?",
+          "Hang on. A gilt-edged card, word for word? That’s Alice Beaumont’s game. Half the club has had one. Did she make you send that?",
+          "I know that phrasing. That’s an Alice Beaumont card. She made my ex read one out at the summer dinner. Was it her?"
+        ],
+        "who": "Who is she? Who chose me? Tell me her name."
+      },
+      "out": {
+        "admit": {
+          "label": "Tell her Alice made you",
+          "player": "It was Alice Beaumont. She makes me send them, word for word.",
+          "join": "Alice. Of course it was. Tell her I want to write the next one. I have ideas. Most of them are about you.",
+          "pity": "Oh, you poor thing. She does this. I’m not angry with you. I am going to ring her, though."
+        },
+        "deny": {
+          "label": "Say it was all you",
+          "player": "Nobody made me. That was all me.",
+          "reply": "All you. Wow. Okay. I’m sending this to the group chat, for science."
+        }
+      },
+      "heard": {
+        "join": {
+          "normie": "She came to me. She wants to write one of your cards. I’ve never shared my pen with anyone. I said yes before I could stop myself.",
+          "mogger": "She came to me, pretty boy. She wants a pen too. I’ve never shared one. I’m considering it, which is new.",
+          "truecel": "She came to me wanting a pen. For you. I have no idea what you did, but I’m impressed."
+        },
+        "pity": {
+          "normie": "She rang me and called me a monster. Twenty minutes. I lay on the chaise and listened to every word. Best phone call of my year.",
+          "mogger": "She rang me to call me a monster, on your behalf. You inspire loyalty, pretty boy. Irritating.",
+          "truecel": "She rang me to call me a monster for what I did to you. Somebody defended you. Write that down somewhere."
+        },
+        "deny": {
+          "normie": "You kept my name out of it. Loyal. Wrong, but loyal. The whole club is reading your opener now, by the way.",
+          "mogger": "You kept my name out of it, pretty boy. Now everyone thinks you wrote it. Delicious.",
+          "truecel": "You told her you wrote it yourself. She believed you, which says everything. The club is passing it round."
+        }
+      },
+      "news": {
+        "section": "Society",
+        "title": "Sunfall’s Strangest Opener",
+        "summary": "A man is sending women lines nobody would write for themselves.",
+        "body": "The club’s younger members are passing round screenshots of a dating app conversation that opens with a confession nobody asked for. The sender insists he wrote it himself. Nobody believes him. One committee member, asked whether she recognized the style, smiled and said she couldn’t possibly comment."
+      },
+      "verdict": {
+        "perfect": {
+          "normie": "Word for word. She read it twice. Don’t ask how I know. Good boy.",
+          "mogger": "Word for word, pretty boy. I could feel her face from across town.",
+          "truecel": "Word for word. I genuinely didn’t think you’d manage it. Gold star."
+        },
+        "sloppy": {
+          "normie": "That was not word for word. I can always tell. A card is a promise, darling, and you mumbled mine.",
+          "mogger": "That was not word for word. Pretty doesn’t cover a mumble.",
+          "truecel": "That was not word for word. You couldn’t even humiliate yourself properly."
+        }
+      },
+      "missed": "You never read her my card. She’s still sitting there, waiting for a line that never came. Once more and I stop seating you.",
+      "quit": "Twice. I don’t seat men who won’t sit where they’re put. Off you go.",
+      "end": {
+        "normie": "Three cards. Three women who will never look at you the same way. You were my favorite table this year.",
+        "mogger": "Three cards, pretty boy. Three women who used to think you were perfect. My favorite table this year.",
+        "truecel": "Three cards. You did every one. Nobody has ever done everything I said. My favorite table this year."
+      },
+      "picture": {
+        "door": {
+          "normie": "The ballroom door at the end of the night. This is where I watch from. Now you know.",
+          "mogger": "Where I watch from. Now you know where to find me, pretty boy.",
+          "truecel": "Where I watch from. Don’t get ideas. Get some ideas."
+        },
+        "table": {
+          "normie": "My seating plan for the summer dinner. Look who’s beside me.",
+          "mogger": "My summer dinner. Look who’s beside me. Don’t let it go to your head.",
+          "truecel": "My summer dinner. Look who’s beside me. Nobody is more surprised than I am."
+        },
+        "luncheon": {
+          "normie": "Proof. The card, the luncheon, my face. Don’t show anyone. Show everyone.",
+          "mogger": "Proof. Look at my face. You did that, pretty boy.",
+          "truecel": "Proof. My face. Twelve women saw it. You did that from your bedroom."
+        }
+      },
+      "choices": {
+        "safe": "Say the safeword: centerpiece"
+      },
+      "player": {
+        "safe": "Centerpiece."
+      },
+      "safe": "Centerpiece. Then we stop, right now, and nobody gets a card. You did exactly right saying it. I mean that. I’ll still seat you somewhere nice one day.",
+      "talk": {
+        "label": "Ask about her",
+        "player": [
+          "Why do you do this, Alice?",
+          "Do you ever join in?",
+          "Who seats you, Alice?"
+        ],
+        "reply": [
+          "Honoria Blackwood seated this club for twenty years, and I carried her place cards. The night she took ill, I picked up her pen and found out it’s the only thing in that building with any power. I haven’t put it down since.",
+          "Never. I stand at the ballroom door at the end of the night and watch the pairs leave. That’s mine. The moment two people work out that somebody else chose this for them, and go anyway.",
+          "Nobody. Nobody would dare. I’ve sat at the head of every table since Honoria took ill. I always know exactly where I’m sitting. Do you have any idea how tired that makes a person?"
+        ],
+        "answers": {
+          "seat": {
+            "label": "Tell her you’ll write her card",
+            "player": "Then I write yours. One card. You read it out loud wherever I put you.",
+            "reply": {
+              "normie": "You? Write mine? Nobody has ever. Fine. One card. I’ll read it at the committee luncheon, out loud, in front of all of them. Write it now, before I change my mind.",
+              "mogger": "Bossy. I didn’t know pretty boys could hold a pen. Fine. One card. I read it at the committee luncheon, out loud. Write it now.",
+              "truecel": "You want to write me a card. Okay. One. I’ll read it at the committee luncheon in front of every woman who matters in this town. Write it now, before I come to my senses."
+            }
+          },
+          "kind": {
+            "label": "Tell her that sounds lonely",
+            "player": "That sounds lonely, Alice.",
+            "reply": "It is. Don’t you dare be kind to me about it. Tomorrow, darling."
+          },
+          "quiet": {
+            "label": "Say nothing",
+            "player": "Okay.",
+            "reply": "Good. We don’t discuss it. Tomorrow, darling."
+          }
+        }
+      },
+      "turn": {
+        "cards": {
+          "crush": {
+            "label": "Her card: she has a crush",
+            "line": "Ladies, I have been asked to tell you that I have a crush, that he made me say so, and that I am blushing."
+          },
+          "charge": {
+            "label": "Her card: she isn’t in charge",
+            "line": "I am not in charge of anything today. A man none of you have met chose where I sit and what I say, and I am letting him."
+          },
+          "wine": {
+            "label": "Her card: it isn’t the wine",
+            "line": "I have been instructed to tell the committee that I am very warm, and that it is not the wine."
+          }
+        },
+        "player": "Your card says: {line}",
+        "wrote": {
+          "normie": "Done. Tomorrow, at the luncheon. I’ll ring you from the table so you hear every word. I hate you a little.",
+          "mogger": "Done. Tomorrow, at the luncheon, pretty boy. I’ll ring you from the table. I hate you a little.",
+          "truecel": "Done. Tomorrow, at the luncheon. I’ll ring you from the table. If you laugh, I’ll know."
+        },
+        "open": {
+          "normie": "It’s me. I’m at the luncheon. The phone is face up by my water glass and twelve women are looking at me. I’m standing up. Here it is. {line} They’re staring. Say something.",
+          "mogger": "It’s me. The luncheon. Phone by my glass, twelve women watching. I’m standing. {line} There. Say something, pretty boy.",
+          "truecel": "It’s me. The luncheon. Twelve women, one phone, and your card. I’m standing. {line} Nobody is breathing. Say something."
+        },
+        "choices": {
+          "well": "Tell her she did well",
+          "again": "Make her read it again",
+          "hang": "Hang up"
+        },
+        "well": {
+          "normie": "They clapped. Celeste Van Doren clapped. I’ve sat down and my face is on fire. Nobody has ever put me anywhere. Thank you.",
+          "mogger": "They clapped, pretty boy. Celeste Van Doren clapped. My face is on fire. Thank you.",
+          "truecel": "They clapped. For me, for your card. My face is on fire. You did that from your bedroom. Thank you."
+        },
+        "again": {
+          "normie": "Again? In front of. Fine. I’m standing back up. {line} There. Celeste has dropped her fork. I have never been so seen in my life. I need to lie down.",
+          "mogger": "Again. You’re cruel. I love it. Standing. {line} Celeste has dropped her fork. I need to lie down.",
+          "truecel": "Again? Okay. Standing. {line} Celeste has dropped her fork. Nobody has ever made me do anything twice. I need to lie down."
+        },
+        "hang": "You hung up. I read your card to twelve women and you hung up on me. Fine. Lesson learned.",
+        "missedVm": "I read your card at the luncheon and you didn’t pick up. I read it to a ringing phone. Ring me if you still care."
+      },
+      "deathCause": "A GILT CHAIR",
+      "deaths": [
+        "Two hundred years old, and it had seated four governors.",
+        "The message sent itself on the way down.",
+        "Alice had the chair repaired. Nobody asked about you."
+      ]
     }
   },
   "fetish": {
