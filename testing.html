@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e390fa3478">
+<html lang="en" data-build="025ff39852">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -209,7 +209,7 @@
     .journal-row.off img { filter: grayscale(1) opacity(.6); }
     .journal-points { margin: 6px 0; font: bold 20px/24px 'Marker Felt','Comic Sans MS',cursive; }
     .journal-text { display: block; width: 100%; min-height: 380px; padding: 0 14px; border: 0; background: transparent; color: #3b2a14; font: 16px/24px 'Marker Felt','Comic Sans MS',cursive; resize: none; outline: none; }
-    .ach-toast { position: absolute; z-index: 45; left: 8%; right: 8%; top: 7%; padding: 7px 10px; border: 2px solid #e6c066; border-radius: 8px; background: #2a180eee; color: #ffd978; font: bold 12px/1.35 'Trebuchet MS',Tahoma,sans-serif; text-align: center; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity .3s, transform .3s; }
+    .ach-toast { position: absolute; z-index: 45; left: 8%; right: 8%; top: 15%; padding: 7px 10px; border: 2px solid #e6c066; border-radius: 8px; background: #2a180eee; color: #ffd978; font: bold 12px/1.35 'Trebuchet MS',Tahoma,sans-serif; text-align: center; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity .3s, transform .3s; }
     .ach-toast.visible { opacity: 1; transform: none; }
     .marriage-win .ladder-next { margin: 0; padding: 6px 10px; border: 2px solid #e6c066; border-radius: 6px; background: #2a180ecc; color: #ffd978; font: bold 12px/1.4 'Trebuchet MS',Tahoma,sans-serif; }
     .mini-app.notes-mode h3 { color: #a87923; font: bold 18px -apple-system,BlinkMacSystemFont,Arial,sans-serif; border-bottom: 2px solid #f0cc75; padding-bottom: 6px; }
@@ -583,6 +583,18 @@
        look is a placeholder until the cupboard artwork exists. */
     .cupboard-spot { position: absolute; z-index: 4; left: 0; top: 47.5%; width: 24%; height: 13%; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
     .cupboard-spot:focus-visible { outline: 2px solid #ffd978; }
+    /* The Looksmaxxer and the Divorcé (Chris, 3 November 2026): car keys on the bedside table, cash on the status bar */
+    .car-keys { position: absolute; z-index: 5; left: 13%; top: 46.3%; width: 9%; aspect-ratio: 1; padding: 0; border: 0; background: transparent; cursor: pointer; filter: drop-shadow(0 2px 2px #000a); }
+    .car-keys img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+    .car-keys span { font-size: 24px; line-height: 1; }
+    .stage.lowered .car-keys { z-index: 8; }
+    .status-cash { margin-left: 6px; color: #9be38a; font: bold 10px ui-monospace,Consolas,monospace; }
+    .cup-drive { padding: 10px 12px; }
+    .cup-drive h3 { margin: 4px 0 2px; }
+    .cup-drive .drive-head { margin: 0 0 8px; font-size: 12px; opacity: .85; }
+    .cup-drive button[data-drive] { display: block; width: 100%; margin: 0 0 6px; padding: 7px 9px; border: 1px solid #8a6a3a; border-radius: 6px; background: #fff7e2; color: #3b2a14; text-align: left; font: bold 13px Georgia,serif; cursor: pointer; }
+    .cup-drive button[data-drive] small { display: block; font: 11px/1.35 Arial,sans-serif; color: #6b5432; }
+    .cup-drive button[data-drive]:disabled { opacity: .5; cursor: not-allowed; }
     .stage.lowered .cupboard-spot { z-index: 7; } /* with the phone down, the cabinet is reachable even where the phone overlaps it */
     .cupboard-spot.new { animation: cupboardGlow 2.4s ease-in-out infinite; }
     .floor-items { position: absolute; inset: 0; z-index: 4; pointer-events: none; --floor-light: .8; }
@@ -665,11 +677,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e390fa3478"></script>
+  <script src="chapel_at_midnight.js?v=025ff39852"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e390fa3478"></script>
+  <script src="marriage.js?v=025ff39852"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e390fa3478"></script>
+  <script src="quests/professor-vale.js?v=025ff39852"></script>
 </head>
 <body>
   <main class="workbench">
@@ -683,6 +695,8 @@
           <button data-difficulty="truecel" aria-pressed="false"><img src="assets/difficulty/truecel.png" alt="Truecel character portrait">Truecel</button>
           <button data-difficulty="normie" class="selected" aria-pressed="true"><img src="assets/difficulty/normie.png" alt="Normie character portrait">Normie</button>
           <button data-difficulty="mogger" aria-pressed="false"><img src="assets/difficulty/mogger.png" alt="Mogger character portrait">Mogger</button>
+          <button data-difficulty="looksmaxxer" aria-pressed="false"><img src="assets/difficulty/looksmaxxer.png" alt="Looksmaxxer character portrait" onerror="this.remove()">Looksmaxxer</button>
+          <button data-difficulty="divorce" aria-pressed="false"><img src="assets/difficulty/divorce.png" alt="Divorcé character portrait" onerror="this.remove()">Divorcé</button>
         </div>
         <p id="difficulty-description">Normie: a moderate chance of matching after you like somebody.</p>
         <h2>Story progress</h2>
@@ -758,7 +772,9 @@
         <button class="bar-button" id="rq-spotter-preview">Room quest: Lauren Bishop messages now (Spotter)</button>
         <button class="bar-button" id="rq-seating-preview">Room quest: Alice Beaumont messages now (The Seating Plan)</button>
         <button class="bar-button" id="ladder-win-preview">Classes: count a win as the class you are playing (unlocks the next)</button>
-        <button class="bar-button" id="ladder-unlock-all">Classes: unlock Mogger and Truecel</button>
+        <button class="bar-button" id="ladder-unlock-all">Classes: unlock every class</button>
+        <button class="bar-button" id="class-cash-preview">Looksmaxxer or Divorcé: add $1,000 and let you drive again today</button>
+        <button class="bar-button" id="class-ex-preview">Divorcé: Denise rings about tomorrow’s payment now</button>
         <button class="bar-button" id="ladder-reset">Classes: back to Normie only (clears wins, points and achievements; keeps your notes)</button>
         <button class="bar-button" id="fq-postcard-preview">Her thing: Celeste Van Doren messages now (The Postcard)</button>
         <button class="bar-button" id="fq-letter-preview">Her thing: Ruth Calder messages now (The Letter)</button>
@@ -783,7 +799,8 @@
           <div class="day-caption" id="day-caption" aria-live="polite"></div>
           <img class="prop" id="prop" src="assets/props/instant-noodles.png" alt="An empty pot noodle">
           <img class="desk-ring" id="desk-ring" src="assets/marriage/wedding-ring.png" alt="A gold wedding band on your desk"><!-- Marriage: shown once a jeweller gives you the ring -->
-          <button class="cupboard-spot" id="cupboard-spot" aria-label="Open your bedside cupboard"></button><!-- Bedside cupboard: tap area over the cabinet in the room art -->
+          <button class="cupboard-spot" id="cupboard-spot" aria-label="Open your bedside cupboard"></button>
+          <button class="car-keys" id="car-keys" hidden aria-label="Your car keys: drive somewhere"><img src="assets/items/car-keys.png" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden>🔑</span></button><!-- Looksmaxxer and Divorcé: tap to drive somewhere --><!-- Bedside cupboard: tap area over the cabinet in the room art -->
           <div class="floor-items" id="floor-items"></div><!-- Things left at your door: on the floor until you pick them up -->
           <div class="cupboard" id="cupboard" aria-hidden="true"><div class="cupboard-frame" role="dialog" aria-label="Bedside cupboard"><div class="cupboard-head"><b>Bedside cupboard</b><button data-cup-close aria-label="Close the cupboard">✕ Close</button></div><div class="cupboard-body" id="cupboard-body"></div></div></div>
           <img class="leg-layer hidden" id="leg-layer" src="assets/ui/jeans-legs.png" alt="First-person knees in jeans">
@@ -791,7 +808,7 @@
             <div class="screen" id="screen">
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
-              <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
+              <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
               <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go forward in time</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
@@ -853,7 +870,7 @@
     const matchRates={truecel:.09,normie:.21,mogger:.36}; // half what they were (Chris, 3 November 2026: too many matches; a quarter was too hard)
     // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
     const MATCH_RARITY={'MATCH-003':.5};
-    const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.'};
+    const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.',looksmaxxer:'Looksmaxxer: start with Truecel looks and drive out to fix them: gym, skin, teeth, height.',divorce:'Divorcé: Normie odds, a wallet, and alimony to Denise every five days.'};
     const SAVE_KEY='matchPlaytestRunV3';
     function hashSeed(input){
       let hash=2166136261;
@@ -910,16 +927,17 @@
     function gamePick(values){return values[Math.floor(gameRandom()*values.length)];}
     function recordClue(text){if(text&&!world.clues.includes(text))world.clues.push(text);}
     function updateRunStatus(message){
-      $('run-status').textContent=message||`Day ${world.day} · ${Math.max(0,10-hingeSwipesToday)} swipes available · ${selectedDifficulty.toUpperCase()}`;
+      $('run-status').textContent=message||`Day ${world.day} · ${Math.max(0,10-hingeSwipesToday)} swipes available · ${ladderName(selectedDifficulty).toUpperCase()}`;
       // Most changes in the game pass through here: note new contacts and new things in the cupboard.
       try{announceNewContacts();updateCupboardHint();renderFloor();}catch{}
       // The phone shows the simulated day rather than a clock time.
       const statusDay=$('status-day');
       if(statusDay)statusDay.textContent=`Day ${world.day}`;
+      walletRender(); // the Looksmaxxer and the Divorcé: cash on the status bar, car keys on the bedside table
     }
     // One place that changes difficulty: the playtest panel and the death screen both use it.
     function setDifficulty(value){
-      if(matchRates[value]===undefined)return;
+      if(!LADDER.some(rung=>rung.id===value&&!rung.soon))return;
       selectedDifficulty=value;
       document.querySelectorAll('[data-difficulty]').forEach(other=>{other.classList.toggle('selected',other.dataset.difficulty===value);other.setAttribute('aria-pressed',String(other.dataset.difficulty===value));});
       const copy=$('difficulty-description');if(copy)copy.textContent=difficultyCopy[value];
@@ -1060,7 +1078,7 @@
       // A picture that doesn't exist falls back one step at a time to today's hands.
       const name=g.image.replace(/-v2$/,''),large=bigScreen();
       const base=`assets/ui/${g.image}.png`;
-      const phoneTries=[...(selectedDifficulty!=='normie'?[`assets/ui/hands/${selectedDifficulty}/${name}.png`]:[]),base];
+      const phoneTries=[...(baseClass()!=='normie'?[`assets/ui/hands/${baseClass()}/${name}.png`]:[]),base];
       const place=(width,left)=>{
         $('phone').style.setProperty('--hand-width',`${width}%`);
         $('phone').style.setProperty('--hand-left',`${left}%`);
@@ -1077,8 +1095,8 @@
       handsBig=large;
       phoneHands(); // the difficulty's own hands straight away; on a computer the big ones replace them once measured
       if(!large)return;
-      const big=`assets/ui/hands/${selectedDifficulty}/${name}-large.png`;
-      const pairBig=`assets/ui/hands/${selectedDifficulty}/hands-edge-navy-large.png`,pairBase='assets/ui/hands-edge-navy-v2.png';
+      const big=`assets/ui/hands/${baseClass()}/${name}-large.png`;
+      const pairBig=`assets/ui/hands/${baseClass()}/hands-edge-navy-large.png`,pairBase='assets/ui/hands-edge-navy-v2.png';
       Promise.all([measureHands(base),measureHands(big),measureHands(pairBase),measureHands(pairBig)]).then(([small,bigFit,pairSmall,pairLarge])=>{
         if(token!==gripToken)return; // a newer grip has taken over
         const pair=pairSmall&&pairLarge?bigHandsFit(gripGeometry.hands,pairSmall,pairLarge,null):null;
@@ -1951,7 +1969,7 @@
     }
     // How women treat you: the difficulty chosen at the start (Mogger, Normie, Truecel).
     // LPC-A365: while it lasts, a Truecel is treated like a Mogger (and matches even more often).
-    const tone=()=>glowState().stage==='active'?'mogger':['mogger','normie','truecel'].includes(selectedDifficulty)?selectedDifficulty:'normie';
+    const tone=()=>glowState().stage==='active'?'mogger':baseClass();
     let hingeDeck=[],hingeIndex=0,hingeSwipesToday=0,hingeView='discover',activeChatId=null,activeCallId=null,activeProfileId=null,profileReturnView='thread';
     let hingeJobs={},hingeGalleryIndex={},hingeThreads=new Map(),hingeLikes=0;
     let hingeToast='',hingeToastTimer=null,swipeLocked=false,hingeTouchStart=null,suppressPhotoClickUntil=0,lastSwipeAt=0;
@@ -2200,6 +2218,7 @@
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
+      for(const [id,label] of giftChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Divorcé: flowers
       for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
@@ -2306,7 +2325,7 @@
             hingeLikes++;
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
-            else if(fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[selectedDifficulty])*rarity){
+            else if(fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[baseClass()])*rarity){
               const responseMode=hingeLikes===1||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               fionnGirlMatched(profile.id); // Theon: she knows your face
@@ -2380,6 +2399,7 @@
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
+      if(id.startsWith('gift:'))return chooseGift(id,thread,profile); // the Divorcé: flowers
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
       if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
       if(id==='finale:ask'||id.startsWith('finale:list:'))return chooseFinale(thread,profile,id); // the Founders' Ball
@@ -4189,6 +4209,7 @@
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
+      if(id==='x:ex')return {id,name:`${EX.name} (your ex-wife)`,gallery:[EX.portrait],banner:EX.portrait,ringName:EX.name,sub:'Mobile'}; // the Divorcé
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -4206,6 +4227,7 @@
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
+      if(exCallerDue())return 'x:ex'; // the Divorcé: Denise, about the money
       return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
     }
     function strangerRang(id){
@@ -4217,6 +4239,7 @@
       if(id==='x:pv-fake'){PV.fakeRang();return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
+      if(id==='x:ex'){exRang();return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
@@ -4239,6 +4262,7 @@
       if(id==='x:pv-fake'){PV.fakeMissed();saveRun(true);return;}
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
+      if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();strangerVoicemail(EX.name,exLine(c.lastMode));saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
         const d=dadState();
@@ -4259,6 +4283,7 @@
       if(id==='x:pv-fake')return {id,stranger:true,kind:'pvfake',step:'open',said:PV.fakeAnswer()};
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
+      if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();return {id,stranger:true,kind:'ex',mode:c.lastMode,step:'open',said:exLine(c.lastMode)};}
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
@@ -4276,6 +4301,7 @@
       if(call.kind==='pvfake')return PV.fakeChoices();
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
+      if(call.kind==='ex')return exChoices(call); // the Divorcé
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
@@ -4298,6 +4324,7 @@
       if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
+      if(call.kind==='ex'){exChoose(call,choice);return;} // the Divorcé
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
         if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
@@ -5150,7 +5177,7 @@
     let swapRun=null;
     function halWobble(){
       if(glowState().stage==='active')return 0; // on LPC-A365 your hands don't shake: the chalk works on you too
-      return {truecel:1,normie:.5,mogger:.25}[selectedDifficulty]??.5;
+      return {truecel:1,normie:.5,mogger:.25}[baseClass()]??.5;
     }
     function halOpenSwap(){
       if(!halCanSwap())return;
@@ -5295,7 +5322,7 @@
       qteOpen=true;
       q.className='qte steady';q.hidden=false;
       q.innerHTML=`<div class="steady-box"><i class="steady-dot" id="steady-dot"></i></div><button data-hal-steady>${esc(v.steady)}</button><button data-hal-shoot>${esc(v.shoot)}</button><button data-hal-lower class="steady-lower">${esc(v.lower)}</button>`;
-      const amp={truecel:1,normie:.6,mogger:.3}[selectedDifficulty]??.6;
+      const amp={truecel:1,normie:.6,mogger:.3}[baseClass()]??.6;
       steadyRun={x:0,y:0,amp:glowState().stage==='active'?.15:amp,held:null,t:0};
       const hold=q.querySelector('[data-hal-steady]');
       if(hold){hold.onpointerdown=()=>{if(steadyRun)steadyRun.held=Date.now();};hold.onpointerup=hold.onpointerleave=()=>{if(steadyRun)steadyRun.held=null;};}
@@ -5406,6 +5433,7 @@
     let toneNotice=null;
     function toneNewDay(){
       glowNewDay();halNewDay();laviniaNewDay();leakNewDay(); // Truecel (halNewDay: Cole Halloran)
+      classNewDay(); // the Looksmaxxer and the Divorcé: paydays, alimony, surgery in bed
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
@@ -8333,7 +8361,7 @@
       $('opened').classList.remove('calls-mode');
       $('opened').classList.add('connected-mode');
       $('opened').style.backgroundImage=`url("${assetUrl('assets/hinge/ui/connected-call-bg.png')}")`;
-      $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · ${herCall.you?'YOU CALLED HER':`${isStranger(herCall.id)&&!['rq','fq'].includes(herCall.kind)?'HE':'SHE'} CALLED YOU`}</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
+      $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · ${herCall.you?'YOU CALLED HER':`${isStranger(herCall.id)&&!['rq','fq','ex'].includes(herCall.kind)?'HE':'SHE'} CALLED YOU`}</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
       hydrateInlineImages($('opened'));
       $('call-bubble').innerHTML=`<img src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(profile.name)}</strong><p class="speech" aria-live="off">${esc(herCall.said)}</p><div class="call-bubble-buttons">${herCallChoices().map(choice=>`<button data-her-call="${esc(choice.id)}">${esc(choice.label)}</button>`).join('')}</div></div>`;
       $('call-bubble').classList.add('visible');
@@ -8437,6 +8465,8 @@
       death('Mogger','KILLED',(hingeProfile(CALLER_ID)?.name||'Moira Bell').toUpperCase());
       death('Mogger','KILLED','HER FATHER');
       death('Mogger','KILLED','THEON');
+      death('Looksmaxxer','KILLED','A CHEAP SURGEON');
+      death('Divorcé','ARRESTED','THE SHERIFF');
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
       death('The Coyote','KILLED',coyoteKit()?.deathCause||'THE COYOTE');
       death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
@@ -8462,15 +8492,15 @@
     }
     // ===== The class ladder, points and the Notes app (Chris, 3 November 2026) =====
     // The difficulties are a ladder now, a five-step journey. Everyone starts as a Normie; win a run (a
-    // wedding) and the next class unlocks: Normie, then Mogger, then Truecel. Steps four and five are still
-    // being designed (one may play differently). Wins, points, achievements and your own notes are kept
+    // wedding) and the next class unlocks: Normie, Mogger, Truecel, then the Looksmaxxer and the Divorcé,
+    // the two that play differently (car keys, a wallet; see The Looksmaxxer and the Divorcé below). Wins, points, achievements and your own notes are kept
     // beside the save (each edition has its own) and never reset by a new game, like Endings.
     const LADDER=[
       {id:'normie',name:'Normie',img:'assets/difficulty/normie.png',blurb:'Where everyone starts. A fair chance of a match.'},
       {id:'mogger',name:'Mogger',img:'assets/difficulty/mogger.png',blurb:'Women come to you. So does trouble.'},
       {id:'truecel',name:'Truecel',img:'assets/difficulty/truecel.png',blurb:'Matches are rare and every word counts.'},
-      {id:'step4',name:'???',img:null,blurb:'Still being written.',soon:true},
-      {id:'step5',name:'???',img:null,blurb:'Still being written.',soon:true}
+      {id:'looksmaxxer',name:'Looksmaxxer',img:'assets/difficulty/looksmaxxer.png',blurb:'Start at the bottom. Drive out and fix your face.'},
+      {id:'divorce',name:'Divorcé',img:'assets/difficulty/divorce.png',blurb:'Broke, bitter, and she still calls.'}
     ];
     // Points come from achievements. Each test reads the run or what you have done across runs.
     const ACHIEVEMENTS=[
@@ -8483,10 +8513,15 @@
       {id:'married',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
       {id:'climb-mogger',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
       {id:'climb-truecel',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
-      {id:'win-truecel',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0}
+      {id:'win-truecel',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0},
+      {id:'climb-looks',title:'A new face',points:50,hint:'Unlock the Looksmaxxer.',test:()=>playerProfile().unlocked>=4},
+      {id:'glow-up',title:'Glow up',points:50,hint:'As a Looksmaxxer, get your looks all the way to Mogger.',test:()=>selectedDifficulty==='looksmaxxer'&&looksTier()==='mogger'},
+      {id:'climb-divorce',title:'Alimony',points:75,hint:'Unlock the Divorcé.',test:()=>playerProfile().unlocked>=5},
+      {id:'paid-up',title:'Paid in full',points:40,hint:'As a Divorcé, make three payments in one run.',test:()=>selectedDifficulty==='divorce'&&(world?.cls?.paid||0)>=3},
+      {id:'top',title:'Top of the ladder',points:150,hint:'Win a run as a Divorcé.',test:()=>(playerProfile().wins.divorce||0)>0}
     ];
     const LADDER_KEY=SAVE_KEY+':ladder',NOTES_MAX=30,NOTE_CHARS=2000;
-    let ladderCache=null,journalView='main',achQueue=[],achTimer=null;
+    let ladderCache=null,journalView='main',achQueue=[],achTimer=null,achLog=[];
     const ladderIndex=id=>LADDER.findIndex(rung=>rung.id===id);
     const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
     function sanitizeProfile(raw){
@@ -8535,7 +8570,7 @@
     function victoryNote(){
       const r=ladderWin();
       if(!r)return '';
-      const line=r.next&&!r.next.soon?`You won as a ${ladderName(r.as)}. ${r.next.name} is unlocked: start a new game as a ${r.next.name}.`:`You won as a ${ladderName(r.as)}. That’s the top of the ladder for now. More classes are coming.`;
+      const line=r.next&&!r.next.soon?`You won as a ${ladderName(r.as)}. ${r.next.name} is unlocked: start a new game as a ${r.next.name}.`:`You won as a ${ladderName(r.as)}. That’s the top of the ladder.`;
       return `<p class="ladder-next">${esc(line)}</p>`;
     }
     function checkAchievements(){
@@ -8550,6 +8585,7 @@
       return earned;
     }
     function achToast(text){
+      achLog.push(text);if(achLog.length>20)achLog.shift(); // the last few banners, for the tests
       const box=$('ach-toast');
       if(!box)return;
       if(achTimer!==null){achQueue.push(text);return;}
@@ -8560,13 +8596,13 @@
       const p=playerProfile();
       const current=ladderUnlocked(p.fresh)?p.fresh:ladderUnlocked(selectedDifficulty)?selectedDifficulty:'normie';
       $('pick-cards').innerHTML=LADDER.map((rung,i)=>{
-        const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="">`:'<span class="pick-mystery">?</span>';
+        const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="" onerror="this.outerHTML='<span class=&quot;pick-mystery&quot;>${esc(rung.name[0])}</span>'">`:'<span class="pick-mystery">?</span>';
         if(rung.soon)return `<button class="soon" disabled aria-label="A class still being written">${face}<b>???</b><small>Coming soon</small></button>`;
         if(!ladderUnlocked(rung.id))return `<button class="locked" disabled data-pick-locked="${rung.id}" aria-label="${esc(rung.name)}, locked">${face}<b>${esc(rung.name)}</b><small>Win as a ${esc(LADDER[i-1].name)}</small></button>`;
         return `<button data-pick-difficulty="${rung.id}"${rung.id===current?' class="current"':''}>${face}<b>${esc(rung.name)}</b>${rung.id===p.fresh?'<small class="new">New</small>':`<small>${esc(rung.blurb)}</small>`}</button>`;
       }).join('');
       const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
-      $('pick-foot').textContent=open>=3?'Two more classes are on the way.':'Win a run to unlock the next class.';
+      $('pick-foot').textContent=open>=LADDER.length?'Every class is unlocked.':'Win a run to unlock the next class.';
     }
     // ---- Notes: your journey up the ladder, achievements and points, and notes you write yourself ----
     function journalNote(id){return playerProfile().notes.find(note=>note.id===id)||null;}
@@ -8592,7 +8628,7 @@
       if(journalView==='journey'){
         const playing=ladderIndex(selectedDifficulty);
         const rows=LADDER.map((rung,i)=>{
-          const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="">`:'<span class="q">?</span>';
+          const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="" onerror="this.outerHTML='<span class=&quot;q&quot;>${esc(rung.name[0])}</span>'">`:'<span class="q">?</span>';
           const wins=p.wins[rung.id]||0;
           const state=rung.soon?'Still being written':!ladderUnlocked(rung.id)?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Unlocked';
           return `<div class="journal-row${rung.soon||!ladderUnlocked(rung.id)?' off':''}">${face}<div><b>${i+1}. ${esc(rung.name)}</b><small>${esc(state)}</small></div></div>`;
@@ -8612,6 +8648,230 @@
       const rest=note=>note.text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(1).join(' ').slice(0,50);
       const notes=p.notes.map(note=>`<button data-journal-view="note:${esc(note.id)}"><b>${esc(noteTitle(note))}</b>${rest(note)?`<small>${esc(rest(note))}</small>`:''}</button>`).join('');
       $('opened').innerHTML=`${bar('Notes',false)}<div class="journal-list"><button data-journal-view="journey"><b>Your journey</b><small>Step ${climbed} of ${LADDER.length} · playing as a ${esc(ladderName(selectedDifficulty))}</small></button><button data-journal-view="awards"><b>Achievements</b><small>${done} of ${ACHIEVEMENTS.length} · ${ladderPoints()} points</small></button>${notes}</div><div class="journal-page"><small>Notes are kept between games. Tap + for a new one.</small></div>`;
+    }
+    // ===== The Looksmaxxer and the Divorcé (Chris, 3 November 2026) =====
+    // Steps four and five of the ladder play differently. Both keep a wallet (cash on the status bar, a
+    // payday every seven days) and car keys on the bedside table: tap them, or use them from the cupboard,
+    // to drive somewhere once a day. The trip happens off screen and you come home to your room.
+    // The Looksmaxxer starts with Truecel looks. The gym, the barber, the skin clinic, veneers and height
+    // surgery raise a looks score, and the women see the class it reaches: Truecel below 35, Normie to 64,
+    // Mogger from 65 (the match odds, their replies, your voice, even your hands). The cheap surgeon can kill you.
+    // The Divorcé plays at Normie odds and pays Denise, his ex-wife, every five days. She rings the day
+    // before. Miss one and she rings again with a late fee; miss two and her lawyer takes half your pay;
+    // miss three and the sheriff comes the next morning. His car goes to work, his lawyer and her house,
+    // and he can send a woman flowers.
+    const WALLET_CLASSES=['looksmaxxer','divorce'];
+    const LOOKS_TIERS=[[65,'mogger'],[35,'normie'],[0,'truecel']];
+    const LOOKS_START=12,PAYDAY_EVERY=7,ALIMONY=450,ALIMONY_EVERY=5,LATE_FEE=100,FLOWERS=40;
+    const EX={name:'Denise',portrait:'assets/contacts/ex-wife.png',
+      remind:['It’s Denise. The money’s due tomorrow. ${amount}. Don’t make me call my lawyer, he bills me too.','Hi. It’s me. The payment, tomorrow. ${amount}. I saw you’re on a dating app now. Bold. Pay me first.','Denise. Tomorrow. ${amount}. And no, the dog still doesn’t miss you.'],
+      angry:['You missed it. My lawyer says the word for you is arrears. I have other words. ${amount}, and soon.','No payment. Again. You know what happens next, right? Because the judge does. ${amount}.'],
+      garnish:['Second time. My lawyer is taking it straight out of your paycheck now. Enjoy your half. You still owe me ${amount}.'],
+      paid:['Got it. Wow. You can be an adult when you try.','Received. Don’t expect a thank you card.'],
+      time:['Two more days. That’s it. I’m writing this down.'],
+      flowersHer:['Flowers! Nobody sends flowers anymore. Okay, you win this round.','They just arrived. They smell amazing. Who taught you that?','You sent me flowers? That is so old school. I love it.']};
+    const DRIVES={
+      looksmaxxer:{
+        gym:{label:'The gym',sub:'$10 · your looks go up a little. Three days running counts for more.',cost:10,gain:3,image:'assets/trips/gym.png',place:'the gym',done:['You lift until your arms shake, then drive home with the window down.','Leg day. You can barely climb the stairs to your room.','A man twice your size nods at you. It means something.']},
+        barber:{label:'The barber',sub:'$45 · a proper cut. Once every five days.',cost:45,gain:6,cool:5,image:'assets/trips/barber.png',place:'the barber',done:['Short at the sides, longer on top. You catch yourself in every window on the way home.','The barber says you have a good head shape. You will think about this for a week.']},
+        skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,image:'assets/trips/skin-clinic.png',place:'the skin clinic',done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
+        teeth:{label:'The dentist: veneers',sub:'$1,100 · new teeth. Once.',cost:1100,gain:12,once:true,image:'assets/trips/dentist.png',place:'the dentist',done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
+        height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,image:'assets/trips/height-clinic.png',place:'the clinic',done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
+        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,risk:1/8,image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
+          deaths:['The cheap clinic was a back room behind a tire shop. You never woke up from the anesthetic.','Three inches taller. Then the infection. The man in the stained coat stopped answering his phone.']}
+      },
+      divorce:{
+        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
+        lawyer:{label:'Your lawyer',sub:'$250 · the next payment moves back three days. Once a payment.',cost:250,image:'assets/trips/lawyer.png',place:'your lawyer',done:['Your lawyer files something and bills you for the folder. The next payment moves back three days.']},
+        house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
+      }
+    };
+    const SHERIFF={cause:'THE SHERIFF',verb:'ARRESTED',deaths:['Three missed payments. A county sheriff at your door with a folded court order, and Denise’s lawyer waiting in the car.','The sheriff reads the order out loud in your doorway. Denise’s lawyer waves from the curb.'],
+      steps:[{image:'assets/trips/sheriff.png',stand:'room',caption:'Three knocks at your door. Hard ones.',lights:true},{image:'assets/trips/sheriff.png',stand:'room',caption:'A county sheriff, a folded court order, and a pair of handcuffs.',lights:true}]};
+    function walletOn(){return selectedDifficulty==='looksmaxxer'||selectedDifficulty==='divorce';} // a plain function: the status bar asks before this block has run
+    function sanitizeCls(raw){
+      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:null;
+      if(!o)return null;
+      const int=(v,lo,hi,d=null)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):d;
+      const out={cash:int(o.cash,-99999,999999,0),looks:int(o.looks,0,100,LOOKS_START),streak:int(o.streak,0,99,0),lastGym:int(o.lastGym,0,9999),tripDay:int(o.tripDay,0,9999),laidUntil:int(o.laidUntil,0,9999),
+        cool:{},did:{},gifts:{},payDue:int(o.payDue,0,9999),owed:int(o.owed,0,99999,ALIMONY),misses:int(o.misses,0,9,0),paid:int(o.paid,0,999,0),cycle:int(o.cycle,0,999,0),
+        lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null};
+      for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
+      for(const k of ['teeth','height','cheap'])if(o.did?.[k]===true)out.did[k]=true;
+      for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^MATCH-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day;
+      if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      return out;
+    }
+    function classState(){
+      if(!world.cls)world.cls=sanitizeCls({cash:selectedDifficulty==='divorce'?600:1500,payDue:selectedDifficulty==='divorce'?1+ALIMONY_EVERY-1:null});
+      return world.cls;
+    }
+    function classStart(){
+      world.cls=null;
+      if(!walletOn())return;
+      const c=classState();
+      if(selectedDifficulty==='divorce'){c.payDue=ALIMONY_EVERY;c.owed=ALIMONY;}
+      achToast(selectedDifficulty==='looksmaxxer'?'Your car keys are on the bedside table. Tap them to drive somewhere.':`You owe ${EX.name} $${ALIMONY} every ${ALIMONY_EVERY} days. The first is due on Day ${ALIMONY_EVERY}.`);
+    }
+    function looksTier(){
+      if(selectedDifficulty!=='looksmaxxer')return null;
+      const looks=world?.cls?Math.max(0,Math.min(100,world.cls.looks??LOOKS_START)):LOOKS_START;
+      return LOOKS_TIERS.find(([at])=>looks>=at)[1];
+    }
+    // What the women see: the class you play, or what one of the two newer classes plays like.
+    function baseClass(){
+      if(selectedDifficulty==='looksmaxxer')return looksTier();
+      if(selectedDifficulty==='divorce')return 'normie';
+      return ['mogger','normie','truecel'].includes(selectedDifficulty)?selectedDifficulty:'normie';
+    }
+    const money=n=>`$${Math.round(n).toLocaleString('en-US')}`;
+    function walletRender(){
+      const on=world&&walletOn(),cash=$('status-cash'),keys=$('car-keys');
+      if(cash){cash.hidden=!on;cash.textContent=on?money(classState().cash):'';}
+      if(keys)keys.hidden=!on;
+    }
+    function carItems(){
+      if(!world||!walletOn())return [];
+      return [{id:'car-keys',label:'Car keys',short:'Keys',image:'assets/items/car-keys.png',text:selectedDifficulty==='looksmaxxer'?'Your car keys, on a gym keyring. The car still starts. Mostly.':'Your car keys. Denise kept the good car. This one still starts. Mostly.',action:{id:'drive',label:'🚗 Drive somewhere'}}];
+    }
+    // ---- the car: one trip a day ----
+    function driveBlock(id){
+      const c=classState(),d=DRIVES[selectedDifficulty]?.[id];
+      if(!d)return 'Not here.';
+      if(c.laidUntil!==null&&world.day<c.laidUntil)return `You can’t drive on new legs. Day ${c.laidUntil}.`;
+      if(c.tripDay===world.day)return 'You have been out today. Tomorrow.';
+      if(d.once&&c.did[id])return 'Done.';
+      if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
+      if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
+      if(id==='lawyer'&&c.lawyerFor===c.cycle)return 'Once a payment.';
+      const cost=id==='house'?c.owed:d.cost||0;
+      if(cost>c.cash)return `You need ${money(cost)}.`;
+      return null;
+    }
+    function driveViewHtml(){
+      const c=classState(),trips=DRIVES[selectedDifficulty]||{};
+      const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
+      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
+    }
+    function driveTo(id){
+      if(!walletOn()||driveBlock(id))return false;
+      const c=classState(),d=DRIVES[selectedDifficulty][id];
+      c.tripDay=world.day;
+      if(d.cost)c.cash-=d.cost; // her house: exPaid() takes the check on arrival
+      const dies=d.risk&&gameRandom()<d.risk;
+      closeCupboard();saveRun(true);walletRender();
+      const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
+      playScene([{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},{image:d.image,stand:'room',caption:dies?d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length]:done}],()=>dies?classDie('cheap'):arrive(id));
+      return true;
+    }
+    function arrive(id){
+      const c=classState(),d=DRIVES[selectedDifficulty][id];
+      if(selectedDifficulty==='looksmaxxer'){
+        const before=looksTier();
+        let gain=d.gain;
+        if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;}
+        if(d.cool)c.cool[id]=world.day;
+        if(d.once)c.did[id]=true;
+        if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
+        c.looks=Math.min(100,c.looks+gain);
+        const after=looksTier();
+        if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
+        else achToast(`Looks ${c.looks} of 100.`);
+      }else{
+        if(id==='work'){c.cash+=d.pay;hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
+        if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;achToast(`The next payment is due on Day ${c.payDue}.`);}
+        if(id==='house'){exPaid();achToast(`Paid. The next ${money(ALIMONY)} is due on Day ${c.payDue}.`);}
+      }
+      checkAchievements();saveRun(true);updateRunStatus();
+      if(currentApp==='hinge')renderHinge();
+    }
+    // ---- a new day: paydays, alimony, getting out of bed ----
+    function classNewDay(){
+      if(!world||!walletOn()||world.cls?.dead)return;
+      const c=classState();
+      if(world.day%PAYDAY_EVERY===0){
+        const pay=selectedDifficulty==='divorce'?(c.garnish?325:650):500;
+        c.cash+=pay;achToast(c.garnish?`Payday: +${money(pay)}. ${EX.name}’s lawyer took the rest.`:`Payday: +${money(pay)}.`);
+      }
+      if(selectedDifficulty==='looksmaxxer'){
+        if(c.laidUntil!==null&&world.day>=c.laidUntil){c.laidUntil=null;achToast('You can walk again. Taller.');}
+        return;
+      }
+      if(c.arrestDay!==null&&world.day>=c.arrestDay){classDie('sheriff');return;}
+      if(c.payDue!==null&&world.day>=c.payDue){
+        if(c.cash>=c.owed){exPaid();achToast(`${EX.name} got her ${money(ALIMONY)}.`);}
+        else{
+          c.misses++;c.owed+=LATE_FEE;c.payDue=world.day+3;c.angry=true;
+          if(c.misses===2)c.garnish=true;
+          if(c.misses>=3)c.arrestDay=world.day+1;
+          achToast(`You couldn’t pay ${EX.name}. She will not let this go.`);
+        }
+      }
+    }
+    function exPaid(){
+      const c=classState();
+      c.cash-=c.owed;c.paid++;c.cycle++;c.owed=ALIMONY;c.angry=false;
+      c.payDue=Math.max(world.day,c.payDue||world.day)+ALIMONY_EVERY;
+      checkAchievements();
+    }
+    // ---- Denise rings ----
+    function exMode(){const c=classState();return c.angry?(c.garnish&&c.misses===2?'garnish':'angry'):'remind';}
+    function exLine(mode){
+      const c=classState(),lines=EX[mode]||EX.remind;
+      return lines[hashSeed(world.seed+'|ex|'+mode+'|'+world.day)%lines.length].replace('${amount}',money(c.owed));
+    }
+    function exCallerDue(){
+      if(selectedDifficulty!=='divorce'||!world.cls||world.cls.dead)return false;
+      const c=world.cls;
+      return c.angry||(c.payDue!==null&&world.day===c.payDue-1&&c.remindFor!==c.payDue);
+    }
+    function exRang(){const c=classState();c.lastMode=exMode();if(c.angry)c.angry=false;else c.remindFor=c.payDue;} // the call she is making is kept, so answering it later still hears it
+    function exChoices(call){
+      const c=classState(),out=[];
+      if(call.step==='open'){
+        if(c.cash>=c.owed)out.push({id:'ex:pay',label:`Pay her now (${money(c.owed)})`});
+        if(call.mode==='remind'&&c.askedFor!==c.cycle)out.push({id:'ex:time',label:'Ask for two more days'});
+      }
+      out.push({id:'ex:hang',label:'Hang up'});
+      return out;
+    }
+    function exChoose(call,choice){
+      const c=classState(),pick=lines=>lines[hashSeed(world.seed+'|exsay|'+world.day+'|'+choice)%lines.length];
+      if(choice==='ex:hang'){endHerCall();saveRun(true);return;}
+      if(choice==='ex:pay'&&c.cash>=c.owed){exPaid();call.said=pick(EX.paid);}
+      else if(choice==='ex:time'&&c.askedFor!==c.cycle){c.askedFor=c.cycle;c.payDue+=2;call.said=pick(EX.time);}
+      call.step='bye';walletRender();saveRun(true);renderCalls();
+    }
+    // ---- the Divorcé: flowers ----
+    function giftChoices(thread,profile){
+      if(selectedDifficulty!=='divorce'||!thread||!profile||thread.blocked||thread.unmatched||thread.left||thread.missing||warmthOf(thread)<1)return [];
+      const c=classState(),last=c.gifts[profile.id];
+      if(Number.isInteger(last)&&world.day<last+3)return [];
+      return [[`gift:flowers`,c.cash>=FLOWERS?`Send her flowers (${money(FLOWERS)})`:`Send her flowers (you need ${money(FLOWERS)})`]];
+    }
+    function chooseGift(id,thread,profile){
+      const c=classState();
+      if(id!=='gift:flowers'||c.cash<FLOWERS||!giftChoices(thread,profile).length)return;
+      c.cash-=FLOWERS;c.gifts[profile.id]=world.day;
+      thread.log.push({who:'you',text:'I sent you something. Check your door.'});
+      deliverTalk(thread,profile,[EX.flowersHer[hashSeed(world.seed+'|flowers|'+profile.id+'|'+world.day)%EX.flowersHer.length]],'talk',null,true);
+      warmBy(thread,1);walletRender();saveRun(true);
+    }
+    // ---- the cheap clinic, and the sheriff ----
+    function classDie(kind){
+      const c=classState();
+      if(kind==='sheriff'){c.dead={kind};saveRun(true);playScene(SHERIFF.steps,()=>{classDeathScreen();saveRun(true);});return;}
+      c.dead={kind};classDeathScreen();saveRun(true);
+    }
+    function classDeathScreen(){
+      const kind=world.cls?.dead?.kind;
+      if(!kind)return;
+      stopRinging();herCall=null;
+      if(kind==='sheriff'){drawDeathTitle(SHERIFF.cause,SHERIFF.verb);$('fatal-overlay').querySelector('p').textContent=SHERIFF.deaths[hashSeed(world.seed+'|sheriff')%SHERIFF.deaths.length];}
+      else{const d=DRIVES.looksmaxxer.cheap;drawDeathTitle('A CHEAP SURGEON','KILLED');$('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length];}
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
     }
     // The death screen's line is set just after its title: kept once the run saves or a new game starts.
     var lastDeathKey=null;
@@ -8672,7 +8932,7 @@
       if(closest&&warmthOf(closest)>0)rows.push(['Closest to you',hingeProfile(closest.id).name]);
       return rows;
     }
-    const DIFFICULTY_LABEL={truecel:'Truecel',normie:'Normie',mogger:'Mogger'};
+    const DIFFICULTY_LABEL={truecel:'Truecel',normie:'Normie',mogger:'Mogger',looksmaxxer:'Looksmaxxer',divorce:'Divorcé'};
     function endingsCount(){const cat=endingsCatalog(),found=endingsFound();return [cat.filter(e=>found[e.key]).length,cat.length];}
     function runRecapHtml(){
       const [n,total]=endingsCount();
@@ -9811,6 +10071,7 @@
         if(v.stage==='backrow')items.push({id:'pv:note',label:'Vanessa’s note',image:'assets/quests/professor/vanessa-note.png',text:`Vanessa’s folded note: ${(v.noteOrder||[]).map(id=>symbols[id]).join('  ')}. Connect the three parts in that order, matching each part’s sticker.`,file:'vale'});
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
+      items.push(...carItems()); // the Looksmaxxer and the Divorcé: your car keys
       items.push(...miniItems()); // mini quests: on your doorstep
       items.push(...rqItems()); // room quests: Diana's parcel, the ribbon, Caroline's still, the bill, Lauren's box
       items.push(...fqItems()); // her thing: Celeste's postcard, Caroline's presents
@@ -9879,7 +10140,7 @@
         button.style.width=`${FLOOR_SPOT.w*dw}px`;
       });
     }
-    function cupboardSignature(){return [...cupboardFiles().map(file=>'file:'+file.id),...cupboardItems().map(item=>'item:'+item.id)];}
+    function cupboardSignature(){return [...cupboardFiles().map(file=>'file:'+file.id),...cupboardItems().filter(item=>item.id!=='car-keys').map(item=>'item:'+item.id)];} // the car keys live on the table: never news
     // The cabinet glows while something new is inside; each new thing is mentioned once.
     function updateCupboardHint(){
       const state=cupboardState(),signature=cupboardSignature();
@@ -9940,6 +10201,7 @@
       else if(view==='chapel'&&chapel?.state?.()?.active)chapel.choose('open-case'); // the Chapel draws its page into the cupboard
       else if(view==='vale'&&PV?.isOpen()){body.innerHTML=`<div class="case-page">${cupBack}<div id="pv-notes-page"></div></div>`;PV.renderNotesPage($('pv-notes-page'));}
       else if(view==='wedding'&&marriage)body.innerHTML=`${cupBack}<div class="cup-paper">${marriage.notesEntry({shops:false})}</div>`;
+      else if(view==='drive')body.innerHTML=driveViewHtml(); // the car keys: where to?
       else if(view==='notebook'){
         const groups=notebookNotes();
         body.innerHTML=`${cupBack}<div class="cup-paper cup-notebook"><h3>Notebook</h3>${groups.map(group=>`<h4>${esc(group.title)}</h4>${group.lines.map(line=>`<p>– ${esc(line)}</p>`).join('')}`).join('')||'<p>Nothing written down yet.</p>'}</div>`;
@@ -10034,6 +10296,7 @@
     $('day-no').onclick=()=>{$('day-dialog').hidden=true;};
     $('day-dialog').hidden=true;
     $('cupboard-spot').addEventListener('click',()=>openCupboard());
+    $('car-keys').addEventListener('click',()=>openCupboard('drive'));
     $('floor-items').addEventListener('click',event=>{const button=event.target?.closest?.('[data-floor]');if(button){event.stopPropagation();pickUpFloorItem(button.dataset.floor);}});
     window.addEventListener('resize',()=>window.requestAnimationFrame?window.requestAnimationFrame(placeFloor):placeFloor());
     $('background').addEventListener('load',placeFloor);
@@ -10046,8 +10309,11 @@
       if(open){cupboardView=open.dataset.cupOpen;renderCupboard();return;}
       const item=target.closest('[data-cup-item]');
       if(item&&event.detail===0){cupboardTap(item.dataset.cupItem);return;} // keyboard; pointer taps are handled on release
+      const drive=target.closest('[data-drive]');
+      if(drive&&!drive.disabled){driveTo(drive.dataset.drive);return;} // the car keys
       const act=target.closest('[data-cup-act]');
       if(act&&!act.disabled){
+        if(act.dataset.cupAct==='drive'){cupboardView='drive';renderCupboard();return;} // car keys: where to?
         if(act.dataset.cupAct==='take-lpc'){takeGlow();return;} // Truecel: LPC-A365
         if(act.dataset.cupAct==='take-lpc2'){takeGlow2();return;} // Never two
         if(act.dataset.cupAct.startsWith('hal:')){halCupAct(act.dataset.cupAct);return;} // Undeniable
@@ -10272,10 +10538,11 @@
         world.gossip=sanitizeGossip(saved.world.gossip); // the gossip web
         world.spurn=sanitizeSpurn(saved.world.spurn);world.arcs=sanitizeArcs(saved.world.arcs);world.minis=sanitizeMinis(saved.world.minis);world.rq=sanitizeRq(saved.world.rq);world.fq=sanitizeFq(saved.world.fq);world.pace=sanitizePace(saved.world.pace);world.townTalk=sanitizeTownTalk(saved.world.townTalk);world.coyote=sanitizeCoyote(saved.world.coyote);world.finale=sanitizeFinale(saved.world.finale);world.cupboard=sanitizeFloor(world.cupboard);world.personalNews=sanitizePersonalNews(saved.world.personalNews);world.hingeReview=Number.isInteger(saved.world.hingeReview)?saved.world.hingeReview:null;
         world.paperDay=Number.isInteger(saved.world.paperDay)?saved.world.paperDay:null;
+        world.cls=sanitizeCls(saved.world.cls); // the Looksmaxxer and the Divorcé
         world.falsePoliceReports=Math.max(0,Math.min(MAX_FALSE_REPORTS,Math.trunc(Number(saved.world.falsePoliceReports)||0)));
         world.policeArrested=!!saved.world.policeArrested;
         world.policeArrestPhase=dayPhases.includes(saved.world.policeArrestPhase)?saved.world.policeArrestPhase:null;
-        selectedDifficulty=matchRates[saved.selectedDifficulty]===undefined?'normie':saved.selectedDifficulty;
+        selectedDifficulty=LADDER.some(rung=>rung.id===saved.selectedDifficulty&&!rung.soon)?saved.selectedDifficulty:'normie';
         ladderGrant(selectedDifficulty); // a run saved before the ladder keeps its class
         document.querySelectorAll('[data-difficulty]').forEach(button=>{
           const isCurrent=button.dataset.difficulty===selectedDifficulty;
@@ -10333,6 +10600,7 @@
         if(callerState().stage==='dead'){callerDeath();return true;} // so is she
         if(world.minis?.dead){miniDeathScreen();return true;} // a mini quest's visitor
         if(world.rq?.dead){rqDeathScreen();return true;} // a room quest
+        if(world.cls?.dead){classDeathScreen();return true;} // the cheap clinic, or the sheriff
         if(world.fq?.dead){fqDeathScreen();return true;} // her thing
         if(world.coyote?.dead){coyoteDeathScreen();return true;} // the Coyote
         if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
@@ -10377,6 +10645,7 @@
       $('difficulty-pick').classList.remove('visible');
       $('day-caption').classList.remove('visible');
       dialledNumber='';dialStatus='Enter a number using the keypad.';
+      classStart(); // the Looksmaxxer and the Divorcé: a wallet, looks, the payment schedule
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
       openApp('hinge');
     }
@@ -10553,7 +10822,9 @@
     $('rq-spotter-preview').onclick=()=>rqTestStart('spotter');
     $('rq-seating-preview').onclick=()=>rqTestStart('seating');
     $('ladder-win-preview').onclick=()=>{const r=ladderCountWin(selectedDifficulty,'test-'+Date.now());updateRunStatus(r?.next&&!r.next.soon?`Counted a win as ${ladderName(r.as)}. ${r.next.name} is unlocked.`:'Counted a win. That is the top of the ladder for now.');};
-    $('ladder-unlock-all').onclick=()=>{ladderGrant('truecel');updateRunStatus('Mogger and Truecel are unlocked.');};
+    $('ladder-unlock-all').onclick=()=>{ladderGrant('divorce');updateRunStatus('Every class is unlocked.');};
+    $('class-cash-preview').onclick=()=>{if(!walletOn()){updateRunStatus('Start a Looksmaxxer or Divorcé run first.');return;}const c=classState();c.cash+=1000;c.tripDay=null;c.laidUntil=null;saveRun(true);updateRunStatus(`Wallet: $${c.cash}. You can drive again today.`);};
+    $('class-ex-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const c=classState();c.payDue=world.day+1;c.remindFor=null;testRing('x:ex');updateRunStatus('Preview: Denise is ringing about tomorrow’s payment.');};
     $('ladder-reset').onclick=()=>{const notes=playerProfile().notes;ladderCache=sanitizeProfile({notes});saveProfile();updateRunStatus('Back to Normie only. Your notes are kept.');if(currentApp==='journal')renderJournal();};
     $('fq-postcard-preview').onclick=()=>fqTestStart('postcard');
     $('fq-letter-preview').onclick=()=>fqTestStart('letter');
