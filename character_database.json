@@ -31270,14 +31270,14 @@
         }
       },
       "parcel": {
-        "label": "Alice’s parcel: a gilt chair",
-        "text": "A gilt ballroom chair from the club’s store, wrapped in a moving blanket, red velvet seat, a brass number screwed underneath. A card tied to the back in her hand: SIT HERE WHEN YOU SEND THEM. I SEAT EVERYONE. A.B.",
+        "label": "Alice’s parcel: a little gilt chair",
+        "text": "A gilt ballroom chair the size of your palm, red velvet seat, the kind that holds the place cards at every dinner the club gives. A card tied to it with black ribbon in her hand: PROP MY CARDS IN THIS WHEN YOU SEND THEM. I SEAT EVERYONE. A.B.",
         "sit": {
-          "label": "🪑 Sit in her chair",
+          "label": "🪑 Prop her card in the little chair",
           "notice": {
-            "normie": "Gilt and red velvet, absurd next to your bed. You sit. You feel seated.",
-            "mogger": "Gilt and red velvet. You sit in it like a prince. It doesn’t feel like a throne. It feels like a place card.",
-            "truecel": "Gilt and red velvet, the nicest thing in your room, and it isn’t yours. You sit."
+            "normie": "You stand it under your lamp and slot her card in. A tiny gilt throne for one line of text. You feel seated.",
+            "mogger": "Gilt and red velvet, two inches tall, under your lamp. It doesn’t feel like a throne. It feels like a place card.",
+            "truecel": "The nicest thing in your room is two inches tall, and it isn’t yours. You prop her card in it."
           }
         }
       },
@@ -31330,7 +31330,7 @@
       "read": "📇 Read her Alice’s card",
       "scene": {
         "desk": "At your desk, Alice’s card propped against the lamp and {first}’s chat open. Tap her words in the order she wrote them.",
-        "chair": "Bolt upright in Alice’s gilt chair, her card on your knee and {first}’s chat open. Tap her words in the order she wrote them."
+        "chair": "At your desk, Alice’s card propped in her little gilt chair under the lamp and {first}’s chat open. Tap her words in the order she wrote them."
       },
       "hint": "Word for word. Tap them in order.",
       "sent": {
@@ -31525,39 +31525,39 @@
       },
       "address": {
         "ask": {
-          "normie": "One more thing. Every man I seat gets a seat. Give me your address and I’ll have one of the club’s chairs sent over.",
-          "mogger": "One more thing, pretty boy. Every man I seat gets a seat. Your address, and I’ll send one of the club’s chairs.",
-          "truecel": "One more thing. Every man I seat gets a seat, even you. Your address, and I’ll send one of the club’s chairs."
+          "normie": "One more thing. Every man I seat gets a seat. Give me your address and I’ll send you one of the club’s little chairs.",
+          "mogger": "One more thing, pretty boy. Every man I seat gets a seat. Your address, and I’ll send one of the club’s little chairs.",
+          "truecel": "One more thing. Every man I seat gets a seat, even you. Your address, and I’ll send one of the club’s little chairs."
         },
         "give": {
           "label": "Give her your address",
-          "player": "Here’s my address. A chair?",
+          "player": "Here’s my address. A little chair?",
           "reply": {
-            "normie": "A gilt one, from the ballroom store. It comes with your first card in the morning. Sit in it when you send them.",
-            "mogger": "A gilt one, pretty boy. It comes with your first card in the morning. Sit in it.",
-            "truecel": "A gilt one. It’ll be the best thing in your room by a distance. It comes with your first card."
+            "normie": "A gilt one, the kind that holds the place cards at our dinners. It comes with your first card in the morning. Prop my cards in it when you send them.",
+            "mogger": "A gilt one, pretty boy. It comes with your first card in the morning. Prop my cards in it.",
+            "truecel": "A gilt one. It’ll be the best thing in your room by a distance, and it’s two inches tall. It comes with your first card."
           }
         },
         "no": {
-          "label": "Tell her you have a chair",
-          "player": "I have a chair, thanks.",
+          "label": "Tell her not to send it",
+          "player": "No need, thanks.",
           "reply": {
-            "normie": "Not one of mine. Fine. Stand, then. It’ll show in your typing.",
+            "normie": "Not one of mine. Fine. Squint at my cards, then. It’ll show in your typing.",
             "mogger": "Not one of mine, pretty boy. Suit yourself.",
-            "truecel": "I’ve seen your room. Fine. Keep your chair."
+            "truecel": "I’ve seen your room. Fine. Prop them against a pizza box."
           }
         },
         "arrived": {
-          "normie": "My chair is at your door, and your first card with it. Sit in it when you send them.",
-          "mogger": "My chair is at your door, pretty boy. Sit in it when you send them.",
-          "truecel": "My chair is at your door. Don’t spill anything on it."
+          "normie": "My little chair is at your door, and your first card with it. Prop my cards in it when you send them.",
+          "mogger": "My little chair is at your door, pretty boy. Prop my cards in it when you send them.",
+          "truecel": "My little chair is at your door. Don’t spill anything on it."
         }
       },
-      "deathCause": "A GILT CHAIR",
+      "deathCause": "A LITTLE GILT CHAIR",
       "deaths": [
-        "Two hundred years old, and it had seated four governors.",
-        "The message sent itself on the way down.",
-        "Alice had the chair repaired. Nobody asked about you."
+        "Her card leaned on the bulb. The curtains went next.",
+        "The message sent itself while the smoke alarm screamed.",
+        "Alice had the little chair regilded. Nobody asked about you."
       ]
     }
   },

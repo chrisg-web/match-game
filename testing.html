@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="025ff39852">
+<html lang="en" data-build="df1379ab40">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -677,11 +677,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=025ff39852"></script>
+  <script src="chapel_at_midnight.js?v=df1379ab40"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=025ff39852"></script>
+  <script src="marriage.js?v=df1379ab40"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=025ff39852"></script>
+  <script src="quests/professor-vale.js?v=df1379ab40"></script>
 </head>
 <body>
   <main class="workbench">
@@ -6734,7 +6734,7 @@
       if(h?.still)out.push({id:'rq:still',door:true,floor:'letter',label:kit.openhouse.caroline.still.label,short:'Still',image:'assets/items/cctv-still.png',text:kit.openhouse.caroline.still.text});
       if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:null,text:kit.hotline.bill.text});
       const a=rqs('seating'),A=kit.seating;
-      if(a&&A&&Number.isInteger(a.parcelDay)&&world.day>=a.parcelDay)out.push({id:'rq:chair',door:true,floor:'parcel',label:A.parcel.label,short:'Gilt chair',image:'assets/items/alice-chair.png',text:A.parcel.text,actions:a.chair?[]:[{id:'rq:seating:sit',label:A.parcel.sit.label}]});
+      if(a&&A&&Number.isInteger(a.parcelDay)&&world.day>=a.parcelDay)out.push({id:'rq:chair',door:true,floor:'parcel',label:A.parcel.label,short:'Little chair',image:'assets/items/alice-chair.png',text:A.parcel.text,actions:a.chair?[]:[{id:'rq:seating:sit',label:A.parcel.sit.label}]});
       if(a&&A)(a.seated||[]).forEach((who,i)=>{const first=firstName(hingeProfile(who))||'Her';out.push({id:'rq:card'+i+':'+who,door:true,floor:'envelope',label:fillIn(A.card.label,{first}),short:'Place card',image:'assets/items/place-card.png',text:fillIn(A.card.text,{first,line:(A.lines[i]||[]).join(' ')})});});
       if(s&&Number.isInteger(s.parcelDay)&&world.day>=s.parcelDay)out.push({id:'rq:spotter',door:true,floor:'shoebox',label:kit.spotter.parcel.label,short:'Pig nose',image:'assets/items/lauren-box.png',text:kit.spotter.parcel.text,actions:[...(s.nose?[]:[{id:'rq:spotter:nose',label:kit.spotter.parcel.nose.label}]),...(s.bar?[]:[{id:'rq:spotter:bar',label:kit.spotter.parcel.bar.label}])]});
       return out;
