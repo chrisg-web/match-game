@@ -30076,7 +30076,65 @@
         "Fine. Unmatching you.",
         "Go and ignore someone else. Bye.",
         "I gave you a nudge and you gave me nothing. Goodbye."
-      ]
+      ],
+      "angry": {
+        "thunderbirds": [
+          "Three days. At the club we call that a snub, and we remember snubs. Unmatched.",
+          "I don’t chase men, and I certainly don’t chase men who can’t manage a hello. Good luck getting a table anywhere in this town.",
+          "Do you know how many men would kill for three days of my attention? You had them free and wasted them. Unmatched."
+        ],
+        "police": [
+          "Three days, no reply. I’ve had suspects with better manners. Unmatched.",
+          "I don’t do welfare checks on men who ghost me. Unmatched.",
+          "You matched, you went silent, you wasted my time. That’s three strikes. Bye."
+        ],
+        "progressives": [
+          "Matching with someone and then ignoring them for three days is a form of disrespect. I’m unmatching you, and I’m telling people.",
+          "Wow. Three days of silence. Very on brand for men in this town. Bye.",
+          "I don’t owe you a goodbye, but you’re getting one. This one. Unmatched."
+        ],
+        "fourth_estate": [
+          "Three days without a word. I’ve had sources ghost me with more grace. Unmatched.",
+          "You’re a story now. A small one, on page twelve, about men who match and vanish. Bye.",
+          "No comment from you for three days. So here’s mine: unmatched."
+        ],
+        "goth_girls": [
+          "Three days of silence. I hope it haunts you. Unmatched.",
+          "I lit a candle for this match. I’m blowing it out now. Goodbye.",
+          "You let it die. Fine. I’m burying it. Unmatched."
+        ],
+        "normie_girls": [
+          "Seriously? Three days and nothing? Wow. Unmatching you.",
+          "I actually told my friends about you. Now I get to tell them this. Bye.",
+          "Cool. Cool cool cool. Three days. Unmatched."
+        ]
+      },
+      "heard": {
+        "thunderbirds": [
+          "I hear you left {first} on read for three days. The whole club hears everything, darling.",
+          "{first} says you matched her and vanished. Bad form. I’m watching you now."
+        ],
+        "police": [
+          "{first} from the station says you ghosted her. That gets around a precinct fast.",
+          "Heard about {first}. Three days? Don’t do that to me."
+        ],
+        "progressives": [
+          "{first} told the group chat what you did. I’m giving you one chance to be better than that.",
+          "So you’re the one who ghosted {first}. Interesting."
+        ],
+        "fourth_estate": [
+          "{first} is telling the whole newsroom you ghosted her. Is it true?",
+          "Word is you left {first} hanging for three days. Don’t make me write about you too."
+        ],
+        "goth_girls": [
+          "{first} says you let her match die. I’m keeping an eye on you.",
+          "Heard what you did to {first}. Cold. I almost respect it. Almost."
+        ],
+        "normie_girls": [
+          "Um, {first} is my friend? She said you ghosted her for three days.",
+          "{first} told me what happened. Not a great look."
+        ]
+      }
     }
   },
   "minis": {
