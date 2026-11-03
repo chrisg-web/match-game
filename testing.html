@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="86a5d3b570">
+<html lang="en" data-build="16da6abbae">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -640,11 +640,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=86a5d3b570"></script>
+  <script src="chapel_at_midnight.js?v=16da6abbae"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=86a5d3b570"></script>
+  <script src="marriage.js?v=16da6abbae"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=86a5d3b570"></script>
+  <script src="quests/professor-vale.js?v=16da6abbae"></script>
 </head>
 <body>
   <main class="workbench">
@@ -820,7 +820,7 @@
     };
     const $ = id => document.getElementById(id);
     let selectedDifficulty='normie';
-    const matchRates={truecel:.18,normie:.42,mogger:.72};
+    const matchRates={truecel:.045,normie:.105,mogger:.18}; // a quarter of what they were (Chris, 3 November 2026: everyone got too many matches)
     // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
     const MATCH_RARITY={'MATCH-003':.5};
     const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.'};
@@ -5376,7 +5376,7 @@
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
-      if(tone()==='mogger'&&gameRandom()<.45){
+      if(tone()==='mogger'&&gameRandom()<.11){ // a woman likes you first: about one a week and a half
         const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA]:[];
         const pool=hingeProfiles.filter(p=>!hingeThreads.has(p.id)&&!chapelIds.includes(p.id)&&p.factionId!=='sisters_of_mercy'&&p.gallery?.length);
         if(pool.length){
