@@ -30874,9 +30874,9 @@
         "label": "Tell her to train you",
         "player": "Train me.",
         "reply": {
-          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good piggy.",
-          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Good boy. Piggy.",
-          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. My number is {number}. Clean that desk, piggy."
+          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. My number is {number}. Good piggy.",
+          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. My number is {number}. Good boy. Piggy.",
+          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. My number is {number}. Clean that desk, piggy."
         }
       },
       "no": {
@@ -30941,14 +30941,11 @@
       ],
       "choices": {
         "go": "Yes, Coach",
-        "safe": "Say the safeword: protein shake",
         "hang": "Hang up"
       },
       "player": {
-        "go": "Yes, Coach.",
-        "safe": "Protein shake."
+        "go": "Yes, Coach."
       },
-      "safe": "Safeword. Okay. We stop, right now. You did the right thing saying it. Drink some water, eat something green. I’m proud of you. No sulking from me, I promised.",
       "hangText": {
         "normie": "You hung up on me. You don’t get to waste me, piggy. Tomorrow you do double.",
         "mogger": "You hung up on me. Nobody hangs up on me, pretty boy. Tomorrow you pay for it.",
@@ -31075,9 +31072,9 @@
           "truecel": "You rang me? From the sty? Okay. I’m a trainer. I could fix you, or I could just enjoy you, and with me it’s the same thing. Want in?"
         },
         "yes": {
-          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Good piggy.",
-          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Good boy. Piggy.",
-          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. If it’s ever too much, say the safeword, protein shake, and I stop, every time, no sulking. Clean that desk, piggy."
+          "normie": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. Good piggy.",
+          "mogger": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. Good boy. Piggy.",
+          "truecel": "Rules. Three mornings. I ring early. You answer, or you ring me straight back. You call me Coach. Clean that desk, piggy."
         },
         "self": {
           "normie": "You rang me first. Eager little piggy. I like eager.",

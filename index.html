@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d3dd874467">
+<html lang="en" data-build="44cac22176">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -640,11 +640,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d3dd874467"></script>
+  <script src="chapel_at_midnight.js?v=44cac22176"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d3dd874467"></script>
+  <script src="marriage.js?v=44cac22176"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d3dd874467"></script>
+  <script src="quests/professor-vale.js?v=44cac22176"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -5889,7 +5889,7 @@
     // until the club's committee rings about her new husband. Olivia Reid's open house: pictures from
     // places she shouldn't be, until the homeowner, Caroline Prescott, wants a rematch. The hotline in
     // the classifieds: Candy is Jessica Rivera, which you can only tell her if you've met Jessica.
-    // Lauren Bishop the spotter: three mornings on her count (safeword: protein shake). She rings you, or you
+    // Lauren Bishop the spotter: three mornings on her count (no safeword: you can always hang up). She rings you, or you
     // ring her (miss her and ring back the same day); before each set you can oink, talk back or beg, and
     // after each one ask about her. Three asks in, you can offer to count for her instead. Alice Beaumont's
     // seating plan: three mornings, a place card under your door with one of your matches on the front and
@@ -6284,7 +6284,7 @@
       if(call.phase==='session'){
         const sp=rqs('spotter'),P=kit.pre,out=[{id:'rq:go',label:kit.choices.go}];
         if(P&&!call.pre){if(sp?.nose)out.push({id:'rq:oink',label:P.oink.label});out.push({id:'rq:sass',label:P.sass.label},{id:'rq:beg',label:P.beg.label});} // one before each set
-        out.push({id:'rq:safe',label:kit.choices.safe},{id:'rq:hang',label:kit.choices.hang});
+        out.push({id:'rq:hang',label:kit.choices.hang});
         return out;
       }
       if(call.phase==='pitch')return [{id:'rq:yes',label:kit.yes.label},{id:'rq:no',label:kit.no.label}];
@@ -6352,7 +6352,6 @@
         endHerCall();rqTurnStart();return;
       }
       if(call.phase==='session'){
-        if(choice==='rq:safe'){call.said=kit.safe;st.stage='done';if(thread)warmBy(thread,1);return done();} // she stops, every time
         if(['rq:oink','rq:sass','rq:beg'].includes(choice)&&!call.pre&&kit.pre){ // before the set: it changes how she runs it
           const P=kit.pre,k=choice.slice(3);call.pre=true;
           if(k==='oink'){st.mod='slow';if(thread)heatBy(thread,1);call.said=rqT(P.oink.reply);}
