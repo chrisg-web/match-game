@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="16da6abbae">
+<html lang="en" data-build="8478aeb4cf">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -640,11 +640,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=16da6abbae"></script>
+  <script src="chapel_at_midnight.js?v=8478aeb4cf"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=16da6abbae"></script>
+  <script src="marriage.js?v=8478aeb4cf"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=16da6abbae"></script>
+  <script src="quests/professor-vale.js?v=8478aeb4cf"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -820,7 +820,7 @@
     };
     const $ = id => document.getElementById(id);
     let selectedDifficulty='normie';
-    const matchRates={truecel:.045,normie:.105,mogger:.18}; // a quarter of what they were (Chris, 3 November 2026: everyone got too many matches)
+    const matchRates={truecel:.09,normie:.21,mogger:.36}; // half what they were (Chris, 3 November 2026: too many matches; a quarter was too hard)
     // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
     const MATCH_RARITY={'MATCH-003':.5};
     const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.'};
@@ -5376,7 +5376,7 @@
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
-      if(tone()==='mogger'&&gameRandom()<.11){ // a woman likes you first: about one a week and a half
+      if(tone()==='mogger'&&gameRandom()<.22){ // a woman likes you first: about one every four or five days
         const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA]:[];
         const pool=hingeProfiles.filter(p=>!hingeThreads.has(p.id)&&!chapelIds.includes(p.id)&&p.factionId!=='sisters_of_mercy'&&p.gallery?.length);
         if(pool.length){
