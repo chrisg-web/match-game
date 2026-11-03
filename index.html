@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c7c304a63e">
+<html lang="en" data-build="86a5d3b570">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -640,11 +640,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c7c304a63e"></script>
+  <script src="chapel_at_midnight.js?v=86a5d3b570"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c7c304a63e"></script>
+  <script src="marriage.js?v=86a5d3b570"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c7c304a63e"></script>
+  <script src="quests/professor-vale.js?v=86a5d3b570"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2352,7 +2352,7 @@
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
       if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
-      if(id==='finale:ask')return chooseFinale(thread,profile); // the Founders' Ball
+      if(id==='finale:ask'||id.startsWith('finale:list:'))return chooseFinale(thread,profile,id); // the Founders' Ball
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
@@ -4861,6 +4861,7 @@
         ask:'I thought about it all night. His pills come through your door now. Imagine if one of them didn’t do what it says. There are three of us, and one of us does pharmacology. Nobody would ever know it wasn’t his heart.',
         yes:{label:'Tell her to send the tablet',player:'Send it.',reply:'Tomorrow, on your step, inside a library book. He reads our names out on his show. Remember that.'},
         no:{label:'Tell her you won’t do it',player:'No. I’m not doing that.',reply:'Okay. Forget I said anything. I mean it. Forget it.'},
+        gun:'I left a shoebox on your step. Same hand as the library slip. Don’t open it unless it goes wrong.',
         who:{label:'Ask who pays for her committee',player:'Who pays for your action committee?',reply:'A grant. A Foundation grant, through the university. We’ve never met the donor. Does it matter? The money’s good and the cause is right.'},
         think:{label:'Ask what she thinks of Cole Halloran',player:'What do you think of Cole Halloran?'},
         volunteer:'I phone-bank for him three nights a week! He’s the only one who talks like a normal person. He threw his dog a birthday party at the dealership. Blitz, a golden retriever in a party hat. I cried.',
@@ -4951,7 +4952,7 @@
       if(world.day===h.profileDay+1&&h.parcel==='none'){h.parcel='floor';glowNotices.push(HAL.arrives);}
       if(h.redirectDay===world.day&&['none','gone'].includes(h.parcel)){h.parcel='floor';h.parcelN=(Number(h.parcelN)||1)+1;h.swapped=false;h.slot=null;h.seal=null;h.collectDay=null;glowNotices.push(HAL.arrives);}
       if(h.bookDay===world.day&&h.book==='none')h.book='floor';
-      if(h.gunDay===world.day&&h.gun==='none')h.gun='floor';
+      if(h.gunDay===world.day&&h.gun==='none'){h.gun='floor';const t=halThread(h.student);if(t){lineSpeaker=t.id;herLine(t,HAL.chat.gun);}} // she says she left it
       if(h.askDay===world.day&&!h.asked){const t=halThread(h.student);if(t){lineSpeaker=t.id;herLine(t,HAL.chat.ask);h.asked='open';recordClue(fillIn(HAL.notes.ask,{name:hingeProfile(t.id).name}));}}
       // The courier collects: he has it today, and takes one a night from the notch.
       if(h.collectDay===world.day&&['have','opened','floor'].includes(h.parcel)){
@@ -5058,7 +5059,7 @@
       if(!halChatChoices(thread,profile).some(([choice])=>choice===id))return;
       h.asks[profile.id+':'+key]=world.day;
       lineSpeaker=profile.id;
-      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[reply],'talk',after,true);};
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,Array.isArray(reply)?reply:[reply],'talk',after,true);};
       const note=(template)=>()=>recordClue(fillIn(template,{name:profile.name}));
       if(key==='tell'){h.student=profile.id;h.askDay=world.day+1;return say(c.tell.player,c.tell.reply);}
       if(key==='yes'){h.asked='yes';h.bookDay=world.day+1;return say(c.yes.player,c.yes.reply);}
@@ -5867,7 +5868,8 @@
     // your opening line on the back; tap her words in order and send it to that match word for word
     // (safeword: centerpiece). The match may work out it was Alice. Three asks in, you write Alice's card,
     // and she reads it at the committee luncheon with you on the phone. A woman a room
-    // quest waits on turns up in your deck and likes you back. Tests switch them off with MATCH_NO_MINIS
+    // quest waits on turns up in your deck and likes you back. Nothing comes through your door unasked: Lauren and Alice
+    // ask for your address first, and only send their parcel if you give it. Tests switch them off with MATCH_NO_MINIS
     // unless MATCH_ALL_RQ is set.
     const rqKit=()=>characterDB?.rooms||null;
     const RQ_IDS=['robe','openhouse','hotline','spotter','seating'];
@@ -5976,6 +5978,7 @@
           continue;
         }
         if(st.stage==='hook'&&world.day>st.hookDay+3){st.stage='done';continue;} // she asked and you never said
+        if(kit.address&&st.addr==='given'&&st.parcelDay===world.day){const t=rqThread(id);if(t){lineSpeaker=st.host;herLine(t,rqT(kit.address.arrived));rqSpoke(t);}} // her parcel, and her saying so
         if(id==='robe')rqRobeDay(st,kit);
         else if(id==='openhouse')rqHouseDay(st,kit);
         else if(id==='hotline')rqHotlineDay(st,kit);
@@ -6017,6 +6020,10 @@
         if(sp.await==='answer')for(const k of ['pretty','turn','quiet'])out.push([`rq:spotter:ans:${k}`,T.answers[k].label]);
         else if((sp.talk||0)<Math.min(3,sp.session||0)&&sp.talkDay!==world.day)out.push(['rq:spotter:talk',T.label]); // one a day, one per set you've done
       }
+      for(const id of RQ_IDS){ // she wants your address before she sends anything
+        const st=rqs(id),A=kit[id]?.address;
+        if(A&&st?.addr==='ask'&&st.host===profile.id&&!RQ_OVER.includes(st.stage)&&!thread.blocked)out.push([`rq:${id}:addr:give`,A.give.label],[`rq:${id}:addr:no`,A.no.label]);
+      }
       const se=rqs('seating'),SK=kit.seating;
       if(se&&SK&&se.stage!=='gone'){
         if(se.host===profile.id&&!se.quit){
@@ -6039,16 +6046,23 @@
     function chooseRq(choice,thread,profile){
       const [,id,act,arg]=choice.split(':'),kit=rqKit()?.[id],st=rqs(id);
       if(!kit||!st)return;
-      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[reply],'talk',after,true);};
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,Array.isArray(reply)?reply:[reply],'talk',after,true);};
       if(st.stage==='hook'&&st.host===profile.id&&(act==='yes'||act==='no')){
         if(act==='no'){st.stage='done';warmBy(thread,-1);return say(kit.no.player,rqT(kit.no.reply));}
         if(id!=='openhouse'&&!thread.number)thread.number=unusedContactNumber(); // she rings you
         warmBy(thread,1);
         if(id==='robe')Object.assign(st,{stage:'calls',call:0,nextCall:world.day,right:0});
         if(id==='openhouse')Object.assign(st,{stage:'dare',seen:[],dareDay:world.day+1,await:''});
-        if(id==='spotter')Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
-        if(id==='seating')Object.assign(st,{stage:'cards',card:0,cardDay:world.day+1,parcelDay:world.day+1,missed:0,perfect:0,seated:[]});
-        return say(kit.yes.player,fillIn(rqT(kit.yes.reply),{number:thread.number||''}),()=>ensureCallSchedule());
+        if(id==='spotter')Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,missed:0});
+        if(id==='seating')Object.assign(st,{stage:'cards',card:0,cardDay:world.day+1,missed:0,perfect:0,seated:[]});
+        const lines=[fillIn(rqT(kit.yes.reply),{number:thread.number||''})];
+        if(kit.address){st.addr='ask';lines.push(rqT(kit.address.ask));} // she asks for your address before she sends anything
+        return say(kit.yes.player,lines,()=>ensureCallSchedule());
+      }
+      if(act==='addr'&&kit.address&&st.addr==='ask'&&st.host===profile.id&&!RQ_OVER.includes(st.stage)){
+        const A=kit.address;
+        if(arg==='give'){Object.assign(st,{addr:'given',parcelDay:world.day+1});return say(A.give.player,rqT(A.give.reply));}
+        st.addr='no';return say(A.no.player,rqT(A.no.reply));
       }
       if(id==='spotter'&&st.host===profile.id&&kit.talk&&!st.quit){
         const T=kit.talk;
@@ -6290,8 +6304,9 @@
       if(call.phase==='pitch'){ // you rang her before you'd answered her message
         if(st.stage!=='hook')return done();
         if(choice==='rq:no'){st.stage='done';if(thread)warmBy(thread,-1);call.said=rqT(kit.no.reply);return done();}
-        Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,parcelDay:world.day+1,missed:0});
+        Object.assign(st,{stage:'sessions',session:0,nextCall:world.day+1,missed:0});
         if(thread)warmBy(thread,1);
+        if(thread&&kit.address){st.addr='ask';lineSpeaker=st.host;herLine(thread,rqT(kit.address.ask));} // then a text: your address
         call.said=rqT(kit.ring.yes);ensureCallSchedule();return done();
       }
       if(call.phase==='luncheon'){ // Alice reads your card to the committee
@@ -6820,16 +6835,19 @@
       updateRunStatus(`Preview: the Coyote has taken ${hingeProfile(t.id).name}. He is ringing now. Listen for the sound, then ring 911 and tell Doreen where she is.`);
     }
     // ===== The Founders' Ball (characters/finale.json; Chris, 2 November 2026) =====
-    // A finale in about a quarter of runs. The invitation comes through your door on Day 12; on Days 12
+    // A finale in about a quarter of runs. On Day 11 (or 12) a match you get on with offers to put your name on the
+    // list; say yes and the invitation comes through your door the next morning, with her name on it. On Days 12
     // and 13 you can ask a match to come with you; on Day 14 the ball plays like an ending, built from how
     // this run's stories turned out and what the town thinks of you. Then a new game, or stay in Sunfall.
     const finaleKit=()=>characterDB?.finale||null;
-    const FINALE_INVITE=12,FINALE_DAY=14,FINALE_INVITE_ART='assets/items/ball-invitation.png';
+    const FINALE_OFFER=11,FINALE_DAY=14,FINALE_INVITE_ART='assets/items/ball-invitation.png';
     function finaleState(){const f=world.finale;if(!f||typeof f!=='object'||Array.isArray(f)||typeof f.stage!=='string')world.finale={stage:'none',asked:[]};return world.finale;}
     function sanitizeFinale(raw){
       const out={stage:'none',asked:[]};
       if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
-      if(['none','invited','done'].includes(raw.stage))out.stage=raw.stage;
+      if(['none','offered','listed','invited','declined','done'].includes(raw.stage))out.stage=raw.stage;
+      if(typeof raw.host==='string')out.host=raw.host.slice(0,20);
+      for(const k of ['offerDay','inviteDay'])if(Number.isInteger(raw[k]))out[k]=raw[k];
       if(typeof raw.date==='string')out.date=raw.date.slice(0,20);
       if(Array.isArray(raw.asked))out.asked=raw.asked.filter(id=>typeof id==='string').slice(0,40);
       if(typeof raw.on==='boolean')out.on=raw.on;
@@ -6842,23 +6860,52 @@
     }
     function finaleNewDay(){
       const kit=finaleKit(),f=finaleState();
-      if(!kit||!finaleOn()||f.stage!=='none'||world.day<FINALE_INVITE)return;
-      f.stage='invited';
-      queueNews({id:'finale_ball',section:kit.news.section,title:kit.news.title,summary:kit.news.summary,body:kit.news.body,image:'founders_ball',fallbackImage:'charity_gala'},world.day);
+      if(!kit||!finaleOn())return;
+      if(f.stage==='listed'&&world.day>=(f.inviteDay||0)){ // the invitation she put your name down for
+        f.stage='invited';
+        queueNews({id:'finale_ball',section:kit.news.section,title:kit.news.title,summary:kit.news.summary,body:kit.news.body,image:'founders_ball',fallbackImage:'charity_gala'},world.day);
+        const t=f.host&&hingeThreads.get(f.host);
+        if(t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing){lineSpeaker=t.id;herLine(t,kit.offer.arrived);}
+        return;
+      }
+      if(f.stage==='offered'&&world.day>f.offerDay+1){f.stage='none';delete f.host;delete f.offerDay;} // she never heard back
+      if(f.stage!=='none'||world.day<FINALE_OFFER||world.day>=FINALE_DAY-1)return;
+      const t=finaleOfferHost();
+      if(!t)return; // nobody to put your name down: no ball this run
+      Object.assign(f,{stage:'offered',host:t.id,offerDay:world.day});
+      lineSpeaker=t.id;herLine(t,hingeProfile(t.id).factionId==='thunderbirds'?kit.offer.club:kit.offer.other);
+      const ts=talkState(t);ts.unread=true;ts.morningDay=world.day;ts.musedDay=world.day;
+    }
+    // Who offers to get you on the list: a woman from the club if one likes you, otherwise whoever likes you most.
+    function finaleOfferHost(){
+      const fits=t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==bearHingeCard.id&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!t.awaiting&&warmthOf(t)>=1;};
+      const list=[...hingeThreads.values()].filter(fits).sort((a,b)=>warmthOf(b)-warmthOf(a)||hashSeed(world.seed+'|ballhost|'+a.id)-hashSeed(world.seed+'|ballhost|'+b.id));
+      return list.find(t=>hingeProfile(t.id).factionId==='thunderbirds')||list[0]||null;
     }
     function finaleItems(){
       const kit=finaleKit(),f=world.finale;
-      if(!kit||!f||f.stage==='none')return [];
-      return [{id:'finale:invite',door:true,floor:'envelope',label:kit.invitation.label,short:kit.invitation.short,image:FINALE_INVITE_ART,text:kit.invitation.text}];
+      if(!kit||!f||!['invited','done'].includes(f.stage))return [];
+      const by=f.host&&hingeProfile(f.host);
+      return [{id:'finale:invite',door:true,floor:'envelope',label:kit.invitation.label,short:kit.invitation.short,image:FINALE_INVITE_ART,text:kit.invitation.text+(by?' '+fillIn(kit.offer.tag,{first:firstName(by)}):'')}];
     }
     function finaleChoices(thread,profile){
       const kit=finaleKit(),f=world.finale;
+      if(kit&&f&&f.stage==='offered'&&f.host===thread.id&&!thread.blocked)return [['finale:list:yes',kit.offer.yes.label],['finale:list:no',kit.offer.no.label]]; // put your name down?
       if(!kit||!f||f.stage!=='invited'||f.date||world.day>=FINALE_DAY||(f.asked||[]).includes(thread.id))return [];
       if(!profile||!flirtable(profile)||thread.id===bearHingeCard.id||thread.blocked||thread.missing||thread.unmatched||thread.left||warmthOf(thread)<1)return [];
       return [['finale:ask',kit.ask.label]];
     }
-    function chooseFinale(thread,profile){
+    function chooseFinale(thread,profile,id='finale:ask'){
       const kit=finaleKit(),f=finaleState();
+      if(id.startsWith('finale:list:')){
+        if(f.stage!=='offered'||f.host!==thread.id)return;
+        const yes=id==='finale:list:yes',O=kit.offer[yes?'yes':'no'];
+        if(yes)Object.assign(f,{stage:'listed',inviteDay:world.day+1});else f.stage='declined';
+        thread.log.push({who:'you',text:O.player});
+        lineSpeaker=profile.id;
+        deliverTalk(thread,profile,[rqT(O.reply)],'talk',()=>{if(yes)warmBy(thread,1);},true);
+        return;
+      }
       if(!finaleChoices(thread,profile).length)return;
       f.asked=[...(f.asked||[]),thread.id];
       thread.log.push({who:'you',text:myVoice(seededPick(kit.ask.player,world.seed+'|ball|'+thread.id),profile.id)});
@@ -7225,7 +7272,7 @@
     function chooseFq(choice,thread,profile){
       const [,id,act,arg]=choice.split(':'),kit=fqKit()?.[id],st=fqs(id);
       if(!kit||!st||st.host!==profile.id)return;
-      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,[reply],'talk',after,true);};
+      const say=(player,reply,after)=>{thread.log.push({who:'you',text:player});deliverTalk(thread,profile,Array.isArray(reply)?reply:[reply],'talk',after,true);};
       if(st.stage==='hook'&&(act==='yes'||act==='no')){
         if(act==='no'){st.stage='done';warmBy(thread,-1);return say(kit.no.player,rqT(kit.no.reply));}
         warmBy(thread,1);

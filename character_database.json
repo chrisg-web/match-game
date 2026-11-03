@@ -30228,10 +30228,10 @@
       },
       "stepReply": "Good. Tonight. Then you forget this number.",
       "policeReply": "No, you haven’t. If you had, you wouldn’t still have it.",
-      "gone": "The envelope has gone from the step. Someone has left a bottle of good whiskey in a paper bag, just inside your door. No note.",
+      "gone": "The envelope has gone from the step. Someone has left a bottle of good whiskey in a paper bag, just inside your door, with a note in pencil: For keeping it safe. K.",
       "gift": {
         "label": "A bottle of whiskey",
-        "text": "Good whiskey in a paper bag, left at your door where the envelope had been. No note."
+        "text": "Good whiskey in a paper bag, left at your door where the envelope had been. The note says: For keeping it safe. K."
       },
       "short": "The envelope has gone from the step. Your phone rings once in the night. Nobody speaks.",
       "tip": {
@@ -30324,7 +30324,7 @@
         "refuse": "Refuse"
       },
       "what": "Information. Who comes and goes. Who says what. Girls talk to you, I gather. I keep a file on everyone in Sunfall. I would like to keep one with you, rather than on you.",
-      "joined": "Splendid. I’ll ring. Have something for me.",
+      "joined": "Splendid. I’ll have a page from the file put through your door in the morning, so you know where you stand. Then I’ll ring. Have something for me.",
       "refused": "How disappointing. You have a window, you know. Everyone does.",
       "ask": "Constance Ashworth. Well? Tell me something about one of your girls.",
       "tellLabel": "Tell her what {first} told you",
@@ -31151,6 +31151,36 @@
           "truecel": "Proof. I never send these. Delete it. Don’t delete it."
         }
       },
+      "address": {
+        "ask": {
+          "normie": "One more thing. Send me your address. You’re getting a box from me, and you’ll do what’s in it.",
+          "mogger": "One more thing, pretty boy. Send me your address. You’re getting a box from me, and you’ll do what’s in it.",
+          "truecel": "One more thing. Your address. You’re getting a box from me. Clear a space in the sty for it."
+        },
+        "give": {
+          "label": "Give her your address",
+          "player": "Here’s my address. What’s in the box?",
+          "reply": {
+            "normie": "You’ll see. It’ll be at your door in the morning.",
+            "mogger": "You’ll see, pretty boy. Your door, in the morning.",
+            "truecel": "You’ll see. Your door, in the morning. Try not to eat it."
+          }
+        },
+        "no": {
+          "label": "Tell her not to send anything",
+          "player": "Don’t send anything. I’ll manage with what I’ve got.",
+          "reply": {
+            "normie": "With what you’ve got. Okay. Floor and burpees, then. No toys for you.",
+            "mogger": "Fine, pretty boy. Floor only. No toys for you.",
+            "truecel": "With what you’ve got. Crumbs and a floor. Fine."
+          }
+        },
+        "arrived": {
+          "normie": "My box is at your door. Open it. Wear the nose. Fit the bar.",
+          "mogger": "My box is at your door, pretty boy. Open it. You know what to do.",
+          "truecel": "My box is at your door. Pick it up before you trip over it."
+        }
+      },
       "deathCause": "A PULL-UP BAR",
       "deaths": [
         "The door frame was older than the building.",
@@ -31437,6 +31467,36 @@
         },
         "hang": "You hung up. I read your card to twelve women and you hung up on me. Fine. Lesson learned.",
         "missedVm": "I read your card at the luncheon and you didn’t pick up. I read it to a ringing phone. Ring me if you still care."
+      },
+      "address": {
+        "ask": {
+          "normie": "One more thing. Every man I seat gets a seat. Give me your address and I’ll have one of the club’s chairs sent over.",
+          "mogger": "One more thing, pretty boy. Every man I seat gets a seat. Your address, and I’ll send one of the club’s chairs.",
+          "truecel": "One more thing. Every man I seat gets a seat, even you. Your address, and I’ll send one of the club’s chairs."
+        },
+        "give": {
+          "label": "Give her your address",
+          "player": "Here’s my address. A chair?",
+          "reply": {
+            "normie": "A gilt one, from the ballroom store. It comes with your first card in the morning. Sit in it when you send them.",
+            "mogger": "A gilt one, pretty boy. It comes with your first card in the morning. Sit in it.",
+            "truecel": "A gilt one. It’ll be the best thing in your room by a distance. It comes with your first card."
+          }
+        },
+        "no": {
+          "label": "Tell her you have a chair",
+          "player": "I have a chair, thanks.",
+          "reply": {
+            "normie": "Not one of mine. Fine. Stand, then. It’ll show in your typing.",
+            "mogger": "Not one of mine, pretty boy. Suit yourself.",
+            "truecel": "I’ve seen your room. Fine. Keep your chair."
+          }
+        },
+        "arrived": {
+          "normie": "My chair is at your door, and your first card with it. Sit in it when you send them.",
+          "mogger": "My chair is at your door, pretty boy. Sit in it when you send them.",
+          "truecel": "My chair is at your door. Don’t spill anything on it."
+        }
       },
       "deathCause": "A GILT CHAIR",
       "deaths": [
@@ -33339,9 +33399,9 @@
         ],
         "yesLine": "Yes. I’m coming up.",
         "afterNo": {
-          "mogger": "God. Thank you.",
+          "mogger": "God. Thank you. Something’s on its way to you for that.",
           "normie": "Thank you. Something’s on its way to you.",
-          "truecel": "Good. Hold on to that."
+          "truecel": "Good. Hold on to that. Something’s coming through your door for it."
         },
         "gifts": [
           {
@@ -33603,6 +33663,30 @@
   },
   "finale": {
     "title": "THE FOUNDERS’ BALL",
+    "offer": {
+      "club": "The Founders’ Ball is on Day 14, and I’m on the committee that does the list. Invitations go out in the morning. Want me to put your name down?",
+      "other": "My aunt does the list for the Founders’ Ball, on Day 14. Invitations go out in the morning. Want me to get your name on it?",
+      "yes": {
+        "label": "Ask her to put your name down",
+        "player": "Put my name down. Please.",
+        "reply": {
+          "mogger": "Done. Your door, in the morning. You and a guest. I wonder who.",
+          "normie": "Done. It comes through your door in the morning. You and a guest. Choose well.",
+          "truecel": "Done. Your door, in the morning. You and a guest. Don’t make me regret it."
+        }
+      },
+      "no": {
+        "label": "Tell her you’ll pass",
+        "player": "I’ll pass. Balls aren’t really my thing.",
+        "reply": {
+          "mogger": "Shame. You’d have been the best dressed man there.",
+          "normie": "Your loss. The whole town will be there.",
+          "truecel": "Probably for the best."
+        }
+      },
+      "arrived": "Your invitation should be on your mat this morning. Told you I’d sort it.",
+      "tag": "Your name is on the list in {first}’s handwriting."
+    },
     "invitation": {
       "label": "An invitation",
       "short": "Invitation",
