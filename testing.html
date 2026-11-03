@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3c92d1a5ef">
+<html lang="en" data-build="5514a2afb0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3c92d1a5ef"></script>
+  <script src="chapel_at_midnight.js?v=5514a2afb0"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3c92d1a5ef"></script>
+  <script src="marriage.js?v=5514a2afb0"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3c92d1a5ef"></script>
+  <script src="quests/professor-vale.js?v=5514a2afb0"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4808,6 +4808,7 @@
       if(!step.flash){img.onerror=()=>{img.onerror=null;img.src=assetUrl(invasionFrame(step.stand||'room'));};img.src=assetUrl(step.image);}
       $('invasion-caption').textContent=step.caption;
       overlay.classList.toggle('lights',!!step.lights);
+      if(step.sound)sceneSound(step.sound); // surgery: drills, saws and screaming
       if(hands){
         if(step.hands){hands.onerror=()=>{hands.onerror=null;overlay.classList.remove('hands');};hands.src=assetUrl('assets/events/theon-hands.png');overlay.classList.add('hands');}
         else overlay.classList.remove('hands');
@@ -4817,6 +4818,45 @@
     }
     // Start loading a scene's pictures before its first frame, so no step shows blank while a big picture loads.
     function preloadScene(steps){for(const step of steps||[])if(step&&step.image&&typeof Image==='function'){try{const img=new Image();img.src=assetUrl(step.image);}catch{}}}
+    // ---- Surgery sounds (Chris, 3 November 2026): drilling, sawing and screaming in the surgery scenes ----
+    // The screams are CC0 recordings from OpenGameArt (assets/sounds/LICENSE.md). The drills, the saw and the
+    // clippers are made here with Web Audio. Nothing plays while the game is muted.
+    var SFX={screams:[1,2,3,4,5,6].map(n=>`assets/sounds/scream-${n}.mp3`),death:'assets/sounds/death-scream.mp3',groan:'assets/sounds/groan.mp3'};
+    var sfxLog=[],sfxCtx=null,sfxPlaying=[];
+    function sfxMuted(){const m=document.getElementById('mute-audio');return !m||m.checked;}
+    function playSfx(path,volume=.9){
+      if(sfxMuted())return null;
+      try{const a=new window.Audio(assetUrl(path));a.volume=volume;const p=a.play();if(p&&p.catch)p.catch(()=>{});sfxPlaying=[...sfxPlaying.slice(-5),a];return a;}catch{return null;}
+    }
+    function machineSound(kind,ms=2400){
+      if(sfxMuted())return;
+      try{
+        const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+        const ctx=sfxCtx||(sfxCtx=new AC()),now=ctx.currentTime,end=now+ms/1000;
+        const spec={dental:{type:'sawtooth',f:[2200,3300],wob:22,cut:5600,vol:.07},bone:{type:'sawtooth',f:[110,330],wob:11,cut:2600,vol:.11},saw:{type:'square',f:[70,120],wob:7,cut:1900,vol:.1},clippers:{type:'square',f:[118,122],wob:60,cut:1400,vol:.05}}[kind];
+        if(!spec)return;
+        const out=ctx.createGain();out.gain.setValueAtTime(.0001,now);out.gain.exponentialRampToValueAtTime(spec.vol,now+.08);out.gain.setValueAtTime(spec.vol,end-.15);out.gain.exponentialRampToValueAtTime(.0001,end);out.connect(ctx.destination);
+        const osc=ctx.createOscillator();osc.type=spec.type;osc.frequency.setValueAtTime(spec.f[0],now);osc.frequency.linearRampToValueAtTime(spec.f[1],now+.35); // it spins up
+        for(let t=now+.6;t<end-.4;t+=.45+Math.random()*.35){osc.frequency.linearRampToValueAtTime(spec.f[1]*.78,t);osc.frequency.linearRampToValueAtTime(spec.f[1],t+.22);} // and bites
+        const lfo=ctx.createOscillator(),depth=ctx.createGain();lfo.frequency.value=spec.wob;depth.gain.value=spec.f[1]*.02;lfo.connect(depth);depth.connect(osc.frequency);
+        const tone=ctx.createBiquadFilter();tone.type='lowpass';tone.frequency.value=spec.cut;osc.connect(tone);tone.connect(out);
+        const buf=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*(ms/1000+.2)),ctx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
+        const noise=ctx.createBufferSource();noise.buffer=buf;const grit=ctx.createBiquadFilter();grit.type='bandpass';grit.frequency.value=Math.min(6000,spec.f[1]*2);grit.Q.value=1.4;const ng=ctx.createGain();ng.gain.value=.4;
+        noise.connect(grit);grit.connect(ng);ng.connect(out);
+        for(const n of [osc,lfo,noise]){n.start(now);n.stop(end);}
+      }catch{}
+    }
+    function sceneSound(spec){ // e.g. 'drill-bone+scream'
+      for(const part of String(spec||'').split('+').filter(Boolean)){
+        sfxLog=[...sfxLog.slice(-30),part];
+        if(part==='scream')playSfx(SFX.screams[(sfxLog.length*7+hashSeed(String(world?.seed||'')))%SFX.screams.length],.85);
+        else if(part==='death')playSfx(SFX.death,1);
+        else if(part==='groan')playSfx(SFX.groan,.8);
+        else if(part==='saw')machineSound('saw');
+        else if(part.startsWith('drill-'))machineSound(part.slice(6));
+        else if(part==='clippers')machineSound('clippers',1800);
+      }
+    }
     function playScene(steps,done,{keep=false,gap=1900}={}){
       preloadScene(steps);
       window.setTimeout(()=>{ // after any day transition has finished raising the phone
@@ -8582,6 +8622,8 @@
       death('Mogger','KILLED','HER FATHER');
       death('Mogger','KILLED','THEON');
       death('Looksmaxxer','KILLED','A CHEAP SURGEON');
+      death('Looksmaxxer','KILLED','A CHEAP DENTIST');
+      death('Looksmaxxer','KILLED','A BACKSTREET SURGEON');
       death('Divorcé','ARRESTED',SHERIFF.cause);
       for(const k of ['wine','brakes','gun'])death('Divorcé','KILLED',DRIVES.divorce[k].cause); // getting rid of Denise, the wrong way
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
@@ -8930,18 +8972,53 @@
       time:['Two more days. That’s it. I’m writing this down.'],
       flowersHer:['Flowers! Nobody sends flowers anymore. Okay, you win this round.','They just arrived. They smell amazing. Who taught you that?','You sent me flowers? That is so old school. I love it.']};
     const DRIVES={
-      looksmaxxer:{
+      looksmaxxer:{ // (Chris, 3 November 2026) a proper way and a cheap way to do everything; the cheap ones can kill you or ruin you for good
         gym:{label:'The gym',sub:'$10 · your looks go up a little. Three days running counts for more.',cost:10,gain:3,image:'assets/trips/gym.png',place:'the gym',done:['You lift until your arms shake, then drive home with the window down.','Leg day. You can barely climb the stairs to your room.','A man twice your size nods at you. It means something.']},
-        barber:{label:'The barber',sub:'$45 · a proper cut. Once every five days.',cost:45,gain:6,cool:5,image:'assets/trips/barber.png',place:'the barber',done:['Short at the sides, longer on top. You catch yourself in every window on the way home.','The barber says you have a good head shape. You will think about this for a week.']},
-        skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,image:'assets/trips/skin-clinic.png',place:'the skin clinic',done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
-        teeth:{label:'The dentist: veneers',sub:'$1,100 · new teeth. Once.',cost:1100,gain:12,once:true,image:'assets/trips/dentist.png',place:'the dentist',done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
-        height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,image:'assets/trips/height-clinic.png',place:'the clinic',done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
-        face:{label:'Facial bone surgery: Dr. Voss',sub:'$3,000 · your face cut loose and moved forward. Five days in bed after. Once.',cost:3000,gain:16,once:true,bed:5,show:()=>lx().consult==='done',image:'assets/trips/face-clinic.png',place:'Dr. Voss in North Scottsdale',
-          steps:[{image:'assets/surgery/skull-cuts.png',caption:'Count backwards from ten. Ten. Nine. Ei'},{image:'assets/surgery/skull-plates.png',caption:'Four hours. Two plates in your upper jaw, two in your lower jaw, one in your chin.'}],
-          done:['You wake up with your jaw banded shut and a face like a beach ball. Under the swelling there is a jaw. A real one.','Five days of soup through a straw. When the swelling goes down, a stranger with a jaw looks back from the mirror.']},
-        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']},
-        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,risk:1/8,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
-          deaths:['The cheap clinic was a back room behind a tire shop. You never woke up from the anesthetic.','Three inches taller. Then the infection. The man in the stained coat stopped answering his phone.']}
+        barber:{label:'The barber',sub:'$45 · a proper cut. Once every five days.',cost:45,gain:6,cool:5,cat:'hair',image:'assets/trips/barber.png',place:'the barber',
+          scene:[{image:'assets/trips/barber.png',caption:'A neon pole, a radio playing oldies, and one empty chair waiting for you.'},{image:'assets/trips/barber-during.png',caption:'Short at the sides. The clippers buzz an inch from your ear.',sound:'clippers'}],after:'assets/trips/barber-after.png',
+          done:['Short at the sides, longer on top. You catch yourself in every window on the way home.','The barber says you have a good head shape. You will think about this for a week.']},
+        tony:{label:'Tony’s kitchen: a haircut for ten bucks',sub:'$10 · Tony used to be a barber. Once every five days.',cost:10,gain:6,cool:5,cat:'hair',ruin:1/4,ruinLoss:8,image:'assets/trips/tony-kitchen.png',place:'Tony’s apartment',
+          scene:[{image:'assets/trips/tony-kitchen.png',caption:'Tony’s kitchen. A dining chair on yesterday’s paper, and a towel for a cape.'},{image:'assets/trips/tony-during.png',caption:'Tony’s clippers are older than you are. So is the cigarette in his mouth.',sound:'clippers'}],after:'assets/trips/barber-after.png',
+          ruinImage:'assets/trips/tony-ruin.png',ruinLine:'Tony sneezes. There is a bald stripe down the middle of your head now. He says it will grow back. It never does.',
+          done:['Not bad, actually. Tony charges you ten bucks and a beer.']},
+        skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,cat:'skin',image:'assets/trips/skin-clinic.png',place:'the skin clinic',
+          scene:[{image:'assets/trips/skin-clinic.png',caption:'White walls, white towels, and a receptionist who does not blink.'},{image:'assets/trips/skin-during.png',caption:'A blue-gloved hand paints something cold and green across your face. It tingles. Then it burns.'}],after:'assets/trips/skin-after.png',
+          done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
+        salon:{label:'The nail salon: a chemical peel in the back',sub:'$35 · the same peel, probably. Once every four days.',cost:35,gain:6,cool:4,cat:'skin',ruin:1/4,ruinLoss:10,image:'assets/trips/salon-peel.png',place:'the nail salon',
+          scene:[{image:'assets/trips/salon-peel.png',caption:'The back room of a nail salon. A plastic chair, a desk fan, and a bottle with no label.'},{image:'assets/trips/salon-during.png',caption:'She paints it on with a nail polish brush. It smokes a little. She says that is normal.'}],after:'assets/trips/skin-after.png',
+          ruinImage:'assets/trips/salon-ruin.png',ruinLine:'Your face comes off in sheets for three days. It grows back pink and white, like a map of somewhere.',
+          done:['Your face stings, then glows. Thirty-five dollars. You tip her five.']},
+        teeth:{label:'The dentist: veneers',sub:'$1,100 · twenty porcelain veneers. Once.',cost:1100,gain:12,once:true,cat:'teeth',image:'assets/trips/dentist.png',place:'the dentist',
+          scene:[{image:'assets/trips/dentist.png',caption:'A bright, clean dental office. The chair tips back. The lamp comes down.'},{image:'assets/trips/dentist-drill.png',caption:'He files your teeth down to little pegs. The drill screams. So do you.',sound:'drill-dental+scream'}],after:'assets/trips/dentist-after.png',
+          done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
+        gus:{label:'Dr. Gus: veneers, cash, no questions',sub:'$250 · a strip mall, a drill, and Dr. Gus. Once.',cost:250,gain:12,once:true,didKey:'teeth',cat:'teeth',risk:1/10,ruin:1/4,ruinLoss:12,cause:'A CHEAP DENTIST',image:'assets/trips/gus-dental.png',place:'Dr. Gus in the strip mall',
+          scene:[{image:'assets/trips/gus-dental.png',caption:'A strip mall, between a vape shop and a laundromat. The chair is held together with tape.'},{image:'assets/trips/gus-drill.png',caption:'Dr. Gus does not use the little drill. Dr. Gus uses the big one.',sound:'drill-bone+scream'}],after:'assets/trips/dentist-after.png',
+          ruinImage:'assets/trips/gus-ruin.png',ruinLine:'The veneers are the wrong white. They glow under any light at all, and one of them fell out in the car.',
+          done:['Twenty veneers for two hundred and fifty dollars. They look fine. Mostly.'],
+          deaths:['Dr. Gus used the gas from the wrong tank. You never wake up from the drilling.','The drill slipped. Dr. Gus closed early that day, and for good.']},
+        height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,cat:'height',image:'assets/trips/height-clinic.png',place:'the Stature Institute',
+          scene:[{image:'assets/trips/height-clinic.png',caption:'The Stature Institute after dark. The corridor lights hum and flicker.'},
+            {image:'assets/trips/height-prep.png',caption:'On the table. He draws purple lines down both your shins. The big lamp glows above you.'},
+            {image:'assets/trips/height-drill.png',caption:'He braces your leg against his chest and starts the drill. You were promised you would be asleep for this.',sound:'drill-bone+scream'},
+            {image:'assets/trips/height-frame.png',caption:'Two metal frames, bolted through both legs. Every day someone turns the little nuts a millimeter.',sound:'scream'}],after:'assets/trips/height-after.png',afterSound:'groan',
+          done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
+        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,cat:'height',risk:1/8,ruin:1/5,ruinLoss:12,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',
+          scene:[{image:'assets/trips/border-clinic.png',caption:'A tire shop. Out back: a curtain, a dentist chair and one bare bulb.'},{image:'assets/trips/border-drill.png',caption:'The man in the stained coat has a yellow drill from the hardware store. He tests it twice.',sound:'drill-bone+scream'}],after:'assets/trips/border-after.png',afterSound:'groan',
+          ruinImage:'assets/trips/border-ruin.png',ruinLine:'One leg came out an inch longer than the other. You walk in a slow circle now.',
+          done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
+          deaths:['The cheap clinic was a back room behind a tire shop. You never woke up from the anesthetic.','Three inches taller. Then the infection. The man in the stained coat stopped answering his phone.']},
+        face:{label:'Monobloc surgery: Dr. Voss',sub:'$3,000 · your whole face cut loose and moved forward in one piece. Five days in bed after. Once.',cost:3000,gain:16,once:true,bed:5,cat:'face',show:()=>lx().consult==='done',image:'assets/trips/voss-clinic.png',place:'Dr. Voss in North Scottsdale',
+          scene:[{image:'assets/trips/voss-clinic.png',caption:'A paper gown. Dr. Voss draws purple lines around your eyes, along your cheekbones and under your jaw.'},
+            {image:'assets/surgery/monobloc-theatre.png',caption:'The lamp glows. A mask comes down over your face. Count backwards from ten. Ten. Nine. Ei'},
+            {image:'assets/surgery/monobloc-split.png',caption:'You are asleep. You scream anyway. They cut around your forehead and both eye sockets, and your whole face comes away in one piece.',sound:'saw+scream'},
+            {image:'assets/surgery/monobloc-plates.png',caption:'They bring it forward and fix it there. Titanium plates, forty screws. Six hours.',sound:'drill-bone'}],after:'assets/trips/face-clinic.png',afterSound:'groan',
+          done:['You wake up with your head wrapped like a mummy and your eyes swollen shut. Under the swelling there is a whole new face. A real one.','Five days of soup through a straw. When the swelling goes down, a stranger with cheekbones looks back from the mirror.']},
+        backstreet:{label:'Monobloc surgery: the vet over the border',sub:'$700 · walk-ins welcome. Five days in bed after. Once.',cost:700,gain:16,once:true,didKey:'face',bed:5,cat:'face',risk:1/6,ruin:1/3,ruinLoss:15,cause:'A BACKSTREET SURGEON',image:'assets/trips/backstreet-face.png',place:'a vet clinic over the border',
+          scene:[{image:'assets/trips/backstreet-face.png',caption:'A vet clinic over the border, after hours. Posters of dogs. The sign says walk-ins welcome.'},{image:'assets/trips/backstreet-saw.png',caption:'The man has the green mask, the blue gloves, and a saw meant for very large dogs.',sound:'saw+scream'}],after:'assets/trips/backstreet-after.png',afterSound:'groan',
+          ruinImage:'assets/trips/backstreet-ruin.png',ruinLine:'Your face healed a little to the left. Your eyes no longer line up. Strangers point.',
+          done:['You wake up on a cot in the kennel room with your head wrapped in a dog blanket. Under it, somehow, a new face.'],
+          deaths:['The man at the vet clinic was not, it turns out, a surgeon. Or a vet.','You never woke up. The vet clinic was a pharmacy by the time anyone came looking.']},
+        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']}
       },
       divorce:{
         work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
@@ -8962,6 +9039,7 @@
     };
     const SHERIFF={cause:'SUPPORT ENFORCEMENT',verb:'ARRESTED',deaths:['Three missed payments. Support Enforcement at your door with a folded court order, and Denise’s lawyer waiting in the car.','An officer from Support Enforcement reads the order out loud in your doorway. Denise’s lawyer waves from the curb.'],
       steps:[{image:'assets/trips/sheriff.png',stand:'room',caption:'Three knocks at your door. Hard ones.',lights:true},{image:'assets/trips/sheriff.png',stand:'room',caption:'Support Enforcement, a folded court order, and a pair of handcuffs.',lights:true}]};
+    var RUINED={hair:'There is nothing left to cut.',skin:'Nobody will touch your skin now.',teeth:'No dentist will touch your teeth now.',height:'Your legs are what they are now.',face:'No surgeon will touch your face now.'};
     function walletOn(){return selectedDifficulty==='looksmaxxer'||selectedDifficulty==='divorce';} // a plain function: the status bar asks before this block has run
     function sanitizeCls(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:null;
@@ -8971,12 +9049,13 @@
         cool:{},did:{},gifts:{},payDue:int(o.payDue,0,9999),owed:int(o.owed,0,99999,ALIMONY),misses:int(o.misses,0,9,0),paid:int(o.paid,0,999,0),cycle:int(o.cycle,0,999,0),
         lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
-      for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
+      for(const k of ['barber','skin','tony','salon'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
       for(const k of ['teeth','height','cheap','face','cactus','brakes'])if(o.did?.[k]===true)out.did[k]=true;
       out.plan=sanitizePlan(o.plan);
+      out.ruined={};for(const k of ['hair','skin','teeth','height','face'])if(o.ruined?.[k]===true)out.ruined[k]=true; // the Looksmaxxer: a cheap job gone wrong, for good
       if(o.lx&&typeof o.lx==='object')out.lx=sanitizeLx(o.lx); // the Looksmaxxer: the classifieds
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day; // flowers for the sorority count too
-      if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      if(o.dead&&typeof o.dead==='object'&&['cheap','gus','backstreet','sheriff','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
     }
     function classState(){
@@ -9215,27 +9294,27 @@
     }
     // ---- The Looksmaxxer reads the paper (Chris, 3 November 2026) ----
     // Surgeons and gadgets in the classifieds. Ring Dr. Voss for a free consultation: he rings back the next day,
-    // shows you your scans and explains how he'd take your face apart, and only then is facial bone surgery on your
+    // shows you your scans and explains how he'd take your face apart, and only then is monobloc surgery on your
     // car keys. The Stature Institute and Desert Smile take money off if you mention the ad. LIFT insoles and
     // JAWLINE PRO come through your door the day after you order them.
     var LOOKS_ADS={
-      voss:{name:'Voss Craniofacial',title:'A NEW FACE, BONE DEEP',summary:'Dr. Anton Voss, craniofacial surgeon. Free consultation by phone.',body:'Weak chin? Flat face? Dr. Anton Voss moves bone, not filler. North Scottsdale. Free consultation by phone: ring {number}.',greeting:'Voss Craniofacial, North Scottsdale. How can I help you?',image:'voss_ad'},
+      voss:{name:'Voss Craniofacial',title:'A NEW FACE, BONE DEEP',summary:'Dr. Anton Voss, craniofacial surgeon. Free consultation by phone.',body:'Weak chin? Flat face? Sunken eyes? Dr. Anton Voss moves your whole face forward in one piece: the monobloc. Bone, not filler. North Scottsdale. Free consultation by phone: ring {number}.',greeting:'Voss Craniofacial, North Scottsdale. How can I help you?',image:'voss_ad'},
       lift:{name:'LIFT Insoles',title:'AN INCH TALLER BY TOMORROW',summary:'LIFT hidden insoles. Nobody will know.',body:'Hidden height insoles for men who are done looking up. $40, through your door tomorrow: ring {number}.',greeting:'LIFT. Rise above it. Order line.',cost:40,image:'looks_ad'},
       stature:{name:'The Stature Institute',title:'THREE INCHES TALLER BY SPRING',summary:'The Stature Institute. Mention this ad for $300 off.',body:'Limb lengthening by real surgeons in a real hospital. Walk out taller. Mention this ad for $300 off: ring {number}.',greeting:'The Stature Institute. Stand tall. How can I help?',trip:'height',off:300,image:'looks_ad'},
       gum:{name:'JAWLINE PRO',title:'THE GUM THAT BUILDS A JAW',summary:'JAWLINE PRO. Six pieces. One a day.',body:'The hardest gum in America. Six pieces, one a day, and your jaw does the rest. $30, through your door tomorrow: ring {number}.',greeting:'JAWLINE PRO. Chew harder. Order line.',cost:30,image:'looks_ad'},
       smile:{name:'Desert Smile Studio',title:'A SMILE THAT WINS',summary:'Desert Smile Studio. Veneers, $200 off with this ad.',body:'Twenty porcelain veneers, fitted in a day. Mention this ad for $200 off: ring {number}.',greeting:'Desert Smile Studio, Scottsdale. Are you smiling?',trip:'teeth',off:200,image:'looks_ad'}
     };
     var LOOKS_AD_TURN=['lift','stature','gum','smile'];
-    var LOOKS_ASK={voss:'Double jaw surgery is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
+    var LOOKS_ASK={voss:'A monobloc is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
       lift:'A wedge of foam inside your shoe. An inch, maybe more. Don’t take your shoes off on a first date.',
       stature:'We break both thigh bones and stretch them a millimeter a day in a frame. Three inches. You’ll be in bed for a while.',
       gum:'It’s like chewing a tire. One piece a day for six days. Your jaw muscles do the rest.',
       smile:'We file your teeth down to little pegs and bond porcelain over them. Very white. Very permanent.'};
     var VOSS={open:'Dr. Anton Voss. I have your photos from the front desk, and your X-ray. Good bones, badly arranged. Ask me anything.',
-      what:'We cut your upper jaw free of your skull, here and here, and bring your whole midface forward. Then we split the lower jaw on both sides and slide it out to meet it. Then the chin. We separate your face, and we put it back better.',
-      hold:'Titanium. Plates and screws, here, here and here. Sixteen screws, give or take. They stay in for life. Airport scanners will love you.',
-      hurt:'You’ll be asleep for four hours. Afterwards your jaw is banded shut for six weeks. Soup, through a straw. You’ll swell up like a beach ball, and then it goes down.',
-      after:'Like your own better-looking brother. Here is the plan: the same skull, arranged properly.',
+      what:'A monobloc. We cut around your forehead, through both eye sockets and your cheekbones, and behind your upper jaw. Your whole face comes away from your skull in one piece, and we bring it forward. We separate your face, and we put it back better.',
+      hold:'Titanium. Plates and screws around your eyes, along your cheekbones and across your jaw. Forty screws, give or take. They stay in for life. Airport scanners will love you.',
+      hurt:'You’ll be asleep for six hours. Afterwards your head is wrapped like a mummy and your eyes swell shut for a week. Soup, through a straw. Then it goes down.',
+      after:'Like your own better-looking brother. Forehead, eyes, cheekbones, jaw, all of it forward. Here is the plan: the same skull, arranged properly.',
       book:'Good. Three thousand dollars, at the clinic in North Scottsdale. Drive over when you have it. Nothing to eat the night before.',
       later:'Of course. Ring the front desk when you’re ready. Your face isn’t going anywhere. That’s rather the problem.',
       vm:'Dr. Anton Voss, about your consultation. I’ll try you again tomorrow.'};
@@ -9337,7 +9416,7 @@
       if(choice==='vo:hang'){endHerCall();saveRun(true);return;}
       if(call.step==='bye')return;
       if(VOSS_ASK[k]){if(!call.asked.includes(k))call.asked.push(k);call.said=VOSS[k];call.pic=VOSS_PICS[k];}
-      else if(k==='book'&&call.asked.includes('what')){l.consult='done';call.said=VOSS.book;call.pic=VOSS_PICS.after;call.step='bye';achToast('Dr. Voss can see you. Facial bone surgery is on your car keys now.');}
+      else if(k==='book'&&call.asked.includes('what')){l.consult='done';call.said=VOSS.book;call.pic=VOSS_PICS.after;call.step='bye';achToast('Dr. Voss can see you. Monobloc surgery is on your car keys now.');}
       else if(k==='later'){l.consult='none';call.said=VOSS.later;call.step='bye';}
       else return;
       saveRun(true);renderCalls();
@@ -9371,10 +9450,11 @@
     function driveBlock(id){
       const c=classState(),d=DRIVES[selectedDifficulty]?.[id];
       if(!d)return 'Not here.';
+      if(d.cat&&c.ruined?.[d.cat])return RUINED[d.cat];
       if(c.laidUntil!==null&&world.day<c.laidUntil)return c.did.face&&!c.did.height&&!c.did.cheap?`You can’t drive with a face full of stitches. Day ${c.laidUntil}.`:`You can’t drive on new legs. Day ${c.laidUntil}.`;
       if(c.tripDay===world.day)return 'You have been out today. Tomorrow.';
       if(d.show&&!d.show())return 'Not now.';
-      if(d.once&&c.did[id])return 'Done.';
+      if(d.once&&c.did[d.didKey||id])return 'Done.';
       if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
       if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
       if(id==='lawyer'&&c.lawyerFor===c.cycle)return 'Once a payment.';
@@ -9393,12 +9473,29 @@
       c.tripDay=world.day;
       const cost=id==='house'?0:tripCost(id); // her house: exPaid() takes the check on arrival
       if(cost)cashMove(-cost,d.ledger||d.label);
+      const roll=v=>typeof v==='function'?!!v():!!(v&&gameRandom()<v);
       const wrong=selectedDifficulty==='divorce'&&denisePlan().wrongCar; // the Divorcé: the car he did in the dark was his own
-      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||!!(d.risk&&(typeof d.risk==='function'?d.risk():gameRandom()<d.risk));
+      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||roll(d.risk),ruined=!dies&&roll(d.ruin); // a cheap job: it kills you, or ruins you for good
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
-      playScene([{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},...(dies?[]:(d.steps||[]).map(step=>({image:step.image,stand:'room',caption:step.caption}))),{image:dd.image,stand:'room',caption:dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:done}],()=>dies?classDie(wrong?'brakes':id):arrive(id));
+      const end=dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:done;
+      const staged=!!d.scene&&!wrong; // three to five pictures: you arrive, it happens, and how you come out of it
+      const frames=staged
+        ?[...d.scene.map((step,i)=>({image:step.image,stand:'room',caption:i===0?`You grab the keys and drive to ${d.place}. ${step.caption}`:step.caption,sound:step.sound})),
+          {image:dies?d.scene.at(-1).image:ruined?d.ruinImage:d.after,stand:'room',caption:end,sound:dies?'death':ruined?'scream':d.afterSound}]
+        :[{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},{image:dd.image,stand:'room',caption:end,sound:dies?'death':null}];
+      playScene(frames,()=>dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):arrive(id),{gap:staged?2600:1900});
       return true;
+    }
+    function arriveRuined(id){ // the cheap job went wrong: your looks drop for good, and nobody will touch that part of you again
+      const c=classState(),d=DRIVES.looksmaxxer[id],before=looksTier();
+      c.ruined[d.cat]=true;c.looks=Math.max(0,c.looks-(d.ruinLoss||0));
+      if(d.cool)c.cool[id]=world.day;
+      if(d.bed)c.laidUntil=world.day+d.bed;
+      if(looksTier()!==before)setGrip();
+      achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]}`);
+      checkAchievements();saveRun(true);updateRunStatus();
+      if(currentApp==='hinge')renderHinge();
     }
     function arrive(id){
       const c=classState(),d=DRIVES[selectedDifficulty][id];
@@ -9408,7 +9505,7 @@
         let gain=d.gain;
         if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;}
         if(d.cool)c.cool[id]=world.day;
-        if(d.once)c.did[id]=true;
+        if(d.once)c.did[d.didKey||id]=true;
         if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
         else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
         c.looks=Math.min(100,c.looks+gain);
