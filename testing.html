@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="ca9a691dda">
+<html lang="en" data-build="69b99852cd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -737,11 +737,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=ca9a691dda"></script>
+  <script src="chapel_at_midnight.js?v=69b99852cd"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=ca9a691dda"></script>
+  <script src="marriage.js?v=69b99852cd"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=ca9a691dda"></script>
+  <script src="quests/professor-vale.js?v=69b99852cd"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2387,11 +2387,12 @@
             hingeLikes++;
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
+            else if(selectedDifficulty==='divorce'&&profile.factionId==='sisters_of_mercy')showHingeToast(`${firstName(profile)} doesn’t date divorced men.`,1800); // the Sisters won't look at the Divorcé (Chris, 3 November 2026)
             else if(fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[baseClass()])*rarity){
               const responseMode=hingeLikes===1||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               fionnGirlMatched(profile.id); // Theon: she knows your face
-              showHingeToast(profile.name+' matched with you!');
+              showHingeToast(profile.name+' matched with you!');teach('match');
               chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
               rqOnMatch(profile.id);fqOnMatch(profile.id); // room quests, her thing: the woman one was waiting on
             }
@@ -3249,7 +3250,7 @@
         close:[' Anyway.',' Not that it matters.',' lol',' Whatever.',' Sorry, I’m talking to a few people.',' Okay.',' My friend is reading this over my shoulder, by the way.',' You type a lot.',' Cool.',' That’s a lot to share.'],
         warm:['Huh. That’s actually a decent answer.','Okay, that’s better than I expected.','Wait, you’re kind of funny?','Didn’t expect that from you. Nice.','Okay. Fine. That was good.','I wasn’t going to reply, but okay, that was decent.','Hm. You’re not as bad as your photos.','Don’t make it weird, but that was sweet.'],
         cool:['Yikes.','That explains a lot.','And you wonder why you’re on here.','Okay, that’s a red flag.','Noted. Not in a good way.','Wow. Okay.','I’m showing my friends this one.','That’s why the photos are all from far away.','Mm. No.'],
-        dare:['Sorry. My friends matched you as a joke. I’m unmatching.','This was a dare. Sorry.','My friend had my phone. Bye.','I think I swiped by accident. Sorry.']
+        dare:['Sorry. My friends matched you as a joke. I’m unmatching.','This was a dare. Sorry.','My friend had my phone. Bye.','I think I swiped by accident. Sorry.','Honestly? I only matched because I felt sorry for you. Sorry.','I felt sorry for you. Then you replied. Now I just feel weird. Bye.','My friends dared me, and then I felt sorry for you, and now I’m unmatching.']
       },
       // The Divorcé (Chris, 3 November 2026): fat, balding, and the girls call him daddy.
       divorce:{
@@ -8160,7 +8161,7 @@
       const profile=callCard(id); // a Hinge match, or one of the two men
       if(!profile)return;
       incomingCall={id};
-      stage.classList.add('ringing');
+      stage.classList.add('ringing');teach('call');
       const banner=$('incoming-banner');
       banner.innerHTML=`<img src="${esc(profile.banner||profile.gallery[0])}" alt=""><span>📞 ${esc(profile.ringName||profile.name)} is calling…<small>Tap to open the call</small></span>`;
       banner.hidden=false;
@@ -8537,7 +8538,7 @@
       death('Mogger','KILLED','HER FATHER');
       death('Mogger','KILLED','THEON');
       death('Looksmaxxer','KILLED','A CHEAP SURGEON');
-      death('Divorcé','ARRESTED','THE SHERIFF');
+      death('Divorcé','ARRESTED',SHERIFF.cause);
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
       death('The Coyote','KILLED',coyoteKit()?.deathCause||'THE COYOTE');
       death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
@@ -8622,7 +8623,7 @@
       {id:'d-father',group:'Deaths',title:'Meet the parents',points:10,hint:'Get killed by her father.',test:()=>!!endingsFound()['death:KILLED|HER FATHER']},
       {id:'d-theon',group:'Deaths',title:'Theon',points:10,hint:'Get killed by Theon.',test:()=>!!endingsFound()['death:KILLED|THEON']},
       {id:'d-surgeon',group:'Deaths',title:'Bargain surgery',points:10,hint:'Get killed by a cheap surgeon.',test:()=>!!endingsFound()['death:KILLED|A CHEAP SURGEON']},
-      {id:'d-sheriff',group:'Deaths',title:'The long arm',points:10,hint:'Get arrested by the sheriff.',test:()=>!!endingsFound()['death:ARRESTED|THE SHERIFF']},
+      {id:'d-sheriff',group:'Deaths',title:'Support Enforcement',points:10,hint:'Get arrested by Support Enforcement.',test:()=>!!endingsFound()['death:ARRESTED|SUPPORT ENFORCEMENT']},
       {id:'d-ribbon',group:'Deaths',title:'Silenced',points:10,hint:'Get silenced by the Blue Ribbon.',test:()=>!!endingsFound()['death:SILENCED|THE BLUE RIBBON']},
       {id:'d-coyote',group:'Deaths',title:'The Coyote',points:10,hint:'Get killed by the Coyote.',test:()=>!!endingsFound()['death:KILLED|THE COYOTE']},
       {id:'d-victoria',group:'Deaths',title:'Taken',points:10,hint:'Get taken by Victoria Blackwood.',test:()=>!!endingsFound()['death:TAKEN|VICTORIA BLACKWOOD']},
@@ -8682,7 +8683,8 @@
     const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
     function sanitizeProfile(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
-      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true};
+      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true,taught:{}};
+      for(const k of ['hinge','match','day','paper','call','door'])if(o.taught?.[k]===true)out.taught[k]=true;
       for(const rung of LADDER){const n=o.wins?.[rung.id];if(Number.isInteger(n)&&n>0)out.wins[rung.id]=Math.min(9999,n);}
       if(Array.isArray(o.won))out.won=o.won.filter(seed=>typeof seed==='string'&&seed.length<=80).slice(-40);
       for(const a of ACHIEVEMENTS){const e=o.ach?.[a.id];if(e&&typeof e==='object')out.ach[a.id]={day:Number.isInteger(e.day)?e.day:null,as:ladderIndex(e.as)>=0?e.as:null};}
@@ -8760,6 +8762,14 @@
       }).join('');
       const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
       $('pick-foot').textContent=open>=LADDER.length?'Every class is unlocked.':'Win a run to unlock the next class.';
+    }
+    // ---- The Normie teaches you the game (Chris, 3 November 2026): a tip the first time each thing comes up ----
+    const TIPS={hinge:'Tip: swipe right to like her, left to pass. Ten swipes a day. Tap her photo to see the next one.',match:'Tip: you matched. Open Chats in Hinge and talk to her. She remembers what you say.',day:'Tip: done for today? Tap the day at the top of the screen to go to tomorrow.',paper:'Tip: the paper is where things start. Read a story, then ask women about it. Ring the ads in the classifieds.',call:'Tip: your phone is ringing. Tap the banner to answer. Women who like you call.',door:'Tip: something came through your door. Press Home to put the phone down, then tap it on the floor.'};
+    function teach(id){
+      if(selectedDifficulty!=='normie'||!TIPS[id]||!world)return;
+      const p=playerProfile();
+      if(p.taught[id])return;
+      p.taught[id]=true;saveProfile();achToast(TIPS[id]);
     }
     // ---- iTunes and Notes (Chris, 3 November 2026) ----
     // iTunes replaces Notes (internal id journal) in the 2008 iTunes Store look, with three tabs: How to play
@@ -8879,6 +8889,8 @@
         skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,image:'assets/trips/skin-clinic.png',place:'the skin clinic',done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
         teeth:{label:'The dentist: veneers',sub:'$1,100 · new teeth. Once.',cost:1100,gain:12,once:true,image:'assets/trips/dentist.png',place:'the dentist',done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
         height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,image:'assets/trips/height-clinic.png',place:'the clinic',done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
+        face:{label:'Facial surgery: jaw implants and a nose job',sub:'$3,000 · a new jaw and a new nose. Five days in bed after. Once.',cost:3000,gain:16,once:true,bed:5,image:'assets/trips/face-clinic.png',place:'the facial surgeon in North Scottsdale',done:['You wake up with a jaw like a cartoon hero and a nose you have never met. The swelling will go down. Probably.','A new jaw, a new nose, and five days of soup through a straw. The nurse says you will look great in a week.']},
+        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']},
         cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,risk:1/8,image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
           deaths:['The cheap clinic was a back room behind a tire shop. You never woke up from the anesthetic.','Three inches taller. Then the infection. The man in the stained coat stopped answering his phone.']}
       },
@@ -8888,8 +8900,8 @@
         house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
       }
     };
-    const SHERIFF={cause:'THE SHERIFF',verb:'ARRESTED',deaths:['Three missed payments. A county sheriff at your door with a folded court order, and Denise’s lawyer waiting in the car.','The sheriff reads the order out loud in your doorway. Denise’s lawyer waves from the curb.'],
-      steps:[{image:'assets/trips/sheriff.png',stand:'room',caption:'Three knocks at your door. Hard ones.',lights:true},{image:'assets/trips/sheriff.png',stand:'room',caption:'A county sheriff, a folded court order, and a pair of handcuffs.',lights:true}]};
+    const SHERIFF={cause:'SUPPORT ENFORCEMENT',verb:'ARRESTED',deaths:['Three missed payments. Support Enforcement at your door with a folded court order, and Denise’s lawyer waiting in the car.','An officer from Support Enforcement reads the order out loud in your doorway. Denise’s lawyer waves from the curb.'],
+      steps:[{image:'assets/trips/sheriff.png',stand:'room',caption:'Three knocks at your door. Hard ones.',lights:true},{image:'assets/trips/sheriff.png',stand:'room',caption:'Support Enforcement, a folded court order, and a pair of handcuffs.',lights:true}]};
     function walletOn(){return selectedDifficulty==='looksmaxxer'||selectedDifficulty==='divorce';} // a plain function: the status bar asks before this block has run
     function sanitizeCls(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:null;
@@ -8900,7 +8912,7 @@
         lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
-      for(const k of ['teeth','height','cheap'])if(o.did?.[k]===true)out.did[k]=true;
+      for(const k of ['teeth','height','cheap','face'])if(o.did?.[k]===true)out.did[k]=true;
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^MATCH-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day;
       if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
@@ -8953,7 +8965,7 @@
     function driveBlock(id){
       const c=classState(),d=DRIVES[selectedDifficulty]?.[id];
       if(!d)return 'Not here.';
-      if(c.laidUntil!==null&&world.day<c.laidUntil)return `You can’t drive on new legs. Day ${c.laidUntil}.`;
+      if(c.laidUntil!==null&&world.day<c.laidUntil)return c.did.face&&!c.did.height&&!c.did.cheap?`You can’t drive with a face full of stitches. Day ${c.laidUntil}.`:`You can’t drive on new legs. Day ${c.laidUntil}.`;
       if(c.tripDay===world.day)return 'You have been out today. Tomorrow.';
       if(d.once&&c.did[id])return 'Done.';
       if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
@@ -8981,13 +8993,15 @@
     }
     function arrive(id){
       const c=classState(),d=DRIVES[selectedDifficulty][id];
-      if(selectedDifficulty==='looksmaxxer'){
+      if(selectedDifficulty==='looksmaxxer'&&id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
+      else if(selectedDifficulty==='looksmaxxer'){
         const before=looksTier();
         let gain=d.gain;
         if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;}
         if(d.cool)c.cool[id]=world.day;
         if(d.once)c.did[id]=true;
         if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
+        else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
         c.looks=Math.min(100,c.looks+gain);
         const after=looksTier();
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
@@ -9196,9 +9210,9 @@
       $('opened').classList.toggle('bank-mode',app==='bank');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
-      if(app==='news'){readTodaysPaper();renderNews();return;} // opening the paper is reading it: now you can ask women about it
+      if(app==='news'){readTodaysPaper();renderNews();teach('paper');return;} // opening the paper is reading it: now you can ask women about it
       if(app==='calls'){renderCalls();return;}
-      if(app==='hinge'){renderHinge();return;}
+      if(app==='hinge'){renderHinge();teach('hinge');return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
       if(app==='notes'){notesView='main';renderNotes();return;}
       if(app==='journal'){journalView='howto';checkAchievements();renderJournal();return;} // iTunes: How to play, You, Achievements
@@ -9381,7 +9395,7 @@
     },{passive:true});
     $('news-expand').addEventListener('click',()=>$('news-expand').classList.remove('visible'));
     document.addEventListener('keydown',event=>{if(event.key==='Escape')$('news-expand').classList.remove('visible');});
-    function returnHome(){endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
+    function returnHome(){if(world&&currentApp)teach('day');endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
     let homeTapTimer=null,homeHoldTimer=null,homeWasHeld=false;
     const homeButton = $('home-hit');
     homeButton.addEventListener('pointerdown',()=>{
@@ -9864,7 +9878,7 @@
     function showPoliceArrestDeath(){
       drawDeathTitle('POLICE','ARRESTED');
       const complaint=world.policeArrestReason==='complaint',extra=ARREST_ENDINGS[world.policeArrestReason];
-      $('fatal-overlay').querySelector('p').textContent=extra?extra.text:complaint?'A woman you were messaging reported you. You are under arrest.':POLICE_ARREST_MESSAGE;
+      $('fatal-overlay').querySelector('p').textContent=extra?extra.text:complaint?'A woman you were messaging reported you. You are under arrest, and you are going to prison forever.':POLICE_ARREST_MESSAGE;
       $('fatal-overlay').classList.add('visible');
       updateRunStatus(extra?extra.status:complaint?'Game over · arrested after a complaint.':'Game over · arrested after three false criminal reports.');
     }
@@ -10336,6 +10350,7 @@
       const layer=$('floor-items');
       if(!layer)return;
       const items=floorItems(),shown=items.slice(0,4),key=shown.map(item=>item.id).join('|');
+      if(items.length)teach('door');
       if(key!==floorShown){
         floorShown=key;
         layer.innerHTML=shown.map(item=>{
