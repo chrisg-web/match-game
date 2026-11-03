@@ -33306,6 +33306,11 @@
           "normie": "Your second letter came this morning. Your hand, I’m sure of it. It said to stand at the lodge gate after dark in the gray coat and not to ask why. I went. Nobody came. Why?",
           "truecel": "Your second letter came. Same hand. The lodge gate, after dark, the gray coat. I went. I stood there an hour. Nobody came. Was that a joke?"
         },
+        "gatePicture": {
+          "mogger": "I took this at the gate so you could see me waiting. Nobody came.",
+          "normie": "I took this at the gate. An hour in the gray coat. Nobody came.",
+          "truecel": "Proof I went. An hour at the gate, in the gray coat. Nobody came."
+        },
         "never": {
           "label": "Tell her you never wrote it",
           "player": "I never wrote a second letter, Ruth.",

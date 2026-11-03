@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e139cfad81">
+<html lang="en" data-build="3c9950dfca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -214,6 +214,7 @@
     .it-art { display: block; width: 34px; height: 34px; flex: none; border-radius: 7px; object-fit: cover; image-rendering: pixelated; background: linear-gradient(#8fa6c4,#465d80); color: #fff; font: bold 17px/34px Helvetica,Arial,sans-serif; text-align: center; box-shadow: 0 1px 2px #0005; }
     .it-art.gold { background: linear-gradient(#ffe48a,#d39b16); color: #6a4300; }
     .it-art.lock { background: linear-gradient(#dcdfe4,#a6adb8); }
+    .it-art.it-locked { filter: grayscale(1) brightness(1.15) opacity(.55); }
     .it-pill { flex: none; padding: 2px 6px; border: 1px solid #5c7fb3; border-radius: 10px; color: #37639f; background: linear-gradient(#fff,#e3ebf6); font: bold 9px Helvetica,Arial,sans-serif; text-transform: uppercase; white-space: nowrap; }
     .it-pill.on { border-color: #4f8a2f; color: #fff; background: linear-gradient(#8bcf5c,#4f9a2b); }
     .it-you { display: flex; gap: 12px; align-items: center; margin: 8px; padding: 12px; border-radius: 8px; background: #fff; border: 1px solid #c3c9d2; }
@@ -718,11 +719,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e139cfad81"></script>
+  <script src="chapel_at_midnight.js?v=3c9950dfca"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e139cfad81"></script>
+  <script src="marriage.js?v=3c9950dfca"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e139cfad81"></script>
+  <script src="quests/professor-vale.js?v=3c9950dfca"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -6774,7 +6775,7 @@
       if(r&&Number.isInteger(r.parcelDay)&&world.day>=r.parcelDay)out.push({id:'rq:robe',door:true,floor:'parcel',label:kit.robe.parcel.label,short:'Robe',image:'assets/items/diana-parcel.png',text:kit.robe.parcel.text,actions:r.wearing?[]:[{id:'rq:robe:wear',label:kit.robe.parcel.wear.label}]});
       if(r&&Number.isInteger(r.ribbonDay)&&world.day>=r.ribbonDay)out.push({id:'rq:ribbon',door:true,floor:'envelope',label:kit.robe.celeste.ribbon.label,short:'Ribbon',image:'assets/items/blue-ribbon-card.png',text:kit.robe.celeste.ribbon.text});
       if(h?.still)out.push({id:'rq:still',door:true,floor:'letter',label:kit.openhouse.caroline.still.label,short:'Still',image:'assets/items/cctv-still.png',text:kit.openhouse.caroline.still.text});
-      if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:null,text:kit.hotline.bill.text});
+      if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:'assets/items/phone-bill.png',text:kit.hotline.bill.text});
       const a=rqs('seating'),A=kit.seating;
       if(a&&A&&Number.isInteger(a.parcelDay)&&world.day>=a.parcelDay)out.push({id:'rq:chair',door:true,floor:'parcel',label:A.parcel.label,short:'Little chair',image:'assets/items/alice-chair.png',text:A.parcel.text,actions:a.chair?[]:[{id:'rq:seating:sit',label:A.parcel.sit.label}]});
       if(a&&A)(a.seated||[]).forEach((who,i)=>{const first=firstName(hingeProfile(who))||'Her';out.push({id:'rq:card'+i+':'+who,door:true,floor:'envelope',label:fillIn(A.card.label,{first}),short:'Place card',image:'assets/items/place-card.png',text:fillIn(A.card.text,{first,line:(A.lines[i]||[]).join(' ')})});});
@@ -7303,6 +7304,8 @@
     const FQ_IDS=['postcard','letter','count','refusal'];
     const FQ_CALLERS={'x:fq-ruth':'letter','x:fq-catherine':'count'};
     const FQ_PICS={postcard:'assets/rooms/celeste-album.png',letter:'assets/rooms/ruth-window.png',count:'assets/rooms/catherine-court.png',refusal:'assets/rooms/caroline-suite.png'};
+    // Ruth sends the photo that matches what you wrote; after the forged letter, one from the lodge gate (Chris, 3 November 2026: quests should show what happens).
+    const FQ_LETTER_PICS={twinset:'assets/rooms/ruth-twinset.png',window:'assets/rooms/ruth-window.png',phrase:'assets/rooms/ruth-phrase.png',gate:'assets/rooms/ruth-gate.png'};
     const FQ_ITEMS={postcard:'assets/items/celeste-postcard.png',gifts:['assets/items/caroline-champagne.png','assets/items/caroline-watch.png','assets/items/caroline-keycard.png']};
     function fqState(){
       const r=world.fq;
@@ -7323,7 +7326,7 @@
     const fqThread=(id,who)=>{const t=hingeThreads.get(who||fqKit()?.[id]?.host);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
     function fqLikesYou(id){return Object.values(fqState().st).some(st=>(st.stage==='deck'&&st.host===id)||(st.stage==='rival'&&st.rival===id));}
     function fqHolds(id){return Object.values(fqState().st).some(st=>!RQ_OVER.includes(st.stage)&&(st.host===id||(st.stage==='rival'&&st.rival===id)));}
-    function fqImages(id){return Object.entries(FQ_PICS).filter(([q])=>fqKit()?.[q]?.host===id).map(([,path])=>path);}
+    function fqImages(id){const out=Object.entries(FQ_PICS).filter(([q])=>fqKit()?.[q]?.host===id).map(([,path])=>path);if(fqKit()?.letter?.host===id)for(const p of Object.values(FQ_LETTER_PICS))if(!out.includes(p))out.push(p);return out;}
     function fqHook(id){
       const kit=fqKit()[id],st=fqs(id),thread=fqThread(id),profile=hingeProfile(st.host);
       if(!thread||!profile||thread.awaiting||thread.ghosted||thread.pending||thread.followUp)return false;
@@ -7454,7 +7457,7 @@
       if(st.stage==='pick'&&world.day>st.pickDay+3){st.stage='done';return;} // you never wrote them
       if(st.stage==='answered'){fqDelphineNext(st);return;} // saved before her reply landed
       if(st.stage==='after'&&world.day>=st.forgedDay){
-        lineSpeaker=st.host;herLine(t,rqT(kit.forged));rqSpoke(t);recordClue(kit.clue);
+        lineSpeaker=st.host;herLine(t,rqT(kit.forged));if(kit.gatePicture)rqPicture(t,hingeProfile(st.host),FQ_LETTER_PICS.gate,rqT(kit.gatePicture));rqSpoke(t);recordClue(kit.clue);
         Object.assign(st,{stage:'forged',forgedDay:world.day});return;
       }
       if(st.stage==='forged'&&world.day>st.forgedDay+3){st.stage='done';return;}
@@ -7534,7 +7537,7 @@
       if(call.phase==='letter'){
         if(k==='hang'){st.stage='done';if(thread){herLine(thread,kit.call.hang);warmBy(thread,-1);}endHerCall();return;}
         Object.assign(st,{stage:'after',how:k,forgedDay:world.day+2});
-        if(k==='well'){call.said=rqT(kit.call.well);if(thread){warmBy(thread,1);heatBy(thread,1);rqPicture(thread,hingeProfile(st.host),FQ_PICS.letter,rqT(kit.picture));}}
+        if(k==='well'){call.said=rqT(kit.call.well);if(thread){warmBy(thread,1);heatBy(thread,1);rqPicture(thread,hingeProfile(st.host),FQ_LETTER_PICS[st.pick]||FQ_PICS.letter,rqT(kit.picture));}}
         else{call.said=rqT(kit.call.wrong);if(thread){if(tone()==='truecel')warmBy(thread,-1);else heatBy(thread,1);}}
         return done();
       }
@@ -8550,8 +8553,8 @@
       {id:'ten-matches',group:'Dating',title:'Popular',points:20,hint:'Ten matches in one run.',test:()=>hingeThreads.size>=10},
       {id:'week',group:'Surviving',title:'A week in Scottsdale',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
       {id:'fortnight',group:'Surviving',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
-      {id:'first-death',group:'Endings',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
-      {id:'ten-endings',group:'Endings',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
+      {id:'first-death',group:'Deaths',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
+      {id:'ten-endings',group:'Collecting',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
       {id:'married',group:'The ladder',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
       {id:'climb-mogger',group:'The ladder',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
       {id:'climb-truecel',group:'The ladder',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
@@ -8583,8 +8586,69 @@
       {id:'br-success',group:'Stories',title:'On the record',points:50,hint:'Get a federal inquiry opened into the Blue Ribbon.',test:()=>!!endingsFound()['br:success']},
       {id:'vale-end',group:'Stories',title:'Case closed',points:40,hint:'Reach an ending of Professor Vale’s case.',test:()=>Object.keys(endingsFound()).some(k=>k.startsWith('vale:'))},
       {id:'chapel-end',group:'Stories',title:'After midnight',points:40,hint:'Reach an ending of Chapel at Midnight.',test:()=>Object.keys(endingsFound()).some(k=>k.startsWith('chapel:'))},
-      {id:'bear',group:'Endings',title:'Eaten',points:10,hint:'Meet the bear.',test:()=>!!endingsFound()['death:EATEN|A BEAR']},
-      {id:'five-deaths',group:'Endings',title:'Five ways to go',points:30,hint:'Die five different ways.',test:()=>Object.keys(endingsFound()).filter(k=>k.startsWith('death:')).length>=5}
+      {id:'bear',group:'Deaths',title:'Eaten',points:10,hint:'Meet the bear.',test:()=>!!endingsFound()['death:EATEN|A BEAR']},
+      {id:'five-deaths',group:'Deaths',title:'Five ways to go',points:30,hint:'Die five different ways.',test:()=>Object.keys(endingsFound()).filter(k=>k.startsWith('death:')).length>=5},
+      {id:'d-police',group:'Deaths',title:'Arrested',points:10,hint:'Get arrested by the police.',test:()=>!!endingsFound()['death:ARRESTED|POLICE']},
+      {id:'d-something',group:'Deaths',title:'Something in the dark',points:10,hint:'Get killed by something.',test:()=>!!endingsFound()['death:KILLED|SOMETHING']},
+      {id:'d-halloran',group:'Deaths',title:'Undeniable',points:10,hint:'Get killed by Cole Halloran.',test:()=>!!endingsFound()['death:KILLED|COLE HALLORAN']},
+      {id:'d-stranger',group:'Deaths',title:'Wrong door',points:10,hint:'Get killed by a stranger.',test:()=>!!endingsFound()['death:KILLED|A STRANGER']},
+      {id:'d-moira',group:'Deaths',title:'Too many missed calls',points:10,hint:'Get killed by Moira Bell.',test:()=>!!endingsFound()['death:KILLED|MOIRA BELL']},
+      {id:'d-father',group:'Deaths',title:'Meet the parents',points:10,hint:'Get killed by her father.',test:()=>!!endingsFound()['death:KILLED|HER FATHER']},
+      {id:'d-theon',group:'Deaths',title:'Theon',points:10,hint:'Get killed by Theon.',test:()=>!!endingsFound()['death:KILLED|THEON']},
+      {id:'d-surgeon',group:'Deaths',title:'Bargain surgery',points:10,hint:'Get killed by a cheap surgeon.',test:()=>!!endingsFound()['death:KILLED|A CHEAP SURGEON']},
+      {id:'d-sheriff',group:'Deaths',title:'The long arm',points:10,hint:'Get arrested by the sheriff.',test:()=>!!endingsFound()['death:ARRESTED|THE SHERIFF']},
+      {id:'d-ribbon',group:'Deaths',title:'Silenced',points:10,hint:'Get silenced by the Blue Ribbon.',test:()=>!!endingsFound()['death:SILENCED|THE BLUE RIBBON']},
+      {id:'d-coyote',group:'Deaths',title:'The Coyote',points:10,hint:'Get killed by the Coyote.',test:()=>!!endingsFound()['death:KILLED|THE COYOTE']},
+      {id:'d-victoria',group:'Deaths',title:'Taken',points:10,hint:'Get taken by Victoria Blackwood.',test:()=>!!endingsFound()['death:TAKEN|VICTORIA BLACKWOOD']},
+      {id:'d-conscience',group:'Deaths',title:'Guilty conscience',points:10,hint:'Get arrested by your conscience.',test:()=>!!endingsFound()['death:ARRESTED|YOUR CONSCIENCE']},
+      {id:'d-graves',group:'Deaths',title:'Graves',points:10,hint:'Get arrested by Detective Graves.',test:()=>!!endingsFound()['death:ARRESTED|DETECTIVE GRAVES']},
+      {id:'d-device',group:'Deaths',title:'Own goal',points:10,hint:'Get killed by your own device.',test:()=>!!endingsFound()['death:KILLED|YOUR OWN DEVICE']},
+      {id:'d-backrow',group:'Deaths',title:'The back row',points:10,hint:'Get silenced by the Back Row.',test:()=>!!endingsFound()['death:SILENCED|THE BACK ROW']},
+      {id:'d-husband',group:'Deaths',title:'He didn’t knock',points:10,hint:'Get killed by her husband.',test:()=>!!endingsFound()['death:KILLED|HER HUSBAND']},
+      {id:'d-family',group:'Deaths',title:'Family business',points:10,hint:'Get killed by the family.',test:()=>!!endingsFound()['death:KILLED|THE FAMILY']},
+      {id:'d-bar',group:'Deaths',title:'Last rep',points:10,hint:'Get killed by a pull-up bar.',test:()=>!!endingsFound()['death:KILLED|A PULL-UP BAR']},
+      {id:'d-chair',group:'Deaths',title:'Fire hazard',points:10,hint:'Get killed by a little gilt chair.',test:()=>!!endingsFound()['death:KILLED|A LITTLE GILT CHAIR']},
+      {id:'d-fourth',group:'Deaths',title:'Vintage',points:10,hint:'Get killed by the Fourth.',test:()=>!!endingsFound()['death:KILLED|THE FOURTH']},
+      {id:'e-sister',group:'The ladder',title:'A Sister of Mercy',points:50,hint:'Marry a Sister of Mercy.',test:()=>!!endingsFound()['win:marriage']},
+      {id:'e-bluebirds',group:'The ladder',title:'Into the Bluebirds',points:50,hint:'Marry into the Bluebirds.',test:()=>!!endingsFound()['win:thunderbirds']},
+      {id:'e-vale-police',group:'Endings',title:'The Detective’s Number',points:25,hint:'End Professor Vale’s case by calling the detective.',test:()=>!!endingsFound()['vale:hero_police']},
+      {id:'e-vale-guest',group:'Endings',title:'Guest of Honor',points:25,hint:'End Professor Vale’s case as a guest of honor.',test:()=>!!endingsFound()['vale:hero_thunderbirds']},
+      {id:'e-vale-backrow',group:'Endings',title:'One of Us',points:25,hint:'Join the Back Row for good.',test:()=>!!endingsFound()['vale:back_row_forever']},
+      {id:'e-vale-car',group:'Endings',title:'The Borrowed Car',points:25,hint:'End Professor Vale’s case with the borrowed car.',test:()=>!!endingsFound()['vale:pemberton']},
+      {id:'e-vale-gone',group:'Endings',title:'The Professor Disappeared',points:25,hint:'Let Professor Vale disappear.',test:()=>!!endingsFound()['vale:vale_dies']},
+      {id:'e-vale-dropped',group:'Endings',title:'Cut Loose',points:25,hint:'Get cut loose from Professor Vale’s case.',test:()=>!!endingsFound()['vale:dropped']},
+      {id:'e-br-failed',group:'Endings',title:'The investigation fails',points:25,hint:'Watch the Blue Ribbon investigation fail.',test:()=>!!endingsFound()['br:failed']},
+      {id:'e-br-walk',group:'Endings',title:'You walk away',points:25,hint:'Walk away from the Blue Ribbon.',test:()=>!!endingsFound()['br:withdrawn']},
+      {id:'e-chapel-vigil',group:'Endings',title:'The vigil holds',points:25,hint:'Hold the vigil at Chapel at Midnight.',test:()=>!!endingsFound()['chapel:stopped']},
+      {id:'e-chapel-half',group:'Endings',title:'Half the goths walk away',points:25,hint:'Turn half the goths away from Victoria.',test:()=>!!endingsFound()['chapel:reconciled']},
+      {id:'e-chapel-wrong',group:'Endings',title:'The wrong chapel',points:25,hint:'Send everyone to the wrong chapel.',test:()=>!!endingsFound()['chapel:wrong_place']},
+      {id:'e-chapel-nobody',group:'Endings',title:'Nobody stands against it',points:25,hint:'Let Chapel at Midnight happen.',test:()=>!!endingsFound()['chapel:ignored']},
+      {id:'e-coyote-late',group:'Endings',title:'Too late',points:25,hint:'Find the Coyote’s victim too late.',test:()=>!!endingsFound()['coyote:lost']},
+      {id:'e-ball-date',group:'Endings',title:'With someone on your arm',points:25,hint:'Take a date to the Founders’ Ball.',test:()=>!!endingsFound()['finale:date']},
+      {id:'e-ball-alone',group:'Endings',title:'Table for one',points:25,hint:'Go to the Founders’ Ball alone.',test:()=>!!endingsFound()['finale:alone']},
+      {id:'e-seating-caught',group:'Endings',title:'She worked it out',points:25,hint:'Let your match work out it was Alice.',test:()=>!!endingsFound()['rq:seating:caught']},
+      {id:'five-matches',group:'Dating',title:'Getting somewhere',points:10,hint:'Five matches in one run.',test:()=>[...hingeThreads.values()].length>=5},
+      {id:'twenty-matches',group:'Dating',title:'Inbox full',points:40,hint:'Twenty matches in one run.',test:()=>[...hingeThreads.values()].length>=20},
+      {id:'three-sweethearts',group:'Dating',title:'Spoiled for choice',points:40,hint:'Three matches as warm as they get, in one run.',test:()=>[...hingeThreads.values()].filter(t=>warmthOf(t)>=3).length>=3},
+      {id:'left-on-read',group:'Dating',title:'Left on read',points:10,hint:'Ignore a match until she unmatches you.',test:()=>[...hingeThreads.values()].some(t=>Number.isInteger(t.angryDay))},
+      {id:'every-circle',group:'Dating',title:'Well connected',points:30,hint:'Match women from five different circles in one run.',test:()=>new Set([...hingeThreads.values()].map(t=>hingeProfile(t.id)?.factionId).filter(Boolean)).size>=5},
+      {id:'day-3',group:'Surviving',title:'Settling in',points:5,hint:'Reach Day 3.',test:()=>(world?.day||0)>=3},
+      {id:'day-10',group:'Surviving',title:'Ten days in',points:20,hint:'Reach Day 10.',test:()=>(world?.day||0)>=10},
+      {id:'points-100',group:'Collecting',title:'A hundred points',points:10,hint:'Score 100 points.',test:()=>ladderPoints()>=100},
+      {id:'points-500',group:'Collecting',title:'Five hundred points',points:25,hint:'Score 500 points.',test:()=>ladderPoints()>=500},
+      {id:'points-1000',group:'Collecting',title:'A thousand points',points:50,hint:'Score 1000 points.',test:()=>ladderPoints()>=1000},
+      {id:'ach-10',group:'Collecting',title:'Ten down',points:10,hint:'Earn ten achievements.',test:()=>Object.keys(playerProfile().ach).length>=10},
+      {id:'ach-25',group:'Collecting',title:'Twenty-five down',points:25,hint:'Earn twenty-five achievements.',test:()=>Object.keys(playerProfile().ach).length>=25},
+      {id:'ach-50',group:'Collecting',title:'Halfway there',points:50,hint:'Earn fifty achievements.',test:()=>Object.keys(playerProfile().ach).length>=50},
+      {id:'endings-25',group:'Collecting',title:'Seen a few things',points:40,hint:'Find twenty-five endings.',test:()=>Object.keys(endingsFound()).length>=25},
+      {id:'all-deaths',group:'Collecting',title:'Every way to go',points:100,hint:'Die every way there is.',test:()=>endingsCatalog().filter(e=>e.key.startsWith('death:')).every(e=>endingsFound()[e.key])},
+      {id:'endings-all',group:'Collecting',title:'The whole story',points:150,hint:'Find every ending.',test:()=>endingsCatalog().every(e=>endingsFound()[e.key])},
+      {id:'win-normie',group:'The ladder',title:'A Normie’s wedding',points:50,hint:'Win a run as a Normie.',test:()=>(playerProfile().wins.normie||0)>0},
+      {id:'win-mogger',group:'The ladder',title:'A Mogger’s wedding',points:50,hint:'Win a run as a Mogger.',test:()=>(playerProfile().wins.mogger||0)>0},
+      {id:'win-looks',group:'The ladder',title:'A Looksmaxxer’s wedding',points:75,hint:'Win a run as a Looksmaxxer.',test:()=>(playerProfile().wins.looksmaxxer||0)>0},
+      {id:'every-class',group:'The ladder',title:'Every class',points:200,hint:'Win a run as every class.',test:()=>LADDER.every(r=>(playerProfile().wins[r.id]||0)>0)},
+      {id:'pig-nose',group:'Stories',title:'Oink',points:10,hint:'Wear Lauren’s pig nose.',test:()=>!!rqs('spotter')?.nose},
+      {id:'little-chair',group:'Stories',title:'A seat at the table',points:10,hint:'Prop Alice’s card in her little chair.',test:()=>!!rqs('seating')?.chair}
     ];
     const LADDER_KEY=SAVE_KEY+':ladder',NOTES_MAX=30,NOTE_CHARS=2000;
     let ladderCache=null,journalView='main',achQueue=[],achTimer=null,achLog=[];
@@ -8650,13 +8714,13 @@
       if(earned.length){saveProfile();for(const a of earned)achToast(`Achievement: ${a.title} (+${a.points} points)`);}
       return earned;
     }
-    function achToast(text){
-      achLog.push(text);if(achLog.length>20)achLog.shift(); // the last few banners, for the tests
+    function achToast(text,queued){
+      if(!queued){achLog.push(text);if(achLog.length>20)achLog.shift();} // the last few banners, for the tests (a queued one is logged once, when it comes in)
       const box=$('ach-toast');
       if(!box)return;
       if(achTimer!==null){achQueue.push(text);return;}
       box.textContent=text;box.classList.add('visible');
-      achTimer=window.setTimeout(()=>{achTimer=null;box.classList.remove('visible');const next=achQueue.shift();if(next)window.setTimeout(()=>achToast(next),350);},2600);
+      achTimer=window.setTimeout(()=>{achTimer=null;box.classList.remove('visible');const next=achQueue.shift();if(next)window.setTimeout(()=>achToast(next,true),350);},2600);
     }
     function renderPicker(){
       const p=playerProfile();
@@ -8674,11 +8738,10 @@
     // iTunes replaces Notes (internal id journal) in the 2008 iTunes Store look, with three tabs: How to play
     // (pictures only, assets/howto, drawn in ChatGPT: the protagonist explains each thing), You (your class's
     // character card, this run and the ladder) and Achievements (every one, with its points). Notes (internal
-    // id blackbook) holds the quests: a page for each woman whose story you're in, the other business going on,
-    // and your own notes (kept between games, as before).
+    // id blackbook) holds the other business going on this run and your own notes (kept between games).
     const HOWTO_SHOTS=11;
     const IT_TABS=[['howto','★','How to play'],['you','☺','You'],['awards','♛','Achievements']];
-    const ACH_GROUPS=['Dating','Surviving','Stories','Endings','The ladder'];
+    const ACH_GROUPS=['Dating','Surviving','Stories','Endings','Deaths','Collecting','The ladder'];
     let bookView='main';
     function journalNote(id){return playerProfile().notes.find(note=>note.id===id)||null;}
     const noteTitle=note=>(note.text.split(/\r?\n/).find(line=>line.trim())||'New note').trim().slice(0,40);
@@ -8727,11 +8790,11 @@
       const groups=ACH_GROUPS.map(g=>{
         const list=ACHIEVEMENTS.filter(a=>(a.group||'Dating')===g).sort((a,b)=>(p.ach[b.id]?1:0)-(p.ach[a.id]?1:0));
         if(!list.length)return '';
-        return `<p class="it-head">${esc(g)}</p><div class="it-list">${list.map(a=>{const e=p.ach[a.id];return `<div class="it-cell${e?'':' off'}"><span class="it-art ${e?'gold':'lock'}">${e?'✓':'?'}</span><span class="it-txt"><b>${esc(a.title)}</b><small>${esc(e?`Earned on Day ${e.day||1}${e.as?` as a ${ladderName(e.as)}`:''}.`:a.hint)}</small></span><span class="it-pill${e?' on':''}">${a.points} pts</span></div>`;}).join('')}</div>`;
+        return `<p class="it-head">${esc(g)}</p><div class="it-list">${list.map(a=>{const e=p.ach[a.id];return `<div class="it-cell${e?'':' off'}"><img class="it-art${e?'':' it-locked'}" src="${esc(assetUrl(`assets/achievements/${a.id}.png`))}" alt="" onerror="this.outerHTML='<span class=&quot;it-art ${e?'gold':'lock'}&quot;>${e?'✓':'?'}</span>'"><span class="it-txt"><b>${esc(a.title)}</b><small>${esc(e?`Earned on Day ${e.day||1}${e.as?` as a ${ladderName(e.as)}`:''}.`:a.hint)}</small></span><span class="it-pill${e?' on':''}">${a.points} pts</span></div>`;}).join('')}</div>`;
       }).join('');
       $('opened').innerHTML=itPage('Achievements','awards',`<div class="it-banner"><b>${done} of ${ACHIEVEMENTS.length} achievements</b><small>${ladderPoints()} points. They are kept between games.</small></div>${groups}`);
     }
-    // Notes: who's in your stories this run, and where you stand with each of them.
+    // Notes: the other business going on this run (the women's own stories stay in her chat), and your notes.
     const bookToned=x=>x&&typeof x==='object'&&!Array.isArray(x)?String(x[tone()]||x.normie||Object.values(x)[0]||''):String(x||'');
     function bookStories(){
       const women=[],add=(kit,key,st,dead)=>{
@@ -8745,8 +8808,6 @@
       const other=runRecap().filter(([t,s])=>!theirs.has(t)&&!/^(Hadn’t started yet|Waiting for you|Missed|You never)/.test(s)&&!/never answered/.test(s));
       return {women,other};
     }
-    const bookHint=w=>w.dead||w.st.stage==='gone'?'It killed you.':w.st.stage==='hook'?'She asked. Answer her in your chat with her.':w.st.stage==='done'?'It’s over. You saw her story through.':'Still going. Keep your phone close, and answer when she rings.';
-    const bookStatus=w=>w.dead||w.st.stage==='gone'?'It killed you':w.st.stage==='hook'?'She’s waiting for your answer':w.st.stage==='done'?'Played through':'Still going'; // now, not the end-of-run recap
     function renderBook(){
       const p=playerProfile(),bar=(title,back)=>`<div class="book-bar">${back?'<button data-book-view="main">‹ Notes</button>':''}<span>${esc(title)}</span>${back?'':'<button data-book-new aria-label="New note">+</button>'}</div>`;
       if(bookView.startsWith('note:')){
@@ -8754,22 +8815,13 @@
         if(note){$('opened').innerHTML=`${bar(noteTitle(note),true)}<div class="book-page"><textarea class="book-text" id="journal-text" data-journal-text="${esc(note.id)}" maxlength="${NOTE_CHARS}" aria-label="Your note">${esc(note.text)}</textarea><button class="book-row" data-book-delete="${esc(note.id)}"><span><small>Delete this note</small></span></button></div>`;return;}
         bookView='main';
       }
-      const {women,other}=bookStories();
-      if(bookView.startsWith('her:')){
-        const w=women.find(x=>x.key===bookView.slice(4));
-        if(w){
-          const status=bookStatus(w),hook=bookToned(w.hook).replace(/\{[a-z]+\}/gi,'').trim();
-          $('opened').innerHTML=`${bar(firstName(w.profile),true)}<div class="book-page book-her"><img src="${esc(w.profile.gallery?.[0]||'')}" alt=""><h3>${esc(w.profile.name)}</h3><p class="book-line"><b>${esc(w.title)}</b></p><p class="book-line">Where you stand: <span class="book-hand">${esc(status)}</span></p><p class="book-line">${esc(bookHint(w))}</p>${hook?`<p class="book-line">How it started: <i>${esc(hook)}</i></p>`:''}</div>`;
-          hydrateInlineImages($('opened'));return;
-        }
-      }
+      const {other}=bookStories(); // Her stories came out again: too much information (Chris, 3 November 2026)
       bookView='main';
       p.notes=p.notes.filter(note=>note.text.trim());saveProfile(); // empty notes go when you leave them
-      const hers=women.length?women.map(w=>{const s=bookStatus(w);return `<button class="book-row${w.dead||w.st.stage==='done'?' off':''}" data-book-view="her:${esc(w.key)}"><img src="${esc(w.profile.gallery?.[0]||'')}" alt=""><span><b>${esc(w.profile.name)}</b><small>${esc(w.title)}: ${esc(s)}</small></span></button>`;}).join(''):'<p class="book-line"><i>Nobody has let you into her story yet. When a woman does, she gets a page here.</i></p>';
       const others=other.length?other.map(([t,s])=>`<div class="book-row"><span class="q">✦</span><span><b>${esc(t)}</b><small>${esc(s)}</small></span></div>`).join(''):'<p class="book-line"><i>Nothing else on the go. Read the paper.</i></p>';
       const rest=note=>note.text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(1).join(' ').slice(0,50);
       const notes=p.notes.length?p.notes.map(note=>`<button class="book-row" data-book-view="note:${esc(note.id)}"><span class="q">✎</span><span><b>${esc(noteTitle(note))}</b>${rest(note)?`<small>${esc(rest(note))}</small>`:''}</span></button>`).join(''):'<p class="book-line"><i>Tap + to write a note. Notes are kept between games.</i></p>';
-      $('opened').innerHTML=`${bar('Notes',false)}<div class="book-page"><h4>Her stories</h4>${hers}<h4>Other business</h4>${others}<h4>My notes</h4>${notes}</div>`;
+      $('opened').innerHTML=`${bar('Notes',false)}<div class="book-page"><h4>Other business</h4>${others}<h4>My notes</h4>${notes}</div>`;
       hydrateInlineImages($('opened'));
     }
     // ===== The Looksmaxxer and the Divorcé (Chris, 3 November 2026) =====
