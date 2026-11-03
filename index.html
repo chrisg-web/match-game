@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3c9950dfca">
+<html lang="en" data-build="d1a7bd3132">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -719,11 +719,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3c9950dfca"></script>
+  <script src="chapel_at_midnight.js?v=d1a7bd3132"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3c9950dfca"></script>
+  <script src="marriage.js?v=d1a7bd3132"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3c9950dfca"></script>
+  <script src="quests/professor-vale.js?v=d1a7bd3132"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -913,7 +913,7 @@
     const matchRates={truecel:.09,normie:.21,mogger:.36}; // half what they were (Chris, 3 November 2026: too many matches; a quarter was too hard)
     // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
     const MATCH_RARITY={'MATCH-003':.5};
-    const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.',looksmaxxer:'Looksmaxxer: start with Truecel looks and drive out to fix them: gym, skin, teeth, height.',divorce:'Divorcé: Normie odds, a wallet, and alimony to Denise every five days.'};
+    const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.',looksmaxxer:'Looksmaxxer: start with Truecel looks and drive out to fix them: gym, skin, teeth, height.',divorce:'Divorcé: fat, balding, Normie odds, a wallet, alimony to Denise every five days, and the girls call him daddy.'};
     const SAVE_KEY='matchGameRunV3';
     function hashSeed(input){
       let hash=2166136261;
@@ -3231,11 +3231,18 @@
         warm:['Huh. That’s actually a decent answer.','Okay, that’s better than I expected.','Wait, you’re kind of funny?','Didn’t expect that from you. Nice.','Okay. Fine. That was good.','I wasn’t going to reply, but okay, that was decent.','Hm. You’re not as bad as your photos.','Don’t make it weird, but that was sweet.'],
         cool:['Yikes.','That explains a lot.','And you wonder why you’re on here.','Okay, that’s a red flag.','Noted. Not in a good way.','Wow. Okay.','I’m showing my friends this one.','That’s why the photos are all from far away.','Mm. No.'],
         dare:['Sorry. My friends matched you as a joke. I’m unmatching.','This was a dare. Sorry.','My friend had my phone. Bye.','I think I swiped by accident. Sorry.']
+      },
+      // The Divorcé (Chris, 3 November 2026): fat, balding, and the girls call him daddy.
+      divorce:{
+        close:[' Okay, daddy.',' Tell me more, daddy.',' Very daddy of you.',' Thanks, daddy.',' You give big divorced dad energy. I’m into it.',' You’re such a dad. It’s kind of working for me.',' Do you have a lawn? You seem like you have opinions about lawns.',' Is that a microwave I hear? Daddy, no.'],
+        warm:['Okay, daddy. That was smooth.','Daddy said something nice. I’m framing it.','You’re like a sad, sexy dad. In a good way.','Stop, daddy, I’m blushing.','That’s such a daddy answer. I love it.','Who knew bald could be this charming. Daddy.'],
+        cool:['Daddy, no.','Yikes, daddy.','That was very divorced of you.','Mm. Daddy needs a nap.','And that’s why she left. I’m joking. Sort of.','Okay, grumpy daddy. Go have a snack.']
       }
     };
+    const talkTone=()=>selectedDifficulty==='divorce'?'divorce':tone(); // the Divorcé has his own lines; women still see a Normie
     // Her reply, with a line in the voice your difficulty earns (about one reply in three).
     function toned(text,profile,key){
-      const kit=TONE_TALK[tone()];
+      const kit=TONE_TALK[talkTone()];
       if(!kit||!text||!profile||profile.factionId==='sisters_of_mercy'||profile.jeweller)return text;
       lineSpeaker=profile.id;
       if(tone()==='truecel'&&kindred(profile))return text; // the outsiders are never curt with you
@@ -3457,7 +3464,7 @@
       if(choice.into)return answerInto(choice,thread,profile); // digging for it
       if(choice.flirt)return answerFlirt(choice,thread,profile,follow); // flirting
       const kit=talkKit(),c=convo(),state=talkState(thread),personality=personalityOf(profile),faction=profile.factionId;
-      const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[tone()];
+      const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[talkTone()];
       const reaction=(delta,key)=>{
         // Now and then, she reacts the way your difficulty makes her react.
         if(toneKit&&delta!==0&&hashSeed(world.seed+'|react|'+key)%4===0)return variedPick(delta>0?toneKit.warm:toneKit.cool,key); // one reaction in four
@@ -8545,7 +8552,7 @@
       {id:'mogger',name:'Mogger',img:'assets/difficulty/mogger.png',blurb:'Women come to you. So does trouble.'},
       {id:'truecel',name:'Truecel',img:'assets/difficulty/truecel.png',blurb:'Matches are rare and every word counts.'},
       {id:'looksmaxxer',name:'Looksmaxxer',img:'assets/difficulty/looksmaxxer.png',blurb:'Start at the bottom. Drive out and fix your face.'},
-      {id:'divorce',name:'Divorcé',img:'assets/difficulty/divorce.png',blurb:'Broke, bitter, and she still calls.'}
+      {id:'divorce',name:'Divorcé',img:'assets/difficulty/divorce.png',blurb:'Broke, bald, and the girls call him daddy.'}
     ];
     // Points come from achievements. Each test reads the run or what you have done across runs.
     const ACHIEVEMENTS=[
