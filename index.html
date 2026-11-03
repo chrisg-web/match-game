@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d1a7bd3132">
+<html lang="en" data-build="ca9a691dda">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -625,7 +625,25 @@
        look is a placeholder until the cupboard artwork exists. */
     .cupboard-spot { position: absolute; z-index: 4; left: 0; top: 47.5%; width: 24%; height: 13%; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
     .cupboard-spot:focus-visible { outline: 2px solid #ffd978; }
-    /* The Looksmaxxer and the Divorcé (Chris, 3 November 2026): car keys on the bedside table, cash on the status bar */
+    /* The bank (Chris, 3 November 2026): balance and transactions, a late-2000s banking app */
+    .mini-app.bank-mode { padding: 0; background: #eef2ee; color: #1d2b22; font-family: Helvetica,Arial,sans-serif; }
+    .bank-top { position: sticky; top: 0; z-index: 2; padding: 9px 12px; color: #fff; background: linear-gradient(#2f8a4e,#1b6334); border-bottom: 2px solid #0f4321; text-shadow: 0 -1px 0 #0f4321; }
+    .bank-top b { display: block; font: bold 16px Georgia,serif; letter-spacing: .3px; }
+    .bank-top small { color: #cfe8d6; font: 11px Helvetica,Arial,sans-serif; }
+    .bank-bal { margin: 10px 8px; padding: 12px; border: 1px solid #b9d1bf; border-radius: 8px; background: linear-gradient(#ffffff,#e6f1e8); }
+    .bank-bal small { display: block; color: #4e6656; font: 11.5px/1.4 Helvetica,Arial,sans-serif; }
+    .bank-bal b { display: block; margin: 2px 0 4px; font: bold 26px Helvetica,Arial,sans-serif; color: #1b6334; }
+    .bank-bal b.out, .bank-amt.out { color: #b0302a; }
+    .bank-head { margin: 12px 12px 4px; color: #4e6656; font: bold 12px Helvetica,Arial,sans-serif; text-transform: uppercase; letter-spacing: .5px; }
+    .bank-list { margin: 0 8px 12px; border: 1px solid #c9d8cd; border-radius: 8px; overflow: hidden; background: #fff; }
+    .bank-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 9px; border-bottom: 1px solid #e3ebe5; }
+    .bank-row:last-child { border-bottom: 0; }
+    .bank-row b { display: block; font: bold 12.5px/1.25 Helvetica,Arial,sans-serif; }
+    .bank-row small { display: block; color: #6c7f72; font: 10.5px/1.3 Helvetica,Arial,sans-serif; }
+    .bank-amt { flex: none; text-align: right; font: bold 13px Helvetica,Arial,sans-serif; }
+    .bank-amt.in { color: #1b6334; }
+    .bank-none { margin: 12px; color: #6c7f72; font: 13px Helvetica,Arial,sans-serif; }
+    /* The Looksmaxxer and the Divorcé (Chris, 3 November 2026): car keys on the bedside table; their money is in the Bank app */
     .car-keys { position: absolute; z-index: 5; left: 13%; top: 46.3%; width: 9%; aspect-ratio: 1; padding: 0; border: 0; background: transparent; cursor: pointer; filter: drop-shadow(0 2px 2px #000a); }
     .car-keys img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
     .car-keys span { font-size: 24px; line-height: 1; }
@@ -719,11 +737,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d1a7bd3132"></script>
+  <script src="chapel_at_midnight.js?v=ca9a691dda"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d1a7bd3132"></script>
+  <script src="marriage.js?v=ca9a691dda"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d1a7bd3132"></script>
+  <script src="quests/professor-vale.js?v=ca9a691dda"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -814,7 +832,7 @@
         <button class="bar-button" id="rq-spotter-preview">Room quest: Lauren Bishop messages now (Spotter)</button>
         <button class="bar-button" id="rq-seating-preview">Room quest: Alice Beaumont messages now (The Seating Plan)</button>
         <button class="bar-button" id="ladder-win-preview">Classes: count a win as the class you are playing (unlocks the next)</button>
-        <button class="bar-button" id="ladder-unlock-all">Classes: unlock every class</button>
+        <button class="bar-button" id="ladder-unlock-all">All access: every class open (tap again to turn it off; your ladder is kept)</button>
         <button class="bar-button" id="class-cash-preview">Looksmaxxer or Divorcé: add $1,000 and let you drive again today</button>
         <button class="bar-button" id="class-ex-preview">Divorcé: Denise rings about tomorrow’s payment now</button>
         <button class="bar-button" id="ladder-reset">Classes: back to Normie only (clears wins, points and achievements; keeps your notes)</button>
@@ -862,6 +880,7 @@
                   <button class="app settings-app" data-app="settings"><span class="app-mark"><img src="assets/icons/settings.png" alt=""></span><small>Settings</small></button>
                   <button class="app" data-app="journal"><span class="app-mark"><img src="assets/icons/itunes.png" alt=""></span><small>iTunes</small></button><!-- iTunes: How to play, You and Achievements (internal id journal; it replaced Notes, Chris, 3 November 2026) -->
                   <button class="app" data-app="blackbook"><span class="app-mark"><img src="assets/icons/notes.png" alt=""></span><small>Notes</small></button><!-- Notes: your quests, woman by woman, other business and your own notes (internal id blackbook; Chris named it Notes) -->
+                  <button class="app" data-app="bank" id="bank-app" hidden><span class="app-mark"><img src="assets/icons/bank.png" alt=""></span><small>Bank</small></button><!-- the Looksmaxxer and the Divorcé: balance and transactions -->
                 </div>
               </div>
               <div class="mini-app" id="opened" style="display:none"></div>
@@ -8663,7 +8682,7 @@
     const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
     function sanitizeProfile(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
-      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null};
+      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true};
       for(const rung of LADDER){const n=o.wins?.[rung.id];if(Number.isInteger(n)&&n>0)out.wins[rung.id]=Math.min(9999,n);}
       if(Array.isArray(o.won))out.won=o.won.filter(seed=>typeof seed==='string'&&seed.length<=80).slice(-40);
       for(const a of ACHIEVEMENTS){const e=o.ach?.[a.id];if(e&&typeof e==='object')out.ach[a.id]={day:Number.isInteger(e.day)?e.day:null,as:ladderIndex(e.as)>=0?e.as:null};}
@@ -8678,7 +8697,8 @@
       return ladderCache;
     }
     function saveProfile(){try{localStorage.setItem(LADDER_KEY,JSON.stringify(playerProfile()));}catch{}}
-    function ladderUnlocked(id){const i=ladderIndex(id);return i>=0&&!LADDER[i].soon&&i<playerProfile().unlocked;}
+    function ladderUnlocked(id){const i=ladderIndex(id),p=playerProfile();return i>=0&&!LADDER[i].soon&&(p.allAccess||i<p.unlocked);} // All access opens every class; the ladder itself (p.unlocked) is untouched
+    function setAllAccess(on){const p=playerProfile();p.allAccess=!!on;saveProfile();if($('difficulty-pick')?.classList.contains('visible'))renderPicker();if(currentApp==='journal')renderJournal();}
     function ladderGrant(id){ // unlock up to this class (old saves, and the testing menu)
       const i=ladderIndex(id),p=playerProfile();
       if(i<0||p.unlocked>=i+1)return;
@@ -8877,7 +8897,8 @@
       const int=(v,lo,hi,d=null)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):d;
       const out={cash:int(o.cash,-99999,999999,0),looks:int(o.looks,0,100,LOOKS_START),streak:int(o.streak,0,99,0),lastGym:int(o.lastGym,0,9999),tripDay:int(o.tripDay,0,9999),laidUntil:int(o.laidUntil,0,9999),
         cool:{},did:{},gifts:{},payDue:int(o.payDue,0,9999),owed:int(o.owed,0,99999,ALIMONY),misses:int(o.misses,0,9,0),paid:int(o.paid,0,999,0),cycle:int(o.cycle,0,999,0),
-        lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null};
+        lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
+      if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
       for(const k of ['teeth','height','cheap'])if(o.did?.[k]===true)out.did[k]=true;
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^MATCH-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day;
@@ -8885,9 +8906,12 @@
       return out;
     }
     function classState(){
-      if(!world.cls)world.cls=sanitizeCls({cash:selectedDifficulty==='divorce'?600:1500,payDue:selectedDifficulty==='divorce'?1+ALIMONY_EVERY-1:null});
+      if(!world.cls){const cash=selectedDifficulty==='divorce'?600:1500;world.cls=sanitizeCls({cash,payDue:selectedDifficulty==='divorce'?1+ALIMONY_EVERY-1:null,ledger:[{d:world.day||1,l:'Opening balance',a:cash,b:cash}]});}
       return world.cls;
     }
+    // Money in and out goes through here, so the Bank app can list it (Chris, 3 November 2026: a banking app, not cash on the status bar).
+    const LEDGER_MAX=60;
+    function cashMove(amount,label){const c=classState(),a=Math.round(amount);c.cash+=a;c.ledger.push({d:world.day||1,l:String(label||'').slice(0,60),a,b:c.cash});if(c.ledger.length>LEDGER_MAX)c.ledger.shift();}
     function classStart(){
       world.cls=null;
       if(!walletOn())return;
@@ -8909,12 +8933,21 @@
     const money=n=>`$${Math.round(n).toLocaleString('en-US')}`;
     function walletRender(){
       const on=world&&walletOn(),cash=$('status-cash'),keys=$('car-keys');
-      if(cash){cash.hidden=!on;cash.textContent=on?money(classState().cash):'';}
+      if(cash){cash.hidden=true;cash.textContent='';} // the money lives in the Bank app now
+      const bank=$('bank-app');if(bank)bank.hidden=!on;
       if(keys)keys.hidden=!on;
     }
     function carItems(){
       if(!world||!walletOn())return [];
       return [{id:'car-keys',label:'Car keys',short:'Keys',image:'assets/items/car-keys.png',text:selectedDifficulty==='looksmaxxer'?'Your car keys, on a gym keyring. The car still starts. Mostly.':'Your car keys. Denise kept the good car. This one still starts. Mostly.',action:{id:'drive',label:'🚗 Drive somewhere'}}];
+    }
+    // ---- The bank (Chris, 3 November 2026): the Looksmaxxer's and the Divorcé's money, with every transaction ----
+    function renderBank(){
+      if(!world||!walletOn()){$('opened').innerHTML='<div class="bank-top"><b>Sunfall Savings</b></div><p class="bank-none">No account here.</p>';return;}
+      const c=classState(),rows=c.ledger.slice().reverse();
+      const due=selectedDifficulty==='divorce'?`<small>Next payment to ${esc(EX.name)}: ${money(c.owed)}, due Day ${c.payDue}${c.misses?` · ${c.misses} missed`:''}</small>`:`<small>Payday every ${PAYDAY_EVERY} days</small>`;
+      const list=rows.length?rows.map(r=>`<div class="bank-row"><span><b>${esc(r.l)}</b><small>Day ${r.d}</small></span><span class="bank-amt ${r.a<0?'out':'in'}">${r.a<0?'−':'+'}${money(Math.abs(r.a))}<small>${money(r.b)}</small></span></div>`).join(''):'<p class="bank-none">No transactions yet.</p>';
+      $('opened').innerHTML=`<div class="bank-top"><b>Sunfall Savings</b><small>Checking account</small></div><div class="bank-bal"><small>Available balance</small><b class="${c.cash<0?'out':''}">${money(c.cash)}</b>${due}</div><p class="bank-head">Recent activity</p><div class="bank-list">${list}</div>`;
     }
     // ---- the car: one trip a day ----
     function driveBlock(id){
@@ -8939,7 +8972,7 @@
       if(!walletOn()||driveBlock(id))return false;
       const c=classState(),d=DRIVES[selectedDifficulty][id];
       c.tripDay=world.day;
-      if(d.cost)c.cash-=d.cost; // her house: exPaid() takes the check on arrival
+      if(d.cost)cashMove(-d.cost,d.label); // her house: exPaid() takes the check on arrival
       const dies=d.risk&&gameRandom()<d.risk;
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
@@ -8960,7 +8993,7 @@
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
         else achToast(`Looks ${c.looks} of 100.`);
       }else{
-        if(id==='work'){c.cash+=d.pay;hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
+        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
         if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;achToast(`The next payment is due on Day ${c.payDue}.`);}
         if(id==='house'){exPaid();achToast(`Paid. The next ${money(ALIMONY)} is due on Day ${c.payDue}.`);}
       }
@@ -8973,7 +9006,7 @@
       const c=classState();
       if(world.day%PAYDAY_EVERY===0){
         const pay=selectedDifficulty==='divorce'?(c.garnish?325:650):500;
-        c.cash+=pay;achToast(c.garnish?`Payday: +${money(pay)}. ${EX.name}’s lawyer took the rest.`:`Payday: +${money(pay)}.`);
+        cashMove(pay,c.garnish?'Payday, after the garnishment':'Payday');achToast(c.garnish?`Payday: +${money(pay)}. ${EX.name}’s lawyer took the rest.`:`Payday: +${money(pay)}.`);
       }
       if(selectedDifficulty==='looksmaxxer'){
         if(c.laidUntil!==null&&world.day>=c.laidUntil){c.laidUntil=null;achToast('You can walk again. Taller.');}
@@ -8992,7 +9025,7 @@
     }
     function exPaid(){
       const c=classState();
-      c.cash-=c.owed;c.paid++;c.cycle++;c.owed=ALIMONY;c.angry=false;
+      cashMove(-c.owed,`Payment to ${EX.name}`);c.paid++;c.cycle++;c.owed=ALIMONY;c.angry=false;
       c.payDue=Math.max(world.day,c.payDue||world.day)+ALIMONY_EVERY;
       checkAchievements();
     }
@@ -9034,7 +9067,7 @@
     function chooseGift(id,thread,profile){
       const c=classState();
       if(id!=='gift:flowers'||c.cash<FLOWERS||!giftChoices(thread,profile).length)return;
-      c.cash-=FLOWERS;c.gifts[profile.id]=world.day;
+      cashMove(-FLOWERS,`Flowers for ${firstName(profile)}`);c.gifts[profile.id]=world.day;
       thread.log.push({who:'you',text:'I sent you something. Check your door.'});
       deliverTalk(thread,profile,[EX.flowersHer[hashSeed(world.seed+'|flowers|'+profile.id+'|'+world.day)%EX.flowersHer.length]],'talk',null,true);
       warmBy(thread,1);walletRender();saveRun(true);
@@ -9160,6 +9193,7 @@
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.toggle('journal-mode',app==='journal');
       $('opened').classList.toggle('book-mode',app==='blackbook');
+      $('opened').classList.toggle('bank-mode',app==='bank');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
       if(app==='news'){readTodaysPaper();renderNews();return;} // opening the paper is reading it: now you can ask women about it
@@ -9169,6 +9203,7 @@
       if(app==='notes'){notesView='main';renderNotes();return;}
       if(app==='journal'){journalView='howto';checkAchievements();renderJournal();return;} // iTunes: How to play, You, Achievements
       if(app==='blackbook'){bookView='main';renderBook();return;} // Notes: quests and your own notes
+      if(app==='bank'){renderBank();return;} // the Looksmaxxer and the Divorcé: the bank
       $('opened').innerHTML=typeof appContent[app]==='function'?appContent[app]():appContent[app];
       hydrateInlineImages($('opened'));
     }
@@ -9346,7 +9381,7 @@
     },{passive:true});
     $('news-expand').addEventListener('click',()=>$('news-expand').classList.remove('visible'));
     document.addEventListener('keydown',event=>{if(event.key==='Escape')$('news-expand').classList.remove('visible');});
-    function returnHome(){endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
+    function returnHome(){endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
     let homeTapTimer=null,homeHoldTimer=null,homeWasHeld=false;
     const homeButton = $('home-hit');
     homeButton.addEventListener('pointerdown',()=>{
@@ -10882,7 +10917,7 @@
       sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
       save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),
-      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();else if(currentApp==='blackbook')renderBook();else if(currentApp==='journal')renderJournal();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
+      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();else if(currentApp==='blackbook')renderBook();else if(currentApp==='journal')renderJournal();else if(currentApp==='bank')renderBank();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;
     addJewellersToDeck(); // the first deck was built before the jewellers were known
@@ -11013,8 +11048,8 @@
     $('rq-spotter-preview').onclick=()=>rqTestStart('spotter');
     $('rq-seating-preview').onclick=()=>rqTestStart('seating');
     $('ladder-win-preview').onclick=()=>{const r=ladderCountWin(selectedDifficulty,'test-'+Date.now());updateRunStatus(r?.next&&!r.next.soon?`Counted a win as ${ladderName(r.as)}. ${r.next.name} is unlocked.`:'Counted a win. That is the top of the ladder for now.');};
-    $('ladder-unlock-all').onclick=()=>{ladderGrant('divorce');updateRunStatus('Every class is unlocked.');};
-    $('class-cash-preview').onclick=()=>{if(!walletOn()){updateRunStatus('Start a Looksmaxxer or Divorcé run first.');return;}const c=classState();c.cash+=1000;c.tripDay=null;c.laidUntil=null;saveRun(true);updateRunStatus(`Wallet: $${c.cash}. You can drive again today.`);};
+    $('ladder-unlock-all').onclick=()=>{const on=!playerProfile().allAccess;setAllAccess(on);updateRunStatus(on?'All access: every class is open. Tap again to turn it off.':'All access is off: back to the classes you have unlocked.');}; // testing only
+    $('class-cash-preview').onclick=()=>{if(!walletOn()){updateRunStatus('Start a Looksmaxxer or Divorcé run first.');return;}const c=classState();cashMove(1000,'Testing: a deposit');c.tripDay=null;c.laidUntil=null;saveRun(true);updateRunStatus(`Wallet: $${c.cash}. You can drive again today.`);};
     $('class-ex-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const c=classState();c.payDue=world.day+1;c.remindFor=null;testRing('x:ex');updateRunStatus('Preview: Denise is ringing about tomorrow’s payment.');};
     $('ladder-reset').onclick=()=>{const notes=playerProfile().notes;ladderCache=sanitizeProfile({notes});saveProfile();updateRunStatus('Back to Normie only. Your notes are kept.');if(currentApp==='journal')renderJournal();};
     $('fq-postcard-preview').onclick=()=>fqTestStart('postcard');
