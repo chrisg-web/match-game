@@ -546,7 +546,7 @@
       // The victory record and the marriage always agree.
       if(st.married)world.victory={type:'marriage',bride:st.married.id,day:st.married.day};
       else if(st.tb)world.victory={type:'thunderbirds',bride:st.tb.id,day:st.tb.day};
-      else if(world.victory)delete world.victory;
+      else if(world.victory&&['marriage','thunderbirds'].includes(world.victory.type))delete world.victory; // the class wins (the Stacey, the Divorcé) are kept
       refreshDesk();
       if(wed(st))showVictory(wed(st).id,false);
     }

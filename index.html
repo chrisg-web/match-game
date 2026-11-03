@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="69b99852cd">
+<html lang="en" data-build="468217c7db">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -737,11 +737,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=69b99852cd"></script>
+  <script src="chapel_at_midnight.js?v=468217c7db"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=69b99852cd"></script>
+  <script src="marriage.js?v=468217c7db"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=69b99852cd"></script>
+  <script src="quests/professor-vale.js?v=468217c7db"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -834,6 +834,8 @@
         <button class="bar-button" id="ladder-win-preview">Classes: count a win as the class you are playing (unlocks the next)</button>
         <button class="bar-button" id="ladder-unlock-all">All access: every class open (tap again to turn it off; your ladder is kept)</button>
         <button class="bar-button" id="class-cash-preview">Looksmaxxer or Divorcé: add $1,000 and let you drive again today</button>
+        <button class="bar-button" id="sorority-preview">Sorority: Stacey Vandermeer matches you now (starts a Looksmaxxer run if needed)</button>
+        <button class="bar-button" id="solver-preview">Divorcé: the man from the Lucky Cactus rings now</button>
         <button class="bar-button" id="class-ex-preview">Divorcé: Denise rings about tomorrow’s payment now</button>
         <button class="bar-button" id="ladder-reset">Classes: back to Normie only (clears wins, points and achievements; keeps your notes)</button>
         <button class="bar-button" id="fq-postcard-preview">Her thing: Celeste Van Doren messages now (The Postcard)</button>
@@ -2076,10 +2078,11 @@
       addJewellersToDeck();
       hingeJobs=realJobs(); // her own job, always: her topics talk about it
     }
-    function hingeProfile(id){return id===bearHingeCard.id?bearHingeCard:String(id).startsWith(JEWELLER_PREFIX)?jewellerCards().find(card=>card.id===id):hingeProfiles.find(profile=>profile.id===id);}
+    function hingeProfile(id){return id===bearHingeCard.id?bearHingeCard:String(id).startsWith(JEWELLER_PREFIX)?jewellerCards().find(card=>card.id===id):String(id).startsWith(SORORITY_PREFIX)?sororityCards().find(card=>card.id===id):hingeProfiles.find(profile=>profile.id===id);}
     // The five jewellers are in the Hinge deck like anyone else. Match with one and ask for her
     // number to get her shop line in Contacts: that's how you get a wedding ring.
     const JEWELLER_PREFIX='JEWELLER-';
+    var SORORITY_PREFIX='SORORITY-',SORORITY_STANDIN='assets/sorority/standin.png',sororityCardCache=null; // the sorority (Chris, 3 November 2026)
     const JEWELLER_AGES={agnes:58,rafael:41,clara:47,joseph:34,sofia:29};
     const JEWELLER_HELLO={
       agnes:'Good evening. My daughters made me join this app. I sell antique rings, mostly to people who cry in my shop.',
@@ -2097,6 +2100,7 @@
     }
     // Shuffle the jewellers into what's left of the deck (places fixed by the run's seed).
     function addJewellersToDeck(){
+      addSororityToDeck(); // the sorority deals in with the jewellers
       for(const card of jewellerCards()){
         if(hingeDeck.some(item=>item.id===card.id)||hingeThreads.has(card.id))continue;
         const left=Math.max(1,hingeDeck.length-hingeIndex);
@@ -2280,6 +2284,7 @@
       const arcNow=arcChoices(thread,profileNow);
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
+      for(const [id,label] of sororityChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the sorority: ask her out, compliment her
       for(const [id,label] of giftChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Divorcé: flowers
       for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
@@ -2463,6 +2468,7 @@
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('gift:'))return chooseGift(id,thread,profile); // the Divorcé: flowers
+      if(id.startsWith('srt:'))return chooseSorority(id,thread,profile); // the sorority
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
       if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
       if(id==='finale:ask'||id.startsWith('finale:list:'))return chooseFinale(thread,profile,id); // the Founders' Ball
@@ -4280,6 +4286,8 @@
       if(id==='x:lpc')return {id,name:'LPC Laboratories',gallery:['assets/contacts/lpc.png'],banner:'assets/contacts/lpc.png',ringName:'LPC Laboratories',sub:'Office'}; // Truecel: a second pot
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
       if(id==='x:ex')return {id,name:`${EX.name} (your ex-wife)`,gallery:[EX.portrait],banner:EX.portrait,ringName:EX.name,sub:'Mobile'}; // the Divorcé
+      if(id==='x:solver')return {id,name:'Unknown number',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Unknown number',sub:'Mobile'}; // the Divorcé: the man who solves problems
+      if(id==='x:moss')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective Moss'}; // the Divorcé: about Denise
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -4297,6 +4305,8 @@
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
+      if(mossDue())return 'x:moss'; // the Divorcé: the detective, about Denise
+      if(solverDue())return 'x:solver'; // the Divorcé: the man from the Lucky Cactus
       if(exCallerDue())return 'x:ex'; // the Divorcé: Denise, about the money
       return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
     }
@@ -4310,6 +4320,8 @@
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:ex'){exRang();return;}
+      if(id==='x:solver'){const pl=denisePlan();pl.rang=world.day;pl.rings=(pl.rings||0)+1;return;}
+      if(id==='x:moss'){const pl=denisePlan();pl.mossRang=world.day;return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
@@ -4333,6 +4345,8 @@
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();strangerVoicemail(EX.name,exLine(c.lastMode));saveRun(true);return;}
+      if(id==='x:solver'){strangerVoicemail('Unknown number',SOLVER.vm);saveRun(true);return;}
+      if(id==='x:moss'){const pl=denisePlan();pl.mossMisses=(pl.mossMisses||0)+1;strangerVoicemail('Sunfall Police',MOSS.vm);if(pl.mossMisses>=3){pl.stage='caught';pl.arrestDay=world.day+1;}saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
         const d=dadState();
@@ -4354,6 +4368,8 @@
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();return {id,stranger:true,kind:'ex',mode:c.lastMode,step:'open',said:exLine(c.lastMode)};}
+      if(id==='x:solver')return {id,stranger:true,kind:'solver',step:'open',said:SOLVER.open};
+      if(id==='x:moss')return {id,stranger:true,kind:'moss',step:'open',said:MOSS.open};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
@@ -4372,6 +4388,8 @@
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='ex')return exChoices(call); // the Divorcé
+      if(call.kind==='solver')return call.step==='open'?[{id:'sv:ex',label:`Tell him: my ex-wife, ${EX.name}`},{id:'sv:no',label:'Tell him it was a mistake'},{id:'sv:hang',label:'Hang up'}]:[{id:'sv:hang',label:'Hang up'}];
+      if(call.kind==='moss')return call.step==='open'?[{id:'mo:work',label:'Tell him: at work, on a shift'},{id:'mo:home',label:'Tell him: at home, alone'},{id:'mo:hang',label:'Hang up'}]:[{id:'mo:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
@@ -4395,6 +4413,8 @@
       if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='ex'){exChoose(call,choice);return;} // the Divorcé
+      if(call.kind==='solver'){solverChoose(call,choice);return;}
+      if(call.kind==='moss'){mossChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
         if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
@@ -8553,6 +8573,8 @@
       for(const q of Object.values(fqKit()||{}))death('Her thing','KILLED',q?.deathCause);
       add('Weddings','win:marriage','Married a Sister of Mercy');
       add('Weddings','win:thunderbirds','Married into the Bluebirds');
+      add('Class wins','win:stacey','You bagged the Stacey');
+      add('Class wins','win:divorce','A cheerleader, and no more Denise');
       for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
@@ -8722,7 +8744,7 @@
     }
     function ladderWin(){
       const v=world?.victory;
-      if(!v||!['marriage','thunderbirds'].includes(v.type))return null;
+      if(!v||!['marriage','thunderbirds','stacey','divorce'].includes(v.type))return null; // a wedding, or the Looksmaxxer's and the Divorcé's own wins
       return ladderCountWin(ladderIndex(selectedDifficulty)>=0?selectedDifficulty:'normie',String(world.seed||''));
     }
     // The victory screen: what you unlocked, and what to play next.
@@ -8897,6 +8919,8 @@
       divorce:{
         work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
         lawyer:{label:'Your lawyer',sub:'$250 · the next payment moves back three days. Once a payment.',cost:250,image:'assets/trips/lawyer.png',place:'your lawyer',done:['Your lawyer files something and bills you for the folder. The next payment moves back three days.']},
+        cactus:{label:'The Lucky Cactus: ask about a man who solves problems',sub:'$20 for a drink. Once.',cost:20,once:true,show:()=>!['paid','done','clear','caught'].includes(denisePlan().stage),image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['A man in the back booth writes a number on a napkin. He solves problems, he says. Cash only. He will ring you.']},
+        bins:{label:'The Lucky Cactus: leave $2,000 under the bins',sub:'Cash, in an envelope. Then he picks a night.',cost:2000,ledger:'Cash withdrawal',show:()=>denisePlan().stage==='priced',image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['You leave the envelope under the bins out back and drive home with the radio off.']},
         house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
       }
     };
@@ -8912,7 +8936,8 @@
         lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
-      for(const k of ['teeth','height','cheap','face'])if(o.did?.[k]===true)out.did[k]=true;
+      for(const k of ['teeth','height','cheap','face','cactus'])if(o.did?.[k]===true)out.did[k]=true;
+      out.plan=sanitizePlan(o.plan);
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^MATCH-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day;
       if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
@@ -8961,12 +8986,152 @@
       const list=rows.length?rows.map(r=>`<div class="bank-row"><span><b>${esc(r.l)}</b><small>Day ${r.d}</small></span><span class="bank-amt ${r.a<0?'out':'in'}">${r.a<0?'−':'+'}${money(Math.abs(r.a))}<small>${money(r.b)}</small></span></div>`).join(''):'<p class="bank-none">No transactions yet.</p>';
       $('opened').innerHTML=`<div class="bank-top"><b>Sunfall Savings</b><small>Checking account</small></div><div class="bank-bal"><small>Available balance</small><b class="${c.cash<0?'out':''}">${money(c.cash)}</b>${due}</div><p class="bank-head">Recent activity</p><div class="bank-list">${list}</div>`;
     }
+    // ===== The sorority, and the Looksmaxxer's and the Divorcé's wins (Chris, 3 November 2026) =====
+    // Alpha Rho Xi (characters/sorority.json): in Looksmaxxer and Divorcé runs now (their wins need them), in every run once
+    // their photos exist. Until then a stand-in photo. Ask one out from her chat: she makes excuses until you have what she
+    // wants. The Looksmaxxer: looks of 90, height surgery, veneers, facial surgery, and she likes you. The Divorcé: she likes
+    // you, you have sent her flowers and you have $500. Ask again within two days and she blocks you.
+    function sororityKit(){return characterDB?.sorority||null;}
+    function sororityOn(){const k=sororityKit();return !!k&&!!world&&(walletOn()||k.women.some(w=>w.photos?.length));}
+    function sororityCards(){
+      if(sororityCardCache)return sororityCardCache;
+      const k=sororityKit();if(!k)return [];
+      return sororityCardCache=k.women.map(w=>({id:w.id,slug:w.slug,name:w.name,age:w.age,factionId:'normie_girls',sorority:true,canonicalOccupation:w.canonicalOccupation,gallery:w.photos?.length?w.photos:[SORORITY_STANDIN],privatePhotos:[],feature:w.feature,complimentLabel:w.complimentLabel,excuses:w.excuses||[]}));
+    }
+    function addSororityToDeck(){
+      if(!sororityOn())return;
+      for(const card of sororityCards()){
+        if(hingeDeck.some(item=>item.id===card.id)||hingeThreads.has(card.id))continue;
+        const left=Math.max(1,hingeDeck.length-hingeIndex);
+        hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+hashSeed(world.seed+'|'+card.id)%left),0,card);
+      }
+    }
+    function sororityState(){
+      const s=world.sorority;
+      if(!s||typeof s!=='object'||Array.isArray(s)||typeof s.asked!=='object'||typeof s.complimented!=='object')world.sorority={asked:{},complimented:{},yes:null};
+      const o=world.sorority;
+      for(const [id,day] of Object.entries(o.asked))if(!String(id).startsWith(SORORITY_PREFIX)||!Number.isInteger(day))delete o.asked[id];
+      for(const id of Object.keys(o.complimented))if(!String(id).startsWith(SORORITY_PREFIX)||o.complimented[id]!==true)delete o.complimented[id];
+      if(!(typeof o.yes==='string'&&o.yes.startsWith(SORORITY_PREFIX)))o.yes=null;
+      return o;
+    }
+    function sororityReady(thread,profile){
+      const c=world.cls;
+      if(selectedDifficulty==='looksmaxxer')return !!c&&c.looks>=90&&!!(c.did.height||c.did.cheap)&&!!c.did.teeth&&!!c.did.face&&warmthOf(thread)>=3;
+      if(selectedDifficulty==='divorce')return !!c&&warmthOf(thread)>=3&&Number.isInteger(c.gifts[profile.id])&&c.cash>=500;
+      return false; // every other class: she always has plans
+    }
+    function sororityChoices(thread,profile){
+      if(!profile?.sorority||!thread||thread.blocked||thread.unmatched||thread.left)return [];
+      const s=sororityState();
+      if(s.yes)return [];
+      const out=[['srt:ask','Ask her out']];
+      if(profile.complimentLabel&&!s.complimented[profile.id])out.push(['srt:compliment',profile.complimentLabel]);
+      return out;
+    }
+    function chooseSorority(id,thread,profile){
+      const s=sororityState(),k=sororityKit(),pick=(lines,salt)=>lines[hashSeed(world.seed+'|srt|'+salt+'|'+profile.id+'|'+world.day)%lines.length];
+      if(!k||!sororityChoices(thread,profile).some(([c])=>c===id))return;
+      if(id==='srt:compliment'){
+        s.complimented[profile.id]=true;
+        thread.log.push({who:'you',text:`I noticed ${profile.feature}. It suits you.`});
+        deliverTalk(thread,profile,[pick(k.lines.compliment,'c')],'talk',null,true);
+        warmBy(thread,1);saveRun(true);return;
+      }
+      thread.log.push({who:'you',text:'Let me take you out. Just us.'});
+      const last=s.asked[profile.id];
+      if(Number.isInteger(last)&&world.day<last+2){ // asking again so soon: weird
+        deliverTalk(thread,profile,[pick(k.lines.block,'b')],'talk',()=>{thread.blocked=true;saveRun(true);},true);
+        saveRun(true);return;
+      }
+      s.asked[profile.id]=world.day;
+      if(sororityReady(thread,profile)){
+        s.yes=profile.id;
+        deliverTalk(thread,profile,[pick(selectedDifficulty==='divorce'?k.lines.yesDivorce:k.lines.yes,'y')],'talk',()=>classWinCheck(),true);
+      }else deliverTalk(thread,profile,[pick([...(profile.excuses||[]),...k.lines.commonExcuses],'e')],'talk',null,true);
+      saveRun(true);
+    }
+    // The Divorcé: Denise has to go, and nobody can know. The man at the Lucky Cactus solves problems (in some runs he is a
+    // police officer: a policewoman who likes you will warn you). He names a night; be at work that night. The detective rings.
+    var SOLVER={open:'You asked about me at the Cactus. I don’t do small talk. What’s the problem?',
+      price:'Two thousand. Cash, in an envelope, under the bins behind the Cactus. Then I pick a night, and on that night you be somewhere people can see you. Understand?',
+      no:'Sure it was. Lose the napkin.',vm:'You asked about me at the Cactus. Pick up next time.'};
+    var MOSS={open:'Detective Moss, Sunfall Police. I’m sorry to be the one to tell you. Denise died in a fire at her house last night. I have to ask everyone this. Where were you?',
+      cleared:'Your manager says the same. A double shift, in front of twenty people. Sorry for your loss.',
+      lie:'Funny. Your manager says you weren’t in. Don’t go anywhere.',
+      home:'Alone. Nobody who can say so, then. Don’t go anywhere.',
+      vm:'Detective Moss, Sunfall Police, about Denise. Call me back. Soon.'};
+    var DENISE_WARN=['Heard you were asking around at the Lucky Cactus. The man in the back booth is one of ours. Stay away from him.','Off the record: whoever you met at the Cactus is a cop. Whatever it is, don’t.'];
+    function sanitizePlan(raw){
+      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null;
+      return {stage:['none','number','priced','paid','done','clear','caught','off'].includes(o.stage)?o.stage:'none',cop:o.cop===true,alibi:o.alibi===true,asked:o.asked===true,warned:o.warned===true,
+        numberDay:int(o.numberDay,0,9999),doneDay:int(o.doneDay,0,9999),arrestDay:int(o.arrestDay,0,9999),rang:int(o.rang,0,9999),mossRang:int(o.mossRang,0,9999),rings:int(o.rings,0,99)||0,mossMisses:int(o.mossMisses,0,99)||0};
+    }
+    function denisePlan(){const c=classState();if(!c.plan)c.plan=sanitizePlan(null);return c.plan;}
+    function solverDue(){return selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead&&denisePlan().stage==='number'&&world.day>denisePlan().numberDay&&denisePlan().rang!==world.day&&denisePlan().rings<3;}
+    function mossDue(){return selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead&&denisePlan().stage==='done'&&!denisePlan().asked&&denisePlan().mossRang!==world.day;}
+    function solverChoose(call,choice){
+      const pl=denisePlan();
+      if(choice==='sv:hang'||call.step!=='open'){endHerCall();saveRun(true);return;}
+      if(choice==='sv:ex'){pl.stage='priced';call.said=SOLVER.price;}
+      else{pl.stage='off';call.said=SOLVER.no;}
+      call.step='bye';saveRun(true);renderCalls();
+    }
+    function mossChoose(call,choice){
+      const pl=denisePlan();
+      if(call.step!=='open'){endHerCall();saveRun(true);return;}
+      pl.asked=true;
+      if(choice==='mo:work'&&pl.alibi){pl.stage='clear';call.said=MOSS.cleared;call.step='bye';saveRun(true);renderCalls();classWinCheck();return;}
+      pl.stage='caught';pl.arrestDay=world.day+1;
+      if(choice==='mo:hang'){endHerCall();saveRun(true);return;}
+      call.said=choice==='mo:work'?MOSS.lie:MOSS.home;call.step='bye';saveRun(true);renderCalls();
+    }
+    function denisePlanNewDay(){ // the Divorcé's mornings: true when the run ends here
+      const pl=denisePlan(),c=classState();
+      if(pl.stage==='caught'&&Number.isInteger(pl.arrestDay)&&world.day>=pl.arrestDay){saveRun(true);startPoliceArrest('denise');return true;}
+      if(pl.stage==='number'&&pl.cop&&!pl.warned){ // a policewoman who likes you tips you off
+        const cop=[...hingeThreads.values()].find(t=>hingeProfile(t.id)?.factionId==='police'&&!t.blocked&&!t.unmatched&&warmthOf(t)>=2);
+        if(cop){pl.warned=true;lineSpeaker=cop.id;herLine(cop,DENISE_WARN[hashSeed(world.seed+'|warn')%DENISE_WARN.length]);}
+      }
+      if(pl.stage==='paid'&&world.day>pl.doneDay){ // her night: a fire
+        pl.stage='done';c.payDue=null;c.owed=0;c.angry=false;c.arrestDay=null;
+        queueNews({id:'denise_fire',section:'Local',title:'WOMAN DIES IN NIGHT FIRE',summary:`${EX.name}, a dental receptionist, died when fire swept through her home.`,body:`Fire crews were called to a house on the east side of Sunfall in the early hours. ${EX.name} was pronounced dead at the scene. Her dog was found safe in the yard. Police say they are keeping an open mind.`,image:'denise_fire',fallbackImage:'crime_motel'},world.day);
+        achToast(`${EX.name} is dead. A fire at her house, the paper says. No more payments.`);
+      }
+      return false;
+    }
+    // The wins: the Looksmaxxer bags the Stacey; the Divorcé needs a cheerleader, and Denise gone without being caught.
+    var CLASS_WINS={
+      stacey:{title:'YOU BAGGED THE STACEY',subtitle:'Ninety in the mirror. A new jaw, three inches and a mouthful of veneers.',line:'{name} said yes. Tomorrow night, and you are driving.',image:'assets/sorority/stacey-date.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
+      divorce:{title:'FREE AT LAST',subtitle:'No more payments. No more Denise. Nobody is looking at you.',line:'{name} said yes, and Denise is gone. Treat yourself, daddy.',image:'assets/sorority/divorce-win.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'}
+    };
+    function classWinCheck(){
+      if(!world||world.victory)return;
+      const s=sororityState();
+      if(selectedDifficulty==='looksmaxxer'&&s.yes)world.victory={type:'stacey',bride:s.yes,day:world.day};
+      else if(selectedDifficulty==='divorce'&&s.yes&&denisePlan().stage==='clear')world.victory={type:'divorce',bride:s.yes,day:world.day};
+      else{
+        if(selectedDifficulty==='divorce'&&s.yes)achToast(`${firstName(hingeProfile(s.yes))} said yes. Now ${EX.name}.`);
+        else if(selectedDifficulty==='divorce'&&denisePlan().stage==='clear')achToast(`${EX.name} is gone and nobody is looking at you. Now find your cheerleader.`);
+        return;
+      }
+      saveRun(true);showClassWin();
+    }
+    function showClassWin(){
+      const v=world?.victory,w=CLASS_WINS[v?.type],win=$('marriage-win');
+      if(!w||!win)return;
+      const her=hingeProfile(v.bride),face=her?.gallery?.[0]||SORORITY_STANDIN;
+      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${victoryNote()}<button data-class-win="new">New game</button></div>`;
+      if(!win.dataset.classWin){win.dataset.classWin='1';win.addEventListener('click',event=>{if(event.target.closest?.('[data-class-win]')){win.classList.remove('visible');pickDifficulty();}});}
+      win.classList.add('visible');
+    }
     // ---- the car: one trip a day ----
     function driveBlock(id){
       const c=classState(),d=DRIVES[selectedDifficulty]?.[id];
       if(!d)return 'Not here.';
       if(c.laidUntil!==null&&world.day<c.laidUntil)return c.did.face&&!c.did.height&&!c.did.cheap?`You can’t drive with a face full of stitches. Day ${c.laidUntil}.`:`You can’t drive on new legs. Day ${c.laidUntil}.`;
       if(c.tripDay===world.day)return 'You have been out today. Tomorrow.';
+      if(d.show&&!d.show())return 'Not now.';
       if(d.once&&c.did[id])return 'Done.';
       if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
       if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
@@ -8978,13 +9143,13 @@
     function driveViewHtml(){
       const c=classState(),trips=DRIVES[selectedDifficulty]||{};
       const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
-      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
+      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
     }
     function driveTo(id){
       if(!walletOn()||driveBlock(id))return false;
       const c=classState(),d=DRIVES[selectedDifficulty][id];
       c.tripDay=world.day;
-      if(d.cost)cashMove(-d.cost,d.label); // her house: exPaid() takes the check on arrival
+      if(d.cost)cashMove(-d.cost,d.ledger||d.label); // her house: exPaid() takes the check on arrival
       const dies=d.risk&&gameRandom()<d.risk;
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
@@ -9007,7 +9172,9 @@
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
         else achToast(`Looks ${c.looks} of 100.`);
       }else{
-        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
+        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);const pl=denisePlan();if(pl.stage==='paid'&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
+        if(id==='cactus'){c.did.cactus=true;const pl=denisePlan();pl.stage='number';pl.numberDay=world.day;pl.cop=hashSeed(world.seed+'|solver')%3===0;achToast('A number on a napkin. He will ring you.');}
+        if(id==='bins'){const pl=denisePlan();if(pl.cop){pl.stage='caught';saveRun(true);startPoliceArrest('solver');return;}pl.stage='paid';pl.doneDay=world.day+2;achToast(`He picked the night of Day ${pl.doneDay}. Be somewhere people can see you.`);}
         if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;achToast(`The next payment is due on Day ${c.payDue}.`);}
         if(id==='house'){exPaid();achToast(`Paid. The next ${money(ALIMONY)} is due on Day ${c.payDue}.`);}
       }
@@ -9026,6 +9193,7 @@
         if(c.laidUntil!==null&&world.day>=c.laidUntil){c.laidUntil=null;achToast('You can walk again. Taller.');}
         return;
       }
+      if(denisePlanNewDay())return; // the plan: Denise's night, the police, the arrest
       if(c.arrestDay!==null&&world.day>=c.arrestDay){classDie('sheriff');return;}
       if(c.payDue!==null&&world.day>=c.payDue){
         if(c.cash>=c.owed){exPaid();achToast(`${EX.name} got her ${money(ALIMONY)}.`);}
@@ -9117,6 +9285,7 @@
       ladderWin();checkAchievements(); // the class ladder and achievements
       const v=world.victory;
       if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
+      if(v&&CLASS_WINS[v.type])noteEnding('win:'+v.type,`${hingeProfile(v.bride)?.name||'She'} said yes.`);
       const pv=world.professorVale,e=pv?.ending&&window.ProfessorVale?.DATA?.endings?.[pv.ending];
       if(e&&['complete','failure'].includes(e.kind))noteEnding('vale:'+pv.ending,'');
       const br=world.blueRibbon;
@@ -9865,8 +10034,8 @@
     const POLICE_ARREST_MESSAGE='You wasted police time and are under arrest. You are going to prison forever';
     const POLICE_ARREST_FRAMES=['threshold','approach','cuff','grab'];
     // Theon: arrested over his messages (nobody stopped him), or over him (somebody found him).
-    var ARREST_CAPTIONS={pills:['KNOCK KNOCK. SUNFALL POLICE!','We’ve been through her list of customers.','Hold still. The handcuffs are coming out.','You are coming with me.'],ring:['KNOCK KNOCK. SUNFALL POLICE!','We’re tracing everything she sold.','Hold still. The handcuffs are coming out.','You are coming with me.'],fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
-    var ARREST_ENDINGS={halloran:{text:'LPC Laboratories kept records. Cole Halloran’s pills went through your door. You are under arrest.',status:'Game over · arrested over Cole Halloran.'},pills:{text:'Your name was on her list of customers. You are under arrest.',status:'Game over · arrested over the pills.'},ring:{text:'The Ashworths’ ring was in your bedside cupboard. You are under arrest.',status:'Game over · arrested over the ring.'},fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
+    var ARREST_CAPTIONS={solver:['KNOCK KNOCK. SUNFALL POLICE!','The man in the back booth was one of ours.','Hold still. The handcuffs are coming out.','You are coming with me.'],denise:['KNOCK KNOCK. SUNFALL POLICE!','It’s about your ex-wife.','Hold still. The handcuffs are coming out.','You are coming with me.'],pills:['KNOCK KNOCK. SUNFALL POLICE!','We’ve been through her list of customers.','Hold still. The handcuffs are coming out.','You are coming with me.'],ring:['KNOCK KNOCK. SUNFALL POLICE!','We’re tracing everything she sold.','Hold still. The handcuffs are coming out.','You are coming with me.'],fionn:['KNOCK KNOCK. SUNFALL POLICE!','We’ve had complaints from women about messages sent with your photographs.','Hold still. The handcuffs are coming out.','You are coming with me.'],body:['KNOCK KNOCK. SUNFALL POLICE!','Somebody found something.','Hold still. The handcuffs are coming out.','You are coming with me.']};
+    var ARREST_ENDINGS={solver:{text:'The man who solves problems was a police officer. You are under arrest for hiring a killer.',status:'Game over · arrested over the man at the Lucky Cactus.'},denise:{text:`${'Denise'}’s house burned down, and nobody could say where you were. You are under arrest for her murder.`,status:'Game over · arrested over Denise.'},halloran:{text:'LPC Laboratories kept records. Cole Halloran’s pills went through your door. You are under arrest.',status:'Game over · arrested over Cole Halloran.'},pills:{text:'Your name was on her list of customers. You are under arrest.',status:'Game over · arrested over the pills.'},ring:{text:'The Ashworths’ ring was in your bedside cupboard. You are under arrest.',status:'Game over · arrested over the ring.'},fionn:{text:'Women reported messages sent with your photographs. You are under arrest.',status:'Game over · arrested over the messages.'},body:{text:'Somebody found him. You are under arrest.',status:'Game over · arrested.'}};
     let policeArrestTimers=[];
     function clearPoliceArrest(){
       for(const id of policeArrestTimers)window.clearTimeout(id);
@@ -9884,7 +10053,7 @@
     }
     function startPoliceArrest(reason='false'){
       if(world.policeArrested)return;
-      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body','pills','ring','halloran'].includes(reason)?reason:'false';
+      world.policeArrested=true;world.policeArrestReason=['complaint','fionn','body','pills','ring','halloran','solver','denise'].includes(reason)?reason:'false';
       world.policeArrestPhase=dayPhases.includes(time.value)?time.value:'bedroom-night';
       saveRun(true);
       clearPoliceArrest();clearBearTimers();clearBearVisuals();closeEvidenceSheet(false);
@@ -11065,6 +11234,8 @@
     $('ladder-win-preview').onclick=()=>{const r=ladderCountWin(selectedDifficulty,'test-'+Date.now());updateRunStatus(r?.next&&!r.next.soon?`Counted a win as ${ladderName(r.as)}. ${r.next.name} is unlocked.`:'Counted a win. That is the top of the ladder for now.');};
     $('ladder-unlock-all').onclick=()=>{const on=!playerProfile().allAccess;setAllAccess(on);updateRunStatus(on?'All access: every class is open. Tap again to turn it off.':'All access is off: back to the classes you have unlocked.');}; // testing only
     $('class-cash-preview').onclick=()=>{if(!walletOn()){updateRunStatus('Start a Looksmaxxer or Divorcé run first.');return;}const c=classState();cashMove(1000,'Testing: a deposit');c.tripDay=null;c.laidUntil=null;saveRun(true);updateRunStatus(`Wallet: $${c.cash}. You can drive again today.`);};
+    $('sorority-preview').onclick=()=>{if(!walletOn()){setDifficulty('looksmaxxer');startNewRun(true);}const card=sororityCards()[0];if(!card){updateRunStatus('The sorority is not loaded.');return;}const t=hingeThreads.get(card.id)||ensureHingeThread(card,'now');if(warmthOf(t)<1)t.warmth=1;saveRun(true);hingeView='thread';activeChatId=card.id;openApp('hinge');updateRunStatus(`Preview: ${card.name} matched with you. Ask her out from her chat.`);};
+    $('solver-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const pl=denisePlan();pl.stage='number';pl.numberDay=world.day-1;pl.rang=null;pl.rings=0;testRing('x:solver');updateRunStatus('Preview: the man from the Lucky Cactus is ringing.');};
     $('class-ex-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const c=classState();c.payDue=world.day+1;c.remindFor=null;testRing('x:ex');updateRunStatus('Preview: Denise is ringing about tomorrow’s payment.');};
     $('ladder-reset').onclick=()=>{const notes=playerProfile().notes;ladderCache=sanitizeProfile({notes});saveProfile();updateRunStatus('Back to Normie only. Your notes are kept.');if(currentApp==='journal')renderJournal();};
     $('fq-postcard-preview').onclick=()=>fqTestStart('postcard');

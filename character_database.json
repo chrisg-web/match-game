@@ -33829,5 +33829,276 @@
       },
       "close": "It’s nearly light when you get home. Your room looks smaller than you remember."
     }
+  },
+  "sorority": {
+    "women": [
+      {
+        "id": "SORORITY-01",
+        "slug": "stacey_vandermeer",
+        "name": "Stacey Vandermeer",
+        "age": 22,
+        "role": "Cheer captain",
+        "canonicalOccupation": "Sunfall University senior, Communications (cheer captain)",
+        "feature": "a beauty mark just above her upper lip",
+        "complimentLabel": "Compliment that beauty mark above your lip",
+        "excuses": [
+          "I literally have cheer. Like, forever. Sorry!",
+          "Omg I would, but Stacey nights are for the girls."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-02",
+        "slug": "madison_hartwell",
+        "name": "Madison Hartwell",
+        "age": 21,
+        "role": "Rush chair",
+        "canonicalOccupation": "Sunfall University senior, Fashion merchandising (rush chair)",
+        "feature": "deep dimples in both cheeks when she smiles",
+        "complimentLabel": "Compliment those dimples",
+        "excuses": [
+          "Rush is literally eating my life right now.",
+          "My calendar is booked solid. Like, color-coded booked."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-03",
+        "slug": "brooke_ellington",
+        "name": "Brooke Ellington",
+        "age": 22,
+        "role": "Dance team captain",
+        "canonicalOccupation": "Sunfall University senior, Kinesiology (dance team captain)",
+        "feature": "she is very tall, nearly six feet, with endless legs",
+        "complimentLabel": "Compliment how tall you are",
+        "excuses": [
+          "Leg day, then bed. Rain check?",
+          "I have a dance comp. Then another dance comp."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-04",
+        "slug": "kaylee_summers",
+        "name": "Kaylee Summers",
+        "age": 21,
+        "role": "Cheer flyer",
+        "canonicalOccupation": "Sunfall University senior, Nutrition (cheer flyer)",
+        "feature": "a dusting of freckles across her nose and shoulders",
+        "complimentLabel": "Compliment your freckles",
+        "excuses": [
+          "Omg my dog is sick. Wait no, that was last time. My other dog.",
+          "I have a nutrition test. I think. What day is it?"
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-05",
+        "slug": "brynn_prentiss",
+        "name": "Brynn Prentiss",
+        "age": 23,
+        "role": "Chapter president",
+        "canonicalOccupation": "Sunfall University senior, Real estate (chapter president)",
+        "feature": "her two different colored eyes",
+        "complimentLabel": "Compliment your eyes, one blue and one green",
+        "excuses": [
+          "Chapter business. You would not understand.",
+          "Send me your credit score and I will think about it."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-06",
+        "slug": "tiffani_royce",
+        "name": "Tiffani Royce",
+        "age": 22,
+        "role": "Social chair",
+        "canonicalOccupation": "Sunfall University senior, Hospitality (social chair)",
+        "feature": "huge gold hoop earrings and a rhinestone phone she never puts down",
+        "complimentLabel": "Compliment that pink streak",
+        "excuses": [
+          "Tonight? Babe, I am the night. Out with the girls.",
+          "Ugh, social chair life. We have three mixers."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-07",
+        "slug": "chloe_danvers",
+        "name": "Chloe Danvers",
+        "age": 21,
+        "role": "Philanthropy chair",
+        "canonicalOccupation": "Sunfall University senior, Psychology (philanthropy chair)",
+        "feature": "a gap-toothed smile",
+        "complimentLabel": "Compliment that little gap in your smile",
+        "excuses": [
+          "Mercury is in retrograde. I cannot.",
+          "My horoscope literally said not today."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-08",
+        "slug": "paige_whitley",
+        "name": "Paige Whitley",
+        "age": 22,
+        "role": "Cheer base",
+        "canonicalOccupation": "Sunfall University senior, Marketing (cheer base)",
+        "feature": "pink cat-eye glasses she wears with everything",
+        "complimentLabel": "Compliment those pink glasses",
+        "excuses": [
+          "I have content to shoot. The girls are my content.",
+          "Can I bring my camera? Never mind, girls night."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-09",
+        "slug": "ava_kingsley",
+        "name": "Ava Kingsley",
+        "age": 22,
+        "role": "Golf team",
+        "canonicalOccupation": "Sunfall University senior, Economics (golf team)",
+        "feature": "strong dark brows and sleepy hooded eyes",
+        "complimentLabel": "Compliment those brows",
+        "excuses": [
+          "My dad is in town. Family dinner. Forever.",
+          "I am at the club. The other club. With the girls."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-10",
+        "slug": "lexi_carrington",
+        "name": "Lexi Carrington",
+        "age": 21,
+        "role": "Volleyball team",
+        "canonicalOccupation": "Sunfall University senior, Art history (volleyball team)",
+        "feature": "the only short hair in the house: a white-blonde pixie cut, and a stack of silver rings",
+        "complimentLabel": "Compliment that pixie cut",
+        "excuses": [
+          "Volleyball tournament. Sand everywhere. Forever.",
+          "I am painting tonight. With the girls. It is a thing."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-11",
+        "slug": "callie_montague",
+        "name": "Callie Montague",
+        "age": 22,
+        "role": "Equestrian team",
+        "canonicalOccupation": "Sunfall University senior, Animal science (equestrian team)",
+        "feature": "a white cowgirl hat she never takes off",
+        "complimentLabel": "Compliment that cowgirl hat",
+        "excuses": [
+          "I gotta feed the horses. All of them. Tonight.",
+          "Line dancing with the girls. Y’all would not survive it."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-12",
+        "slug": "kenzie_lowell",
+        "name": "Kenzie Lowell",
+        "age": 23,
+        "role": "Pageant queen (Miss Sunfall)",
+        "canonicalOccupation": "Sunfall University senior, Broadcast journalism (pageant queen (miss sunfall))",
+        "feature": "razor-sharp cheekbones and a cleft chin",
+        "complimentLabel": "Compliment those cheekbones",
+        "excuses": [
+          "I have pageant prep. World peace does not train itself.",
+          "I would love to, but my schedule is committed to my platform."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-13",
+        "slug": "reese_calloway",
+        "name": "Reese Calloway",
+        "age": 22,
+        "role": "Softball pitcher",
+        "canonicalOccupation": "Sunfall University senior, Sports management (softball pitcher)",
+        "feature": "a little scar through one eyebrow from a stunt that went wrong",
+        "complimentLabel": "Compliment that scar through your eyebrow",
+        "excuses": [
+          "We have a game. Then a team dinner. Then the girls.",
+          "Ice bath, then the girls. Sorry, champ."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-14",
+        "slug": "delaney_frost",
+        "name": "Delaney Frost",
+        "age": 21,
+        "role": "Ballet minor",
+        "canonicalOccupation": "Sunfall University senior, English (ballet minor)",
+        "feature": "she is the only one who never tans: porcelain pale, an ice queen",
+        "complimentLabel": "Compliment how pale you are",
+        "excuses": [
+          "Rehearsal. Then rest. Then the girls.",
+          "I do not do dates. The girls do not either."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-15",
+        "slug": "taylor_brenner",
+        "name": "Taylor Brenner",
+        "age": 22,
+        "role": "Theater lead",
+        "canonicalOccupation": "Sunfall University senior, Musical theater (theater lead)",
+        "feature": "enormous blonde curls and a big, raspy laugh",
+        "complimentLabel": "Compliment all those curls",
+        "excuses": [
+          "I have rehearsal. I am the rehearsal.",
+          "Opening night with the girls. Unless you are a critic."
+        ],
+        "photos": []
+      },
+      {
+        "id": "SORORITY-16",
+        "slug": "peyton_larue",
+        "name": "Peyton Larue",
+        "age": 21,
+        "role": "Sisterhood chair",
+        "canonicalOccupation": "Sunfall University senior, Hospitality management (sisterhood chair)",
+        "feature": "a lopsided smirk with one eyebrow always raised",
+        "complimentLabel": "Compliment that smirk",
+        "excuses": [
+          "I would, but I really, really would not.",
+          "Sisterhood night. Very sacred. No boys. Especially you."
+        ],
+        "photos": []
+      }
+    ],
+    "lines": {
+      "commonExcuses": [
+        "I’m going out with the girls tonight.",
+        "It’s chapter night. Sorry not sorry.",
+        "We have a mixer with the lacrosse guys. Rain check?",
+        "My big needs me tonight. Sorority stuff.",
+        "Girls night. It was planned like forever ago."
+      ],
+      "block": [
+        "Ew. You literally asked me already. You’re being weird. Bye.",
+        "Okay, that’s twice. That’s weird. Blocked.",
+        "Babe. No. Asking again is so weird. Bye."
+      ],
+      "yes": [
+        "Okay fine. You’re actually hot now. Tomorrow night, pick me up. Don’t be weird.",
+        "Wait. Did you get taller? Okay, yes. One date. Tell no one. Actually, tell everyone."
+      ],
+      "yesDivorce": [
+        "Okay, daddy. One date. You’re paying, obviously.",
+        "Fine. You’re old, but you’re generous. Pick me up at the house. Park down the street."
+      ],
+      "compliment": [
+        "Omg, stop. You noticed? Okay, you can stay.",
+        "Literally nobody notices that. Okay. Points.",
+        "Wait, that’s actually sweet. Don’t make it weird."
+      ]
+    }
   }
 }
