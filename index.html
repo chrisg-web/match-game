@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="44cac22176">
+<html lang="en" data-build="e390fa3478">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -63,13 +63,21 @@
     .tut-nav button:disabled { opacity: .35; cursor: default; }
     .tut-close { position: absolute; top: 12px; right: 12px; }
     .tut-dots { display: flex; gap: 6px; } .tut-dots i { width: 8px; height: 8px; border-radius: 50%; background: #ffe1d655; } .tut-dots i.on { background: #fff; }
-    .pick-cards { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5%; width: 94%; height: 92%; }
-    .pick-cards button { height: 31%; aspect-ratio: 1 / 1.13; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 6px; border: 3px solid #ed7d56; border-radius: 8px; background: #1a0e12; color: #ffe9d0; cursor: pointer; font: bold 15px ui-monospace,Consolas,monospace; letter-spacing: .12em; text-transform: uppercase; }
+    /* New game: the class ladder (Chris, 3 November 2026). Unlocked classes first, then the locked ones. */
+    .pick-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 94%; height: 94%; }
+    .pick-head { margin: 0; color: #ffd978; font: bold 17px ui-monospace,Consolas,monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .pick-foot { margin: 0; color: #ffe9d0cc; font: 12px/1.4 ui-monospace,Consolas,monospace; text-align: center; }
+    .pick-cards { display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 8px; width: 100%; }
+    .pick-cards button { width: 30%; aspect-ratio: 1 / 1.3; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 5px; border: 3px solid #ed7d56; border-radius: 8px; background: #1a0e12; color: #ffe9d0; cursor: pointer; font: bold 13px ui-monospace,Consolas,monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .pick-cards button small { font-size: 9px; font-weight: normal; letter-spacing: .02em; text-transform: none; color: #ffe9d0aa; text-align: center; }
+    .pick-cards button small.new { color: #ffd978; font-weight: bold; letter-spacing: .1em; text-transform: uppercase; }
+    .pick-cards button.locked, .pick-cards button.soon { border-color: #4a3a40; color: #a8999c; cursor: not-allowed; }
+    .pick-cards button.locked img { filter: grayscale(1) brightness(.45); }
+    .pick-mystery { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #120a0d; color: #5a4a50; font: bold 40px ui-monospace,Consolas,monospace; }
     .pick-cards button:hover, .pick-cards button:focus-visible { border-color: #ffd978; }
     .pick-cards button.current { border-color: #ffd978; box-shadow: 0 0 0 2px #ffd97855; }
     .pick-cards img { width: 100%; flex: 1; min-height: 0; object-fit: cover; image-rendering: pixelated; border-radius: 4px; }
-    .stage.wide .pick-cards { flex-direction: row; }
-    .stage.wide .pick-cards button { height: auto; width: 30%; max-height: 94%;; font-size: 24px; }
+    .stage.wide .pick-cards button { width: 18%; font-size: 18px; }
     .death-pixels { width: min(96%,340px); height: auto; image-rendering: pixelated; filter: drop-shadow(0 4px 0 #290a11); }
     .fatal-overlay p { font: bold 12px/1.6 ui-monospace,Consolas,monospace; letter-spacing: .09em; text-transform: uppercase; color: #ffd9c2; text-shadow: 2px 2px #16070b; }
     .fatal-overlay button { font: bold 12px ui-monospace,Consolas,monospace; text-transform: uppercase; letter-spacing: .1em; color: #ffe9d0; background: #1a0e12; border: 2px solid #ed7d56; padding: 12px 20px; cursor: pointer; }
@@ -159,7 +167,7 @@
     .screen-header strong { font-family: 'Courier New',ui-monospace,monospace; font-size: 23px; font-weight: 900; letter-spacing: 4px; color: #f7debd; text-shadow: 2px 2px #964a7b,3px 3px #08111e; }
     .app-grid { position: absolute; top: 36%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; row-gap: 13px; justify-items: center; }
     .app { width: 68px; border: 0; background: none; padding: 0; color: #fff; cursor: pointer; text-align: center; text-shadow: 1px 1px #000; }
-    .app.settings-app { grid-column: 1 / span 2; }
+    /* Settings shares the last row with Notes (Chris, 3 November 2026); it used to sit alone in the middle. */
     .app-mark { height: 50px; width: 50px; margin: auto auto 5px; display: grid; place-items: center; font-family: Arial,sans-serif; font-size: 28px; border-radius: 12px; box-shadow: 0 3px 8px #0009; }
     .app-mark img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; border-radius: 12px; }
     .app small { font-size: 10px; }
@@ -187,6 +195,23 @@
     .mini-app { position: relative; background: #f0e4cb; color: #2b2730; height: calc(100% - 18px); padding: 7px 8px; font-family: Georgia,serif; overflow: auto; }
     .mini-app.news-mode { font-family: Arial,Helvetica,sans-serif; background: #f4f3ee; }
     .mini-app.notes-mode { background: linear-gradient(#fff9ec80,#fff9ec80), url('assets/contacts/contacts-bg.png') center/cover, #fff9ec; color: #333b48; font-family: -apple-system,BlinkMacSystemFont,Arial,sans-serif; padding: 9px; } /* Contacts; its own background shows once made */
+    /* Notes (Chris, 3 November 2026): the 2008 iPhone Notes look, a yellow legal pad. Kept between games. */
+    .mini-app.journal-mode { padding: 0; background: #fdf3b5 repeating-linear-gradient(to bottom,#fdf3b5 0 23px,#e7d68a 23px 24px); color: #3b2a14; font-family: 'Marker Felt','Comic Sans MS',cursive; }
+    .journal-bar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: linear-gradient(#8a6136,#5e3f1f); border-bottom: 2px solid #3f2a14; color: #fff4dc; font: bold 16px 'Marker Felt','Comic Sans MS',cursive; }
+    .journal-bar button { border: 1px solid #3f2a14; border-radius: 5px; background: linear-gradient(#a7804f,#6e4b26); color: #fff4dc; font: bold 13px Arial,sans-serif; padding: 3px 9px; cursor: pointer; }
+    .journal-list button { display: block; width: 100%; padding: 7px 12px; border: 0; border-bottom: 1px solid #e0cd7c; background: transparent; color: #3b2a14; text-align: left; font: 16px/1.3 'Marker Felt','Comic Sans MS',cursive; cursor: pointer; }
+    .journal-list small, .journal-page small { display: block; color: #7a6236; font: 11px/1.4 Arial,sans-serif; }
+    .journal-page { padding: 8px 14px 14px; font: 15px/24px 'Marker Felt','Comic Sans MS',cursive; }
+    .journal-page h4 { margin: 4px 0; font: bold 17px/24px 'Marker Felt','Comic Sans MS',cursive; }
+    .journal-row { display: flex; align-items: center; gap: 9px; min-height: 24px; padding: 3px 0; }
+    .journal-row img, .journal-row .q { width: 34px; height: 34px; flex: none; border-radius: 4px; object-fit: cover; image-rendering: pixelated; background: #3b2a14; color: #fdf3b5; font: bold 18px/34px Arial,sans-serif; text-align: center; }
+    .journal-row.off { color: #9a8658; }
+    .journal-row.off img { filter: grayscale(1) opacity(.6); }
+    .journal-points { margin: 6px 0; font: bold 20px/24px 'Marker Felt','Comic Sans MS',cursive; }
+    .journal-text { display: block; width: 100%; min-height: 380px; padding: 0 14px; border: 0; background: transparent; color: #3b2a14; font: 16px/24px 'Marker Felt','Comic Sans MS',cursive; resize: none; outline: none; }
+    .ach-toast { position: absolute; z-index: 45; left: 8%; right: 8%; top: 7%; padding: 7px 10px; border: 2px solid #e6c066; border-radius: 8px; background: #2a180eee; color: #ffd978; font: bold 12px/1.35 'Trebuchet MS',Tahoma,sans-serif; text-align: center; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity .3s, transform .3s; }
+    .ach-toast.visible { opacity: 1; transform: none; }
+    .marriage-win .ladder-next { margin: 0; padding: 6px 10px; border: 2px solid #e6c066; border-radius: 6px; background: #2a180ecc; color: #ffd978; font: bold 12px/1.4 'Trebuchet MS',Tahoma,sans-serif; }
     .mini-app.notes-mode h3 { color: #a87923; font: bold 18px -apple-system,BlinkMacSystemFont,Arial,sans-serif; border-bottom: 2px solid #f0cc75; padding-bottom: 6px; }
     .mini-app.notes-mode .paper { background: repeating-linear-gradient(to bottom,#fffdf5 0px,#fffdf5 21px,#dce9eb 22px,#fffdf5 23px); padding: 9px; border: 1px solid #e5d3ae; border-radius: 5px; }
     .contact-entry { position: relative; display: block; padding: 4px 2px; }
@@ -640,11 +665,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=44cac22176"></script>
+  <script src="chapel_at_midnight.js?v=e390fa3478"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=44cac22176"></script>
+  <script src="marriage.js?v=e390fa3478"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=44cac22176"></script>
+  <script src="quests/professor-vale.js?v=e390fa3478"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -732,6 +757,9 @@
         <button class="bar-button" id="rq-hotline-preview">Room quest: the Sunfall After Dark ad in today’s paper (1-900-SUNFALL)</button>
         <button class="bar-button" id="rq-spotter-preview">Room quest: Lauren Bishop messages now (Spotter)</button>
         <button class="bar-button" id="rq-seating-preview">Room quest: Alice Beaumont messages now (The Seating Plan)</button>
+        <button class="bar-button" id="ladder-win-preview">Classes: count a win as the class you are playing (unlocks the next)</button>
+        <button class="bar-button" id="ladder-unlock-all">Classes: unlock Mogger and Truecel</button>
+        <button class="bar-button" id="ladder-reset">Classes: back to Normie only (clears wins, points and achievements; keeps your notes)</button>
         <button class="bar-button" id="fq-postcard-preview">Her thing: Celeste Van Doren messages now (The Postcard)</button>
         <button class="bar-button" id="fq-letter-preview">Her thing: Ruth Calder messages now (The Letter)</button>
         <button class="bar-button" id="fq-count-preview">Her thing: Catherine Bell messages now (Match Point)</button>
@@ -773,6 +801,7 @@
                   <button class="app" data-app="notes"><span class="app-mark"><img src="assets/icons/contacts.png" alt=""></span><small>Contacts</small></button><!-- Contacts replaced Notes; its internal app id stays "notes" so saves and quests keep working -->
                   <button class="app" data-app="calls"><span class="app-mark"><img src="assets/icons/calls.png" alt=""></span><small>Calls</small></button>
                   <button class="app settings-app" data-app="settings"><span class="app-mark"><img src="assets/icons/settings.png" alt=""></span><small>Settings</small></button>
+                  <button class="app" data-app="journal"><span class="app-mark"><img src="assets/icons/notes.png" alt=""></span><small>Notes</small></button><!-- Notes: your journey, achievements and your own notes, kept between games (internal id journal: "notes" is Contacts) -->
                 </div>
               </div>
               <div class="mini-app" id="opened" style="display:none"></div>
@@ -801,7 +830,8 @@
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><details class="run-recap" id="run-recap"></details><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
-          <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose a difficulty for the new game"><div class="pick-cards"><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button></div></div><!-- New game: tap a face -->
+          <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose your class for the new game"><div class="pick-wrap"><p class="pick-head">Choose your class</p><div class="pick-cards" id="pick-cards"><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button></div><p class="pick-foot" id="pick-foot">Win a run to unlock the next class.</p></div></div><!-- New game: the class ladder; renderPicker() redraws it with what you have unlocked -->
+          <div class="ach-toast" id="ach-toast" aria-live="polite"></div><!-- Achievements: a banner when you earn one -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
         </div>
       </div>
@@ -8430,6 +8460,159 @@
       add('The Founders’ Ball','finale:alone','Alone');
       return out;
     }
+    // ===== The class ladder, points and the Notes app (Chris, 3 November 2026) =====
+    // The difficulties are a ladder now, a five-step journey. Everyone starts as a Normie; win a run (a
+    // wedding) and the next class unlocks: Normie, then Mogger, then Truecel. Steps four and five are still
+    // being designed (one may play differently). Wins, points, achievements and your own notes are kept
+    // beside the save (each edition has its own) and never reset by a new game, like Endings.
+    const LADDER=[
+      {id:'normie',name:'Normie',img:'assets/difficulty/normie.png',blurb:'Where everyone starts. A fair chance of a match.'},
+      {id:'mogger',name:'Mogger',img:'assets/difficulty/mogger.png',blurb:'Women come to you. So does trouble.'},
+      {id:'truecel',name:'Truecel',img:'assets/difficulty/truecel.png',blurb:'Matches are rare and every word counts.'},
+      {id:'step4',name:'???',img:null,blurb:'Still being written.',soon:true},
+      {id:'step5',name:'???',img:null,blurb:'Still being written.',soon:true}
+    ];
+    // Points come from achievements. Each test reads the run or what you have done across runs.
+    const ACHIEVEMENTS=[
+      {id:'first-match',title:'First match',points:10,hint:'Match with someone on Hinge.',test:()=>hingeThreads.size>=1},
+      {id:'ten-matches',title:'Popular',points:20,hint:'Ten matches in one run.',test:()=>hingeThreads.size>=10},
+      {id:'week',title:'A week in Scottsdale',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
+      {id:'fortnight',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
+      {id:'first-death',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
+      {id:'ten-endings',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
+      {id:'married',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
+      {id:'climb-mogger',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
+      {id:'climb-truecel',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
+      {id:'win-truecel',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0}
+    ];
+    const LADDER_KEY=SAVE_KEY+':ladder',NOTES_MAX=30,NOTE_CHARS=2000;
+    let ladderCache=null,journalView='main',achQueue=[],achTimer=null;
+    const ladderIndex=id=>LADDER.findIndex(rung=>rung.id===id);
+    const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
+    function sanitizeProfile(raw){
+      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null};
+      for(const rung of LADDER){const n=o.wins?.[rung.id];if(Number.isInteger(n)&&n>0)out.wins[rung.id]=Math.min(9999,n);}
+      if(Array.isArray(o.won))out.won=o.won.filter(seed=>typeof seed==='string'&&seed.length<=80).slice(-40);
+      for(const a of ACHIEVEMENTS){const e=o.ach?.[a.id];if(e&&typeof e==='object')out.ach[a.id]={day:Number.isInteger(e.day)?e.day:null,as:ladderIndex(e.as)>=0?e.as:null};}
+      if(Array.isArray(o.notes))out.notes=o.notes.filter(n=>n&&typeof n.id==='string'&&/^n[0-9a-z]{1,20}$/.test(n.id)&&typeof n.text==='string').slice(0,NOTES_MAX).map(n=>({id:n.id,text:n.text.slice(0,NOTE_CHARS)}));
+      if(ladderIndex(o.fresh)>=0&&!LADDER[ladderIndex(o.fresh)].soon)out.fresh=o.fresh;
+      return out;
+    }
+    function playerProfile(){
+      if(ladderCache)return ladderCache;
+      let raw=null;try{raw=JSON.parse(localStorage.getItem(LADDER_KEY)||'null');}catch{}
+      ladderCache=sanitizeProfile(raw);
+      return ladderCache;
+    }
+    function saveProfile(){try{localStorage.setItem(LADDER_KEY,JSON.stringify(playerProfile()));}catch{}}
+    function ladderUnlocked(id){const i=ladderIndex(id);return i>=0&&!LADDER[i].soon&&i<playerProfile().unlocked;}
+    function ladderGrant(id){ // unlock up to this class (old saves, and the testing menu)
+      const i=ladderIndex(id),p=playerProfile();
+      if(i<0||p.unlocked>=i+1)return;
+      p.unlocked=i+1;saveProfile();checkAchievements();
+    }
+    function ladderPoints(){const p=playerProfile();return ACHIEVEMENTS.reduce((sum,a)=>sum+(p.ach[a.id]?a.points:0),0);}
+    // A win counts once per run (by its seed): the class you won as, and the next class unlocks.
+    function ladderCountWin(as,seed){
+      const p=playerProfile(),i=ladderIndex(as);
+      if(i<0)return null;
+      const next=LADDER[i+1]||null;
+      if(seed&&!p.won.includes(seed)){
+        p.won.push(seed);p.won=p.won.slice(-40);
+        p.wins[as]=(p.wins[as]||0)+1;
+        if(next&&p.unlocked<i+2){p.unlocked=i+2;if(!next.soon)p.fresh=next.id;}
+        saveProfile();checkAchievements();
+      }
+      return {as,next};
+    }
+    function ladderWin(){
+      const v=world?.victory;
+      if(!v||!['marriage','thunderbirds'].includes(v.type))return null;
+      return ladderCountWin(ladderIndex(selectedDifficulty)>=0?selectedDifficulty:'normie',String(world.seed||''));
+    }
+    // The victory screen: what you unlocked, and what to play next.
+    function victoryNote(){
+      const r=ladderWin();
+      if(!r)return '';
+      const line=r.next&&!r.next.soon?`You won as a ${ladderName(r.as)}. ${r.next.name} is unlocked: start a new game as a ${r.next.name}.`:`You won as a ${ladderName(r.as)}. That’s the top of the ladder for now. More classes are coming.`;
+      return `<p class="ladder-next">${esc(line)}</p>`;
+    }
+    function checkAchievements(){
+      if(!world)return [];
+      const p=playerProfile(),earned=[];
+      for(const a of ACHIEVEMENTS){
+        if(p.ach[a.id])continue;
+        let hit=false;try{hit=!!a.test();}catch{}
+        if(hit){p.ach[a.id]={day:world.day||null,as:ladderIndex(selectedDifficulty)>=0?selectedDifficulty:null};earned.push(a);}
+      }
+      if(earned.length){saveProfile();for(const a of earned)achToast(`Achievement: ${a.title} (+${a.points} points)`);}
+      return earned;
+    }
+    function achToast(text){
+      const box=$('ach-toast');
+      if(!box)return;
+      if(achTimer!==null){achQueue.push(text);return;}
+      box.textContent=text;box.classList.add('visible');
+      achTimer=window.setTimeout(()=>{achTimer=null;box.classList.remove('visible');const next=achQueue.shift();if(next)window.setTimeout(()=>achToast(next),350);},2600);
+    }
+    function renderPicker(){
+      const p=playerProfile();
+      const current=ladderUnlocked(p.fresh)?p.fresh:ladderUnlocked(selectedDifficulty)?selectedDifficulty:'normie';
+      $('pick-cards').innerHTML=LADDER.map((rung,i)=>{
+        const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="">`:'<span class="pick-mystery">?</span>';
+        if(rung.soon)return `<button class="soon" disabled aria-label="A class still being written">${face}<b>???</b><small>Coming soon</small></button>`;
+        if(!ladderUnlocked(rung.id))return `<button class="locked" disabled data-pick-locked="${rung.id}" aria-label="${esc(rung.name)}, locked">${face}<b>${esc(rung.name)}</b><small>Win as a ${esc(LADDER[i-1].name)}</small></button>`;
+        return `<button data-pick-difficulty="${rung.id}"${rung.id===current?' class="current"':''}>${face}<b>${esc(rung.name)}</b>${rung.id===p.fresh?'<small class="new">New</small>':`<small>${esc(rung.blurb)}</small>`}</button>`;
+      }).join('');
+      const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
+      $('pick-foot').textContent=open>=3?'Two more classes are on the way.':'Win a run to unlock the next class.';
+    }
+    // ---- Notes: your journey up the ladder, achievements and points, and notes you write yourself ----
+    function journalNote(id){return playerProfile().notes.find(note=>note.id===id)||null;}
+    const noteTitle=note=>(note.text.split(/\r?\n/).find(line=>line.trim())||'New note').trim().slice(0,40);
+    function journalNew(){
+      const p=playerProfile();
+      if(p.notes.length>=NOTES_MAX){achToast('Notes is full. Delete a note first.');return null;}
+      const id='n'+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);
+      p.notes.unshift({id,text:''});saveProfile();
+      journalView='note:'+id;renderJournal();
+      try{$('journal-text').focus();}catch{}
+      return id;
+    }
+    function journalWrite(id,text){const note=journalNote(id);if(!note)return;note.text=String(text||'').slice(0,NOTE_CHARS);saveProfile();}
+    function journalDelete(id){const p=playerProfile();p.notes=p.notes.filter(note=>note.id!==id);saveProfile();journalView='main';renderJournal();}
+    function renderJournal(){
+      const p=playerProfile(),bar=(title,back)=>`<div class="journal-bar">${back?'<button data-journal-view="main">‹ Notes</button>':''}<span>${esc(title)}</span>${back?'':'<button data-journal-new aria-label="New note">+</button>'}</div>`;
+      if(journalView.startsWith('note:')){
+        const note=journalNote(journalView.slice(5));
+        if(note){$('opened').innerHTML=`${bar(noteTitle(note),true)}<textarea class="journal-text" id="journal-text" data-journal-text="${esc(note.id)}" maxlength="${NOTE_CHARS}" aria-label="Your note">${esc(note.text)}</textarea><div class="journal-page"><button data-journal-delete="${esc(note.id)}">Delete this note</button></div>`;return;}
+        journalView='main';
+      }
+      if(journalView==='journey'){
+        const playing=ladderIndex(selectedDifficulty);
+        const rows=LADDER.map((rung,i)=>{
+          const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="">`:'<span class="q">?</span>';
+          const wins=p.wins[rung.id]||0;
+          const state=rung.soon?'Still being written':!ladderUnlocked(rung.id)?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Unlocked';
+          return `<div class="journal-row${rung.soon||!ladderUnlocked(rung.id)?' off':''}">${face}<div><b>${i+1}. ${esc(rung.name)}</b><small>${esc(state)}</small></div></div>`;
+        }).join('');
+        $('opened').innerHTML=`${bar('Your journey',true)}<div class="journal-page"><h4>Five steps</h4><p>Win a run (a wedding) to unlock the next class.</p>${rows}</div>`;
+        return;
+      }
+      if(journalView==='awards'){
+        const rows=ACHIEVEMENTS.map(a=>{const e=p.ach[a.id];return `<div class="journal-row${e?'':' off'}"><span class="q">${e?'✓':'?'}</span><div><b>${esc(a.title)} · ${a.points}</b><small>${esc(e?`Earned on Day ${e.day||1}${e.as?` as a ${ladderName(e.as)}`:''}.`:a.hint)}</small></div></div>`;}).join('');
+        $('opened').innerHTML=`${bar('Achievements',true)}<div class="journal-page"><p class="journal-points">${ladderPoints()} points</p>${rows}</div>`;
+        return;
+      }
+      journalView='main';
+      p.notes=p.notes.filter(note=>note.text.trim());saveProfile(); // empty notes go when you leave them
+      const done=ACHIEVEMENTS.filter(a=>p.ach[a.id]).length;
+      const climbed=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
+      const rest=note=>note.text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(1).join(' ').slice(0,50);
+      const notes=p.notes.map(note=>`<button data-journal-view="note:${esc(note.id)}"><b>${esc(noteTitle(note))}</b>${rest(note)?`<small>${esc(rest(note))}</small>`:''}</button>`).join('');
+      $('opened').innerHTML=`${bar('Notes',false)}<div class="journal-list"><button data-journal-view="journey"><b>Your journey</b><small>Step ${climbed} of ${LADDER.length} · playing as a ${esc(ladderName(selectedDifficulty))}</small></button><button data-journal-view="awards"><b>Achievements</b><small>${done} of ${ACHIEVEMENTS.length} · ${ladderPoints()} points</small></button>${notes}</div><div class="journal-page"><small>Notes are kept between games. Tap + for a new one.</small></div>`;
+    }
     // The death screen's line is set just after its title: kept once the run saves or a new game starts.
     var lastDeathKey=null;
     function captureDeathLine(){
@@ -8442,6 +8625,7 @@
     function noteRunEndings(){
       if(!world)return;
       captureDeathLine();
+      ladderWin();checkAchievements(); // the class ladder and achievements
       const v=world.victory;
       if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
       const pv=world.professorVale,e=pv?.ending&&window.ProfessorVale?.DATA?.endings?.[pv.ending];
@@ -8532,6 +8716,7 @@
       $('opened').classList.toggle('hinge-mode',app==='hinge');
       $('opened').classList.toggle('notes-mode',app==='notes');
       $('opened').classList.toggle('settings-mode',app==='settings');
+      $('opened').classList.toggle('journal-mode',app==='journal');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
       if(app==='news'){readTodaysPaper();renderNews();return;} // opening the paper is reading it: now you can ask women about it
@@ -8539,10 +8724,15 @@
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
       if(app==='notes'){notesView='main';renderNotes();return;}
+      if(app==='journal'){journalView='main';checkAchievements();renderJournal();return;} // Notes: journey, achievements, your notes
       $('opened').innerHTML=typeof appContent[app]==='function'?appContent[app]():appContent[app];
       hydrateInlineImages($('opened'));
     }
     document.querySelectorAll('[data-app]').forEach(btn=>btn.addEventListener('click',()=>openApp(btn.dataset.app)));
+    $('opened').addEventListener('input',event=>{ // Notes: what you type is kept as you type it
+      const box=event.target;
+      if(box&&box.dataset&&box.dataset.journalText!==undefined)journalWrite(box.dataset.journalText,box.value);
+    });
     $('opened').addEventListener('click',event=>{
       const marriageChoice=event.target.closest('[data-marriage-choice]'); // Marriage
       if(marriageChoice){marriage?.choose(marriageChoice.dataset.marriageChoice);return;}
@@ -8557,6 +8747,11 @@
         try{navigator.clipboard.writeText(BITCOIN_ADDRESS).then(()=>{copyBtc.textContent='Copied';},selectIt);}catch{selectIt();}
         return;
       }
+      const journalNav=event.target.closest('[data-journal-view]'); // Notes
+      if(journalNav){journalView=journalNav.dataset.journalView;renderJournal();$('opened').scrollTop=0;return;}
+      if(event.target.closest('[data-journal-new]')){journalNew();return;}
+      const journalDel=event.target.closest('[data-journal-delete]');
+      if(journalDel){journalDelete(journalDel.dataset.journalDelete);return;}
       if(event.target.closest('[data-settings-newgame-yes]')){settingsView='main';pickDifficulty();return;} // then choose a difficulty
       if(event.target.closest('[data-settings-newgame]')){settingsView='newgame';renderSettings();return;} // a new game, any time
       if(event.target.closest('[data-tutorial-open]')){openTutorial(0);return;} // How to play
@@ -8743,18 +8938,25 @@
       const control=event.target.closest('[data-bear-reaction]');
       if(control)resolveBearReaction(control.dataset.bearReaction);
     });
-    // New game, from anywhere: three big faces. Tap one and a new game starts at that level.
+    // New game, from anywhere: the class ladder. Tap an unlocked class and a new game starts as that class.
     function pickDifficulty(confirmFirst=false){
       if(confirmFirst&&typeof window.confirm==='function'&&!window.confirm('Start a fresh Matchfall run? Your current unsaved progress will be lost.'))return;
-      document.querySelectorAll('[data-pick-difficulty]').forEach(button=>button.classList.toggle('current',button.dataset.pickDifficulty===selectedDifficulty));
+      renderPicker();
       $('difficulty-pick').classList.add('visible');
     }
     $('new-game').onclick=()=>pickDifficulty();
-    document.querySelectorAll('[data-pick-difficulty]').forEach(button=>button.addEventListener('click',()=>{
-      setDifficulty(button.dataset.pickDifficulty);
+    function pickClass(id){
+      if(!ladderUnlocked(id))return false; // locked classes can't be chosen
+      const p=playerProfile();if(p.fresh===id){p.fresh=null;saveProfile();}
+      setDifficulty(id);
       $('difficulty-pick').classList.remove('visible');
       startNewRun(true);
-    }));
+      return true;
+    }
+    $('difficulty-pick').addEventListener('click',event=>{
+      const button=event.target.closest?.('[data-pick-difficulty]');
+      if(button&&!button.disabled)pickClass(button.dataset.pickDifficulty);
+    });
     // ===== The Blue Ribbon Ledger: Bluebirds investigation =====
     // Narrative data lives in blue_ribbon_ledger.json (inlined by the standalone
     // build). Every delay is counted in simulated days, never clock time.
@@ -10074,6 +10276,7 @@
         world.policeArrested=!!saved.world.policeArrested;
         world.policeArrestPhase=dayPhases.includes(saved.world.policeArrestPhase)?saved.world.policeArrestPhase:null;
         selectedDifficulty=matchRates[saved.selectedDifficulty]===undefined?'normie':saved.selectedDifficulty;
+        ladderGrant(selectedDifficulty); // a run saved before the ladder keeps its class
         document.querySelectorAll('[data-difficulty]').forEach(button=>{
           const isCurrent=button.dataset.difficulty===selectedDifficulty;
           button.classList.toggle('selected',isCurrent);button.setAttribute('aria-pressed',String(isCurrent));
@@ -10218,7 +10421,7 @@
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,
       sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
-      save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),
+      save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),
       rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;
@@ -10349,6 +10552,9 @@
     $('rq-hotline-preview').onclick=()=>rqTestStart('hotline');
     $('rq-spotter-preview').onclick=()=>rqTestStart('spotter');
     $('rq-seating-preview').onclick=()=>rqTestStart('seating');
+    $('ladder-win-preview').onclick=()=>{const r=ladderCountWin(selectedDifficulty,'test-'+Date.now());updateRunStatus(r?.next&&!r.next.soon?`Counted a win as ${ladderName(r.as)}. ${r.next.name} is unlocked.`:'Counted a win. That is the top of the ladder for now.');};
+    $('ladder-unlock-all').onclick=()=>{ladderGrant('truecel');updateRunStatus('Mogger and Truecel are unlocked.');};
+    $('ladder-reset').onclick=()=>{const notes=playerProfile().notes;ladderCache=sanitizeProfile({notes});saveProfile();updateRunStatus('Back to Normie only. Your notes are kept.');if(currentApp==='journal')renderJournal();};
     $('fq-postcard-preview').onclick=()=>fqTestStart('postcard');
     $('fq-letter-preview').onclick=()=>fqTestStart('letter');
     $('fq-count-preview').onclick=()=>fqTestStart('count');
