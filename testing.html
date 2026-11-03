@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="468217c7db">
+<html lang="en" data-build="3c92d1a5ef">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -402,6 +402,7 @@
     .call-bubble::after { content: ''; position: absolute; bottom: -10px; left: 40px; width: 13px; height: 13px; background: #0e1828; border-right: 2px solid #6eb3ae; border-bottom: 2px solid #6eb3ae; transform: rotate(45deg); }
     @keyframes bubbleArrival { from { transform: translateY(-9px); opacity: .3; } to { transform: none; opacity: 1; } }
     .call-bubble img { width: 54px; height: 62px; flex: none; object-fit: cover; object-position: top; image-rendering: pixelated; border: 1px solid #91c3ba; border-radius: 3px; }
+    .call-bubble img[data-call-pic] { width: 84px; height: 84px; object-fit: contain; background: #05080c; cursor: zoom-in; }
     .call-bubble .speaker { font: bold calc(13px * var(--reading-scale)) 'Trebuchet MS',Tahoma,sans-serif; letter-spacing: .055em; color: #a6eee2; }
     .call-bubble .speech { min-height: 49px; margin: 5px 0 9px; color: #f5fff9; font: 700 calc(15px * var(--reading-scale))/1.42 'Trebuchet MS',Tahoma,Arial,sans-serif; letter-spacing: .025em; }
     .call-bubble .speech::after { content: '▮'; color: #8cdbcb; opacity: .7; margin-left: 2px; }
@@ -737,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=468217c7db"></script>
+  <script src="chapel_at_midnight.js?v=3c92d1a5ef"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=468217c7db"></script>
+  <script src="marriage.js?v=3c92d1a5ef"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=468217c7db"></script>
+  <script src="quests/professor-vale.js?v=3c92d1a5ef"></script>
 </head>
 <body>
   <main class="workbench">
@@ -836,6 +837,7 @@
         <button class="bar-button" id="class-cash-preview">Looksmaxxer or Divorcé: add $1,000 and let you drive again today</button>
         <button class="bar-button" id="sorority-preview">Sorority: Stacey Vandermeer matches you now (starts a Looksmaxxer run if needed)</button>
         <button class="bar-button" id="solver-preview">Divorcé: the man from the Lucky Cactus rings now</button>
+        <button class="bar-button" id="voss-preview">Looksmaxxer: Dr. Voss rings now about your face (starts a Looksmaxxer run if needed)</button>
         <button class="bar-button" id="class-ex-preview">Divorcé: Denise rings about tomorrow’s payment now</button>
         <button class="bar-button" id="ladder-reset">Classes: back to Normie only (clears wins, points and achievements; keeps your notes)</button>
         <button class="bar-button" id="fq-postcard-preview">Her thing: Celeste Van Doren messages now (The Postcard)</button>
@@ -1487,6 +1489,7 @@
       }
       const lpcAd=glowAdItem(day); // Truecel, rarely: LPC-A365
       if(lpcAd)items.push(lpcAd);
+      items.push(...lxAdsFor(day)); // the Looksmaxxer: surgeons and gadgets in the classifieds
       items.push(...halNewsItems(day)); // Undeniable: Cole Halloran
       const fionnStory=fionnNewsItem(day); // Theon: how it ended
       if(fionnStory)items.push(fionnStory);
@@ -1530,6 +1533,7 @@
       visibleNewsDay=world.day;world.paperDay=world.day;
       const items=getNewsEdition(world.day).items;
       if(items.some(item=>item.glowAd))glowState().seen=true; // Truecel: LPC-A365
+      for(const item of items)if(item.lxAd&&selectedDifficulty==='looksmaxxer'&&world.cls)lx().seen[item.lxAd]=true; // the Looksmaxxer: its number goes in Contacts
       if(items.some(item=>item.id==='rq_hotline_ad')&&rqs('hotline'))rqs('hotline').seen=true; // room quests: the hotline
       if(items.some(item=>item.halProfile))halState().knowsName=true; // Undeniable: his name, from the paper
       if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
@@ -1595,6 +1599,8 @@
         if(halLine){startSimulatedCall(halLine);return;}
         const hotLine=rqHotlineLine(dialledNumber); // room quests: the hotline in the classifieds
         if(hotLine){startSimulatedCall(hotLine);return;}
+        const lxNumber=lxLine(dialledNumber); // the Looksmaxxer: a surgeon or a gadget from the classifieds
+        if(lxNumber){startSimulatedCall(lxNumber);return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
         const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Oakley
         if(gunLine){startSimulatedCall(gunLine);return;}
@@ -1960,6 +1966,7 @@
     function serviceTopicsFor(serviceId){
       const quest=(questOn('br')&&brKnown()?BR?.serviceTopics?.[serviceId]||[]:[]).filter(brServiceTopicAvailable).map(topic=>({...topic,quest:true}));
       if(serviceId==='service:caller-mom')return callerMomTopics(); // Mogger: Moira's mother
+      if(serviceId.startsWith('service:lx-'))return lxTopics(serviceId); // the Looksmaxxer: the classifieds
       if(serviceId==='service:lpc')return [...glowTopics(),...halLpcTopics()]; // Truecel: LPC-A365 (and Halloran's parcel)
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
@@ -1986,6 +1993,7 @@
       else if(topic.rq)reply=chooseRqService(id); // room quests: the hotline
       else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
       else if(topic.hal)reply=chooseHalTopic(id); // Undeniable
+      else if(topic.lx)reply=chooseLxTopic(id); // the Looksmaxxer: the classifieds
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
       else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
@@ -2247,12 +2255,14 @@
         if(bearState==='dead')return '<div class="story-tag">The conversation is over.</div>';
         if(!thread.topics.includes('honey'))return '<button class="hinge-chat-choice" data-bear-topic="honey">Ask about his favorite food</button>';
         if(!thread.topics.includes('where'))return '<button class="hinge-chat-choice" data-bear-topic="where">Ask whether he lives nearby</button>';
-        if(!thread.topics.some(topic=>['boundaries','distract','visit','ignore'].includes(topic)))return [
+        if(!thread.topics.some(topic=>['boundaries','distract','visit','ignore','denise'].includes(topic)))return [
           '<button class="hinge-chat-choice" data-bear-topic="boundaries">Tell him your address is private</button>',
           '<button class="hinge-chat-choice" data-bear-topic="distract">Mention a jar of honey outside</button>',
+          ...(deniseFree()?[`<button class="hinge-chat-choice risky" data-bear-topic="denise">Tell him ${esc(EX.name)} keeps honey in every cupboard</button>`]:[]), // the Divorcé
           '<button class="hinge-chat-choice" data-bear-topic="ignore">Stop replying to Bear</button>',
           '<button class="hinge-chat-choice risky" data-bear-topic="visit">Invite him over</button>'
         ].join('');
+        if(thread.topics.includes('denise'))return '<div class="story-tag">He has gone to the east side.</div>';
         return '<div class="story-tag">He knows your neighborhood. Lower the phone carefully.</div>';
       }
       if(thread.left)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · You unmatched her.</div>';
@@ -2285,6 +2295,7 @@
       for(const [id,label] of miniChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // mini quests
       for(const [id,label] of rqChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // room quests
       for(const [id,label] of sororityChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the sorority: ask her out, compliment her
+      for(const [id,label] of deniseCoverChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Divorcé: an alibi
       for(const [id,label] of giftChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Divorcé: flowers
       for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
@@ -2425,14 +2436,16 @@
       const thread=hingeThreads.get(bearHingeCard.id);
       if(!thread||thread.pending||thread.topics.includes(id))return;
       if(id==='where'&&!thread.topics.includes('honey'))return;
-      if(['boundaries','distract','visit','ignore'].includes(id)&&(!thread.topics.includes('where')||thread.topics.some(t=>['boundaries','distract','visit','ignore'].includes(t))))return;
+      if(['boundaries','distract','visit','ignore','denise'].includes(id)&&(!thread.topics.includes('where')||thread.topics.some(t=>['boundaries','distract','visit','ignore','denise'].includes(t))))return;
+      if(id==='denise'&&!deniseFree())return;
       const scenes={
         honey:{player:'Is that really a jar of honey in your picture?',reply:'Grrrr. Yes. I also like picnic baskets and front porches.',affinity:1},
         where:{player:'Are you actually anywhere near Sunfall?',reply:'Very near. I can smell your kitchen from here.',affinity:2},
         boundaries:{player:'I never share my address with strangers.',reply:'Grrrr… The desert has many doors. I can wait.',affinity:2},
         distract:{player:'There is a delicious jar of honey by the front path.',reply:'HONEY? Grrr. I will follow the smell.',affinity:2},
         ignore:{player:'[You stop replying.]',reply:'Grrr. Seen. I can hear your phone buzzing.',affinity:2},
-        visit:{player:'You should come over sometime.',reply:'Scrrrratch. I am already outside your door.',affinity:3}
+        visit:{player:'You should come over sometime.',reply:'Scrrrratch. I am already outside your door.',affinity:3},
+        denise:{player:`My ex-wife keeps honey in every cupboard. ${EX.name}. East side, the house with the dog.`,reply:'HONEY. Grrrr. Every cupboard. I am going now.',affinity:2}
       };
       const scene=scenes[id];
       if(!scene)return;
@@ -2446,6 +2459,7 @@
         if(id==='distract'){world.bearChoice='distract';world.bearDistracted=true;}
         if(id==='ignore'){world.bearChoice='ignore';}
         if(id==='visit'){world.bearChoice='visit';world.bearInvited=true;}
+        if(id==='denise'){world.bearChoice='denise';bearState='escaped';if(deniseFree())deniseSet('bear');} // the Divorcé: he goes to Denise's instead
         world.bearAwaitingResponse=['honey','where','ignore'].includes(id);
         world.bearMessageDay=world.bearAwaitingResponse?world.day:null;
         if(world.bearAffinity>=2&&['matched','tracking'].includes(bearState)){
@@ -2469,6 +2483,7 @@
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('gift:'))return chooseGift(id,thread,profile); // the Divorcé: flowers
       if(id.startsWith('srt:'))return chooseSorority(id,thread,profile); // the sorority
+      if(id.startsWith('dv:'))return chooseDeniseCover(id,thread,profile); // the Divorcé: an alibi
       if(id.startsWith('fq:'))return chooseFq(id,thread,profile); // her thing
       if(id==='thing:ask')return chooseInto(thread,profile); // what she's into
       if(id==='finale:ask'||id.startsWith('finale:list:'))return chooseFinale(thread,profile,id); // the Founders' Ball
@@ -4288,6 +4303,7 @@
       if(id==='x:ex')return {id,name:`${EX.name} (your ex-wife)`,gallery:[EX.portrait],banner:EX.portrait,ringName:EX.name,sub:'Mobile'}; // the Divorcé
       if(id==='x:solver')return {id,name:'Unknown number',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Unknown number',sub:'Mobile'}; // the Divorcé: the man who solves problems
       if(id==='x:moss')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective Moss'}; // the Divorcé: about Denise
+      if(id==='x:voss')return {id,name:'Dr. Anton Voss',gallery:[herCall?.id==='x:voss'&&herCall.pic||'assets/contacts/voss.png'],banner:'assets/contacts/voss.png',ringName:'Dr. Anton Voss',sub:'Voss Craniofacial'}; // the Looksmaxxer: the consultation
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -4307,6 +4323,7 @@
       if(glowOfferDue())return 'x:lpc'; // Truecel: LPC-A365 rings when it wears off
       if(mossDue())return 'x:moss'; // the Divorcé: the detective, about Denise
       if(solverDue())return 'x:solver'; // the Divorcé: the man from the Lucky Cactus
+      if(vossDue())return 'x:voss'; // the Looksmaxxer: Dr. Voss, the consultation
       if(exCallerDue())return 'x:ex'; // the Divorcé: Denise, about the money
       return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
     }
@@ -4322,6 +4339,7 @@
       if(id==='x:ex'){exRang();return;}
       if(id==='x:solver'){const pl=denisePlan();pl.rang=world.day;pl.rings=(pl.rings||0)+1;return;}
       if(id==='x:moss'){const pl=denisePlan();pl.mossRang=world.day;return;}
+      if(id==='x:voss'){const l=lx();l.vossRang=world.day;l.vossRings++;return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
@@ -4346,7 +4364,8 @@
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();strangerVoicemail(EX.name,exLine(c.lastMode));saveRun(true);return;}
       if(id==='x:solver'){strangerVoicemail('Unknown number',SOLVER.vm);saveRun(true);return;}
-      if(id==='x:moss'){const pl=denisePlan();pl.mossMisses=(pl.mossMisses||0)+1;strangerVoicemail('Sunfall Police',MOSS.vm);if(pl.mossMisses>=3){pl.stage='caught';pl.arrestDay=world.day+1;}saveRun(true);return;}
+      if(id==='x:voss'){strangerVoicemail('Dr. Anton Voss',VOSS.vm);lx().vossDay=world.day+1;saveRun(true);return;}
+      if(id==='x:moss'){const pl=denisePlan();pl.mossMisses=(pl.mossMisses||0)+1;strangerVoicemail('Sunfall Police',fillIn(MOSS.vm,{ex:EX.name}));if(pl.mossMisses>=3){pl.stage='caught';pl.arrestDay=world.day+1;}saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
         const d=dadState();
@@ -4369,7 +4388,8 @@
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();return {id,stranger:true,kind:'ex',mode:c.lastMode,step:'open',said:exLine(c.lastMode)};}
       if(id==='x:solver')return {id,stranger:true,kind:'solver',step:'open',said:SOLVER.open};
-      if(id==='x:moss')return {id,stranger:true,kind:'moss',step:'open',said:MOSS.open};
+      if(id==='x:moss')return {id,stranger:true,kind:'moss',step:'open',said:mossOpen()};
+      if(id==='x:voss')return {id,stranger:true,kind:'voss',step:'open',asked:[],said:VOSS.open,pic:VOSS_PICS.open};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
@@ -4389,7 +4409,8 @@
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='ex')return exChoices(call); // the Divorcé
       if(call.kind==='solver')return call.step==='open'?[{id:'sv:ex',label:`Tell him: my ex-wife, ${EX.name}`},{id:'sv:no',label:'Tell him it was a mistake'},{id:'sv:hang',label:'Hang up'}]:[{id:'sv:hang',label:'Hang up'}];
-      if(call.kind==='moss')return call.step==='open'?[{id:'mo:work',label:'Tell him: at work, on a shift'},{id:'mo:home',label:'Tell him: at home, alone'},{id:'mo:hang',label:'Hang up'}]:[{id:'mo:hang',label:'Hang up'}];
+      if(call.kind==='moss')return mossChoices(call); // the Divorcé: what you tell him depends on how she died
+      if(call.kind==='voss')return vossChoices(call); // the Looksmaxxer
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
@@ -4415,6 +4436,7 @@
       if(call.kind==='ex'){exChoose(call,choice);return;} // the Divorcé
       if(call.kind==='solver'){solverChoose(call,choice);return;}
       if(call.kind==='moss'){mossChoose(call,choice);return;}
+      if(call.kind==='voss'){vossChoose(call,choice);return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
         if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
@@ -5790,6 +5812,7 @@
           if(st.stage==='leaving'&&world.day>st.leaveDay&&thread){st.stage='left';st.nextCall=world.day;herLine(thread,kit.leave.next);warmBy(thread,2);arcsState().fav[st.host]='ready';}
           if(['calling','carry'].includes(st.stage)&&st.warned>=4&&!Number.isInteger(st.dieDay))st.dieDay=world.day; // he comes
         }else if(id==='envelope'){
+          if(st.stage==='denise'&&world.day>st.stepDay){st.stage='done';if(hashSeed(world.seed+'|kessler')%3===0)st.dieDay=world.day+1;} // nothing at her house: one time in three he comes back for you
           if(st.stage==='step'&&world.day>st.stepDay){
             st.has=false;st.stage='done';
             if(st.took){showGameNotice(kit.short);st.dieDay=world.day+1;}
@@ -5962,7 +5985,7 @@
     function miniCallChoices(call){
       const kit=miniKit()[call.mini],st=ms(call.mini),c=kit.choices;
       if(call.mini==='husband'){if(st.stage==='done')return [{id:'m:hang',label:'Hang up'}];return [{id:'m:lie',label:c.lie},{id:'m:friends',label:c.friends},{id:'m:truth',label:c.truth},{id:'m:hang',label:c.hang}];}
-      if(call.mini==='envelope')return [{id:'m:step',label:c.step},{id:'m:police',label:c.police},{id:'m:hang',label:c.hang}];
+      if(call.mini==='envelope')return [{id:'m:step',label:c.step},{id:'m:police',label:c.police},...(st?.stage==='ringing'&&deniseFree()?[{id:'m:denise',label:`Tell him ${EX.name} has it, and give him her address`}]:[]),{id:'m:hang',label:c.hang}]; // the Divorcé: send him to Denise
       if(call.phase==='what')return [{id:'m:join',label:c.join},{id:'m:refuse',label:c.refuse}];
       if(call.phase==='ask'){
         const out=liveMatches().filter(t=>!mustReply(hingeProfile(t.id))&&!(st.told||[]).includes(t.id)&&warmthOf(t)>=1).slice(0,3).map(t=>({id:'m:tell:'+t.id,label:fillIn(kit.tellLabel,{first:firstName(hingeProfile(t.id))})}));
@@ -5983,6 +6006,7 @@
       }
       if(which==='envelope'){
         if(choice==='m:hang'){st.warned++;endHerCall();return;}
+        if(choice==='m:denise'&&st.stage==='ringing'&&deniseFree()){st.stage='denise';st.stepDay=world.day;deniseSet('kessler');call.said=fillIn(KESSLER_DENISE,{ex:EX.name});return done();} // the Divorcé
         if(choice==='m:step'){st.stage='step';st.stepDay=world.day;call.said=kit.stepReply;}
         else{st.warned++;call.said=kit.policeReply;}
         return done();
@@ -8455,7 +8479,7 @@
       $('opened').style.backgroundImage=`url("${assetUrl('assets/hinge/ui/connected-call-bg.png')}")`;
       $('opened').innerHTML=`<div class="connected-screen"><p>CONNECTED · ${herCall.you?'YOU CALLED HER':`${isStranger(herCall.id)&&!['rq','fq','ex'].includes(herCall.kind)?'HE':'SHE'} CALLED YOU`}</p><img src="assets/hinge/ui/ringing-handset.png" alt="Connected telephone"><h3>${esc(profile.name)}</h3><p>Conversation appears above the phone.</p><button data-call-hangup>☎ Hang up</button></div>`;
       hydrateInlineImages($('opened'));
-      $('call-bubble').innerHTML=`<img src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(profile.name)}</strong><p class="speech" aria-live="off">${esc(herCall.said)}</p><div class="call-bubble-buttons">${herCallChoices().map(choice=>`<button data-her-call="${esc(choice.id)}">${esc(choice.label)}</button>`).join('')}</div></div>`;
+      $('call-bubble').innerHTML=`<img src="${esc(profile.gallery[0])}" alt="${esc(profile.name)}"${herCall.pic?' data-call-pic':''}><div class="call-bubble-content"><strong class="speaker">${esc(profile.name)}</strong><p class="speech" aria-live="off">${esc(herCall.said)}</p><div class="call-bubble-buttons">${herCallChoices().map(choice=>`<button data-her-call="${esc(choice.id)}">${esc(choice.label)}</button>`).join('')}</div></div>`;
       $('call-bubble').classList.add('visible');
       hydrateInlineImages($('call-bubble'));fallbackFaces($('call-bubble'));
       startCallTypewriter(herCall.said);
@@ -8559,6 +8583,7 @@
       death('Mogger','KILLED','THEON');
       death('Looksmaxxer','KILLED','A CHEAP SURGEON');
       death('Divorcé','ARRESTED',SHERIFF.cause);
+      for(const k of ['wine','brakes','gun'])death('Divorcé','KILLED',DRIVES.divorce[k].cause); // getting rid of Denise, the wrong way
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
       death('The Coyote','KILLED',coyoteKit()?.deathCause||'THE COYOTE');
       death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
@@ -8911,17 +8936,28 @@
         skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,image:'assets/trips/skin-clinic.png',place:'the skin clinic',done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
         teeth:{label:'The dentist: veneers',sub:'$1,100 · new teeth. Once.',cost:1100,gain:12,once:true,image:'assets/trips/dentist.png',place:'the dentist',done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
         height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,image:'assets/trips/height-clinic.png',place:'the clinic',done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
-        face:{label:'Facial surgery: jaw implants and a nose job',sub:'$3,000 · a new jaw and a new nose. Five days in bed after. Once.',cost:3000,gain:16,once:true,bed:5,image:'assets/trips/face-clinic.png',place:'the facial surgeon in North Scottsdale',done:['You wake up with a jaw like a cartoon hero and a nose you have never met. The swelling will go down. Probably.','A new jaw, a new nose, and five days of soup through a straw. The nurse says you will look great in a week.']},
+        face:{label:'Facial bone surgery: Dr. Voss',sub:'$3,000 · your face cut loose and moved forward. Five days in bed after. Once.',cost:3000,gain:16,once:true,bed:5,show:()=>lx().consult==='done',image:'assets/trips/face-clinic.png',place:'Dr. Voss in North Scottsdale',
+          steps:[{image:'assets/surgery/skull-cuts.png',caption:'Count backwards from ten. Ten. Nine. Ei'},{image:'assets/surgery/skull-plates.png',caption:'Four hours. Two plates in your upper jaw, two in your lower jaw, one in your chin.'}],
+          done:['You wake up with your jaw banded shut and a face like a beach ball. Under the swelling there is a jaw. A real one.','Five days of soup through a straw. When the swelling goes down, a stranger with a jaw looks back from the mirror.']},
         work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']},
-        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,risk:1/8,image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
+        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,risk:1/8,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
           deaths:['The cheap clinic was a back room behind a tire shop. You never woke up from the anesthetic.','Three inches taller. Then the infection. The man in the stained coat stopped answering his phone.']}
       },
       divorce:{
         work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
         lawyer:{label:'Your lawyer',sub:'$250 · the next payment moves back three days. Once a payment.',cost:250,image:'assets/trips/lawyer.png',place:'your lawyer',done:['Your lawyer files something and bills you for the folder. The next payment moves back three days.']},
-        cactus:{label:'The Lucky Cactus: ask about a man who solves problems',sub:'$20 for a drink. Once.',cost:20,once:true,show:()=>!['paid','done','clear','caught'].includes(denisePlan().stage),image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['A man in the back booth writes a number on a napkin. He solves problems, he says. Cash only. He will ring you.']},
+        cactus:{label:'The Lucky Cactus: ask about a man who solves problems',sub:'$20 for a drink. Once.',cost:20,once:true,show:()=>deniseFree(),image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['A man in the back booth writes a number on a napkin. He solves problems, he says. Cash only. He will ring you.']},
         bins:{label:'The Lucky Cactus: leave $2,000 under the bins',sub:'Cash, in an envelope. Then he picks a night.',cost:2000,ledger:'Cash withdrawal',show:()=>denisePlan().stage==='priced',image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['You leave the envelope under the bins out back and drive home with the radio off.']},
-        house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
+        wine:{label:'Denise’s house: a bottle of wine, and the pills',sub:'$15 · the bag from Desert Rx. Two glasses. Only one is for you.',cost:15,show:()=>deniseFree()&&pillsInHand(),risk:()=>hashSeed(world.seed+'|wine')%4===0,cause:'A GLASS OF WINE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
+          done:['She lets you in because you say you have the check. You pour two glasses. She drinks hers. You drive home very carefully.'],
+          deaths:['She lets you in. You pour two glasses. She goes to get the dog a biscuit, and when she comes back she picks up the other glass. You notice in the car.']},
+        brakes:{label:'Denise’s street: under her car, in the dark',sub:'A wrench and a flashlight. You have watched a lot of television. Once.',once:true,show:()=>deniseFree(),cause:'YOUR OWN BRAKES',image:'assets/trips/ex-house-night.png',place:'Denise’s street',
+          done:['You lie under a car in the dark for twenty minutes with a wrench. You are fairly sure it was the right car.'],
+          deaths:['The brakes go on the hill down from the Lucky Cactus. It was your car. Same model, same color. You bought them together.']},
+        gun:{label:'Denise’s house: take Harold’s revolver',sub:'Six rounds, older than you are.',show:()=>deniseFree()&&fionnRevolver(),risk:()=>hashSeed(world.seed+'|gun')%3===0,cause:'DENISE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
+          done:['Three shots on a quiet street. The dog barks and barks. You drive home with your lights off.'],
+          deaths:['The porch light comes on before you reach the door. Denise kept the shotgun from the divorce. She always said she would.']},
+        house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',show:()=>deniseAlive(),image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
       }
     };
     const SHERIFF={cause:'SUPPORT ENFORCEMENT',verb:'ARRESTED',deaths:['Three missed payments. Support Enforcement at your door with a folded court order, and Denise’s lawyer waiting in the car.','An officer from Support Enforcement reads the order out loud in your doorway. Denise’s lawyer waves from the curb.'],
@@ -8936,10 +8972,11 @@
         lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
-      for(const k of ['teeth','height','cheap','face','cactus'])if(o.did?.[k]===true)out.did[k]=true;
+      for(const k of ['teeth','height','cheap','face','cactus','brakes'])if(o.did?.[k]===true)out.did[k]=true;
       out.plan=sanitizePlan(o.plan);
-      for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^MATCH-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day;
-      if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      if(o.lx&&typeof o.lx==='object')out.lx=sanitizeLx(o.lx); // the Looksmaxxer: the classifieds
+      for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day; // flowers for the sorority count too
+      if(o.dead&&typeof o.dead==='object'&&['cheap','sheriff','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
     }
     function classState(){
@@ -8950,9 +8987,11 @@
     const LEDGER_MAX=60;
     function cashMove(amount,label){const c=classState(),a=Math.round(amount);c.cash+=a;c.ledger.push({d:world.day||1,l:String(label||'').slice(0,60),a,b:c.cash});if(c.ledger.length>LEDGER_MAX)c.ledger.shift();}
     function classStart(){
+      const ads=selectedDifficulty==='looksmaxxer'?world.cls?.lx||null:null; // the Day 1 paper is printed first: keep its numbers
       world.cls=null;
       if(!walletOn())return;
       const c=classState();
+      if(ads)c.lx=ads;
       if(selectedDifficulty==='divorce'){c.payDue=ALIMONY_EVERY;c.owed=ALIMONY;}
       achToast(selectedDifficulty==='looksmaxxer'?'Your car keys are on the bedside table. Tap them to drive somewhere.':`You owe ${EX.name} $${ALIMONY} every ${ALIMONY_EVERY} days. The first is due on Day ${ALIMONY_EVERY}.`);
     }
@@ -9056,20 +9095,25 @@
     var SOLVER={open:'You asked about me at the Cactus. I don’t do small talk. What’s the problem?',
       price:'Two thousand. Cash, in an envelope, under the bins behind the Cactus. Then I pick a night, and on that night you be somewhere people can see you. Understand?',
       no:'Sure it was. Lose the napkin.',vm:'You asked about me at the Cactus. Pick up next time.'};
-    var MOSS={open:'Detective Moss, Sunfall Police. I’m sorry to be the one to tell you. Denise died in a fire at her house last night. I have to ask everyone this. Where were you?',
-      cleared:'Your manager says the same. A double shift, in front of twenty people. Sorry for your loss.',
+    var MOSS={cleared:'Your manager says the same. A double shift, in front of twenty people. Sorry for your loss.',
       lie:'Funny. Your manager says you weren’t in. Don’t go anywhere.',
       home:'Alone. Nobody who can say so, then. Don’t go anywhere.',
-      vm:'Detective Moss, Sunfall Police, about Denise. Call me back. Soon.'};
+      homeOk:'Alone, at home. Fine. We think he got the wrong house. Sorry for your loss.',
+      her:'{name} says you were with her all night. A movie, and you fell asleep. Fine. Sorry for your loss.',
+      herNo:'{name} says you were with her. Then why was your car outside {ex}’s house? Don’t go anywhere.',
+      check:'You dropped off a check and left. Fine. Her sister says she had been low for a while. Sorry for your loss.',
+      checkNo:'A check, and a bag from Desert Rx. The woman on the back counter gave us her list of customers. Don’t go anywhere.',
+      vm:'Detective Moss, Sunfall Police, about {ex}. Call me back. Soon.'};
     var DENISE_WARN=['Heard you were asking around at the Lucky Cactus. The man in the back booth is one of ours. Stay away from him.','Off the record: whoever you met at the Cactus is a cop. Whatever it is, don’t.'];
     function sanitizePlan(raw){
-      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null;
-      return {stage:['none','number','priced','paid','done','clear','caught','off'].includes(o.stage)?o.stage:'none',cop:o.cop===true,alibi:o.alibi===true,asked:o.asked===true,warned:o.warned===true,
-        numberDay:int(o.numberDay,0,9999),doneDay:int(o.doneDay,0,9999),arrestDay:int(o.arrestDay,0,9999),rang:int(o.rang,0,9999),mossRang:int(o.mossRang,0,9999),rings:int(o.rings,0,99)||0,mossMisses:int(o.mossMisses,0,99)||0};
+      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null,woman=v=>typeof v==='string'&&/^(MATCH|SORORITY)-\d+$/.test(v);
+      return {stage:['none','number','priced','paid','set','done','clear','caught','off'].includes(o.stage)?o.stage:'none',cop:o.cop===true,alibi:o.alibi===true,asked:o.asked===true,warned:o.warned===true,
+        numberDay:int(o.numberDay,0,9999),doneDay:int(o.doneDay,0,9999),arrestDay:int(o.arrestDay,0,9999),rang:int(o.rang,0,9999),mossRang:int(o.mossRang,0,9999),rings:int(o.rings,0,99)||0,mossMisses:int(o.mossMisses,0,99)||0,
+        how:['solver','pills','brakes','gun','kessler','bear'].includes(o.how)?o.how:null,deadDay:int(o.deadDay,0,9999),cover:woman(o.cover)?o.cover:null,coverAsked:Array.isArray(o.coverAsked)?o.coverAsked.filter(woman).slice(0,50):[],wrongCar:o.wrongCar===true,bearBack:int(o.bearBack,0,9999)};
     }
     function denisePlan(){const c=classState();if(!c.plan)c.plan=sanitizePlan(null);return c.plan;}
     function solverDue(){return selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead&&denisePlan().stage==='number'&&world.day>denisePlan().numberDay&&denisePlan().rang!==world.day&&denisePlan().rings<3;}
-    function mossDue(){return selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead&&denisePlan().stage==='done'&&!denisePlan().asked&&denisePlan().mossRang!==world.day;}
+    function mossDue(){const pl=selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead?denisePlan():null;return !!pl&&pl.stage==='done'&&!pl.asked&&pl.mossRang!==world.day&&(pl.deadDay===null||world.day>pl.deadDay);} // the day after the paper: time to find someone who'll say you were with her
     function solverChoose(call,choice){
       const pl=denisePlan();
       if(choice==='sv:hang'||call.step!=='open'){endHerCall();saveRun(true);return;}
@@ -9077,28 +9121,226 @@
       else{pl.stage='off';call.said=SOLVER.no;}
       call.step='bye';saveRun(true);renderCalls();
     }
+    function mossChoices(call){
+      if(call.step!=='open')return [{id:'mo:hang',label:'Hang up'}];
+      const pl=denisePlan(),w=deniseWay(),out=[];
+      if(w.check)out.push({id:'mo:check',label:'Tell him: I dropped off a check and left'});
+      if(pl.cover)out.push({id:'mo:her',label:`Tell him: with ${firstName(hingeProfile(pl.cover))}, all night`});
+      out.push({id:'mo:work',label:'Tell him: at work, on a shift'},{id:'mo:home',label:'Tell him: at home, alone'},{id:'mo:hang',label:'Hang up'});
+      return out;
+    }
     function mossChoose(call,choice){
-      const pl=denisePlan();
+      const pl=denisePlan(),w=deniseWay();
       if(call.step!=='open'){endHerCall();saveRun(true);return;}
       pl.asked=true;
-      if(choice==='mo:work'&&pl.alibi){pl.stage='clear';call.said=MOSS.cleared;call.step='bye';saveRun(true);renderCalls();classWinCheck();return;}
-      pl.stage='caught';pl.arrestDay=world.day+1;
-      if(choice==='mo:hang'){endHerCall();saveRun(true);return;}
-      call.said=choice==='mo:work'?MOSS.lie:MOSS.home;call.step='bye';saveRun(true);renderCalls();
+      if(choice==='mo:hang'){pl.stage='caught';pl.arrestDay=world.day+1;endHerCall();saveRun(true);return;}
+      const her=pl.cover?hingeProfile(pl.cover):null;
+      let ok=false,said=MOSS.home;
+      if(choice==='mo:work'){ok=!!(w.work&&pl.alibi);said=ok?MOSS.cleared:MOSS.lie;} // a shift that night, in front of twenty people
+      else if(choice==='mo:home'){ok=!!w.home;said=ok?MOSS.homeOk:MOSS.home;} // only when nothing ties you to it
+      else if(choice==='mo:her'&&her){ok=!w.check;said=ok?MOSS.her:MOSS.herNo;} // she backs you up, unless your car was outside
+      else if(choice==='mo:check'&&w.check){ok=ms('pills')?.stage!=='arrested';said=ok?MOSS.check:MOSS.checkNo;} // unless the pharmacist has talked
+      call.said=fillIn(said,{ex:EX.name,name:her?.name||'She'});call.step='bye';
+      if(ok){pl.stage='clear';saveRun(true);renderCalls();classWinCheck();return;}
+      pl.stage='caught';pl.arrestDay=world.day+1;saveRun(true);renderCalls();
     }
     function denisePlanNewDay(){ // the Divorcé's mornings: true when the run ends here
       const pl=denisePlan(),c=classState();
-      if(pl.stage==='caught'&&Number.isInteger(pl.arrestDay)&&world.day>=pl.arrestDay){saveRun(true);startPoliceArrest('denise');return true;}
+      if(pl.stage==='caught'&&Number.isInteger(pl.arrestDay)&&world.day>=pl.arrestDay){ARREST_ENDINGS.denise.text=fillIn(deniseWay().arrest,{ex:EX.name});saveRun(true);startPoliceArrest('denise');return true;}
+      if(Number.isInteger(pl.bearBack)&&world.day>=pl.bearBack){ // no honey at her house: he remembers yours
+        pl.bearBack=null;bearState='tracking';bearAttackPhase=bearAttackScenes[time.value]?time.value:'bedroom-night';$('door').checked=true;fit();saveRun(true);
+        startBearAttack(`The bear found no honey at ${EX.name}’s house. He remembered your kitchen.`);return true;
+      }
       if(pl.stage==='number'&&pl.cop&&!pl.warned){ // a policewoman who likes you tips you off
         const cop=[...hingeThreads.values()].find(t=>hingeProfile(t.id)?.factionId==='police'&&!t.blocked&&!t.unmatched&&warmthOf(t)>=2);
         if(cop){pl.warned=true;lineSpeaker=cop.id;herLine(cop,DENISE_WARN[hashSeed(world.seed+'|warn')%DENISE_WARN.length]);}
       }
-      if(pl.stage==='paid'&&world.day>pl.doneDay){ // her night: a fire
-        pl.stage='done';c.payDue=null;c.owed=0;c.angry=false;c.arrestDay=null;
-        queueNews({id:'denise_fire',section:'Local',title:'WOMAN DIES IN NIGHT FIRE',summary:`${EX.name}, a dental receptionist, died when fire swept through her home.`,body:`Fire crews were called to a house on the east side of Sunfall in the early hours. ${EX.name} was pronounced dead at the scene. Her dog was found safe in the yard. Police say they are keeping an open mind.`,image:'denise_fire',fallbackImage:'crime_motel'},world.day);
-        achToast(`${EX.name} is dead. A fire at her house, the paper says. No more payments.`);
-      }
+      if(['paid','set'].includes(pl.stage)&&world.day>pl.doneDay){if(pl.stage==='paid')pl.how='solver';deniseDies();}
       return false;
+    }
+    // ---- Six ways to lose Denise (Chris, 3 November 2026) ----
+    // The man at the Lucky Cactus, or something already in your life: the pills from Desert Rx, her brakes,
+    // Harold's revolver (Theon), the man who wants his envelope back, or the bear on Hinge. She dies the next
+    // night; the morning after the paper, Detective Moss rings. What you can tell him depends on how she died:
+    // work: a shift that night clears you; home: nothing ties you to it; check: you only dropped off a check;
+    // and a woman who likes you enough will say you were with her (not when your car was outside).
+    var DENISE_WAYS={
+      solver:{id:'denise_fire',title:'WOMAN DIES IN NIGHT FIRE',summary:'{ex}, a dental receptionist, died when fire swept through her home.',body:'Fire crews were called to a house on the east side of Sunfall in the early hours. {ex} was pronounced dead at the scene. Her dog was found safe in the yard. Police say they are keeping an open mind.',image:'denise_fire',toast:'{ex} is dead. A fire at her house, the paper says. No more payments.',
+        moss:'Detective Moss, Sunfall Police. I’m sorry to be the one to tell you. {ex} died in a fire at her house. I have to ask everyone this. Where were you that night?',arrest:'{ex}’s house burned down, and nobody could say where you were. You are under arrest for her murder.',work:true},
+      pills:{id:'denise_wine',title:'WOMAN FOUND DEAD AT HOME',summary:'{ex}, a dental receptionist, was found by a neighbor walking her dog.',body:'{ex} was found dead at her home on the east side of Sunfall. Police say she had been drinking with someone the night before, and are waiting on the toxicology report.',image:'denise_wine',toast:'{ex} is dead. Found at home, the paper says. No more payments.',
+        moss:'Detective Moss, Sunfall Police. {ex} is dead. There were two wine glasses on her table, and a neighbor saw your car outside. Want to tell me about it?',arrest:'There were sleeping pills in {ex}’s wine, and your car was outside her house. You are under arrest for her murder.',check:true},
+      brakes:{id:'denise_crash',title:'WOMAN DIES AS BRAKES FAIL ON PIMA ROAD',summary:'{ex}, a dental receptionist, died when her car left the road.',body:'{ex} died when her car left Pima Road on the hill above the wash. Witnesses say she never slowed down. Police are examining the car.',image:'denise_crash',toast:'{ex} is dead. Her brakes failed, the paper says. No more payments.',
+        moss:'Detective Moss, Sunfall Police. {ex} is dead. Somebody was under her car the night before. Where were you that night?',arrest:'Somebody had been under {ex}’s car, and you couldn’t say where you were. You are under arrest for her murder.'},
+      gun:{id:'denise_shot',title:'WOMAN SHOT ON HER OWN PORCH',summary:'{ex}, a dental receptionist, was killed at her front door.',body:'Neighbors heard three shots on a quiet street on the east side of Sunfall. {ex} was found on her porch. Her dog was unhurt. Police say the gun was very old.',image:'denise_shot',toast:'{ex} is dead. Shot on her porch, the paper says. No more payments.',
+        moss:'Detective Moss, Sunfall Police. {ex} was shot on her porch, with something old. Where were you that night?',arrest:'An old revolver, three shots, and nobody to say where you were. You are under arrest for {ex}’s murder.'},
+      kessler:{id:'denise_breakin',title:'WOMAN KILLED IN BREAK-IN',summary:'{ex}, a dental receptionist, died when a man forced his way into her home.',body:'A man broke into a house on the east side of Sunfall and killed {ex}, who lived there alone with her dog. Police believe he was looking for something. Nothing was taken.',image:'denise_breakin',toast:'{ex} is dead. A man broke in looking for something, the paper says. No more payments.',
+        moss:'Detective Moss, Sunfall Police. A man broke into {ex}’s house looking for something, and now she’s dead. Where were you that night?',arrest:'The man who killed {ex} was looking for something of yours, and your story didn’t hold. You are under arrest.',work:true,home:true},
+      bear:{id:'denise_bear',title:'BEAR KILLS WOMAN IN HER OWN KITCHEN',summary:'Wildlife officers say {ex} never stood a chance.',body:'A bear came down from the desert and through the back door of a house on the east side of Sunfall, killing {ex}. Wildlife officers say it went through every cupboard. They found no honey. Her dog was unhurt.',image:'denise_bear',toast:'{ex} is dead. A bear, the paper says. Nobody is asking you anything.',noMoss:true}
+    };
+    var KESSLER_DENISE='{ex}. My ex-wife. East side, the house with the dog. Fine. If it isn’t there, I know where you live.';
+    var COVER={ask:'Weird question. If anyone asks, could you say I was with you that night? All night.',
+      yes:['Fine. You were here. All night. We watched a movie and you fell asleep. You owe me.','Okay. You were here. Don’t make me regret it.'],
+      no:['I’m not lying to the police for you. I barely know you.','No. Whatever this is, I don’t want to know.'],
+      cop:'I’m a police officer. You know that, right? Don’t go anywhere.'};
+    function deniseWay(){return DENISE_WAYS[denisePlan().how]||DENISE_WAYS.solver;}
+    function mossOpen(){return fillIn(deniseWay().moss||DENISE_WAYS.solver.moss,{ex:EX.name});}
+    function deniseFree(){return selectedDifficulty==='divorce'&&!!world?.cls&&!world.cls.dead&&['none','number','priced','off'].includes(denisePlan().stage);} // she's alive and nothing is on its way
+    function deniseAlive(){return !['done','clear','caught'].includes(denisePlan().stage);}
+    function pillsInHand(){const p=ms('pills');return !!(p?.has&&!p.flushed);}
+    function deniseSet(how){Object.assign(denisePlan(),{stage:'set',how,doneDay:world.day,alibi:false});saveRun(true);}
+    function deniseDies(){
+      const pl=denisePlan(),c=classState(),w=deniseWay(),fill=t=>fillIn(t,{ex:EX.name});
+      pl.stage=w.noMoss?'clear':'done';pl.deadDay=world.day;c.payDue=null;c.owed=0;c.angry=false;c.arrestDay=null;
+      queueNews({id:w.id,section:'Local',title:w.title,summary:fill(w.summary),body:fill(w.body),image:w.image,fallbackImage:'crime_motel'},world.day);
+      achToast(fill(w.toast));
+      if(pl.how==='bear'&&hashSeed(world.seed+'|bearback')%3===0)pl.bearBack=world.day+1;
+      if(w.noMoss)classWinCheck();
+    }
+    // Ask a woman who likes you to say you were with her. A policewoman turns you in.
+    function deniseCoverChoices(thread,profile){
+      if(selectedDifficulty!=='divorce'||!world?.cls||!thread||!profile||thread.blocked||thread.unmatched||thread.left||thread.missing||thread.fumbled)return [];
+      const pl=denisePlan();
+      if(pl.stage!=='done'||pl.asked||pl.cover||pl.coverAsked.includes(profile.id)||warmthOf(thread)<2||profile.factionId==='sisters_of_mercy')return [];
+      return [['dv:cover','Ask her to say you were with her that night']];
+    }
+    function chooseDeniseCover(id,thread,profile){
+      if(id!=='dv:cover'||!deniseCoverChoices(thread,profile).length)return;
+      const pl=denisePlan(),pick=lines=>lines[hashSeed(world.seed+'|cover|'+profile.id)%lines.length];
+      pl.coverAsked.push(profile.id);
+      thread.log.push({who:'you',text:COVER.ask});
+      if(profile.factionId==='police'){pl.stage='caught';pl.arrestDay=world.day+1;deliverTalk(thread,profile,[COVER.cop],'talk',()=>{thread.blocked=true;saveRun(true);},true);saveRun(true);return;}
+      if(warmthOf(thread)>=4){pl.cover=profile.id;deliverTalk(thread,profile,[pick(COVER.yes)],'talk',null,true);}
+      else{deliverTalk(thread,profile,[pick(COVER.no)],'talk',null,true);warmBy(thread,-1);}
+      saveRun(true);
+    }
+    // ---- The Looksmaxxer reads the paper (Chris, 3 November 2026) ----
+    // Surgeons and gadgets in the classifieds. Ring Dr. Voss for a free consultation: he rings back the next day,
+    // shows you your scans and explains how he'd take your face apart, and only then is facial bone surgery on your
+    // car keys. The Stature Institute and Desert Smile take money off if you mention the ad. LIFT insoles and
+    // JAWLINE PRO come through your door the day after you order them.
+    var LOOKS_ADS={
+      voss:{name:'Voss Craniofacial',title:'A NEW FACE, BONE DEEP',summary:'Dr. Anton Voss, craniofacial surgeon. Free consultation by phone.',body:'Weak chin? Flat face? Dr. Anton Voss moves bone, not filler. North Scottsdale. Free consultation by phone: ring {number}.',greeting:'Voss Craniofacial, North Scottsdale. How can I help you?',image:'voss_ad'},
+      lift:{name:'LIFT Insoles',title:'AN INCH TALLER BY TOMORROW',summary:'LIFT hidden insoles. Nobody will know.',body:'Hidden height insoles for men who are done looking up. $40, through your door tomorrow: ring {number}.',greeting:'LIFT. Rise above it. Order line.',cost:40,image:'looks_ad'},
+      stature:{name:'The Stature Institute',title:'THREE INCHES TALLER BY SPRING',summary:'The Stature Institute. Mention this ad for $300 off.',body:'Limb lengthening by real surgeons in a real hospital. Walk out taller. Mention this ad for $300 off: ring {number}.',greeting:'The Stature Institute. Stand tall. How can I help?',trip:'height',off:300,image:'looks_ad'},
+      gum:{name:'JAWLINE PRO',title:'THE GUM THAT BUILDS A JAW',summary:'JAWLINE PRO. Six pieces. One a day.',body:'The hardest gum in America. Six pieces, one a day, and your jaw does the rest. $30, through your door tomorrow: ring {number}.',greeting:'JAWLINE PRO. Chew harder. Order line.',cost:30,image:'looks_ad'},
+      smile:{name:'Desert Smile Studio',title:'A SMILE THAT WINS',summary:'Desert Smile Studio. Veneers, $200 off with this ad.',body:'Twenty porcelain veneers, fitted in a day. Mention this ad for $200 off: ring {number}.',greeting:'Desert Smile Studio, Scottsdale. Are you smiling?',trip:'teeth',off:200,image:'looks_ad'}
+    };
+    var LOOKS_AD_TURN=['lift','stature','gum','smile'];
+    var LOOKS_ASK={voss:'Double jaw surgery is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
+      lift:'A wedge of foam inside your shoe. An inch, maybe more. Don’t take your shoes off on a first date.',
+      stature:'We break both thigh bones and stretch them a millimeter a day in a frame. Three inches. You’ll be in bed for a while.',
+      gum:'It’s like chewing a tire. One piece a day for six days. Your jaw muscles do the rest.',
+      smile:'We file your teeth down to little pegs and bond porcelain over them. Very white. Very permanent.'};
+    var VOSS={open:'Dr. Anton Voss. I have your photos from the front desk, and your X-ray. Good bones, badly arranged. Ask me anything.',
+      what:'We cut your upper jaw free of your skull, here and here, and bring your whole midface forward. Then we split the lower jaw on both sides and slide it out to meet it. Then the chin. We separate your face, and we put it back better.',
+      hold:'Titanium. Plates and screws, here, here and here. Sixteen screws, give or take. They stay in for life. Airport scanners will love you.',
+      hurt:'You’ll be asleep for four hours. Afterwards your jaw is banded shut for six weeks. Soup, through a straw. You’ll swell up like a beach ball, and then it goes down.',
+      after:'Like your own better-looking brother. Here is the plan: the same skull, arranged properly.',
+      book:'Good. Three thousand dollars, at the clinic in North Scottsdale. Drive over when you have it. Nothing to eat the night before.',
+      later:'Of course. Ring the front desk when you’re ready. Your face isn’t going anywhere. That’s rather the problem.',
+      vm:'Dr. Anton Voss, about your consultation. I’ll try you again tomorrow.'};
+    var VOSS_PICS={open:'assets/surgery/skull-xray.png',what:'assets/surgery/skull-cuts.png',hold:'assets/surgery/skull-plates.png',hurt:'assets/surgery/skull-plates.png',after:'assets/surgery/skull-after.png'};
+    var VOSS_ASK={what:'Ask what he would do',hold:'Ask what holds it together',hurt:'Ask if it hurts',after:'Ask what you’ll look like'};
+    var LIFT_ITEM='A small shoebox from LIFT: two foam wedges that go inside your shoes. An inch, they say. Nobody will know.';
+    var GUM_ITEM='A tub of JAWLINE PRO. It looks like gum and feels like a tire. One piece a day.';
+    function sanitizeLx(raw){
+      const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null;
+      const out={numbers:{},seen:{},off:{},consult:['none','booked','done'].includes(o.consult)?o.consult:'none',vossDay:int(o.vossDay,0,9999),vossRang:int(o.vossRang,0,9999),vossRings:int(o.vossRings,0,9)||0,
+        lift:['none','ordered','here','worn'].includes(o.lift)?o.lift:'none',liftDay:int(o.liftDay,0,9999),gum:['none','ordered','here','done'].includes(o.gum)?o.gum:'none',gumDay:int(o.gumDay,0,9999),gumLeft:int(o.gumLeft,0,6)||0,gumLast:int(o.gumLast,0,9999)};
+      for(const k of ['voss','lift','stature','gum','smile']){if(typeof o.numbers?.[k]==='string'&&/^\d{7}$/.test(o.numbers[k]))out.numbers[k]=o.numbers[k];if(o.seen?.[k]===true)out.seen[k]=true;}
+      for(const k of ['height','teeth'])if(o.off?.[k]===true)out.off[k]=true;
+      return out;
+    }
+    function lx(){const c=classState();if(!c.lx)c.lx=sanitizeLx(null);return c.lx;}
+    function lxAdsFor(day){
+      if(selectedDifficulty!=='looksmaxxer'||!world||world.cls?.dead)return [];
+      const l=lx(),keys=[];
+      if(l.consult==='none'&&day%2===1)keys.push('voss');
+      keys.push(LOOKS_AD_TURN[(day-1)%LOOKS_AD_TURN.length]);
+      return keys.map(k=>{const ad=LOOKS_ADS[k];if(!l.numbers[k])l.numbers[k]=unusedContactNumber();return {id:`lx_ad_${k}_${day}`,section:'Classifieds',title:ad.title,summary:ad.summary,body:fillIn(ad.body,{number:l.numbers[k]}),image:ad.image,fallbackImage:'classifieds',locked:true,lxAd:k};});
+    }
+    function lxLine(number){
+      if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx)return null;
+      const l=world.cls.lx,k=Object.keys(l.numbers).find(key=>l.numbers[key]===String(number));
+      return k?{id:'service:lx-'+k,name:LOOKS_ADS[k].name,portrait:'assets/icons/calls.png',generic:true,greeting:LOOKS_ADS[k].greeting}:null;
+    }
+    function lxTopics(serviceId){
+      const k=serviceId.slice('service:lx-'.length),ad=LOOKS_ADS[k],l=lx(),c=classState(),out=[];
+      if(!ad)return out;
+      if(k==='voss'&&l.consult==='none')out.push({id:'lx:voss:book',label:'Book a free consultation',lx:true});
+      if(k==='voss'&&l.consult==='booked')out.push({id:'lx:voss:when',label:'Ask when Dr. Voss will ring',lx:true});
+      if(ad.cost&&l[k]==='none')out.push({id:`lx:${k}:order`,label:`Order one (${money(ad.cost)})`,lx:true});
+      const had=ad.trip==='height'?(c.did.height||c.did.cheap):c.did[ad.trip];
+      if(ad.trip&&!l.off[ad.trip]&&!had)out.push({id:`lx:${k}:ad`,label:'Mention the ad',lx:true});
+      out.push({id:`lx:${k}:ask`,label:k==='voss'?'Ask what it costs':'Ask how it works',lx:true});
+      return out;
+    }
+    function chooseLxTopic(id){
+      const [,k,what]=id.split(':'),ad=LOOKS_ADS[k],l=lx(),c=classState();
+      if(!ad)return '…';
+      if(what==='book'&&l.consult==='none'){Object.assign(l,{consult:'booked',vossDay:world.day+1,vossRang:null,vossRings:0});saveRun(true);return 'You’re booked in. Dr. Voss will ring you tomorrow. Have a mirror handy.';}
+      if(what==='when')return 'Tomorrow. He’s very punctual. He’s a surgeon.';
+      if(what==='order'&&ad.cost&&l[k]==='none'){
+        if(c.cash<ad.cost)return 'Your card was declined. Ring back when it isn’t.';
+        cashMove(-ad.cost,ad.name);l[k]='ordered';l[k+'Day']=world.day+1;saveRun(true);walletRender();
+        return 'Posted today. It’ll come through your door tomorrow, in a plain box.';
+      }
+      if(what==='ad'&&ad.trip&&!l.off[ad.trip]){l.off[ad.trip]=true;saveRun(true);return `Noted: ${money(ad.off)} off. Drive over whenever you’re ready.`;}
+      return LOOKS_ASK[k];
+    }
+    function tripCost(id){ // what a trip costs today: what you owe Denise, or the price less any ad you mentioned
+      const c=classState(),d=DRIVES[selectedDifficulty]?.[id];
+      if(!d)return 0;
+      if(id==='house')return c.owed;
+      const ad=selectedDifficulty==='looksmaxxer'&&c.lx?.off?.[id]?Object.values(LOOKS_ADS).find(a=>a.trip===id):null;
+      return Math.max(0,(d.cost||0)-(ad?.off||0));
+    }
+    function lxNewDay(){
+      if(selectedDifficulty!=='looksmaxxer'||!world.cls?.lx)return;
+      const l=world.cls.lx;
+      if(l.lift==='ordered'&&world.day>=l.liftDay)l.lift='here';
+      if(l.gum==='ordered'&&world.day>=l.gumDay){l.gum='here';l.gumLeft=6;}
+    }
+    function lxItems(){
+      if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx)return [];
+      const l=world.cls.lx,out=[];
+      if(l.lift==='here')out.push({id:'lx:lift',door:true,floor:'shoebox',label:'LIFT insoles',short:'Insoles',image:'assets/items/lift-insoles.png',text:LIFT_ITEM,actions:[{id:'lx:lift:wear',label:'👟 Put them in your shoes'}]});
+      if(l.gum==='here'&&l.gumLeft>0)out.push({id:'lx:gum',door:true,floor:'parcel',label:'JAWLINE PRO',short:'Gum',image:'assets/items/jaw-gum.png',text:`${GUM_ITEM} ${l.gumLeft} of 6 left.`,actions:l.gumLast===world.day?[]:[{id:'lx:gum:chew',label:'🦷 Chew a piece'}]});
+      return out;
+    }
+    function lxCupAct(act){
+      const l=lx();
+      if(act==='lx:lift:wear'&&l.lift==='here'){l.lift='worn';lxGain(4,'An inch taller. Your heels hurt already.');}
+      else if(act==='lx:gum:chew'&&l.gum==='here'&&l.gumLeft>0&&l.gumLast!==world.day){l.gumLeft--;l.gumLast=world.day;if(!l.gumLeft)l.gum='done';lxGain(1,l.gumLeft?`Like chewing a tire. ${l.gumLeft} left.`:'The last piece. Your jaw clicks now.');}
+      else return;
+      cupboardView='shelf';renderCupboard();saveRun(true);
+    }
+    function lxGain(gain,line){
+      const c=classState(),before=looksTier();
+      c.looks=Math.min(100,c.looks+gain);
+      const after=looksTier();
+      if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
+      else achToast(`${line} Looks ${c.looks} of 100.`);
+      checkAchievements();
+    }
+    // Dr. Voss rings the day after you book: ask him things and he shows you the scan for each answer.
+    function vossDue(){if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx||world.cls.dead)return false;const l=world.cls.lx;return l.consult==='booked'&&Number.isInteger(l.vossDay)&&world.day>=l.vossDay&&l.vossRang!==world.day&&l.vossRings<3;}
+    function vossChoices(call){
+      if(call.step==='bye')return [{id:'vo:hang',label:'Hang up'}];
+      const out=Object.entries(VOSS_ASK).filter(([k])=>!call.asked.includes(k)).map(([k,label])=>({id:'vo:'+k,label}));
+      if(call.asked.includes('what'))out.push({id:'vo:book',label:'Book it: $3,000'});
+      out.push({id:'vo:later',label:'Not yet'});
+      return out;
+    }
+    function vossChoose(call,choice){
+      const l=lx(),k=choice.slice(3);
+      if(choice==='vo:hang'){endHerCall();saveRun(true);return;}
+      if(call.step==='bye')return;
+      if(VOSS_ASK[k]){if(!call.asked.includes(k))call.asked.push(k);call.said=VOSS[k];call.pic=VOSS_PICS[k];}
+      else if(k==='book'&&call.asked.includes('what')){l.consult='done';call.said=VOSS.book;call.pic=VOSS_PICS.after;call.step='bye';achToast('Dr. Voss can see you. Facial bone surgery is on your car keys now.');}
+      else if(k==='later'){l.consult='none';call.said=VOSS.later;call.step='bye';}
+      else return;
+      saveRun(true);renderCalls();
     }
     // The wins: the Looksmaxxer bags the Stacey; the Divorcé needs a cheerleader, and Denise gone without being caught.
     var CLASS_WINS={
@@ -9136,24 +9378,26 @@
       if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
       if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
       if(id==='lawyer'&&c.lawyerFor===c.cycle)return 'Once a payment.';
-      const cost=id==='house'?c.owed:d.cost||0;
+      const cost=tripCost(id);
       if(cost>c.cash)return `You need ${money(cost)}.`;
       return null;
     }
     function driveViewHtml(){
       const c=classState(),trips=DRIVES[selectedDifficulty]||{};
-      const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
-      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
+      const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:c.payDue===null?`${money(c.cash)} in your wallet · ${EX.name} is gone`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
+      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:tripCost(id)!==(d.cost||0)?`${d.sub} With the ad: ${money(tripCost(id))}.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
     }
     function driveTo(id){
       if(!walletOn()||driveBlock(id))return false;
       const c=classState(),d=DRIVES[selectedDifficulty][id];
       c.tripDay=world.day;
-      if(d.cost)cashMove(-d.cost,d.ledger||d.label); // her house: exPaid() takes the check on arrival
-      const dies=d.risk&&gameRandom()<d.risk;
+      const cost=id==='house'?0:tripCost(id); // her house: exPaid() takes the check on arrival
+      if(cost)cashMove(-cost,d.ledger||d.label);
+      const wrong=selectedDifficulty==='divorce'&&denisePlan().wrongCar; // the Divorcé: the car he did in the dark was his own
+      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||!!(d.risk&&(typeof d.risk==='function'?d.risk():gameRandom()<d.risk));
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
-      playScene([{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},{image:d.image,stand:'room',caption:dies?d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length]:done}],()=>dies?classDie('cheap'):arrive(id));
+      playScene([{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},...(dies?[]:(d.steps||[]).map(step=>({image:step.image,stand:'room',caption:step.caption}))),{image:dd.image,stand:'room',caption:dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:done}],()=>dies?classDie(wrong?'brakes':id):arrive(id));
       return true;
     }
     function arrive(id){
@@ -9172,7 +9416,10 @@
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
         else achToast(`Looks ${c.looks} of 100.`);
       }else{
-        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);const pl=denisePlan();if(pl.stage==='paid'&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
+        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);const pl=denisePlan();if(['paid','set'].includes(pl.stage)&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
+        if(id==='wine'){const p=ms('pills');if(p){p.flushed=true;p.usedOn='denise';}deniseSet('pills');achToast('Two glasses, and hers had the pills in it. Now go home.');}
+        if(id==='brakes'){c.did.brakes=true;if(hashSeed(world.seed+'|brakes')%3===0)denisePlan().wrongCar=true;else deniseSet('brakes');achToast('Done. You drive home very slowly.');} // no warning either way
+        if(id==='gun')deniseSet('gun');
         if(id==='cactus'){c.did.cactus=true;const pl=denisePlan();pl.stage='number';pl.numberDay=world.day;pl.cop=hashSeed(world.seed+'|solver')%3===0;achToast('A number on a napkin. He will ring you.');}
         if(id==='bins'){const pl=denisePlan();if(pl.cop){pl.stage='caught';saveRun(true);startPoliceArrest('solver');return;}pl.stage='paid';pl.doneDay=world.day+2;achToast(`He picked the night of Day ${pl.doneDay}. Be somewhere people can see you.`);}
         if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;achToast(`The next payment is due on Day ${c.payDue}.`);}
@@ -9185,6 +9432,7 @@
     function classNewDay(){
       if(!world||!walletOn()||world.cls?.dead)return;
       const c=classState();
+      lxNewDay(); // the Looksmaxxer: what you ordered from the paper arrives
       if(world.day%PAYDAY_EVERY===0){
         const pay=selectedDifficulty==='divorce'?(c.garnish?325:650):500;
         cashMove(pay,c.garnish?'Payday, after the garnishment':'Payday');achToast(c.garnish?`Payday: +${money(pay)}. ${EX.name}’s lawyer took the rest.`:`Payday: +${money(pay)}.`);
@@ -9265,7 +9513,7 @@
       if(!kind)return;
       stopRinging();herCall=null;
       if(kind==='sheriff'){drawDeathTitle(SHERIFF.cause,SHERIFF.verb);$('fatal-overlay').querySelector('p').textContent=SHERIFF.deaths[hashSeed(world.seed+'|sheriff')%SHERIFF.deaths.length];}
-      else{const d=DRIVES.looksmaxxer.cheap;drawDeathTitle('A CHEAP SURGEON','KILLED');$('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length];}
+      else{const d=DRIVES.looksmaxxer[kind]||DRIVES.divorce[kind]||DRIVES.looksmaxxer.cheap;drawDeathTitle(d.cause||'A CHEAP SURGEON','KILLED');$('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length];}
       $('fatal-overlay').classList.add('visible');
       setLowered(true);fit();
       updateRunStatus('Game over.');
@@ -9492,6 +9740,8 @@
       $('news-expand').classList.add('visible');
     });
     $('call-bubble').addEventListener('click',event=>{
+      const scan=event.target.closest('[data-call-pic]'); // Dr. Voss's scans: tap to see them full size
+      if(scan){$('news-expand-image').src=scan.src;$('news-expand-image').alt='Your scan';$('news-expand').classList.add('visible');return;}
       const herChoice=event.target.closest('[data-her-call]');
       if(herChoice){chooseHerCall(herChoice.dataset.herCall);return;}
       if(event.target.closest('[data-call-next]')){
@@ -10481,6 +10731,7 @@
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
       items.push(...carItems()); // the Looksmaxxer and the Divorcé: your car keys
+      items.push(...lxItems()); // the Looksmaxxer: insoles and jaw gum from the classifieds
       items.push(...miniItems()); // mini quests: on your doorstep
       items.push(...rqItems()); // room quests: Diana's parcel, the ribbon, Caroline's still, the bill, Lauren's box
       items.push(...fqItems()); // her thing: Celeste's postcard, Caroline's presents
@@ -10729,6 +10980,7 @@
         if(act.dataset.cupAct.startsWith('hal:')){halCupAct(act.dataset.cupAct);return;} // Undeniable
         if(act.dataset.cupAct.startsWith('mini:')){miniCupAct(act.dataset.cupAct);return;} // mini quests
         if(act.dataset.cupAct.startsWith('rq:')){rqCupAct(act.dataset.cupAct);return;} // room quests
+        if(act.dataset.cupAct.startsWith('lx:')){lxCupAct(act.dataset.cupAct);return;} // the Looksmaxxer
         if(act.dataset.cupAct.startsWith('fq:')){fqCupAct(act.dataset.cupAct);return;} // her thing
         if(act.dataset.cupAct==='select'){cupboardSelecting=true;cupboardPicked=[];}
         else if(act.dataset.cupAct==='cancel-select'){cupboardSelecting=false;cupboardPicked=[];}
@@ -10784,6 +11036,7 @@
       }
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
+      if(selectedDifficulty==='looksmaxxer'&&world.cls?.lx){const l=world.cls.lx;for(const [k,ad] of Object.entries(LOOKS_ADS))if(l.seen[k]&&l.numbers[k])list.push({key:'service:lx-'+k,name:ad.name,detail:'From the classifieds',number:l.numbers[k],portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});} // the Looksmaxxer
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const h=rqs('hotline');if(h?.seen&&h.number&&rqKit())list.push({key:'service:hotline',name:rqKit().hotline.line,detail:'From the classifieds',number:h.number,portrait:'assets/contacts/hotline.png',fallback:'assets/icons/calls.png'});} // room quests: the hotline
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
@@ -11235,6 +11488,7 @@
     $('ladder-unlock-all').onclick=()=>{const on=!playerProfile().allAccess;setAllAccess(on);updateRunStatus(on?'All access: every class is open. Tap again to turn it off.':'All access is off: back to the classes you have unlocked.');}; // testing only
     $('class-cash-preview').onclick=()=>{if(!walletOn()){updateRunStatus('Start a Looksmaxxer or Divorcé run first.');return;}const c=classState();cashMove(1000,'Testing: a deposit');c.tripDay=null;c.laidUntil=null;saveRun(true);updateRunStatus(`Wallet: $${c.cash}. You can drive again today.`);};
     $('sorority-preview').onclick=()=>{if(!walletOn()){setDifficulty('looksmaxxer');startNewRun(true);}const card=sororityCards()[0];if(!card){updateRunStatus('The sorority is not loaded.');return;}const t=hingeThreads.get(card.id)||ensureHingeThread(card,'now');if(warmthOf(t)<1)t.warmth=1;saveRun(true);hingeView='thread';activeChatId=card.id;openApp('hinge');updateRunStatus(`Preview: ${card.name} matched with you. Ask her out from her chat.`);};
+    $('voss-preview').onclick=()=>{if(selectedDifficulty!=='looksmaxxer'){setDifficulty('looksmaxxer');startNewRun(true);}Object.assign(lx(),{consult:'booked',vossDay:world.day,vossRang:null,vossRings:0});testRing('x:voss');updateRunStatus('Preview: Dr. Voss is ringing about your face.');};
     $('solver-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const pl=denisePlan();pl.stage='number';pl.numberDay=world.day-1;pl.rang=null;pl.rings=0;testRing('x:solver');updateRunStatus('Preview: the man from the Lucky Cactus is ringing.');};
     $('class-ex-preview').onclick=()=>{if(selectedDifficulty!=='divorce'){setDifficulty('divorce');startNewRun(true);}const c=classState();c.payDue=world.day+1;c.remindFor=null;testRing('x:ex');updateRunStatus('Preview: Denise is ringing about tomorrow’s payment.');};
     $('ladder-reset').onclick=()=>{const notes=playerProfile().notes;ladderCache=sanitizeProfile({notes});saveProfile();updateRunStatus('Back to Normie only. Your notes are kept.');if(currentApp==='journal')renderJournal();};
