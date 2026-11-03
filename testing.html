@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="df1379ab40">
+<html lang="en" data-build="e139cfad81">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -165,7 +165,7 @@
     .day-dialog #day-no { background: #1a2436; border-color: #3b4c63; }
     .screen-header { position: relative; display: flex; justify-content: center; align-items: center; padding-top: 14px; flex-direction: column; }
     .screen-header strong { font-family: 'Courier New',ui-monospace,monospace; font-size: 23px; font-weight: 900; letter-spacing: 4px; color: #f7debd; text-shadow: 2px 2px #964a7b,3px 3px #08111e; }
-    .app-grid { position: absolute; top: 36%; width: 100%; display: grid; grid-template-columns: 1fr 1fr; row-gap: 13px; justify-items: center; }
+    .app-grid { position: absolute; top: 36%; width: 100%; display: grid; grid-template-columns: repeat(3,1fr); row-gap: 13px; justify-items: center; } /* three across since iTunes and Notes joined (seven apps) */
     .app { width: 68px; border: 0; background: none; padding: 0; color: #fff; cursor: pointer; text-align: center; text-shadow: 1px 1px #000; }
     /* Settings shares the last row with Notes (Chris, 3 November 2026); it used to sit alone in the middle. */
     .app-mark { height: 50px; width: 50px; margin: auto auto 5px; display: grid; place-items: center; font-family: Arial,sans-serif; font-size: 28px; border-radius: 12px; box-shadow: 0 3px 8px #0009; }
@@ -196,19 +196,60 @@
     .mini-app.news-mode { font-family: Arial,Helvetica,sans-serif; background: #f4f3ee; }
     .mini-app.notes-mode { background: linear-gradient(#fff9ec80,#fff9ec80), url('assets/contacts/contacts-bg.png') center/cover, #fff9ec; color: #333b48; font-family: -apple-system,BlinkMacSystemFont,Arial,sans-serif; padding: 9px; } /* Contacts; its own background shows once made */
     /* Notes (Chris, 3 November 2026): the 2008 iPhone Notes look, a yellow legal pad. Kept between games. */
-    .mini-app.journal-mode { padding: 0; background: #fdf3b5 repeating-linear-gradient(to bottom,#fdf3b5 0 23px,#e7d68a 23px 24px); color: #3b2a14; font-family: 'Marker Felt','Comic Sans MS',cursive; }
-    .journal-bar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: linear-gradient(#8a6136,#5e3f1f); border-bottom: 2px solid #3f2a14; color: #fff4dc; font: bold 16px 'Marker Felt','Comic Sans MS',cursive; }
-    .journal-bar button { border: 1px solid #3f2a14; border-radius: 5px; background: linear-gradient(#a7804f,#6e4b26); color: #fff4dc; font: bold 13px Arial,sans-serif; padding: 3px 9px; cursor: pointer; }
-    .journal-list button { display: block; width: 100%; padding: 7px 12px; border: 0; border-bottom: 1px solid #e0cd7c; background: transparent; color: #3b2a14; text-align: left; font: 16px/1.3 'Marker Felt','Comic Sans MS',cursive; cursor: pointer; }
-    .journal-list small, .journal-page small { display: block; color: #7a6236; font: 11px/1.4 Arial,sans-serif; }
-    .journal-page { padding: 8px 14px 14px; font: 15px/24px 'Marker Felt','Comic Sans MS',cursive; }
-    .journal-page h4 { margin: 4px 0; font: bold 17px/24px 'Marker Felt','Comic Sans MS',cursive; }
-    .journal-row { display: flex; align-items: center; gap: 9px; min-height: 24px; padding: 3px 0; }
-    .journal-row img, .journal-row .q { width: 34px; height: 34px; flex: none; border-radius: 4px; object-fit: cover; image-rendering: pixelated; background: #3b2a14; color: #fdf3b5; font: bold 18px/34px Arial,sans-serif; text-align: center; }
-    .journal-row.off { color: #9a8658; }
-    .journal-row.off img { filter: grayscale(1) opacity(.6); }
-    .journal-points { margin: 6px 0; font: bold 20px/24px 'Marker Felt','Comic Sans MS',cursive; }
-    .journal-text { display: block; width: 100%; min-height: 380px; padding: 0 14px; border: 0; background: transparent; color: #3b2a14; font: 16px/24px 'Marker Felt','Comic Sans MS',cursive; resize: none; outline: none; }
+    /* iTunes (Chris, 3 November 2026): How to play, You and Achievements in the 2008 iTunes Store look (internal app id journal) */
+    .mini-app.journal-mode { padding: 0; background: #e6e9ee; color: #1d2633; font-family: Helvetica,Arial,sans-serif; }
+    .it-top { position: sticky; top: 0; z-index: 2; padding: 9px 10px; text-align: center; color: #fff; font: bold 16px Helvetica,Arial,sans-serif; text-shadow: 0 -1px 0 #34465d; background: linear-gradient(#b3bfd0,#7187a6 50%,#5d7699 51%,#6c84a5); border-bottom: 1px solid #2d3e55; }
+    .it-body { min-height: calc(100% - 88px); padding-bottom: 6px; }
+    .it-banner { margin: 8px; padding: 12px; border-radius: 8px; color: #fff; background: linear-gradient(135deg,#4c6d9b,#22324a); box-shadow: inset 0 1px 0 #ffffff40; }
+    .it-banner b { display: block; font: bold 17px Helvetica,Arial,sans-serif; }
+    .it-banner small { color: #d6e2f3; font: 12px/1.35 Helvetica,Arial,sans-serif; }
+    .it-head { margin: 12px 12px 4px; color: #4c566a; font: bold 13px Helvetica,Arial,sans-serif; text-shadow: 0 1px 0 #fff; }
+    .it-list { margin: 0 6px 8px; background: #fff; border: 1px solid #c3c9d2; border-radius: 8px; overflow: hidden; }
+    .it-cell { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 7px; border: 0; border-bottom: 1px solid #e1e4e9; background: transparent; color: inherit; text-align: left; font: inherit; }
+    .it-cell:last-child { border-bottom: 0; }
+    .it-cell.off { opacity: .7; }
+    .it-txt { flex: 1; min-width: 0; }
+    .it-cell b { display: block; font: bold 13px/1.2 Helvetica,Arial,sans-serif; }
+    .it-cell small { display: block; color: #6b7480; font: 10.5px/1.3 Helvetica,Arial,sans-serif; }
+    .it-art { display: block; width: 34px; height: 34px; flex: none; border-radius: 7px; object-fit: cover; image-rendering: pixelated; background: linear-gradient(#8fa6c4,#465d80); color: #fff; font: bold 17px/34px Helvetica,Arial,sans-serif; text-align: center; box-shadow: 0 1px 2px #0005; }
+    .it-art.gold { background: linear-gradient(#ffe48a,#d39b16); color: #6a4300; }
+    .it-art.lock { background: linear-gradient(#dcdfe4,#a6adb8); }
+    .it-pill { flex: none; padding: 2px 6px; border: 1px solid #5c7fb3; border-radius: 10px; color: #37639f; background: linear-gradient(#fff,#e3ebf6); font: bold 9px Helvetica,Arial,sans-serif; text-transform: uppercase; white-space: nowrap; }
+    .it-pill.on { border-color: #4f8a2f; color: #fff; background: linear-gradient(#8bcf5c,#4f9a2b); }
+    .it-you { display: flex; gap: 12px; align-items: center; margin: 8px; padding: 12px; border-radius: 8px; background: #fff; border: 1px solid #c3c9d2; }
+    .it-you .it-art { width: 76px; height: 76px; border-radius: 10px; line-height: 76px; }
+    .it-you b { display: block; font: bold 19px Helvetica,Arial,sans-serif; }
+    .it-you small { display: block; color: #6b7480; font: 12px/1.35 Helvetica,Arial,sans-serif; }
+    .it-stars { display: block; margin-top: 4px; color: #d08a00; font: bold 13px Helvetica,Arial,sans-serif; }
+    .it-shots { display: grid; gap: 8px; padding: 8px; }
+    .it-shot { display: block; width: 100%; padding: 0; border: 1px solid #b9c1cc; border-radius: 8px; overflow: hidden; background: #fff; cursor: pointer; box-shadow: 0 1px 3px #0003; }
+    .it-shot img { display: block; width: 100%; image-rendering: pixelated; }
+    .it-card { width: auto; margin: 8px; }
+    .it-wait { display: block; aspect-ratio: 3 / 4; background: linear-gradient(135deg,#d9dfe8,#b4bfcf); color: #ffffffcc; font: bold 54px/1 Helvetica,Arial,sans-serif; display: grid; place-items: center; }
+    .it-tabs { position: sticky; bottom: 0; z-index: 2; display: flex; gap: 2px; padding: 3px; background: linear-gradient(#3d3d3d,#151515 50%,#000 51%,#0d0d0d); border-top: 1px solid #555; }
+    .it-tabs button { flex: 1; padding: 4px 2px 3px; border: 0; border-radius: 4px; background: transparent; color: #9a9a9a; font: bold 10px Helvetica,Arial,sans-serif; cursor: pointer; }
+    .it-tabs button i { display: block; font: normal 19px/21px Helvetica,Arial,sans-serif; color: #8c8c8c; }
+    .it-tabs button.on { color: #fff; background: #ffffff22; }
+    .it-tabs button.on i { color: #6fb3ff; }
+    /* Notes (Chris, 3 November 2026): your quests woman by woman, other business and your notes, in the 2008 iPhone Notes look (a yellow legal pad) */
+    .mini-app.book-mode { padding: 0; background: #fdf3b5 repeating-linear-gradient(to bottom,#fdf3b5 0 23px,#e7d68a 23px 24px); color: #3b2a14; font-family: 'Marker Felt','Comic Sans MS',cursive; }
+    .book-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: linear-gradient(#8a6136,#5e3f1f); border-bottom: 2px solid #3f2a14; color: #fff4dc; font: bold 16px 'Marker Felt','Comic Sans MS',cursive; }
+    .book-bar button { border: 1px solid #3f2a14; border-radius: 5px; background: linear-gradient(#a7804f,#6e4b26); color: #fff4dc; font: bold 13px Arial,sans-serif; padding: 3px 9px; cursor: pointer; }
+    .book-page { padding: 2px 12px 14px 22px; min-height: calc(100% - 40px); background: linear-gradient(to right,transparent 13px,#e59a8f 13px 14px,transparent 14px); }
+    .book-page h4 { margin: 8px 0 0; color: #8a5a1c; font: bold 15px/24px 'Marker Felt','Comic Sans MS',cursive; }
+    .book-row { display: flex; align-items: center; gap: 9px; width: 100%; min-height: 48px; padding: 4px 0; border: 0; background: transparent; color: #3b2a14; text-align: left; font: inherit; cursor: pointer; }
+    .book-row img, .book-row .q { width: 40px; height: 40px; flex: none; border: 2px solid #fff; border-radius: 2px; object-fit: cover; image-rendering: pixelated; box-shadow: 0 1px 3px #0005; transform: rotate(-2deg); background: #5e3f1f; color: #fdf3b5; font: bold 18px/36px Arial,sans-serif; text-align: center; }
+    .book-row b { display: block; font: bold 16px/1.25 'Marker Felt','Comic Sans MS',cursive; }
+    .book-row small { display: block; color: #7a6236; font: 11.5px/1.35 Arial,sans-serif; }
+    .book-row.off { color: #9a8658; }
+    .book-row.off img { filter: grayscale(1) opacity(.7); }
+    .book-her { text-align: center; }
+    .book-her img { width: 62%; max-width: 220px; margin-top: 10px; border: 6px solid #fff; box-shadow: 0 3px 8px #0005; transform: rotate(-1.5deg); image-rendering: pixelated; }
+    .book-her h3 { margin: 10px 0 0; font: bold 20px 'Marker Felt','Comic Sans MS',cursive; }
+    .book-line { margin: 0; font: 15px/24px 'Marker Felt','Comic Sans MS',cursive; text-align: left; }
+    .book-line i { color: #6b5530; }
+    .book-hand { color: #1f3a6b; }
+    .book-text { display: block; width: 100%; min-height: 380px; padding: 0; border: 0; background: transparent; color: #3b2a14; font: 16px/24px 'Marker Felt','Comic Sans MS',cursive; resize: none; outline: none; }
     .ach-toast { position: absolute; z-index: 45; left: 8%; right: 8%; top: 15%; padding: 7px 10px; border: 2px solid #e6c066; border-radius: 8px; background: #2a180eee; color: #ffd978; font: bold 12px/1.35 'Trebuchet MS',Tahoma,sans-serif; text-align: center; opacity: 0; pointer-events: none; transform: translateY(-8px); transition: opacity .3s, transform .3s; }
     .ach-toast.visible { opacity: 1; transform: none; }
     .marriage-win .ladder-next { margin: 0; padding: 6px 10px; border: 2px solid #e6c066; border-radius: 6px; background: #2a180ecc; color: #ffd978; font: bold 12px/1.4 'Trebuchet MS',Tahoma,sans-serif; }
@@ -677,11 +718,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=df1379ab40"></script>
+  <script src="chapel_at_midnight.js?v=e139cfad81"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=df1379ab40"></script>
+  <script src="marriage.js?v=e139cfad81"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=df1379ab40"></script>
+  <script src="quests/professor-vale.js?v=e139cfad81"></script>
 </head>
 <body>
   <main class="workbench">
@@ -818,7 +859,8 @@
                   <button class="app" data-app="notes"><span class="app-mark"><img src="assets/icons/contacts.png" alt=""></span><small>Contacts</small></button><!-- Contacts replaced Notes; its internal app id stays "notes" so saves and quests keep working -->
                   <button class="app" data-app="calls"><span class="app-mark"><img src="assets/icons/calls.png" alt=""></span><small>Calls</small></button>
                   <button class="app settings-app" data-app="settings"><span class="app-mark"><img src="assets/icons/settings.png" alt=""></span><small>Settings</small></button>
-                  <button class="app" data-app="journal"><span class="app-mark"><img src="assets/icons/notes.png" alt=""></span><small>Notes</small></button><!-- Notes: your journey, achievements and your own notes, kept between games (internal id journal: "notes" is Contacts) -->
+                  <button class="app" data-app="journal"><span class="app-mark"><img src="assets/icons/itunes.png" alt=""></span><small>iTunes</small></button><!-- iTunes: How to play, You and Achievements (internal id journal; it replaced Notes, Chris, 3 November 2026) -->
+                  <button class="app" data-app="blackbook"><span class="app-mark"><img src="assets/icons/notes.png" alt=""></span><small>Notes</small></button><!-- Notes: your quests, woman by woman, other business and your own notes (internal id blackbook; Chris named it Notes) -->
                 </div>
               </div>
               <div class="mini-app" id="opened" style="display:none"></div>
@@ -3923,7 +3965,7 @@
     // ===== Tutorial (Settings): six pages to swipe through. Each page shows its picture once it's
     // drawn (assets/tutorial/tutorial-N.png, NEW_IMAGE_REQUESTS.md); until then, its words.
     var TUTORIAL=[
-      {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls and Settings.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to tomorrow. The time of day changes too.']},
+      {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls, Settings, iTunes and Notes.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to tomorrow. The time of day changes too.']},
       {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will call you.']},
       {title:'The paper',points:['A new paper arrives every day. Tap a story to read it.','Stories are where things start. Read them, and you’ll know what to ask about.','Read the classifieds too. People sell things you might need: ring the number in the ad.']},
       {title:'Calls and Contacts',points:['Dial a number on the keypad. 911 always answers.','Numbers you learn go in Contacts: from the paper, and from women who know the right people.','Missed a call? Look in Voicemail.']},
@@ -8504,21 +8546,45 @@
     ];
     // Points come from achievements. Each test reads the run or what you have done across runs.
     const ACHIEVEMENTS=[
-      {id:'first-match',title:'First match',points:10,hint:'Match with someone on Hinge.',test:()=>hingeThreads.size>=1},
-      {id:'ten-matches',title:'Popular',points:20,hint:'Ten matches in one run.',test:()=>hingeThreads.size>=10},
-      {id:'week',title:'A week in Scottsdale',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
-      {id:'fortnight',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
-      {id:'first-death',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
-      {id:'ten-endings',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
-      {id:'married',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
-      {id:'climb-mogger',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
-      {id:'climb-truecel',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
-      {id:'win-truecel',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0},
-      {id:'climb-looks',title:'A new face',points:50,hint:'Unlock the Looksmaxxer.',test:()=>playerProfile().unlocked>=4},
-      {id:'glow-up',title:'Glow up',points:50,hint:'As a Looksmaxxer, get your looks all the way to Mogger.',test:()=>selectedDifficulty==='looksmaxxer'&&looksTier()==='mogger'},
-      {id:'climb-divorce',title:'Alimony',points:75,hint:'Unlock the Divorcé.',test:()=>playerProfile().unlocked>=5},
-      {id:'paid-up',title:'Paid in full',points:40,hint:'As a Divorcé, make three payments in one run.',test:()=>selectedDifficulty==='divorce'&&(world?.cls?.paid||0)>=3},
-      {id:'top',title:'Top of the ladder',points:150,hint:'Win a run as a Divorcé.',test:()=>(playerProfile().wins.divorce||0)>0}
+      {id:'first-match',group:'Dating',title:'First match',points:10,hint:'Match with someone on Hinge.',test:()=>hingeThreads.size>=1},
+      {id:'ten-matches',group:'Dating',title:'Popular',points:20,hint:'Ten matches in one run.',test:()=>hingeThreads.size>=10},
+      {id:'week',group:'Surviving',title:'A week in Scottsdale',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
+      {id:'fortnight',group:'Surviving',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
+      {id:'first-death',group:'Endings',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
+      {id:'ten-endings',group:'Endings',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
+      {id:'married',group:'The ladder',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
+      {id:'climb-mogger',group:'The ladder',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
+      {id:'climb-truecel',group:'The ladder',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
+      {id:'win-truecel',group:'The ladder',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0},
+      {id:'climb-looks',group:'The ladder',title:'A new face',points:50,hint:'Unlock the Looksmaxxer.',test:()=>playerProfile().unlocked>=4},
+      {id:'glow-up',group:'The ladder',title:'Glow up',points:50,hint:'As a Looksmaxxer, get your looks all the way to Mogger.',test:()=>selectedDifficulty==='looksmaxxer'&&looksTier()==='mogger'},
+      {id:'climb-divorce',group:'The ladder',title:'Alimony',points:75,hint:'Unlock the Divorcé.',test:()=>playerProfile().unlocked>=5},
+      {id:'paid-up',group:'The ladder',title:'Paid in full',points:40,hint:'As a Divorcé, make three payments in one run.',test:()=>selectedDifficulty==='divorce'&&(world?.cls?.paid||0)>=3},
+      {id:'top',group:'The ladder',title:'Top of the ladder',points:150,hint:'Win a run as a Divorcé.',test:()=>(playerProfile().wins.divorce||0)>0},
+      {id:'sweetheart',group:'Dating',title:'Sweetheart',points:15,hint:'Get a match as warm as she gets.',test:()=>[...hingeThreads.values()].some(t=>warmthOf(t)>=3)},
+      {id:'rq-robe',group:'Stories',title:'Husband Number Three',points:20,hint:'See Diana Moore’s story through.',test:()=>rqs('robe')?.stage==='done'},
+      {id:'rq-openhouse',group:'Stories',title:'Open House',points:20,hint:'See Olivia Reid’s story through.',test:()=>rqs('openhouse')?.stage==='done'},
+      {id:'rq-hotline',group:'Stories',title:'1-900-SUNFALL',points:20,hint:'Ring the hotline in the classifieds and see it through.',test:()=>rqs('hotline')?.stage==='done'},
+      {id:'rq-spotter',group:'Stories',title:'Spotter',points:20,hint:'See Lauren Bishop’s story through.',test:()=>rqs('spotter')?.stage==='done'},
+      {id:'rq-seating',group:'Stories',title:'The Seating Plan',points:20,hint:'See Alice Beaumont’s story through.',test:()=>rqs('seating')?.stage==='done'},
+      {id:'fq-postcard',group:'Stories',title:'The Postcard',points:20,hint:'See Celeste Van Doren’s story through.',test:()=>fqs('postcard')?.stage==='done'},
+      {id:'fq-letter',group:'Stories',title:'The Letter',points:20,hint:'See Ruth Calder’s story through.',test:()=>fqs('letter')?.stage==='done'},
+      {id:'fq-count',group:'Stories',title:'Match Point',points:20,hint:'See Catherine Bell’s story through.',test:()=>fqs('count')?.stage==='done'},
+      {id:'fq-refusal',group:'Stories',title:'Refused',points:20,hint:'See Caroline Prescott’s story through.',test:()=>fqs('refusal')?.stage==='done'},
+      {id:'mini-pills',group:'Stories',title:'The pharmacist',points:20,hint:'See the pharmacist’s story through.',test:()=>minisState().st.pills?.stage==='done'},
+      {id:'mini-husband',group:'Stories',title:'The husband',points:20,hint:'See the husband’s story through.',test:()=>minisState().st.husband?.stage==='done'},
+      {id:'mini-envelope',group:'Stories',title:'The envelope',points:20,hint:'See the envelope’s story through.',test:()=>minisState().st.envelope?.stage==='done'},
+      {id:'mini-cleaner',group:'Stories',title:'The cleaner',points:20,hint:'See the cleaner’s story through.',test:()=>minisState().st.cleaner?.stage==='done'},
+      {id:'mini-watch',group:'Stories',title:'The watch',points:20,hint:'See the neighborhood watch through.',test:()=>minisState().st.watch?.stage==='done'},
+      {id:'turn-count',group:'Stories',title:'Your turn to count',points:15,hint:'Count for Lauren for a change.',test:()=>!!endingsFound()['rq:spotter:turn']},
+      {id:'turn-seat',group:'Stories',title:'Turn the tables',points:15,hint:'Seat Alice at her own luncheon.',test:()=>!!endingsFound()['rq:seating:turn']},
+      {id:'ball',group:'Stories',title:'The Founders’ Ball',points:25,hint:'Go to the Founders’ Ball.',test:()=>!!(endingsFound()['finale:date']||endingsFound()['finale:alone'])},
+      {id:'coyote-saved',group:'Stories',title:'Found her in time',points:40,hint:'Find the Coyote’s victim before it’s too late.',test:()=>!!endingsFound()['coyote:saved']},
+      {id:'br-success',group:'Stories',title:'On the record',points:50,hint:'Get a federal inquiry opened into the Blue Ribbon.',test:()=>!!endingsFound()['br:success']},
+      {id:'vale-end',group:'Stories',title:'Case closed',points:40,hint:'Reach an ending of Professor Vale’s case.',test:()=>Object.keys(endingsFound()).some(k=>k.startsWith('vale:'))},
+      {id:'chapel-end',group:'Stories',title:'After midnight',points:40,hint:'Reach an ending of Chapel at Midnight.',test:()=>Object.keys(endingsFound()).some(k=>k.startsWith('chapel:'))},
+      {id:'bear',group:'Endings',title:'Eaten',points:10,hint:'Meet the bear.',test:()=>!!endingsFound()['death:EATEN|A BEAR']},
+      {id:'five-deaths',group:'Endings',title:'Five ways to go',points:30,hint:'Die five different ways.',test:()=>Object.keys(endingsFound()).filter(k=>k.startsWith('death:')).length>=5}
     ];
     const LADDER_KEY=SAVE_KEY+':ladder',NOTES_MAX=30,NOTE_CHARS=2000;
     let ladderCache=null,journalView='main',achQueue=[],achTimer=null,achLog=[];
@@ -8604,50 +8670,107 @@
       const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
       $('pick-foot').textContent=open>=LADDER.length?'Every class is unlocked.':'Win a run to unlock the next class.';
     }
-    // ---- Notes: your journey up the ladder, achievements and points, and notes you write yourself ----
+    // ---- iTunes and Notes (Chris, 3 November 2026) ----
+    // iTunes replaces Notes (internal id journal) in the 2008 iTunes Store look, with three tabs: How to play
+    // (pictures only, assets/howto, drawn in ChatGPT: the protagonist explains each thing), You (your class's
+    // character card, this run and the ladder) and Achievements (every one, with its points). Notes (internal
+    // id blackbook) holds the quests: a page for each woman whose story you're in, the other business going on,
+    // and your own notes (kept between games, as before).
+    const HOWTO_SHOTS=11;
+    const IT_TABS=[['howto','★','How to play'],['you','☺','You'],['awards','♛','Achievements']];
+    const ACH_GROUPS=['Dating','Surviving','Stories','Endings','The ladder'];
+    let bookView='main';
     function journalNote(id){return playerProfile().notes.find(note=>note.id===id)||null;}
     const noteTitle=note=>(note.text.split(/\r?\n/).find(line=>line.trim())||'New note').trim().slice(0,40);
-    function journalNew(){
+    function journalNew(){ // a new note, in Notes
+      if(currentApp!=='blackbook')openApp('blackbook');
       const p=playerProfile();
       if(p.notes.length>=NOTES_MAX){achToast('Notes is full. Delete a note first.');return null;}
       const id='n'+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);
       p.notes.unshift({id,text:''});saveProfile();
-      journalView='note:'+id;renderJournal();
+      bookView='note:'+id;renderBook();
       try{$('journal-text').focus();}catch{}
       return id;
     }
     function journalWrite(id,text){const note=journalNote(id);if(!note)return;note.text=String(text||'').slice(0,NOTE_CHARS);saveProfile();}
-    function journalDelete(id){const p=playerProfile();p.notes=p.notes.filter(note=>note.id!==id);saveProfile();journalView='main';renderJournal();}
+    function journalDelete(id){const p=playerProfile();p.notes=p.notes.filter(note=>note.id!==id);saveProfile();bookView='main';if(currentApp==='blackbook')renderBook();}
+    const itFace=(src,letter)=>src?`<img class="it-art" src="${esc(assetUrl(src))}" alt="" onerror="this.outerHTML='<span class=&quot;it-art&quot;>${esc(letter)}</span>'">`:`<span class="it-art">${esc(letter)}</span>`;
+    function itPage(title,tab,body){
+      return `<div class="it-top">${esc(title)}</div><div class="it-body">${body}</div><nav class="it-tabs">${IT_TABS.map(([id,icon,label])=>`<button data-journal-view="${id}"${id===tab?' class="on"':''}><i>${icon}</i>${esc(label)}</button>`).join('')}</nav>`;
+    }
     function renderJournal(){
-      const p=playerProfile(),bar=(title,back)=>`<div class="journal-bar">${back?'<button data-journal-view="main">‹ Notes</button>':''}<span>${esc(title)}</span>${back?'':'<button data-journal-new aria-label="New note">+</button>'}</div>`;
-      if(journalView.startsWith('note:')){
-        const note=journalNote(journalView.slice(5));
-        if(note){$('opened').innerHTML=`${bar(noteTitle(note),true)}<textarea class="journal-text" id="journal-text" data-journal-text="${esc(note.id)}" maxlength="${NOTE_CHARS}" aria-label="Your note">${esc(note.text)}</textarea><div class="journal-page"><button data-journal-delete="${esc(note.id)}">Delete this note</button></div>`;return;}
-        journalView='main';
+      const p=playerProfile();
+      if(journalView==='journey')journalView='you';
+      if(!IT_TABS.some(([id])=>id===journalView))journalView='howto';
+      if(journalView==='howto'){ // pictures only: each one explains a part of the game
+        const shots=Array.from({length:HOWTO_SHOTS},(_,i)=>{const src=`assets/howto/howto-${String(i+1).padStart(2,'0')}.png`;return `<button class="it-shot" data-it-shot aria-label="How to play, picture ${i+1}"><img src="${esc(assetUrl(src))}" alt="" onerror="this.outerHTML='<span class=&quot;it-wait&quot;>${i+1}</span>'"></button>`;}).join('');
+        $('opened').innerHTML=itPage('How to play','howto',`<div class="it-shots">${shots}</div>`);
+        hydrateInlineImages($('opened'));return;
       }
-      if(journalView==='journey'){
-        const playing=ladderIndex(selectedDifficulty);
-        const rows=LADDER.map((rung,i)=>{
-          const face=rung.img?`<img src="${esc(assetUrl(rung.img))}" alt="" onerror="this.outerHTML='<span class=&quot;q&quot;>${esc(rung.name[0])}</span>'">`:'<span class="q">?</span>';
-          const wins=p.wins[rung.id]||0;
-          const state=rung.soon?'Still being written':!ladderUnlocked(rung.id)?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Unlocked';
-          return `<div class="journal-row${rung.soon||!ladderUnlocked(rung.id)?' off':''}">${face}<div><b>${i+1}. ${esc(rung.name)}</b><small>${esc(state)}</small></div></div>`;
+      if(journalView==='you'){ // your class's character card, this run, and the ladder
+        const id=ladderIndex(selectedDifficulty)>=0?selectedDifficulty:'normie',rung=LADDER[ladderIndex(id)],playing=ladderIndex(id);
+        const card=`<button class="it-shot it-card" data-it-shot aria-label="${esc(rung.name)}"><img src="${esc(assetUrl(`assets/howto/class-${id}.png`))}" alt="" onerror="this.parentNode.remove()"></button>`;
+        const matched=[...hingeThreads.values()].filter(t=>!t.unmatched&&hingeProfile(t.id)),closest=matched.slice().sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
+        const [found,total]=endingsCount();
+        const run=[['Day',String(world?.day||1)],['Matches',String(matched.length)],...(closest&&warmthOf(closest)>0?[['Closest to you',hingeProfile(closest.id).name]]:[]),['Endings found',`${found} of ${total}`]];
+        const steps=LADDER.map((r,i)=>{
+          const wins=p.wins[r.id]||0,open=ladderUnlocked(r.id);
+          const state=r.soon?'Still being written':!open?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Unlocked';
+          const pill=r.soon?'Soon':!open?'Locked':wins?'Won':i===playing?'Playing':'Open';
+          return `<div class="it-cell${r.soon||!open?' off':''}">${itFace(r.img,r.name[0])}<span class="it-txt"><b>${i+1}. ${esc(r.name)}</b><small>${esc(state)}</small></span><span class="it-pill${wins?' on':''}">${pill}</span></div>`;
         }).join('');
-        $('opened').innerHTML=`${bar('Your journey',true)}<div class="journal-page"><h4>Five steps</h4><p>Win a run (a wedding) to unlock the next class.</p>${rows}</div>`;
-        return;
+        $('opened').innerHTML=itPage('You','you',`${card}<div class="it-you">${itFace(rung.img,rung.name[0])}<span><b>${esc(rung.name)}</b><small>${esc(rung.blurb)}</small><span class="it-stars">${ladderPoints()} points</span></span></div><p class="it-head">This run</p><div class="it-list">${run.map(([k,v])=>`<div class="it-cell"><span class="it-txt"><b>${esc(k)}</b></span><small>${esc(v)}</small></div>`).join('')}</div><p class="it-head">Your journey: win a run (a wedding) to unlock the next class</p><div class="it-list">${steps}</div>`);
+        hydrateInlineImages($('opened'));return;
       }
-      if(journalView==='awards'){
-        const rows=ACHIEVEMENTS.map(a=>{const e=p.ach[a.id];return `<div class="journal-row${e?'':' off'}"><span class="q">${e?'✓':'?'}</span><div><b>${esc(a.title)} · ${a.points}</b><small>${esc(e?`Earned on Day ${e.day||1}${e.as?` as a ${ladderName(e.as)}`:''}.`:a.hint)}</small></div></div>`;}).join('');
-        $('opened').innerHTML=`${bar('Achievements',true)}<div class="journal-page"><p class="journal-points">${ladderPoints()} points</p>${rows}</div>`;
-        return;
-      }
-      journalView='main';
-      p.notes=p.notes.filter(note=>note.text.trim());saveProfile(); // empty notes go when you leave them
+      journalView='awards'; // every achievement there is, earned ones first in each group
       const done=ACHIEVEMENTS.filter(a=>p.ach[a.id]).length;
-      const climbed=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
+      const groups=ACH_GROUPS.map(g=>{
+        const list=ACHIEVEMENTS.filter(a=>(a.group||'Dating')===g).sort((a,b)=>(p.ach[b.id]?1:0)-(p.ach[a.id]?1:0));
+        if(!list.length)return '';
+        return `<p class="it-head">${esc(g)}</p><div class="it-list">${list.map(a=>{const e=p.ach[a.id];return `<div class="it-cell${e?'':' off'}"><span class="it-art ${e?'gold':'lock'}">${e?'✓':'?'}</span><span class="it-txt"><b>${esc(a.title)}</b><small>${esc(e?`Earned on Day ${e.day||1}${e.as?` as a ${ladderName(e.as)}`:''}.`:a.hint)}</small></span><span class="it-pill${e?' on':''}">${a.points} pts</span></div>`;}).join('')}</div>`;
+      }).join('');
+      $('opened').innerHTML=itPage('Achievements','awards',`<div class="it-banner"><b>${done} of ${ACHIEVEMENTS.length} achievements</b><small>${ladderPoints()} points. They are kept between games.</small></div>${groups}`);
+    }
+    // Notes: who's in your stories this run, and where you stand with each of them.
+    const bookToned=x=>x&&typeof x==='object'&&!Array.isArray(x)?String(x[tone()]||x.normie||Object.values(x)[0]||''):String(x||'');
+    function bookStories(){
+      const women=[],add=(kit,key,st,dead)=>{
+        if(!kit?.host||(!dead&&(!st||['deck','skipped'].includes(st.stage))))return; // only stories you're in: no spoilers
+        const profile=hingeProfile(kit.host);if(!profile)return;
+        women.push({key,host:kit.host,profile,title:kit.title||key,st:st||{},dead:!!dead,hook:kit.hook});
+      };
+      for(const id of rqOn())add(rqKit()?.[id],'rq:'+id,rqs(id),rqState().dead?.id===id);
+      for(const id of fqOn())add(fqKit()?.[id],'fq:'+id,fqs(id),fqState().dead?.id===id);
+      const theirs=new Set(['Matches','Closest to you',...[...rqOn()].map(id=>rqKit()?.[id]?.title||id),...[...fqOn()].map(id=>fqKit()?.[id]?.title||id)]);
+      const other=runRecap().filter(([t,s])=>!theirs.has(t)&&!/^(Hadn’t started yet|Waiting for you|Missed|You never)/.test(s)&&!/never answered/.test(s));
+      return {women,other};
+    }
+    const bookHint=w=>w.dead||w.st.stage==='gone'?'It killed you.':w.st.stage==='hook'?'She asked. Answer her in your chat with her.':w.st.stage==='done'?'It’s over. You saw her story through.':'Still going. Keep your phone close, and answer when she rings.';
+    const bookStatus=w=>w.dead||w.st.stage==='gone'?'It killed you':w.st.stage==='hook'?'She’s waiting for your answer':w.st.stage==='done'?'Played through':'Still going'; // now, not the end-of-run recap
+    function renderBook(){
+      const p=playerProfile(),bar=(title,back)=>`<div class="book-bar">${back?'<button data-book-view="main">‹ Notes</button>':''}<span>${esc(title)}</span>${back?'':'<button data-book-new aria-label="New note">+</button>'}</div>`;
+      if(bookView.startsWith('note:')){
+        const note=journalNote(bookView.slice(5));
+        if(note){$('opened').innerHTML=`${bar(noteTitle(note),true)}<div class="book-page"><textarea class="book-text" id="journal-text" data-journal-text="${esc(note.id)}" maxlength="${NOTE_CHARS}" aria-label="Your note">${esc(note.text)}</textarea><button class="book-row" data-book-delete="${esc(note.id)}"><span><small>Delete this note</small></span></button></div>`;return;}
+        bookView='main';
+      }
+      const {women,other}=bookStories();
+      if(bookView.startsWith('her:')){
+        const w=women.find(x=>x.key===bookView.slice(4));
+        if(w){
+          const status=bookStatus(w),hook=bookToned(w.hook).replace(/\{[a-z]+\}/gi,'').trim();
+          $('opened').innerHTML=`${bar(firstName(w.profile),true)}<div class="book-page book-her"><img src="${esc(w.profile.gallery?.[0]||'')}" alt=""><h3>${esc(w.profile.name)}</h3><p class="book-line"><b>${esc(w.title)}</b></p><p class="book-line">Where you stand: <span class="book-hand">${esc(status)}</span></p><p class="book-line">${esc(bookHint(w))}</p>${hook?`<p class="book-line">How it started: <i>${esc(hook)}</i></p>`:''}</div>`;
+          hydrateInlineImages($('opened'));return;
+        }
+      }
+      bookView='main';
+      p.notes=p.notes.filter(note=>note.text.trim());saveProfile(); // empty notes go when you leave them
+      const hers=women.length?women.map(w=>{const s=bookStatus(w);return `<button class="book-row${w.dead||w.st.stage==='done'?' off':''}" data-book-view="her:${esc(w.key)}"><img src="${esc(w.profile.gallery?.[0]||'')}" alt=""><span><b>${esc(w.profile.name)}</b><small>${esc(w.title)}: ${esc(s)}</small></span></button>`;}).join(''):'<p class="book-line"><i>Nobody has let you into her story yet. When a woman does, she gets a page here.</i></p>';
+      const others=other.length?other.map(([t,s])=>`<div class="book-row"><span class="q">✦</span><span><b>${esc(t)}</b><small>${esc(s)}</small></span></div>`).join(''):'<p class="book-line"><i>Nothing else on the go. Read the paper.</i></p>';
       const rest=note=>note.text.split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(1).join(' ').slice(0,50);
-      const notes=p.notes.map(note=>`<button data-journal-view="note:${esc(note.id)}"><b>${esc(noteTitle(note))}</b>${rest(note)?`<small>${esc(rest(note))}</small>`:''}</button>`).join('');
-      $('opened').innerHTML=`${bar('Notes',false)}<div class="journal-list"><button data-journal-view="journey"><b>Your journey</b><small>Step ${climbed} of ${LADDER.length} · playing as a ${esc(ladderName(selectedDifficulty))}</small></button><button data-journal-view="awards"><b>Achievements</b><small>${done} of ${ACHIEVEMENTS.length} · ${ladderPoints()} points</small></button>${notes}</div><div class="journal-page"><small>Notes are kept between games. Tap + for a new one.</small></div>`;
+      const notes=p.notes.length?p.notes.map(note=>`<button class="book-row" data-book-view="note:${esc(note.id)}"><span class="q">✎</span><span><b>${esc(noteTitle(note))}</b>${rest(note)?`<small>${esc(rest(note))}</small>`:''}</span></button>`).join(''):'<p class="book-line"><i>Tap + to write a note. Notes are kept between games.</i></p>';
+      $('opened').innerHTML=`${bar('Notes',false)}<div class="book-page"><h4>Her stories</h4>${hers}<h4>Other business</h4>${others}<h4>My notes</h4>${notes}</div>`;
+      hydrateInlineImages($('opened'));
     }
     // ===== The Looksmaxxer and the Divorcé (Chris, 3 November 2026) =====
     // Steps four and five of the ladder play differently. Both keep a wallet (cash on the status bar, a
@@ -8977,6 +9100,7 @@
       $('opened').classList.toggle('notes-mode',app==='notes');
       $('opened').classList.toggle('settings-mode',app==='settings');
       $('opened').classList.toggle('journal-mode',app==='journal');
+      $('opened').classList.toggle('book-mode',app==='blackbook');
       $('opened').classList.remove('connected-mode');
       $('opened').style.backgroundImage=app==='calls'?`url("${assetUrl('assets/ui/calls-dialler-bg.png')}")`:'';
       if(app==='news'){readTodaysPaper();renderNews();return;} // opening the paper is reading it: now you can ask women about it
@@ -8984,7 +9108,8 @@
       if(app==='hinge'){renderHinge();return;}
       if(app==='settings'){settingsView='main';renderSettings();return;}
       if(app==='notes'){notesView='main';renderNotes();return;}
-      if(app==='journal'){journalView='main';checkAchievements();renderJournal();return;} // Notes: journey, achievements, your notes
+      if(app==='journal'){journalView='howto';checkAchievements();renderJournal();return;} // iTunes: How to play, You, Achievements
+      if(app==='blackbook'){bookView='main';renderBook();return;} // Notes: quests and your own notes
       $('opened').innerHTML=typeof appContent[app]==='function'?appContent[app]():appContent[app];
       hydrateInlineImages($('opened'));
     }
@@ -9007,7 +9132,14 @@
         try{navigator.clipboard.writeText(BITCOIN_ADDRESS).then(()=>{copyBtc.textContent='Copied';},selectIt);}catch{selectIt();}
         return;
       }
-      const journalNav=event.target.closest('[data-journal-view]'); // Notes
+      const itShot=event.target.closest('[data-it-shot]'); // iTunes: a How to play picture or your character card, full screen
+      if(itShot){const img=itShot.querySelector('img');if(img){$('news-expand-image').src=img.src;$('news-expand').classList.add('visible');}return;}
+      const bookNav=event.target.closest('[data-book-view]'); // Notes
+      if(bookNav){bookView=bookNav.dataset.bookView;renderBook();$('opened').scrollTop=0;return;}
+      if(event.target.closest('[data-book-new]')){journalNew();return;}
+      const bookDel=event.target.closest('[data-book-delete]');
+      if(bookDel){journalDelete(bookDel.dataset.bookDelete);return;}
+      const journalNav=event.target.closest('[data-journal-view]'); // iTunes tabs
       if(journalNav){journalView=journalNav.dataset.journalView;renderJournal();$('opened').scrollTop=0;return;}
       if(event.target.closest('[data-journal-new]')){journalNew();return;}
       const journalDel=event.target.closest('[data-journal-delete]');
@@ -9155,7 +9287,7 @@
     },{passive:true});
     $('news-expand').addEventListener('click',()=>$('news-expand').classList.remove('visible'));
     document.addEventListener('keydown',event=>{if(event.key==='Escape')$('news-expand').classList.remove('visible');});
-    function returnHome(){endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
+    function returnHome(){endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
     let homeTapTimer=null,homeHoldTimer=null,homeWasHeld=false;
     const homeButton = $('home-hit');
     homeButton.addEventListener('pointerdown',()=>{
@@ -10691,7 +10823,7 @@
       sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
       save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),
-      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
+      rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();else if(currentApp==='blackbook')renderBook();else if(currentApp==='journal')renderJournal();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;
     addJewellersToDeck(); // the first deck was built before the jewellers were known
