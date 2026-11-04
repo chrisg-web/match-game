@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 138,
-  "imageCount": 861,
-  "publicImageCount": 469,
-  "privateImageCount": 392,
+  "characterCount": 221,
+  "imageCount": 1525,
+  "publicImageCount": 884,
+  "privateImageCount": 641,
   "characters": [
     {
       "id": "MATCH-001",
@@ -2405,6 +2405,82 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-082",
+      "slug": "serena_bellweather",
+      "name": "Serena Bellweather",
+      "age": 23,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/serena_bellweather_01.webp",
+        "assets/hinge/roster_expansion/serena_bellweather_02.webp",
+        "assets/hinge/roster_expansion/serena_bellweather_03.webp",
+        "assets/hinge/roster_expansion/serena_bellweather_04.webp",
+        "assets/hinge/roster_expansion/serena_bellweather_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/serena_bellweather_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Serena Bellweather, consistent Pale skin, a sleek low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/serena_bellweather_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Serena Bellweather, consistent Pale skin, a sleek low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/serena_bellweather_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Serena Bellweather, consistent Pale skin, a sleek low bun, thin wire-rimmed glasses, cream blazer over a silk camisole",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-083",
+      "slug": "helena_forsyth",
+      "name": "Helena Forsyth",
+      "age": 36,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/helena_forsyth_01.webp",
+        "assets/hinge/roster_expansion/helena_forsyth_02.webp",
+        "assets/hinge/roster_expansion/helena_forsyth_03.webp",
+        "assets/hinge/roster_expansion/helena_forsyth_04.webp",
+        "assets/hinge/roster_expansion/helena_forsyth_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/helena_forsyth_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Helena Forsyth, consistent A voluptuous hourglass figure with an enormous bust, fair skin, dark French braid, a small nose stud, powder-blue twinset",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/helena_forsyth_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Helena Forsyth, consistent A voluptuous hourglass figure with an enormous bust, fair skin, dark French braid, a small nose stud, powder-blue twinset",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/helena_forsyth_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Helena Forsyth, consistent A voluptuous hourglass figure with an enormous bust, fair skin, dark French braid, a small nose stud, powder-blue twinset",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and desert stargazing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-084",
       "slug": "cecilia_prado",
       "name": "Cecilia Prado",
@@ -2481,6 +2557,120 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-086",
+      "slug": "brielle_kenton",
+      "name": "Brielle Kenton",
+      "age": 25,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/brielle_kenton_01.webp",
+        "assets/hinge/roster_expansion/brielle_kenton_02.webp",
+        "assets/hinge/roster_expansion/brielle_kenton_03.webp",
+        "assets/hinge/roster_expansion/brielle_kenton_04.webp",
+        "assets/hinge/roster_expansion/brielle_kenton_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/brielle_kenton_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Brielle Kenton, consistent Willowy and very slender, a slim small-busted model figure, lightly tanned fair skin, a long elegant neck, a bold Roman nose, dark sullen eyes under sharp winged eyeliner, burgundy-dyed curls, a pale pink sheath dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brielle_kenton_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Brielle Kenton, consistent Willowy and very slender, a slim small-busted model figure, lightly tanned fair skin, a long elegant neck, a bold Roman nose, dark sullen eyes under sharp winged eyeliner, burgundy-dyed curls, a pale pink sheath dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brielle_kenton_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Brielle Kenton, consistent Willowy and very slender, a slim small-busted model figure, lightly tanned fair skin, a long elegant neck, a bold Roman nose, dark sullen eyes under sharp winged eyeliner, burgundy-dyed curls, a pale pink sheath dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-087",
+      "slug": "noelle_sanderson",
+      "name": "Noelle Sanderson",
+      "age": 38,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/noelle_sanderson_01.webp",
+        "assets/hinge/roster_expansion/noelle_sanderson_02.webp",
+        "assets/hinge/roster_expansion/noelle_sanderson_03.webp",
+        "assets/hinge/roster_expansion/noelle_sanderson_04.webp",
+        "assets/hinge/roster_expansion/noelle_sanderson_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/noelle_sanderson_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Noelle Sanderson, consistent Tall, rail-thin and poised, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long narrow nose, long lashes over dark heavy-lidded sullen eyes, a chestnut curly bob, a white linen trouser suit",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/noelle_sanderson_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Noelle Sanderson, consistent Tall, rail-thin and poised, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long narrow nose, long lashes over dark heavy-lidded sullen eyes, a chestnut curly bob, a white linen trouser suit",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/noelle_sanderson_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Noelle Sanderson, consistent Tall, rail-thin and poised, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long narrow nose, long lashes over dark heavy-lidded sullen eyes, a chestnut curly bob, a white linen trouser suit",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and fixing up a used bicycle.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-088",
+      "slug": "carmen_bellini",
+      "name": "Carmen Bellini",
+      "age": 24,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/carmen_bellini_01.webp",
+        "assets/hinge/roster_expansion/carmen_bellini_02.webp",
+        "assets/hinge/roster_expansion/carmen_bellini_03.webp",
+        "assets/hinge/roster_expansion/carmen_bellini_04.webp",
+        "assets/hinge/roster_expansion/carmen_bellini_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/carmen_bellini_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Carmen Bellini, consistent Freckled fair skin, strawberry-blonde braid crown, a gap-toothed smile, striped boat-neck top and capri pants",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/carmen_bellini_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Carmen Bellini, consistent Freckled fair skin, strawberry-blonde braid crown, a gap-toothed smile, striped boat-neck top and capri pants",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/carmen_bellini_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Carmen Bellini, consistent Freckled fair skin, strawberry-blonde braid crown, a gap-toothed smile, striped boat-neck top and capri pants",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-089",
       "slug": "veronica_shawcross",
       "name": "Veronica Shawcross",
@@ -2516,6 +2706,44 @@
       ],
       "personality": "poised and fiercely independent",
       "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and teaching her younger cousin guitar.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-090",
+      "slug": "miriam_landry",
+      "name": "Miriam Landry",
+      "age": 25,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/miriam_landry_01.webp",
+        "assets/hinge/roster_expansion/miriam_landry_02.webp",
+        "assets/hinge/roster_expansion/miriam_landry_03.webp",
+        "assets/hinge/roster_expansion/miriam_landry_04.webp",
+        "assets/hinge/roster_expansion/miriam_landry_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/miriam_landry_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Miriam Landry, consistent Rosy fair skin, auburn shag with a curtain fringe, strong dark brows, cream blazer over a silk camisole",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/miriam_landry_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Miriam Landry, consistent Rosy fair skin, auburn shag with a curtain fringe, strong dark brows, cream blazer over a silk camisole",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/miriam_landry_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Miriam Landry, consistent Rosy fair skin, auburn shag with a curtain fringe, strong dark brows, cream blazer over a silk camisole",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and building a collection of forgotten records.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -2595,6 +2823,234 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-094",
+      "slug": "lorna_sutton",
+      "name": "Lorna Sutton",
+      "age": 28,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/lorna_sutton_01.webp",
+        "assets/hinge/roster_expansion/lorna_sutton_02.webp",
+        "assets/hinge/roster_expansion/lorna_sutton_03.webp",
+        "assets/hinge/roster_expansion/lorna_sutton_04.webp",
+        "assets/hinge/roster_expansion/lorna_sutton_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lorna_sutton_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lorna Sutton, consistent A voluptuous hourglass figure with an enormous bust, fair skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lorna_sutton_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lorna Sutton, consistent A voluptuous hourglass figure with an enormous bust, fair skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lorna_sutton_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lorna Sutton, consistent A voluptuous hourglass figure with an enormous bust, fair skin, brown waves with teal tips, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and photographing diner neon signs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-095",
+      "slug": "penelope_kline",
+      "name": "Penelope Kline",
+      "age": 19,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/penelope_kline_01.webp",
+        "assets/hinge/roster_expansion/penelope_kline_02.webp",
+        "assets/hinge/roster_expansion/penelope_kline_03.webp",
+        "assets/hinge/roster_expansion/penelope_kline_04.webp",
+        "assets/hinge/roster_expansion/penelope_kline_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/penelope_kline_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Penelope Kline, consistent Lightly tanned fair skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/penelope_kline_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Penelope Kline, consistent Lightly tanned fair skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/penelope_kline_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Penelope Kline, consistent Lightly tanned fair skin, copper waist-length waves, tortoiseshell glasses, powder-blue twinset",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and birdwatching before breakfast.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-096",
+      "slug": "maren_caldwell",
+      "name": "Maren Caldwell",
+      "age": 33,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/maren_caldwell_01.webp",
+        "assets/hinge/roster_expansion/maren_caldwell_02.webp",
+        "assets/hinge/roster_expansion/maren_caldwell_03.webp",
+        "assets/hinge/roster_expansion/maren_caldwell_04.webp",
+        "assets/hinge/roster_expansion/maren_caldwell_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/maren_caldwell_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Maren Caldwell, consistent Fair skin, platinum pixie cut, hazel eyes, cream blazer over a silk camisole",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maren_caldwell_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Maren Caldwell, consistent Fair skin, platinum pixie cut, hazel eyes, cream blazer over a silk camisole",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/maren_caldwell_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Maren Caldwell, consistent Fair skin, platinum pixie cut, hazel eyes, cream blazer over a silk camisole",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and volunteering at a thrift shop.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-097",
+      "slug": "estelle_parker",
+      "name": "Estelle Parker",
+      "age": 20,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/estelle_parker_01.webp",
+        "assets/hinge/roster_expansion/estelle_parker_02.webp",
+        "assets/hinge/roster_expansion/estelle_parker_03.webp",
+        "assets/hinge/roster_expansion/estelle_parker_04.webp",
+        "assets/hinge/roster_expansion/estelle_parker_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/estelle_parker_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Estelle Parker, consistent Rosy fair skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/estelle_parker_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Estelle Parker, consistent Rosy fair skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/estelle_parker_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Estelle Parker, consistent Rosy fair skin, platinum pixie cut, hazel eyes, pale pink sheath dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and playing five-on-five soccer.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-098",
+      "slug": "irene_vaughn",
+      "name": "Irene Vaughn",
+      "age": 34,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Charity bookkeeper",
+      "gallery": [
+        "assets/hinge/roster_expansion/irene_vaughn_01.webp",
+        "assets/hinge/roster_expansion/irene_vaughn_02.webp",
+        "assets/hinge/roster_expansion/irene_vaughn_03.webp",
+        "assets/hinge/roster_expansion/irene_vaughn_04.webp",
+        "assets/hinge/roster_expansion/irene_vaughn_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/irene_vaughn_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Irene Vaughn, consistent Freckled fair skin, rose-gold bob, freckles across her nose, gold-buttoned navy blazer",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/irene_vaughn_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Irene Vaughn, consistent Freckled fair skin, rose-gold bob, freckles across her nose, gold-buttoned navy blazer",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/irene_vaughn_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Irene Vaughn, consistent Freckled fair skin, rose-gold bob, freckles across her nose, gold-buttoned navy blazer",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and teaching herself the drums.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-099",
+      "slug": "whitney_ashford",
+      "name": "Whitney Ashford",
+      "age": 21,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/whitney_ashford_01.webp",
+        "assets/hinge/roster_expansion/whitney_ashford_02.webp",
+        "assets/hinge/roster_expansion/whitney_ashford_03.webp",
+        "assets/hinge/roster_expansion/whitney_ashford_04.webp",
+        "assets/hinge/roster_expansion/whitney_ashford_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/whitney_ashford_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Whitney Ashford, consistent Pale skin, dark French braid, a gap-toothed smile, navy shift dress with pearls",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/whitney_ashford_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Whitney Ashford, consistent Pale skin, dark French braid, a gap-toothed smile, navy shift dress with pearls",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/whitney_ashford_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Whitney Ashford, consistent Pale skin, dark French braid, a gap-toothed smile, navy shift dress with pearls",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and trying to learn Italian.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-100",
       "slug": "delphine_moreau",
       "name": "Delphine Moreau",
@@ -2630,6 +3086,44 @@
       ],
       "personality": "playful until someone crosses a line",
       "personalGoal": "Make a life for herself in Sunfall while balancing charity bookkeeper and making elaborate paper collages.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-101",
+      "slug": "catalina_reyes",
+      "name": "Catalina Reyes",
+      "age": 22,
+      "factionId": "thunderbirds",
+      "canonicalOccupation": "Compliance administrator",
+      "gallery": [
+        "assets/hinge/roster_expansion/catalina_reyes_01.webp",
+        "assets/hinge/roster_expansion/catalina_reyes_02.webp",
+        "assets/hinge/roster_expansion/catalina_reyes_03.webp",
+        "assets/hinge/roster_expansion/catalina_reyes_04.webp",
+        "assets/hinge/roster_expansion/catalina_reyes_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/catalina_reyes_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Catalina Reyes, consistent Deep brown skin, rose-gold bob, long lashes and a sleepy gaze, white linen trouser suit",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/catalina_reyes_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Catalina Reyes, consistent Deep brown skin, rose-gold bob, long lashes and a sleepy gaze, white linen trouser suit",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/catalina_reyes_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Catalina Reyes, consistent Deep brown skin, rose-gold bob, long lashes and a sleepy gaze, white linen trouser suit",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing compliance administrator and keeping a handwritten travel journal.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -2937,6 +3431,120 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-111",
+      "slug": "miranda_sowerby",
+      "name": "Miranda Sowerby",
+      "age": 32,
+      "factionId": "police",
+      "canonicalOccupation": "Community safety officer",
+      "gallery": [
+        "assets/hinge/roster_expansion/miranda_sowerby_01.webp",
+        "assets/hinge/roster_expansion/miranda_sowerby_02.webp",
+        "assets/hinge/roster_expansion/miranda_sowerby_03.webp",
+        "assets/hinge/roster_expansion/miranda_sowerby_04.webp",
+        "assets/hinge/roster_expansion/miranda_sowerby_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/miranda_sowerby_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Miranda Sowerby, consistent Fair skin, a sleek low bun, a wide bright smile, charcoal blazer and turtleneck",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/miranda_sowerby_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Miranda Sowerby, consistent Fair skin, a sleek low bun, a wide bright smile, charcoal blazer and turtleneck",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/miranda_sowerby_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Miranda Sowerby, consistent Fair skin, a sleek low bun, a wide bright smile, charcoal blazer and turtleneck",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community safety officer and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-112",
+      "slug": "yvette_palmer",
+      "name": "Yvette Palmer",
+      "age": 22,
+      "factionId": "police",
+      "canonicalOccupation": "Detective constable",
+      "gallery": [
+        "assets/hinge/roster_expansion/yvette_palmer_01.webp",
+        "assets/hinge/roster_expansion/yvette_palmer_02.webp",
+        "assets/hinge/roster_expansion/yvette_palmer_03.webp",
+        "assets/hinge/roster_expansion/yvette_palmer_04.webp",
+        "assets/hinge/roster_expansion/yvette_palmer_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/yvette_palmer_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Yvette Palmer, consistent Rosy fair skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yvette_palmer_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Yvette Palmer, consistent Rosy fair skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yvette_palmer_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Yvette Palmer, consistent Rosy fair skin, brown waves with teal tips, sharp winged eyeliner, black leather jacket over a white tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing detective constable and fixing up a used bicycle.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-113",
+      "slug": "katrina_ford",
+      "name": "Katrina Ford",
+      "age": 34,
+      "factionId": "police",
+      "canonicalOccupation": "Crime scene photographer",
+      "gallery": [
+        "assets/hinge/roster_expansion/katrina_ford_01.webp",
+        "assets/hinge/roster_expansion/katrina_ford_02.webp",
+        "assets/hinge/roster_expansion/katrina_ford_03.webp",
+        "assets/hinge/roster_expansion/katrina_ford_04.webp",
+        "assets/hinge/roster_expansion/katrina_ford_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/katrina_ford_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Katrina Ford, consistent A voluptuous hourglass figure with an enormous bust, pale skin, chestnut curly bob, freckles across her nose, windbreaker over a sports top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/katrina_ford_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Katrina Ford, consistent A voluptuous hourglass figure with an enormous bust, pale skin, chestnut curly bob, freckles across her nose, windbreaker over a sports top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/katrina_ford_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Katrina Ford, consistent A voluptuous hourglass figure with an enormous bust, pale skin, chestnut curly bob, freckles across her nose, windbreaker over a sports top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing crime scene photographer and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-114",
       "slug": "monica_herrera",
       "name": "Monica Herrera",
@@ -3010,6 +3618,348 @@
       ],
       "personality": "playful until someone crosses a line",
       "personalGoal": "Make a life for herself in Sunfall while balancing evidence archive assistant and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-116",
+      "slug": "sheryl_abbott",
+      "name": "Sheryl Abbott",
+      "age": 25,
+      "factionId": "police",
+      "canonicalOccupation": "Custody nurse",
+      "gallery": [
+        "assets/hinge/roster_expansion/sheryl_abbott_01.webp",
+        "assets/hinge/roster_expansion/sheryl_abbott_02.webp",
+        "assets/hinge/roster_expansion/sheryl_abbott_03.webp",
+        "assets/hinge/roster_expansion/sheryl_abbott_04.webp",
+        "assets/hinge/roster_expansion/sheryl_abbott_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/sheryl_abbott_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Sheryl Abbott, consistent Lean and bony, a slim small-busted figure, freckled fair skin, hollow cheeks, deep-set dark eyes with faint shadows beneath and a tired sullen stare, tortoiseshell glasses, a sleek low bun, a navy polo shirt and khaki pants",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sheryl_abbott_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Sheryl Abbott, consistent Lean and bony, a slim small-busted figure, freckled fair skin, hollow cheeks, deep-set dark eyes with faint shadows beneath and a tired sullen stare, tortoiseshell glasses, a sleek low bun, a navy polo shirt and khaki pants",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sheryl_abbott_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Sheryl Abbott, consistent Lean and bony, a slim small-busted figure, freckled fair skin, hollow cheeks, deep-set dark eyes with faint shadows beneath and a tired sullen stare, tortoiseshell glasses, a sleek low bun, a navy polo shirt and khaki pants",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing custody nurse and collecting vintage postcards.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-117",
+      "slug": "amber_colebrook",
+      "name": "Amber Colebrook",
+      "age": 34,
+      "factionId": "police",
+      "canonicalOccupation": "Police dispatcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/amber_colebrook_01.webp",
+        "assets/hinge/roster_expansion/amber_colebrook_02.webp",
+        "assets/hinge/roster_expansion/amber_colebrook_03.webp",
+        "assets/hinge/roster_expansion/amber_colebrook_04.webp",
+        "assets/hinge/roster_expansion/amber_colebrook_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/amber_colebrook_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Amber Colebrook, consistent Lightly tanned fair skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black pants",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/amber_colebrook_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Amber Colebrook, consistent Lightly tanned fair skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black pants",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/amber_colebrook_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Amber Colebrook, consistent Lightly tanned fair skin, chestnut curly bob, a beauty mark above her lip, plain white shirt and slim black pants",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing police dispatcher and restoring vintage dresses.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-118",
+      "slug": "renee_saunders",
+      "name": "Renee Saunders",
+      "age": 25,
+      "factionId": "police",
+      "canonicalOccupation": "Police records clerk",
+      "gallery": [
+        "assets/hinge/roster_expansion/renee_saunders_01.webp",
+        "assets/hinge/roster_expansion/renee_saunders_02.webp",
+        "assets/hinge/roster_expansion/renee_saunders_03.webp",
+        "assets/hinge/roster_expansion/renee_saunders_04.webp",
+        "assets/hinge/roster_expansion/renee_saunders_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/renee_saunders_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Renee Saunders, consistent Freckled fair skin, loose spiral curls, a gap-toothed smile, denim shirt with rolled sleeves",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/renee_saunders_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Renee Saunders, consistent Freckled fair skin, loose spiral curls, a gap-toothed smile, denim shirt with rolled sleeves",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/renee_saunders_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Renee Saunders, consistent Freckled fair skin, loose spiral curls, a gap-toothed smile, denim shirt with rolled sleeves",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing police records clerk and baking elaborate cakes badly.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-119",
+      "slug": "lydia_carver",
+      "name": "Lydia Carver",
+      "age": 35,
+      "factionId": "police",
+      "canonicalOccupation": "Victim liaison adviser",
+      "gallery": [
+        "assets/hinge/roster_expansion/lydia_carver_01.webp",
+        "assets/hinge/roster_expansion/lydia_carver_02.webp",
+        "assets/hinge/roster_expansion/lydia_carver_03.webp",
+        "assets/hinge/roster_expansion/lydia_carver_04.webp",
+        "assets/hinge/roster_expansion/lydia_carver_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lydia_carver_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lydia Carver, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lydia_carver_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lydia Carver, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lydia_carver_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lydia Carver, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, copper waist-length waves, a small nose stud, windbreaker over a sports top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing victim liaison adviser and photographing diner neon signs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-120",
+      "slug": "opal_franklin",
+      "name": "Opal Franklin",
+      "age": 27,
+      "factionId": "police",
+      "canonicalOccupation": "Traffic collision investigator",
+      "gallery": [
+        "assets/hinge/roster_expansion/opal_franklin_01.webp",
+        "assets/hinge/roster_expansion/opal_franklin_02.webp",
+        "assets/hinge/roster_expansion/opal_franklin_03.webp",
+        "assets/hinge/roster_expansion/opal_franklin_04.webp",
+        "assets/hinge/roster_expansion/opal_franklin_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/opal_franklin_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Opal Franklin, consistent Freckled fair skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/opal_franklin_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Opal Franklin, consistent Freckled fair skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/opal_franklin_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Opal Franklin, consistent Freckled fair skin, chestnut high ponytail, deep dimples, maroon fleece and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing traffic collision investigator and birdwatching before breakfast.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-121",
+      "slug": "taryn_chase",
+      "name": "Taryn Chase",
+      "age": 18,
+      "factionId": "police",
+      "canonicalOccupation": "Forensic lab analyst",
+      "gallery": [
+        "assets/hinge/roster_expansion/taryn_chase_01.webp",
+        "assets/hinge/roster_expansion/taryn_chase_02.webp",
+        "assets/hinge/roster_expansion/taryn_chase_03.webp",
+        "assets/hinge/roster_expansion/taryn_chase_04.webp",
+        "assets/hinge/roster_expansion/taryn_chase_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/taryn_chase_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Taryn Chase, consistent Fair skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/taryn_chase_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Taryn Chase, consistent Fair skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/taryn_chase_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Taryn Chase, consistent Fair skin, burgundy-dyed curls, freckles across her nose, charcoal blazer and turtleneck",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing forensic lab analyst and volunteering at a thrift shop.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-122",
+      "slug": "sabrina_wallace",
+      "name": "Sabrina Wallace",
+      "age": 29,
+      "factionId": "police",
+      "canonicalOccupation": "Community safety officer",
+      "gallery": [
+        "assets/hinge/roster_expansion/sabrina_wallace_01.webp",
+        "assets/hinge/roster_expansion/sabrina_wallace_02.webp",
+        "assets/hinge/roster_expansion/sabrina_wallace_03.webp",
+        "assets/hinge/roster_expansion/sabrina_wallace_04.webp",
+        "assets/hinge/roster_expansion/sabrina_wallace_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/sabrina_wallace_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Sabrina Wallace, consistent Sun-kissed fair skin, long red curls, gold hoop earrings, gray hoodie and running shoes",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sabrina_wallace_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Sabrina Wallace, consistent Sun-kissed fair skin, long red curls, gold hoop earrings, gray hoodie and running shoes",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/sabrina_wallace_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Sabrina Wallace, consistent Sun-kissed fair skin, long red curls, gold hoop earrings, gray hoodie and running shoes",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community safety officer and playing five-on-five soccer.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-126",
+      "slug": "harriet_boyle",
+      "name": "Harriet Boyle",
+      "age": 31,
+      "factionId": "police",
+      "canonicalOccupation": "Evidence archive assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/harriet_boyle_01.webp",
+        "assets/hinge/roster_expansion/harriet_boyle_02.webp",
+        "assets/hinge/roster_expansion/harriet_boyle_03.webp",
+        "assets/hinge/roster_expansion/harriet_boyle_04.webp",
+        "assets/hinge/roster_expansion/harriet_boyle_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/harriet_boyle_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Harriet Boyle, consistent Fair skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/harriet_boyle_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Harriet Boyle, consistent Fair skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/harriet_boyle_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Harriet Boyle, consistent Fair skin, rose-gold bob, a beauty mark above her lip, checked flannel shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing evidence archive assistant and keeping a handwritten travel journal.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-127",
+      "slug": "gwen_alder",
+      "name": "Gwen Alder",
+      "age": 21,
+      "factionId": "police",
+      "canonicalOccupation": "Custody nurse",
+      "gallery": [
+        "assets/hinge/roster_expansion/gwen_alder_01.webp",
+        "assets/hinge/roster_expansion/gwen_alder_02.webp",
+        "assets/hinge/roster_expansion/gwen_alder_03.webp",
+        "assets/hinge/roster_expansion/gwen_alder_04.webp",
+        "assets/hinge/roster_expansion/gwen_alder_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/gwen_alder_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Gwen Alder, consistent Fair skin, dark brown messy bun, a gap-toothed smile, gray hoodie and running shoes",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/gwen_alder_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Gwen Alder, consistent Fair skin, dark brown messy bun, a gap-toothed smile, gray hoodie and running shoes",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/gwen_alder_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Gwen Alder, consistent Fair skin, dark brown messy bun, a gap-toothed smile, gray hoodie and running shoes",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing custody nurse and organizing a neighborhood film night.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -3317,6 +4267,120 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-138",
+      "slug": "lucille_pembrook",
+      "name": "Lucille Pembrook",
+      "age": 31,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/lucille_pembrook_01.webp",
+        "assets/hinge/roster_expansion/lucille_pembrook_02.webp",
+        "assets/hinge/roster_expansion/lucille_pembrook_03.webp",
+        "assets/hinge/roster_expansion/lucille_pembrook_04.webp",
+        "assets/hinge/roster_expansion/lucille_pembrook_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lucille_pembrook_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lucille Pembrook, consistent Fair skin, sleek middle-parted dark hair, rosy cheeks, linen shirt and canvas tote",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lucille_pembrook_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lucille Pembrook, consistent Fair skin, sleek middle-parted dark hair, rosy cheeks, linen shirt and canvas tote",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lucille_pembrook_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lucille Pembrook, consistent Fair skin, sleek middle-parted dark hair, rosy cheeks, linen shirt and canvas tote",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and collecting unusual cookbooks.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-139",
+      "slug": "lara_newsome",
+      "name": "Lara Newsome",
+      "age": 22,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/lara_newsome_01.webp",
+        "assets/hinge/roster_expansion/lara_newsome_02.webp",
+        "assets/hinge/roster_expansion/lara_newsome_03.webp",
+        "assets/hinge/roster_expansion/lara_newsome_04.webp",
+        "assets/hinge/roster_expansion/lara_newsome_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lara_newsome_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lara Newsome, consistent Freckled fair skin, auburn shag with a curtain fringe, a wide bright smile, embroidered peasant blouse",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lara_newsome_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lara Newsome, consistent Freckled fair skin, auburn shag with a curtain fringe, a wide bright smile, embroidered peasant blouse",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lara_newsome_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lara Newsome, consistent Freckled fair skin, auburn shag with a curtain fringe, a wide bright smile, embroidered peasant blouse",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "playful until someone crosses a line",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and learning ballroom dancing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-140",
+      "slug": "willow_greene",
+      "name": "Willow Greene",
+      "age": 31,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/willow_greene_01.webp",
+        "assets/hinge/roster_expansion/willow_greene_02.webp",
+        "assets/hinge/roster_expansion/willow_greene_03.webp",
+        "assets/hinge/roster_expansion/willow_greene_04.webp",
+        "assets/hinge/roster_expansion/willow_greene_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/willow_greene_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Willow Greene, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, sandy shag with a fringe, amber eyes, band T-shirt under dungarees",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/willow_greene_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Willow Greene, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, sandy shag with a fringe, amber eyes, band T-shirt under dungarees",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/willow_greene_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Willow Greene, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, sandy shag with a fringe, amber eyes, band T-shirt under dungarees",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-141",
       "slug": "jasmin_malik",
       "name": "Jasmin Malik",
@@ -3390,6 +4454,386 @@
       ],
       "personality": "warm-hearted and somewhat impulsive",
       "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-143",
+      "slug": "nicolette_parrish",
+      "name": "Nicolette Parrish",
+      "age": 23,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/nicolette_parrish_01.webp",
+        "assets/hinge/roster_expansion/nicolette_parrish_02.webp",
+        "assets/hinge/roster_expansion/nicolette_parrish_03.webp",
+        "assets/hinge/roster_expansion/nicolette_parrish_04.webp",
+        "assets/hinge/roster_expansion/nicolette_parrish_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nicolette_parrish_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nicolette Parrish, consistent Waifish and long-limbed, a slim small-busted figure, very pale skin, prominent collarbones, wide-set dark sullen eyes, sparse pale eyebrows, a strawberry-blonde braid crown, gold hoop earrings, an oversized thrifted cardigan",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nicolette_parrish_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nicolette Parrish, consistent Waifish and long-limbed, a slim small-busted figure, very pale skin, prominent collarbones, wide-set dark sullen eyes, sparse pale eyebrows, a strawberry-blonde braid crown, gold hoop earrings, an oversized thrifted cardigan",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nicolette_parrish_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nicolette Parrish, consistent Waifish and long-limbed, a slim small-busted figure, very pale skin, prominent collarbones, wide-set dark sullen eyes, sparse pale eyebrows, a strawberry-blonde braid crown, gold hoop earrings, an oversized thrifted cardigan",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and planting a balcony herb garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-144",
+      "slug": "alma_sanders",
+      "name": "Alma Sanders",
+      "age": 33,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/alma_sanders_01.webp",
+        "assets/hinge/roster_expansion/alma_sanders_02.webp",
+        "assets/hinge/roster_expansion/alma_sanders_03.webp",
+        "assets/hinge/roster_expansion/alma_sanders_04.webp",
+        "assets/hinge/roster_expansion/alma_sanders_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/alma_sanders_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Alma Sanders, consistent Lightly tanned fair skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alma_sanders_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Alma Sanders, consistent Lightly tanned fair skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alma_sanders_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Alma Sanders, consistent Lightly tanned fair skin, dark brown messy bun, sharp winged eyeliner, linen shirt and canvas tote",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and making pottery after work.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-145",
+      "slug": "marlene_coates",
+      "name": "Marlene Coates",
+      "age": 25,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/marlene_coates_01.webp",
+        "assets/hinge/roster_expansion/marlene_coates_02.webp",
+        "assets/hinge/roster_expansion/marlene_coates_03.webp",
+        "assets/hinge/roster_expansion/marlene_coates_04.webp",
+        "assets/hinge/roster_expansion/marlene_coates_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/marlene_coates_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Marlene Coates, consistent Pale skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marlene_coates_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Marlene Coates, consistent Pale skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marlene_coates_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Marlene Coates, consistent Pale skin, glossy black ponytail, gold hoop earrings, mustard turtleneck",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-146",
+      "slug": "hollis_bennett",
+      "name": "Hollis Bennett",
+      "age": 34,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/hollis_bennett_01.webp",
+        "assets/hinge/roster_expansion/hollis_bennett_02.webp",
+        "assets/hinge/roster_expansion/hollis_bennett_03.webp",
+        "assets/hinge/roster_expansion/hollis_bennett_04.webp",
+        "assets/hinge/roster_expansion/hollis_bennett_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/hollis_bennett_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Hollis Bennett, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hollis_bennett_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Hollis Bennett, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/hollis_bennett_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Hollis Bennett, consistent A voluptuous hourglass figure with an enormous bust, lightly tanned fair skin, sleek middle-parted dark hair, strong dark brows, oversized thrifted cardigan",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and desert stargazing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-147",
+      "slug": "carla_hadley",
+      "name": "Carla Hadley",
+      "age": 27,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/carla_hadley_01.webp",
+        "assets/hinge/roster_expansion/carla_hadley_02.webp",
+        "assets/hinge/roster_expansion/carla_hadley_03.webp",
+        "assets/hinge/roster_expansion/carla_hadley_04.webp",
+        "assets/hinge/roster_expansion/carla_hadley_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/carla_hadley_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Carla Hadley, consistent Porcelain skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/carla_hadley_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Carla Hadley, consistent Porcelain skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/carla_hadley_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Carla Hadley, consistent Porcelain skin, wavy dark hair with a deep side part, a wide bright smile, embroidered peasant blouse",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and caring for an elderly rescue dog.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-148",
+      "slug": "daria_kowalski",
+      "name": "Daria Kowalski",
+      "age": 36,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/daria_kowalski_01.webp",
+        "assets/hinge/roster_expansion/daria_kowalski_02.webp",
+        "assets/hinge/roster_expansion/daria_kowalski_03.webp",
+        "assets/hinge/roster_expansion/daria_kowalski_04.webp",
+        "assets/hinge/roster_expansion/daria_kowalski_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/daria_kowalski_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Daria Kowalski, consistent Lightly tanned fair skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daria_kowalski_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Daria Kowalski, consistent Lightly tanned fair skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daria_kowalski_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Daria Kowalski, consistent Lightly tanned fair skin, dark French braid, a wide bright smile, linen shirt and canvas tote",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-150",
+      "slug": "april_kearney",
+      "name": "April Kearney",
+      "age": 18,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/april_kearney_01.webp",
+        "assets/hinge/roster_expansion/april_kearney_02.webp",
+        "assets/hinge/roster_expansion/april_kearney_03.webp",
+        "assets/hinge/roster_expansion/april_kearney_04.webp",
+        "assets/hinge/roster_expansion/april_kearney_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/april_kearney_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; April Kearney, consistent Fair skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/april_kearney_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; April Kearney, consistent Fair skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/april_kearney_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; April Kearney, consistent Fair skin, golden-brown ringlets, a gap-toothed smile, mustard turtleneck",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and fixing up a used bicycle.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-151",
+      "slug": "isla_jameson",
+      "name": "Isla Jameson",
+      "age": 28,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/isla_jameson_01.webp",
+        "assets/hinge/roster_expansion/isla_jameson_02.webp",
+        "assets/hinge/roster_expansion/isla_jameson_03.webp",
+        "assets/hinge/roster_expansion/isla_jameson_04.webp",
+        "assets/hinge/roster_expansion/isla_jameson_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/isla_jameson_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Isla Jameson, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, loose spiral curls, rosy cheeks, vintage windbreaker",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/isla_jameson_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Isla Jameson, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, loose spiral curls, rosy cheeks, vintage windbreaker",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/isla_jameson_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Isla Jameson, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, loose spiral curls, rosy cheeks, vintage windbreaker",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-154",
+      "slug": "annabel_yates",
+      "name": "Annabel Yates",
+      "age": 21,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/annabel_yates_01.webp",
+        "assets/hinge/roster_expansion/annabel_yates_02.webp",
+        "assets/hinge/roster_expansion/annabel_yates_03.webp",
+        "assets/hinge/roster_expansion/annabel_yates_04.webp",
+        "assets/hinge/roster_expansion/annabel_yates_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/annabel_yates_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Annabel Yates, consistent Fair skin, a long braid to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/annabel_yates_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Annabel Yates, consistent Fair skin, a long braid to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/annabel_yates_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Annabel Yates, consistent Fair skin, a long braid to the waist, long lashes and a sleepy gaze, band T-shirt under dungarees",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "playful until someone crosses a line",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and collecting vintage postcards.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-155",
+      "slug": "rhea_cooper",
+      "name": "Rhea Cooper",
+      "age": 31,
+      "factionId": "progressives",
+      "canonicalOccupation": "Climate campaigner",
+      "gallery": [
+        "assets/hinge/roster_expansion/rhea_cooper_01.webp",
+        "assets/hinge/roster_expansion/rhea_cooper_02.webp",
+        "assets/hinge/roster_expansion/rhea_cooper_03.webp",
+        "assets/hinge/roster_expansion/rhea_cooper_04.webp",
+        "assets/hinge/roster_expansion/rhea_cooper_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/rhea_cooper_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Rhea Cooper, consistent Freckled fair skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rhea_cooper_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Rhea Cooper, consistent Freckled fair skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rhea_cooper_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Rhea Cooper, consistent Freckled fair skin, sleek middle-parted dark hair, tortoiseshell glasses, corduroy jacket with enamel pins",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and restoring vintage dresses.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -3944,6 +5388,82 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-173",
+      "slug": "ashley_grant",
+      "name": "Ashley Grant",
+      "age": 32,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Television camera operator",
+      "gallery": [
+        "assets/hinge/roster_expansion/ashley_grant_01.webp",
+        "assets/hinge/roster_expansion/ashley_grant_02.webp",
+        "assets/hinge/roster_expansion/ashley_grant_03.webp",
+        "assets/hinge/roster_expansion/ashley_grant_04.webp",
+        "assets/hinge/roster_expansion/ashley_grant_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/ashley_grant_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Ashley Grant, consistent Fair skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit sweater and leather satchel",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ashley_grant_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Ashley Grant, consistent Fair skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit sweater and leather satchel",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ashley_grant_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Ashley Grant, consistent Fair skin, brown waves with teal tips, long lashes and a sleepy gaze, cable-knit sweater and leather satchel",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing television camera operator and restoring vintage dresses.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-174",
+      "slug": "nadine_wells",
+      "name": "Nadine Wells",
+      "age": 23,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Local radio researcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/nadine_wells_01.webp",
+        "assets/hinge/roster_expansion/nadine_wells_02.webp",
+        "assets/hinge/roster_expansion/nadine_wells_03.webp",
+        "assets/hinge/roster_expansion/nadine_wells_04.webp",
+        "assets/hinge/roster_expansion/nadine_wells_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nadine_wells_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nadine Wells, consistent Rail-thin and boyish, a slim small-busted figure, pale skin, hollow cheeks, dark tired sullen eyes, a tiny scar through one eyebrow, a sleek low bun, an oversized bomber jacket and graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nadine_wells_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nadine Wells, consistent Rail-thin and boyish, a slim small-busted figure, pale skin, hollow cheeks, dark tired sullen eyes, a tiny scar through one eyebrow, a sleek low bun, an oversized bomber jacket and graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nadine_wells_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nadine Wells, consistent Rail-thin and boyish, a slim small-busted figure, pale skin, hollow cheeks, dark tired sullen eyes, a tiny scar through one eyebrow, a sleek low bun, an oversized bomber jacket and graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing local radio researcher and baking elaborate cakes badly.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-175",
       "slug": "ellen_yamada",
       "name": "Ellen Yamada",
@@ -3979,6 +5499,538 @@
       ],
       "personality": "blunt and unexpectedly generous",
       "personalGoal": "Make a life for herself in Sunfall while balancing archive researcher and photographing diner neon signs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-176",
+      "slug": "felicity_stone",
+      "name": "Felicity Stone",
+      "age": 23,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Weekend newspaper editor",
+      "gallery": [
+        "assets/hinge/roster_expansion/felicity_stone_01.webp",
+        "assets/hinge/roster_expansion/felicity_stone_02.webp",
+        "assets/hinge/roster_expansion/felicity_stone_03.webp",
+        "assets/hinge/roster_expansion/felicity_stone_04.webp",
+        "assets/hinge/roster_expansion/felicity_stone_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/felicity_stone_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Felicity Stone, consistent Rail-thin and narrow-shouldered, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long straight nose, heavy-lidded dark sullen eyes, a glossy black ponytail, a silver ear cuff, a bomber jacket over a graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/felicity_stone_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Felicity Stone, consistent Rail-thin and narrow-shouldered, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long straight nose, heavy-lidded dark sullen eyes, a glossy black ponytail, a silver ear cuff, a bomber jacket over a graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/felicity_stone_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Felicity Stone, consistent Rail-thin and narrow-shouldered, a slim small-busted model figure, fair skin, sharp hollow cheekbones, a long straight nose, heavy-lidded dark sullen eyes, a glossy black ponytail, a silver ear cuff, a bomber jacket over a graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing weekend newspaper editor and birdwatching before breakfast.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-177",
+      "slug": "leanne_dalton",
+      "name": "Leanne Dalton",
+      "age": 35,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Investigative reporter",
+      "gallery": [
+        "assets/hinge/roster_expansion/leanne_dalton_01.webp",
+        "assets/hinge/roster_expansion/leanne_dalton_02.webp",
+        "assets/hinge/roster_expansion/leanne_dalton_03.webp",
+        "assets/hinge/roster_expansion/leanne_dalton_04.webp",
+        "assets/hinge/roster_expansion/leanne_dalton_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/leanne_dalton_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Leanne Dalton, consistent Tall, rangy and angular, a slim small-busted model figure, freckled fair skin, high sharp cheekbones, a beauty mark above her lip, hooded dark eyes with a cool sullen stare, a sleek low bun, a striped shirt under a trench coat",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/leanne_dalton_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Leanne Dalton, consistent Tall, rangy and angular, a slim small-busted model figure, freckled fair skin, high sharp cheekbones, a beauty mark above her lip, hooded dark eyes with a cool sullen stare, a sleek low bun, a striped shirt under a trench coat",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/leanne_dalton_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Leanne Dalton, consistent Tall, rangy and angular, a slim small-busted model figure, freckled fair skin, high sharp cheekbones, a beauty mark above her lip, hooded dark eyes with a cool sullen stare, a sleek low bun, a striped shirt under a trench coat",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "playful until someone crosses a line",
+      "personalGoal": "Make a life for herself in Sunfall while balancing investigative reporter and volunteering at a thrift shop.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-178",
+      "slug": "mina_kerr",
+      "name": "Mina Kerr",
+      "age": 24,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Freelance music reviewer",
+      "gallery": [
+        "assets/hinge/roster_expansion/mina_kerr_01.webp",
+        "assets/hinge/roster_expansion/mina_kerr_02.webp",
+        "assets/hinge/roster_expansion/mina_kerr_03.webp",
+        "assets/hinge/roster_expansion/mina_kerr_04.webp",
+        "assets/hinge/roster_expansion/mina_kerr_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/mina_kerr_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Mina Kerr, consistent A voluptuous hourglass figure with an enormous bust, pale skin, long wavy hair with gold clips, thin wire-rimmed glasses, press lanyard and denim jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mina_kerr_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Mina Kerr, consistent A voluptuous hourglass figure with an enormous bust, pale skin, long wavy hair with gold clips, thin wire-rimmed glasses, press lanyard and denim jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mina_kerr_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Mina Kerr, consistent A voluptuous hourglass figure with an enormous bust, pale skin, long wavy hair with gold clips, thin wire-rimmed glasses, press lanyard and denim jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing freelance music reviewer and playing five-on-five soccer.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-179",
+      "slug": "rosie_nolan",
+      "name": "Rosie Nolan",
+      "age": 36,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Photography assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/rosie_nolan_01.webp",
+        "assets/hinge/roster_expansion/rosie_nolan_02.webp",
+        "assets/hinge/roster_expansion/rosie_nolan_03.webp",
+        "assets/hinge/roster_expansion/rosie_nolan_04.webp",
+        "assets/hinge/roster_expansion/rosie_nolan_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/rosie_nolan_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Rosie Nolan, consistent Porcelain skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosie_nolan_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Rosie Nolan, consistent Porcelain skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/rosie_nolan_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Rosie Nolan, consistent Porcelain skin, ash-blonde lob, a gap-toothed smile, black turtleneck and blazer",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing photography assistant and teaching herself the drums.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-180",
+      "slug": "susie_mathers",
+      "name": "Susie Mathers",
+      "age": 27,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Court reporter",
+      "gallery": [
+        "assets/hinge/roster_expansion/susie_mathers_01.webp",
+        "assets/hinge/roster_expansion/susie_mathers_02.webp",
+        "assets/hinge/roster_expansion/susie_mathers_03.webp",
+        "assets/hinge/roster_expansion/susie_mathers_04.webp",
+        "assets/hinge/roster_expansion/susie_mathers_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/susie_mathers_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Susie Mathers, consistent Rosy fair skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/susie_mathers_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Susie Mathers, consistent Rosy fair skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/susie_mathers_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Susie Mathers, consistent Rosy fair skin, chin-length raven bob with a fringe, tortoiseshell glasses, bomber jacket and graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing court reporter and trying to learn Italian.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-181",
+      "slug": "gina_fowler",
+      "name": "Gina Fowler",
+      "age": 35,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Newsroom fact-checker",
+      "gallery": [
+        "assets/hinge/roster_expansion/gina_fowler_01.webp",
+        "assets/hinge/roster_expansion/gina_fowler_02.webp",
+        "assets/hinge/roster_expansion/gina_fowler_03.webp",
+        "assets/hinge/roster_expansion/gina_fowler_04.webp",
+        "assets/hinge/roster_expansion/gina_fowler_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/gina_fowler_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Gina Fowler, consistent A voluptuous hourglass figure with an enormous bust, freckled fair skin, loose spiral curls, rosy cheeks, utility vest with many pockets",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/gina_fowler_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Gina Fowler, consistent A voluptuous hourglass figure with an enormous bust, freckled fair skin, loose spiral curls, rosy cheeks, utility vest with many pockets",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/gina_fowler_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Gina Fowler, consistent A voluptuous hourglass figure with an enormous bust, freckled fair skin, loose spiral curls, rosy cheeks, utility vest with many pockets",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing newsroom fact-checker and making elaborate paper collages.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-182",
+      "slug": "wendy_chalmers",
+      "name": "Wendy Chalmers",
+      "age": 28,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Travel columnist",
+      "gallery": [
+        "assets/hinge/roster_expansion/wendy_chalmers_01.webp",
+        "assets/hinge/roster_expansion/wendy_chalmers_02.webp",
+        "assets/hinge/roster_expansion/wendy_chalmers_03.webp",
+        "assets/hinge/roster_expansion/wendy_chalmers_04.webp",
+        "assets/hinge/roster_expansion/wendy_chalmers_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/wendy_chalmers_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Wendy Chalmers, consistent Freckled fair skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/wendy_chalmers_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Wendy Chalmers, consistent Freckled fair skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/wendy_chalmers_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Wendy Chalmers, consistent Freckled fair skin, burgundy-dyed curls, a wide bright smile, bomber jacket and graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing travel columnist and keeping a handwritten travel journal.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-183",
+      "slug": "jules_moreland",
+      "name": "Jules Moreland",
+      "age": 19,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Sports journalist",
+      "gallery": [
+        "assets/hinge/roster_expansion/jules_moreland_01.webp",
+        "assets/hinge/roster_expansion/jules_moreland_02.webp",
+        "assets/hinge/roster_expansion/jules_moreland_03.webp",
+        "assets/hinge/roster_expansion/jules_moreland_04.webp",
+        "assets/hinge/roster_expansion/jules_moreland_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/jules_moreland_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Jules Moreland, consistent Pale skin, ash-blonde lob, thin wire-rimmed glasses, bomber jacket and graphic tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jules_moreland_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Jules Moreland, consistent Pale skin, ash-blonde lob, thin wire-rimmed glasses, bomber jacket and graphic tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jules_moreland_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Jules Moreland, consistent Pale skin, ash-blonde lob, thin wire-rimmed glasses, bomber jacket and graphic tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing sports journalist and organizing a neighborhood film night.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-185",
+      "slug": "imogen_reyes",
+      "name": "Imogen Reyes",
+      "age": 19,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Local radio researcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/imogen_reyes_01.webp",
+        "assets/hinge/roster_expansion/imogen_reyes_02.webp",
+        "assets/hinge/roster_expansion/imogen_reyes_03.webp",
+        "assets/hinge/roster_expansion/imogen_reyes_04.webp",
+        "assets/hinge/roster_expansion/imogen_reyes_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/imogen_reyes_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Imogen Reyes, consistent Light-brown skin, honey-blonde beach waves, rosy cheeks, press lanyard and denim jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/imogen_reyes_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Imogen Reyes, consistent Light-brown skin, honey-blonde beach waves, rosy cheeks, press lanyard and denim jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/imogen_reyes_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Imogen Reyes, consistent Light-brown skin, honey-blonde beach waves, rosy cheeks, press lanyard and denim jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing local radio researcher and practicing watercolour landscapes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-186",
+      "slug": "bea_hollis",
+      "name": "Bea Hollis",
+      "age": 30,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Archive researcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/bea_hollis_01.webp",
+        "assets/hinge/roster_expansion/bea_hollis_02.webp",
+        "assets/hinge/roster_expansion/bea_hollis_03.webp",
+        "assets/hinge/roster_expansion/bea_hollis_04.webp",
+        "assets/hinge/roster_expansion/bea_hollis_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/bea_hollis_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Bea Hollis, consistent A voluptuous hourglass figure with an enormous bust, pale skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bea_hollis_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Bea Hollis, consistent A voluptuous hourglass figure with an enormous bust, pale skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bea_hollis_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Bea Hollis, consistent A voluptuous hourglass figure with an enormous bust, pale skin, short silver-dyed crop, gold hoop earrings, press lanyard and denim jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing archive researcher and singing in a small local choir.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-187",
+      "slug": "tova_lindqvist",
+      "name": "Tova Lindqvist",
+      "age": 20,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Weekend newspaper editor",
+      "gallery": [
+        "assets/hinge/roster_expansion/tova_lindqvist_01.webp",
+        "assets/hinge/roster_expansion/tova_lindqvist_02.webp",
+        "assets/hinge/roster_expansion/tova_lindqvist_03.webp",
+        "assets/hinge/roster_expansion/tova_lindqvist_04.webp",
+        "assets/hinge/roster_expansion/tova_lindqvist_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/tova_lindqvist_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Tova Lindqvist, consistent Fair skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tova_lindqvist_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Tova Lindqvist, consistent Fair skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/tova_lindqvist_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Tova Lindqvist, consistent Fair skin, jet-black waist-length hair, thin wire-rimmed glasses, black turtleneck and blazer",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing weekend newspaper editor and collecting unusual cookbooks.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-188",
+      "slug": "polly_dashwood",
+      "name": "Polly Dashwood",
+      "age": 29,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Investigative reporter",
+      "gallery": [
+        "assets/hinge/roster_expansion/polly_dashwood_01.webp",
+        "assets/hinge/roster_expansion/polly_dashwood_02.webp",
+        "assets/hinge/roster_expansion/polly_dashwood_03.webp",
+        "assets/hinge/roster_expansion/polly_dashwood_04.webp",
+        "assets/hinge/roster_expansion/polly_dashwood_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/polly_dashwood_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Polly Dashwood, consistent Freckled fair skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit sweater and leather satchel",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/polly_dashwood_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Polly Dashwood, consistent Freckled fair skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit sweater and leather satchel",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/polly_dashwood_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Polly Dashwood, consistent Freckled fair skin, chestnut curly bob, thin wire-rimmed glasses, cable-knit sweater and leather satchel",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing investigative reporter and learning ballroom dancing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-189",
+      "slug": "marnie_quill",
+      "name": "Marnie Quill",
+      "age": 21,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Freelance music reviewer",
+      "gallery": [
+        "assets/hinge/roster_expansion/marnie_quill_01.webp",
+        "assets/hinge/roster_expansion/marnie_quill_02.webp",
+        "assets/hinge/roster_expansion/marnie_quill_03.webp",
+        "assets/hinge/roster_expansion/marnie_quill_04.webp",
+        "assets/hinge/roster_expansion/marnie_quill_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/marnie_quill_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Marnie Quill, consistent Pale skin, a high curly ponytail, tortoiseshell glasses, rolled-sleeve oxford shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marnie_quill_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Marnie Quill, consistent Pale skin, a high curly ponytail, tortoiseshell glasses, rolled-sleeve oxford shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/marnie_quill_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Marnie Quill, consistent Pale skin, a high curly ponytail, tortoiseshell glasses, rolled-sleeve oxford shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing freelance music reviewer and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-190",
+      "slug": "corinne_gale",
+      "name": "Corinne Gale",
+      "age": 31,
+      "factionId": "fourth_estate",
+      "canonicalOccupation": "Photography assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/corinne_gale_01.webp",
+        "assets/hinge/roster_expansion/corinne_gale_02.webp",
+        "assets/hinge/roster_expansion/corinne_gale_03.webp",
+        "assets/hinge/roster_expansion/corinne_gale_04.webp",
+        "assets/hinge/roster_expansion/corinne_gale_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/corinne_gale_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Corinne Gale, consistent Rosy fair skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/corinne_gale_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Corinne Gale, consistent Rosy fair skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/corinne_gale_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Corinne Gale, consistent Rosy fair skin, platinum pixie cut, strong dark brows, chambray shirt and chinos",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing photography assistant and running an informal book club.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -4248,6 +6300,120 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-200",
+      "slug": "ophelia_byrne",
+      "name": "Ophelia Byrne",
+      "age": 29,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/ophelia_byrne_01.webp",
+        "assets/hinge/roster_expansion/ophelia_byrne_02.webp",
+        "assets/hinge/roster_expansion/ophelia_byrne_03.webp",
+        "assets/hinge/roster_expansion/ophelia_byrne_04.webp",
+        "assets/hinge/roster_expansion/ophelia_byrne_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/ophelia_byrne_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Ophelia Byrne, consistent Sun-kissed fair skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ophelia_byrne_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Ophelia Byrne, consistent Sun-kissed fair skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ophelia_byrne_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Ophelia Byrne, consistent Sun-kissed fair skin, chestnut high ponytail, gold hoop earrings, black mesh top and tartan skirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and collecting unusual cookbooks.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-201",
+      "slug": "nyx_calder",
+      "name": "Nyx Calder",
+      "age": 20,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/nyx_calder_01.webp",
+        "assets/hinge/roster_expansion/nyx_calder_02.webp",
+        "assets/hinge/roster_expansion/nyx_calder_03.webp",
+        "assets/hinge/roster_expansion/nyx_calder_04.webp",
+        "assets/hinge/roster_expansion/nyx_calder_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nyx_calder_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nyx Calder, consistent Pale skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nyx_calder_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nyx Calder, consistent Pale skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nyx_calder_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nyx Calder, consistent Pale skin, strawberry-blonde braid crown, tortoiseshell glasses, black mesh top and tartan skirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and learning ballroom dancing.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-202",
+      "slug": "selene_ward",
+      "name": "Selene Ward",
+      "age": 30,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/selene_ward_01.webp",
+        "assets/hinge/roster_expansion/selene_ward_02.webp",
+        "assets/hinge/roster_expansion/selene_ward_03.webp",
+        "assets/hinge/roster_expansion/selene_ward_04.webp",
+        "assets/hinge/roster_expansion/selene_ward_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/selene_ward_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Selene Ward, consistent Thin and very pale, a slim small-busted figure, hollow cheeks, long lashes over dark sleepy sullen eyes with shadows beneath, a sleek low bun, a velvet choker and black slip dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/selene_ward_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Selene Ward, consistent Thin and very pale, a slim small-busted figure, hollow cheeks, long lashes over dark sleepy sullen eyes with shadows beneath, a sleek low bun, a velvet choker and black slip dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/selene_ward_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Selene Ward, consistent Thin and very pale, a slim small-busted figure, hollow cheeks, long lashes over dark sleepy sullen eyes with shadows beneath, a sleek low bun, a velvet choker and black slip dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-203",
       "slug": "billie_wraith",
       "name": "Billie Wraith",
@@ -4283,6 +6449,82 @@
       ],
       "personality": "playful until someone crosses a line",
       "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and running an informal book club.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-204",
+      "slug": "indigo_crossley",
+      "name": "Indigo Crossley",
+      "age": 31,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/indigo_crossley_01.webp",
+        "assets/hinge/roster_expansion/indigo_crossley_02.webp",
+        "assets/hinge/roster_expansion/indigo_crossley_03.webp",
+        "assets/hinge/roster_expansion/indigo_crossley_04.webp",
+        "assets/hinge/roster_expansion/indigo_crossley_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/indigo_crossley_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Indigo Crossley, consistent Tall and gaunt, a slim small-busted figure, rosy fair skin with a dusting of freckles, a long narrow face, wide-set dark sullen eyes behind tortoiseshell glasses, long red curls, a plum corset dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/indigo_crossley_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Indigo Crossley, consistent Tall and gaunt, a slim small-busted figure, rosy fair skin with a dusting of freckles, a long narrow face, wide-set dark sullen eyes behind tortoiseshell glasses, long red curls, a plum corset dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/indigo_crossley_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Indigo Crossley, consistent Tall and gaunt, a slim small-busted figure, rosy fair skin with a dusting of freckles, a long narrow face, wide-set dark sullen eyes behind tortoiseshell glasses, long red curls, a plum corset dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and keeping an indoor cactus garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-205",
+      "slug": "moth_delaney",
+      "name": "Moth Delaney",
+      "age": 21,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/moth_delaney_01.webp",
+        "assets/hinge/roster_expansion/moth_delaney_02.webp",
+        "assets/hinge/roster_expansion/moth_delaney_03.webp",
+        "assets/hinge/roster_expansion/moth_delaney_04.webp",
+        "assets/hinge/roster_expansion/moth_delaney_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/moth_delaney_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Moth Delaney, consistent Bird-boned and waifish, a slim small-busted figure, porcelain skin, a narrow fox-like face, enormous kohl-smudged dark sullen eyes, a beauty mark above her lip, wavy dark hair with a deep side part, black jeans and silver-buckled platform boots",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/moth_delaney_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Moth Delaney, consistent Bird-boned and waifish, a slim small-busted figure, porcelain skin, a narrow fox-like face, enormous kohl-smudged dark sullen eyes, a beauty mark above her lip, wavy dark hair with a deep side part, black jeans and silver-buckled platform boots",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/moth_delaney_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Moth Delaney, consistent Bird-boned and waifish, a slim small-busted figure, porcelain skin, a narrow fox-like face, enormous kohl-smudged dark sullen eyes, a beauty mark above her lip, wavy dark hair with a deep side part, black jeans and silver-buckled platform boots",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and planting a balcony herb garden.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -4324,6 +6566,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-207",
+      "slug": "astrid_sorrow",
+      "name": "Astrid Sorrow",
+      "age": 21,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/astrid_sorrow_01.webp",
+        "assets/hinge/roster_expansion/astrid_sorrow_02.webp",
+        "assets/hinge/roster_expansion/astrid_sorrow_03.webp",
+        "assets/hinge/roster_expansion/astrid_sorrow_04.webp",
+        "assets/hinge/roster_expansion/astrid_sorrow_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/astrid_sorrow_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Astrid Sorrow, consistent Freckled fair skin, glossy black ponytail, a silver ear cuff, fishnet sleeves under a band tee",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/astrid_sorrow_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Astrid Sorrow, consistent Freckled fair skin, glossy black ponytail, a silver ear cuff, fishnet sleeves under a band tee",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/astrid_sorrow_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Astrid Sorrow, consistent Freckled fair skin, glossy black ponytail, a silver ear cuff, fishnet sleeves under a band tee",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and sketching old shopfronts.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-208",
       "slug": "salem_bell",
       "name": "Salem Bell",
@@ -4362,6 +6642,234 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-209",
+      "slug": "coraline_dusk",
+      "name": "Coraline Dusk",
+      "age": 22,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/coraline_dusk_01.webp",
+        "assets/hinge/roster_expansion/coraline_dusk_02.webp",
+        "assets/hinge/roster_expansion/coraline_dusk_03.webp",
+        "assets/hinge/roster_expansion/coraline_dusk_04.webp",
+        "assets/hinge/roster_expansion/coraline_dusk_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/coraline_dusk_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Coraline Dusk, consistent Freckled fair skin, jet-black waist-length hair, a gap-toothed smile, velvet choker and black slip dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/coraline_dusk_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Coraline Dusk, consistent Freckled fair skin, jet-black waist-length hair, a gap-toothed smile, velvet choker and black slip dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/coraline_dusk_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Coraline Dusk, consistent Freckled fair skin, jet-black waist-length hair, a gap-toothed smile, velvet choker and black slip dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and caring for an elderly rescue dog.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-210",
+      "slug": "juno_varley",
+      "name": "Juno Varley",
+      "age": 34,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/juno_varley_01.webp",
+        "assets/hinge/roster_expansion/juno_varley_02.webp",
+        "assets/hinge/roster_expansion/juno_varley_03.webp",
+        "assets/hinge/roster_expansion/juno_varley_04.webp",
+        "assets/hinge/roster_expansion/juno_varley_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/juno_varley_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Juno Varley, consistent Fair skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/juno_varley_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Juno Varley, consistent Fair skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/juno_varley_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Juno Varley, consistent Fair skin, sleek middle-parted dark hair, a gap-toothed smile, long black velvet coat",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quietly intense and loyal",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-213",
+      "slug": "eris_moon",
+      "name": "Eris Moon",
+      "age": 26,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/eris_moon_01.webp",
+        "assets/hinge/roster_expansion/eris_moon_02.webp",
+        "assets/hinge/roster_expansion/eris_moon_03.webp",
+        "assets/hinge/roster_expansion/eris_moon_04.webp",
+        "assets/hinge/roster_expansion/eris_moon_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/eris_moon_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Eris Moon, consistent Lightly tanned fair skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eris_moon_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Eris Moon, consistent Lightly tanned fair skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eris_moon_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Eris Moon, consistent Lightly tanned fair skin, platinum pixie cut, thin wire-rimmed glasses, plum corset dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-215",
+      "slug": "wren_black",
+      "name": "Wren Black",
+      "age": 27,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/wren_black_01.webp",
+        "assets/hinge/roster_expansion/wren_black_02.webp",
+        "assets/hinge/roster_expansion/wren_black_03.webp",
+        "assets/hinge/roster_expansion/wren_black_04.webp",
+        "assets/hinge/roster_expansion/wren_black_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/wren_black_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Wren Black, consistent A voluptuous hourglass figure with an enormous bust, pale skin, copper waist-length waves, strong dark brows, studded leather jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/wren_black_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Wren Black, consistent A voluptuous hourglass figure with an enormous bust, pale skin, copper waist-length waves, strong dark brows, studded leather jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/wren_black_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Wren Black, consistent A voluptuous hourglass figure with an enormous bust, pale skin, copper waist-length waves, strong dark brows, studded leather jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-216",
+      "slug": "milena_kovac",
+      "name": "Milena Kovac",
+      "age": 36,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/milena_kovac_01.webp",
+        "assets/hinge/roster_expansion/milena_kovac_02.webp",
+        "assets/hinge/roster_expansion/milena_kovac_03.webp",
+        "assets/hinge/roster_expansion/milena_kovac_04.webp",
+        "assets/hinge/roster_expansion/milena_kovac_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/milena_kovac_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Milena Kovac, consistent Rosy fair skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/milena_kovac_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Milena Kovac, consistent Rosy fair skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/milena_kovac_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Milena Kovac, consistent Rosy fair skin, short silver-dyed crop, a wide bright smile, black mesh top and tartan skirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and collecting vintage postcards.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-217",
+      "slug": "vesper_lane",
+      "name": "Vesper Lane",
+      "age": 27,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/vesper_lane_01.webp",
+        "assets/hinge/roster_expansion/vesper_lane_02.webp",
+        "assets/hinge/roster_expansion/vesper_lane_03.webp",
+        "assets/hinge/roster_expansion/vesper_lane_04.webp",
+        "assets/hinge/roster_expansion/vesper_lane_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/vesper_lane_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Vesper Lane, consistent Lightly tanned fair skin, long red curls, strong dark brows, plum corset dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/vesper_lane_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Vesper Lane, consistent Lightly tanned fair skin, long red curls, strong dark brows, plum corset dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/vesper_lane_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Vesper Lane, consistent Lightly tanned fair skin, long red curls, strong dark brows, plum corset dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and restoring vintage dresses.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-218",
       "slug": "hex_morrow",
       "name": "Hex Morrow",
@@ -4397,6 +6905,44 @@
       ],
       "personality": "playful until someone crosses a line",
       "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and baking elaborate cakes badly.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-219",
+      "slug": "dahlia_grieve",
+      "name": "Dahlia Grieve",
+      "age": 28,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/dahlia_grieve_01.webp",
+        "assets/hinge/roster_expansion/dahlia_grieve_02.webp",
+        "assets/hinge/roster_expansion/dahlia_grieve_03.webp",
+        "assets/hinge/roster_expansion/dahlia_grieve_04.webp",
+        "assets/hinge/roster_expansion/dahlia_grieve_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/dahlia_grieve_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Dahlia Grieve, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, short silver-dyed crop, gray-green eyes, velvet choker and black slip dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/dahlia_grieve_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Dahlia Grieve, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, short silver-dyed crop, gray-green eyes, velvet choker and black slip dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/dahlia_grieve_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Dahlia Grieve, consistent A voluptuous hourglass figure with an enormous bust, porcelain skin, short silver-dyed crop, gray-green eyes, velvet choker and black slip dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and photographing diner neon signs.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -4552,6 +7098,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-227",
+      "slug": "jade_carter",
+      "name": "Jade Carter",
+      "age": 18,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Swimming coach",
+      "gallery": [
+        "assets/hinge/roster_expansion/jade_carter_01.webp",
+        "assets/hinge/roster_expansion/jade_carter_02.webp",
+        "assets/hinge/roster_expansion/jade_carter_03.webp",
+        "assets/hinge/roster_expansion/jade_carter_04.webp",
+        "assets/hinge/roster_expansion/jade_carter_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/jade_carter_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Jade Carter, consistent Waifish and slight, a slim small-busted figure, pale freckled skin, wide-set gray eyes with a sleepy sullen gaze, a gap-toothed smile, golden-brown ringlets, an oversized yellow sundress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jade_carter_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Jade Carter, consistent Waifish and slight, a slim small-busted figure, pale freckled skin, wide-set gray eyes with a sleepy sullen gaze, a gap-toothed smile, golden-brown ringlets, an oversized yellow sundress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jade_carter_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Jade Carter, consistent Waifish and slight, a slim small-busted figure, pale freckled skin, wide-set gray eyes with a sleepy sullen gaze, a gap-toothed smile, golden-brown ringlets, an oversized yellow sundress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and learning to repair watches.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-228",
       "slug": "karina_flores",
       "name": "Karina Flores",
@@ -4628,6 +7212,82 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-230",
+      "slug": "christina_brooks",
+      "name": "Christina Brooks",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Primary school teacher",
+      "gallery": [
+        "assets/hinge/roster_expansion/christina_brooks_01.webp",
+        "assets/hinge/roster_expansion/christina_brooks_02.webp",
+        "assets/hinge/roster_expansion/christina_brooks_03.webp",
+        "assets/hinge/roster_expansion/christina_brooks_04.webp",
+        "assets/hinge/roster_expansion/christina_brooks_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/christina_brooks_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Christina Brooks, consistent Lightly tanned fair skin, a sleek low bun, a wide bright smile, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/christina_brooks_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Christina Brooks, consistent Lightly tanned fair skin, a sleek low bun, a wide bright smile, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/christina_brooks_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Christina Brooks, consistent Lightly tanned fair skin, a sleek low bun, a wide bright smile, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing primary school teacher and planting a balcony herb garden.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-231",
+      "slug": "daphne_laurent",
+      "name": "Daphne Laurent",
+      "age": 20,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Dog walker",
+      "gallery": [
+        "assets/hinge/roster_expansion/daphne_laurent_01.webp",
+        "assets/hinge/roster_expansion/daphne_laurent_02.webp",
+        "assets/hinge/roster_expansion/daphne_laurent_03.webp",
+        "assets/hinge/roster_expansion/daphne_laurent_04.webp",
+        "assets/hinge/roster_expansion/daphne_laurent_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/daphne_laurent_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Daphne Laurent, consistent Pale skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daphne_laurent_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Daphne Laurent, consistent Pale skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/daphne_laurent_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Daphne Laurent, consistent Pale skin, short silver-dyed crop, freckles across her nose, floral blouse and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing dog walker and making pottery after work.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-232",
       "slug": "riley_dawson",
       "name": "Riley Dawson",
@@ -4666,6 +7326,234 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-234",
+      "slug": "avery_rhodes",
+      "name": "Avery Rhodes",
+      "age": 30,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/roster_expansion/avery_rhodes_01.webp",
+        "assets/hinge/roster_expansion/avery_rhodes_02.webp",
+        "assets/hinge/roster_expansion/avery_rhodes_03.webp",
+        "assets/hinge/roster_expansion/avery_rhodes_04.webp",
+        "assets/hinge/roster_expansion/avery_rhodes_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/avery_rhodes_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Avery Rhodes, consistent Waifish and slight, a slim small-busted figure, pale skin, a small sharp chin, enormous heavy-lidded amber eyes with a sleepy sullen gaze, a tiny gap between her front teeth, black space buns, a turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/avery_rhodes_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Avery Rhodes, consistent Waifish and slight, a slim small-busted figure, pale skin, a small sharp chin, enormous heavy-lidded amber eyes with a sleepy sullen gaze, a tiny gap between her front teeth, black space buns, a turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/avery_rhodes_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Avery Rhodes, consistent Waifish and slight, a slim small-busted figure, pale skin, a small sharp chin, enormous heavy-lidded amber eyes with a sleepy sullen gaze, a tiny gap between her front teeth, black space buns, a turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and caring for an elderly rescue dog.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-235",
+      "slug": "summer_barton",
+      "name": "Summer Barton",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pharmacy assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/summer_barton_01.webp",
+        "assets/hinge/roster_expansion/summer_barton_02.webp",
+        "assets/hinge/roster_expansion/summer_barton_03.webp",
+        "assets/hinge/roster_expansion/summer_barton_04.webp",
+        "assets/hinge/roster_expansion/summer_barton_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/summer_barton_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Summer Barton, consistent Slight and narrow-shouldered, a slim small-busted figure, pale skin with faint shadows under her eyes, a slightly upturned nose, long lashes over dark sleepy sullen eyes, an auburn shag with a curtain fringe, a mint polo shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/summer_barton_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Summer Barton, consistent Slight and narrow-shouldered, a slim small-busted figure, pale skin with faint shadows under her eyes, a slightly upturned nose, long lashes over dark sleepy sullen eyes, an auburn shag with a curtain fringe, a mint polo shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/summer_barton_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Summer Barton, consistent Slight and narrow-shouldered, a slim small-busted figure, pale skin with faint shadows under her eyes, a slightly upturned nose, long lashes over dark sleepy sullen eyes, an auburn shag with a curtain fringe, a mint polo shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pharmacy assistant and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-236",
+      "slug": "jenna_newton",
+      "name": "Jenna Newton",
+      "age": 31,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Museum attendant",
+      "gallery": [
+        "assets/hinge/roster_expansion/jenna_newton_01.webp",
+        "assets/hinge/roster_expansion/jenna_newton_02.webp",
+        "assets/hinge/roster_expansion/jenna_newton_03.webp",
+        "assets/hinge/roster_expansion/jenna_newton_04.webp",
+        "assets/hinge/roster_expansion/jenna_newton_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/jenna_newton_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Jenna Newton, consistent Freckled fair skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jenna_newton_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Jenna Newton, consistent Freckled fair skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/jenna_newton_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Jenna Newton, consistent Freckled fair skin, layered caramel shoulder-length hair, a silver ear cuff, floral blouse and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "warm-hearted and somewhat impulsive",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum attendant and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-237",
+      "slug": "lila_thompson",
+      "name": "Lila Thompson",
+      "age": 22,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Real estate agent",
+      "gallery": [
+        "assets/hinge/roster_expansion/lila_thompson_01.webp",
+        "assets/hinge/roster_expansion/lila_thompson_02.webp",
+        "assets/hinge/roster_expansion/lila_thompson_03.webp",
+        "assets/hinge/roster_expansion/lila_thompson_04.webp",
+        "assets/hinge/roster_expansion/lila_thompson_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lila_thompson_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lila Thompson, consistent Fair skin, a high curly ponytail, rosy cheeks, pink zip hoodie",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lila_thompson_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lila Thompson, consistent Fair skin, a high curly ponytail, rosy cheeks, pink zip hoodie",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lila_thompson_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lila Thompson, consistent Fair skin, a high curly ponytail, rosy cheeks, pink zip hoodie",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "poised and fiercely independent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing real estate agent and fixing up a used bicycle.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-238",
+      "slug": "melody_brooks",
+      "name": "Melody Brooks",
+      "age": 34,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Swimming coach",
+      "gallery": [
+        "assets/hinge/roster_expansion/melody_brooks_01.webp",
+        "assets/hinge/roster_expansion/melody_brooks_02.webp",
+        "assets/hinge/roster_expansion/melody_brooks_03.webp",
+        "assets/hinge/roster_expansion/melody_brooks_04.webp",
+        "assets/hinge/roster_expansion/melody_brooks_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/melody_brooks_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Melody Brooks, consistent A voluptuous hourglass figure with an enormous bust, fair skin, golden-brown ringlets, gold hoop earrings, turquoise peasant top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/melody_brooks_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Melody Brooks, consistent A voluptuous hourglass figure with an enormous bust, fair skin, golden-brown ringlets, gold hoop earrings, turquoise peasant top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/melody_brooks_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Melody Brooks, consistent A voluptuous hourglass figure with an enormous bust, fair skin, golden-brown ringlets, gold hoop earrings, turquoise peasant top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "restless, ambitious and charming",
+      "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-239",
+      "slug": "eva_castle",
+      "name": "Eva Castle",
+      "age": 25,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Tour guide",
+      "gallery": [
+        "assets/hinge/roster_expansion/eva_castle_01.webp",
+        "assets/hinge/roster_expansion/eva_castle_02.webp",
+        "assets/hinge/roster_expansion/eva_castle_03.webp",
+        "assets/hinge/roster_expansion/eva_castle_04.webp",
+        "assets/hinge/roster_expansion/eva_castle_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/eva_castle_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Eva Castle, consistent Pale skin, blunt black bob, tortoiseshell glasses, lavender knit top",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eva_castle_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Eva Castle, consistent Pale skin, blunt black bob, tortoiseshell glasses, lavender knit top",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/eva_castle_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Eva Castle, consistent Pale skin, blunt black bob, tortoiseshell glasses, lavender knit top",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "friendly and prone to overthinking",
+      "personalGoal": "Make a life for herself in Sunfall while balancing tour guide and teaching her younger cousin guitar.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-240",
       "slug": "giselle_ford",
       "name": "Giselle Ford",
@@ -4701,6 +7589,272 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-244",
+      "slug": "trinity_west",
+      "name": "Trinity West",
+      "age": 37,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Florist",
+      "gallery": [
+        "assets/hinge/roster_expansion/trinity_west_01.webp",
+        "assets/hinge/roster_expansion/trinity_west_02.webp",
+        "assets/hinge/roster_expansion/trinity_west_03.webp",
+        "assets/hinge/roster_expansion/trinity_west_04.webp",
+        "assets/hinge/roster_expansion/trinity_west_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/trinity_west_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Trinity West, consistent Rosy fair skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/trinity_west_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Trinity West, consistent Rosy fair skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/trinity_west_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Trinity West, consistent Rosy fair skin, ash-blonde lob, a beauty mark above her lip, mint polo shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "earnest and occasionally awkward",
+      "personalGoal": "Make a life for herself in Sunfall while balancing florist and photographing diner neon signs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-245",
+      "slug": "faye_dawson",
+      "name": "Faye Dawson",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pastry chef",
+      "gallery": [
+        "assets/hinge/roster_expansion/faye_dawson_01.webp",
+        "assets/hinge/roster_expansion/faye_dawson_02.webp",
+        "assets/hinge/roster_expansion/faye_dawson_03.webp",
+        "assets/hinge/roster_expansion/faye_dawson_04.webp",
+        "assets/hinge/roster_expansion/faye_dawson_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/faye_dawson_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Faye Dawson, consistent A voluptuous hourglass figure with an enormous bust, pale skin, soft brown fringe and a low knot, long lashes and a sleepy gaze, yellow sundress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/faye_dawson_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Faye Dawson, consistent A voluptuous hourglass figure with an enormous bust, pale skin, soft brown fringe and a low knot, long lashes and a sleepy gaze, yellow sundress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/faye_dawson_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Faye Dawson, consistent A voluptuous hourglass figure with an enormous bust, pale skin, soft brown fringe and a low knot, long lashes and a sleepy gaze, yellow sundress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "sunny but stubborn",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pastry chef and birdwatching before breakfast.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-246",
+      "slug": "nikki_maddox",
+      "name": "Nikki Maddox",
+      "age": 19,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Pharmacy assistant",
+      "gallery": [
+        "assets/hinge/roster_expansion/nikki_maddox_01.webp",
+        "assets/hinge/roster_expansion/nikki_maddox_02.webp",
+        "assets/hinge/roster_expansion/nikki_maddox_03.webp",
+        "assets/hinge/roster_expansion/nikki_maddox_04.webp",
+        "assets/hinge/roster_expansion/nikki_maddox_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/nikki_maddox_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Nikki Maddox, consistent Fair skin, dark brown messy bun, sharp winged eyeliner, white tank top and denim shorts",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nikki_maddox_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Nikki Maddox, consistent Fair skin, dark brown messy bun, sharp winged eyeliner, white tank top and denim shorts",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/nikki_maddox_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Nikki Maddox, consistent Fair skin, dark brown messy bun, sharp winged eyeliner, white tank top and denim shorts",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing pharmacy assistant and volunteering at a thrift shop.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-247",
+      "slug": "paola_cruz",
+      "name": "Paola Cruz",
+      "age": 29,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Museum attendant",
+      "gallery": [
+        "assets/hinge/roster_expansion/paola_cruz_01.webp",
+        "assets/hinge/roster_expansion/paola_cruz_02.webp",
+        "assets/hinge/roster_expansion/paola_cruz_03.webp",
+        "assets/hinge/roster_expansion/paola_cruz_04.webp",
+        "assets/hinge/roster_expansion/paola_cruz_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/paola_cruz_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Paola Cruz, consistent Warm brown skin, twist-out coils, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paola_cruz_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Paola Cruz, consistent Warm brown skin, twist-out coils, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/paola_cruz_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Paola Cruz, consistent Warm brown skin, twist-out coils, tortoiseshell glasses, striped T-shirt dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "quick to laugh and slow to trust",
+      "personalGoal": "Make a life for herself in Sunfall while balancing museum attendant and playing five-on-five soccer.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-248",
+      "slug": "brogan_ellis",
+      "name": "Brogan Ellis",
+      "age": 20,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Real estate agent",
+      "gallery": [
+        "assets/hinge/roster_expansion/brogan_ellis_01.webp",
+        "assets/hinge/roster_expansion/brogan_ellis_02.webp",
+        "assets/hinge/roster_expansion/brogan_ellis_03.webp",
+        "assets/hinge/roster_expansion/brogan_ellis_04.webp",
+        "assets/hinge/roster_expansion/brogan_ellis_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/brogan_ellis_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Brogan Ellis, consistent Freckled fair skin, platinum pixie cut, freckles across her nose, sporty tracksuit jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brogan_ellis_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Brogan Ellis, consistent Freckled fair skin, platinum pixie cut, freckles across her nose, sporty tracksuit jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/brogan_ellis_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Brogan Ellis, consistent Freckled fair skin, platinum pixie cut, freckles across her nose, sporty tracksuit jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "playful until someone crosses a line",
+      "personalGoal": "Make a life for herself in Sunfall while balancing real estate agent and teaching herself the drums.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-249",
+      "slug": "mia_donnelly",
+      "name": "Mia Donnelly",
+      "age": 28,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Swimming coach",
+      "gallery": [
+        "assets/hinge/roster_expansion/mia_donnelly_01.webp",
+        "assets/hinge/roster_expansion/mia_donnelly_02.webp",
+        "assets/hinge/roster_expansion/mia_donnelly_03.webp",
+        "assets/hinge/roster_expansion/mia_donnelly_04.webp",
+        "assets/hinge/roster_expansion/mia_donnelly_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/mia_donnelly_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Mia Donnelly, consistent Fair skin, a long braid to the waist, thin wire-rimmed glasses, red gingham shirt",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mia_donnelly_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Mia Donnelly, consistent Fair skin, a long braid to the waist, thin wire-rimmed glasses, red gingham shirt",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/mia_donnelly_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Mia Donnelly, consistent Fair skin, a long braid to the waist, thin wire-rimmed glasses, red gingham shirt",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "private and sharply intelligent",
+      "personalGoal": "Make a life for herself in Sunfall while balancing swimming coach and trying to learn Italian.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-250",
+      "slug": "esme_turner",
+      "name": "Esme Turner",
+      "age": 19,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Tour guide",
+      "gallery": [
+        "assets/hinge/roster_expansion/esme_turner_01.webp",
+        "assets/hinge/roster_expansion/esme_turner_02.webp",
+        "assets/hinge/roster_expansion/esme_turner_03.webp",
+        "assets/hinge/roster_expansion/esme_turner_04.webp",
+        "assets/hinge/roster_expansion/esme_turner_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/esme_turner_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Esme Turner, consistent Rosy fair skin, jet-black waist-length hair, gray-green eyes, floral blouse and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/esme_turner_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Esme Turner, consistent Rosy fair skin, jet-black waist-length hair, gray-green eyes, floral blouse and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/esme_turner_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Esme Turner, consistent Rosy fair skin, jet-black waist-length hair, gray-green eyes, floral blouse and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "unflappable with a mischievous streak",
+      "personalGoal": "Make a life for herself in Sunfall while balancing tour guide and making elaborate paper collages.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     }
   ],
