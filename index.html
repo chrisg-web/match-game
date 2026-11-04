@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="537c680951">
+<html lang="en" data-build="f01ec9bb1d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=537c680951"></script>
+  <script src="chapel_at_midnight.js?v=f01ec9bb1d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=537c680951"></script>
+  <script src="marriage.js?v=f01ec9bb1d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=537c680951"></script>
+  <script src="quests/professor-vale.js?v=f01ec9bb1d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2027,7 +2027,8 @@
       'service:police':[
         {id:'tip',known:'br',label:'Give a Blue Ribbon tip',flag:'policeTip',reply:'Thank you. We will record that tip and pass it to the detectives. Please do not approach anyone yourself.',clue:'You gave Sunfall Police a tip about Elena Cross and the Blue Ribbon event.'},
         {id:'case',known:'br',label:'Ask about Elena Cross',flag:'policeEnquiry',reply:'That case is active. We cannot release personal details, but the highway junction is part of our public appeal.'},
-        {id:'formal_report',known:'br',label:'Formally report a Blue Ribbon crime',policeReport:true,reply:''}
+        {id:'formal_report',known:'br',label:'Formally report a Blue Ribbon crime',policeReport:true,reply:''},
+        {id:'any_report',known:'nobr',label:'Formally report a crime',policeReport:true,reply:''} // always there (Chris, 4 November 2026): with nothing behind it, a false report
       ],
       'service:newsroom':[
         {id:'story',known:'br',label:'Ask about the missing organizer',flag:'newsroomQuestion',reply:'Our reporter is checking the guest list. If you have a first-hand account, please leave a message.',clue:'The newspaper is checking Blue Ribbon guest-list discrepancies.'},
@@ -4201,7 +4202,7 @@
     function valeKnown(){return !!world.flags.valePaperSeen||!!PV?.isOpen?.();}
     function valeCallerDue(){return questOn('vale')&&PV?.isOpen?.()&&!window.MATCH_NO_VALE_CALLS?PV.valeCallerDue?.()||null:null;} // Professor Vale rings you himself (the conversation tests switch it off)
     function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
-    function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='vale'?questOn('vale')&&valeKnown():true);}
+    function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():true);}
     // ===== Mogger: her dad, and Theon =====
     // Two men who aren't on Hinge. They ring you (their ids start x:) and you can't ring them back.
     // Theon is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
