@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d94a61737d">
+<html lang="en" data-build="129f667c95">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d94a61737d"></script>
+  <script src="chapel_at_midnight.js?v=129f667c95"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d94a61737d"></script>
+  <script src="marriage.js?v=129f667c95"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d94a61737d"></script>
+  <script src="quests/professor-vale.js?v=129f667c95"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4044,20 +4044,49 @@
       {title:'Your room',points:['Put the phone down to look around your room. Things in it can be tapped.','Things people leave you come through your door and land on the floor. Tap them to pick them up.','Your bedside cupboard keeps what you pick up and find: things people give you, case files and your notebook.','Open a case file to lay out what you’ve found, and connect the pieces that belong together.','Your notebook keeps everything you’ve been told.']},
       {title:'A connected world',points:['We live in a very connected world. The best way to get anything done is to find the right people on Hinge, talk to them and ask.','Ask for information, for numbers, for favors, and sometimes for things you need.','Some women have something going on in their lives. Help, and they may owe you a favor.','Keep an eye on everything: the paper, the classifieds, what women tell you. Everything ends up being useful.']}
     ];
-    var tutorialPage=0;
-    function openTutorial(page=0){tutorialPage=Math.max(0,Math.min(TUTORIAL.length-1,page));$('tutorial').hidden=false;renderTutorial();}
+    // The Looksmaxxer's and the Divorcé's own tutorials (Chris, 4 November 2026): they open the first time you
+    // start that class, and from Settings. Pictures: assets/tutorial/<class>-N.png once drawn; until then, the words.
+    var CLASS_TUTORIALS={
+      looksmaxxer:[
+        {title:'You start ugly',points:['Your looks are a score out of 100, and you start at 12. Women see the score: under 35 you are a Truecel to them, from 35 a Normie, from 65 a Mogger.','Your mirror is on the iTunes You page. It changes as you do.']},
+        {title:'Your car',points:['Your car keys are in your bedside cupboard. Tap them to drive somewhere. One trip a day.','The gym, the barber and the skin clinic are cheap and safe. Veneers, height surgery and the monobloc cost real money and put you in bed for days.']},
+        {title:'Money',points:['You start with $900. Your bank balance is in the cupboard.','Pick up an extra shift: it pays, and it takes the whole day, so no swiping.','A casting agent may ring once your looks are good enough. Modeling pays well.']},
+        {title:'Cheap or proper',points:['Read the ads in the paper: surgeons, clinics and men who work for cash.','Dr. Voss rings for a consultation about the monobloc. He shows you your bones.','Every procedure has a cheap way. It saves money, and it can ruin your face for good or kill you.']},
+        {title:'Bag the Stacey',points:['Stacey Vandermeer is in the sorority on Hinge. She wants a ninety: veneers, height surgery and the monobloc, and looks of 90 or more.','Talk to her until she really likes you, then ask her out. She says yes and you win.']}
+      ],
+      divorce:[
+        {title:'Denise',points:['Your ex-wife Denise wants $450 every 5 days, and $50 more each time.','Pay from your bank before the day it is due, or there is a late fee. Miss too many and Support Enforcement comes for you.']},
+        {title:'Money',points:['You start with $600, in the bank in your cupboard.','Your car takes you to work: an extra shift pays, and takes the whole day.','Your lawyer can buy you time and contest her lawyer’s increases.']},
+        {title:'The cheerleaders',points:['You are older now, and the sorority girls on Hinge call you daddy.','Send one flowers ($40), twice, and talk until she really likes you.','Ask her out with $800 in the bank, and she may say yes.']},
+        {title:'Getting rid of Denise',points:['There is more than one way: a man at the Lucky Cactus who solves problems, her brakes, a bottle of wine with pills in it, a borrowed revolver, and stranger things.','Each has a way to go wrong. Detective Moss asks questions afterwards: have an alibi ready.']},
+        {title:'Free at last',points:['Denise gone, nothing owed, and nobody looking at you: you win.','A cheerleader who said yes as well makes it a better win.']}
+      ]
+    };
+    var tutorialPage=0,tutorialSet='main';
+    const tutorialPages=()=>CLASS_TUTORIALS[tutorialSet]||TUTORIAL;
+    const TUTORIAL_NAMES={looksmaxxer:'The Looksmaxxer',divorce:'The Divorcé'};
+    function openTutorial(page=0,set='main'){tutorialSet=CLASS_TUTORIALS[set]?set:'main';tutorialPage=Math.max(0,Math.min(tutorialPages().length-1,page));$('tutorial').hidden=false;renderTutorial();}
+    function classTutorialMaybe(){
+      const cls=selectedDifficulty;
+      if(!CLASS_TUTORIALS[cls]||window.MATCH_NO_CLASS_TUTORIAL)return;
+      let seen={};try{seen=JSON.parse(localStorage.getItem('matchClassTutorials')||'{}')||{};}catch{}
+      if(seen[cls])return;
+      seen[cls]=true;try{localStorage.setItem('matchClassTutorials',JSON.stringify(seen));}catch{}
+      window.setTimeout(()=>openTutorial(0,cls),700);
+    }
     function closeTutorial(){$('tutorial').hidden=true;}
     function renderTutorial(){
-      const page=TUTORIAL[tutorialPage],n=tutorialPage+1;
-      $('tut-page').innerHTML=`<img class="tut-img" src="assets/tutorial/tutorial-${n}.png" alt="${esc(page.title)}" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="tut-card"><small>How to play · ${n} of ${TUTORIAL.length}</small><h3>${esc(page.title)}</h3><ul>${page.points.map(point=>`<li>${esc(point)}</li>`).join('')}</ul></div>`;
-      $('tut-dots').innerHTML=TUTORIAL.map((_,i)=>`<i class="${i===tutorialPage?'on':''}"></i>`).join('');
+      const pages=tutorialPages(),page=pages[tutorialPage],n=tutorialPage+1,named=TUTORIAL_NAMES[tutorialSet];
+      $('tut-page').innerHTML=`<img class="tut-img" src="assets/tutorial/${named?tutorialSet:'tutorial'}-${n}.png" alt="${esc(page.title)}" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="tut-card"><small>${named?esc(named)+' · ':'How to play · '}${n} of ${pages.length}</small><h3>${esc(page.title)}</h3><ul>${page.points.map(point=>`<li>${esc(point)}</li>`).join('')}</ul></div>`;
+      $('tut-dots').innerHTML=pages.map((_,i)=>`<i class="${i===tutorialPage?'on':''}"></i>`).join('');
       $('tut-prev').disabled=tutorialPage===0;
-      $('tut-next').textContent=tutorialPage===TUTORIAL.length-1?'Done':'›';
+      $('tut-next').textContent=tutorialPage===pages.length-1?'Done':'›';
       hydrateInlineImages($('tut-page'));
     }
     function tutorialStep(step){
-      if(step>0&&tutorialPage===TUTORIAL.length-1){closeTutorial();return;}
-      tutorialPage=Math.max(0,Math.min(TUTORIAL.length-1,tutorialPage+step));renderTutorial();
+      const last=tutorialPages().length-1;
+      if(step>0&&tutorialPage===last){closeTutorial();return;}
+      tutorialPage=Math.max(0,Math.min(last,tutorialPage+step));renderTutorial();
     }
     $('tut-prev').onclick=()=>tutorialStep(-1);
     $('tut-next').onclick=()=>tutorialStep(1);
@@ -4373,6 +4402,15 @@
       const pool=sisterProfiles().filter(p=>!hingeThreads.has(p.id));
       return pool.length?{kind:'sisterIntro',id:pool[hashSeed(world.seed+'|helpsister')%pool.length].id}:null;
     }
+    function theonLead(){
+      if(typeof fionnActive!=='function'||!fionnActive())return null;
+      const f=fionnState();
+      if(!Number.isInteger(f.startDay)||world.day<f.startDay+2||f.pendingEnd)return null;
+      if(f.clues.includes('profile')&&f.clues.includes('name'))return null;
+      const girls=typeof fionnGirls==='function'?fionnGirls():[];
+      const pool=hingeProfiles.filter(p=>p.factionId==='fourth_estate'&&!girls.includes(p.id));
+      return pool.length?{kind:'theon',id:pool[hashSeed(world.seed+'|helptheon')%pool.length].id}:null;
+    }
     function helpLeads(){
       const out=[];
       if(questOn('vale')&&PV?.helpLead?.())out.push({kind:'rosa'});
@@ -4382,9 +4420,12 @@
     // A Sister whose examination stalled rings you herself, with a question over the phone (her own call).
     const helpCallingToday=id=>world?.help?.callId===id&&world.help.callDay===world.day;
     function helpDue(){
-      if(!world||world.victory||world.day<HELP_FROM_DAY||window.MATCH_NO_HELP)return null; // the older test suites switch it off
+      if(!world||world.victory||window.MATCH_NO_HELP)return null; // the older test suites switch it off
+      if(world.day<HELP_FROM_DAY&&!theonLead())return null;
       const h=helpState(),fp=progressPrint();
       if(fp!==h.fp){h.fp=fp;h.fpDay=world.day;}
+      const urgent=!h.theonDone&&h.theonDay!==world.day?theonLead():null; // can't wait: somebody is coming
+      if(urgent){h.theonDay=world.day;h.lastDay=world.day;h.calls++;h.lead=urgent;h.pending=true;return 'x:help';}
       if(h.lastDay===world.day)return h.pending?'x:help':null;
       if(world.day-h.fpDay<HELP_STALL_DAYS||(h.lastDay!==null&&world.day-h.lastDay<HELP_STALL_DAYS))return null;
       const leads=helpLeads();
@@ -4407,7 +4448,7 @@
     function helpCallCard(id){
       const lead=world.help?.lead,face=helpFace(lead);
       const name=lead?.kind==='rosa'?(PV?.helpText?.('caller')||'Rosa Gutierrez'):lead?.kind==='jeweller'?(marriage?.jewellerName?.(lead.jeweller)||'A jeweler'):(hingeProfile(lead?.id)?.name||'Unknown number');
-      return {id,name,gallery:[face],banner:face,ringName:lead?.kind==='sisterIntro'||lead?.kind==='rosa'?'Unknown number':name,sub:'Mobile'};
+      return {id,name,gallery:[face],banner:face,ringName:lead?.kind==='theon'?'Sunfall Daily':lead?.kind==='sisterIntro'||lead?.kind==='rosa'?'Unknown number':name,sub:lead?.kind==='theon'?'Newsroom':'Mobile'};
     }
     function helpLine(lead,key){
       const her=lead?.id?firstName(hingeProfile(lead.id)):'';
@@ -4416,7 +4457,8 @@
         sisterIntro:{open:`This is ${her}. I’m one of the Sisters of Mercy. A friend showed me your profile, and I don’t swipe on things. If you are looking for a wife and not a weekend, you may have my number.`,yes:'I’m looking for a wife',done:'Then talk to me properly. When you’re ready, ask me whether I would ever marry you. I will have some questions for you first.',no:'Then God bless you. I won’t ring again.'},
         sisterAsk:{open:`It’s ${her}. We’ve talked for a while now, and you have never asked me the only question that matters to me.`,yes:'Would you ever marry me?',done:'Not before I know you. I’ll ask you my questions in our chat.',no:'I see. Then I’ll stop waiting for it.'},
         jeweller:{open:`${j?.name||'The jeweler'} from ${j?.shop||'the shop'}. Forgive me ringing out of the blue. I hear a young man passed ${her}’s examination with the Sisters of Mercy and has no ring. I have one that would suit her.`,yes:'Send it over',done:'It will be on your desk within the hour. Go and ask her.',no:'The ring will keep. You know where to find me.'},
-        propose:{open:`It’s ${her}. I hear there is a ring on your desk. Was there something you wanted to ask me?`,yes:'Will you marry me?',done:'Ask me properly. In our chat, where I can read it twice.',no:'Then I’ll keep waiting. Not forever.'}
+        propose:{open:`It’s ${her}. I hear there is a ring on your desk. Was there something you wanted to ask me?`,yes:'Will you marry me?',done:'Ask me properly. In our chat, where I can read it twice.',no:'Then I’ll keep waiting. Not forever.'},
+        theon:{open:`${her} at the Sunfall Daily. Three women have come to us about a man messaging them from a profile with your photos on it. He signs his poems Theon. I don’t think he’s you. If anyone comes to your door about it, tell them so.`,yes:'Send me what you have',done:'Screenshots of his profile, and the name he signs with. They’re in your notebook. Keep them close.',no:'Then I hope nobody comes asking.'}
       }[lead?.kind];
       return L?.[key]||'';
     }
@@ -4445,6 +4487,7 @@
         }
         if(lead?.kind==='sisterAsk'){const t=hingeThreads.get(lead.id);if(t&&!t.number)t.number=unusedContactNumber();later=()=>marriage?.choose?.('start:'+lead.id);}
         if(lead?.kind==='jeweller')marriage?.giftRing?.(lead.jeweller);
+        if(lead?.kind==='theon'){fionnClue('profile');fionnClue('name');recordClue('A man called Theon is using your photos on Hinge. A reporter at the Sunfall Daily has screenshots of his profile.');h.theonDone=true;}
         if(lead?.kind==='propose')later=()=>marriage?.choose?.('propose:'+lead.id);
       }
       call.step='bye';saveRun(true);renderCalls();
@@ -4530,6 +4573,7 @@
       if(policeWarningDue())return 'x:police'; // Truecel: the police warning comes first
       const d=dadState();
       if(d.stage==='warned'&&d.callDay===world.day&&!d.called)return 'x:dad';
+      if(!world.help?.theonDone&&theonLead()){const urgent=helpDue();if(urgent)return urgent;} // a reporter with proof, before Theon rings again
       const f=fionnState();
       if(fionnActive()&&Number.isInteger(f.startDay)&&world.day>=f.startDay&&f.callDay!==world.day)return 'x:fionn';
       if(halDetectiveDue())return 'x:detective'; // Undeniable: LPC kept records
@@ -9251,21 +9295,21 @@
         barber:{label:'The barber',sub:'$45 · a proper cut. Once every five days.',cost:45,gain:6,cool:5,cat:'hair',image:'assets/trips/barber.png',place:'the barber',
           scene:[{image:'assets/trips/barber.png',caption:'A neon pole, a radio playing oldies, and one empty chair waiting for you.'},{image:'assets/trips/barber-during.png',caption:'Short at the sides. The clippers buzz an inch from your ear.',sound:'clippers'}],after:'assets/trips/barber-after.png',
           done:['Short at the sides, longer on top. You catch yourself in every window on the way home.','The barber says you have a good head shape. You will think about this for a week.']},
-        tony:{label:'Tony’s kitchen: a haircut for ten bucks',sub:'$10 · Tony used to be a barber. Once every five days.',cost:10,gain:6,cool:5,cat:'hair',ruin:1/4,ruinLoss:8,image:'assets/trips/tony-kitchen.png',place:'Tony’s apartment',
+        tony:{label:'Tony’s kitchen: a haircut for ten bucks',sub:'$10 · Tony used to be a barber. Once every five days.',cost:10,gain:6,cool:5,cat:'hair',ruin:1/8,ruinLoss:8,image:'assets/trips/tony-kitchen.png',place:'Tony’s apartment',
           scene:[{image:'assets/trips/tony-kitchen.png',caption:'Tony’s kitchen. A dining chair on yesterday’s paper, and a towel for a cape.'},{image:'assets/trips/tony-during.png',caption:'Tony’s clippers are older than you are. So is the cigarette in his mouth.',sound:'clippers'}],after:'assets/trips/barber-after.png',
           ruinImage:'assets/trips/tony-ruin.png',ruinLine:'Tony sneezes. There is a bald stripe down the middle of your head now. He says it will grow back. It never does.',
           done:['Not bad, actually. Tony charges you ten bucks and a beer.']},
-        skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,cat:'skin',mishap:{chance:1/6,bed:1,line:'Your face reacts to the peel and swells shut. The receptionist says this happens to nobody. A day in bed.',block:'Your face is swollen shut.'},image:'assets/trips/skin-clinic.png',place:'the skin clinic',
+        skin:{label:'The skin clinic',sub:'$160 · peel, serum, the works. Once every four days.',cost:160,gain:6,cool:4,cat:'skin',mishap:{chance:1/12,bed:1,line:'Your face reacts to the peel and swells shut. The receptionist says this happens to nobody. A day in bed.',block:'Your face is swollen shut.'},image:'assets/trips/skin-clinic.png',place:'the skin clinic',
           scene:[{image:'assets/trips/skin-clinic.png',caption:'White walls, white towels, and a receptionist who does not blink.'},{image:'assets/trips/skin-during.png',caption:'A blue-gloved hand paints something cold and green across your face. It tingles. Then it burns.'}],after:'assets/trips/skin-after.png',
           done:['Your face stings, then glows. The receptionist tells you not to smile for a day.']},
-        salon:{label:'The nail salon: a chemical peel in the back',sub:'$35 · the same peel, probably. Once every four days.',cost:35,gain:6,cool:4,cat:'skin',ruin:1/4,ruinLoss:10,image:'assets/trips/salon-peel.png',place:'the nail salon',
+        salon:{label:'The nail salon: a chemical peel in the back',sub:'$35 · the same peel, probably. Once every four days.',cost:35,gain:6,cool:4,cat:'skin',ruin:1/8,ruinLoss:10,image:'assets/trips/salon-peel.png',place:'the nail salon',
           scene:[{image:'assets/trips/salon-peel.png',caption:'The back room of a nail salon. A plastic chair, a desk fan, and a bottle with no label.'},{image:'assets/trips/salon-during.png',caption:'She paints it on with a nail polish brush. It smokes a little. She says that is normal.'}],after:'assets/trips/skin-after.png',
           ruinImage:'assets/trips/salon-ruin.png',ruinLine:'Your face comes off in sheets for three days. It grows back pink and white, like a map of somewhere.',
           done:['Your face stings, then glows. Thirty-five dollars. You tip her five.']},
         teeth:{label:'The dentist: veneers',sub:'$1,100 · twenty porcelain veneers. Once.',cost:1100,gain:12,once:true,cat:'teeth',image:'assets/trips/dentist.png',place:'the dentist',
           scene:[{image:'assets/trips/dentist.png',caption:'A bright, clean dental office. The chair tips back. The lamp comes down.'},{image:'assets/trips/dentist-drill.png',caption:'He files your teeth down to little pegs. The drill screams. So do you.',sound:'drill-dental+scream'}],after:'assets/trips/dentist-after.png',
           done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
-        gus:{label:'Dr. Gus: veneers, cash, no questions',sub:'$250 · a strip mall, a drill, and Dr. Gus. Once.',cost:250,gain:12,once:true,didKey:'teeth',cat:'teeth',show:()=>!!lx().seen.gus,risk:1/10,ruin:1/4,ruinLoss:12,cause:'A CHEAP DENTIST',image:'assets/trips/gus-dental.png',place:'Dr. Gus in the strip mall',
+        gus:{label:'Dr. Gus: veneers, cash, no questions',sub:'$250 · a strip mall, a drill, and Dr. Gus. Once.',cost:250,gain:12,once:true,didKey:'teeth',cat:'teeth',show:()=>!!lx().seen.gus,risk:1/20,ruin:1/8,ruinLoss:12,cause:'A CHEAP DENTIST',image:'assets/trips/gus-dental.png',place:'Dr. Gus in the strip mall',
           scene:[{image:'assets/trips/gus-dental.png',caption:'A strip mall, between a vape shop and a laundromat. The chair is held together with tape.'},{image:'assets/trips/gus-drill.png',caption:'Dr. Gus does not use the little drill. Dr. Gus uses the big one.',sound:'drill-bone+scream'}],after:'assets/trips/dentist-after.png',
           ruinImage:'assets/trips/gus-ruin.png',ruinLine:'The veneers are the wrong white. They glow under any light at all, and one of them fell out in the car.',
           done:['Twenty veneers for two hundred and fifty dollars. They look fine. Mostly.'],
@@ -9867,7 +9911,7 @@
         if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
         else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
         if(id==='face'&&lx().plan)lx().owe=(DRIVES.looksmaxxer.face.cost||3000)-FACE_DOWN; // the rest of Dr. Voss's bill
-        if(d.mishap&&gameRandom()<d.mishap.chance){c.laidUntil=world.day+d.mishap.bed;c.bedLine=d.mishap.block;achToast(d.mishap.line);} // one peel in six
+        if(d.mishap&&gameRandom()<d.mishap.chance){c.laidUntil=world.day+d.mishap.bed;c.bedLine=d.mishap.block;achToast(d.mishap.line);} // one peel in twelve
         c.looks=Math.min(looksCap(),c.looks+gain);
         const after=looksTier();
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
@@ -10072,7 +10116,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button></div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button>${Object.keys(CLASS_TUTORIALS).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -10134,7 +10178,7 @@
       if(journalDel){journalDelete(journalDel.dataset.journalDelete);return;}
       if(event.target.closest('[data-settings-newgame-yes]')){settingsView='main';pickDifficulty();return;} // then choose a difficulty
       if(event.target.closest('[data-settings-newgame]')){settingsView='newgame';renderSettings();return;} // a new game, any time
-      if(event.target.closest('[data-tutorial-open]')){openTutorial(0);return;} // How to play
+      if(event.target.closest('[data-tutorial-open]')){openTutorial(0,event.target.closest('[data-tutorial-open]').dataset.tutorialOpen||'main');return;} // How to play, and the classes' own
       const settingsNav=event.target.closest('[data-settings-view]');
       if(settingsNav){settingsView=settingsNav.dataset.settingsView;renderSettings();$('opened').scrollTop=0;return;}
       const settingWallpaper=event.target.closest('[data-setting-wallpaper]');
@@ -11773,6 +11817,7 @@
       $('day-caption').classList.remove('visible');
       dialledNumber='';dialStatus='Enter a number using the keypad.';
       classStart(); // the Looksmaxxer and the Divorcé: a wallet, looks, the payment schedule
+      classTutorialMaybe(); // their own tutorial, the first time
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
       openApp('hinge');
     }

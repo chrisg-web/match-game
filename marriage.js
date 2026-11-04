@@ -582,11 +582,14 @@
       // A Sister who rings you may ask one of today's two examination questions over the phone.
       // It counts like one asked in the chat. Returns null if her examination hasn't started,
       // is passed, or today's questions are used up.
+      // Every question she asks on the phone counts (Chris, 4 November 2026): her call starts the examination
+      // if you hadn't asked yet, and it comes on top of the day's two questions in the chat.
       phoneExam:id=>{
         const st=state();
         if(!st||wed(st)||!sister(id))return null;
         const s=sisterState(st,id);
-        if(!s.started||s.passed||!canAsk(s))return null;
+        if(s.passed)return null;
+        s.started=true;
         const q=s.current!==null?question(s.current):draw(st,id);
         s.active=false; // the phone has the question now; the chat waits
         return {id:q.id,question:q.question,answers:[...q.answers]};
@@ -597,8 +600,7 @@
         const s=sisterState(st,id);
         if(s.current===null||!(index>=0&&index<4))return null;
         const q=question(s.current),correct=index===q.correctAnswerIndex,sis=sister(id);
-        countAnswer(s);
-        let passed=false;
+        let passed=false; // a phone answer doesn't use up the chat's questions for the day
         if(correct){
           s.streak++;s.best=Math.max(s.best,s.streak);
           if(s.streak>=data.rules.streakToPass){passed=true;s.passed=true;s.asked=[];s.streak=0;api.status(`${sis.name} says you passed. You may now propose to her.`);}
