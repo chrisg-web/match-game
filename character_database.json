@@ -30275,11 +30275,26 @@
         "label": "An envelope for T. Kessler",
         "text": "A thick fold of cash and a cheap phone, addressed to T. Kessler, who had this room years ago."
       },
+      "amount": 2000,
       "take": {
-        "label": "💵 Take some of the cash",
-        "notice": "You take a few notes from the middle. Nobody will notice."
+        "label": "💵 Take the cash out",
+        "notice": "You take the cash out of the envelope and count it twice. {amount}. The phone you leave where it is.",
+        "bank": "You take the cash out of the envelope and pay it into your account. {amount}. The phone you leave where it is."
       },
-      "took": " Someone has taken a few notes from the middle.",
+      "took": " The cash is gone from it. Only the phone is left.",
+      "cash": {
+        "label": "T. Kessler’s cash",
+        "text": "A thick fold of banknotes that came through your door for T. Kessler. {amount}, counted twice."
+      },
+      "putBack": {
+        "label": "💵 Put the money back in the envelope",
+        "notice": "You fold the cash back into the envelope, the way it came.",
+        "bank": "You draw the money out again and fold it into the envelope, the way it came."
+      },
+      "returnDoor": {
+        "label": "🚪 Return the envelope to the door",
+        "notice": "You put the envelope on the step outside your door and shut the door on it."
+      },
       "open": "You’ve got something that isn’t yours. Don’t say a name. Put it back on the step tonight and we never talk again.",
       "later": [
         "It’s still not on the step.",
@@ -30313,7 +30328,7 @@
         "image": "envelope_motel",
         "fallback": "crime_motel"
       },
-      "newsShort": " Police say some of the money was missing.",
+      "newsShort": " Police say the money was missing.",
       "deathCause": "A STRANGER",
       "deaths": [
         "They knew which door it was. They had delivered it.",
