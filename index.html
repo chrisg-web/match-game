@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="31f1e4bac1">
+<html lang="en" data-build="537c680951">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -157,6 +157,14 @@
     .status-day { margin: -3px 0 0; padding: 3px 4px 2px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
     .status-day i { margin-left: 3px; font-style: normal; opacity: .55; }
     .status-day:hover i,.status-day:focus-visible i { opacity: 1; }
+    /* The first time you open the game: play the tutorial? It fills the phone's screen (Chris, 4 November 2026) */
+    .tut-ask { position: absolute; inset: 0; z-index: 45; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9%; padding: 10% 9%; background: linear-gradient(#13213a,#08101d); color: #fff; text-align: center; font-family: Arial,sans-serif; }
+    .tut-ask[hidden] { display: none; }
+    .tut-ask h2 { margin: 0; font-size: clamp(18px,11cqw,44px); line-height: 1.2; font-weight: bold; }
+    .tut-ask-yes { width: 92%; padding: 10% 0; border: 0; border-radius: 12px; background: linear-gradient(#5fd35b,#2c9a2a); color: #fff; font: bold clamp(20px,12cqw,48px) Arial,sans-serif; box-shadow: 0 4px 0 #1d6b1c, 0 8px 18px #0009; cursor: pointer; }
+    .tut-ask-no { width: 44%; padding: 3.5% 0; border: 0; border-radius: 8px; background: linear-gradient(#e2605a,#b2302b); color: #fff; font: bold clamp(12px,5.5cqw,22px) Arial,sans-serif; box-shadow: 0 2px 0 #7d1f1b; cursor: pointer; }
+    .tut-ask small { color: #9fb0c8; font-size: clamp(9px,3.6cqw,14px); }
+    .screen { container-type: inline-size; }
     .day-dialog { position: absolute; z-index: 30; top: 21px; left: 50%; transform: translateX(-50%); width: 78%; padding: 8px 9px; border: 1px solid #5a6b85; border-radius: 8px; background: #101a2bf2; box-shadow: 0 6px 16px #000a; color: #fff; text-align: center; font: bold 11px Arial,sans-serif; }
     .day-dialog[hidden] { display: none; }
     .day-dialog p { margin: 0 0 7px; }
@@ -738,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=31f1e4bac1"></script>
+  <script src="chapel_at_midnight.js?v=537c680951"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=31f1e4bac1"></script>
+  <script src="marriage.js?v=537c680951"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=31f1e4bac1"></script>
+  <script src="quests/professor-vale.js?v=537c680951"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -873,6 +881,7 @@
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go to bed"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
+              <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2>Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><small>It is always in iTunes, under How to play.</small></div>
               <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
@@ -938,6 +947,7 @@
     const MATCH_RARITY={'MATCH-003':.5};
     const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.',looksmaxxer:'Looksmaxxer: start with Truecel looks and drive out to fix them: gym, skin, teeth, height.',divorce:'Divorcé: fat, balding, Normie odds, a wallet, alimony to Denise every five days, and the girls call him daddy.'};
     const SAVE_KEY='matchGameRunV3';
+    const FIRST_VISIT=(()=>{try{return !localStorage.getItem(SAVE_KEY)&&!localStorage.getItem(SAVE_KEY+':tutorialAsked');}catch{return false;}})(); // before anything saves: is this the first time? (the tutorial question)
     function hashSeed(input){
       let hash=2166136261;
       for(const char of String(input)){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}
@@ -11340,7 +11350,27 @@
     },{passive:true});
     $('news-expand').addEventListener('click',()=>$('news-expand').classList.remove('visible'));
     document.addEventListener('keydown',event=>{if(event.key==='Escape')$('news-expand').classList.remove('visible');});
-    function returnHome(){if(world&&currentApp)teach('day');endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
+    // The first time you open the game (no saved game, never asked): play the tutorial? Yes opens How to play in
+    // iTunes; No, or the home button, goes straight to the game (Chris, 4 November 2026).
+    const TUT_ASK_KEY=SAVE_KEY+':tutorialAsked';
+    var tutorialAskWaiting=false,firstRunStarted=false; // the first game starts while the question is up: don't open Hinge over it (or over How to play)
+    function tutorialAskMaybe(){
+      if(window.MATCH_NO_TUTORIAL_ASK)return false;
+      if(!FIRST_VISIT)return false;
+      try{if(localStorage.getItem(TUT_ASK_KEY))return false;}catch{return false;}
+      setLowered(false);
+      $('tut-ask').hidden=false;
+      return true;
+    }
+    function tutorialAskDone(yes){
+      if($('tut-ask').hidden)return;
+      $('tut-ask').hidden=true;
+      try{localStorage.setItem(TUT_ASK_KEY,'1');}catch{}
+      tutorialAskWaiting=yes&&!firstRunStarted; // if the first game hasn't started yet, it won't open Hinge over How to play
+      if(yes)openApp('journal'); // iTunes opens on How to play
+      else if(world)openApp('hinge'); // straight into the game
+    }
+    function returnHome(){tutorialAskDone(false);if(world&&currentApp)teach('day');endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
     let homeTapTimer=null,homeHoldTimer=null,homeWasHeld=false;
     const homeButton = $('home-hit');
     homeButton.addEventListener('pointerdown',()=>{
@@ -11390,6 +11420,8 @@
       $('difficulty-pick').classList.add('visible');
     }
     $('new-game').onclick=()=>pickDifficulty();
+    $('tut-ask-yes').onclick=event=>{event.stopPropagation();tutorialAskDone(true);};
+    $('tut-ask-no').onclick=event=>{event.stopPropagation();tutorialAskDone(false);};
     function pickClass(id){
       if(!ladderUnlocked(id))return false; // locked classes can't be chosen
       const p=playerProfile();if(p.fresh===id){p.fresh=null;saveProfile();}
@@ -12840,6 +12872,9 @@
       classStart(); // the Looksmaxxer and the Divorcé: a wallet, looks, the payment schedule
       classTutorialMaybe(); // their own tutorial, the first time
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
+      const holdHinge=!$('tut-ask').hidden||tutorialAskWaiting; // the first visit: the tutorial question is still up, or How to play is open
+      tutorialAskWaiting=false;firstRunStarted=true;
+      if(holdHinge)return;
       openApp('hinge');
     }
     $('police-preview').onclick=()=>{
@@ -13060,6 +13095,7 @@
     hydrateInlineImages();
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
+    tutorialAskMaybe(); // the first time: play the tutorial?
     randomiseRoomLook();
     // Resume the saved run once the women, the talk and the quests have loaded (they arrive after
     // this script runs); until then nothing is saved, so a half-loaded page never overwrites the run.
