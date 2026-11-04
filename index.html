@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d1d5418fb2">
+<html lang="en" data-build="eaecd0ee6b">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d1d5418fb2"></script>
+  <script src="chapel_at_midnight.js?v=eaecd0ee6b"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d1d5418fb2"></script>
+  <script src="marriage.js?v=eaecd0ee6b"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d1d5418fb2"></script>
+  <script src="quests/professor-vale.js?v=eaecd0ee6b"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2402,6 +2402,7 @@
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       qhintMaybe(thread,profileNow); // she tells you what's going on in town
+      tallMaybe(thread,profileNow); // the Looksmaxxer past 6 ft 6: she notices
       for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow),...kesslerChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
@@ -10314,7 +10315,8 @@
         const card=mirrorShot()+`<button class="it-shot it-card" data-it-shot aria-label="${esc(rung.name)}"><img src="${esc(assetUrl(`assets/howto/class-${id}.png`))}" alt="" onerror="this.parentNode.remove()"></button>`;
         const matched=[...hingeThreads.values()].filter(t=>!t.unmatched&&hingeProfile(t.id)),closest=matched.slice().sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
         const [found,total]=endingsCount();
-        const run=[['Day',String(world?.day||1)],['Matches',String(matched.length)],...(closest&&warmthOf(closest)>0?[['Closest to you',hingeProfile(closest.id).name]]:[]),['Endings found',`${found} of ${total}`]];
+        const tall=selectedDifficulty==='looksmaxxer'&&world?.cls?[['Height',feet(heightNow())],...(world.cls.heightLog||[]).map(e=>[`Day ${e.d}`,`${feet(e.f)} to ${feet(e.t)}, ${e.w==='cheap'?'the cheap clinic':'the Stature Institute'}`])]:[]; // the Looksmaxxer: how tall you are, and when
+        const run=[['Day',String(world?.day||1)],...tall,['Matches',String(matched.length)],...(closest&&warmthOf(closest)>0?[['Closest to you',hingeProfile(closest.id).name]]:[]),['Endings found',`${found} of ${total}`]];
         const steps=LADDER.map((r,i)=>{
           const wins=p.wins[r.id]||0,open=ladderUnlocked(r.id);
           const state=r.soon?'Still being written':!open?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Not won yet';
@@ -10412,13 +10414,13 @@
           ruinImage:'assets/trips/gus-ruin.png',ruinLine:'The veneers are the wrong white. They glow under any light at all, and one of them fell out in the car.',
           done:['Twenty veneers for two hundred and fifty dollars. They look fine. Mostly.'],
           deaths:['Dr. Gus used the gas from the wrong tank. You never wake up from the drilling.','The drill slipped. Dr. Gus closed early that day, and for good.']},
-        height:{label:'Height surgery: the proper clinic',sub:'$2,600 · three inches. Four days in bed after.',cost:2600,gain:22,surgery:true,bed:4,cat:'height',image:'assets/trips/height-clinic.png',place:'the Stature Institute',
+        height:{label:'Height surgery: the proper clinic',get sub(){return `$2,600 · three inches. Four days in bed after.${legsSub()}`;},cost:2600,gain:22,surgery:true,bed:4,cat:'height',risk:()=>gameRandom()<legRisk('height'),ruin:()=>gameRandom()<legRuin('height'),ruinLoss:10,cause:'A SURGEON',ruinImage:'assets/trips/height-after.png',ruinLine:'The frames came off and one leg is an inch shorter than the other. The surgeon says the bone has had enough.',deaths:['Too many times on the same table. A clot from your shin reached your lungs on the second night.','The bone would not knit this time. The infection did the rest.'],image:'assets/trips/height-clinic.png',place:'the Stature Institute',
           scene:[{image:'assets/trips/height-clinic.png',caption:'The Stature Institute after dark. The corridor lights hum and flicker.'},
             {image:'assets/trips/height-prep.png',caption:'On the table. He draws purple lines down both your shins. The big lamp glows above you.'},
             {image:'assets/trips/height-drill.png',caption:'He braces your leg against his chest and starts the drill. You were promised you would be asleep for this.',sound:'drill-bone+scream'},
             {image:'assets/trips/height-frame.png',caption:'Two metal frames, bolted through both legs. Every day someone turns the little nuts a millimeter.',sound:'scream'}],after:'assets/trips/height-after.png',afterSound:'groan',
           done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
-        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,cat:'height',show:()=>!!lx().border,risk:1/8,ruin:1/5,ruinLoss:12,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',
+        cheap:{label:'Height surgery: the cheap clinic over the border',get sub(){return `$900 · three inches. Three days in bed after. Probably.${legsSub()}`;},cost:900,gain:20,surgery:true,bed:3,cat:'height',show:()=>!!lx().border,risk:()=>gameRandom()<legRisk('cheap'),ruin:()=>gameRandom()<legRuin('cheap'),ruinLoss:12,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',
           scene:[{image:'assets/trips/border-clinic.png',caption:'A tire shop. Out back: a curtain, a dentist chair and one bare bulb.'},{image:'assets/trips/border-drill.png',caption:'The man in the stained coat has a yellow drill from the hardware store. He tests it twice.',sound:'drill-bone+scream'}],after:'assets/trips/border-after.png',afterSound:'groan',
           ruinImage:'assets/trips/border-ruin.png',ruinLine:'One leg came out an inch longer than the other. You walk in a slow circle now.',
           done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
@@ -10467,12 +10469,15 @@
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin','tony','salon'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
       for(const k of ['teeth','height','cheap','face','cactus','brakes'])if(o.did?.[k]===true)out.did[k]=true;
+      if(Number.isInteger(o.height))out.height=Math.max(60,Math.min(HEIGHT_MAX,o.height)); // the Looksmaxxer's height, and its log
+      if(Array.isArray(o.heightLog))out.heightLog=o.heightLog.filter(e=>e&&Number.isInteger(e.d)&&Number.isInteger(e.f)&&Number.isInteger(e.t)).slice(0,10).map(e=>({d:e.d,f:e.f,t:e.t,w:e.w==='cheap'?'cheap':'proper'}));
+      else if(o.did?.height===true||o.did?.cheap===true){out.height=HEIGHT_START+LEG_INCHES;out.heightLog=[];} // a save from before the log: one surgery
       out.plan=sanitizePlan(o.plan);
       out.ruined={};for(const k of ['hair','skin','teeth','height','face'])if(o.ruined?.[k]===true)out.ruined[k]=true; // the Looksmaxxer: a cheap job gone wrong, for good
       if(o.lx&&typeof o.lx==='object')out.lx=sanitizeLx(o.lx); // the Looksmaxxer: the classifieds
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day; // flowers for the sorority count too
       for(const [id,n] of Object.entries(o.giftsN||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(n)&&n>0)out.giftsN[id]=Math.min(99,n);
-      if(o.dead&&typeof o.dead==='object'&&['cheap','gus','backstreet','sheriff','solver','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      if(o.dead&&typeof o.dead==='object'&&['cheap','height','gus','backstreet','sheriff','solver','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
     }
     function classState(){
@@ -10986,16 +10991,48 @@
       if(d.show&&!d.show())return 'Not now.';
       if(d.pay&&hingeSwipesToday>0)return 'Shifts start early. You spent the morning on Hinge.'; // work or swipe: not both (4 November 2026)
       if(d.once&&c.did[d.didKey||id])return 'Done.';
-      if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
+      if(d.surgery&&heightNow()>=HEIGHT_MAX)return 'No surgeon will lengthen those legs again.'; // you can stack them (Chris, 4 November 2026), up to a point
       if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
       if(id==='lawyer'&&c.lawyerFor===c.cycle)return 'Once a payment.';
       const cost=tripCost(id);
       if(cost>c.cash)return `You need ${money(cost)}.`;
       return null;
     }
+    // Height (Chris, 4 November 2026). You start at 5 ft 9. Every leg surgery adds three inches, and you can keep going,
+    // but each time is riskier, and past 6 ft 6 the gains run out: a little more, then nothing, then women think you
+    // look strange. A log of how tall you are, and when, is on the iTunes You page.
+    var HEIGHT_START=69,HEIGHT_TALL=78,HEIGHT_MAX=90,LEG_INCHES=3; // var: read when a save is loaded
+    const feet=inches=>`${Math.floor(inches/12)} ft ${inches%12}`;
+    function heightNow(){const c=world?.cls;return Number.isInteger(c?.height)?c.height:HEIGHT_START;}
+    const legsDone=()=>(world?.cls?.heightLog||[]).length;
+    function legRisk(id){const n=legsDone();return id==='cheap'?Math.min(.7,1/8+n*.08):Math.min(.6,n*.06);} // the proper clinic is safe the first time
+    function legRuin(id){const n=legsDone();return id==='cheap'?Math.min(.8,1/5+n*.1):Math.min(.6,n*.08);}
+    function legsSub(){const n=legsDone();return n?` You are ${feet(heightNow())}. Your ${['','second','third','fourth','fifth','sixth','seventh'][n]||'next'} time: riskier than the last.`:'';}
+    function heightGain(base,to){ // full gains up to 6 ft 6; a little more for the next three inches; past that, your looks go down
+      if(to<=HEIGHT_TALL)return base;
+      const over=to-HEIGHT_TALL;
+      return over<=LEG_INCHES?Math.round(base/3):-8*Math.ceil((over-LEG_INCHES)/LEG_INCHES);
+    }
+    function growTaller(id){
+      const c=classState(),from=heightNow(),to=Math.min(HEIGHT_MAX,from+LEG_INCHES),d=DRIVES.looksmaxxer[id];
+      c.height=to;(c.heightLog||(c.heightLog=[])).push({d:world.day,f:from,t:to,w:id==='cheap'?'cheap':'proper'});
+      recordClue(`Day ${world.day}: height surgery at ${d.place}. ${feet(from)} to ${feet(to)}.`);
+      if(to>HEIGHT_TALL)achToast(to>HEIGHT_TALL+LEG_INCHES?`${feet(to)}. People stare now, and not the good way.`:`${feet(to)}. Past six six, every inch counts for less.`);
+      return heightGain(d.gain,to);
+    }
+    // Past 6 ft 6, women notice: once each, she says you look strange, and past 6 ft 9 she likes you a little less.
+    const TALL_LINES=['Okay, I have to ask. How tall are you now? Your legs look a bit weird in that photo.','You’re very tall. Like, sort of weird-looking tall. Is that a medical thing?','My friend says you look like you’re on stilts. I told her to be nice. But you kind of do.','Do doorways hit you in the face? You’re a lot, height-wise. It’s a little strange.','No offense, but your proportions are kind of freaking me out.'];
+    function tallMaybe(thread,profile){
+      if(selectedDifficulty!=='looksmaxxer'||heightNow()<=HEIGHT_TALL||!profile||thread.pending||thread.blocked||thread.fumbled||thread.tallSaid)return;
+      if(!thread.log.some(l=>l.who==='her'))return;
+      thread.tallSaid=heightNow();
+      thread.log.push({who:'her',text:TALL_LINES[hashSeed(world.seed+'|tall|'+thread.id)%TALL_LINES.length]});
+      if(heightNow()>HEIGHT_TALL+LEG_INCHES)warmBy(thread,-1);
+      talkState(thread).unread=true;
+    }
     function driveViewHtml(){
       const c=classState(),trips=DRIVES[selectedDifficulty]||{};
-      const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:c.payDue===null?`${money(c.cash)} in your wallet · ${EX.name} is gone`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
+      const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())}) · ${feet(heightNow())}`:c.payDue===null?`${money(c.cash)} in your wallet · ${EX.name} is gone`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
       return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:id==='face'&&c.lx?.plan?`${money(FACE_DOWN)} down, ${money(FACE_INSTALL)} a payday after. ${d.sub.split('·')[1].trim()}`:tripCost(id)!==(d.cost||0)?`${d.sub} With the ad: ${money(tripCost(id))}.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
     }
     var DRIVE_PIC='assets/trips/driving.png';
@@ -11041,7 +11078,7 @@
         if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;if(c.streak>=3&&!lx().border){lx().border=true;achToast('The big man at the squat rack says a clinic over the border does legs for $900. He knows a guy. It is on your car keys now.');}}
         if(d.cool)c.cool[id]=world.day;
         if(d.once)c.did[d.didKey||id]=true;
-        if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
+        if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;gain=growTaller(id);} // three inches taller, and the log
         else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
         if(id==='face'&&lx().plan)lx().owe=(DRIVES.looksmaxxer.face.cost||3000)-FACE_DOWN; // the rest of Dr. Voss's bill
         if(d.mishap&&gameRandom()<d.mishap.chance){c.laidUntil=world.day+d.mishap.bed;c.bedLine=d.mishap.block;achToast(d.mishap.line);} // one peel in twelve
