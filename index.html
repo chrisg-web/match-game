@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="29761cf645">
+<html lang="en" data-build="851d27a71b">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -153,7 +153,7 @@
     .wallpaper { position: absolute; inset: 0; background: url('assets/variants/iphone-standard/home-wallpaper.webp') center center / cover; image-rendering: pixelated; }
     .screen-shade { position: absolute; inset: 0; background: linear-gradient(to bottom,#0000,#0005); }
     .status { position: relative; height: 18px; background: #0009; color: #fff; display: flex; justify-content: space-between; padding: 3px 6px 0; font-size: 10px; font-weight: bold; }
-    /* The day in the status bar doubles as a quiet "go forward in time" control. */
+    /* The day in the status bar doubles as a quiet "go to bed" control: you sleep and wake up the next day. */
     .status-day { margin: -3px 0 0; padding: 3px 4px 2px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
     .status-day i { margin-left: 3px; font-style: normal; opacity: .55; }
     .status-day:hover i,.status-day:focus-visible i { opacity: 1; }
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=29761cf645"></script>
+  <script src="chapel_at_midnight.js?v=851d27a71b"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=29761cf645"></script>
+  <script src="marriage.js?v=851d27a71b"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=29761cf645"></script>
+  <script src="quests/professor-vale.js?v=851d27a71b"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -872,8 +872,8 @@
             <div class="screen" id="screen">
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
-              <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go forward in time"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
-              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go forward in time" hidden><p>Go forward in time?</p><div><button id="day-yes">Go forward in time</button><button id="day-no">Not yet</button></div></div>
+              <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go to bed"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
+              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
                 <div class="app-grid">
@@ -1402,11 +1402,11 @@
       setLowered(true);
       stage.classList.add('day-passing');
       const nextIndex=(Math.max(0,dayPhases.indexOf(time.value))+1)%dayPhases.length;
-      $('day-caption').textContent='Time passes…';
+      $('day-caption').textContent='You go to bed…'; // (Chris, 4 November 2026: go to bed, not go forward in time)
       $('day-caption').classList.add('visible');
       window.setTimeout(()=>{
         time.value=dayPhases[nextIndex];
-        $('day-caption').textContent=`Day ${world.day+1} · ${dayPhaseLabels[nextIndex]}`;
+        $('day-caption').textContent=`You wake up. Day ${world.day+1} · ${dayPhaseLabels[nextIndex]}`;
         fit();
       },530);
       window.setTimeout(()=>{
@@ -4089,7 +4089,7 @@
     // ===== Tutorial (Settings): six pages to swipe through. Each page shows its picture once it's
     // drawn (assets/tutorial/tutorial-N.png, NEW_IMAGE_REQUESTS.md); until then, its words.
     var TUTORIAL=[
-      {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls, Settings, iTunes and Notes.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to tomorrow. The time of day changes too.']},
+      {title:'Your phone',points:['Tap an app to open it: Hinge, News, Contacts, Calls, Settings, iTunes and Notes.','The Home button takes you back to your apps. Press it again on the home screen to put the phone down and look around your room.','Tap the day at the top of the screen to go to bed. You wake up the next day, at a different time of day.']},
       {title:'Hinge',points:['Swipe right to like her, left to pass. Tap her photo to see the next one.','You get ten swipes a day. Matches go to Chats.','Tap a choice to talk. She remembers what you tell her, and so do her friends.','Once you’ve talked a little, ask for her number. Women who like you will call you.']},
       {title:'The paper',points:['A new paper arrives every day. Tap a story to read it.','Stories are where things start. Read them, and you’ll know what to ask about.','Read the classifieds too. People sell things you might need: ring the number in the ad.']},
       {title:'Calls and Contacts',points:['Dial a number on the keypad. 911 always answers.','Numbers you learn go in Contacts: from the paper, and from women who know the right people.','Missed a call? Look in Voicemail.']},
@@ -4129,7 +4129,7 @@
     function closeTutorial(){$('tutorial').hidden=true;}
     function renderTutorial(){
       const pages=tutorialPages(),page=pages[tutorialPage],n=tutorialPage+1,named=TUTORIAL_NAMES[tutorialSet];
-      $('tut-page').innerHTML=`<img class="tut-img" src="assets/tutorial/${named?tutorialSet:'tutorial'}-${n}.png" alt="${esc(page.title)}" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="tut-card"><small>${named?esc(named)+' · ':'How to play · '}${n} of ${pages.length}</small><h3>${esc(page.title)}</h3><ul>${page.points.map(point=>`<li>${esc(point)}</li>`).join('')}</ul></div>`;
+      $('tut-page').innerHTML=`<img class="tut-img" src="assets/tutorial/${named?tutorialSet:'tutorial'}-${n}.png" alt="${esc(page.title)}" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="if(this.nextElementSibling)this.nextElementSibling.hidden=false;this.remove()"><div class="tut-card" hidden><small>${named?esc(named)+' · ':'How to play · '}${n} of ${pages.length}</small><h3>${esc(page.title)}</h3><ul>${page.points.map(point=>`<li>${esc(point)}</li>`).join('')}</ul></div>`;
       $('tut-dots').innerHTML=pages.map((_,i)=>`<i class="${i===tutorialPage?'on':''}"></i>`).join('');
       $('tut-prev').disabled=tutorialPage===0;
       $('tut-next').textContent=tutorialPage===pages.length-1?'Done':'›';
@@ -5678,7 +5678,7 @@
     function shotChatBubble(line){
       const shot=fionnShot(line.shot);
       if(!shot)return `<div class="hinge-bubble her">${esc(line.text)}</div>`;
-      return `<div class="hinge-bubble ${line.who==='you'?'you':'her'} shot-message">${line.text?`${esc(line.text)}`:''}<img class="shot-img" src="${esc(shot.image)}" alt="Screenshot" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="this.remove()"><div class="shot-card">${shot.her?`<i class="shot-her">${esc(shot.her)}</i>`:''}<b>${esc(shot.from)}</b>${esc(shot.text)}</div></div>`;
+      return `<div class="hinge-bubble ${line.who==='you'?'you':'her'} shot-message">${line.text?`${esc(line.text)}`:''}<img class="shot-img" src="${esc(shot.image)}" alt="Screenshot" onload="if(this.nextElementSibling)this.nextElementSibling.hidden=true" onerror="if(this.nextElementSibling)this.nextElementSibling.hidden=false;this.remove()"><div class="shot-card" hidden>${shot.her?`<i class="shot-her">${esc(shot.her)}</i>`:''}<b>${esc(shot.from)}</b>${esc(shot.text)}</div></div>`;
     }
     // Phone lines: the university and the paper know him; the police need all three things.
     function fionnServiceTopics(serviceId){
@@ -9929,7 +9929,7 @@
       $('pick-foot').textContent=open>=LADDER.length?'Every class is unlocked.':'Win a run to unlock the next class.';
     }
     // ---- The Normie teaches you the game (Chris, 3 November 2026): a tip the first time each thing comes up ----
-    const TIPS={hinge:'Tip: swipe right to like her, left to pass. Ten swipes a day. Tap her photo to see the next one.',match:'Tip: you matched. Open Chats in Hinge and talk to her. She remembers what you say.',day:'Tip: done for today? Tap the day at the top of the screen to go to tomorrow.',paper:'Tip: the paper is where things start. Read a story, then ask women about it. Ring the ads in the classifieds.',call:'Tip: your phone is ringing. Tap the banner to answer. Women who like you call.',door:'Tip: something came through your door. Press Home to put the phone down, then tap it on the floor.'};
+    const TIPS={hinge:'Tip: swipe right to like her, left to pass. Ten swipes a day. Tap her photo to see the next one.',match:'Tip: you matched. Open Chats in Hinge and talk to her. She remembers what you say.',day:'Tip: done for today? Tap the day at the top of the screen to go to bed.',paper:'Tip: the paper is where things start. Read a story, then ask women about it. Ring the ads in the classifieds.',call:'Tip: your phone is ringing. Tap the banner to answer. Women who like you call.',door:'Tip: something came through your door. Press Home to put the phone down, then tap it on the floor.'};
     function teach(id){
       if(selectedDifficulty!=='normie'||!TIPS[id]||!world)return;
       const p=playerProfile();
@@ -12236,7 +12236,7 @@
         item.addEventListener('pointermove',move);item.addEventListener('pointerup',up);item.addEventListener('pointercancel',up);
       }));
     }
-    // Go forward in time from the phone itself: tap the day in the status bar. (Chris keeps this box.)
+    // Go to bed from the phone itself: tap the day in the status bar. (Chris keeps this box.)
     function dayDialogAllowed(){return !dayTransitionInFlight&&!world.policeArrested&&!$('fatal-overlay').classList.contains('visible');}
     $('day-button').addEventListener('click',event=>{
       event.stopPropagation();
