@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="77293d893e">
+<html lang="en" data-build="09f729f4a3">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=77293d893e"></script>
+  <script src="chapel_at_midnight.js?v=09f729f4a3"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=77293d893e"></script>
+  <script src="marriage.js?v=09f729f4a3"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=77293d893e"></script>
+  <script src="quests/professor-vale.js?v=09f729f4a3"></script>
 </head>
 <body>
   <main class="workbench">
@@ -947,26 +947,51 @@
     // arrive in the same paper. A quest that isn't chosen never appears. (Saves from before
     // this keep every quest: LEGACY_QUESTS. The test suites set window.MATCH_ALL_QUESTS.)
     const QUEST_IDS=['br','vale','chapel'];
+    const STORY_QUEST_IDS=['pageant','radio','penpal','seance','priest']; // every run also gets one of these, from Day 3 to 5 (Chris, 4 November 2026)
     const LEGACY_QUESTS={br:1,vale:1,chapel:2};
+    // A quest you have won (the quest itself, not just a part of it) doesn't come back in later games while you
+    // are still climbing the class ladder. Once every class is unlocked there are no limits: any quest can turn up.
+    // If you have somehow won every quest before that, they all come back (Chris, 4 November 2026).
+    const ladderComplete=()=>playerProfile().unlocked>=LADDER.length;
+    const questFresh=id=>ladderComplete()||!playerProfile().questsWon.includes(id);
+    function questsWonNow(){ // the quests this run has won, by how each one ends well
+      if(!world)return [];
+      const out=[];
+      if(world.blueRibbon?.outcome==='success')out.push('br');
+      if(['hero_police','back_row_forever'].includes(world.professorVale?.ending))out.push('vale');
+      const ch=chapel?.state?.();if(ch&&(ch.won||ch.outcome==='stopped'))out.push('chapel');
+      if(['caught','sorted'].includes(world.fionn?.stage))out.push('fionn');
+      for(const id of SQ_IDS)if(world.sq?.[id]?.outcome==='won')out.push(id);
+      return out;
+    }
+    function noteQuestsWon(){
+      const p=playerProfile(),now=questsWonNow().filter(id=>!p.questsWon.includes(id));
+      if(!now.length)return [];
+      p.questsWon.push(...now);saveProfile();
+      return now;
+    }
     function pickQuests(seed){
       if(window.MATCH_ALL_QUESTS)return {...LEGACY_QUESTS};
       const h=n=>hashSeed(seed+'|quests|'+n);
-      const chosen=[...QUEST_IDS].sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
+      let pool=QUEST_IDS.filter(questFresh),story=STORY_QUEST_IDS.filter(questFresh);
+      if(!pool.length&&!story.length){pool=[...QUEST_IDS];story=[...STORY_QUEST_IDS];} // every quest won: all of them again
+      const chosen=pool.sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
       chosen.sort((a,b)=>(b==='br')-(a==='br')); // the gala happened on day 1: the Ledger always comes first
-      if(selectedDifficulty==='mogger'&&h('theon')%4===0)chosen.splice(1,chosen.length,'fionn'); // Theon: about one Mogger game in four; he changes everything
-      const out={br:null,vale:null,chapel:null,fionn:null};
-      chosen.forEach((id,i)=>{out[id]=i===0?(id==='chapel'?2:1):id==='fionn'?3+h('later')%2:4+h('later')%2;});
+      if(selectedDifficulty==='mogger'&&h('theon')%4===0&&questFresh('fionn'))chosen.splice(1,chosen.length,'fionn'); // Theon: about one Mogger game in four; he changes everything
+      const out={br:null,vale:null,chapel:null,fionn:null,pageant:null,radio:null,penpal:null,seance:null,priest:null};
+      chosen.forEach((id,i)=>{out[id]=id==='fionn'&&i>0?3+h('later')%2:i===0?(id==='chapel'?2:1):4+h('later')%2;});
+      if(story.length)out[story[h('story')%story.length]]=3+h('storyday')%3; // and one of the story quests
       return out;
     }
     // A run picks one or two of the big quests. If five days go by without anything moving, one that wasn't picked
     // arrives (the next morning's paper carries it), and another five quiet days bring the next (Chris, 4 November 2026).
-    const QUEST_UNLOCK_DAYS=5,QUEST_UNLOCK_ORDER=['vale','chapel'];
+    const QUEST_UNLOCK_DAYS=5,QUEST_UNLOCK_ORDER=['vale','chapel','pageant','radio','penpal','seance','priest'];
     function questUnlock(){
       const q=world?.quests;
       if(!q||typeof q!=='object'||world.victory||window.MATCH_ALL_QUESTS)return null;
       const quietSince=Math.max(world.help?.fpDay||1,world.questUnlockDay||1);
       if(world.day-quietSince<QUEST_UNLOCK_DAYS)return null;
-      const id=QUEST_UNLOCK_ORDER.find(k=>!Number.isInteger(q[k]));
+      const id=QUEST_UNLOCK_ORDER.find(k=>!Number.isInteger(q[k])&&questFresh(k)); // not one you have already won
       if(!id)return null;
       q[id]=world.day;world.questUnlockDay=world.day;
       return id;
@@ -1510,6 +1535,7 @@
       const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Oakley's ad
       if(campus)items.push(campus);
       if(gunAd)items.push(gunAd);
+      items.push(...sqNews(day)); // the story quests: the pageant, the radio contest, the pen pal, the Veil Line, the new priest
       if(Array.isArray(world.personalNews)){ // about you: a spurned woman's ad, her storyline; once printed, it lives in the edition
         for(const item of world.personalNews.filter(entry=>entry.day===day))items.push({id:item.id,section:item.section,title:item.title,summary:item.summary,body:item.body,image:item.image||'classifieds',...(item.fallbackImage?{fallbackImage:item.fallbackImage}:{})});
         world.personalNews=world.personalNews.filter(entry=>entry.day!==day);
@@ -1528,6 +1554,7 @@
       const key=edition.day+':'+articleId;
       if(expandedNews.has(key))expandedNews.delete(key);else expandedNews.add(key);
       if(!world.seenArticles.includes(key))world.seenArticles.push(key);
+      sqRead(item); // a story quest opens when you read about it
       if(item.clue)recordClue(item.clue);
       // Contacts: every edition prints the newsroom tip line and the police number;
       // Vale's stories name the University Office, the faith pages St Brigid's Chapel.
@@ -1623,6 +1650,8 @@
         if(flyerLine){startSimulatedCall(flyerLine);return;}
         const momLine=callerMomLine(dialledNumber); // Mogger: Moira's mother
         if(momLine){startSimulatedCall(momLine);return;}
+        const storyLine=sqLine(dialledNumber); // the story quests: a number in the paper or given to you
+        if(storyLine){startSimulatedCall(storyLine);return;}
         const shopLine=marriage?.contactForNumber(dialledNumber); // a jeweller's number rings her shop
         if(shopLine){startSimulatedCall({...shopLine,generic:true});return;}
         const matchedThread=[...hingeThreads.values()].find(thread=>thread.number===dialledNumber);
@@ -1984,8 +2013,9 @@
       if(serviceId==='service:lpc')return [...glowTopics(),...halLpcTopics()]; // Truecel: LPC-A365 (and Halloran's parcel)
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
+      if(serviceId.startsWith('service:sq-'))return sqLineTopics(serviceId); // the story quests
       return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
-...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
+...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId),...sqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
     // ringing the device) are marked ⚠ and happen on the first tap, like every choice.
@@ -2004,6 +2034,8 @@
       if(topic.dispatch)reply=topic.say?topic.say():topic.reply; // 911: Doreen
       else if(topic.callerMom)reply=chooseCallerMom(id); // Mogger: Moira's mother
       else if(topic.mini)reply=chooseMiniService(id); // mini quests
+      else if(topic.sq)reply=chooseSqLine(id); // the story quests' own lines
+      else if(topic.sqs)reply=chooseSqService(id,activeGenericCall.id); // and what they add to the newsroom and 911
       else if(topic.rq)reply=chooseRqService(id); // room quests: the hotline
       else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
       else if(topic.hal)reply=chooseHalTopic(id); // Undeniable
@@ -2332,7 +2364,7 @@
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       qhintMaybe(thread,profileNow); // she tells you what's going on in town
-      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
+      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
@@ -2434,8 +2466,8 @@
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
             else if(selectedDifficulty==='divorce'&&profile.factionId==='sisters_of_mercy')showHingeToast(`${firstName(profile)} doesn’t date divorced men.`,1800); // the Sisters won't look at the Divorcé (Chris, 3 November 2026)
-            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
-              const responseMode=hingeLikes===1||profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
+            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
+              const responseMode=hingeLikes===1||profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
               fionnGirlMatched(profile.id); // Theon: she knows your face
               showHingeToast(profile.name+' matched with you!');teach('match');
@@ -2524,6 +2556,7 @@
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
       if(id.startsWith('qh:'))return chooseQhint(id,thread,profile); // what's going on in town
+      if(id.startsWith('sq:'))return chooseSqChat(id,thread,profile); // the story quests
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
@@ -4381,7 +4414,7 @@
       const st=marriage?.state?.(),pv=world.professorVale,br=world.blueRibbon,ch=world.chapel,f=world.fionn,co=world.coyote;
       const sis=st?Object.values(st.sisters||{}).map(x=>`${x.started?1:0}${x.passed?1:0}${x.best||0}`).join(''):'';
       const matched=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)?.factionId==='sisters_of_mercy'&&!t.blocked&&!t.fumbled).length;
-      return [sis,st?.ring?1:0,matched,pv?.stage||'',(pv?.facts||[]).length,Object.keys(pv?.numbers||{}).length,Object.keys(br?.found||{}).length,(br?.links||[]).length,br?.outcome||'',ch?.outcome||'',ch?.stage||'',f?.stage||'',(f?.clues||[]).length,co?.stage||''].join('|');
+      return [sis,st?.ring?1:0,matched,pv?.stage||'',(pv?.facts||[]).length,Object.keys(pv?.numbers||{}).length,Object.keys(br?.found||{}).length,(br?.links||[]).length,br?.outcome||'',ch?.outcome||'',ch?.stage||'',f?.stage||'',(f?.clues||[]).length,co?.stage||'',sqProgress()].join('|');
     }
     const marriageable=id=>!!marriage?.state?.()?.sisters?.[id]; // only some Sisters of Mercy have an examination
     const sisterProfiles=()=>hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy'&&marriageable(p.id));
@@ -4390,6 +4423,13 @@
       if(!st||st.married||st.tb||!['normie','mogger','truecel'].includes(selectedDifficulty))return null;
       const mine=[...hingeThreads.values()].filter(t=>marriageable(t.id)&&!t.blocked&&!t.fumbled);
       const of=id=>st.sisters?.[id]||{};
+      if(sistersBless()){ // the priest is gone: any Sister marries you, ring in hand
+        const t=mine[0],free=sisterProfiles().filter(p=>!hingeThreads.has(p.id));
+        if(!t)return free.length?{kind:'sisterIntro',id:free[0].id}:null;
+        if(st.ring)return {kind:'propose',id:t.id};
+        const ids=marriage.jewellerIds?.()||[];
+        return ids.length?{kind:'jeweller',id:t.id,jeweller:ids[hashSeed(world.seed+'|helpring')%ids.length]}:null;
+      }
       const passed=mine.find(t=>of(t.id).passed);
       if(passed){
         if(st.ring)return {kind:'propose',id:passed.id};
@@ -4414,6 +4454,7 @@
     function helpLeads(){
       const out=[];
       if(questOn('vale')&&PV?.helpLead?.())out.push({kind:'rosa'});
+      const sl=sqHelpLead();if(sl)out.push(sl);
       const m=marriageLead();if(m)out.push(m);
       return out;
     }
@@ -4441,22 +4482,25 @@
       return 'x:help';
     }
     function helpFace(lead){
+      if(lead?.kind==='sq')return hingeProfile(sqHelp(lead)?.face)?.gallery?.[0]||'assets/icons/calls.png';
       if(lead?.kind==='rosa'){const r=hingeProfile('MATCH-054');return r?.gallery?.[0]||'assets/quests/professor/unknown-caller.png';}
       if(lead?.kind==='jeweller'){const j=marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller);return j?.portrait||'assets/icons/calls.png';}
       return hingeProfile(lead?.id)?.gallery?.[0]||'assets/icons/calls.png';
     }
     function helpCallCard(id){
       const lead=world.help?.lead,face=helpFace(lead);
+      if(lead?.kind==='sq'){const H=sqHelp(lead);return {id,name:H?.name||'Unknown number',gallery:[face],banner:face,ringName:H?.ring||'Unknown number',sub:'Mobile'};}
       const name=lead?.kind==='rosa'?(PV?.helpText?.('caller')||'Rosa Gutierrez'):lead?.kind==='jeweller'?(marriage?.jewellerName?.(lead.jeweller)||'A jeweler'):(hingeProfile(lead?.id)?.name||'Unknown number');
       return {id,name,gallery:[face],banner:face,ringName:lead?.kind==='theon'?'Sunfall Daily':lead?.kind==='sisterIntro'||lead?.kind==='rosa'?'Unknown number':name,sub:lead?.kind==='theon'?'Newsroom':'Mobile'};
     }
     function helpLine(lead,key){
+      if(lead?.kind==='sq')return sqHelp(lead)?.[key]||'';
       const her=lead?.id?firstName(hingeProfile(lead.id)):'';
       const j=lead?.kind==='jeweller'?marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller):null;
       const L={
         sisterIntro:{open:`This is ${her}. I’m one of the Sisters of Mercy. A friend showed me your profile, and I don’t swipe on things. If you are looking for a wife and not a weekend, you may have my number.`,yes:'I’m looking for a wife',done:'Then talk to me properly. When you’re ready, ask me whether I would ever marry you. I will have some questions for you first.',no:'Then God bless you. I won’t ring again.'},
         sisterAsk:{open:`It’s ${her}. We’ve talked for a while now, and you have never asked me the only question that matters to me.`,yes:'Would you ever marry me?',done:'Not before I know you. I’ll ask you my questions in our chat.',no:'I see. Then I’ll stop waiting for it.'},
-        jeweller:{open:`${j?.name||'The jeweler'} from ${j?.shop||'the shop'}. Forgive me ringing out of the blue. I hear a young man passed ${her}’s examination with the Sisters of Mercy and has no ring. I have one that would suit her.`,yes:'Send it over',done:'It will be on your desk within the hour. Go and ask her.',no:'The ring will keep. You know where to find me.'},
+        jeweller:{open:sistersBless()?`${j?.name||'The jeweler'} from ${j?.shop||'the shop'}. Forgive me ringing out of the blue. The Sisters of Mercy tell me they owe you a great deal, and that one of them would say yes. I have a ring that would suit her.`:`${j?.name||'The jeweler'} from ${j?.shop||'the shop'}. Forgive me ringing out of the blue. I hear a young man passed ${her}’s examination with the Sisters of Mercy and has no ring. I have one that would suit her.`,yes:'Send it over',done:'It will be on your desk within the hour. Go and ask her.',no:'The ring will keep. You know where to find me.'},
         propose:{open:`It’s ${her}. I hear there is a ring on your desk. Was there something you wanted to ask me?`,yes:'Will you marry me?',done:'Ask me properly. In our chat, where I can read it twice.',no:'Then I’ll keep waiting. Not forever.'},
         theon:{open:`${her} at the Sunfall Daily. Three women have come to us about a man messaging them from a profile with your photos on it. He signs his poems Theon. I don’t think he’s you. If anyone comes to your door about it, tell them so.`,yes:'Send me what you have',done:'Screenshots of his profile, and the name he signs with. They’re in your notebook. Keep them close.',no:'Then I hope nobody comes asking.'}
       }[lead?.kind];
@@ -4487,6 +4531,7 @@
         }
         if(lead?.kind==='sisterAsk'){const t=hingeThreads.get(lead.id);if(t&&!t.number)t.number=unusedContactNumber();later=()=>marriage?.choose?.('start:'+lead.id);}
         if(lead?.kind==='jeweller')marriage?.giftRing?.(lead.jeweller);
+        if(lead?.kind==='sq')sqHelp(lead)?.apply?.();
         if(lead?.kind==='theon'){fionnClue('profile');fionnClue('name');recordClue('A man called Theon is using your photos on Hinge. A reporter at the Sunfall Daily has screenshots of his profile.');h.theonDone=true;}
         if(lead?.kind==='propose')later=()=>marriage?.choose?.('propose:'+lead.id);
       }
@@ -4527,6 +4572,7 @@
       if(!questOn(id))return false;
       if(id==='vale')return !!PV&&!PV.isOpen?.();
       if(id==='chapel'){const st=chapel?.state?.();return !!st&&!st.active&&st.enabled!==false&&!st.dead&&!st.outcome;}
+      if(SQ[id]){const st=sqState(id);return !!st&&st.stage==='none'&&!st.outcome&&world.day>=st.start+(SQ[id].qhint?.from||0);}
       return false;
     }
     const qhintTeller=profile=>!!profile&&profile.factionId!=='sisters_of_mercy'&&!profile.jeweller&&!profile.sorority&&profile.id!==bearHingeCard.id;
@@ -4566,8 +4612,532 @@
       return fionnReply(thread,profile,[{text:Q.openReply}],()=>{
         if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
         if(id==='chapel')chapel?.onPaperOpened?.();
+        if(SQ[id])sqOpen(id);
       });
     }
+    // ===== Story quests (Chris, 4 November 2026): the Miss Sunfall pageant, the radio contest, the pen pal on
+    // death row, the Veil Line and the new priest. Each is a main quest (picked for a run, or arriving after quiet
+    // days) and each is a win, except the priest: getting him sent away makes every Sister of Mercy willing to marry
+    // you on the spot, ring in hand. A small engine: paper stories, things to ask women by faction, a phone line or
+    // two, facts that go in your notebook, a deadline, an ending, a helping call and a hint.
+    const SQ_IDS=['pageant','radio','penpal','seance','priest'];
+    const sqName=id=>firstName(hingeProfile(id))||'she';
+    const sqFull=id=>hingeProfile(id)?.name||'a local woman';
+    const sqSeed=(id,key)=>hashSeed(world.seed+'|sq|'+id+'|'+key);
+    const sqPick=(list,id,key)=>list.length?list[sqSeed(id,key)%list.length]:null;
+    function sqWomen(factions,used=[],max=30){
+      const busy=new Set(used);
+      return hingeProfiles.filter(p=>factions.includes(p.factionId)&&!busy.has(p.id)&&!p.jeweller&&!p.sorority&&(p.age||0)<=max&&p.gallery?.length&&!mustReply(p));
+    }
+    function sqState(id){
+      if(!world||!SQ[id]||!questOn(id))return null;
+      const all=world.sq&&typeof world.sq==='object'?world.sq:(world.sq={});
+      if(!all[id]||typeof all[id]!=='object')all[id]={stage:'none',start:questStart(id),facts:[],numbers:{},asked:[],outcome:null,outcomeDay:null,v:SQ[id].setup(id)};
+      return all[id];
+    }
+    const sqHas=(st,f)=>!!st&&st.facts.includes(f);
+    function sqLearn(id,f){
+      const st=sqState(id),note=SQ[id].facts?.[f]||SQ[id].factNote?.(f);
+      if(!st||sqHas(st,f))return false;
+      st.facts.push(f);
+      if(note)recordClue(typeof note==='function'?note(st):note);
+      return true;
+    }
+    function sqNumber(id,key){const st=sqState(id);if(!st)return '';if(!st.numbers[key])st.numbers[key]=unusedContactNumber();return st.numbers[key];}
+    function sqOpen(id,quiet=false){
+      const st=sqState(id);
+      if(!st||st.stage!=='none'||st.outcome)return false;
+      st.stage='open';
+      SQ[id].onOpen?.(st);
+      if(!quiet)showGameNotice(SQ[id].opened);
+      return true;
+    }
+    function sqEnd(id,outcome,line){
+      const st=sqState(id);
+      if(!st||st.outcome)return;
+      st.outcome=outcome;st.outcomeDay=world.day;st.stage='closed';
+      if(line)showGameNotice(line);
+    }
+    // A quest's cast match you when you like them, and turn up in the next few swipes once it opens.
+    function sqLikes(profileId){return SQ_IDS.some(id=>{const st=world?.sq?.[id];return !!st&&!st.outcome&&(st.v?.cast||[]).includes(profileId);});}
+    function sqNudge(ids){
+      ids.filter(id=>!hingeThreads.has(id)).forEach((id,i)=>{
+        const at=hingeDeck.findIndex((card,n)=>n>=hingeIndex&&card.id===id);
+        if(at>=0&&at<hingeIndex+8)return;
+        if(at>=0)hingeDeck.splice(at,1);
+        const card=hingeProfile(id);
+        if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+i*2),0,card);
+      });
+    }
+    // The paper.
+    function sqNews(day){
+      const out=[];
+      for(const id of SQ_IDS){
+        const st=sqState(id);
+        if(!st)continue;
+        for(const item of SQ[id].news(st,day)||[])out.push({section:'Local',locked:true,fallbackImage:'charity_gala',...item,sq:id});
+      }
+      return out;
+    }
+    function sqRead(item){if(item?.sq){sqOpen(item.sq);for(const f of item.gives||[])sqLearn(item.sq,f);}}
+    // What you can ask her. Each quest says, per woman, what she knows (needs/gives facts) and how she sees it.
+    function sqChatChoices(thread,profile){
+      if(!world||!profile||thread.blocked||thread.fumbled||thread.pending)return [];
+      const out=[];
+      for(const id of SQ_IDS){
+        const st=sqState(id);
+        if(!st||st.outcome||world.day<st.start)continue;
+        for(const t of SQ[id].chat?.(st,thread,profile)||[]){
+          if(t.needs&&!t.needs.every(f=>sqHas(st,f)))continue;
+          if(st.asked.includes(thread.id+':'+id+':'+t.key))continue;
+          out.push([`sq:${id}:${t.key}`,t.label]);
+        }
+      }
+      return out;
+    }
+    function chooseSqChat(key,thread,profile){
+      const [,id,k]=key.split(':'),st=sqState(id);
+      if(!st||thread.pending)return;
+      const t=(SQ[id].chat?.(st,thread,profile)||[]).find(x=>x.key===k);
+      if(!t||st.asked.includes(thread.id+':'+id+':'+k))return;
+      st.asked.push(thread.id+':'+id+':'+k);
+      thread.log.push({who:'you',text:t.say||t.label});
+      const reply=typeof t.reply==='function'?t.reply(st):t.reply;
+      return fionnReply(thread,profile,[].concat(reply).map(text=>({text})),()=>{
+        if(t.opens!==false)sqOpen(id,true);
+        for(const f of t.gives||[])sqLearn(id,f);
+        if(t.warm)warmBy(thread,t.warm);
+        t.after?.(st,thread);
+      });
+    }
+    // Phone lines printed in the paper or given to you.
+    function sqLine(number){
+      for(const id of SQ_IDS){
+        const st=world?.sq?.[id];
+        if(!st)continue;
+        for(const [key,num] of Object.entries(st.numbers||{})){
+          const L=SQ[id].lines?.[key];
+          if(L&&num===String(number))return {id:`service:sq-${id}-${key}`,name:L.name,portrait:L.portrait||'assets/icons/calls.png',generic:true,greeting:typeof L.greeting==='function'?L.greeting(st):L.greeting};
+        }
+      }
+      return null;
+    }
+    function sqLineTopics(serviceId){
+      const m=/^service:sq-([a-z]+)-([a-z]+)$/.exec(serviceId);
+      if(!m)return [];
+      const [,id,key]=m,st=sqState(id);
+      if(!st||st.outcome&&!SQ[id].lines?.[key]?.afterEnd)return [];
+      return (SQ[id].lineTopics?.(st,key)||[]).filter(t=>!(t.needs&&!t.needs.every(f=>sqHas(st,f)))).map(t=>({id:`sqt:${id}:${key}:${t.key}`,label:t.label,sq:true,final:!!t.final}));
+    }
+    function chooseSqLine(topicId){
+      const [,id,key,k]=topicId.split(':'),st=sqState(id);
+      const t=(SQ[id].lineTopics?.(st,key)||[]).find(x=>x.key===k);
+      if(!t)return '';
+      sqOpen(id,true);
+      for(const f of t.gives||[])sqLearn(id,f);
+      const said=t.act?t.act(st):'';
+      return said||(typeof t.reply==='function'?t.reply(st):t.reply)||'';
+    }
+    // Topics a quest adds to lines that already exist (the newsroom, 911).
+    function sqServiceTopics(serviceId){
+      const out=[];
+      for(const id of SQ_IDS){
+        const st=sqState(id);
+        if(!st||st.stage!=='open')continue;
+        for(const t of SQ[id].serviceTopics?.(st,serviceId)||[])if(!(t.needs&&!t.needs.every(f=>sqHas(st,f))))out.push({id:`sqs:${id}:${t.key}`,label:t.label,sqs:true,final:!!t.final});
+      }
+      return out;
+    }
+    function chooseSqService(topicId,serviceId){
+      const [,id,k]=topicId.split(':'),st=sqState(id);
+      const t=(SQ[id].serviceTopics?.(st,serviceId)||[]).find(x=>x.key===k);
+      if(!t)return '';
+      for(const f of t.gives||[])sqLearn(id,f);
+      return t.act?t.act(st):(typeof t.reply==='function'?t.reply(st):t.reply)||'';
+    }
+    // Mornings: deadlines, deliveries and what catches up with you.
+    function sqNewDay(){
+      for(const id of SQ_IDS){const st=sqState(id);if(st&&world.day>=st.start)SQ[id].tick?.(st,world.day);}
+    }
+    // A quest's death: shown again if you reload.
+    function sqDie(id,cause,verb,line){
+      world.sqDead={id,cause,verb,line};
+      sqDeathScreen();
+      saveRun(true);
+    }
+    function sqDeathScreen(){
+      const d=world.sqDead;if(!d)return;
+      stopRinging();herCall=null;
+      drawDeathTitle(d.cause,d.verb);
+      $('fatal-overlay').querySelector('p').textContent=d.line;
+      $('fatal-overlay').classList.add('visible');
+      setLowered(true);fit();
+      updateRunStatus('Game over.');
+    }
+    // The win, the morning after (questWin), and what the help system can offer.
+    function sqWin(){
+      for(const id of SQ_IDS){
+        const st=world?.sq?.[id];
+        if(st?.outcome==='won'&&SQ[id].win&&Number.isInteger(st.outcomeDay)&&world.day>st.outcomeDay)return {type:'q_'+id,bride:st.v?.bride||null,day:world.day};
+      }
+      return null;
+    }
+    function sqHelpLead(){
+      for(const id of SQ_IDS){
+        const st=sqState(id);
+        if(!st||st.stage!=='open'||st.outcome)continue;
+        const h=SQ[id].help?.(st);
+        if(h)return {kind:'sq',quest:id,step:h.step};
+      }
+      return null;
+    }
+    const sqHelp=lead=>lead?.kind==='sq'?SQ[lead.quest]?.help?.(sqState(lead.quest))||null:null;
+    const sqProgress=()=>SQ_IDS.map(id=>{const st=world?.sq?.[id];return st?`${st.stage}${st.facts.length}${st.outcome||''}${st.v?.right||0}${(st.v?.accused||[]).length}`:'';}).join(',');
+
+    // --------------------------------------------------------------------------------------------
+    // The Miss Sunfall pageant. Five finalists, all on Hinge. Someone is sabotaging the others: a gown cut, the
+    // green room coffee, a talent tape. Each finalist tells you where she was and who she saw. The saboteur blames
+    // a different girl every time; one finalist saw her where she says she wasn't. Name her to the pageant office
+    // before the final. Two wrong names and the office stops listening.
+    const PAGEANT_PLACES=['at the hair and makeup chairs','in the rehearsal hall','out by the pool','at the sponsors’ lunch','on the phone in the parking lot'];
+    const PAGEANT_INCIDENTS=[
+      {key:'gown',spot:'going into the dressing rooms',what:v=>`${v}’s gown was cut`,title:'MISS SUNFALL FINALIST’S GOWN CUT TO RIBBONS',summary:'A finalist’s gown was found slashed in the locked dressing rooms of the Desert Willow ballroom.',body:v=>`Staff at the Desert Willow ballroom found ${v}’s evening gown cut to ribbons in the dressing rooms, an hour before the Miss Sunfall dress rehearsal. The pageant director, Darlene Voight, says the rooms were locked to everyone but the five finalists.`,image:'pageant_gown'},
+      {key:'coffee',spot:'coming out of the green room with the coffee pot',what:v=>`somebody put laxatives in ${v}’s coffee`,title:'PAGEANT FINALIST TAKEN ILL IN THE GREEN ROOM',summary:'A Miss Sunfall finalist was rushed out of rehearsals after drinking coffee from the green room.',body:v=>`${v} left the Miss Sunfall rehearsals by ambulance after drinking coffee from the finalists’ green room. Pageant staff say a laxative was found in the pot. Director Darlene Voight: one of my finalists is doing this, and I will find out which.`,image:'pageant_greenroom'},
+      {key:'tape',spot:'in the sound booth',what:v=>`${v}’s talent tape was erased`,title:'TALENT ROUND TAPE ERASED THE NIGHT BEFORE THE FINAL',summary:'The backing track for a finalist’s talent round was wiped in the sound booth.',body:v=>`The backing track for ${v}’s talent round was found erased in the Desert Willow sound booth. Director Darlene Voight says the final will go ahead, and asks anyone who knows anything to call the pageant office.`,image:'pageant_tape'}
+    ];
+    // --------------------------------------------------------------------------------------------
+    // The radio contest. KSUN 97.3’s late request line gives away a date with the host to the first caller who
+    // gets three Sunfall questions right. Every question is something one kind of woman knows. Ask around: the
+    // wrong ones tell you who would know.
+    const RADIO_QUESTIONS=[
+      {id:'table',faction:'thunderbirds',q:'What do the Bluebirds call the treasurer’s table at their gala?',a:'The Ninth Table',wrong:['The Founders’ Table','The Head Table'],tell:'The Ninth Table. The treasurer’s table. Nobody sits there by accident.',who:'Sounds like a Bluebird thing. Ask one of the society girls.'},
+      {id:'vigil',faction:'sisters_of_mercy',q:'What do the Sisters of Mercy keep at the Old Mission on every new moon?',a:'A vigil',wrong:['A bake sale','A bingo night'],tell:'A vigil. All night, every new moon. It started long before any of us.',who:'No idea. That’s church stuff. Ask a Sister of Mercy.'},
+      {id:'vb',faction:'goth_girls',q:'What two letters sign the Midnight Rite flyers?',a:'V.B.',wrong:['M.R.','O.M.'],tell:'V.B. Everyone at the Black Lace shop knows that.',who:'Flyers? Ask a goth. They know every flyer in town.'},
+      {id:'graves',faction:'police',q:'Which detective does the Sunfall Daily quote every week?',a:'Eleanor Graves',wrong:['Ruth Calder','Margaret Oakley'],tell:'Detective Eleanor Graves. She hates being quoted, which is why they do it.',who:'Ask someone on the force. They read the paper for their own names.'},
+      {id:'backrow',faction:'progressives',q:'What do the students at the back of Professor Vale’s lectures call themselves?',a:'The Back Row',wrong:['The Front Line','The Night Desk'],tell:'The Back Row. And they’re not as funny as they think.',who:'Campus politics? Ask one of the activists.'},
+      {id:'ledger',faction:'fourth_estate',q:'What is the name of the Sunfall Daily’s rival paper?',a:'The Desert Ledger',wrong:['The Valley Sun','The Canyon Courier'],tell:'The Desert Ledger. We do not say its name in the newsroom.',who:'Ask a reporter. They hate the other paper by name.'},
+      {id:'cactus',faction:'normie_girls',q:'Which bar in Sunfall has a cactus with a horseshoe on its sign?',a:'The Lucky Cactus',wrong:['The Thirsty Saguaro','The Last Drop'],tell:'The Lucky Cactus. Everybody’s been. Nobody admits it.',who:'A bar? Ask a normal girl. Any of them.'}
+    ];
+    // --------------------------------------------------------------------------------------------
+    // The pen pal. Lyle Dunmore has been on death row for eleven years for the Saguaro Street fire. He writes to
+    // you. He didn't do it. The Bluebirds want him executed; the Sisters are split; the progressives want him out.
+    // Three new things and the Innocence Clinic can get a stay: the witness who isn't sure, the waitress nobody
+    // called, and the fire science that wasn't. The date is set.
+    // --------------------------------------------------------------------------------------------
+    // The Veil Line. Madame Ilona reads the obituaries and calls it talking to the dead, and she has taken a widow's
+    // savings. A Sister of Mercy wants her stopped. The goths know how she works. Put a man who never lived in the
+    // obituaries with a detail nobody could guess, record her finding it, and hand over the tape.
+    // --------------------------------------------------------------------------------------------
+    // The new priest. Father Julian Sorrell came to St Brigid's this year and has been emptying it: the vigil
+    // cancelled, the bells sold. He lends the Old Mission keys to Victoria's circle and golfs with Augustus Pell, and
+    // the parish books pay a company called Halcyon Ridge. Go to the bishop through his chancellor, Monsignor
+    // Ferrante, and Ferrante tells Pell. Put it in the paper first, then the bishop can't bury it.
+    const SQ={
+      pageant:{
+        opened:'Somebody is sabotaging the Miss Sunfall finalists. The five of them are on Hinge, and the pageant office is in the paper.',
+        setup(id){
+          const pool=sqWomen(['normie_girls','thunderbirds'],[],30).sort((a,b)=>sqSeed(id,a.id)-sqSeed(id,b.id)).slice(0,5).map(p=>p.id);
+          const [culprit,witness,...rest]=[...pool].sort((a,b)=>sqSeed(id,'r'+a)-sqSeed(id,'r'+b));
+          const innocents=pool.filter(x=>x!==culprit);
+          const key=sqSeed(id,'key')%3;
+          const victims=[0,1,2].map(k=>innocents.filter(x=>x!==witness||k!==key)[(sqSeed(id,'victim'+k))%Math.max(1,innocents.length-1)]||innocents[0]);
+          const alibi={};pool.forEach((x,i)=>alibi[x]=[0,1,2].map(k=>(i+k*2+sqSeed(id,'al'+x)%5)%5));
+          const framed=[0,1,2].map(k=>innocents.filter(x=>x!==witness&&x!==victims[k])[sqSeed(id,'fr'+k)%Math.max(1,innocents.length-2)]||innocents[0]);
+          return {cast:pool,culprit,witness,key,victims,alibi,framed,accused:[],told:{},bride:witness};
+        },
+        onOpen(st){sqNudge(st.v.cast);},
+        facts:{},
+        statement(st,F,k){
+          const v=st.v,inc=PAGEANT_INCIDENTS[k],victim=sqName(v.victims[k]),place=PAGEANT_PLACES[v.alibi[F][k]];
+          const alibi=F===v.victims[k]?`It was mine. I was ${place} when it happened.`:`When ${inc.what(victim)}, I was ${place}.`;
+          let saw;
+          if(F===v.witness&&k===v.key)saw=`And I saw ${sqName(v.culprit)} ${inc.spot} just before. I haven’t told anyone.`;
+          else if(F===v.culprit)saw=`I saw ${sqName(v.framed[k])} ${inc.spot} just before. Just saying.`;
+          else{
+            const others=v.cast.filter(x=>x!==F&&x!==v.culprit);
+            const O=v.framed[k]!==F&&others.includes(v.framed[k])&&sqSeed('pageant',F+k)%2===0?v.framed[k]:others[sqSeed('pageant','o'+F+k)%others.length];
+            saw=`I saw ${sqName(O)} ${PAGEANT_PLACES[v.alibi[O][k]]} the whole time.`;
+          }
+          return `${alibi} ${saw}`;
+        },
+        revealed:(st,k)=>world.day>=st.start+1+k,
+        chat(st,thread,profile){
+          if(!st.v.cast.includes(thread.id)||(st.v.accused||[]).includes(thread.id))return [];
+          const k=[0,1,2].find(k=>this.revealed(st,k)&&!(st.v.told[thread.id]||[]).includes(k));
+          if(k===undefined)return [];
+          return [{key:'ask'+k,label:k===0?'Ask her about the pageant':'Ask her what happened this time',say:k===0?'What’s going on at the pageant?':'I saw the paper. Are you all right?',reply:st=>this.statement(st,thread.id,k),after:st=>{(st.v.told[thread.id]||(st.v.told[thread.id]=[])).push(k);recordClue(`Miss Sunfall, ${sqFull(thread.id)}: ${this.statement(st,thread.id,k)}`);}}];
+        },
+        lines:{office:{name:'Miss Sunfall Pageant Office',portrait:'assets/icons/calls.png',greeting:'Miss Sunfall office, Darlene Voight speaking. If this is the press, no comment.'}},
+        lineTopics(st,key){
+          if(st.outcome)return [];
+          const v=st.v,out=[{key:'who',label:'Ask who could get into the dressing rooms',reply:'Only the five finalists had keys. My crew were in a meeting with me every time. It’s one of my girls, and I hate saying it. Talk to them. Somebody saw something.'}];
+          if(world.day>=st.start+1)for(const id of v.cast.filter(x=>!v.accused.includes(x)))out.push({key:'n'+v.cast.indexOf(id),label:`Name ${sqFull(id)} as the saboteur`,final:true,act:st=>{
+            if(id===v.culprit){v.named=id;sqEnd('pageant','won');const t=hingeThreads.get(id);if(t&&!t.blocked){t.log.push({who:'her',text:'How could you.',block:true});t.blocked=true;}return `Darlene goes quiet. Then she breathes out. Security just opened ${sqName(id)}’s garment bag. Scissors, and a bottle of something from a pharmacy. Thank you. I mean it. The final goes ahead.`;}
+            v.accused.push(id);v.wrongDay=world.day;
+            const t=hingeThreads.get(id);if(t&&!t.blocked){t.log.push({who:'her',text:'You told them it was me? I was nowhere near it. Lose my number.',block:true});t.blocked=true;}
+            if(v.accused.length>=2){sqEnd('pageant','wrong');return 'That’s two of my finalists out on your word, and neither of them did it. Don’t call this office again.';}
+            return `Darlene sighs. ${sqName(id)} is out. I hope you’re right about this.`;
+          }});
+          return out;
+        },
+        news(st,day){
+          const v=st.v,out=[];
+          if(day===st.start){const names=v.cast.map(sqFull);out.push({id:'sq_pageant_finalists',section:'Society',title:'MISS SUNFALL: FIVE FINALISTS FOR THE CROWN',summary:'The finalists are named for the Miss Sunfall pageant at the Desert Willow ballroom.',body:`The five finalists for Miss Sunfall are ${names.slice(0,4).join(', ')} and ${names[4]}. The final is at the Desert Willow ballroom on Day ${st.start+5}. Tickets and questions: the pageant office, ${displayNumber(sqNumber('pageant','office'))}.`,image:'pageant_finalists'});}
+          PAGEANT_INCIDENTS.forEach((inc,k)=>{if(day===st.start+1+k&&!(st.outcome&&st.outcomeDay<day))out.push({id:'sq_pageant_'+inc.key,title:inc.title,summary:inc.summary,body:`${inc.body(sqFull(v.victims[k]))} The pageant office: ${displayNumber(sqNumber('pageant','office'))}.`,image:inc.image});});
+          if(v.wrongDay!==undefined&&day===v.wrongDay+1){const id=v.accused.at(-1);out.push({id:'sq_pageant_out_'+day,image:'sq_pageant_disqualified',title:'FINALIST DISQUALIFIED ON A TIP',summary:`${sqFull(id)} is out of Miss Sunfall.`,body:`The pageant office disqualified ${sqFull(id)} after an anonymous tip. She denies everything. Her family is considering legal action.`,image:'pageant_disqualified'});}
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_pageant_unmasked',title:'SABOTEUR UNMASKED: FINALIST OUT OF MISS SUNFALL',summary:`${sqFull(v.named)} has been removed from the pageant.`,body:`Scissors and a bottle of laxative were found in ${sqFull(v.named)}’s garment bag. She has been removed from Miss Sunfall. The favorite for the crown is now ${sqFull(v.witness)}.`,image:'pageant_unmasked'});
+          if(st.outcome==='lost'&&day===st.outcomeDay)out.push({id:'sq_pageant_ruined',title:'SPRINKLERS SOAK THE MISS SUNFALL FINAL',summary:'The final was abandoned when the ballroom sprinklers came on.',body:'Someone set off the fire alarm in the Desert Willow ballroom during the evening gowns. The finalists ran for the doors. No crown was awarded, and nobody has been charged.',image:'pageant_sprinklers'});
+          return out;
+        },
+        tick(st,day){if(!st.outcome&&day>=st.start+5)sqEnd('pageant','lost');},
+        help(st){
+          const v=st.v;
+          if(st.helped||!this.revealed(st,v.key))return null;
+          const inc=PAGEANT_INCIDENTS[v.key];
+          return {step:'witness',face:v.witness,name:sqFull(v.witness),ring:'Unknown number',
+            open:`It’s ${sqName(v.witness)}, one of the Miss Sunfall finalists. I didn’t want to put this on Hinge. Before ${inc.what(sqName(v.victims[v.key]))}, I saw ${sqName(v.culprit)} ${inc.spot}. She’s telling everyone she was ${PAGEANT_PLACES[v.alibi[v.culprit][v.key]]}.`,
+            yes:'Thank you for telling me',done:'Please don’t tell her it was me.',no:'Forget I called.',
+            apply(){st.helped=true;recordClue(`Miss Sunfall: ${sqFull(v.witness)} saw ${sqFull(v.culprit)} ${inc.spot} before ${inc.what(sqName(v.victims[v.key]))}.`);}};
+        },
+        qhint:{hint:'Did you see the Miss Sunfall story? Somebody cut a finalist’s gown to ribbons. It has to be one of the other finalists.',ask:'Ask her about the pageant',askReply:'Five finalists, and the dressing rooms were locked to everyone else. The director is beside herself. The final is in a few days.',open:'Somebody should find out who',openReply:'They’re all on Hinge, apparently. And the pageant office is in the paper.',story:/sq_pageant/,from:1},
+        win:{name:'The Miss Sunfall pageant',title:'THE CROWN AND YOU',subtitle:'You unmasked the saboteur, and the Miss Sunfall final went ahead.',line:'{name} won the crown, and she wants the man who saved her final on her arm at the coronation ball.',image:'assets/newspapers/pageant_crowned.png',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
+        endings:[['won','The saboteur unmasked'],['wrong','Two innocent finalists out'],['lost','The sprinklers came on']]
+      },
+      radio:{
+        opened:'KSUN 97.3 is giving away a date with its late-night host to the first caller with three right answers. The number is in the paper.',
+        setup(id){
+          const qs=[...RADIO_QUESTIONS].sort((a,b)=>sqSeed(id,a.id)-sqSeed(id,b.id)).slice(0,5).map(q=>q.id);
+          return {cast:['MATCH-163'],bride:'MATCH-163',qs,right:0,played:{},answered:{}};
+        },
+        facts:{},
+        factNote(f){const Q=RADIO_QUESTIONS.find(q=>'a:'+q.id===f);return Q?`Radio contest: ${Q.q} ${Q.a}.`:null;},
+        night:st=>world.day-st.start, // night 1 is the day after the ad
+        q:(st,n)=>RADIO_QUESTIONS.find(q=>q.id===st.v.qs[n-1]),
+        chat(st,thread,profile){
+          const out=[];
+          for(const qid of Object.keys(st.v.played)){
+            const Q=RADIO_QUESTIONS.find(q=>q.id===qid);
+            if(!Q||st.v.answered[qid])continue;
+            const knows=profile.factionId===Q.faction;
+            out.push({key:'q'+qid,label:`Ask her: ${Q.q}`,say:`Random question for the radio contest. ${Q.q}`,opens:false,reply:knows?Q.tell:Q.who,gives:knows?['a:'+qid]:[]});
+          }
+          if(thread.id==='MATCH-163'&&st.stage==='open')out.push({key:'host',label:'Tell her you’ve been calling in',reply:'Oh my God, that’s you? You can’t tell anyone we talk on here. I mean it. Good luck tonight.',warm:1});
+          return out;
+        },
+        lines:{station:{name:'KSUN 97.3 Late Request Line',portrait:'assets/icons/calls.png',greeting:st=>`KSUN late request line, you’re on with ${sqName('MATCH-163')}. Are you calling about the contest?`}},
+        lineTopics(st,key){
+          if(st.outcome)return [];
+          const n=this.night(st),Q=n>=1&&n<=5?this.q(st,n):null;
+          if(!Q)return [{key:'when',label:'Ask about the contest',reply:'One question a night, five nights, starting tomorrow. Three right and you win a date with me. On air. No pressure.'}];
+          if(!st.v.played[Q.id])return [{key:'play',label:'Play tonight’s question',act:st=>{st.v.played[Q.id]=world.day;return `Okay, caller. Tonight’s question about Sunfall: ${Q.q} Take your time. Not too much time.`;}}];
+          if(st.v.answered[Q.id])return [{key:'done',label:'Ask how you’re doing',reply:`You’ve got ${st.v.right} right. ${st.v.right>=3?'':'Call back tomorrow night.'}`}];
+          const opts=[Q.a,...Q.wrong].sort((a,b)=>sqSeed('radio',Q.id+a)-sqSeed('radio',Q.id+b));
+          return opts.map((o,i)=>({key:'a'+i,label:`Answer: ${o}`,final:true,act:st=>{
+            st.v.answered[Q.id]=o===Q.a?'right':'wrong';
+            if(o!==Q.a)return `Ooh. No, it’s ${Q.a}. Sorry, caller. There’s always tomorrow night.`;
+            st.v.right++;
+            if(st.v.right>=3){sqEnd('radio','won');return 'That’s three! Sunfall, we have a winner. You’re taking me out, and the whole town is listening. Oh my God.';}
+            return `That’s right! ${st.v.right} down. Call back tomorrow night.`;
+          }}));
+        },
+        news(st,day){
+          const out=[];
+          if(day===st.start)out.push({id:'sq_radio_ad',section:'Classifieds',title:'KSUN 97.3: WIN A DATE ON THE LATE REQUEST LINE',summary:'Five nights, five questions about Sunfall. Three right wins a date with the host.',body:`Think you know Sunfall? Every night for five nights, KSUN’s late request line asks one question about our town. Get three right and win a date with the host, ${sqFull('MATCH-163')}. Call ${displayNumber(sqNumber('radio','station'))}.`,image:'radio_ad'});
+          if(st.outcome==='lost'&&day===st.outcomeDay)out.push({id:'sq_radio_gary',title:'GARY FROM MESA WINS KSUN DATE',summary:'A retired dentist from Mesa won the late request line contest.',body:`Gary, 61, a retired dentist from Mesa, got three right and won a date with KSUN’s ${sqFull('MATCH-163')}. Listeners have been calling in to complain ever since.`,image:'radio_gary'});
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_radio_won',title:'LOCAL MAN WINS KSUN DATE ON AIR',summary:'Three right answers, and half of Sunfall was listening.',body:`A Sunfall caller answered three questions in five nights and won a date with KSUN host ${sqFull('MATCH-163')}. The station says the date will be broadcast live.`,image:'radio_won'});
+          return out;
+        },
+        tick(st,day){if(!st.outcome&&day>st.start+5)sqEnd('radio','lost');},
+        help(st){
+          const n=this.night(st),Q=n>=1&&n<=5?this.q(st,n):null;
+          if(!Q||!st.v.played[Q.id]||st.v.answered[Q.id]||sqHas(st,'a:'+Q.id)||st.v.helped===Q.id)return null;
+          return {step:'hint',face:'MATCH-163',name:sqFull('MATCH-163'),ring:'Unknown number',open:`It’s ${sqName('MATCH-163')}. From the radio. I’m not supposed to call contestants. I’m not telling you the answer. But a ${({thunderbirds:'Bluebird',sisters_of_mercy:'Sister of Mercy',goth_girls:'goth',police:'police officer',progressives:'activist',fourth_estate:'reporter',normie_girls:'normal girl'})[Q.faction]} would know it in her sleep.`,yes:'Just tell me',done:`Fine. ${Q.a}. You didn’t hear it from me.`,no:'Okay. Good luck.',apply(){st.v.helped=Q.id;sqLearn('radio','a:'+Q.id);}};
+        },
+        qhint:{hint:'Are you listening to KSUN at night? They’re giving away a date with the host to anyone who gets three questions about Sunfall right.',ask:'Ask her about the contest',askReply:'It’s all Sunfall trivia. Every kind of girl knows different things. The number is in the paper.',open:'I might call in',openReply:'Ha. Ask around first. Nobody knows everything.',story:/sq_radio/,from:0},
+        win:{name:'The radio contest',title:'ON THE AIR',subtitle:'Three right answers in five nights, and half of Sunfall listening.',line:'{name} has the whole station rooting for you. Your date is tomorrow, and it’s going out live.',image:'assets/newspapers/radio_won.png',standin:'assets/variants/iphone-standard/bedroom-dusk.webp',backdrop:'assets/variants/iphone-standard/bedroom-dusk.webp'},
+        endings:[['won','You won the date'],['lost','Gary from Mesa won']]
+      },
+      penpal:{
+        opened:'A letter from death row came under your door. Lyle Dunmore says he didn’t set the Saguaro Street fire. His date is set.',
+        setup(id){
+          const sisters=hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy').map(p=>p.id);
+          const merciful=sisters.filter(s=>sqSeed(id,'m'+s)%2===0);
+          return {merciful,letters:0,filed:null};
+        },
+        exec:st=>st.start+9,
+        facts:{
+          letter:st=>`Lyle Dunmore, death row, convicted of the Saguaro Street fire eleven years ago. Two people died. He says he was at a bar that night. His execution is on Day ${st.start+9}.`,
+          witness:'The neighbor who put Lyle Dunmore at the fire, Della Price, told a Sister of Mercy she isn’t sure anymore. She had been drinking that night.',
+          alibi:'The trial transcript names a waitress at the Lucky Cactus, June Talley, who was never called. She says Lyle Dunmore was at the bar until closing.',
+          science:'The fire marshal who testified against Lyle Dunmore, Hank Beale, has been discredited: his burn-pattern evidence was thrown out in two other cases.',
+          clinic:st=>`The Sunfall Innocence Clinic at the university law school takes death row cases: ${displayNumber(sqNumber('penpal','clinic'))}.`
+        },
+        chat(st,thread,profile){
+          const f=profile.factionId,out=[];
+          const opinion={thunderbirds:'Lyle Dunmore? Two people burned to death. My father sat on the jury. The date can’t come soon enough.',sisters_of_mercy:st.v.merciful.includes(thread.id)?'Mercy isn’t only for the innocent. But if he didn’t do it, that is a different sin, and it’s ours.':'He killed two people. The law is the law, and God will sort out the rest.',progressives:'They’re going to kill an innocent man to look tough before the election. We’re protesting at the courthouse.',police:'Off the record? The arson unit back then was a mess.',fourth_estate:'We covered the trial. The defense was a joke. Nobody asked the obvious questions.',goth_girls:'They’re going to kill him on a schedule. That’s the creepiest thing in this whole town.',normie_girls:'My mom says he did it. I don’t know. It was before my time.'}[f];
+          if(opinion)out.push({key:'op',label:'Ask what she thinks about Lyle Dunmore',say:'Do you know about Lyle Dunmore, on death row?',reply:opinion,warm:f==='thunderbirds'?-1:0});
+          if(f==='sisters_of_mercy'&&st.v.merciful.includes(thread.id))out.push({key:'w',label:'Ask if anyone at the parish knows the case',reply:'Della Price comes to the evening Mass. She told me she isn’t sure anymore what she saw that night. She had been drinking. She has carried it eleven years.',gives:['witness']});
+          if(f==='fourth_estate')out.push({key:'a',label:'Ask her to look up the trial',reply:'I pulled the transcript from the archive. There was a waitress at the Lucky Cactus, June Talley, on the defense list. Never called. I rang her. She remembers him. He was at the bar until closing.',gives:['alibi']});
+          if(f==='police')out.push({key:'s',label:'Ask about the fire marshal who testified',needs:['letter'],reply:'Hank Beale. His burn-pattern evidence got thrown out in two other cases. Nobody went back to the old ones.',gives:['science']});
+          if(f==='progressives')out.push({key:'c',label:'Ask if anyone can help him',reply:st=>`The Innocence Clinic at the law school. They need something new, not just a feeling. Here’s their line: ${displayNumber(sqNumber('penpal','clinic'))}.`,gives:['clinic']});
+          return out;
+        },
+        lines:{clinic:{name:'Sunfall Innocence Clinic',portrait:'assets/icons/calls.png',greeting:'Innocence Clinic, law school. We’re all here late. What have you got?'}},
+        lineTopics(st,key){
+          if(st.outcome||st.v.filed!==null)return [{key:'wait',label:'Ask how it’s going',reply:'We filed. Now we wait for the court.'}];
+          const have=['witness','alibi','science'].filter(f=>sqHas(st,f)).length;
+          const out=[{key:'tell',label:'Tell them about Lyle Dunmore',reply:`We know the case. To get a stay we need new evidence, three things, not one. You have ${have} of 3.`}];
+          if(have>=3)out.push({key:'file',label:'Give them everything you have',final:true,act:st=>{st.v.filed=world.day;sqEnd('penpal','won');return 'A witness who isn’t sure, an alibi nobody called and fire science that’s been thrown out twice. That’s a stay. We’re filing tonight, and then we’re going for the conviction.';}});
+          return out;
+        },
+        news(st,day){
+          const out=[];
+          if(day===st.start)out.push({id:'sq_penpal_date',section:'Courts',title:'DATE SET FOR SAGUARO STREET FIRE EXECUTION',summary:'Lyle Dunmore, convicted of the fire that killed two, is to be executed.',body:`The state has set Day ${this.exec(st)} for the execution of Lyle Dunmore, convicted eleven years ago of the Saguaro Street fire. Two people died. Dunmore has always said he was somewhere else that night.`,image:'penpal_prison',gives:['letter']});
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_penpal_stay',section:'Courts',title:'STAY OF EXECUTION FOR LYLE DUNMORE',summary:'New evidence: a witness recants, an alibi surfaces, and the fire science falls apart.',body:'The Sunfall Innocence Clinic won a stay for Lyle Dunmore after a witness recanted, a waitress nobody called gave him an alibi and the fire marshal’s methods were discredited. Prosecutors say they will not retry the case.',image:'penpal_free'});
+          if(st.outcome==='lost'&&day===st.outcomeDay)out.push({id:'sq_penpal_exec',section:'Courts',title:'LYLE DUNMORE EXECUTED',summary:'Dunmore said he was innocent to the end.',body:'Lyle Dunmore was executed last night for the Saguaro Street fire. His last words were for someone he wrote to and never met.',image:'penpal_prison'});
+          return out;
+        },
+        onOpen(st){if(st.v.letters===0){st.v.letters=1;sqLearn('penpal','letter');}},
+        tick(st,day){
+          if(day===st.start+1&&st.stage==='none'){sqOpen('penpal');}
+          if(day===st.start+4&&!sqHas(st,'clinic'))showGameNotice('Another letter from Lyle Dunmore. He asks if you have found anyone who will listen. The progressives at the university, he says, have always been on his side.');
+          if(!st.outcome&&day>=this.exec(st))sqEnd('penpal','lost');
+        },
+        help(st){
+          const need=['witness','alibi','science'].filter(f=>!sqHas(st,f));
+          if(!need.length&&sqHas(st,'clinic'))return null;
+          const f=sqHas(st,'clinic')?need[0]:'clinic';
+          if(st.v.helpedFact===f)return null;
+          const lines={clinic:['a law student from the Innocence Clinic','We heard you’ve been asking about Lyle Dunmore. We can file for a stay if you bring us something new. Our line is'],witness:['a Sister of Mercy','Della Price, the neighbor who testified, told me she isn’t sure what she saw. She had been drinking. I think you should know.'],alibi:['a reporter at the Sunfall Daily','There was a waitress at the Lucky Cactus, June Talley, on the defense list and never called. She remembers him at the bar until closing.'],science:['a police officer','The fire marshal who testified, Hank Beale, had his evidence thrown out in two other cases. Nobody went back to the old ones.']}[f];
+          const faction={clinic:'progressives',witness:'sisters_of_mercy',alibi:'fourth_estate',science:'police'}[f];
+          const face=sqPick(hingeProfiles.filter(p=>p.factionId===faction).map(p=>p.id),'penpal','helpface'+f);
+          return {step:f,face,name:sqFull(face),ring:'Unknown number',open:`Hi. I’m ${lines[0]}. ${lines[1]}${f==='clinic'?' '+displayNumber(sqNumber('penpal','clinic'))+'.':''}`,yes:'Thank you. This matters.',done:'His date is close. Don’t wait.',no:'Okay. I hope someone helps him.',apply(){st.v.helpedFact=f;sqLearn('penpal',f);}};
+        },
+        qhint:{hint:'Did you see they set a date for Lyle Dunmore? The Saguaro Street fire. Some people think he never did it.',ask:'Ask her about Lyle Dunmore',askReply:'Two people died in that fire. He has always said he was at a bar that night. Nobody ever checked.',open:'Somebody should check',openReply:'The progressives at the law school have been trying for years. Maybe they just need help.',story:/sq_penpal/,from:0},
+        win:{name:'The pen pal',title:'AN INNOCENT MAN WALKS',subtitle:'Lyle Dunmore walked out of the state prison after eleven years.',line:'The progressives threw him a party in the university quad, and you were the guest of honor. Half the women there want your number.',image:'assets/newspapers/penpal_free.png',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
+        endings:[['won','An innocent man walks'],['lost','He was executed']]
+      },
+      seance:{
+        opened:'A Sister of Mercy wants Madame Ilona’s Veil Line stopped. It takes grieving people’s savings. The number is in the classifieds.',
+        setup(id){
+          const asker=sqPick(hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy').map(p=>p.id),id,'asker');
+          return {cast:[asker],bride:asker,asker,obitDay:null,calls:0};
+        },
+        facts:{
+          request:st=>`${sqFull(st.v.asker)} of the Sisters of Mercy asked you to stop Madame Ilona and the Veil Line. Ilona took a widow’s savings.`,
+          plan:'The goths say Madame Ilona reads the obituaries before every reading. Put a man who never lived in the paper, with a detail nobody could guess, and see if she finds it.',
+          tape:'A goth girl lent you her dictaphone. Record the reading.',
+          obit:'You placed an obituary for Walter Finch, a man who never lived: he never went anywhere without his brass harmonica.',
+          reading:'On tape: Madame Ilona said your late uncle Walter was showing her a brass harmonica.'
+        },
+        chat(st,thread,profile){
+          const f=profile.factionId,out=[];
+          const opinion={sisters_of_mercy:'The Veil Line? It’s theft dressed up as grief, and it’s worse than theft. Don’t call it.',thunderbirds:'Madame Ilona read for my mother. She knew things. Don’t you dare make fun of her.',goth_girls:'Ilona? She was in the scene before she went commercial. She’s a fraud, but she’s a good one.',progressives:'People grieve how they grieve. But taking a widow’s savings is predatory.',police:'We can’t touch her without proof. Talking to the dead isn’t a crime. Lying for money is.',fourth_estate:'Bring me proof and I’ll put it on the front page.',normie_girls:'My aunt calls her every week. She says Ilona is the only one who listens.'}[f];
+          if(opinion)out.push({key:'op',label:'Ask what she thinks of the Veil Line',say:'Have you heard of Madame Ilona’s Veil Line?',opens:false,reply:opinion});
+          if(thread.id===st.v.asker&&st.stage==='none')out.push({key:'ask',label:'Ask what’s troubling her',reply:'Madame Ilona took Mrs. Reyes’s savings, every cent her husband left her, to talk to him. Somebody has to stop that woman. I can’t. You could.',gives:['request']});
+          if(f==='goth_girls'&&sqHas(st,'request'))out.push({key:'plan',label:'Ask how Madame Ilona does it',reply:'She reads the obituaries before every reading. Every grieving name in the paper. Put a dead man in the obituaries who never lived, give him one detail nobody could guess, then call her and see if she finds it.',gives:['plan']});
+          if(f==='goth_girls'&&sqHas(st,'plan'))out.push({key:'tape',label:'Ask if she has a way to record a call',reply:'My dictaphone. I record my band on it. Bring it back, and bring me the gossip.',gives:['tape']});
+          if(thread.id===st.v.asker&&sqHas(st,'reading'))out.push({key:'tell',label:'Tell her you have Ilona on tape',reply:'Then take it to the police, or the paper. And come to the evening Mass. We will pray for you by name.',warm:2});
+          return out;
+        },
+        onOpen(st){sqLearn('seance','request');},
+        serviceTopics(st,serviceId){
+          const out=[];
+          if(serviceId==='service:newsroom'&&sqHas(st,'plan')&&!sqHas(st,'obit'))out.push({key:'obit',label:'Place an obituary for a Walter Finch',act:st=>{st.v.obitDay=world.day;sqLearn('seance','obit');return 'Obituaries desk. Walter Finch, sixty-eight, a retired surveyor, never went anywhere without his brass harmonica. Got it. It runs tomorrow. Sorry for your loss.';}});
+          if((serviceId==='service:newsroom'||serviceId==='service:police')&&sqHas(st,'reading')&&!st.outcome)out.push({key:'tape',label:'Play them Madame Ilona on tape',final:true,act:st=>{sqEnd('seance','won');return serviceId==='service:police'?'Doreen listens to the whole tape. Walter Finch never existed? Then she just described a dead man out of the obituaries. I’m sending this to the fraud desk right now.':'Play it again. A man who never lived, and she knew about his harmonica. That’s the front page. Thank you.';}});
+          return out;
+        },
+        lines:{veil:{name:'The Veil Line, Madame Ilona',portrait:'assets/icons/calls.png',greeting:'The Veil Line. Madame Ilona is with you. Someone has passed, and they are close. Tell me their name.'}},
+        lineTopics(st,key){
+          if(st.outcome)return [];
+          const printed=st.v.obitDay!==null&&world.day>st.v.obitDay;
+          const out=[{key:'ask',label:'Ask her to reach someone',reply:'For the first reading I need a name, and the spirits need a gift. Forty dollars, by money order. Call me when there is someone you have lost.'}];
+          if(printed)out.push({key:'walter',label:'Ask her to reach your late uncle, Walter Finch',act:st=>{st.v.calls++;if(!sqHas(st,'tape'))return 'Walter is here. He is showing me something brass. A harmonica? He never went anywhere without it. (You have no way to prove she said it.)';sqLearn('seance','reading');return 'Walter is here. He is showing me something brass. A harmonica? He never went anywhere without it. He says you were his favorite. (The dictaphone got every word.)';}});
+          return out;
+        },
+        news(st,day){
+          const out=[];
+          if(day===st.start)out.push({id:'sq_seance_ad',section:'Classifieds',title:'SPEAK WITH THOSE YOU HAVE LOST',summary:'Madame Ilona and the Veil Line. Discreet. Compassionate.',body:`Someone you love has passed, and they have more to say. Madame Ilona has spoken across the veil for thirty years. The Veil Line: ${displayNumber(sqNumber('seance','veil'))}.`,image:'seance_ad'});
+          if(st.v.obitDay!==null&&day===st.v.obitDay+1)out.push({id:'sq_seance_obit',section:'Obituaries',title:'WALTER FINCH',summary:'Beloved uncle. He never went anywhere without his brass harmonica.',body:'Walter Finch, 68, of Sunfall, passed away peacefully. A retired surveyor, he never went anywhere without his brass harmonica. He is survived by a nephew.',image:'seance_obit'});
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_seance_cut',title:'VEIL LINE CUT: PSYCHIC CHARGED WITH FRAUD',summary:'Madame Ilona told a caller about a man who never lived.',body:'Madame Ilona was charged with fraud after a recording showed her describing Walter Finch, a man who never existed, from an obituary placed to test her. Mrs. Reyes, a widow from St Brigid’s, is to have her savings returned.',image:'seance_cut'});
+          return out;
+        },
+        help(st){
+          const next=['request','plan','tape','obit','reading'].find(f=>!sqHas(st,f));
+          if(!next||st.v.helped===next||next==='reading'&&!(st.v.obitDay!==null&&world.day>st.v.obitDay))return null;
+          const say={request:'Madame Ilona took Mrs. Reyes’s savings. Somebody has to stop her.',plan:'A girl from the Black Lace shop came to the pantry and said Ilona reads the obituaries before every reading. Put a dead man in the paper who never lived and see if she finds him.',tape:'You will need a recording, or nobody will believe you. The goths record their bands on little tape machines.',obit:'The newsroom takes obituaries over the phone. Give them a man who never lived, and one detail nobody could guess.'}[next];
+          if(!say)return null;
+          return {step:next,face:st.v.asker,name:sqFull(st.v.asker),ring:sqFull(st.v.asker),open:`It’s ${sqName(st.v.asker)}, from the Sisters. ${say}`,yes:'I’ll do it',done:'God bless you.',no:'I understand. I will keep praying.',apply(){st.v.helped=next;if(next!=='obit')sqLearn('seance',next);}};
+        },
+        qhint:{hint:'Have you seen the Veil Line ads? Madame Ilona. People pay her to talk to their dead. One of the Sisters is furious about it.',ask:'Ask her about Madame Ilona',askReply:'She took a widow’s savings. The Sisters of Mercy want her stopped. Nobody can prove anything.',open:'Somebody should prove it',openReply:'The goths know how she works. They used to run in the same circles.',story:/sq_seance/,from:0},
+        win:{name:'The Veil Line',title:'THE VEIL LINE IS CUT',subtitle:'Madame Ilona was charged with fraud on your tape.',line:'{name} and the Sisters of Mercy prayed for you by name, and every widow in Sunfall wants to buy you dinner.',image:'assets/newspapers/seance_cut.png',standin:'assets/variants/iphone-standard/bedroom-night.webp',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
+        endings:[['won','The Veil Line is cut']]
+      },
+      priest:{
+        opened:'The Sisters of Mercy say the new priest at St Brigid’s is emptying the parish. Find out who he answers to.',
+        setup(id){return {cast:['MATCH-158','MATCH-055','MATCH-058'],warned:null,printed:null};},
+        facts:{
+          complaint:'Father Julian Sorrell, the new priest at St Brigid’s, cancelled the Sisters’ vigil and sold the bells. The Sisters want him gone.',
+          books:'The parish books pay a company called Halcyon Ridge for a property review. Agnes Castillo found it. Nobody asked the Sisters.',
+          keys:'Father Sorrell lends the Old Mission keys to Victoria Blackwood’s circle. He calls it outreach.',
+          pell:'Father Sorrell golfs with Augustus Pell, the Blue Ribbon treasurer, every week. The Foundation paid for his rectory kitchen.',
+          ferrante:'Don’t go to the bishop through his chancellor, Monsignor Ferrante. Ferrante passes everything to Pell. Get it in the paper first.',
+          chancery:st=>`The bishop’s office, the chancery: ${displayNumber(sqNumber('priest','chancery'))}.`,
+          printed:'The paper printed the story of Father Sorrell, the Old Mission keys and the Foundation’s money.'
+        },
+        chat(st,thread,profile){
+          const f=profile.factionId,out=[];
+          if(f==='sisters_of_mercy'){
+            out.push({key:'c',label:'Ask her about the new priest',say:'How are things at St Brigid’s?',reply:'Father Sorrell cancelled our vigil and sold the bells to a man from Phoenix. He says the parish has to look forward. Forward to what? Half the pews are empty.',gives:['complaint']});
+            if(thread.id==='MATCH-158')out.push({key:'b',label:'Ask her about the parish books',needs:['complaint'],reply:'I keep the garden accounts, so I see the books. There is a payment to Halcyon Ridge, a property review. Nobody told the Sisters anything about a review.',gives:['books']});
+            else out.push({key:'b',label:'Ask who keeps the parish books',needs:['complaint'],opens:false,reply:'Agnes Castillo sees them. She found something she won’t talk about. Ask her.'});
+            if(thread.id==='MATCH-055')out.push({key:'ch',label:'Ask how to reach the bishop',needs:['complaint'],reply:st=>`The chancery’s number is on every bulletin: ${displayNumber(sqNumber('priest','chancery'))}. But Monsignor Ferrante answers it, and I don’t trust him.`,gives:['chancery']});
+          }
+          if(f==='goth_girls')out.push({key:'k',label:'Ask how the circle gets into the Old Mission',needs:['complaint'],reply:'Father Sorrell lends Victoria the keys. He says it’s outreach. He came to a rite once. He stood at the back and didn’t say anything.',gives:['keys']});
+          if(f==='thunderbirds')out.push({key:'p',label:'Ask about the new priest at St Brigid’s',needs:['complaint'],reply:'Father Julian? He’s marvelous. He golfs with Augustus every week. The Foundation paid for his new kitchen. Finally a priest who understands people like us.',gives:['pell']});
+          if(f==='fourth_estate'){
+            out.push({key:'f',label:'Ask how to go over the priest’s head',needs:['complaint'],reply:'Not through Monsignor Ferrante. He’s Pell’s man in the chancery. Get it in print first. Then the bishop can’t bury it.',gives:['ferrante']});
+            if(thread.id==='MATCH-058')out.push({key:'story',label:'Give her the story of Father Sorrell',needs:['books','keys','pell'],reply:'Halcyon Ridge, the Old Mission keys and Pell’s money. That’s a front page. It runs tomorrow. Watch your back.',after:st=>{st.v.printed=world.day;sqLearn('priest','printed');}});
+          }
+          return out;
+        },
+        lines:{chancery:{name:'Diocesan Chancery',portrait:'assets/icons/calls.png',greeting:st=>st.v.printed!==null&&world.day>st.v.printed?'The bishop’s office. His Excellency has seen the Ledger. He will speak with you himself.':'Chancery. Monsignor Ferrante speaking. How can I help?'}},
+        lineTopics(st,key){
+          if(st.outcome)return [];
+          const printed=st.v.printed!==null&&world.day>st.v.printed,have=['books','keys','pell'].filter(f=>sqHas(st,f)).length;
+          const out=[{key:'about',label:'Ask about Father Sorrell',reply:printed?'The bishop has read it all. He wants to know what else you have.':'Father Sorrell is doing fine work. The parish needs to look forward.'}];
+          if(have>=2)out.push({key:'give',label:printed?'Give the bishop everything you have':'Tell the Monsignor what you know',final:true,act:st=>{
+            if(printed){sqEnd('priest','won');return 'The bishop listens to all of it. Then he says, quietly, that there is a mission in the Peruvian highlands that has needed a priest for a long time. Father Sorrell leaves within the week. Thank you, my son.';}
+            if(st.v.warned===null)st.v.warned=world.day;
+            return 'Monsignor Ferrante thanks you warmly and takes your name. He says the bishop will be very interested. He asks for your address, so they can write to you.';
+          }});
+          return out;
+        },
+        news(st,day){
+          const out=[];
+          if(day===st.start)out.push({id:'sq_priest_bells',section:'Faith',title:'ST BRIGID’S SELLS ITS BELLS',summary:'The parish’s new priest says the church must look forward.',body:'Father Julian Sorrell, who came to St Brigid’s this year, has sold the parish bells and ended the Sisters of Mercy’s new-moon vigil. Attendance is down by half. Father Sorrell says the parish must look forward.',image:'priest_bells'});
+          if(st.v.printed!==null&&day===st.v.printed+1)out.push({id:'sq_priest_story',section:'Faith',title:'PRIEST LENT OLD MISSION KEYS TO MIDNIGHT CIRCLE',summary:'Parish money went to a Foundation-linked company; the new priest golfs with its treasurer.',body:'St Brigid’s paid Halcyon Ridge for a property review nobody asked for. Father Julian Sorrell lent the keys of the Old Mission to a circle that holds rites there on moonless nights, and golfs every week with Augustus Pell of the Blue Ribbon Foundation.',image:'priest_story'});
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_priest_gone',section:'Faith',title:'FATHER SORRELL REASSIGNED TO A MISSION IN SOUTH AMERICA',summary:'The bishop moves the new priest from St Brigid’s. The vigil is back.',body:'The bishop has reassigned Father Julian Sorrell to a mission in the Peruvian highlands. The Sisters of Mercy will keep their new-moon vigil at the Old Mission again, and the parish is raising money to buy back its bells.',image:'priest_gone'});
+          return out;
+        },
+        tick(st,day){
+          // Ferrante told Pell: two days later the Blue Ribbon deals with you, unless the story is already out.
+          if(st.v.warned!==null&&st.v.printed===null&&!st.outcome&&day>=st.v.warned+2)sqDie('priest','THE BLUE RIBBON','SILENCED','A gift basket on the doorstep, from an admirer. Good wine, good chocolate. The card says only: for your concern.');
+        },
+        help(st){
+          const next=['complaint','books','keys','pell','ferrante','printed','chancery'].find(f=>!sqHas(st,f));
+          if(!next||st.v.helped===next)return null;
+          const who={books:'MATCH-158',chancery:'MATCH-055',printed:'MATCH-058'}[next]||sqPick(hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy').map(p=>p.id),'priest','help');
+          const say={complaint:'Father Sorrell has emptied our church. Please help us.',books:'I found a payment in the parish books to something called Halcyon Ridge. I am frightened to say it out loud.',keys:'The goth girls go into the Old Mission at night. Somebody gives them the keys. Ask them who.',pell:'The society ladies love Father Sorrell. Ask one of them who he plays golf with.',ferrante:'Don’t take this to Monsignor Ferrante. He talks to the wrong people. Find a reporter.',printed:'Bring me the books, the keys and the money, and I’ll print it.',chancery:`When it is in the paper, ring the bishop’s office: ${displayNumber(sqNumber('priest','chancery'))}.`}[next];
+          return {step:next,face:who,name:sqFull(who),ring:'Unknown number',open:`It’s ${sqName(who)}. ${say}`,yes:'Tell me more',done:'Be careful. These are not careless men.',no:'I understand.',apply(){st.v.helped=next;if(!['printed'].includes(next))sqLearn('priest',next);}};
+        },
+        qhint:{hint:'Did you hear St Brigid’s sold its bells? The new priest. The Sisters of Mercy are beside themselves.',ask:'Ask her about the new priest',askReply:'Father Sorrell. He cancelled their vigil too. People say he answers to someone, and it isn’t God.',open:'Somebody should find out who',openReply:'Ask the Sisters. And ask who he plays golf with.',story:/sq_priest/,from:0},
+        endings:[['won','Father Sorrell went to South America']]
+      }
+    };
+    // The Sisters bless you once the priest is gone (marriage.js asks): any Sister marries you with a ring.
+    const sistersBless=()=>world?.sq?.priest?.outcome==='won';
+    for(const id of SQ_IDS)if(SQ[id].qhint)QHINT[id]=SQ[id].qhint; // she tells you about these too
     // Which of them is due to ring today: her dad once, Theon once a day.
     function strangerDue(){
       if(policeWarningDue())return 'x:police'; // Truecel: the police warning comes first
@@ -8449,6 +9019,7 @@
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       questUnlock(); // a quest that wasn't picked arrives after five quiet days
+      sqNewDay(); // the story quests: deadlines and what catches up with you
       miniNewDay(); // the mini quests
       rqNewDay(); // the room quests
       fqNewDay(); // her thing: the mini quests
@@ -8808,6 +9379,7 @@
         if(q){q.open=true;q.by=call.id;}
         if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
         if(id==='chapel')chapel?.onPaperOpened?.();
+        if(SQ[id])sqOpen(id);
       }else if(choice.startsWith('mine:')){
         const item=callTopicsFor(thread,profile).find(entry=>'mine:'+entry.id===choice);
         if(item){call.mine=(call.mine||0)+1;you(item.player);say(tellCallTopic(thread,profile,item));}
@@ -8960,6 +9532,7 @@
       for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
+      for(const id of SQ_IDS)for(const [o,title] of SQ[id].endings||[])add({pageant:'Miss Sunfall',radio:'The radio contest',penpal:'The pen pal',seance:'The Veil Line',priest:'The new priest'}[id],`sq:${id}:${o}`,title);
       add('The Coyote','coyote:saved','You found her in time');
       add('The Coyote','coyote:lost','Too late');
       add('The Founders’ Ball','finale:date','With someone on your arm');
@@ -9087,13 +9660,14 @@
     const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
     function sanitizeProfile(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
-      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true,taught:{}};
+      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true,taught:{},questsWon:[]};
       for(const k of ['hinge','match','day','paper','call','door'])if(o.taught?.[k]===true)out.taught[k]=true;
       for(const rung of LADDER){const n=o.wins?.[rung.id];if(Number.isInteger(n)&&n>0)out.wins[rung.id]=Math.min(9999,n);}
       if(Array.isArray(o.won))out.won=o.won.filter(seed=>typeof seed==='string'&&seed.length<=80).slice(-40);
       for(const a of ACHIEVEMENTS){const e=o.ach?.[a.id];if(e&&typeof e==='object')out.ach[a.id]={day:Number.isInteger(e.day)?e.day:null,as:ladderIndex(e.as)>=0?e.as:null};}
       if(Array.isArray(o.notes))out.notes=o.notes.filter(n=>n&&typeof n.id==='string'&&/^n[0-9a-z]{1,20}$/.test(n.id)&&typeof n.text==='string').slice(0,NOTES_MAX).map(n=>({id:n.id,text:n.text.slice(0,NOTE_CHARS)}));
       if(ladderIndex(o.fresh)>=0&&!LADDER[ladderIndex(o.fresh)].soon)out.fresh=o.fresh;
+      if(Array.isArray(o.questsWon))out.questsWon=[...new Set(o.questsWon.filter(id=>typeof id==='string'&&/^[a-z]{2,12}$/.test(id)))].slice(0,30);
       return out;
     }
     function playerProfile(){
@@ -9805,6 +10379,7 @@
       q_coyote:{name:'You found her in time',title:'FOUND HER IN TIME',subtitle:'You got to her before the Coyote came back.',line:'{name} is alive because of you, and she wants to thank you properly.',image:'assets/variants/iphone-standard/sunrise.webp',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
       q_theon:{name:'Theon is done',title:'THEON IS DONE',subtitle:'Nobody is wearing your face on Hinge anymore.',line:'The women he followed tell everyone it was you who stopped him. Your matches have never been better.',image:'assets/theon/profile-shot.png',standin:'assets/variants/iphone-standard/bedroom-dusk.webp',backdrop:'assets/variants/iphone-standard/bedroom-dusk.webp'}
     };
+    for(const id of SQ_IDS)if(SQ[id].win)QUEST_WINS['q_'+id]=SQ[id].win; // the story quests
     Object.assign(CLASS_WINS,QUEST_WINS);
     function questWin(){
       const after=day=>Number.isInteger(day)&&world.day>day; // the morning after
@@ -9816,6 +10391,7 @@
       if(co?.stage==='saved'&&after(co.savedOn))return {type:'q_coyote',bride:co.victim,day:world.day};
       const f=world.fionn;
       if(['caught','sorted'].includes(f?.stage)&&after(f.endDay))return {type:'q_theon',day:world.day};
+      const sw=sqWin();if(sw)return sw; // the story quests
       return null;
     }
     function questWinCheck(){
@@ -9841,7 +10417,7 @@
       const v=world?.victory,w=CLASS_WINS[v?.type],win=$('marriage-win');
       if(!w||!win)return;
       const her=v.bride?hingeProfile(v.bride):null,face=her?.gallery?.[0]||w.standin||SORORITY_STANDIN; // the denise win has no bride
-      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${victoryNote()}<button data-class-win="new">New game</button></div>`;
+      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${QUEST_WINS[v.type]&&!ladderComplete()?'<p class="line">You won’t see this story again until every class is unlocked.</p>':''}${victoryNote()}<button data-class-win="new">New game</button></div>`;
       if(!win.dataset.classWin){win.dataset.classWin='1';win.addEventListener('click',event=>{if(event.target.closest?.('[data-class-win]')){win.classList.remove('visible');pickDifficulty();}});}
       win.classList.add('visible');
     }
@@ -10037,6 +10613,7 @@
       if(!world)return;
       captureDeathLine();
       ladderWin();checkAchievements(); // the class ladder and achievements
+      noteQuestsWon(); // a quest won stays away from the next games until the ladder is done
       const v=world.victory;
       if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
       if(v&&CLASS_WINS[v.type])noteEnding('win:'+v.type,QUEST_WINS[v.type]?CLASS_WINS[v.type].title:v.type==='denise'?`${EX.name} is gone.`:`${hingeProfile(v.bride)?.name||'She'} said yes.`);
@@ -10047,6 +10624,7 @@
       if(br?.outcome&&BR_ENDINGS.some(([id])=>id===br.outcome))noteEnding('br:'+br.outcome,'');
       const ch=world.chapel;
       if(ch?.outcome&&CHAPEL_ENDINGS.some(([id])=>id===ch.outcome))noteEnding('chapel:'+ch.outcome,'');
+      for(const id of SQ_IDS){const sq=world.sq?.[id];if(sq?.outcome)noteEnding(`sq:${id}:${sq.outcome}`,'');}
       const co=world.coyote;
       if(co?.stage==='saved'||co?.stage==='lost')noteEnding('coyote:'+co.stage,`${hingeProfile(co.victim)?.name||'She'} was at ${coyotePlace(co.place)?.name||'the edge of town'}.`);
     }
@@ -11699,7 +12277,7 @@
         for(const card of jewellerCards())ids.set(card.id,card);
         const deck=(saved.hingeDeckIds||[]).map(id=>ids.get(id)).filter(Boolean);
         if(!deck.length)throw new Error('Character deck missing');
-        world={...newWorld(saved.world.seed||'Scottsdale'),...saved.world,quests:saved.world.quests&&typeof saved.world.quests==='object'&&QUEST_IDS.every(id=>saved.world.quests[id]===null||Number.isInteger(saved.world.quests[id]))?{...saved.world.quests}:null,
+        world={...newWorld(saved.world.seed||'Scottsdale'),...saved.world,quests:saved.world.quests&&typeof saved.world.quests==='object'&&QUEST_IDS.every(id=>saved.world.quests[id]==null||Number.isInteger(saved.world.quests[id]))?{...saved.world.quests}:null,
           flags:{...(saved.world.flags||{})},clues:Array.isArray(saved.world.clues)?saved.world.clues.filter(c=>typeof c==='string').slice(0,200):[],
           editions:Array.isArray(saved.world.editions)?saved.world.editions.filter(e=>Number.isInteger(e.day)&&Array.isArray(e.items)).slice(0,365):[],
           seenArticles:Array.isArray(saved.world.seenArticles)?saved.world.seenArticles:[]};
@@ -11773,6 +12351,7 @@
         if(world.cls?.dead){classDeathScreen();return true;} // the cheap clinic, or the sheriff
         if(world.fq?.dead){fqDeathScreen();return true;} // her thing
         if(world.coyote?.dead){coyoteDeathScreen();return true;} // the Coyote
+        if(world.sqDead){sqDeathScreen();return true;} // a story quest
         if(world.glow?.dead){glowDeathScreen();return true;} // the second pot of LPC-A365
         if(world.halloran?.dead){halDeathScreen();return true;} // Undeniable
         if(world.halloran?.shot==='down')playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true}); // he's still in your doorway
@@ -11862,7 +12441,7 @@
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,
       sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
-      save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),
+      save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),blessed:()=>sistersBless(), // the priest is gone: no examination needed
       rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();else if(currentApp==='blackbook')renderBook();else if(currentApp==='journal')renderJournal();else if(currentApp==='bank')renderBank();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},
       later:(callback,ms)=>window.setTimeout(callback,ms),cancel:id=>window.clearTimeout(id)
     }):null;

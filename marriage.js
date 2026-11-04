@@ -182,6 +182,7 @@
       if(!st||!thread||!sister(thread.id)||thread.blocked||thread.fumbled)return null; // she blocked you: no examination
       const id=thread.id,s=sisterState(st,id);
       if(wed(st))return {html:tag(st.married?.id===id?'Married. God bless you both.':'You are already married.'),only:true};
+      if(api.blessed?.()&&!s.passed)return {html:tag(`${firstName(id)} knows what you did for St Brigid’s.`)+button(`propose:${id}`,`Propose to ${firstName(id)}`,{extra:'propose'}),only:false}; // the priest is gone (Chris, 4 November 2026)
       if(!s.started&&!s.passed&&!knowsYou(thread))return null; // too soon to ask
       if(s.active&&s.current!==null){
         const q=question(s.current);
@@ -270,7 +271,7 @@
     }
     function propose(st,id){
       const s=sisterState(st,id),sis=sister(id);
-      if(!s.passed||wed(st))return;
+      if(!(s.passed||api.blessed?.())||wed(st))return;
       if(!st.ring){
         s.proposedWithoutRing++;
         converse(id,`${firstName(id)}, will you marry me?`,[data.rules.noRingReply,sis.noRing]);
