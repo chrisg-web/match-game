@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="f01ec9bb1d">
+<html lang="en" data-build="6b09bd3d32">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=f01ec9bb1d"></script>
+  <script src="chapel_at_midnight.js?v=6b09bd3d32"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=f01ec9bb1d"></script>
+  <script src="marriage.js?v=6b09bd3d32"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=f01ec9bb1d"></script>
+  <script src="quests/professor-vale.js?v=6b09bd3d32"></script>
 </head>
 <body>
   <main class="workbench">
@@ -922,7 +922,7 @@
           <div class="home-invasion" id="home-invasion" aria-live="assertive"><img id="invasion-image" src="assets/variants/iphone-standard/bedroom-night.webp" alt=""><div class="invasion-lights"></div><img class="invasion-hands" id="invasion-hands" alt=""><p id="invasion-caption"></p><div class="qte" id="qte" hidden></div></div>
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><details class="run-recap" id="run-recap"></details><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
-          <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose your class for the new game"><div class="pick-wrap"><p class="pick-head">Choose your class</p><div class="pick-cards" id="pick-cards"><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button></div><p class="pick-foot" id="pick-foot">Win a run to unlock the next class.</p></div></div><!-- New game: the class ladder; renderPicker() redraws it with what you have unlocked -->
+          <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose your class for the new game"><div class="pick-wrap"><p class="pick-head">Choose your class</p><div class="pick-cards" id="pick-cards"><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button></div><p class="pick-foot" id="pick-foot"></p></div></div><!-- New game: the class ladder; renderPicker() redraws it with what you have unlocked -->
           <div class="ach-toast" id="ach-toast" aria-live="polite"></div><!-- Achievements: a banner when you earn one -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
         </div>
@@ -968,8 +968,8 @@
       try{const p=playerProfile();return {unlocked:p.unlocked,all:LADDER.length,won:p.questsWon};}
       catch{let o=null;try{o=JSON.parse(localStorage.getItem(SAVE_KEY+':ladder')||'null');}catch{}o=o&&typeof o==='object'?o:{};return {unlocked:Number.isInteger(o.unlocked)?o.unlocked:1,all:5,won:Array.isArray(o.questsWon)?o.questsWon:[]};}
     }
-    const ladderComplete=()=>{const p=questProfileNow();return p.unlocked>=p.all;};
-    const questFresh=id=>ladderComplete()||!questProfileNow().won.includes(id);
+    const ladderComplete=()=>false; // every class is open from the start now, so this no longer lifts the rule
+    const questFresh=id=>!questProfileNow().won.includes(id); // a quest you have won stays away; once every quest is won they all come back (pickQuests)
     function questsWonNow(){ // the quests this run has won, by how each one ends well
       if(!world)return [];
       const out=[];
@@ -9994,12 +9994,12 @@
       {id:'first-death',group:'Deaths',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
       {id:'ten-endings',group:'Collecting',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
       {id:'married',group:'The ladder',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>!!(endingsFound()['win:marriage']||endingsFound()['win:thunderbirds']||['marriage','thunderbirds'].includes(world?.victory?.type))}, // a wedding, not a quest won
-      {id:'climb-mogger',group:'The ladder',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
-      {id:'climb-truecel',group:'The ladder',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
+      {id:'climb-mogger',group:'The ladder',title:'Moving up',points:25,hint:'Play a game as a Mogger.',test:()=>!!playerProfile().played.mogger},
+      {id:'climb-truecel',group:'The ladder',title:'Down to Truecel',points:50,hint:'Play a game as a Truecel.',test:()=>!!playerProfile().played.truecel},
       {id:'win-truecel',group:'The ladder',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0},
-      {id:'climb-looks',group:'The ladder',title:'A new face',points:50,hint:'Unlock the Looksmaxxer.',test:()=>playerProfile().unlocked>=4},
+      {id:'climb-looks',group:'The ladder',title:'A new face',points:50,hint:'Play a game as the Looksmaxxer.',test:()=>!!playerProfile().played.looksmaxxer},
       {id:'glow-up',group:'The ladder',title:'Glow up',points:50,hint:'As a Looksmaxxer, get your looks all the way to Mogger.',test:()=>selectedDifficulty==='looksmaxxer'&&looksTier()==='mogger'},
-      {id:'climb-divorce',group:'The ladder',title:'Alimony',points:75,hint:'Unlock the Divorcé.',test:()=>playerProfile().unlocked>=5},
+      {id:'climb-divorce',group:'The ladder',title:'Alimony',points:75,hint:'Play a game as the Divorcé.',test:()=>!!playerProfile().played.divorce},
       {id:'paid-up',group:'The ladder',title:'Paid in full',points:40,hint:'As a Divorcé, make three payments in one run.',test:()=>selectedDifficulty==='divorce'&&(world?.cls?.paid||0)>=3},
       {id:'top',group:'The ladder',title:'Top of the ladder',points:150,hint:'Win a run as a Divorcé.',test:()=>(playerProfile().wins.divorce||0)>0},
       {id:'sweetheart',group:'Dating',title:'Sweetheart',points:15,hint:'Get a match as warm as she gets.',test:()=>[...hingeThreads.values()].some(t=>warmthOf(t)>=3)},
@@ -10094,13 +10094,14 @@
     const ladderName=id=>LADDER[ladderIndex(id)]?.name||'Normie';
     function sanitizeProfile(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
-      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true,taught:{},questsWon:[]};
+      const out={unlocked:Number.isInteger(o.unlocked)?Math.max(1,Math.min(LADDER.length,o.unlocked)):1,wins:{},won:[],ach:{},notes:[],fresh:null,allAccess:o.allAccess===true,taught:{},questsWon:[],played:{}};
       for(const k of ['hinge','match','day','paper','call','door'])if(o.taught?.[k]===true)out.taught[k]=true;
       for(const rung of LADDER){const n=o.wins?.[rung.id];if(Number.isInteger(n)&&n>0)out.wins[rung.id]=Math.min(9999,n);}
       if(Array.isArray(o.won))out.won=o.won.filter(seed=>typeof seed==='string'&&seed.length<=80).slice(-40);
       for(const a of ACHIEVEMENTS){const e=o.ach?.[a.id];if(e&&typeof e==='object')out.ach[a.id]={day:Number.isInteger(e.day)?e.day:null,as:ladderIndex(e.as)>=0?e.as:null};}
       if(Array.isArray(o.notes))out.notes=o.notes.filter(n=>n&&typeof n.id==='string'&&/^n[0-9a-z]{1,20}$/.test(n.id)&&typeof n.text==='string').slice(0,NOTES_MAX).map(n=>({id:n.id,text:n.text.slice(0,NOTE_CHARS)}));
       if(ladderIndex(o.fresh)>=0&&!LADDER[ladderIndex(o.fresh)].soon)out.fresh=o.fresh;
+      for(const rung of LADDER)if(o.played?.[rung.id]===true)out.played[rung.id]=true; // the classes you have played a game as
       if(Array.isArray(o.questsWon))out.questsWon=[...new Set(o.questsWon.filter(id=>typeof id==='string'&&/^[a-z]{2,12}$/.test(id)))].slice(0,30);
       return out;
     }
@@ -10111,7 +10112,7 @@
       return ladderCache;
     }
     function saveProfile(){try{localStorage.setItem(LADDER_KEY,JSON.stringify(playerProfile()));}catch{}}
-    function ladderUnlocked(id){const i=ladderIndex(id),p=playerProfile();return i>=0&&!LADDER[i].soon&&(p.allAccess||i<p.unlocked);} // All access opens every class; the ladder itself (p.unlocked) is untouched
+    function ladderUnlocked(id){const i=ladderIndex(id);return i>=0&&!LADDER[i].soon;} // every class is open from the start (Chris, 4 November 2026)
     function setAllAccess(on){const p=playerProfile();p.allAccess=!!on;saveProfile();if($('difficulty-pick')?.classList.contains('visible'))renderPicker();if(currentApp==='journal')renderJournal();}
     function ladderGrant(id){ // unlock up to this class (old saves, and the testing menu)
       const i=ladderIndex(id),p=playerProfile();
@@ -10127,7 +10128,7 @@
       if(seed&&!p.won.includes(seed)){
         p.won.push(seed);p.won=p.won.slice(-40);
         p.wins[as]=(p.wins[as]||0)+1;
-        if(next&&p.unlocked<i+2){p.unlocked=i+2;if(!next.soon)p.fresh=next.id;}
+        if(next&&p.unlocked<i+2)p.unlocked=i+2; // kept for old records; every class is open anyway
         saveProfile();checkAchievements();
       }
       return {as,next};
@@ -10142,7 +10143,7 @@
     function victoryNote(){
       const r=ladderWin();
       if(!r)return '';
-      const line=r.next&&!r.next.soon?`You won as a ${ladderName(r.as)}. ${r.next.name} is unlocked: start a new game as a ${r.next.name}.`:`You won as a ${ladderName(r.as)}. That’s the top of the ladder.`;
+      const line=r.next&&!r.next.soon?`You won as a ${ladderName(r.as)}. Next, try a game as a ${r.next.name}.`:`You won as a ${ladderName(r.as)}.`;
       return `<p class="ladder-next">${esc(line)}</p>`;
     }
     function checkAchievements(){
@@ -10174,7 +10175,7 @@
         return `<button data-pick-difficulty="${rung.id}"${rung.id===current?' class="current"':''}>${face}<b>${esc(rung.name)}</b>${rung.id===p.fresh?'<small class="new">New</small>':`<small>${esc(rung.blurb)}</small>`}</button>`;
       }).join('');
       const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
-      $('pick-foot').textContent=open>=LADDER.length?'Every class is unlocked.':'Win a run to unlock the next class.';
+      $('pick-foot').textContent=''; // every class is open: the heading just says Choose your class
     }
     // ---- The Normie teaches you the game (Chris, 3 November 2026): a tip the first time each thing comes up ----
     const TIPS={hinge:'Tip: swipe right to like her, left to pass. Ten swipes a day. Tap her photo to see the next one.',match:'Tip: you matched. Open Chats in Hinge and talk to her. She remembers what you say.',day:'Tip: done for today? Tap the day at the top of the screen to go to bed.',paper:'Tip: the paper is where things start. Read a story, then ask women about it. Ring the ads in the classifieds.',call:'Tip: your phone is ringing. Tap the banner to answer. Women who like you call.',door:'Tip: something came through your door. Press Home to put the phone down, then tap it on the floor.'};
@@ -10228,11 +10229,11 @@
         const run=[['Day',String(world?.day||1)],['Matches',String(matched.length)],...(closest&&warmthOf(closest)>0?[['Closest to you',hingeProfile(closest.id).name]]:[]),['Endings found',`${found} of ${total}`]];
         const steps=LADDER.map((r,i)=>{
           const wins=p.wins[r.id]||0,open=ladderUnlocked(r.id);
-          const state=r.soon?'Still being written':!open?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Unlocked';
+          const state=r.soon?'Still being written':!open?`Locked: win as a ${LADDER[i-1].name}`:wins?`Won ${wins===1?'once':wins+' times'}`:i===playing?'Playing now':'Not won yet';
           const pill=r.soon?'Soon':!open?'Locked':wins?'Won':i===playing?'Playing':'Open';
           return `<div class="it-cell${r.soon||!open?' off':''}">${itFace(r.img,r.name[0])}<span class="it-txt"><b>${i+1}. ${esc(r.name)}</b><small>${esc(state)}</small></span><span class="it-pill${wins?' on':''}">${pill}</span></div>`;
         }).join('');
-        $('opened').innerHTML=itPage('You','you',`${card}<div class="it-you">${itFace(rung.img,rung.name[0])}<span><b>${esc(rung.name)}</b><small>${esc(rung.blurb)}</small><span class="it-stars">${ladderPoints()} points</span></span></div><p class="it-head">This run</p><div class="it-list">${run.map(([k,v])=>`<div class="it-cell"><span class="it-txt"><b>${esc(k)}</b></span><small>${esc(v)}</small></div>`).join('')}</div><p class="it-head">Your journey: win a run (a wedding, or a quest) to unlock the next class</p><div class="it-list">${steps}</div>`);
+        $('opened').innerHTML=itPage('You','you',`${card}<div class="it-you">${itFace(rung.img,rung.name[0])}<span><b>${esc(rung.name)}</b><small>${esc(rung.blurb)}</small><span class="it-stars">${ladderPoints()} points</span></span></div><p class="it-head">This run</p><div class="it-list">${run.map(([k,v])=>`<div class="it-cell"><span class="it-txt"><b>${esc(k)}</b></span><small>${esc(v)}</small></div>`).join('')}</div><p class="it-head">Your classes: win a run as each of them (a wedding, a class win or a quest)</p><div class="it-list">${steps}</div>`);
         hydrateInlineImages($('opened'));return;
       }
       journalView='awards'; // every achievement there is, earned ones first in each group
@@ -10856,7 +10857,7 @@
       const v=world?.victory,w=CLASS_WINS[v?.type],win=$('marriage-win');
       if(!w||!win)return;
       const her=v.bride?hingeProfile(v.bride):null,face=her?.gallery?.[0]||w.standin||SORORITY_STANDIN; // the denise win has no bride
-      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${QUEST_WINS[v.type]&&!ladderComplete()?'<p class="line">You won’t see this story again until every class is unlocked.</p>':''}${victoryNote()}<button data-class-win="new">New game</button></div>`;
+      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${QUEST_WINS[v.type]?'<p class="line">You won’t see this story again until you have won every quest.</p>':''}${victoryNote()}<button data-class-win="new">New game</button></div>`;
       if(!win.dataset.classWin){win.dataset.classWin='1';win.addEventListener('click',event=>{if(event.target.closest?.('[data-class-win]')){win.classList.remove('visible');pickDifficulty();}});}
       win.classList.add('visible');
     }
@@ -12872,6 +12873,7 @@
       dialledNumber='';dialStatus='Enter a number using the keypad.';
       classStart(); // the Looksmaxxer and the Divorcé: a wallet, looks, the payment schedule
       classTutorialMaybe(); // their own tutorial, the first time
+      try{const pp=playerProfile();if(!pp.played[selectedDifficulty]){pp.played[selectedDifficulty]=true;saveProfile();}}catch{} // the classes you have played (achievements)
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
       const holdHinge=!$('tut-ask').hidden||tutorialAskWaiting; // the first visit: the tutorial question is still up, or How to play is open
       tutorialAskWaiting=false;firstRunStarted=true;
