@@ -1301,7 +1301,7 @@
       if (s.stage === 'backrow') {
         if (s.device !== 'none') return s.device === 'assembled' ? 'Vanessa will want to know.' : null;
         if (s.inv.semtex === 'none') return 'Vanessa gave you a word to say.';
-        if (s.inv.wire === 'none') return 'Some jobs come with a reel of wire.';
+        if (s.inv.wire === 'none') return 'Lots of women in Sunfall work with wire: florists, jewelry makers, sound engineers, gardeners. Ring one and ask her.'; // clearer (Chris, 4 November 2026)
         if (s.inv.phone === 'none') return 'Somebody in the classifieds sells phones.';
         return allItems(s) ? 'Your desk is waiting.' : null;
       }
