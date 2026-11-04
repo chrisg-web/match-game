@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="09f729f4a3">
+<html lang="en" data-build="25befd4626">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=09f729f4a3"></script>
+  <script src="chapel_at_midnight.js?v=25befd4626"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=09f729f4a3"></script>
+  <script src="marriage.js?v=25befd4626"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=09f729f4a3"></script>
+  <script src="quests/professor-vale.js?v=25befd4626"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1056,7 +1056,20 @@
       $('difficulty-description').textContent=difficultyCopy[selectedDifficulty];
       updateRunStatus();
     }));
+    // The Divorcé lives in a cheap motel that is falling apart (Chris, 4 November 2026): in his runs a room
+    // picture shows its motel version (the same path under assets/motel/) once it is drawn. build-dialogue.mjs
+    // lists the drawn ones in character_database.json (motelArt); the rest stay the ordinary bedroom.
+    function motelArt(path){
+      if(selectedDifficulty!=='divorce'||typeof path!=='string'||!path.startsWith('assets/')||path.startsWith('assets/motel/'))return path;
+      let drawn=null;try{drawn=characterDB?.motelArt;}catch{return path;} // the database loads later than the first paint
+      if(!Array.isArray(drawn))return path;
+      const rel=path.slice(7).replace(/^variants\/[^/]+\//,'variants/iphone-standard/');
+      if(!drawn.includes(rel))return path;
+      const inline=window.MATCH_INLINE_ASSETS;
+      return inline&&!inline['assets/motel/'+rel]?path:'assets/motel/'+rel; // the one-file preview only has what it embedded
+    }
     function assetUrl(path) {
+      path = motelArt(path);
       const inline = window.MATCH_INLINE_ASSETS;
       if (!inline) return path;
       // The standalone preview reuses the standard art across all viewport
@@ -1602,7 +1615,7 @@
         const open=expandedNews.has(key);
         const clip=open?newsClipFor(day,item):null;
         const foundationLine=open&&day===1&&item.id==='charity_gala'&&world.blueRibbon?.foundationKnown?`<p class="news-number">Blue Ribbon Foundation office: ${esc(brNumber('foundation'))}</p>`:'';
-        return `<article class="paper"><p style="font-size:9px;color:#a22938;text-transform:uppercase;letter-spacing:1px;margin:2px 0">${esc(item.section)}</p><p><b>${esc(item.title)}</b></p><img class="news-thumb" src="assets/newspapers/${esc(item.image||item.id)}.png" alt="${esc(item.title)}"${item.fallbackImage?` onerror="this.onerror=null;this.src='${assetUrl(`assets/newspapers/${item.fallbackImage}.png`)}'"`:''}><p>${esc(item.summary)}</p><button class="news-read" data-news-read="${esc(item.id)}">${open?'Hide story':'Read full story'} ▸</button>${open?`<div class="news-detail">${esc(item.body||item.summary)}${foundationLine}</div>`:''}${clip?`<button class="news-clip" data-news-clip="${clip}">✂ Clip the gala photograph for your Evidence Sheet</button>`:''}</article>`;
+        return `<article class="paper"><p style="font-size:9px;color:#a22938;text-transform:uppercase;letter-spacing:1px;margin:2px 0">${esc(item.section)}</p><p><b>${esc(item.title)}</b></p><img class="news-thumb" src="${esc(String(item.image||'').startsWith('assets/')?item.image:`assets/newspapers/${item.image||item.id}.png`)}" alt="${esc(item.title)}"${item.fallbackImage?` onerror="this.onerror=null;this.src='${assetUrl(`assets/newspapers/${item.fallbackImage}.png`)}'"`:''}><p>${esc(item.summary)}</p><button class="news-read" data-news-read="${esc(item.id)}">${open?'Hide story':'Read full story'} ▸</button>${open?`<div class="news-detail">${esc(item.body||item.summary)}${foundationLine}</div>`:''}${clip?`<button class="news-clip" data-news-clip="${clip}">✂ Clip the gala photograph for your Evidence Sheet</button>`:''}</article>`;
       }).join('')}`;
       hydrateInlineImages($('opened'));
     }
@@ -4388,7 +4401,7 @@
       if(id==='x:police')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Station'}; // Truecel: the warning
       if(id==='x:ex')return {id,name:`${EX.name} (your ex-wife)`,gallery:[EX.portrait],banner:EX.portrait,ringName:EX.name,sub:'Mobile'}; // the Divorcé
       if(id==='x:solver')return {id,name:'Unknown number',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Unknown number',sub:'Mobile'}; // the Divorcé: the man who solves problems
-      if(id==='x:moss')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective Moss'}; // the Divorcé: about Denise
+      if(id==='x:moss')return {id,name:'Sunfall Police',gallery:['assets/contacts/moss.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective Moss'}; // the Divorcé: about Denise
       if(id==='x:voss')return {id,name:'Dr. Anton Voss',gallery:[herCall?.id==='x:voss'&&herCall.pic||'assets/contacts/voss.png'],banner:'assets/contacts/voss.png',ringName:'Dr. Anton Voss',sub:'Voss Craniofacial'}; // the Looksmaxxer: the consultation
       if(id==='x:model'){const w=hingeProfile(CASTING_ID),face=w?.gallery?.[0]||'assets/icons/calls.png';return {id,name:`${castingName()} at Saguaro Casting`,gallery:[face],banner:face,ringName:castingName(),sub:'Saguaro Casting'};} // the Looksmaxxer: the looks pay
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
@@ -10010,10 +10023,12 @@
     function sororityCards(){
       if(sororityCardCache)return sororityCardCache;
       const k=sororityKit();if(!k)return [];
-      return sororityCardCache=k.women.map(w=>({id:w.id,slug:w.slug,name:w.name,age:w.age,factionId:'normie_girls',sorority:true,canonicalOccupation:w.canonicalOccupation,gallery:w.photos?.length?w.photos:[SORORITY_STANDIN],privatePhotos:[],feature:w.feature,complimentLabel:w.complimentLabel,excuses:w.excuses||[]}));
+      return sororityCardCache=k.women.map(w=>({id:w.id,slug:w.slug,name:w.name,age:w.age,factionId:'normie_girls',sorority:true,canonicalOccupation:w.canonicalOccupation,gallery:w.photos?.length?w.photos:[SORORITY_STANDIN],privatePhotos:(w.privatePhotos||[]).map(photo=>({...photo})),feature:w.feature,complimentLabel:w.complimentLabel,excuses:w.excuses||[]}));
     }
+    var SORORITY_NEWS={id:'sorority_stadium',section:'Sports',title:'SUNFALL CHEER TAKES STATE',summary:'Alpha Rho Xi’s girls filled the stands before the game even started.',body:'Sunfall University’s cheer squad won the state title on Saturday night under the stadium lights, and most of the squad lives in one house on Greek Row. The sisters of Alpha Rho Xi are blonde, tanned and very hard to get a date with, according to every man in the bleachers. The squad celebrates with a party at the house this weekend. Invitation only.',image:'assets/sorority/stadium.png',fallbackImage:'local_sports'};
     function addSororityToDeck(){
       if(!sororityOn())return;
+      if(world.day<=2)queueNews({...SORORITY_NEWS},2); // the town hears about them first
       for(const card of sororityCards()){
         if(hingeDeck.some(item=>item.id===card.id)||hingeThreads.has(card.id))continue;
         const left=Math.max(1,hingeDeck.length-hingeIndex);
@@ -10225,6 +10240,8 @@
       gus:{name:'Dr. Gus',title:'VENEERS. CASH. NO QUESTIONS.',summary:'Dr. Gus, in the strip mall by the laundromat. Walk in.',body:'Twenty veneers, $250, same day, cash. No insurance, no appointment, no questions. Dr. Gus, Desert Plaza, between the vape shop and the laundromat. Ring {number} or just walk in.',greeting:'Yeah. Gus. What.',image:'looks_ad'}
     };
     var LOOKS_AD_TURN=['lift','gum','smile','stature','gus','vet'];
+    var LX_FACES={gus:'assets/contacts/lx-gus.png',vet:'assets/contacts/lx-vet.png'}; // Dr. Gus and the vet have faces; the rest are an office line
+    function lxFace(k){return LX_FACES[k]||'assets/icons/calls.png';}
     var LOOKS_ASK={voss:'A monobloc is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
       lift:'A wedge of foam inside your shoe. An inch, maybe more. Don’t take your shoes off on a first date.',
       stature:'We break both thigh bones and stretch them a millimeter a day in a frame. Three inches. You’ll be in bed for a while.',
@@ -10274,7 +10291,7 @@
     function lxLine(number){
       if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx)return null;
       const l=world.cls.lx,k=Object.keys(l.numbers).find(key=>l.numbers[key]===String(number));
-      return k?{id:'service:lx-'+k,name:LOOKS_ADS[k].name,portrait:'assets/icons/calls.png',generic:true,greeting:LOOKS_ADS[k].greeting}:null;
+      return k?{id:'service:lx-'+k,name:LOOKS_ADS[k].name,portrait:lxFace(k),generic:true,greeting:LOOKS_ADS[k].greeting}:null;
     }
     function lxTopics(serviceId){
       const k=serviceId.slice('service:lx-'.length),ad=LOOKS_ADS[k],l=lx(),c=classState(),out=[];
@@ -10444,6 +10461,7 @@
       const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:c.payDue===null?`${money(c.cash)} in your wallet · ${EX.name} is gone`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
       return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:id==='face'&&c.lx?.plan?`${money(FACE_DOWN)} down, ${money(FACE_INSTALL)} a payday after. ${d.sub.split('·')[1].trim()}`:tripCost(id)!==(d.cost||0)?`${d.sub} With the ad: ${money(tripCost(id))}.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
     }
+    var DRIVE_PIC='assets/trips/driving.png';
     function driveTo(id){
       if(!walletOn()||driveBlock(id))return false;
       const c=classState(),d=DRIVES[selectedDifficulty][id];
@@ -10457,10 +10475,11 @@
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
       const end=dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:missed?d.miss.line:done;
       const staged=!!d.scene&&!wrong; // three to five pictures: you arrive, it happens, and how you come out of it
+      const drive={image:DRIVE_PIC,stand:'room',caption:`You grab the keys and drive to ${d.place}.`}; // the drive there, then the place (Chris, 4 November 2026)
       const frames=staged
-        ?[...d.scene.map((step,i)=>({image:step.image,stand:'room',caption:i===0?`You grab the keys and drive to ${d.place}. ${step.caption}`:step.caption,sound:step.sound})),
+        ?[drive,...d.scene.map(step=>({image:step.image,stand:'room',caption:step.caption,sound:step.sound})),
           {image:dies?(DEATH_PICS[id]||d.scene.at(-1).image):ruined?d.ruinImage:d.after,stand:'room',caption:end,sound:dies?'death':ruined?'scream':d.afterSound}]
-        :[{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},{image:dies?(DEATH_PICS[wrong?'brakes':id]||dd.image):dd.image,stand:'room',caption:end,sound:dies?'death':null}];
+        :[drive,{image:dies?(DEATH_PICS[wrong?'brakes':id]||dd.image):dd.image,stand:'room',caption:end,sound:dies?'death':null}];
       playScene(frames,()=>dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):missed?arriveMissed(id):arrive(id),{gap:staged?2600:1900});
       return true;
     }
@@ -10472,6 +10491,7 @@
       if(d.bed)c.laidUntil=world.day+d.bed;
       if(looksTier()!==before)setGrip();
       achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]}${looksCap()<100?' No sorority girl is calling you a ten now.':''}`);
+      clinicNews(id);
       checkAchievements();saveRun(true);updateRunStatus();
       if(currentApp==='hinge')renderHinge();
     }
@@ -10502,8 +10522,18 @@
         if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;if(c.cycle-c.contested>0){c.contested++;c.owed=Math.max(ALIMONY,c.owed-ALIMONY_STEP);achToast(`The review is struck out: ${money(c.owed)}, not ${money(c.owed+ALIMONY_STEP)}. The next payment is due on Day ${c.payDue}.`);}else achToast(`The next payment is due on Day ${c.payDue}.`);}
         if(id==='house'){exPaid();achToast(`Paid. The next ${money(c.owed)} is due on Day ${c.payDue}.`);}
       }
+      clinicNews(id);
       checkAchievements();saveRun(true);updateRunStatus();
       if(currentApp==='hinge')renderHinge();
+    }
+    // Dr. Gus and the vet over the border get raided a few days after you went, whatever they did to you.
+    var CLINIC_NEWS={
+      gus:{after:2,id:'lx_gus_raid',section:'Crime',title:'STRIP MALL DENTIST CLOSED DOWN',summary:'Police carried the chair out of a Desert Plaza dental office yesterday.',body:'Officers closed a dental office in the Desert Plaza strip mall, between the vape shop and the laundromat, after complaints from patients. The man who ran it, known to customers as Dr. Gus, holds no license to practice dentistry in Arizona. Police carried out a chair, a drill and a gas tank with the wrong label on it. Anyone who had veneers fitted there is asked to see a real dentist.',image:'gus_raid'},
+      backstreet:{after:3,id:'lx_vet_raid',section:'Crime',title:'BORDER VET CLINIC RAIDED',summary:'A veterinary clinic over the border was doing more than dogs.',body:'Police on both sides of the border closed the Clínica Veterinaria del Sol yesterday. Neighbors say men from Arizona had been driving down after dark for weeks and leaving with their heads bandaged. The vet, who is not a surgeon, has not been found. A stray dog has been seen waiting on the step.',image:'vet_raid'}
+    };
+    function clinicNews(id){
+      const n=selectedDifficulty==='looksmaxxer'&&CLINIC_NEWS[id];
+      if(n)queueNews({id:n.id,section:n.section,title:n.title,summary:n.summary,body:n.body,image:n.image,fallbackImage:'crime_motel'},world.day+n.after);
     }
     // ---- a new day: paydays, alimony, getting out of bed ----
     function classNewDay(){
@@ -12121,7 +12151,7 @@
       }
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
-      if(selectedDifficulty==='looksmaxxer'&&world.cls?.lx){const l=world.cls.lx;for(const [k,ad] of Object.entries(LOOKS_ADS))if(l.seen[k]&&l.numbers[k])list.push({key:'service:lx-'+k,name:ad.name,detail:'From the classifieds',number:l.numbers[k],portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});} // the Looksmaxxer
+      if(selectedDifficulty==='looksmaxxer'&&world.cls?.lx){const l=world.cls.lx;for(const [k,ad] of Object.entries(LOOKS_ADS))if(l.seen[k]&&l.numbers[k])list.push({key:'service:lx-'+k,name:ad.name,detail:'From the classifieds',number:l.numbers[k],portrait:lxFace(k),fallback:'assets/icons/calls.png'});} // the Looksmaxxer
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
       {const h=rqs('hotline');if(h?.seen&&h.number&&rqKit())list.push({key:'service:hotline',name:rqKit().hotline.line,detail:'From the classifieds',number:h.number,portrait:'assets/contacts/hotline.png',fallback:'assets/icons/calls.png'});} // room quests: the hotline
       {const c=callerState();if(c.momKnown&&c.momNumber)list.push({key:'service:caller-mom',name:'Ruth Bell',detail:'Moira’s mother',number:c.momNumber,portrait:'assets/icons/calls.png',fallback:'assets/icons/calls.png'});}
