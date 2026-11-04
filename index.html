@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="978cf0a05c">
+<html lang="en" data-build="66ab0198a8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=978cf0a05c"></script>
+  <script src="chapel_at_midnight.js?v=66ab0198a8"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=978cf0a05c"></script>
+  <script src="marriage.js?v=66ab0198a8"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=978cf0a05c"></script>
+  <script src="quests/professor-vale.js?v=66ab0198a8"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2623,23 +2623,14 @@
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,id));
     }
-    // Coffee depends on how she feels about you. Warm (or on Mogger), she says yes and gives you
-    // her number; cold, she says no; otherwise "not yet", and you can ask again another day.
+    // Nobody ever says yes to coffee, however warm: you never leave the bedroom. Every invitation
+    // gets an excuse, and the question can come back another day. The one date in the game that
+    // happens is the one that wins it (the Chapel at Midnight's goth girl).
     function dateReply(thread,profile,notYet){
-      const dates=talkKit()?.dates,faction=profile.factionId;
-      if(!dates)return notYet;
-      const warmth=warmthOf(thread);
-      if(tone()==='mogger'||warmth>=3){
-        const yes=seededPick(dates.yes[faction]||dates.yes.normie_girls,profile.id);
-        if(thread.number)return yes;
-        thread.number=profile.jeweller?(marriage?.meetJeweller?.(profile.jeweller)||unusedContactNumber()):unusedContactNumber();
-        return `${yes} ${fillIn(dates.number,{number:thread.number})}`;
-      }
-      // Not a yes: the question can come back on a later day.
+      const dates=talkKit()?.dates;
       thread.topics=thread.topics.filter(topic=>topic!=='date');
       talkState(thread).dateDay=world.day;
-      if(warmth<=-1)return seededPick(dates.no[faction]||dates.no.normie_girls,profile.id);
-      return notYet;
+      return seededPick(dates?.excuses,`${profile.id}|date|${world.day}`)||notYet;
     }
     // Asking again after she's said no: the chance she blocks you. No rapport: 35% after one no,
     // 70% after two, certain after three. Some rapport (warmth 1-2) or real rapport (3+) buys
@@ -11507,7 +11498,7 @@
       questDay:()=>questStart('chapel'), // the day the Chapel begins in this run, or null if it isn't in it
       warmth:id=>warmthOf(hingeThreads.get(id)),warmBy:(id,delta)=>{const thread=hingeThreads.get(id);if(thread)warmBy(thread,delta);},serviceKnown,
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
-      newNumber:unusedContactNumber,
+      newNumber:unusedContactNumber,save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),
       chatDone:id=>{const thread=hingeThreads.get(id);return !!thread&&doneForToday(thread);}, // she's signed off for today
       // A flyer girl you rang comes up in your Hinge deck within the next few cards.
       toDeck:id=>deckSoon(id,'flyer'),

@@ -2,7 +2,7 @@
   "version": 2,
   "id": "goths_ritual_against_sisters",
   "title": "The Chapel at Midnight",
-  "summary": "Victoria Blackwood is holding a rite in one of the city's three old chapels on the next moonless night, seven nights after you first cross her path. Nobody says which night unless you ask someone who'd know, and nobody will say where. Befriend the goth crowd (or Victoria herself), find out which night and which chapel, and send word to the Sisters of Mercy before the night comes.",
+  "summary": "A Midnight Rite is being held in one of the city’s three old chapels on the next moonless night, seven nights after you first cross the host’s path. The flyer is signed only V.B.; the goth crowd will tell you it is Victoria Blackwood’s. Nobody says which night unless you ask someone who’d know, and nobody will say where. Befriend the goth crowd (or Victoria herself), find out which night and which chapel, and send word to the Sisters of Mercy before the night comes. Stop it, and she is arrested; a goth girl asks you out, and that date is the win.",
   "timeRule": "Time only moves when the player starts another day. Every reference is relative: tomorrow night, in three nights. No weekdays, dates or clock times.",
   "rules": {
     "chance": 0.5,
@@ -15,7 +15,6 @@
       4,
       7
     ],
-    "betrayalChance": 0.5,
     "gossipReportChance": 0.5,
     "loyalFriendReportChance": 0.5,
     "victoriaAskReportChance": 0.5,
@@ -23,7 +22,8 @@
       "loyal": 0.35,
       "gossip": 0.45,
       "fedup": 0.2
-    }
+    },
+    "countdownChance": 0.4
   },
   "places": {
     "old_mission": {
@@ -76,11 +76,13 @@
   "gothActions": {
     "rite": {
       "label": "Ask about the Midnight Rite",
-      "player": "So what actually happens at Victoria's Midnight Rite?"
+      "player": "So what actually happens at Victoria's Midnight Rite?",
+      "playerUnknown": "So what actually happens at this Midnight Rite everyone keeps whispering about?"
     },
     "where": {
       "label": "Ask where it's being held",
-      "player": "Where is it actually being held? The flyer doesn't say."
+      "player": "Where is it actually being held? The flyer doesn't say.",
+      "playerNoFlyer": "Where is it actually being held? Nobody will say."
     },
     "criticize": {
       "label": "Say what you really think of Victoria",
@@ -111,7 +113,7 @@
       "sisters": "Nuns with candles? That is going straight in the group chat."
     },
     "fedup": {
-      "rite": "Can we not? It's not a party, whatever she tells people. That's all I'm saying.",
+      "rite": "Can we not? It’s not a party, whatever Victoria tells people. That’s all I’m saying.",
       "whereStranger": "Not on here. I don't know you well enough for that.",
       "whereFriend": "Okay. I want out, so I'll tell you. She said it's {riddle}. That's all she ever calls it.",
       "criticize": "Oh thank God. I thought it was just me. Everyone else acts like she hung the moon.",
@@ -120,6 +122,12 @@
   },
   "victoria": {
     "actions": {
+      "flyers": {
+        "entry": "Ask about the crescent flyers",
+        "label": "Ask if the crescent flyers are hers",
+        "player": "Those crescent flyers all over the old quarter, signed V.B. That’s you, isn’t it?",
+        "reply": "Who else would it be, sweetheart? Music, then something older than music. On the next moonless night. Bring nothing holy. ☾"
+      },
       "rite": {
         "label": "Ask about her Midnight Rite",
         "player": "Tell me about your Midnight Rite.",
@@ -152,16 +160,15 @@
         "reply": "When there’s no moon. {Night}, if you can’t read a sky. ☾"
       }
     },
-    "afterStopped": "You did that, didn't you. ☾",
     "afterCompleted": "It's done. You missed it. ☾"
   },
   "sisterTalk": {
-    "entry": "Warn her about Victoria's rite",
+    "entry": "Warn her about {rite}",
     "label": "Tell her it's at {short}",
-    "player": "Victoria Blackwood's rite is at {place}, {when}. Please, the Sisters have to be there.",
+    "player": "{Rite} is at {place}, {when}. Please, the Sisters have to be there.",
     "reply": "Then we'll be at {place} with every candle in the parish. Thank you for telling me.",
     "changed": "Then we'll move. {Place} it is. I hope you're sure this time.",
-    "callLabel": "Warn them: Victoria's rite is at {short}",
+    "callLabel": "Warn them: the Midnight Rite is at {short}",
     "callReply": "Thank you. I'll tell Sister Margaret. The Sisters will keep watch at {place}."
   },
   "chalkPlaces": "Chalk crescents appeared on the doors of {chalkA} and {chalkB}.",
@@ -201,9 +208,9 @@
         {
           "id": "crime_underground",
           "section": "Nightlife",
-          "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
-          "summary": "The crescent flyers have been torn down.",
-          "body": "The organizer known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+          "title": "MIDNIGHT RITE ORGANIZER ARRESTED AT {PLACE}",
+          "summary": "Victoria Blackwood, who signed the crescent flyers as V.B., is in custody.",
+          "body": "Police arrested Victoria Blackwood, 23, at the door of {place} while the Sisters of Mercy kept their vigil inside. Detectives will not say what she is charged with. By morning the crescent flyers had been torn down and the Black Lace shop had not opened."
         }
       ],
       "reconciled": [
@@ -217,9 +224,9 @@
         {
           "id": "crime_underground",
           "section": "Nightlife",
-          "title": "THE BLACK LACE SHOP CLOSES ITS DOORS",
-          "summary": "The crescent flyers have been torn down.",
-          "body": "The organizer known as V.B. has not been seen since the vigil. Regulars say the crescent flyers came down overnight."
+          "title": "MIDNIGHT RITE ORGANIZER ARRESTED AT {PLACE}",
+          "summary": "Victoria Blackwood, who signed the crescent flyers as V.B., is in custody.",
+          "body": "Police arrested Victoria Blackwood, 23, at the door of {place} while the Sisters of Mercy kept their vigil inside. Detectives will not say what she is charged with. By morning the crescent flyers had been torn down and the Black Lace shop had not opened."
         }
       ],
       "completed": [
@@ -251,8 +258,8 @@
     }
   },
   "outcomes": {
-    "stopped": "The Sisters kept watch at {place} all night, singing. The rite never happened, and Victoria Blackwood has left town.",
-    "reconciled": "The Sisters kept watch at {place}, and {fedup} stood with them. The rite never happened, and half the goth crowd walked away from Victoria.",
+    "stopped": "The Sisters kept watch at {place} all night, singing. The rite never happened. The police took Victoria Blackwood at the chapel door.",
+    "reconciled": "The Sisters kept watch at {place}, and {fedup} stood with them. The rite never happened. The police took Victoria Blackwood at the chapel door, and half the goth crowd watched her go.",
     "wrong_place": "The Sisters kept watch at {warnedPlace}. The rite was at {place}.",
     "ignored": "Nobody stood against it. The rite happened at {place}."
   },
@@ -275,7 +282,7 @@
   },
   "moon": {
     "goth": {
-      "loyal": "The new moon? {Night}. She’d kill me for telling you. Not literally. Probably.",
+      "loyal": "The new moon? {Night}. Victoria would kill me for telling you. Not literally. Probably.",
       "gossip": "Oh, everyone knows. The moon goes dark {night}. That’s the night.",
       "fedup": "The new moon’s {night}. Don’t go. I mean it.",
       "other": "The moonless night? {Night}. Everyone in the scene has it circled."
@@ -285,6 +292,41 @@
       "player": "Do you know when the next new moon is?",
       "reply": "We keep a vigil on every new moon. The next one is {night}. Why do you ask?"
     },
-    "clue": "{who} told you which night: the moon goes dark {night}."
+    "clue": "{who} told you which night the moon goes dark."
+  },
+  "host": {
+    "clue": "{who} told you who V.B. is: Victoria Blackwood.",
+    "herself": "Victoria told you herself: the crescent flyers are hers."
+  },
+  "countdown": {
+    "first": "The moon goes dark {night}. Everyone in the scene is counting. ☾",
+    "eve": "Tomorrow night. ☾ Nobody in the scene is sleeping."
+  },
+  "date": {
+    "offer": "I really like you. We should go on a date.",
+    "entry": "Answer her",
+    "journal": "{name} asked you out.",
+    "actions": {
+      "yes": {
+        "label": "Say yes",
+        "player": "Yes. I’d like that. When?",
+        "reply": "Tonight. I’ll pick you up at your door. Wear something dark. ☾"
+      },
+      "stay": {
+        "label": "Say you’d rather stay in",
+        "player": "I don’t really go out much.",
+        "reply": "Then I’ll keep asking. The offer stands."
+      }
+    },
+    "won": "{name} picked you up at your door. The search for love is over.",
+    "status": "{name} is taking you out tonight. You won Matchfall.",
+    "victory": {
+      "title": "A DATE",
+      "subtitle": "{name} is waiting at your door.",
+      "line": "Day {day}. The search for love is over.",
+      "newGame": "New game",
+      "backdrop": "assets/variants/iphone-standard/moonrise.webp",
+      "picture": "assets/events/chapel-date.webp"
+    }
   }
 }

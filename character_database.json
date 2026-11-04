@@ -26130,6 +26130,14 @@
           "Haha no. But you’re sweet."
         ]
       },
+      "excuses": [
+        "I don’t really feel like it.",
+        "I’m not really up for that right now.",
+        "Maybe we should get to know each other better first.",
+        "Not this week. Everything’s a bit much at the moment.",
+        "I like this, though. Talking. Let’s keep doing this for now.",
+        "Ask me another time. I mean that nicely."
+      ],
       "number": "Here’s my number, before I change my mind: {number}."
     },
     "daily": {

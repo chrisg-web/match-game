@@ -7,7 +7,8 @@
  * the game runs as before.
  *
  * All state lives in world.marriage (saved, loaded and reset with the run). The
- * win itself is recorded in world.victory, which nothing else in the game sets.
+ * win itself is recorded in world.victory (type marriage or thunderbirds); the only other writer is the
+ * Chapel at Midnight, whose date win is type date, and afterLoad leaves that one alone.
  * world.marriage.tb holds the Bluebird wedding; one wedding per run, either kind.
  * Text, the five Sisters' lines, the jewellers and all 50 examination questions
  * live in marriage.json.
@@ -546,7 +547,7 @@
       // The victory record and the marriage always agree.
       if(st.married)world.victory={type:'marriage',bride:st.married.id,day:st.married.day};
       else if(st.tb)world.victory={type:'thunderbirds',bride:st.tb.id,day:st.tb.day};
-      else if(world.victory&&['marriage','thunderbirds'].includes(world.victory.type))delete world.victory; // the class wins (the Stacey, the Divorcé) are kept
+      else if(world.victory&&['marriage','thunderbirds'].includes(world.victory.type))delete world.victory; // wins of other kinds (the class wins, the Chapel's date) are kept
       refreshDesk();
       if(wed(st))showVictory(wed(st).id,false);
     }
