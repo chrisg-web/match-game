@@ -567,6 +567,9 @@
       hasData:()=>!!data,
       // The five jewellers as Hinge cards (preview.html puts them in the swipe deck).
       jewellerCards:()=>!data?[]:JEWELLERS.map(id=>({id,name:data.jewellers[id].name,shop:data.jewellers[id].shop,role:data.jewellers[id].role,portrait:data.jewellers[id].portrait})),
+      // A jeweller who rings you about a stalled engagement sends the ring over (Chris, 4 November 2026: the world steps in).
+      giftRing:id=>{const st=state();if(!st||!JEWELLERS.includes(id))return false;ensureNumbers(st);st.jewellers[id].met=true;return giveRing(st,id);},
+      jewellerIds:()=>[...JEWELLERS],
       // You matched with her and asked for her number: her shop line goes in your Contacts.
       meetJeweller:id=>{
         const st=state();

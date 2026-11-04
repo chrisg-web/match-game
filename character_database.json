@@ -30226,7 +30226,8 @@
       "voicemail": [
         "This is Wade. You know who I am. Pick up.",
         "Wade again. I’m not going to stop ringing.",
-        "I found your profile. Nice room."
+        "I found your profile. Nice room.",
+        "I know which building. I know which floor. Pick up."
       ],
       "ask": {
         "label": "Ask her why she never mentioned a husband",
@@ -30266,6 +30267,10 @@
         "He didn’t knock.",
         "The car outside had been there all evening.",
         "Someone had been waiting in the stairwell for a long time."
+      ],
+      "signs": [
+        "A pickup truck sat outside your building half the night with its engine running. It left when your light went off.",
+        "Someone has scratched your door with a key. Taped under it, a printout of your Hinge photo, with her name written across your face in marker."
       ]
     },
     "envelope": {

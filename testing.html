@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a004087a85">
+<html lang="en" data-build="8ed14cdb86">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a004087a85"></script>
+  <script src="chapel_at_midnight.js?v=8ed14cdb86"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a004087a85"></script>
+  <script src="marriage.js?v=8ed14cdb86"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a004087a85"></script>
+  <script src="quests/professor-vale.js?v=8ed14cdb86"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2318,7 +2318,8 @@
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
-      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
+      qhintMaybe(thread,profileNow); // she tells you what's going on in town
+      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
@@ -2509,6 +2510,7 @@
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
+      if(id.startsWith('qh:'))return chooseQhint(id,thread,profile); // what's going on in town
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
@@ -4303,6 +4305,7 @@
       if(RQ_CALLERS[id])return rqCallCard(id); // room quests
       if(FQ_CALLERS[id])return fqCallCard(id); // her thing
       if(id==='x:coyote')return coyoteCallCard(id); // the Coyote
+      if(id==='x:help')return helpCallCard(id); // the world steps in
       if(id==='x:vale'){const c=PV?.valeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Unknown number',gallery:[face],banner:face,ringName:c?.name||'Unknown number',sub:'Mobile'};} // Professor Vale rings you
       if(id==='x:pv-fake'){const c=PV?.fakeCallCard?.(),face=c?.portrait||'assets/icons/calls.png';return {id,name:c?.name||'Detective Graves',gallery:[face],banner:face,ringName:c?.name||'Detective Graves',sub:`Mobile${c?.number?' · '+displayNumber(c.number):''}`};} // a fake detective: not her number
       if(id==='x:detective')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective'}; // Undeniable
@@ -4321,6 +4324,192 @@
     function fallbackFaces(root){
       root?.querySelectorAll('img').forEach(img=>{img.onerror=()=>{img.onerror=null;img.src=assetUrl('assets/icons/calls.png');};});
     }
+    // ---- The world steps in (Chris, 4 November 2026) ----
+    // From Day 5, when two days have gone by with nothing done towards a win, somebody rings with the next
+    // step, and the call offers a shortcut: Rosa with the next piece of Professor Vale's case, a Sister of
+    // Mercy who wants a husband, a jeweller with a ring, a bride who is waiting to be asked. At most one
+    // call every second day. The marriage path is offered to the Normie, the Mogger and the Truecel.
+    const HELP_FROM_DAY=5,HELP_STALL_DAYS=2;
+    function helpState(){
+      if(!world.help||typeof world.help!=='object')world.help={fp:progressPrint(),fpDay:1,lastDay:null,calls:0,lead:null,pending:false,callId:null,callDay:null};
+      return world.help;
+    }
+    // Everything that counts as getting somewhere. Swiping and chatting don't; a quest step or an examination answer does.
+    function progressPrint(){
+      const st=marriage?.state?.(),pv=world.professorVale,br=world.blueRibbon,ch=world.chapel,f=world.fionn,co=world.coyote;
+      const sis=st?Object.values(st.sisters||{}).map(x=>`${x.started?1:0}${x.passed?1:0}${x.best||0}`).join(''):'';
+      const matched=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)?.factionId==='sisters_of_mercy'&&!t.blocked&&!t.fumbled).length;
+      return [sis,st?.ring?1:0,matched,pv?.stage||'',(pv?.facts||[]).length,Object.keys(pv?.numbers||{}).length,Object.keys(br?.found||{}).length,(br?.links||[]).length,br?.outcome||'',ch?.outcome||'',ch?.stage||'',f?.stage||'',(f?.clues||[]).length,co?.stage||''].join('|');
+    }
+    const sisterProfiles=()=>hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy');
+    function marriageLead(){
+      const st=marriage?.state?.();
+      if(!st||st.married||st.tb||!['normie','mogger','truecel'].includes(selectedDifficulty))return null;
+      const mine=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)?.factionId==='sisters_of_mercy'&&!t.blocked&&!t.fumbled);
+      const of=id=>st.sisters?.[id]||{};
+      const passed=mine.find(t=>of(t.id).passed);
+      if(passed){
+        if(st.ring)return {kind:'propose',id:passed.id};
+        const ids=marriage.jewellerIds?.()||[];
+        return ids.length?{kind:'jeweller',id:passed.id,jeweller:ids[hashSeed(world.seed+'|helpring')%ids.length]}:null;
+      }
+      const started=mine.find(t=>of(t.id).started);
+      if(started)return {kind:'exam',id:started.id};
+      if(mine.length)return {kind:'sisterAsk',id:mine[0].id};
+      const pool=sisterProfiles().filter(p=>!hingeThreads.has(p.id));
+      return pool.length?{kind:'sisterIntro',id:pool[hashSeed(world.seed+'|helpsister')%pool.length].id}:null;
+    }
+    function helpLeads(){
+      const out=[];
+      if(questOn('vale')&&PV?.helpLead?.())out.push({kind:'rosa'});
+      const m=marriageLead();if(m)out.push(m);
+      return out;
+    }
+    // A Sister whose examination stalled rings you herself, with a question over the phone (her own call).
+    const helpCallingToday=id=>world?.help?.callId===id&&world.help.callDay===world.day;
+    function helpDue(){
+      if(!world||world.victory||world.day<HELP_FROM_DAY||window.MATCH_NO_HELP)return null; // the older test suites switch it off
+      const h=helpState(),fp=progressPrint();
+      if(fp!==h.fp){h.fp=fp;h.fpDay=world.day;}
+      if(h.lastDay===world.day)return h.pending?'x:help':null;
+      if(world.day-h.fpDay<HELP_STALL_DAYS||(h.lastDay!==null&&world.day-h.lastDay<HELP_STALL_DAYS))return null;
+      const leads=helpLeads();
+      if(!leads.length)return null;
+      const lead=leads[h.calls%leads.length];
+      h.lastDay=world.day;h.calls++;h.lead=lead;
+      if(lead.kind==='exam'){ // she rings: one of today's questions on the phone
+        const t=hingeThreads.get(lead.id);
+        if(t){if(!t.number)t.number=unusedContactNumber();t.warmth=Math.max(t.warmth||0,3);h.callId=lead.id;h.callDay=world.day;}
+        h.pending=false;return null;
+      }
+      h.pending=true;
+      return 'x:help';
+    }
+    function helpFace(lead){
+      if(lead?.kind==='rosa'){const r=hingeProfile('MATCH-054');return r?.gallery?.[0]||'assets/quests/professor/unknown-caller.png';}
+      if(lead?.kind==='jeweller'){const j=marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller);return j?.portrait||'assets/icons/calls.png';}
+      return hingeProfile(lead?.id)?.gallery?.[0]||'assets/icons/calls.png';
+    }
+    function helpCallCard(id){
+      const lead=world.help?.lead,face=helpFace(lead);
+      const name=lead?.kind==='rosa'?(PV?.helpText?.('caller')||'Rosa Gutierrez'):lead?.kind==='jeweller'?(marriage?.jewellerName?.(lead.jeweller)||'A jeweler'):(hingeProfile(lead?.id)?.name||'Unknown number');
+      return {id,name,gallery:[face],banner:face,ringName:lead?.kind==='sisterIntro'||lead?.kind==='rosa'?'Unknown number':name,sub:'Mobile'};
+    }
+    function helpLine(lead,key){
+      const her=lead?.id?firstName(hingeProfile(lead.id)):'';
+      const j=lead?.kind==='jeweller'?marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller):null;
+      const L={
+        sisterIntro:{open:`This is ${her}. I’m one of the Sisters of Mercy. A friend showed me your profile, and I don’t swipe on things. If you are looking for a wife and not a weekend, you may have my number.`,yes:'I’m looking for a wife',done:'Then talk to me properly. When you’re ready, ask me whether I would ever marry you. I will have some questions for you first.',no:'Then God bless you. I won’t ring again.'},
+        sisterAsk:{open:`It’s ${her}. We’ve talked for a while now, and you have never asked me the only question that matters to me.`,yes:'Would you ever marry me?',done:'Not before I know you. I’ll ask you my questions in our chat.',no:'I see. Then I’ll stop waiting for it.'},
+        jeweller:{open:`${j?.name||'The jeweler'} from ${j?.shop||'the shop'}. Forgive me ringing out of the blue. I hear a young man passed ${her}’s examination with the Sisters of Mercy and has no ring. I have one that would suit her.`,yes:'Send it over',done:'It will be on your desk within the hour. Go and ask her.',no:'The ring will keep. You know where to find me.'},
+        propose:{open:`It’s ${her}. I hear there is a ring on your desk. Was there something you wanted to ask me?`,yes:'Will you marry me?',done:'Ask me properly. In our chat, where I can read it twice.',no:'Then I’ll keep waiting. Not forever.'}
+      }[lead?.kind];
+      return L?.[key]||'';
+    }
+    function helpAnswer(id){
+      const lead=world.help?.lead;
+      return {id,stranger:true,kind:'help',lead,step:'open',said:lead?.kind==='rosa'?(PV?.helpText?.('open')||''):helpLine(lead,'open')};
+    }
+    function helpChoices(call){
+      if(call.step!=='open')return [{id:'h:hang',label:'Hang up'}];
+      const rosa=call.lead?.kind==='rosa';
+      return [{id:'h:yes',label:rosa?(PV?.helpText?.('tell')||'Tell me'):helpLine(call.lead,'yes')},{id:'h:no',label:rosa?(PV?.helpText?.('later')||'Not now'):'Not now'},{id:'h:hang',label:'Hang up'}];
+    }
+    function helpChoose(call,choice){
+      const lead=call.lead,h=helpState();
+      h.pending=false;
+      if(choice==='h:hang'||call.step!=='open'){endHerCall();saveRun(true);return;}
+      if(choice==='h:no'){call.said=lead?.kind==='rosa'?(PV?.helpText?.('later_reply')||''):helpLine(lead,'no');call.step='bye';saveRun(true);renderCalls();return;}
+      let later=null;
+      if(lead?.kind==='rosa')call.said=PV?.helpGive?.()?.text||'';
+      else{
+        call.said=helpLine(lead,'done');
+        const profile=hingeProfile(lead?.id);
+        if(lead?.kind==='sisterIntro'&&profile){
+          const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===profile.id);if(at>=0)hingeDeck.splice(at,1);
+          const t=ensureHingeThread(profile,'now');if(!t.number)t.number=unusedContactNumber();t.warmth=Math.max(t.warmth||0,2);
+        }
+        if(lead?.kind==='sisterAsk'){const t=hingeThreads.get(lead.id);if(t&&!t.number)t.number=unusedContactNumber();later=()=>marriage?.choose?.('start:'+lead.id);}
+        if(lead?.kind==='jeweller')marriage?.giftRing?.(lead.jeweller);
+        if(lead?.kind==='propose')later=()=>marriage?.choose?.('propose:'+lead.id);
+      }
+      call.step='bye';saveRun(true);renderCalls();
+      if(later)window.setTimeout(later,600); // she answers in your chat
+    }
+    function helpMissed(){
+      const h=helpState(),lead=h.lead;h.pending=false;
+      if(lead?.kind==='rosa')strangerVoicemail('Unknown number',PV?.helpText?.('open')||'');
+      else if(lead)strangerVoicemail(lead.kind==='jeweller'?(marriage?.jewellerName?.(lead.jeweller)||'A jeweler'):lead.kind==='sisterIntro'?'Unknown number':(hingeProfile(lead.id)?.name||'Unknown number'),helpLine(lead,'open'));
+      h.lastDay=world.day-1; // they try again tomorrow
+      saveRun(true);
+    }
+    // ---- She tells you what's going on in town (Chris, 4 November 2026) ----
+    // A quest that is live but not started is hard to find. A woman you've talked with brings it up herself,
+    // never as her opening: after three exchanges, or two if you've read the story in the paper. Then a short
+    // dialogue opens the case. One woman per quest; if she's gone, another can tell you.
+    const QHINT={
+      vale:{
+        hint:'Did you see the paper? Professor Vale’s brakes failed, and then his house caught fire. Two accidents in a month.',
+        ask:'Ask her about Professor Vale',
+        askReply:'He’s the professor who invites the speakers everybody protests. Paglia, then Houellebecq. His brakes went the day after one of them, and the fire came the day after the other.',
+        open:'That doesn’t sound like an accident',
+        openReply:'That’s what I said. Somebody should look into it. Maybe you should.',
+        story:/vale|professor|pv_/i
+      },
+      chapel:{
+        hint:'Have you seen the Midnight Rite flyer? One night only, on the next moonless night, signed V.B. The goth girls won’t stop talking about it.',
+        ask:'Ask her about the flyer',
+        askReply:'It’s in the Sunfall Daily, by the classifieds. They say the girls who go don’t come back the same. I’d stay away, honestly.',
+        open:'Where can I see it?',
+        openReply:'In today’s paper. Go and look, if you have to.',
+        story:/chapel|rite|flyer|midnight/i
+      }
+    };
+    function qhintState(){if(!world.qhints||typeof world.qhints!=='object')world.qhints={};return world.qhints;}
+    function qhintLive(id){
+      if(!questOn(id))return false;
+      if(id==='vale')return !!PV&&!PV.isOpen?.();
+      if(id==='chapel'){const st=chapel?.state?.();return !!st&&!st.active&&st.enabled!==false&&!st.dead&&!st.outcome;}
+      return false;
+    }
+    const qhintTeller=profile=>!!profile&&profile.factionId!=='sisters_of_mercy'&&!profile.jeweller&&!profile.sorority&&profile.id!==bearHingeCard.id;
+    function qhintReadIt(id){return (world.seenArticles||[]).some(a=>QHINT[id].story.test(String(a)));}
+    // She brings it up, once she knows you a little. Called when her chat shows its choices.
+    function qhintMaybe(thread,profile){
+      if(!world||window.MATCH_NO_QHINT||thread.pending||thread.blocked||thread.fumbled||!qhintTeller(profile))return;
+      const q=qhintState();
+      for(const id of Object.keys(QHINT)){
+        const told=q[id];
+        if(told&&(told.open||hingeThreads.get(told.by)&&!hingeThreads.get(told.by).blocked&&!hingeThreads.get(told.by).fumbled))continue; // somebody has it in hand
+        if(!qhintLive(id))continue;
+        if((thread.topics||[]).length<(qhintReadIt(id)?2:3))continue; // never her first thing
+        q[id]={by:thread.id,day:world.day,step:'hint',open:false};
+        thread.log.push({who:'her',text:QHINT[id].hint});
+        talkState(thread).unread=true;
+        saveRun(true);
+        return;
+      }
+    }
+    function qhintChoices(thread){
+      const q=qhintState(),out=[];
+      for(const [id,t] of Object.entries(q)){
+        if(!QHINT[id]||t.by!==thread.id||t.open||!qhintLive(id))continue;
+        out.push(t.step==='hint'?[`qh:${id}:ask`,QHINT[id].ask]:[`qh:${id}:open`,QHINT[id].open]);
+      }
+      return out;
+    }
+    function chooseQhint(key,thread,profile){
+      const [,id,step]=key.split(':'),q=qhintState(),t=q[id];
+      if(!QHINT[id]||!t||t.by!==thread.id||thread.pending)return;
+      const Q=QHINT[id];
+      thread.log.push({who:'you',text:step==='ask'?Q.ask.replace(/^Ask her about /,'What about ')+'?':Q.open+'.'});
+      if(step==='ask'){t.step='asked';return fionnReply(thread,profile,[{text:Q.askReply}]);}
+      t.open=true;
+      return fionnReply(thread,profile,[{text:Q.openReply}],()=>{
+        if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
+        if(id==='chapel')chapel?.onPaperOpened?.();
+      });
+    }
     // Which of them is due to ring today: her dad once, Theon once a day.
     function strangerDue(){
       if(policeWarningDue())return 'x:police'; // Truecel: the police warning comes first
@@ -4335,13 +4524,14 @@
       if(vossDue())return 'x:voss'; // the Looksmaxxer: Dr. Voss, the consultation
       if(modelDue())return 'x:model'; // the Looksmaxxer: a casting agent
       if(exCallerDue())return 'x:ex'; // the Divorcé: Denise, about the money
-      return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
+      return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue()||helpDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale, then somebody who helps a stalled run
     }
     function strangerRang(id){
       if(MINI_CALLERS[id]){miniRang(id);return;}
       if(RQ_CALLERS[id]){rqRang(id);return;}
       if(FQ_CALLERS[id]){fqRang(id);return;}
       if(id==='x:coyote'){coyoteRang();return;}
+      if(id==='x:help'){helpState().pending=false;return;} // the world steps in
       if(id==='x:vale'){PV.valeRang();return;}
       if(id==='x:pv-fake'){PV.fakeRang();return;}
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
@@ -4369,6 +4559,7 @@
       if(RQ_CALLERS[id]){rqMissed(id);return;}
       if(FQ_CALLERS[id]){fqMissed(id);return;}
       if(id==='x:coyote'){coyoteMissed();return;} // he leaves the clue anyway
+      if(id==='x:help'){helpMissed();return;}
       if(id==='x:vale'){PV.valeMissed();saveRun(true);return;} // he leaves a voicemail
       if(id==='x:pv-fake'){PV.fakeMissed();saveRun(true);return;}
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
@@ -4394,6 +4585,7 @@
       if(RQ_CALLERS[id])return rqAnswer(id);
       if(FQ_CALLERS[id])return fqAnswer(id);
       if(id==='x:coyote')return {id,stranger:true,kind:'coyote',step:'open',said:coyoteAnswer()};
+      if(id==='x:help')return helpAnswer(id);
       if(id==='x:vale')return {id,stranger:true,kind:'vale',step:'open',said:PV.valeAnswer()};
       if(id==='x:pv-fake')return {id,stranger:true,kind:'pvfake',step:'open',said:PV.fakeAnswer()};
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
@@ -4416,6 +4608,7 @@
       if(call.kind==='rq')return rqCallChoices(call); // room quests
       if(call.kind==='fq')return fqCallChoices(call); // her thing
       if(call.kind==='coyote')return coyoteChoices(); // the Coyote
+      if(call.kind==='help')return helpChoices(call); // the world steps in
       if(call.kind==='vale')return PV.valeChoices(); // Professor Vale
       if(call.kind==='pvfake')return PV.fakeChoices();
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
@@ -4448,6 +4641,7 @@
       if(call.kind==='rq'){rqChooseCall(call,choice);return;}
       if(call.kind==='fq'){fqChooseCall(call,choice);return;}
       if(call.kind==='coyote'){coyoteChoose(call,choice);return;}
+      if(call.kind==='help'){helpChoose(call,choice);return;}
       if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
@@ -5869,6 +6063,10 @@
             else{st.stage='done';herLine(thread,kit.truthNext.angry,{block:true});thread.blocked=true;}
           }
           if(st.stage==='leaving'&&world.day>st.leaveDay&&thread){st.stage='left';st.nextCall=world.day;herLine(thread,kit.leave.next);warmBy(thread,2);arcsState().fav[st.host]='ready';}
+          if(['calling','carry'].includes(st.stage)){ // you see him coming: his truck, then your door (Chris, 4 November 2026)
+            if(st.warned>=2&&!st.sign2&&kit.signs?.[0]){st.sign2=true;showGameNotice(kit.signs[0]);}
+            if(st.warned>=3&&!st.sign3&&kit.signs?.[1]){st.sign3=true;showGameNotice(kit.signs[1]);}
+          }
           if(['calling','carry'].includes(st.stage)&&st.warned>=4&&!Number.isInteger(st.dieDay))st.dieDay=world.day; // he comes
         }else if(id==='envelope'){
           if(st.stage==='denise'&&world.day>st.stepDay){st.stage='done';if(hashSeed(world.seed+'|kessler')%3===0)st.dieDay=world.day+1;} // nothing at her house: one time in three he comes back for you
@@ -6091,7 +6289,7 @@
     function miniMissed(id){
       const which=MINI_CALLERS[id],kit=miniKit()[which],st=ms(which);
       if(!st)return;
-      if(which==='husband'){st.nextCall=world.day+1;/* ignoring him doesn't provoke him; lies and hang-ups do */strangerVoicemail(st.calls>=1?kit.name:'Unknown number',kit.voicemail[(st.calls+world.day)%kit.voicemail.length]);}
+      if(which==='husband'){st.nextCall=world.day+1;if(['calling','carry'].includes(st.stage)){st.ignored=(st.ignored||0)+1;if(st.ignored%2===0)st.warned++;} /* lies and hang-ups provoke him; so does every second call you let ring out (Chris, 4 November 2026) */strangerVoicemail(st.calls>=1?kit.name:'Unknown number',kit.voicemail[(st.calls+world.day)%kit.voicemail.length]);}
       else if(which==='envelope'){st.warned++;strangerVoicemail('Unknown number',kit.later[(st.warned+world.day)%kit.later.length]);}
       else{st.hangs=(st.hangs||0)+1;st.nextCall=world.day+1;if(st.hangs>=3&&st.stage==='calling'){st.stage='refused';st.revengeDay=world.day+1;}}
       saveRun(true);
@@ -7026,7 +7224,7 @@
     function coyoteMaybeComes(){const c=coyoteState();if(hashSeed(world.seed+'|coyotecomes')%10<3)c.dieDay=world.day+2+hashSeed(world.seed+'|coyotewhen')%3;}
     function coyoteRescued(){
       const c=coyoteState(),kit=coyoteKit(),t=hingeThreads.get(c.victim);
-      c.stage='saved';
+      c.stage='saved';c.savedOn=world.day;
       queueNews(coyoteNews('alive',c),world.day);
       if(t){t.missing=false;t.blocked=false;t.warmth=5;talkState(t).heat=3;lineSpeaker=t.id;herLine(t,kit.texts.rescued);rqSpoke(t);}
       coyoteMaybeComes();
@@ -8244,7 +8442,7 @@
     }
     function herCallers(){
       const today=callsToday();
-      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id)||spurnCallingToday(thread.id))&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
+      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id)||spurnCallingToday(thread.id)||helpCallingToday(thread.id))&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
     }
     // One part of the day: maybe someone rings. Returns true if the phone started ringing.
     function tryHerCall(slot,force=false){
@@ -8254,7 +8452,7 @@
       if(stranger){today.slots.push(slot);strangerRang(stranger);startIncomingCall(stranger);return true;}
       const callers=herCallers().sort((a,b)=>warmthOf(b)-warmthOf(a));
       if(!callers.length)return false;
-      const jealous=callers.find(thread=>callerCallingToday(thread.id))||callers.find(thread=>laviniaCallingToday(thread.id))||callers.find(thread=>jealousToday(thread.id))||callers.find(thread=>spurnCallingToday(thread.id)); // these ring first, and always
+      const jealous=callers.find(thread=>helpCallingToday(thread.id))||callers.find(thread=>callerCallingToday(thread.id))||callers.find(thread=>laviniaCallingToday(thread.id))||callers.find(thread=>jealousToday(thread.id))||callers.find(thread=>spurnCallingToday(thread.id)); // these ring first, and always
       if(!force&&!jealous&&gameRandom()>={mogger:.85,normie:.65,truecel:.4}[tone()])return false;
       const caller=jealous||(gameRandom()<.6?callers[0]:gamePick(callers)); // the warmest is likeliest
       today.slots.push(slot);today.callers.push(caller.id);
@@ -8678,6 +8876,7 @@
       add('Class wins','win:stacey','You bagged the Stacey');
       add('Class wins','win:divorce','A cheerleader, and no more Denise');
       add('Class wins','win:denise','No more Denise');
+      for(const [id,w] of Object.entries(QUEST_WINS))add('Quest wins','win:'+id,w.name);
       for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
@@ -9515,6 +9714,37 @@
       divorce:{title:'FREE AT LAST',subtitle:'No more payments. No more Denise. Nobody is looking at you.',line:'{name} said yes, and Denise is gone. Treat yourself, daddy.',image:'assets/sorority/divorce-win.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
       denise:{title:'NO MORE DENISE',subtitle:'No more payments. Nobody is looking at you.',line:'Denise is gone. Treat yourself, daddy.',image:'assets/motel/denise-win.png',standin:'assets/variants/iphone-standard/bedroom-night.webp',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'} // no bride: the room at night stands in until request 457 is drawn
     };
+    // Finishing a quest well wins the run too (Chris, 4 November 2026). The reason is always the morning
+    // after: the Sunfall Daily has your name on its front page, and Sunfall's women stop needing to be swiped.
+    // Each shows the day after the quest closes, so the paper and the aftermath come first.
+    // (Vale's Guest of Honor ending already wins through its Bluebird wedding, and the Chapel through the goth girl's date.)
+    const QUEST_WINS={
+      q_vale:{name:'You saved Professor Vale',title:'THE MAN WHO SAVED VALE',subtitle:'Front page of the Sunfall Daily: a reader stopped the Back Row before they got to Professor Vale’s car.',line:'Your phone has not stopped ringing since. Half of Sunfall wants to meet you, and you get to choose.',image:'assets/quests/professor/ending-graves.png',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
+      q_backrow:{name:'One of the Back Row',title:'ONE OF US',subtitle:'Professor Vale is gone, and nobody knows it was you.',line:'Vanessa keeps the candles lit for you now. You never open Hinge again.',image:'assets/quests/professor/ending-vanessa.png',standin:'assets/variants/iphone-standard/bedroom-night.webp',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
+      q_br:{name:'On the record',title:'ON THE RECORD',subtitle:'A federal inquiry into the Blue Ribbon Foundation opens on your evidence.',line:'Your name is in every paper in Arizona. The reward clears your debts, and the women of Sunfall message you first now.',image:'assets/evidence/tb-charity-ledger.png',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
+      q_coyote:{name:'You found her in time',title:'FOUND HER IN TIME',subtitle:'You got to her before the Coyote came back.',line:'{name} is alive because of you, and she wants to thank you properly.',image:'assets/variants/iphone-standard/sunrise.webp',standin:'assets/variants/iphone-standard/bedroom-morning.webp',backdrop:'assets/variants/iphone-standard/bedroom-morning.webp'},
+      q_theon:{name:'Theon is done',title:'THEON IS DONE',subtitle:'Nobody is wearing your face on Hinge anymore.',line:'The women he followed tell everyone it was you who stopped him. Your matches have never been better.',image:'assets/theon/profile-shot.png',standin:'assets/variants/iphone-standard/bedroom-dusk.webp',backdrop:'assets/variants/iphone-standard/bedroom-dusk.webp'}
+    };
+    Object.assign(CLASS_WINS,QUEST_WINS);
+    function questWin(){
+      const after=day=>Number.isInteger(day)&&world.day>day; // the morning after
+      const pv=world.professorVale,vw={hero_police:'q_vale',back_row_forever:'q_backrow'}[pv?.ending];
+      if(vw&&after(pv.endingDay))return {type:vw,day:world.day};
+      const br=world.blueRibbon;
+      if(questStart('br')!==null&&br?.outcome==='success'&&after(br.outcomeDay))return {type:'q_br',day:world.day};
+      const co=world.coyote;
+      if(co?.stage==='saved'&&after(co.savedOn))return {type:'q_coyote',bride:co.victim,day:world.day};
+      const f=world.fionn;
+      if(['caught','sorted'].includes(f?.stage)&&after(f.endDay))return {type:'q_theon',day:world.day};
+      return null;
+    }
+    function questWinCheck(){
+      if(!world||world.victory||$('fatal-overlay')?.classList.contains('visible'))return;
+      const v=questWin();
+      if(!v)return;
+      world.victory=v;
+      window.setTimeout(()=>{saveRun(true);showClassWin();},400);
+    }
     function classWinCheck(){
       if(!world||world.victory)return;
       const s=sororityState(),pl=selectedDifficulty==='divorce'?denisePlan():null,gone=!!pl&&pl.stage==='clear'; // Denise dead, and nobody looking at you
@@ -9729,7 +9959,8 @@
       ladderWin();checkAchievements(); // the class ladder and achievements
       const v=world.victory;
       if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
-      if(v&&CLASS_WINS[v.type])noteEnding('win:'+v.type,v.type==='denise'?`${EX.name} is gone.`:`${hingeProfile(v.bride)?.name||'She'} said yes.`);
+      if(v&&CLASS_WINS[v.type])noteEnding('win:'+v.type,QUEST_WINS[v.type]?CLASS_WINS[v.type].title:v.type==='denise'?`${EX.name} is gone.`:`${hingeProfile(v.bride)?.name||'She'} said yes.`);
+      if(!v)questWinCheck(); // a quest that closed well wins the run, the morning after
       const pv=world.professorVale,e=pv?.ending&&window.ProfessorVale?.DATA?.endings?.[pv.ending];
       if(e&&['complete','failure'].includes(e.kind))noteEnding('vale:'+pv.ending,'');
       const br=world.blueRibbon;

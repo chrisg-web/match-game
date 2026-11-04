@@ -107,6 +107,20 @@
       codeword: 'Vanessa’s code word for the Semtex: ring Lenny on the garden-shed number and ask for a garden shed clearance. Never say Semtex on the phone.'
     },
     deduction: { needs: ['rule', 'debate', 'allison', 'car_bay'], text: 'You put it together: the day after the Cofnas lecture, his car, bay fourteen, and Allison Kent knows exactly where he’ll be. Day {A}.' },
+    // When the case has stalled for days, Rosa rings and gives you the next piece (Chris, 4 November 2026).
+    help: {
+      caller: 'Rosa Gutierrez',
+      open: 'It’s Rosa. Rosa Gutierrez. I sit at the back of Professor Vale’s lectures. I heard you’ve been asking about him. Can I tell you something? Not on Hinge. Like this.',
+      tell: 'Tell me',
+      later: 'Not now',
+      debate: 'Vale has Nathan Cofnas speaking at Founders’ Hall on Day {T}. Every time one of his speakers comes to campus, something happens to Vale the next day. Save this number. It’s mine.',
+      back_row: 'It isn’t Jennifer Tate and the protesters. They’re loud and they’re harmless. The ones you want sit at the back of his lectures and call the protests a hobby. They call themselves the Back Row.',
+      vanessa: 'Vanessa Greer. She runs the Back Row. Everyone does what she says. Be careful who you ask about her.',
+      rule: 'Read the Sunfall Daily again. His brakes went the day after Paglia. His house burned the day after Houellebecq. It’s always the day after.',
+      car_plan: 'They’re going to do his car. Faculty parking lot, bay fourteen, on Day {A}, the day after the Cofnas lecture. I can’t go to the police. You can.',
+      graves: 'You know everything I know. Detective Eleanor Graves is the one who listens. Ring her before Day {A} and give her Vanessa’s name and the plan. Here’s her direct line.',
+      later_reply: 'Okay. You have my number now. Please don’t wait too long.'
+    },
     hints: {
       rule: 'Read the Sunfall Daily’s Vale stories, or ask the newsroom whether they’re connected.',
       debate: 'Who is Vale inviting next, and when? Ring the University Office, or ask a Progressive match.',
@@ -1330,6 +1344,23 @@
       const knows = { vanessa: has(s, 'vanessa'), allison: has(s, 'car_plan') || s.stage === 'backrow', rosa: s.rosaTrust >= TH.rosaVanessa || s.stage === 'backrow', jennifer: has(s, 'jennifer_clear'), rebecca: has(s, 'back_row') };
       return knows[id] === false && c.blurb ? c.blurb : c.role;
     }
+    // The next piece Rosa can give you, in the order the case needs it. Null once there is nothing left to give.
+    const HELP_ORDER = ['debate', 'back_row', 'vanessa', 'rule', 'car_plan'];
+    function helpLead(s) {
+      if (s.stage !== 'open' || s.attackResolved || s.ending) return null;
+      const fact = HELP_ORDER.find(f => !has(s, f));
+      if (fact) return { fact, text: fill(D.help[fact], vars(s)) };
+      if (!s.numbers.graves) return { fact: 'graves', text: fill(D.help.graves, vars(s)) };
+      return null;
+    }
+    function helpGive(s, day) {
+      const lead = helpLead(s);
+      if (!lead) return no('');
+      giveNumber(s, 'rosa');
+      if (lead.fact === 'graves') { setFlag(s, 'gravesKnown'); giveNumber(s, 'graves'); }
+      else learn(s, lead.fact);
+      return ok(s, lead.text);
+    }
     function caseFile(s, day) {
       const meters = [];
       if (isProtect(s) || s.stage === 'withdrawn') {
@@ -1395,7 +1426,7 @@
       hingeTopics, chooseHinge, dateTopicFor, askOnDate,
       contactForNumber, knownLines, lineTopics, chooseLine,
       roomActions, roomAction, workbenchConfig, assembleResult, wireNeeded, wireFromFriend,
-      caseFile, endingInfo,
+      caseFile, endingInfo, helpLead, helpGive,
       valeDue, valeRang, valeOpening, valeCallChoices, valeCallChoose, valeMissed, serviceGreeting,
       fakeDue, fakeRang, fakeOpening, fakeCallChoices, fakeCallChoose, fakeMissed,
       profileToPerson: profileId => PEOPLE.find(p => D.cast[p].profileId === profileId) || null
@@ -1662,6 +1693,10 @@ body>.pv-overlay{position:fixed}
       valeChoose: id => after(E.valeCallChoose(state(), id, day())),
       valeMissed: () => { E.valeMissed(state(), day()); if (host.save) host.save(); if (host.onChange) host.onChange(); render(); },
       serviceGreeting: lineId => E.serviceGreeting(state(), lineId),
+      // The world steps in (Chris, 4 November 2026): Rosa rings with the next piece of a stalled case.
+      helpLead: () => E.helpLead(state()),
+      helpGive: () => after(E.helpGive(state(), day())),
+      helpText: key => DATA.help[key] || '',
       caseCard: () => { const v = E.caseFile(state(), day()); return { title: DATA.title, status: v.routeName, alert: v.todo[0] || '' }; }
     };
   }
