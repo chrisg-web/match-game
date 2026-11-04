@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="25befd4626">
+<html lang="en" data-build="35c9c0f8e9">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=25befd4626"></script>
+  <script src="chapel_at_midnight.js?v=35c9c0f8e9"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=25befd4626"></script>
+  <script src="marriage.js?v=35c9c0f8e9"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=25befd4626"></script>
+  <script src="quests/professor-vale.js?v=35c9c0f8e9"></script>
 </head>
 <body>
   <main class="workbench">
@@ -952,8 +952,14 @@
     // A quest you have won (the quest itself, not just a part of it) doesn't come back in later games while you
     // are still climbing the class ladder. Once every class is unlocked there are no limits: any quest can turn up.
     // If you have somehow won every quest before that, they all come back (Chris, 4 November 2026).
-    const ladderComplete=()=>playerProfile().unlocked>=LADDER.length;
-    const questFresh=id=>ladderComplete()||!playerProfile().questsWon.includes(id);
+    // The first run is picked while the page is still loading, before the class ladder exists: read the saved
+    // profile straight from storage then.
+    function questProfileNow(){
+      try{const p=playerProfile();return {unlocked:p.unlocked,all:LADDER.length,won:p.questsWon};}
+      catch{let o=null;try{o=JSON.parse(localStorage.getItem(SAVE_KEY+':ladder')||'null');}catch{}o=o&&typeof o==='object'?o:{};return {unlocked:Number.isInteger(o.unlocked)?o.unlocked:1,all:5,won:Array.isArray(o.questsWon)?o.questsWon:[]};}
+    }
+    const ladderComplete=()=>{const p=questProfileNow();return p.unlocked>=p.all;};
+    const questFresh=id=>ladderComplete()||!questProfileNow().won.includes(id);
     function questsWonNow(){ // the quests this run has won, by how each one ends well
       if(!world)return [];
       const out=[];
