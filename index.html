@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="69d399f6e7">
+<html lang="en" data-build="d1d5418fb2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=69d399f6e7"></script>
+  <script src="chapel_at_midnight.js?v=d1d5418fb2"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=69d399f6e7"></script>
+  <script src="marriage.js?v=d1d5418fb2"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=69d399f6e7"></script>
+  <script src="quests/professor-vale.js?v=d1d5418fb2"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4131,7 +4131,7 @@
         {title:'Your car',points:['Your car keys are in your bedside cupboard. Tap them to drive somewhere. One trip a day.','The gym, the barber and the skin clinic are cheap and safe. Veneers, height surgery and the monobloc cost real money and put you in bed for days.']},
         {title:'Money',points:['You start with $900. Your bank balance is in the cupboard.','Pick up an extra shift: it pays, and it takes the whole day, so no swiping.','A casting agent may ring once your looks are good enough. Modeling pays well.']},
         {title:'Cheap or proper',points:['Read the ads in the paper: surgeons, clinics and men who work for cash.','Dr. Voss rings for a consultation about the monobloc. He shows you your bones.','Every procedure has a cheap way. It saves money, and it can ruin your face for good or kill you.']},
-        {title:'Bag the Stacey',points:['Stacey Vandermeer is in the sorority on Hinge. She wants a ninety: veneers, height surgery and the monobloc, and looks of 90 or more.','Talk to her until she really likes you, then ask her out. She says yes and you win.']}
+        {title:'Win a sorority girl',points:['The sorority girls are on Hinge, Stacey Vandermeer and her sisters. Any of them will do. They want a ninety: veneers, height surgery and the monobloc, and looks of 90 or more.','Talk to one until she really likes you, then ask her out. When she says yes, you win.']}
       ],
       divorce:[
         {title:'Denise',points:['Your ex-wife Denise wants $450 every 5 days, and $50 more each time.','Pay from your bank before the day it is due, or there is a late fee. Miss too many and Support Enforcement comes for you.']},
@@ -10047,7 +10047,7 @@
       for(const q of Object.values(fqKit()||{}))death('Her thing','KILLED',q?.deathCause);
       add('Weddings','win:marriage','Married a Sister of Mercy');
       add('Weddings','win:thunderbirds','Married into the Bluebirds');
-      add('Class wins','win:stacey','You bagged the Stacey');
+      add('Class wins','win:stacey','A sorority girl said yes');
       add('Class wins','win:divorce','A cheerleader, and no more Denise');
       add('Class wins','win:denise','No more Denise');
       for(const [id,w] of Object.entries(QUEST_WINS))add('Quest wins','win:'+id,w.name);
@@ -10913,10 +10913,10 @@
       else return;
       saveRun(true);renderCalls();
     }
-    // The wins: the Looksmaxxer bags the Stacey; the Divorcé wins the moment Denise is gone and nobody is looking at him
+    // The wins: the Looksmaxxer wins a date with any sorority girl (Chris, 4 November 2026: not only Stacey, and the screen names her); the Divorcé wins the moment Denise is gone and nobody is looking at him
     // (Chris, 4 November 2026: her death is the win), with a cheerleader who has already said yes (divorce) or without one (denise).
     var CLASS_WINS={
-      stacey:{title:'YOU BAGGED THE STACEY',subtitle:'Ninety in the mirror. A new jaw, three inches and a mouthful of veneers.',line:'{name} said yes. Tomorrow night, and you are driving.',image:'assets/sorority/stacey-date.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
+      stacey:{title:'{FIRST} SAID YES',onlyStacey:true,subtitle:'Ninety in the mirror. A new jaw, three inches and a mouthful of veneers.',line:'{name} said yes. Tomorrow night, and you are driving.',image:'assets/sorority/stacey-date.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
       divorce:{title:'FREE AT LAST',subtitle:'No more payments. No more Denise. Nobody is looking at you.',line:'{name} said yes, and Denise is gone. Treat yourself, daddy.',image:'assets/sorority/divorce-win.png',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'},
       denise:{title:'NO MORE DENISE',subtitle:'No more payments. Nobody is looking at you.',line:'Denise is gone. Treat yourself, daddy.',image:'assets/motel/denise-win.png',standin:'assets/variants/iphone-standard/bedroom-night.webp',backdrop:'assets/variants/iphone-standard/bedroom-night.webp'} // no bride: the room at night stands in until request 457 is drawn
     };
@@ -10970,7 +10970,8 @@
       const v=world?.victory,w=CLASS_WINS[v?.type],win=$('marriage-win');
       if(!w||!win)return;
       const her=v.bride?hingeProfile(v.bride):null,face=her?.gallery?.[0]||w.standin||SORORITY_STANDIN; // the denise win has no bride
-      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(w.image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title)}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${QUEST_WINS[v.type]?'<p class="line">You won’t see this story again until you have won every quest.</p>':''}${victoryNote()}<button data-class-win="new">New game</button></div>`;
+      const image=w.onlyStacey&&her?.slug!=='stacey_vandermeer'?face:w.image; // the date picture is Stacey's: anyone else, her own photo
+      win.innerHTML=`<img class="backdrop" src="${esc(assetUrl(w.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(assetUrl(image))}" alt="" onerror="this.onerror=null;this.src='${esc(assetUrl(face))}'"></div><h2>${esc(w.title.replace('{FIRST}',(firstName(her)||'SHE').toUpperCase()))}</h2><p class="sub">${esc(w.subtitle)}</p><p class="line">${esc(w.line.replace('{name}',her?.name||'She'))}</p>${QUEST_WINS[v.type]?'<p class="line">You won’t see this story again until you have won every quest.</p>':''}${victoryNote()}<button data-class-win="new">New game</button></div>`;
       if(!win.dataset.classWin){win.dataset.classWin='1';win.addEventListener('click',event=>{if(event.target.closest?.('[data-class-win]')){win.classList.remove('visible');pickDifficulty();}});}
       win.classList.add('visible');
     }
