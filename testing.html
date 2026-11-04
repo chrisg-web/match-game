@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3f6bb4dbae">
+<html lang="en" data-build="dadb86c1fc">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3f6bb4dbae"></script>
+  <script src="chapel_at_midnight.js?v=dadb86c1fc"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3f6bb4dbae"></script>
+  <script src="marriage.js?v=dadb86c1fc"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3f6bb4dbae"></script>
+  <script src="quests/professor-vale.js?v=dadb86c1fc"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4529,19 +4529,19 @@
       return 'x:help';
     }
     function helpFace(lead){
-      if(lead?.kind==='sq')return hingeProfile(sqHelp(lead)?.face)?.gallery?.[0]||'assets/icons/calls.png';
+      if(lead?.kind==='sq')return hingeProfile(sqHelpView(lead)?.face)?.gallery?.[0]||'assets/icons/calls.png';
       if(lead?.kind==='rosa'){const r=hingeProfile('MATCH-054');return r?.gallery?.[0]||'assets/quests/professor/unknown-caller.png';}
       if(lead?.kind==='jeweller'){const j=marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller);return j?.portrait||'assets/icons/calls.png';}
       return hingeProfile(lead?.id)?.gallery?.[0]||'assets/icons/calls.png';
     }
     function helpCallCard(id){
       const lead=world.help?.lead,face=helpFace(lead);
-      if(lead?.kind==='sq'){const H=sqHelp(lead);return {id,name:H?.name||'Unknown number',gallery:[face],banner:face,ringName:H?.ring||'Unknown number',sub:'Mobile'};}
+      if(lead?.kind==='sq'){const H=sqHelpView(lead);return {id,name:H?.name||'Unknown number',gallery:[face],banner:face,ringName:H?.ring||'Unknown number',sub:'Mobile'};}
       const name=lead?.kind==='rosa'?(PV?.helpText?.('caller')||'Rosa Gutierrez'):lead?.kind==='jeweller'?(marriage?.jewellerName?.(lead.jeweller)||'A jeweler'):(hingeProfile(lead?.id)?.name||'Unknown number');
       return {id,name,gallery:[face],banner:face,ringName:lead?.kind==='theon'?'Sunfall Daily':lead?.kind==='sisterIntro'||lead?.kind==='rosa'?'Unknown number':name,sub:lead?.kind==='theon'?'Newsroom':'Mobile'};
     }
     function helpLine(lead,key){
-      if(lead?.kind==='sq')return sqHelp(lead)?.[key]||'';
+      if(lead?.kind==='sq')return sqHelpView(lead)?.[key]||'';
       const her=lead?.id?firstName(hingeProfile(lead.id)):'';
       const j=lead?.kind==='jeweller'?marriage?.jewellerCards?.().find(x=>x.id===lead.jeweller):null;
       const L={
@@ -4578,7 +4578,7 @@
         }
         if(lead?.kind==='sisterAsk'){const t=hingeThreads.get(lead.id);if(t&&!t.number)t.number=unusedContactNumber();later=()=>marriage?.choose?.('start:'+lead.id);}
         if(lead?.kind==='jeweller')marriage?.giftRing?.(lead.jeweller);
-        if(lead?.kind==='sq')sqHelp(lead)?.apply?.();
+        if(lead?.kind==='sq'){const H=sqHelp(lead);if(H&&H.step===lead.step)H.apply?.();} // only the step that rang
         if(lead?.kind==='theon'){fionnClue('profile');fionnClue('name');recordClue('A man called Theon is using your photos on Hinge. A reporter at the Sunfall Daily has screenshots of his profile.');h.theonDone=true;}
         if(lead?.kind==='propose')later=()=>marriage?.choose?.('propose:'+lead.id);
       }
@@ -5040,7 +5040,7 @@
         const st=sqState(id);
         if(!st||st.stage!=='open'||st.outcome)continue;
         const h=SQ[id].help?.(st);
-        if(h)return {kind:'sq',quest:id,step:h.step};
+        if(h)return sqLeadOf(id,h);
       }
       return null;
     }
@@ -5049,11 +5049,15 @@
         const st=sqState(id);
         if(!st||st.stage!=='open'||st.outcome||!SQ[id].pressing?.(st))continue;
         const h=SQ[id].help?.(st);
-        if(h)return {kind:'sq',quest:id,step:h.step};
+        if(h)return sqLeadOf(id,h);
       }
       return null;
     }
     const sqHelp=lead=>lead?.kind==='sq'?SQ[lead.quest]?.help?.(sqState(lead.quest))||null:null;
+    // A helping call is fixed when it rings: who it is and what they say. (Without this, saying yes to the
+    // Innocence Clinic moved the pen pal on, and the same call turned into the next helper mid-call.)
+    const sqLeadOf=(id,h)=>({kind:'sq',quest:id,step:h.step,snap:{face:h.face||null,name:h.name||'',ring:h.ring||'',open:h.open||'',yes:h.yes||'',done:h.done||'',no:h.no||''}});
+    const sqHelpView=lead=>lead?.kind==='sq'?(lead.snap||sqHelp(lead)):null;
     const sqProgress=()=>SQ_IDS.map(id=>{const st=world?.sq?.[id];return st?`${st.stage}${st.facts.length}${st.outcome||''}${st.v?.right||0}${(st.v?.accused||[]).length}`:'';}).join(',');
 
     // --------------------------------------------------------------------------------------------
@@ -5726,7 +5730,7 @@
       if(call.kind==='fq'){fqChooseCall(call,choice);return;}
       if(call.kind==='coyote'){coyoteChoose(call,choice);return;}
       if(call.kind==='help'){helpChoose(call,choice);return;}
-      if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
+      if(call.kind==='vale'){const r=PV.valeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step=r.more?'open':'bye';saveRun(true);renderCalls();return;} // talking to him keeps the call going
       if(call.kind==='pvfake'){const r=PV.fakeChoose(choice);if(!r?.ok||r.hang){endHerCall();return;}call.said=r.text;call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='detective'){halDetectiveChoose(call,choice);return;}
       if(call.kind==='ex'){exChoose(call,choice);return;} // the Divorcé

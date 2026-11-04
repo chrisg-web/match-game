@@ -280,7 +280,46 @@
         stayNo: 'Hide with the Bluebirds? They’d make me wear a ribbon. Goodnight.',
         luck: 'Luck is for people without tenure. Goodnight.'
       },
-      chat: 'Alive, against the odds and the faculty. I’m reading. Ring me when you have something interesting to say.'
+      chat: 'Alive, against the odds and the faculty. I’m reading. Ring me when you have something interesting to say.',
+      // A real conversation (Chris, 4 November 2026: he wasn't helpful at all). On his calls and when you ring him,
+      // you can talk: Cofnas, his guests, the right, the students, Allison, philosophy. Talking builds his trust
+      // (he listens to your warning about the car at 2), and some of what he says goes in your notebook.
+      talk: {
+        cofnas: { label: 'Ask him why he invited Nathan Cofnas', trust: 1, learn: ['debate'],
+          text: 'Nathan is a philosopher who asks a question the university has decided may not be asked: how much of the difference between groups is inherited. A university that forbids a question has stopped being a university. If he is wrong, someone should stand up in Founders’ Hall and show him where. That is what a lecture is for. Instead they wrote a petition. You can’t refute a man with a petition. Founders’ Hall, Day {T}.' },
+        agree: { label: 'Ask him if he agrees with Cofnas', after: 'cofnas', trust: 1,
+          text: 'I agree the question should be asked, and that the answer should come from evidence, not from a vote. Where the evidence goes is not mine to decide, and it isn’t the students’ either. Here is what I believe: no average is a verdict on any one person. You meet people one at a time. So does Nathan, whatever his petitioners think.' },
+        guests: { label: 'Ask him about his other guests', learn: ['car_story', 'fire_story', 'rule'],
+          text: 'Camille Paglia, who told the faculty that sex is a war and they were all losing it. Michel Houellebecq, who said almost nothing for an hour and was magnificent. Funny, now you mention it. My brakes went the morning after Camille, and my kitchen caught fire the night after Michel. If I were superstitious I would cancel Nathan. I’m not. I teach Hume.' },
+        right: { label: 'Ask him if he’s on the right', trust: 1,
+          text: 'I’m a conservative in the old sense. Most things worth having are hard to build and easy to burn, and I would rather keep the cathedral than win the argument about it. The modern right? Half of it is angry men with microphones. The modern left is anxious people with tenure. I prefer the dead. They argue better, and they never sign petitions.' },
+        students: { label: 'Ask him about the students who protest', learn: ['jennifer', 'jennifer_clear', 'back_row'],
+          text: 'I like them more than they like me. Jennifer Tate shouts through a megaphone at every lecture. She once held a funeral for a pigeon. She couldn’t hurt a fly. The quiet ones worry me more. They sit at the back of my seminar and call themselves the Back Row. They don’t shout. They take notes.' },
+        allison: { label: 'Ask him about his assistant', learn: ['allison'],
+          text: 'Allison Kent, my research assistant. She keeps my diary, sends my invitations and knows where I am better than I do. She used to laugh at my jokes. Lately she has gone very quiet. I assume she disapproves of me. Everyone sensible does.' },
+        routine: { label: 'Ask him what he does the morning after a lecture', needTrust: 2, learn: ['car_bay', 'allison'],
+          text: 'You’ll laugh. The morning after anything public I go in early, park in the faculty lot, bay fourteen, and read the complaints in my car with a flask of coffee. It’s the only quiet place on campus. Allison says it’s my one predictable habit.' },
+        afraid: { label: 'Ask him if he’s afraid',
+          text: 'Afraid? Of students? I’m afraid of boredom and of my own cooking. Though I’ll admit the fire got my attention. I sleep with the window open now, which my doctor calls progress.' },
+        why: { label: 'Ask him why he keeps doing it', trust: 1,
+          text: 'Because somebody has to stand at the front of the room and say the thing out loud, so the students can find out whether it survives being said. Most of my colleagues decided long ago that their job is to keep the peace. Mine is to keep the questions.' },
+        women: { label: 'Ask him for advice about women', trust: 1,
+          text: 'Read Paglia. Then put the book down and listen to her. To whoever she is, I mean. Most men talk to win, and women can always tell. Ask her something you don’t know the answer to, and then be quiet long enough to hear it.' }
+      },
+      lessonLabel: 'Ask him to teach you something',
+      talkLabel: 'Talk with him',
+      talkOpen: 'Go on, then. I have a lecture to rewrite and all night not to do it. What do you want to know?',
+      talkBack: 'Where were we?',
+      lessons: [
+        'Socrates said the unexamined life is not worth living. Athens put him to death by a democratic vote for corrupting the youth, which is to say for asking questions in public. Every university has a statue of him, and a committee that would vote the same way.',
+        'John Stuart Mill: he who knows only his own side of the case knows little of that. If you can’t state your opponent’s view so well that he would sign it, you haven’t earned the right to disagree with him. Write it on your hand.',
+        'Hume. You cannot get an ought from an is. The facts never tell you, on their own, what you should do about them. Remember that the next time someone tells you the science says how you are supposed to feel.',
+        'Burke called society a partnership between the dead, the living and those not yet born. The living are the loudest partner and the least wise. That is the whole of conservatism, and it fits on a postcard.',
+        'Nietzsche: whoever fights monsters should see to it that he does not become a monster. I think of that every time I read a petition against me. And every time I write a reply.',
+        'Camille says nature is not our friend. Civilization is the long argument we have with it. Everything good, the cathedral, the sonnet, the vaccine, was built against nature, which is why it is so easy to knock down.',
+        'Hannah Arendt watched a man on trial for helping murder millions and found him ordinary, a clerk who never thought about what he signed. Most harm is done by people who never asked a single question. Ask yours.'
+      ],
+      lessonsDone: 'That’s the syllabus. Read the books, and ring me when you disagree with one of them.'
     },
 
     // ----- The University Office has a person on the desk. Lorraine notices who keeps ringing about Vale,
@@ -1020,6 +1059,7 @@
           const phase = valePhase(s, day);
           if (phase) for (const [k, text] of Object.entries(D.vale['call' + phase].choices)) { if (k !== 'hang') add(`pv_va_${phase}_${k}`, text); }
           else add('pv_va_chat', 'Ask how he is');
+          if (s.numbers.vale) for (const t of valeTalkTopics(s)) add('pv_vt_' + t.key, t.label); // talk to him
           break;
         }
         default: break;
@@ -1038,6 +1078,7 @@
     }
 
     function runLine(s, lineId, id, day) {
+      if (lineId === 'pv:vale' && id.startsWith('pv_vt_')) return valeTalk(s, id.slice(6));
       if (lineId === 'pv:vale' && id.startsWith('pv_va_')) { const [, , phase, k] = id.split('_'); return valeAnswerChoice(s, Number(phase), k, day); }
       if (lineId === 'pv:vanessa' && id.startsWith('pv_w_')) return wireChoice(s, id.slice(5), day);
       if (lineId.startsWith('service:')) {
@@ -1177,12 +1218,41 @@
       if (s.valeOn === 2) return fill(s.valeTalk1 ? D.vale.call2.known : D.vale.call2.stranger, vars(s));
       return '';
     }
+    // What you can still talk to him about: four at a time, then the lessons.
+    function valeTalkTopics(s) {
+      const said = s.asked['vale:talk'] || [], out = [];
+      for (const [k, t] of Object.entries(D.vale.talk)) {
+        if (said.includes(k) || (t.after && !said.includes(t.after)) || (t.needTrust && s.valeTrust < t.needTrust)) continue;
+        out.push({ key: k, label: t.label });
+      }
+      const lessons = said.filter(k => /^lesson\d+$/.test(k)).length;
+      return [...out.slice(0, 3), ...(lessons <= D.vale.lessons.length ? [{ key: 'lesson', label: D.vale.lessonLabel }] : [])];
+    }
+    function valeTalk(s, key) {
+      const said = s.asked['vale:talk'] || (s.asked['vale:talk'] = []);
+      if (key === 'lesson') {
+        const n = said.filter(k => /^lesson\d+$/.test(k)).length;
+        if (n >= D.vale.lessons.length) { said.push('lesson' + n); return Object.assign(ok(s, D.vale.lessonsDone), { more: true }); }
+        said.push('lesson' + n); s.valeTrust = clamp(s.valeTrust + 1, 0, 5);
+        return Object.assign(ok(s, D.vale.lessons[n]), { more: true });
+      }
+      const t = D.vale.talk[key];
+      if (!t || said.includes(key)) return no(L.unavailable);
+      said.push(key);
+      if (t.trust) s.valeTrust = clamp(s.valeTrust + t.trust, 0, 5);
+      learnAll(s, t.learn);
+      return Object.assign(ok(s, fill(t.text, vars(s))), { more: true });
+    }
     function valeCallChoices(s) {
       if (!s.valeOn) return [];
-      return Object.entries(D.vale['call' + s.valeOn].choices).map(([k, label]) => ({ id: 'vale:' + k, label }));
+      if (s.valeMenu) return [...valeTalkTopics(s).slice(-4).map(t => ({ id: 'vale:t:' + t.key, label: t.label })), { id: 'vale:back', label: 'Back' }]; // the topics, a few at a time
+      const acts = Object.entries(D.vale['call' + s.valeOn].choices).filter(([k]) => k !== 'hang').map(([k, label]) => ({ id: 'vale:' + k, label }));
+      return [...acts, { id: 'vale:talk', label: D.vale.talkLabel }, { id: 'vale:hang', label: D.vale['call' + s.valeOn].choices.hang || 'Hang up' }];
     }
     function valeCallChoose(s, id, day) {
-      const phase = s.valeOn; s.valeOn = 0;
+      if (id === 'vale:talk' || id === 'vale:back') { if (!s.valeOn || s.ending) return no(L.unavailable); s.valeMenu = id === 'vale:talk'; return Object.assign(ok(s, s.valeMenu ? D.vale.talkOpen : D.vale.talkBack), { more: true }); }
+      if (String(id).startsWith('vale:t:')) { if (!s.valeOn || s.ending) return no(L.unavailable); giveNumber(s, 'vale'); if (s.valeOn === 1) s.valeTalk1 = true; return valeTalk(s, String(id).slice(7)); } // talking keeps the call going
+      const phase = s.valeOn; s.valeOn = 0; s.valeMenu = false;
       if (!phase || s.ending) return no(L.unavailable);
       return valeAnswerChoice(s, phase, String(id).replace(/^vale:/, ''), day);
     }
