@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="2440e3cc2a">
+<html lang="en" data-build="31f1e4bac1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=2440e3cc2a"></script>
+  <script src="chapel_at_midnight.js?v=31f1e4bac1"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=2440e3cc2a"></script>
+  <script src="marriage.js?v=31f1e4bac1"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=2440e3cc2a"></script>
+  <script src="quests/professor-vale.js?v=31f1e4bac1"></script>
 </head>
 <body>
   <main class="workbench">
@@ -976,18 +976,24 @@
       p.questsWon.push(...now);saveProfile();
       return now;
     }
+    // Every quest you haven't won is in every game, as many at once as you like (Chris, 4 November 2026: one or
+    // two a run caused problems). They arrive on staggered days so the paper doesn't carry them all at once: the
+    // Ledger on Day 1 (the gala was Day 1), Vale and the Chapel by Day 3, the story quests one a day from Day 3,
+    // the radio contest in between. Theon still comes in about one Mogger game in four. A quest you have won stays
+    // out of later games until every class is unlocked (questFresh).
     function pickQuests(seed){
       if(window.MATCH_ALL_QUESTS)return {...LEGACY_QUESTS};
       const h=n=>hashSeed(seed+'|quests|'+n);
-      let pool=QUEST_IDS.filter(questFresh),story=STORY_QUEST_IDS.filter(questFresh);
-      if(!pool.length&&!story.length){pool=[...QUEST_IDS];story=[...STORY_QUEST_IDS];} // every quest won: all of them again
-      const chosen=pool.sort((a,b)=>h(a)-h(b)).slice(0,h('count')%10<6?2:1);
-      chosen.sort((a,b)=>(b==='br')-(a==='br')); // the gala happened on day 1: the Ledger always comes first
-      if(selectedDifficulty==='mogger'&&h('theon')%4===0&&questFresh('fionn'))chosen.splice(1,chosen.length,'fionn'); // Theon: about one Mogger game in four; he changes everything
+      let big=QUEST_IDS.filter(questFresh),story=STORY_QUEST_IDS.filter(questFresh);
+      const radio=questFresh('radio');
+      if(!big.length&&!story.length&&!radio){big=[...QUEST_IDS];story=[...STORY_QUEST_IDS];} // every quest won: all of them again
       const out={br:null,vale:null,chapel:null,fionn:null,pageant:null,radio:null,penpal:null,seance:null,priest:null,tapes:null};
-      chosen.forEach((id,i)=>{out[id]=id==='fionn'&&i>0?3+h('later')%2:i===0?(id==='chapel'?2:1):4+h('later')%2;});
-      if(story.length)out[story[h('story')%story.length]]=3+h('storyday')%3; // and one of the story quests
-      if(questFresh('radio')&&h('radio')%2===0)out.radio=2+h('radioday')%5; // the radio contest runs alongside, in about half of runs (Chris, 4 November 2026: it's hard for a casual player)
+      if(big.includes('br'))out.br=1;
+      if(big.includes('vale'))out.vale=1+h('vale')%3;
+      if(big.includes('chapel'))out.chapel=2+h('chapel')%2;
+      if(selectedDifficulty==='mogger'&&h('theon')%4===0&&questFresh('fionn'))out.fionn=3+h('later')%2; // Theon: about one Mogger game in four
+      story.sort((a,b)=>h(a)-h(b)).forEach((id,i)=>{out[id]=3+i;});
+      if(radio)out.radio=2+h('radioday')%5;
       return out;
     }
     // A run picks one or two of the big quests. If five days go by without anything moving, one that wasn't picked
@@ -2465,6 +2471,11 @@
       window.clearTimeout(hingeToastTimer);
       hingeToastTimer=window.setTimeout(()=>{hingeToast='';hingeToastTimer=null;if(currentApp==='hinge'&&hingeView==='discover')renderHinge();},ms);
     }
+    // Five matches a day (Chris, 4 November 2026). There are still ten profiles to swipe through, but once five of
+    // them have matched you, a sixth like says OUT OF MATCHES and the phone buzzes, like a block.
+    const MATCHES_A_DAY=5;
+    function matchesToday(){const m=world?.matchesToday;return m&&m.day===world.day?m.n:0;}
+    function countMatchToday(){world.matchesToday={day:world.day,n:matchesToday()+1};}
     function takeHingeSwipe(action){
       if(swipeLocked||hingeView!=='discover'||hingeSwipesToday>=10)return;
       skipMatchedCards();
@@ -2487,11 +2498,13 @@
             const rarity=MATCH_RARITY[profile.id]||1; // some women are harder to match with
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
             else if(selectedDifficulty==='divorce'&&profile.factionId==='sisters_of_mercy')showHingeToast(`${firstName(profile)} doesn’t date divorced men.`,1800); // the Sisters won't look at the Divorcé (Chris, 3 November 2026)
+            else if(matchesToday()>=MATCHES_A_DAY){flashBlocked('OUT OF MATCHES',`${MATCHES_A_DAY} matches a day. Try again tomorrow.`);showHingeToast('Out of matches for today.',1800);} // five a day (Chris, 4 November 2026)
             else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
               const responseMode=hingeLikes===1||profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               ensureHingeThread(profile,responseMode);
+              countMatchToday();
               fionnGirlMatched(profile.id); // Theon: she knows your face
-              showHingeToast(profile.name+' matched with you!');teach('match');
+              showHingeToast(`${profile.name} matched with you! ${matchesToday()} of ${MATCHES_A_DAY} today.`);teach('match');
               chapel?.onMatch?.(profile.id); // Task 2: matching with Victoria starts her countdown
               rqOnMatch(profile.id);fqOnMatch(profile.id); // room quests, her thing: the woman one was waiting on
             }
@@ -7025,7 +7038,7 @@
       for(const id of live)if(!Number.isInteger(world.threatSince[id]))world.threatSince[id]=world.day;
       return world.threatSince;
     }
-    const threatWaits=id=>{if(world.day<THREAT_FROM)return true;const ages=threatAges();return threatsLive().some(t=>t!==id&&world.day-ages[t]<THREAT_HOLD_DAYS);};
+    const threatWaits=id=>world.day<THREAT_FROM; // as many at once as you like now (Chris, 4 November 2026); only the earliest day holds
     const miniLive=id=>{const st=ms(id);return !!st&&!['done','skipped','quit','arrested','gone'].includes(st.stage);};
     function sanitizeMinis(raw){
       const out={on:null,st:{},dead:null};
@@ -9839,8 +9852,9 @@
       talkState(thread).secretTold=true;
       deliverTalk(thread,profile,[`${seededPick(kit.eggs.tapIntro,profile.id)} ${seededPick(secrets,profile.id)}`],'talk');
     }
-    function flashBlocked(){
+    function flashBlocked(title='BLOCKED',sub='This contact has blocked you'){
       const flash=$('blocked-flash');
+      flash.innerHTML=`<strong>${esc(title)}</strong><small>${esc(sub)}</small>`;
       flash.classList.remove('visible');
       stage.classList.remove('blocked');
       void flash.offsetWidth;
