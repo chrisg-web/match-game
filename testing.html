@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="5514a2afb0">
+<html lang="en" data-build="9b6d4e89dd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=5514a2afb0"></script>
+  <script src="chapel_at_midnight.js?v=9b6d4e89dd"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=5514a2afb0"></script>
+  <script src="marriage.js?v=9b6d4e89dd"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=5514a2afb0"></script>
+  <script src="quests/professor-vale.js?v=9b6d4e89dd"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1533,7 +1533,7 @@
       visibleNewsDay=world.day;world.paperDay=world.day;
       const items=getNewsEdition(world.day).items;
       if(items.some(item=>item.glowAd))glowState().seen=true; // Truecel: LPC-A365
-      for(const item of items)if(item.lxAd&&selectedDifficulty==='looksmaxxer'&&world.cls)lx().seen[item.lxAd]=true; // the Looksmaxxer: its number goes in Contacts
+      for(const item of items)if(item.lxAd&&selectedDifficulty==='looksmaxxer'&&world.cls){lx().seen[item.lxAd]=true;if(item.lxAd==='vet')lx().vet=true;} // the Looksmaxxer: its number goes in Contacts
       if(items.some(item=>item.id==='rq_hotline_ad')&&rqs('hotline'))rqs('hotline').seen=true; // room quests: the hotline
       if(items.some(item=>item.halProfile))halState().knowsName=true; // Undeniable: his name, from the paper
       if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
@@ -4304,6 +4304,7 @@
       if(id==='x:solver')return {id,name:'Unknown number',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Unknown number',sub:'Mobile'}; // the Divorcé: the man who solves problems
       if(id==='x:moss')return {id,name:'Sunfall Police',gallery:['assets/contacts/police.png'],banner:'assets/contacts/police.png',ringName:'Sunfall Police',sub:'Detective Moss'}; // the Divorcé: about Denise
       if(id==='x:voss')return {id,name:'Dr. Anton Voss',gallery:[herCall?.id==='x:voss'&&herCall.pic||'assets/contacts/voss.png'],banner:'assets/contacts/voss.png',ringName:'Dr. Anton Voss',sub:'Voss Craniofacial'}; // the Looksmaxxer: the consultation
+      if(id==='x:model')return {id,name:'Saguaro Casting',gallery:['assets/icons/calls.png'],banner:'assets/icons/calls.png',ringName:'Saguaro Casting',sub:'Dana'}; // the Looksmaxxer: the looks pay
       if(id==='x:dad'){const d=dadState(),name=firstName(hingeProfile(d.daughter));return {id,name:'Her dad',gallery:[DAD.portrait],banner:DAD.portrait,ringName:'Unknown number',sub:'Mobile'};}
       if(id==='x:fionn'){const known=fionnState().clues.includes('name');return {id,name:known?'Theon':'Withheld number',gallery:[FIONN.portrait],banner:'assets/icons/calls.png',ringName:'Withheld number',sub:'Mobile'};}
       return hingeProfile(id);
@@ -4324,6 +4325,7 @@
       if(mossDue())return 'x:moss'; // the Divorcé: the detective, about Denise
       if(solverDue())return 'x:solver'; // the Divorcé: the man from the Lucky Cactus
       if(vossDue())return 'x:voss'; // the Looksmaxxer: Dr. Voss, the consultation
+      if(modelDue())return 'x:model'; // the Looksmaxxer: a casting agent
       if(exCallerDue())return 'x:ex'; // the Divorcé: Denise, about the money
       return (coyoteCallerDue()?'x:coyote':null)||miniCallerDue()||rqCallerDue()||fqCallerDue()||valeCallerDue(); // the Coyote first, then mini quests, room quests, her thing, Professor Vale
     }
@@ -4337,9 +4339,10 @@
       if(id==='x:detective'){const h=halState();h.detRang=world.day;h.detCalls=(h.detCalls||0)+1;return;}
       if(id==='x:lpc'){glowState().offer='called';return;}
       if(id==='x:ex'){exRang();return;}
-      if(id==='x:solver'){const pl=denisePlan();pl.rang=world.day;pl.rings=(pl.rings||0)+1;return;}
+      if(id==='x:solver'){const pl=denisePlan();if(solverCollecting()){pl.collectRang=world.day;return;}pl.rang=world.day;pl.rings=(pl.rings||0)+1;return;}
       if(id==='x:moss'){const pl=denisePlan();pl.mossRang=world.day;return;}
       if(id==='x:voss'){const l=lx();l.vossRang=world.day;l.vossRings++;return;}
+      if(id==='x:model'){lx().modelRang=world.day;return;}
       if(id==='x:police')policeWarnState().called=true;
       else if(id==='x:dad')dadState().called=true;
       else if(id==='x:fionn')fionnState().callDay=world.day;
@@ -4363,8 +4366,9 @@
       if(id==='x:detective'){const h=halState();strangerVoicemail('Sunfall Police',HAL.det.voicemail);if(h.detCalls>=2){h.arrestDay=world.day+1;h.detDone=true;}else h.detDay=world.day+1;saveRun(true);return;}
       if(id==='x:lpc'){strangerVoicemail('LPC Laboratories',GLOW.againVm,glowState().number);saveRun(true);return;}
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();strangerVoicemail(EX.name,exLine(c.lastMode));saveRun(true);return;}
-      if(id==='x:solver'){strangerVoicemail('Unknown number',SOLVER.vm);saveRun(true);return;}
+      if(id==='x:solver'){strangerVoicemail('Unknown number',solverCollecting()?SOLVER.collectVm:SOLVER.vm);saveRun(true);return;}
       if(id==='x:voss'){strangerVoicemail('Dr. Anton Voss',VOSS.vm);lx().vossDay=world.day+1;saveRun(true);return;}
+      if(id==='x:model'){strangerVoicemail('Saguaro Casting',MODEL_CALL.vm);saveRun(true);return;} // she tries again tomorrow
       if(id==='x:moss'){const pl=denisePlan();pl.mossMisses=(pl.mossMisses||0)+1;strangerVoicemail('Sunfall Police',fillIn(MOSS.vm,{ex:EX.name}));if(pl.mossMisses>=3){pl.stage='caught';pl.arrestDay=world.day+1;}saveRun(true);return;}
       if(id==='x:police'){strangerVoicemail('Sunfall Police',policeWarnText('voicemail'));policeWarned();saveRun(true);return;}
       if(id==='x:dad'){
@@ -4387,9 +4391,10 @@
       if(id==='x:detective')return {id,stranger:true,kind:'detective',step:'open',said:HAL.det.open};
       if(id==='x:lpc')return {id,stranger:true,kind:'lpc',step:'open',said:GLOW.again};
       if(id==='x:ex'){const c=classState();if(!c.lastMode)exRang();return {id,stranger:true,kind:'ex',mode:c.lastMode,step:'open',said:exLine(c.lastMode)};}
-      if(id==='x:solver')return {id,stranger:true,kind:'solver',step:'open',said:SOLVER.open};
+      if(id==='x:solver')return solverCollecting()?{id,stranger:true,kind:'solver',phase:'collect',step:'open',said:SOLVER.collect}:{id,stranger:true,kind:'solver',step:'open',said:SOLVER.open};
       if(id==='x:moss')return {id,stranger:true,kind:'moss',step:'open',said:mossOpen()};
       if(id==='x:voss')return {id,stranger:true,kind:'voss',step:'open',asked:[],said:VOSS.open,pic:VOSS_PICS.open};
+      if(id==='x:model')return {id,stranger:true,kind:'model',step:'open',said:MODEL_CALL.open};
       if(id==='x:police'){policeWarned();return {id,stranger:true,kind:'police',step:'open',said:policeWarnText('open')};}
       if(id==='x:dad'){const d=dadState();return {id,stranger:true,kind:'dad',step:'open',said:d.variant?DAD.creepy:DAD.open};}
       const f=fionnState();
@@ -4408,9 +4413,14 @@
       if(call.kind==='detective')return [{id:'det:courier',label:HAL.det.courier},{id:'det:never',label:HAL.det.never},{id:'det:hang',label:'Hang up'}];
       if(call.kind==='lpc')return [{id:'l:yes',label:'Send me another pot'},{id:'l:no',label:'No thanks'},{id:'l:hang',label:'Hang up'}];
       if(call.kind==='ex')return exChoices(call); // the Divorcé
-      if(call.kind==='solver')return call.step==='open'?[{id:'sv:ex',label:`Tell him: my ex-wife, ${EX.name}`},{id:'sv:no',label:'Tell him it was a mistake'},{id:'sv:hang',label:'Hang up'}]:[{id:'sv:hang',label:'Hang up'}];
+      if(call.kind==='solver'){
+        if(call.step!=='open')return [{id:'sv:hang',label:'Hang up'}];
+        if(call.phase==='collect'){const pl=denisePlan(),c=classState();return [...(c.cash>=pl.owe?[{id:'sv:pay',label:`Pay him the ${money(pl.owe)} now`}]:[]),...(pl.waited?[]:[{id:'sv:wait',label:'Ask for a few days'}]),{id:'sv:hang',label:'Hang up'}];}
+        return [{id:'sv:ex',label:`Tell him: my ex-wife, ${EX.name}`},{id:'sv:no',label:'Tell him it was a mistake'},{id:'sv:hang',label:'Hang up'}];
+      }
       if(call.kind==='moss')return mossChoices(call); // the Divorcé: what you tell him depends on how she died
       if(call.kind==='voss')return vossChoices(call); // the Looksmaxxer
+      if(call.kind==='model')return call.step==='open'?[{id:'md:yes',label:'Yes. Tomorrow.'},{id:'md:no',label:'No thanks'},{id:'md:hang',label:'Hang up'}]:[{id:'md:hang',label:'Hang up'}];
       if(call.kind==='police')return [{id:'p:sorry',label:'It won’t happen again'},{id:'p:deny',label:'That’s not what happened'},{id:'p:hang',label:'Hang up'}];
       if(call.kind==='dad'){
         if(dadState().variant)return [{id:'d:notme',label:'It wasn’t me. Someone’s using my pictures.'},{id:'d:sorry',label:'I’m sorry, sir.'},{id:'d:hang',label:'Hang up'}];
@@ -4437,6 +4447,7 @@
       if(call.kind==='solver'){solverChoose(call,choice);return;}
       if(call.kind==='moss'){mossChoose(call,choice);return;}
       if(call.kind==='voss'){vossChoose(call,choice);return;}
+      if(call.kind==='model'){const l=lx();if(choice==='md:hang'||call.step!=='open'){endHerCall();saveRun(true);return;}if(choice==='md:yes'){l.model='booked';l.modelDay=world.day+1;call.said=MODEL_CALL.yes;}else{l.model='no';call.said=MODEL_CALL.no;}call.step='bye';saveRun(true);renderCalls();return;}
       if(call.kind==='lpc'){
         if(choice==='l:hang'){endHerCall();return;}
         if(choice==='l:yes'&&glowSecondOnOffer()){glowOrderSecond();call.said=GLOW.againYes;}else call.said=GLOW.againNo;
@@ -8626,6 +8637,7 @@
       death('Looksmaxxer','KILLED','A BACKSTREET SURGEON');
       death('Divorcé','ARRESTED',SHERIFF.cause);
       for(const k of ['wine','brakes','gun'])death('Divorcé','KILLED',DRIVES.divorce[k].cause); // getting rid of Denise, the wrong way
+      death('Divorcé','KILLED','THE MAN FROM THE CACTUS');
       death('Blue Ribbon Ledger','SILENCED','THE BLUE RIBBON');
       death('The Coyote','KILLED',coyoteKit()?.deathCause||'THE COYOTE');
       death('Chapel at Midnight','TAKEN','VICTORIA BLACKWOOD');
@@ -8963,7 +8975,7 @@
     // and he can send a woman flowers.
     const WALLET_CLASSES=['looksmaxxer','divorce'];
     const LOOKS_TIERS=[[65,'mogger'],[35,'normie'],[0,'truecel']];
-    const LOOKS_START=12,PAYDAY_EVERY=7,ALIMONY=450,ALIMONY_EVERY=5,LATE_FEE=100,FLOWERS=40;
+    const LOOKS_START=12,PAYDAY_EVERY=7,ALIMONY=450,ALIMONY_EVERY=5,ALIMONY_STEP=50,LATE_FEE=100,FLOWERS=40,LOOKS_CASH=900,SORORITY_CASH=800; // the support goes up $50 a payment; the Looksmaxxer starts with $900 (veneers on Day 1 made every game the same)
     const EX={name:'Denise',portrait:'assets/contacts/ex-wife.png',
       remind:['It’s Denise. The money’s due tomorrow. ${amount}. Don’t make me call my lawyer, he bills me too.','Hi. It’s me. The payment, tomorrow. ${amount}. I saw you’re on a dating app now. Bold. Pay me first.','Denise. Tomorrow. ${amount}. And no, the dog still doesn’t miss you.'],
       angry:['You missed it. My lawyer says the word for you is arrears. I have other words. ${amount}, and soon.','No payment. Again. You know what happens next, right? Because the judge does. ${amount}.'],
@@ -8991,7 +9003,7 @@
         teeth:{label:'The dentist: veneers',sub:'$1,100 · twenty porcelain veneers. Once.',cost:1100,gain:12,once:true,cat:'teeth',image:'assets/trips/dentist.png',place:'the dentist',
           scene:[{image:'assets/trips/dentist.png',caption:'A bright, clean dental office. The chair tips back. The lamp comes down.'},{image:'assets/trips/dentist-drill.png',caption:'He files your teeth down to little pegs. The drill screams. So do you.',sound:'drill-dental+scream'}],after:'assets/trips/dentist-after.png',
           done:['Twenty veneers. You practice smiling in the rearview mirror at every red light.']},
-        gus:{label:'Dr. Gus: veneers, cash, no questions',sub:'$250 · a strip mall, a drill, and Dr. Gus. Once.',cost:250,gain:12,once:true,didKey:'teeth',cat:'teeth',risk:1/10,ruin:1/4,ruinLoss:12,cause:'A CHEAP DENTIST',image:'assets/trips/gus-dental.png',place:'Dr. Gus in the strip mall',
+        gus:{label:'Dr. Gus: veneers, cash, no questions',sub:'$250 · a strip mall, a drill, and Dr. Gus. Once.',cost:250,gain:12,once:true,didKey:'teeth',cat:'teeth',show:()=>!!lx().seen.gus,risk:1/10,ruin:1/4,ruinLoss:12,cause:'A CHEAP DENTIST',image:'assets/trips/gus-dental.png',place:'Dr. Gus in the strip mall',
           scene:[{image:'assets/trips/gus-dental.png',caption:'A strip mall, between a vape shop and a laundromat. The chair is held together with tape.'},{image:'assets/trips/gus-drill.png',caption:'Dr. Gus does not use the little drill. Dr. Gus uses the big one.',sound:'drill-bone+scream'}],after:'assets/trips/dentist-after.png',
           ruinImage:'assets/trips/gus-ruin.png',ruinLine:'The veneers are the wrong white. They glow under any light at all, and one of them fell out in the car.',
           done:['Twenty veneers for two hundred and fifty dollars. They look fine. Mostly.'],
@@ -9002,7 +9014,7 @@
             {image:'assets/trips/height-drill.png',caption:'He braces your leg against his chest and starts the drill. You were promised you would be asleep for this.',sound:'drill-bone+scream'},
             {image:'assets/trips/height-frame.png',caption:'Two metal frames, bolted through both legs. Every day someone turns the little nuts a millimeter.',sound:'scream'}],after:'assets/trips/height-after.png',afterSound:'groan',
           done:['You wake up three inches taller and unable to stand. A nurse wheels you to a taxi, and a neighbor drives your car home.']},
-        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,cat:'height',risk:1/8,ruin:1/5,ruinLoss:12,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',
+        cheap:{label:'Height surgery: the cheap clinic over the border',sub:'$900 · three inches. Three days in bed after. Probably.',cost:900,gain:20,surgery:true,bed:3,cat:'height',show:()=>!!lx().border,risk:1/8,ruin:1/5,ruinLoss:12,cause:'A CHEAP SURGEON',image:'assets/trips/border-clinic.png',place:'the cheap clinic over the border',
           scene:[{image:'assets/trips/border-clinic.png',caption:'A tire shop. Out back: a curtain, a dentist chair and one bare bulb.'},{image:'assets/trips/border-drill.png',caption:'The man in the stained coat has a yellow drill from the hardware store. He tests it twice.',sound:'drill-bone+scream'}],after:'assets/trips/border-after.png',afterSound:'groan',
           ruinImage:'assets/trips/border-ruin.png',ruinLine:'One leg came out an inch longer than the other. You walk in a slow circle now.',
           done:['A man in a stained coat says it went great. You are three inches taller and you cannot feel your feet yet.'],
@@ -9013,22 +9025,22 @@
             {image:'assets/surgery/monobloc-split.png',caption:'You are asleep. You scream anyway. They cut around your forehead and both eye sockets, and your whole face comes away in one piece.',sound:'saw+scream'},
             {image:'assets/surgery/monobloc-plates.png',caption:'They bring it forward and fix it there. Titanium plates, forty screws. Six hours.',sound:'drill-bone'}],after:'assets/trips/face-clinic.png',afterSound:'groan',
           done:['You wake up with your head wrapped like a mummy and your eyes swollen shut. Under the swelling there is a whole new face. A real one.','Five days of soup through a straw. When the swelling goes down, a stranger with cheekbones looks back from the mirror.']},
-        backstreet:{label:'Monobloc surgery: the vet over the border',sub:'$700 · walk-ins welcome. Five days in bed after. Once.',cost:700,gain:16,once:true,didKey:'face',bed:5,cat:'face',risk:1/6,ruin:1/3,ruinLoss:15,cause:'A BACKSTREET SURGEON',image:'assets/trips/backstreet-face.png',place:'a vet clinic over the border',
+        backstreet:{label:'Monobloc surgery: the vet over the border',sub:'$700 · walk-ins welcome. Five days in bed after. Once.',cost:700,gain:16,once:true,didKey:'face',bed:5,cat:'face',show:()=>lx().consult==='done'||!!lx().vet,risk:1/6,ruin:1/3,ruinLoss:15,cause:'A BACKSTREET SURGEON',image:'assets/trips/backstreet-face.png',place:'a vet clinic over the border',
           scene:[{image:'assets/trips/backstreet-face.png',caption:'A vet clinic over the border, after hours. Posters of dogs. The sign says walk-ins welcome.'},{image:'assets/trips/backstreet-saw.png',caption:'The man has the green mask, the blue gloves, and a saw meant for very large dogs.',sound:'saw+scream'}],after:'assets/trips/backstreet-after.png',afterSound:'groan',
           ruinImage:'assets/trips/backstreet-ruin.png',ruinLine:'Your face healed a little to the left. Your eyes no longer line up. Strangers point.',
           done:['You wake up on a cot in the kennel room with your head wrapped in a dog blanket. Under it, somehow, a new face.'],
           deaths:['The man at the vet clinic was not, it turns out, a surgeon. Or a vet.','You never woke up. The vet clinic was a pharmacy by the time anyone came looking.']},
-        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']}
+        work:{label:'Work: pick up an extra shift',sub:'+$150 · shifts start early: no swipes today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You stack boxes at the warehouse until close. Every box is a step closer to a new face.','Overtime. Your manager says you have changed. You have. Two inches and a dentist.']}
       },
       divorce:{
-        work:{label:'Work: pick up an extra shift',sub:'+$150 · no swipes for the rest of today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
+        work:{label:'Work: pick up an extra shift',sub:'+$150 · shifts start early: no swipes today.',pay:150,image:'assets/trips/work.png',place:'work',done:['You cover a double at the warehouse. Your back hurts and your phone stays in your locker.','Overtime. Your manager calls you a team player. It is the nicest thing anyone has said to you in a year.']},
         lawyer:{label:'Your lawyer',sub:'$250 · the next payment moves back three days. Once a payment.',cost:250,image:'assets/trips/lawyer.png',place:'your lawyer',done:['Your lawyer files something and bills you for the folder. The next payment moves back three days.']},
         cactus:{label:'The Lucky Cactus: ask about a man who solves problems',sub:'$20 for a drink. Once.',cost:20,once:true,show:()=>deniseFree(),image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['A man in the back booth writes a number on a napkin. He solves problems, he says. Cash only. He will ring you.']},
-        bins:{label:'The Lucky Cactus: leave $2,000 under the bins',sub:'Cash, in an envelope. Then he picks a night.',cost:2000,ledger:'Cash withdrawal',show:()=>denisePlan().stage==='priced',image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['You leave the envelope under the bins out back and drive home with the radio off.']},
+        bins:{label:'The Lucky Cactus: leave $1,000 under the bins',sub:'Cash, in an envelope. The other thousand after. Then he picks a night.',cost:1000,ledger:'Cash withdrawal',show:()=>denisePlan().stage==='priced',image:'assets/trips/lucky-cactus.png',place:'the Lucky Cactus',done:['You leave the envelope under the bins out back and drive home with the radio off.']},
         wine:{label:'Denise’s house: a bottle of wine, and the pills',sub:'$15 · the bag from Desert Rx. Two glasses. Only one is for you.',cost:15,show:()=>deniseFree()&&pillsInHand(),risk:()=>hashSeed(world.seed+'|wine')%4===0,cause:'A GLASS OF WINE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
           done:['She lets you in because you say you have the check. You pour two glasses. She drinks hers. You drive home very carefully.'],
           deaths:['She lets you in. You pour two glasses. She goes to get the dog a biscuit, and when she comes back she picks up the other glass. You notice in the car.']},
-        brakes:{label:'Denise’s street: under her car, in the dark',sub:'A wrench and a flashlight. You have watched a lot of television. Once.',once:true,show:()=>deniseFree(),cause:'YOUR OWN BRAKES',image:'assets/trips/ex-house-night.png',place:'Denise’s street',
+        brakes:{label:'Denise’s street: under her car, in the dark',sub:'A wrench and a flashlight. You have watched a lot of television. Some nights her car is not there.',once:true,show:()=>deniseFree(),cause:'YOUR OWN BRAKES',miss:{chance:.5,line:'Her car is not on the street tonight. You wait an hour in the dark, then drive home.',toast:'Her car was not there. Another night.'},image:'assets/trips/ex-house-night.png',place:'Denise’s street',
           done:['You lie under a car in the dark for twenty minutes with a wrench. You are fairly sure it was the right car.'],
           deaths:['The brakes go on the hill down from the Lucky Cactus. It was your car. Same model, same color. You bought them together.']},
         gun:{label:'Denise’s house: take Harold’s revolver',sub:'Six rounds, older than you are.',show:()=>deniseFree()&&fionnRevolver(),risk:()=>hashSeed(world.seed+'|gun')%3===0,cause:'DENISE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
@@ -9046,7 +9058,7 @@
       if(!o)return null;
       const int=(v,lo,hi,d=null)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):d;
       const out={cash:int(o.cash,-99999,999999,0),looks:int(o.looks,0,100,LOOKS_START),streak:int(o.streak,0,99,0),lastGym:int(o.lastGym,0,9999),tripDay:int(o.tripDay,0,9999),laidUntil:int(o.laidUntil,0,9999),
-        cool:{},did:{},gifts:{},payDue:int(o.payDue,0,9999),owed:int(o.owed,0,99999,ALIMONY),misses:int(o.misses,0,9,0),paid:int(o.paid,0,999,0),cycle:int(o.cycle,0,999,0),
+        cool:{},did:{},gifts:{},giftsN:{},payDue:int(o.payDue,0,9999),owed:int(o.owed,0,99999,ALIMONY),misses:int(o.misses,0,9,0),paid:int(o.paid,0,999,0),cycle:int(o.cycle,0,999,0),
         lawyerFor:int(o.lawyerFor,0,999),askedFor:int(o.askedFor,0,999),remindFor:int(o.remindFor,0,9999),angry:o.angry===true,lastMode:['remind','angry','garnish'].includes(o.lastMode)?o.lastMode:null,garnish:o.garnish===true,arrestDay:int(o.arrestDay,0,9999),dead:null,ledger:[]};
       if(Array.isArray(o.ledger))out.ledger=o.ledger.filter(r=>r&&Number.isInteger(r.d)&&typeof r.l==='string'&&Number.isInteger(r.a)&&Number.isInteger(r.b)).slice(-LEDGER_MAX).map(r=>({d:Math.max(1,Math.min(9999,r.d)),l:r.l.slice(0,60),a:Math.max(-999999,Math.min(999999,r.a)),b:Math.max(-999999,Math.min(999999,r.b))}));
       for(const k of ['barber','skin','tony','salon'])if(Number.isInteger(o.cool?.[k]))out.cool[k]=o.cool[k];
@@ -9055,11 +9067,12 @@
       out.ruined={};for(const k of ['hair','skin','teeth','height','face'])if(o.ruined?.[k]===true)out.ruined[k]=true; // the Looksmaxxer: a cheap job gone wrong, for good
       if(o.lx&&typeof o.lx==='object')out.lx=sanitizeLx(o.lx); // the Looksmaxxer: the classifieds
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day; // flowers for the sorority count too
-      if(o.dead&&typeof o.dead==='object'&&['cheap','gus','backstreet','sheriff','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      for(const [id,n] of Object.entries(o.giftsN||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(n)&&n>0)out.giftsN[id]=Math.min(99,n);
+      if(o.dead&&typeof o.dead==='object'&&['cheap','gus','backstreet','sheriff','solver','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
     }
     function classState(){
-      if(!world.cls){const cash=selectedDifficulty==='divorce'?600:1500;world.cls=sanitizeCls({cash,payDue:selectedDifficulty==='divorce'?1+ALIMONY_EVERY-1:null,ledger:[{d:world.day||1,l:'Opening balance',a:cash,b:cash}]});}
+      if(!world.cls){const cash=selectedDifficulty==='divorce'?600:LOOKS_CASH;world.cls=sanitizeCls({cash,payDue:selectedDifficulty==='divorce'?1+ALIMONY_EVERY-1:null,ledger:[{d:world.day||1,l:'Opening balance',a:cash,b:cash}]});}
       return world.cls;
     }
     // Money in and out goes through here, so the Bank app can list it (Chris, 3 November 2026: a banking app, not cash on the status bar).
@@ -9135,8 +9148,8 @@
     }
     function sororityReady(thread,profile){
       const c=world.cls;
-      if(selectedDifficulty==='looksmaxxer')return !!c&&c.looks>=90&&!!(c.did.height||c.did.cheap)&&!!c.did.teeth&&!!c.did.face&&warmthOf(thread)>=3;
-      if(selectedDifficulty==='divorce')return !!c&&warmthOf(thread)>=3&&Number.isInteger(c.gifts[profile.id])&&c.cash>=500;
+      if(selectedDifficulty==='looksmaxxer')return !!c&&c.looks>=90&&!!(c.did.height||c.did.cheap)&&!!c.did.teeth&&!!c.did.face&&warmthOf(thread)>=4;
+      if(selectedDifficulty==='divorce')return !!c&&warmthOf(thread)>=4&&(c.giftsN?.[profile.id]||0)>=2&&c.cash>=SORORITY_CASH; // (4 November 2026: she said yes by Day 6 in the playtests)
       return false; // every other class: she always has plans
     }
     function sororityChoices(thread,profile){
@@ -9172,7 +9185,10 @@
     // The Divorcé: Denise has to go, and nobody can know. The man at the Lucky Cactus solves problems (in some runs he is a
     // police officer: a policewoman who likes you will warn you). He names a night; be at work that night. The detective rings.
     var SOLVER={open:'You asked about me at the Cactus. I don’t do small talk. What’s the problem?',
-      price:'Two thousand. Cash, in an envelope, under the bins behind the Cactus. Then I pick a night, and on that night you be somewhere people can see you. Understand?',
+      price:'Two thousand. A thousand now, cash, in an envelope, under the bins behind the Cactus. A thousand after. Then I pick a night, and on that night you be somewhere people can see you. Understand?',
+      priceCop:'Two thousand. A thousand now, cash, in an envelope, under the bins behind the Cactus. Tonight if you can. And say her name again for me, slowly. Then I pick a night.', // the tell: a real one never wants it said twice
+      collect:'It’s done. You read the paper. The other thousand, under the bins, by the day after tomorrow. Don’t make me ring again.',wait:'Three days. I don’t do four.',paidUp:'Good. We never met.',collectVm:'You read the paper. The other thousand. Under the bins. Soon.',
+      deaths:['The other thousand never got under the bins. The man from the Cactus doesn’t ring a third time.','You owed a man who solves problems a thousand dollars. He solved it.'],
       no:'Sure it was. Lose the napkin.',vm:'You asked about me at the Cactus. Pick up next time.'};
     var MOSS={cleared:'Your manager says the same. A double shift, in front of twenty people. Sorry for your loss.',
       lie:'Funny. Your manager says you weren’t in. Don’t go anywhere.',
@@ -9188,15 +9204,29 @@
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null,woman=v=>typeof v==='string'&&/^(MATCH|SORORITY)-\d+$/.test(v);
       return {stage:['none','number','priced','paid','set','done','clear','caught','off'].includes(o.stage)?o.stage:'none',cop:o.cop===true,alibi:o.alibi===true,asked:o.asked===true,warned:o.warned===true,
         numberDay:int(o.numberDay,0,9999),doneDay:int(o.doneDay,0,9999),arrestDay:int(o.arrestDay,0,9999),rang:int(o.rang,0,9999),mossRang:int(o.mossRang,0,9999),rings:int(o.rings,0,99)||0,mossMisses:int(o.mossMisses,0,99)||0,
+        owe:int(o.owe,0,9999)||0,collectDay:int(o.collectDay,0,9999),collectDue:int(o.collectDue,0,9999),collectRang:int(o.collectRang,0,9999),waited:o.waited===true,
         how:['solver','pills','brakes','gun','kessler','bear'].includes(o.how)?o.how:null,deadDay:int(o.deadDay,0,9999),cover:woman(o.cover)?o.cover:null,coverAsked:Array.isArray(o.coverAsked)?o.coverAsked.filter(woman).slice(0,50):[],wrongCar:o.wrongCar===true,bearBack:int(o.bearBack,0,9999)};
     }
     function denisePlan(){const c=classState();if(!c.plan)c.plan=sanitizePlan(null);return c.plan;}
-    function solverDue(){return selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead&&denisePlan().stage==='number'&&world.day>denisePlan().numberDay&&denisePlan().rang!==world.day&&denisePlan().rings<3;}
+    function solverDue(){
+      if(selectedDifficulty!=='divorce'||!world.cls||world.cls.dead)return false;
+      const pl=denisePlan();
+      if(pl.owe>0&&Number.isInteger(pl.collectDay)&&world.day>=pl.collectDay&&pl.collectRang!==world.day)return true; // the other thousand
+      return pl.stage==='number'&&world.day>pl.numberDay&&pl.rang!==world.day&&pl.rings<3;
+    }
+    function solverCollecting(){const pl=denisePlan();return pl.owe>0&&Number.isInteger(pl.collectDay)&&world.day>=pl.collectDay;}
     function mossDue(){const pl=selectedDifficulty==='divorce'&&!!world.cls&&!world.cls.dead?denisePlan():null;return !!pl&&pl.stage==='done'&&!pl.asked&&pl.mossRang!==world.day&&(pl.deadDay===null||world.day>pl.deadDay);} // the day after the paper: time to find someone who'll say you were with her
     function solverChoose(call,choice){
       const pl=denisePlan();
       if(choice==='sv:hang'||call.step!=='open'){endHerCall();saveRun(true);return;}
-      if(choice==='sv:ex'){pl.stage='priced';call.said=SOLVER.price;}
+      if(call.phase==='collect'){
+        const c=classState();
+        if(choice==='sv:pay'&&c.cash>=pl.owe){cashMove(-pl.owe,'Cash withdrawal');pl.owe=0;call.said=SOLVER.paidUp;walletRender();classWinCheck();}
+        else if(choice==='sv:wait'&&!pl.waited){pl.waited=true;pl.collectDue=world.day+3;call.said=SOLVER.wait;}
+        else{endHerCall();saveRun(true);return;}
+        call.step='bye';saveRun(true);renderCalls();return;
+      }
+      if(choice==='sv:ex'){pl.stage='priced';call.said=pl.cop?SOLVER.priceCop:SOLVER.price;}
       else{pl.stage='off';call.said=SOLVER.no;}
       call.step='bye';saveRun(true);renderCalls();
     }
@@ -9226,6 +9256,7 @@
     function denisePlanNewDay(){ // the Divorcé's mornings: true when the run ends here
       const pl=denisePlan(),c=classState();
       if(pl.stage==='caught'&&Number.isInteger(pl.arrestDay)&&world.day>=pl.arrestDay){ARREST_ENDINGS.denise.text=fillIn(deniseWay().arrest,{ex:EX.name});saveRun(true);startPoliceArrest('denise');return true;}
+      if(pl.owe>0&&Number.isInteger(pl.collectDue)&&world.day>pl.collectDue){classDie('solver');return true;} // the other thousand never came
       if(Number.isInteger(pl.bearBack)&&world.day>=pl.bearBack){ // no honey at her house: he remembers yours
         pl.bearBack=null;bearState='tracking';bearAttackPhase=bearAttackScenes[time.value]?time.value:'bedroom-night';$('door').checked=true;fit();saveRun(true);
         startBearAttack(`The bear found no honey at ${EX.name}’s house. He remembered your kitchen.`);return true;
@@ -9263,13 +9294,14 @@
       cop:'I’m a police officer. You know that, right? Don’t go anywhere.'};
     function deniseWay(){return DENISE_WAYS[denisePlan().how]||DENISE_WAYS.solver;}
     function mossOpen(){return fillIn(deniseWay().moss||DENISE_WAYS.solver.moss,{ex:EX.name});}
-    function deniseFree(){return selectedDifficulty==='divorce'&&!!world?.cls&&!world.cls.dead&&['none','number','priced','off'].includes(denisePlan().stage);} // she's alive and nothing is on its way
+    function deniseFree(){const c=world?.cls;return selectedDifficulty==='divorce'&&!!c&&!c.dead&&(c.paid+c.misses)>=1&&['none','number','priced','off'].includes(denisePlan().stage);} // she's alive, nothing is on its way, and she has squeezed you at least once (4 November 2026)
     function deniseAlive(){return !['done','clear','caught'].includes(denisePlan().stage);}
     function pillsInHand(){const p=ms('pills');return !!(p?.has&&!p.flushed);}
     function deniseSet(how){Object.assign(denisePlan(),{stage:'set',how,doneDay:world.day,alibi:false});saveRun(true);}
     function deniseDies(){
       const pl=denisePlan(),c=classState(),w=deniseWay(),fill=t=>fillIn(t,{ex:EX.name});
       pl.stage=w.noMoss?'clear':'done';pl.deadDay=world.day;c.payDue=null;c.owed=0;c.angry=false;c.arrestDay=null;
+      if(pl.how==='solver'){pl.owe=1000;pl.collectDay=world.day+2;pl.collectDue=world.day+4;} // the other thousand: he rings in two days, and gives you two more
       queueNews({id:w.id,section:'Local',title:w.title,summary:fill(w.summary),body:fill(w.body),image:w.image,fallbackImage:'crime_motel'},world.day);
       achToast(fill(w.toast));
       if(pl.how==='bear'&&hashSeed(world.seed+'|bearback')%3===0)pl.bearBack=world.day+1;
@@ -9302,31 +9334,42 @@
       lift:{name:'LIFT Insoles',title:'AN INCH TALLER BY TOMORROW',summary:'LIFT hidden insoles. Nobody will know.',body:'Hidden height insoles for men who are done looking up. $40, through your door tomorrow: ring {number}.',greeting:'LIFT. Rise above it. Order line.',cost:40,image:'looks_ad'},
       stature:{name:'The Stature Institute',title:'THREE INCHES TALLER BY SPRING',summary:'The Stature Institute. Mention this ad for $300 off.',body:'Limb lengthening by real surgeons in a real hospital. Walk out taller. Mention this ad for $300 off: ring {number}.',greeting:'The Stature Institute. Stand tall. How can I help?',trip:'height',off:300,image:'looks_ad'},
       gum:{name:'JAWLINE PRO',title:'THE GUM THAT BUILDS A JAW',summary:'JAWLINE PRO. Six pieces. One a day.',body:'The hardest gum in America. Six pieces, one a day, and your jaw does the rest. $30, through your door tomorrow: ring {number}.',greeting:'JAWLINE PRO. Chew harder. Order line.',cost:30,image:'looks_ad'},
-      smile:{name:'Desert Smile Studio',title:'A SMILE THAT WINS',summary:'Desert Smile Studio. Veneers, $200 off with this ad.',body:'Twenty porcelain veneers, fitted in a day. Mention this ad for $200 off: ring {number}.',greeting:'Desert Smile Studio, Scottsdale. Are you smiling?',trip:'teeth',off:200,image:'looks_ad'}
+      smile:{name:'Desert Smile Studio',title:'A SMILE THAT WINS',summary:'Desert Smile Studio. Veneers, $200 off with this ad.',body:'Twenty porcelain veneers, fitted in a day. Mention this ad for $200 off: ring {number}.',greeting:'Desert Smile Studio, Scottsdale. Are you smiling?',trip:'teeth',off:200,image:'looks_ad'},
+      vet:{name:'Clínica Veterinaria del Sol',title:'MONOBLOC. SEVEN HUNDRED. WALK IN.',summary:'A vet clinic over the border does faces now. Cash.',body:'The whole face forward, one piece, seven hundred dollars, cash, same day. We also do dogs. Over the border, by the tire shop. Walk in. Ring {number} for directions.',greeting:'Clínica. Dogs or faces?',image:'looks_ad'},
+      gus:{name:'Dr. Gus',title:'VENEERS. CASH. NO QUESTIONS.',summary:'Dr. Gus, in the strip mall by the laundromat. Walk in.',body:'Twenty veneers, $250, same day, cash. No insurance, no appointment, no questions. Dr. Gus, Desert Plaza, between the vape shop and the laundromat. Ring {number} or just walk in.',greeting:'Yeah. Gus. What.',image:'looks_ad'}
     };
-    var LOOKS_AD_TURN=['lift','stature','gum','smile'];
+    var LOOKS_AD_TURN=['lift','gum','smile','stature','gus','vet'];
     var LOOKS_ASK={voss:'A monobloc is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
       lift:'A wedge of foam inside your shoe. An inch, maybe more. Don’t take your shoes off on a first date.',
       stature:'We break both thigh bones and stretch them a millimeter a day in a frame. Three inches. You’ll be in bed for a while.',
       gum:'It’s like chewing a tire. One piece a day for six days. Your jaw muscles do the rest.',
-      smile:'We file your teeth down to little pegs and bond porcelain over them. Very white. Very permanent.'};
+      smile:'We file your teeth down to little pegs and bond porcelain over them. Very white. Very permanent.',
+      gus:'Two fifty. Cash. You sit down, I do the teeth, you go home. Bring cash.',
+      vet:'Seven hundred. The doctor comes in the evening. He did a horse last week. Bring cash, and someone to drive you home.'};
+    var MODEL_CALL={open:'Hi, is this the guy from the app? This is Dana at Saguaro Casting. A client saw your pictures. Catalog work, one afternoon, six hundred dollars. Can you do tomorrow?',
+      yes:'Great. Studio on Scottsdale Road, nine sharp. Don’t get a haircut before then. Bye.',no:'Okay. Keep the number. Clients ask about you.',vm:'Dana at Saguaro Casting. A client saw your pictures. Six hundred for an afternoon. Ring me back.',
+      shoot:'Catalog work: eight hours under hot lights in somebody else’s clothes. The check clears the same day.'};
     var VOSS={open:'Dr. Anton Voss. I have your photos from the front desk, and your X-ray. Good bones, badly arranged. Ask me anything.',
       what:'A monobloc. We cut around your forehead, through both eye sockets and your cheekbones, and behind your upper jaw. Your whole face comes away from your skull in one piece, and we bring it forward. We separate your face, and we put it back better.',
       hold:'Titanium. Plates and screws around your eyes, along your cheekbones and across your jaw. Forty screws, give or take. They stay in for life. Airport scanners will love you.',
       hurt:'You’ll be asleep for six hours. Afterwards your head is wrapped like a mummy and your eyes swell shut for a week. Soup, through a straw. Then it goes down.',
       after:'Like your own better-looking brother. Forehead, eyes, cheekbones, jaw, all of it forward. Here is the plan: the same skull, arranged properly.',
       book:'Good. Three thousand dollars, at the clinic in North Scottsdale. Drive over when you have it. Nothing to eat the night before.',
+      plan:'Good. Three thousand, or fifteen hundred down and the rest out of your paychecks. People choose the plan. People in a hurry.',
       later:'Of course. Ring the front desk when you’re ready. Your face isn’t going anywhere. That’s rather the problem.',
       vm:'Dr. Anton Voss, about your consultation. I’ll try you again tomorrow.'};
     var VOSS_PICS={open:'assets/surgery/skull-xray.png',what:'assets/surgery/skull-cuts.png',hold:'assets/surgery/skull-plates.png',hurt:'assets/surgery/skull-plates.png',after:'assets/surgery/skull-after.png'};
     var VOSS_ASK={what:'Ask what he would do',hold:'Ask what holds it together',hurt:'Ask if it hurts',after:'Ask what you’ll look like'};
+    var FACE_DOWN=1500,FACE_INSTALL=250; // Dr. Voss's plan: $1,500 down, $250 a payday until the $3,000 is paid
     var LIFT_ITEM='A small shoebox from LIFT: two foam wedges that go inside your shoes. An inch, they say. Nobody will know.';
     var GUM_ITEM='A tub of JAWLINE PRO. It looks like gum and feels like a tire. One piece a day.';
     function sanitizeLx(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null;
-      const out={numbers:{},seen:{},off:{},consult:['none','booked','done'].includes(o.consult)?o.consult:'none',vossDay:int(o.vossDay,0,9999),vossRang:int(o.vossRang,0,9999),vossRings:int(o.vossRings,0,9)||0,
+      const out={numbers:{},seen:{},off:{},consult:['none','booked','done'].includes(o.consult)?o.consult:'none',plan:o.plan===true,owe:int(o.owe,0,9999)||0,model:['none','due','booked','done','no'].includes(o.model)?o.model:'none',modelDay:int(o.modelDay,0,9999),modelRang:int(o.modelRang,0,9999),vossDay:int(o.vossDay,0,9999),vossRang:int(o.vossRang,0,9999),vossRings:int(o.vossRings,0,9)||0,
         lift:['none','ordered','here','worn'].includes(o.lift)?o.lift:'none',liftDay:int(o.liftDay,0,9999),gum:['none','ordered','here','done'].includes(o.gum)?o.gum:'none',gumDay:int(o.gumDay,0,9999),gumLeft:int(o.gumLeft,0,6)||0,gumLast:int(o.gumLast,0,9999)};
-      for(const k of ['voss','lift','stature','gum','smile']){if(typeof o.numbers?.[k]==='string'&&/^\d{7}$/.test(o.numbers[k]))out.numbers[k]=o.numbers[k];if(o.seen?.[k]===true)out.seen[k]=true;}
+      for(const k of ['voss','lift','stature','gum','smile','gus','vet']){if(typeof o.numbers?.[k]==='string'&&/^\d{7}$/.test(o.numbers[k]))out.numbers[k]=o.numbers[k];if(o.seen?.[k]===true)out.seen[k]=true;}
+      out.border=o.border===true; // the big man at the gym told you about the clinic over the border
+      out.vet=o.vet===true; // the vet's ad, or Dr. Voss's price
       for(const k of ['height','teeth'])if(o.off?.[k]===true)out.off[k]=true;
       return out;
     }
@@ -9334,7 +9377,7 @@
     function lxAdsFor(day){
       if(selectedDifficulty!=='looksmaxxer'||!world||world.cls?.dead)return [];
       const l=lx(),keys=[];
-      if(l.consult==='none'&&day%2===1)keys.push('voss');
+      if(l.consult==='none'&&day>=5&&day%2===1)keys.push('voss'); // from Day 5: the basics first
       keys.push(LOOKS_AD_TURN[(day-1)%LOOKS_AD_TURN.length]);
       return keys.map(k=>{const ad=LOOKS_ADS[k];if(!l.numbers[k])l.numbers[k]=unusedContactNumber();return {id:`lx_ad_${k}_${day}`,section:'Classifieds',title:ad.title,summary:ad.summary,body:fillIn(ad.body,{number:l.numbers[k]}),image:ad.image,fallbackImage:'classifieds',locked:true,lxAd:k};});
     }
@@ -9372,11 +9415,14 @@
       if(!d)return 0;
       if(id==='house')return c.owed;
       const ad=selectedDifficulty==='looksmaxxer'&&c.lx?.off?.[id]?Object.values(LOOKS_ADS).find(a=>a.trip===id):null;
+      if(id==='face'&&c.lx?.plan)return FACE_DOWN; // Dr. Voss's plan: the deposit now
       return Math.max(0,(d.cost||0)-(ad?.off||0));
     }
     function lxNewDay(){
       if(selectedDifficulty!=='looksmaxxer'||!world.cls?.lx)return;
       const l=world.cls.lx;
+      if(l.model==='none'&&world.cls.looks>=70)l.model='due'; // a casting agent rings: the looks pay
+      if(l.model==='booked'&&Number.isInteger(l.modelDay)&&world.day>=l.modelDay){l.model='done';cashMove(600,'Saguaro Casting');achToast(MODEL_CALL.shoot+' +$600.');}
       if(l.lift==='ordered'&&world.day>=l.liftDay)l.lift='here';
       if(l.gum==='ordered'&&world.day>=l.gumDay){l.gum='here';l.gumLeft=6;}
     }
@@ -9403,11 +9449,12 @@
       checkAchievements();
     }
     // Dr. Voss rings the day after you book: ask him things and he shows you the scan for each answer.
+    function modelDue(){if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx||world.cls.dead)return false;const l=world.cls.lx;return l.model==='due'&&l.modelRang!==world.day;}
     function vossDue(){if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx||world.cls.dead)return false;const l=world.cls.lx;return l.consult==='booked'&&Number.isInteger(l.vossDay)&&world.day>=l.vossDay&&l.vossRang!==world.day&&l.vossRings<3;}
     function vossChoices(call){
       if(call.step==='bye')return [{id:'vo:hang',label:'Hang up'}];
       const out=Object.entries(VOSS_ASK).filter(([k])=>!call.asked.includes(k)).map(([k,label])=>({id:'vo:'+k,label}));
-      if(call.asked.includes('what'))out.push({id:'vo:book',label:'Book it: $3,000'});
+      if(call.asked.includes('what'))out.push({id:'vo:book',label:'Book it: $3,000'},{id:'vo:plan',label:'Book it on a plan: $1,500 down'});
       out.push({id:'vo:later',label:'Not yet'});
       return out;
     }
@@ -9416,7 +9463,8 @@
       if(choice==='vo:hang'){endHerCall();saveRun(true);return;}
       if(call.step==='bye')return;
       if(VOSS_ASK[k]){if(!call.asked.includes(k))call.asked.push(k);call.said=VOSS[k];call.pic=VOSS_PICS[k];}
-      else if(k==='book'&&call.asked.includes('what')){l.consult='done';call.said=VOSS.book;call.pic=VOSS_PICS.after;call.step='bye';achToast('Dr. Voss can see you. Monobloc surgery is on your car keys now.');}
+      else if(k==='plan'&&call.asked.includes('what')){l.consult='done';l.plan=true;call.said=VOSS.plan;call.pic=VOSS_PICS.after;call.step='bye';lx().vet=true;achToast('Dr. Voss can see you: $1,500 down, the rest out of your paychecks. Monobloc surgery is on your car keys now.');}
+      else if(k==='book'&&call.asked.includes('what')){l.consult='done';l.plan=false;call.said=VOSS.book;call.pic=VOSS_PICS.after;call.step='bye';lx().vet=true;achToast('Dr. Voss can see you. Monobloc surgery is on your car keys now. So is a vet over the border who says he can do the same thing for $700.');}
       else if(k==='later'){l.consult='none';call.said=VOSS.later;call.step='bye';}
       else return;
       saveRun(true);renderCalls();
@@ -9430,8 +9478,9 @@
       if(!world||world.victory)return;
       const s=sororityState();
       if(selectedDifficulty==='looksmaxxer'&&s.yes)world.victory={type:'stacey',bride:s.yes,day:world.day};
-      else if(selectedDifficulty==='divorce'&&s.yes&&denisePlan().stage==='clear')world.victory={type:'divorce',bride:s.yes,day:world.day};
+      else if(selectedDifficulty==='divorce'&&s.yes&&denisePlan().stage==='clear'&&!(denisePlan().owe>0))world.victory={type:'divorce',bride:s.yes,day:world.day};
       else{
+        if(selectedDifficulty==='divorce'&&s.yes&&denisePlan().stage==='clear'&&denisePlan().owe>0){achToast('The man from the Cactus wants his other thousand first.');return;}
         if(selectedDifficulty==='divorce'&&s.yes)achToast(`${firstName(hingeProfile(s.yes))} said yes. Now ${EX.name}.`);
         else if(selectedDifficulty==='divorce'&&denisePlan().stage==='clear')achToast(`${EX.name} is gone and nobody is looking at you. Now find your cheerleader.`);
         return;
@@ -9454,6 +9503,7 @@
       if(c.laidUntil!==null&&world.day<c.laidUntil)return c.did.face&&!c.did.height&&!c.did.cheap?`You can’t drive with a face full of stitches. Day ${c.laidUntil}.`:`You can’t drive on new legs. Day ${c.laidUntil}.`;
       if(c.tripDay===world.day)return 'You have been out today. Tomorrow.';
       if(d.show&&!d.show())return 'Not now.';
+      if(d.pay&&hingeSwipesToday>0)return 'Shifts start early. You spent the morning on Hinge.'; // work or swipe: not both (4 November 2026)
       if(d.once&&c.did[d.didKey||id])return 'Done.';
       if(d.surgery&&(c.did.height||c.did.cheap))return 'You only get one set of legs.';
       if(d.cool&&Number.isInteger(c.cool[id])&&world.day<c.cool[id]+d.cool)return `Again on Day ${c.cool[id]+d.cool}.`;
@@ -9465,7 +9515,7 @@
     function driveViewHtml(){
       const c=classState(),trips=DRIVES[selectedDifficulty]||{};
       const head=selectedDifficulty==='looksmaxxer'?`${money(c.cash)} in your wallet · looks ${c.looks} (${ladderName(looksTier())})`:c.payDue===null?`${money(c.cash)} in your wallet · ${EX.name} is gone`:`${money(c.cash)} in your wallet · ${money(c.owed)} due to ${EX.name} on Day ${c.payDue}`;
-      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:tripCost(id)!==(d.cost||0)?`${d.sub} With the ad: ${money(tripCost(id))}.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
+      return `${cupBack}<div class="cup-paper cup-drive"><h3>Where to?</h3><p class="drive-head">${esc(head)}</p>${Object.entries(trips).filter(([,d])=>!d.show||d.show()).map(([id,d])=>{const why=driveBlock(id);const sub=id==='house'?`Pay the ${money(c.owed)} you owe now.`:id==='face'&&c.lx?.plan?`${money(FACE_DOWN)} down, ${money(FACE_INSTALL)} a payday after. ${d.sub.split('·')[1].trim()}`:tripCost(id)!==(d.cost||0)?`${d.sub} With the ad: ${money(tripCost(id))}.`:d.sub;return `<button data-drive="${id}"${why?' disabled':''}>${esc(d.label)}<small>${esc(why||sub)}</small></button>`;}).join('')}</div>`;
     }
     function driveTo(id){
       if(!walletOn()||driveBlock(id))return false;
@@ -9475,18 +9525,19 @@
       if(cost)cashMove(-cost,d.ledger||d.label);
       const roll=v=>typeof v==='function'?!!v():!!(v&&gameRandom()<v);
       const wrong=selectedDifficulty==='divorce'&&denisePlan().wrongCar; // the Divorcé: the car he did in the dark was his own
-      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||roll(d.risk),ruined=!dies&&roll(d.ruin); // a cheap job: it kills you, or ruins you for good
+      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||roll(d.risk),ruined=!dies&&roll(d.ruin),missed=!dies&&!ruined&&!!d.miss&&roll(d.miss.chance); // a cheap job: it kills you, or ruins you for good; some nights nothing can be done
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
-      const end=dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:done;
+      const end=dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:missed?d.miss.line:done;
       const staged=!!d.scene&&!wrong; // three to five pictures: you arrive, it happens, and how you come out of it
       const frames=staged
         ?[...d.scene.map((step,i)=>({image:step.image,stand:'room',caption:i===0?`You grab the keys and drive to ${d.place}. ${step.caption}`:step.caption,sound:step.sound})),
           {image:dies?d.scene.at(-1).image:ruined?d.ruinImage:d.after,stand:'room',caption:end,sound:dies?'death':ruined?'scream':d.afterSound}]
         :[{image:d.image,stand:'room',caption:`You grab the keys and drive to ${d.place}.`},{image:dd.image,stand:'room',caption:end,sound:dies?'death':null}];
-      playScene(frames,()=>dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):arrive(id),{gap:staged?2600:1900});
+      playScene(frames,()=>dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):missed?arriveMissed(id):arrive(id),{gap:staged?2600:1900});
       return true;
     }
+    function arriveMissed(id){const d=DRIVES[selectedDifficulty][id];achToast(d.miss.toast||d.miss.line);saveRun(true);updateRunStatus();}
     function arriveRuined(id){ // the cheap job went wrong: your looks drop for good, and nobody will touch that part of you again
       const c=classState(),d=DRIVES.looksmaxxer[id],before=looksTier();
       c.ruined[d.cat]=true;c.looks=Math.max(0,c.looks-(d.ruinLoss||0));
@@ -9499,28 +9550,29 @@
     }
     function arrive(id){
       const c=classState(),d=DRIVES[selectedDifficulty][id];
-      if(selectedDifficulty==='looksmaxxer'&&id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);}
+      if(selectedDifficulty==='looksmaxxer'&&id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes today.`);}
       else if(selectedDifficulty==='looksmaxxer'){
         const before=looksTier();
         let gain=d.gain;
-        if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;}
+        if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;if(c.streak>=3&&!lx().border){lx().border=true;achToast('The big man at the squat rack says a clinic over the border does legs for $900. He knows a guy. It is on your car keys now.');}}
         if(d.cool)c.cool[id]=world.day;
         if(d.once)c.did[d.didKey||id]=true;
         if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;}
         else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
+        if(id==='face'&&lx().plan)lx().owe=(DRIVES.looksmaxxer.face.cost||3000)-FACE_DOWN; // the rest of Dr. Voss's bill
         c.looks=Math.min(100,c.looks+gain);
         const after=looksTier();
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
         else achToast(`Looks ${c.looks} of 100.`);
       }else{
-        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes for the rest of today.`);const pl=denisePlan();if(['paid','set'].includes(pl.stage)&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
+        if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes today.`);const pl=denisePlan();if(['paid','set'].includes(pl.stage)&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
         if(id==='wine'){const p=ms('pills');if(p){p.flushed=true;p.usedOn='denise';}deniseSet('pills');achToast('Two glasses, and hers had the pills in it. Now go home.');}
-        if(id==='brakes'){c.did.brakes=true;if(hashSeed(world.seed+'|brakes')%3===0)denisePlan().wrongCar=true;else deniseSet('brakes');achToast('Done. You drive home very slowly.');} // no warning either way
+        if(id==='brakes'){c.did.brakes=true;if(hashSeed(world.seed+'|brakes')%5===0)denisePlan().wrongCar=true;else deniseSet('brakes');achToast('Done. You drive home very slowly.');} // no warning either way; one in five (4 November 2026)
         if(id==='gun')deniseSet('gun');
-        if(id==='cactus'){c.did.cactus=true;const pl=denisePlan();pl.stage='number';pl.numberDay=world.day;pl.cop=hashSeed(world.seed+'|solver')%3===0;achToast('A number on a napkin. He will ring you.');}
+        if(id==='cactus'){c.did.cactus=true;const pl=denisePlan();pl.stage='number';pl.numberDay=world.day;pl.cop=hashSeed(world.seed+'|solver')%5===0;achToast('A number on a napkin. He will ring you.');} // one in five is a cop (4 November 2026: a third was arrest roulette)
         if(id==='bins'){const pl=denisePlan();if(pl.cop){pl.stage='caught';saveRun(true);startPoliceArrest('solver');return;}pl.stage='paid';pl.doneDay=world.day+2;achToast(`He picked the night of Day ${pl.doneDay}. Be somewhere people can see you.`);}
         if(id==='lawyer'){c.lawyerFor=c.cycle;c.payDue+=3;achToast(`The next payment is due on Day ${c.payDue}.`);}
-        if(id==='house'){exPaid();achToast(`Paid. The next ${money(ALIMONY)} is due on Day ${c.payDue}.`);}
+        if(id==='house'){exPaid();achToast(`Paid. The next ${money(c.owed)} is due on Day ${c.payDue}.`);}
       }
       checkAchievements();saveRun(true);updateRunStatus();
       if(currentApp==='hinge')renderHinge();
@@ -9533,6 +9585,7 @@
       if(world.day%PAYDAY_EVERY===0){
         const pay=selectedDifficulty==='divorce'?(c.garnish?325:650):500;
         cashMove(pay,c.garnish?'Payday, after the garnishment':'Payday');achToast(c.garnish?`Payday: +${money(pay)}. ${EX.name}’s lawyer took the rest.`:`Payday: +${money(pay)}.`);
+        if(selectedDifficulty==='looksmaxxer'&&lx().owe>0){const bit=Math.min(FACE_INSTALL,lx().owe);cashMove(-bit,'Voss Craniofacial: installment');lx().owe-=bit;achToast(lx().owe>0?`Dr. Voss’s office took ${money(bit)}. ${money(lx().owe)} to go.`:`Dr. Voss’s office took the last ${money(bit)}. Your face is paid for.`);}
       }
       if(selectedDifficulty==='looksmaxxer'){
         if(c.laidUntil!==null&&world.day>=c.laidUntil){c.laidUntil=null;achToast('You can walk again. Taller.');}
@@ -9541,18 +9594,19 @@
       if(denisePlanNewDay())return; // the plan: Denise's night, the police, the arrest
       if(c.arrestDay!==null&&world.day>=c.arrestDay){classDie('sheriff');return;}
       if(c.payDue!==null&&world.day>=c.payDue){
-        if(c.cash>=c.owed){exPaid();achToast(`${EX.name} got her ${money(ALIMONY)}.`);}
+        if(c.cash>=c.owed){const amount=c.owed;exPaid();achToast(c.paid===1?`${EX.name} got her ${money(amount)}. Every five days, and it goes up. Unless.`:`${EX.name} got her ${money(amount)}.`);}
         else{
           c.misses++;c.owed+=LATE_FEE;c.payDue=world.day+3;c.angry=true;
           if(c.misses===2)c.garnish=true;
           if(c.misses>=3)c.arrestDay=world.day+1;
-          achToast(`You couldn’t pay ${EX.name}. She will not let this go.`);
+          achToast(c.misses===1?`You couldn’t pay ${EX.name}. She will not let this go. There has to be a way out of this.`:`You couldn’t pay ${EX.name}. She will not let this go.`);
         }
       }
     }
     function exPaid(){
       const c=classState();
-      cashMove(-c.owed,`Payment to ${EX.name}`);c.paid++;c.cycle++;c.owed=ALIMONY;c.angry=false;
+      cashMove(-c.owed,`Payment to ${EX.name}`);c.paid++;c.cycle++;c.owed=ALIMONY+ALIMONY_STEP*c.cycle;c.angry=false;
+      achToast(`${EX.name}’s lawyer filed for a review. The next one is ${money(c.owed)}.`);
       c.payDue=Math.max(world.day,c.payDue||world.day)+ALIMONY_EVERY;
       checkAchievements();
     }
@@ -9594,7 +9648,7 @@
     function chooseGift(id,thread,profile){
       const c=classState();
       if(id!=='gift:flowers'||c.cash<FLOWERS||!giftChoices(thread,profile).length)return;
-      cashMove(-FLOWERS,`Flowers for ${firstName(profile)}`);c.gifts[profile.id]=world.day;
+      cashMove(-FLOWERS,`Flowers for ${firstName(profile)}`);c.gifts[profile.id]=world.day;c.giftsN[profile.id]=(c.giftsN[profile.id]||0)+1;
       thread.log.push({who:'you',text:'I sent you something. Check your door.'});
       deliverTalk(thread,profile,[EX.flowersHer[hashSeed(world.seed+'|flowers|'+profile.id+'|'+world.day)%EX.flowersHer.length]],'talk',null,true);
       warmBy(thread,1);walletRender();saveRun(true);
@@ -9610,6 +9664,7 @@
       if(!kind)return;
       stopRinging();herCall=null;
       if(kind==='sheriff'){drawDeathTitle(SHERIFF.cause,SHERIFF.verb);$('fatal-overlay').querySelector('p').textContent=SHERIFF.deaths[hashSeed(world.seed+'|sheriff')%SHERIFF.deaths.length];}
+      else if(kind==='solver'){drawDeathTitle('THE MAN FROM THE CACTUS','KILLED');$('fatal-overlay').querySelector('p').textContent=SOLVER.deaths[hashSeed(world.seed+'|solverdeath')%SOLVER.deaths.length];}
       else{const d=DRIVES.looksmaxxer[kind]||DRIVES.divorce[kind]||DRIVES.looksmaxxer.cheap;drawDeathTitle(d.cause||'A CHEAP SURGEON','KILLED');$('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length];}
       $('fatal-overlay').classList.add('visible');
       setLowered(true);fit();
