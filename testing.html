@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="1c3f9765ec">
+<html lang="en" data-build="3f6bb4dbae">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=1c3f9765ec"></script>
+  <script src="chapel_at_midnight.js?v=3f6bb4dbae"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=1c3f9765ec"></script>
+  <script src="marriage.js?v=3f6bb4dbae"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=1c3f9765ec"></script>
+  <script src="quests/professor-vale.js?v=3f6bb4dbae"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4723,12 +4723,37 @@
       for(const id of SQ_IDS){
         const st=sqState(id);
         if(!st)continue;
-        for(const item of SQ[id].news(st,day)||[])out.push({section:'Local',locked:true,fallbackImage:'charity_gala',...item,image:sqNewsImage(item.id),sq:id});
+        for(const item of SQ[id].news(st,day)||[])out.push({section:'Local',locked:true,...item,image:sqNewsImage(item.id),fallbackImage:sqStandIn(item.id),sq:id});
       }
+      const brief=sqBrief(day);if(brief)out.push(brief);
       return out;
     }
+    // Until a story's own picture is drawn, the closest picture the paper already has (Chris, 4 November 2026).
+    const SQ_STANDINS=[[/^sq_pageant_(finalists|disqualified|out_)/,'society_club'],[/^sq_pageant_ruined/,'local_storm'],[/^sq_pageant_unmasked/,'police_interview'],[/^sq_pageant_/,'police_evidence'],
+      [/^sq_radio_(ad|q)/,'hotline_ad'],[/^sq_radio_/,'local_ad'],
+      [/^sq_penpal_(stay|vigil)/,'political_protest'],[/^sq_penpal_/,'police_station'],
+      [/^sq_seance_(ad|letters)/,'hotline_ad'],[/^sq_seance_obit/,'religion_chapel'],[/^sq_seance_/,'police_evidence'],
+      [/^sq_priest_gone/,'bishop_guitars'],[/^sq_priest_/,'religion_chapel'],
+      [/^sq_tapes_(letter|folk)/,'bishop_guitars'],[/^sq_tapes_/,'religion_benefit'],
+      [/^sq_brief/,'classifieds']];
+    const sqStandIn=id=>(SQ_STANDINS.find(([re])=>re.test(id))||[,'classifieds'])[1];
+    // Around Sunfall: one short column a day on every story still going, with its deadline and who to ask.
+    function sqBrief(day){
+      if(!world)return null;
+      const lines=[];
+      const st=id=>{const s=world.sq?.[id];return s&&!s.outcome&&Number.isInteger(s.start)&&day>s.start?s:null;};
+      let s;
+      if((s=st('pageant')))lines.push(`Miss Sunfall: the final is on Day ${s.start+6}, and the pageant office still has no name for its saboteur. The finalists are on Hinge.`);
+      if((s=st('radio'))&&day-s.start<=5)lines.push(`KSUN’s late request line: question ${Math.max(1,day-s.start)} of 5 tonight. The answers are things one kind of woman in town knows.`);
+      if((s=st('penpal')))lines.push(`Lyle Dunmore: ${s.start+9-day>1?`${s.start+9-day} days`:'one day'} until his execution. The Innocence Clinic needs something new.`);
+      if((s=st('seance')))lines.push('The Veil Line is still taking calls at forty dollars a time. The Sisters of Mercy want it stopped; the goths know how Madame Ilona works.');
+      if((s=st('priest')))lines.push('St Brigid’s: the Sisters of Mercy are still asking who Father Sorrell answers to.');
+      if((s=st('tapes')))lines.push(`St Brigid’s: Father Sorrell is still asking parishioners to call him about the Sisters of Mercy, ${displayNumber(contactNumbers.chapel)}.`);
+      if(lines.length<2)return null;
+      return {id:'sq_brief_'+day,section:'Briefs',title:'AROUND SUNFALL',summary:`${lines.length} stories still going.`,body:lines.join(' '),image:'sq_brief',fallbackImage:'classifieds'};
+    }
     // Each story's picture is assets/newspapers/<its id>.png (requests 468-486); the gala photo stands in until it is drawn.
-    const sqNewsImage=id=>id==='sq_tapes_letter'?'sq_priest_bells':id==='sq_seance_letters'?'sq_seance_ad':/^sq_pageant_out_/.test(id)?'sq_pageant_disqualified':/^sq_radio_q\d$/.test(id)?'sq_radio_ad':id;
+    const sqNewsImage=id=>/^sq_seance_ad_\d+$/.test(id)?'sq_seance_ad':id==='sq_tapes_letter'?'sq_priest_bells':id==='sq_seance_letters'?'sq_seance_ad':/^sq_pageant_out_/.test(id)?'sq_pageant_disqualified':/^sq_radio_q\d$/.test(id)?'sq_radio_ad':id;
     function sqRead(item){if(item?.sq){sqOpen(item.sq);for(const f of item.gives||[])sqLearn(item.sq,f);}}
     // What you can ask her. Each quest says, per woman, what she knows (needs/gives facts) and how she sees it.
     function sqChatChoices(thread,profile){
@@ -5152,6 +5177,7 @@
           PAGEANT_INCIDENTS.forEach((inc,k)=>{if(day===st.start+1+k&&!(st.outcome&&st.outcomeDay<day))out.push({id:'sq_pageant_'+inc.key,title:inc.title,summary:inc.summary,body:`${inc.body(sqFull(v.victims[k]))} The pageant office: ${displayNumber(sqNumber('pageant','office'))}.`,image:inc.image});});
           if(v.wrongDay!==undefined&&day===v.wrongDay+1){const id=v.accused.at(-1);out.push({id:'sq_pageant_out_'+day,image:'sq_pageant_disqualified',title:'FINALIST DISQUALIFIED ON A TIP',summary:`${sqFull(id)} is out of Miss Sunfall.`,body:`The pageant office disqualified ${sqFull(id)} after an anonymous tip. She denies everything. Her family is considering legal action.`,image:'pageant_disqualified'});}
           if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_pageant_unmasked',title:'SABOTEUR UNMASKED: FINALIST OUT OF MISS SUNFALL',summary:`${sqFull(v.named)} has been removed from the pageant.`,body:`Scissors and a bottle of laxative were found in ${sqFull(v.named)}’s garment bag. She has been removed from Miss Sunfall. The favorite for the crown is now ${sqFull(v.witness)}.`,image:'pageant_unmasked'});
+          if(!st.outcome&&day===this.final(st)-1)out.push({id:'sq_pageant_eve',title:'MISS SUNFALL FINAL TOMORROW, SABOTEUR STILL UNNAMED',summary:'Darlene Voight says the show goes on.',body:`The Miss Sunfall final is tomorrow night at the Desert Willow ballroom, and the pageant office still has no name for whoever cut a gown, spiked the coffee and wiped a tape. Darlene Voight asks anyone who knows anything to call her: ${displayNumber(sqNumber('pageant','office'))}. The police checked the pharmacy book; the sound booth keeps a key log.`});
           if(st.outcome==='lost'&&day===st.outcomeDay)out.push({id:'sq_pageant_ruined',title:'SPRINKLERS SOAK THE MISS SUNFALL FINAL',summary:'The final was abandoned when the ballroom sprinklers came on.',body:'Someone set off the fire alarm in the Desert Willow ballroom during the evening gowns. The finalists ran for the doors. No crown was awarded, and nobody has been charged.',image:'pageant_sprinklers'});
           return out;
         },
@@ -5284,6 +5310,8 @@
         news(st,day){
           const out=[];
           if(day===st.start)out.push({id:'sq_penpal_date',section:'Courts',title:'DATE SET FOR SAGUARO STREET FIRE EXECUTION',summary:'Lyle Dunmore, convicted of the fire that killed two, is to be executed.',body:`The state has set Day ${this.exec(st)} for the execution of Lyle Dunmore, convicted eleven years ago of the Saguaro Street fire. Two people died. Dunmore has always said he was somewhere else that night. The Innocence Clinic at the university law school says it would look again at anything new. People who knew the case talk more easily on the phone than in public: a Sister of Mercy, a reporter or a police officer might remember something.`,image:'penpal_prison',gives:['letter']});
+          if(!st.outcome&&day===st.start+3)out.push({id:'sq_penpal_vigil',section:'Courts',title:'VIGIL FOR LYLE DUNMORE AT THE COURTHOUSE',summary:'Students hold candles; the Bluebirds hold a counter-protest.',body:`Students from the university held a candlelight vigil for Lyle Dunmore, who is to be executed on Day ${this.exec(st)} for the Saguaro Street fire. The Innocence Clinic says a stay needs new evidence: a witness, an alibi or the science. Bluebird families stood across the street with signs. A Sister of Mercy said the parish is divided.`});
+          if(!st.outcome&&day===this.exec(st)-1)out.push({id:'sq_penpal_last',section:'Courts',title:'LYLE DUNMORE: EXECUTION TOMORROW',summary:'No stay has been filed.',body:`Lyle Dunmore is to be executed tomorrow. His lawyers have nothing new to file. The Innocence Clinic at the law school says it would still take a call tonight: ${displayNumber(sqNumber('penpal','clinic'))}.`,gives:['clinic']});
           if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_penpal_stay',section:'Courts',title:'STAY OF EXECUTION FOR LYLE DUNMORE',summary:'New evidence: a witness recants, an alibi surfaces, and the fire science falls apart.',body:'The Sunfall Innocence Clinic won a stay for Lyle Dunmore after a witness recanted, a waitress nobody called gave him an alibi and the fire marshal’s methods were discredited. Prosecutors say they will not retry the case.',image:'penpal_free'});
           if(st.outcome==='lost'&&day===st.outcomeDay)out.push({id:'sq_penpal_exec',section:'Courts',title:'LYLE DUNMORE EXECUTED',summary:'Dunmore said he was innocent to the end.',body:'Lyle Dunmore was executed last night for the Saguaro Street fire. His last words were for someone he wrote to and never met.',image:'penpal_prison'});
           return out;
@@ -5356,6 +5384,8 @@
           const out=[];
           if(day===st.start)out.push({id:'sq_seance_ad',section:'Classifieds',title:'SPEAK WITH THOSE YOU HAVE LOST',summary:'Madame Ilona and the Veil Line. Discreet. Compassionate.',body:`Someone you love has passed, and they have more to say. Madame Ilona has spoken across the veil for thirty years. The Veil Line: ${displayNumber(sqNumber('seance','veil'))}.`,image:'seance_ad'});
           if(day===st.start)out.push({id:'sq_seance_letters',section:'Letters',title:'LETTER: THE VEIL LINE TOOK MY NEIGHBOR’S SAVINGS',summary:'A reader asks why nobody stops the psychic hotline.',body:`A widow at St Brigid’s paid the Veil Line every cent her husband left her. The police say talking to the dead is no crime. The Sisters of Mercy are asking around for someone who will help, and the goth girls at the Black Lace knew Madame Ilona before she went on the telephone. Ring them; they talk.`,image:'seance_ad'});
+          if(!st.outcome&&day===st.start+2)out.push({id:'sq_seance_picket',title:'SISTERS OF MERCY PRAY OUTSIDE PSYCHIC’S OFFICE',summary:'The Veil Line says it has nothing to hide.',body:`Sisters of Mercy prayed the rosary outside the Veil Line’s office on Main Street, where Madame Ilona takes calls from the bereaved at forty dollars a time. ${sqFull(st.v.asker)} said a widow from St Brigid’s had lost her savings. Madame Ilona said the spirits are her only witnesses. Police say they cannot act without evidence.`});
+          if(!st.outcome&&day>st.start&&(day-st.start)%4===0)out.push({id:'sq_seance_ad_'+day,section:'Classifieds',title:'THE VEIL LINE: THEY ARE WAITING FOR YOUR CALL',summary:'Madame Ilona. Readings by telephone.',body:`Someone you lost is close. Madame Ilona reads the names of the departed and finds them. The Veil Line: ${displayNumber(sqNumber('seance','veil'))}.`});
           if(st.v.obitDay!==null&&day===st.v.obitDay+1)out.push({id:'sq_seance_obit',section:'Obituaries',title:'WALTER FINCH',summary:'Beloved uncle. He never went anywhere without his brass harmonica.',body:'Walter Finch, 68, of Sunfall, passed away peacefully. A retired surveyor, he never went anywhere without his brass harmonica. He is survived by a nephew.',image:'seance_obit'});
           if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_seance_cut',title:'VEIL LINE CUT: PSYCHIC CHARGED WITH FRAUD',summary:'Madame Ilona told a caller about a man who never lived.',body:'Madame Ilona was charged with fraud after a recording showed her describing Walter Finch, a man who never existed, from an obituary placed to test her. Mrs. Reyes, a widow from St Brigid’s, is to have her savings returned.',image:'seance_cut'});
           return out;
@@ -5426,6 +5456,8 @@
         news(st,day){
           const out=[];
           if(day===st.start)out.push({id:'sq_priest_bells',section:'Faith',title:'ST BRIGID’S SELLS ITS BELLS',summary:'The parish’s new priest says the church must look forward.',body:'Father Julian Sorrell, who came to St Brigid’s this year, has sold the parish bells and ended the Sisters of Mercy’s new-moon vigil. Attendance is down by half. Father Sorrell says the parish must look forward. The Sisters of Mercy will talk about it to anyone who asks, and more freely on the phone than at the church door.',image:'priest_bells'});
+          if(!st.outcome&&day===st.start+2)out.push({id:'sq_priest_vigil',section:'Faith',title:'NO VIGIL AT THE OLD MISSION THIS NEW MOON',summary:'The Sisters of Mercy kept it for sixty years.',body:'For the first time in sixty years the Sisters of Mercy will not keep their new-moon vigil at the Old Mission. Father Julian Sorrell says the building needs a review. The Sisters say lights have been seen there at night all the same, and ask who has the keys.',gives:['complaint']});
+          if(!st.outcome&&day===st.start+4)out.push({id:'sq_priest_kitchen',section:'Society',title:'FOUNDATION FUNDS NEW RECTORY KITCHEN',summary:'The Blue Ribbon Foundation is generous to St Brigid’s.',body:'The Blue Ribbon Foundation has paid for a new kitchen at St Brigid’s rectory. Father Julian Sorrell thanked Augustus Pell, the Foundation’s treasurer, on the golf course. The parish bookkeeper declined to comment.',gives:['pell']});
           if(st.v.printed!==null&&day===st.v.printed+1)out.push({id:'sq_priest_story',section:'Faith',title:'PRIEST LENT OLD MISSION KEYS TO MIDNIGHT CIRCLE',summary:'Parish money went to a Foundation-linked company; the new priest golfs with its treasurer.',body:'St Brigid’s paid Halcyon Ridge for a property review nobody asked for. Father Julian Sorrell lent the keys of the Old Mission to a circle that holds rites there on moonless nights, and golfs every week with Augustus Pell of the Blue Ribbon Foundation.',image:'priest_story'});
           if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_priest_gone',section:'Faith',title:'FATHER SORRELL REASSIGNED TO A MISSION IN SOUTH AMERICA',summary:'The bishop moves the new priest from St Brigid’s. The vigil is back.',body:'The bishop has reassigned Father Julian Sorrell to a mission in the Peruvian highlands. The Sisters of Mercy will keep their new-moon vigil at the Old Mission again, and the parish is raising money to buy back its bells.',image:'priest_gone'});
           return out;
@@ -5473,6 +5505,8 @@
         news(st,day){
           const out=[];
           if(day===st.start)out.push({id:'sq_tapes_letter',section:'Faith',title:'A PARISH FOR TODAY: THE NEW PRIEST WRITES',summary:'Father Julian Sorrell says St Brigid’s must live by the Second Vatican Council.',body:`Father Julian Sorrell, who came to St Brigid’s this year, writes that the parish must finally live by the Second Vatican Council: the Mass in English, the doors open to every church in town. Some in the parish, he writes, still teach what the Council left behind. He asks anyone troubled by what they hear to call him at St Brigid’s Chapel, ${displayNumber(contactNumbers.chapel)}. Parishioners say the Sisters of Mercy speak more freely on the phone than in the pews.`,gives:['letter']});
+          if(!st.outcome&&day===st.start+2)out.push({id:'sq_tapes_reply',section:'Letters',title:'LETTER: THE SISTERS OF MERCY ANSWER FATHER SORRELL',summary:'We teach what the Church has always taught, they write.',body:'The Sisters of Mercy of St Brigid’s write that they teach what the Church has always taught, and will not apologize for it. They do not name the Council. Parishioners say some of the older Sisters are less careful on the telephone.'});
+          if(!st.outcome&&day===st.start+4)out.push({id:'sq_tapes_folk',section:'Faith',title:'FOLK MASS DRAWS A CROWD AT ST BRIGID’S',summary:'Guitars, English, and the Sisters in the back pew.',body:`Father Julian Sorrell’s folk Mass filled St Brigid’s, with guitars, a choir from the university and the Mass in English. The Sisters of Mercy sat in the back pew and did not sing. Father Sorrell says he is still glad of calls from anyone who has heard the Sisters teach against the Council: ${displayNumber(contactNumbers.chapel)}.`});
           if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_tapes_bishop',section:'Faith',title:'BISHOP EXCOMMUNICATES THE SISTERS OF MERCY',summary:'Recordings of three Sisters rejecting the Council reached the bishop.',body:`The bishop has excommunicated the Sisters of Mercy of St Brigid’s after hearing three Sisters, on tape, reject the teaching of the Second Vatican Council.${(st.v.tapes||[]).some(t=>t.q==='trousers')?' The bishop is said to have been most outraged by one Sister telling a caller that women should not wear trousers.':''} Father Julian Sorrell called it a sad day and a new beginning. The Sisters have not commented.`});
           return out;
         },
