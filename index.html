@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="8ed14cdb86">
+<html lang="en" data-build="d94a61737d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=8ed14cdb86"></script>
+  <script src="chapel_at_midnight.js?v=d94a61737d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=8ed14cdb86"></script>
+  <script src="marriage.js?v=d94a61737d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=8ed14cdb86"></script>
+  <script src="quests/professor-vale.js?v=d94a61737d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -957,6 +957,19 @@
       const out={br:null,vale:null,chapel:null,fionn:null};
       chosen.forEach((id,i)=>{out[id]=i===0?(id==='chapel'?2:1):id==='fionn'?3+h('later')%2:4+h('later')%2;});
       return out;
+    }
+    // A run picks one or two of the big quests. If five days go by without anything moving, one that wasn't picked
+    // arrives (the next morning's paper carries it), and another five quiet days bring the next (Chris, 4 November 2026).
+    const QUEST_UNLOCK_DAYS=5,QUEST_UNLOCK_ORDER=['vale','chapel'];
+    function questUnlock(){
+      const q=world?.quests;
+      if(!q||typeof q!=='object'||world.victory||window.MATCH_ALL_QUESTS)return null;
+      const quietSince=Math.max(world.help?.fpDay||1,world.questUnlockDay||1);
+      if(world.day-quietSince<QUEST_UNLOCK_DAYS)return null;
+      const id=QUEST_UNLOCK_ORDER.find(k=>!Number.isInteger(q[k]));
+      if(!id)return null;
+      q[id]=world.day;world.questUnlockDay=world.day;
+      return id;
     }
     function questStart(id){
       const q=world?.quests;
@@ -4341,11 +4354,12 @@
       const matched=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)?.factionId==='sisters_of_mercy'&&!t.blocked&&!t.fumbled).length;
       return [sis,st?.ring?1:0,matched,pv?.stage||'',(pv?.facts||[]).length,Object.keys(pv?.numbers||{}).length,Object.keys(br?.found||{}).length,(br?.links||[]).length,br?.outcome||'',ch?.outcome||'',ch?.stage||'',f?.stage||'',(f?.clues||[]).length,co?.stage||''].join('|');
     }
-    const sisterProfiles=()=>hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy');
+    const marriageable=id=>!!marriage?.state?.()?.sisters?.[id]; // only some Sisters of Mercy have an examination
+    const sisterProfiles=()=>hingeProfiles.filter(p=>p.factionId==='sisters_of_mercy'&&marriageable(p.id));
     function marriageLead(){
       const st=marriage?.state?.();
       if(!st||st.married||st.tb||!['normie','mogger','truecel'].includes(selectedDifficulty))return null;
-      const mine=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)?.factionId==='sisters_of_mercy'&&!t.blocked&&!t.fumbled);
+      const mine=[...hingeThreads.values()].filter(t=>marriageable(t.id)&&!t.blocked&&!t.fumbled);
       const of=id=>st.sisters?.[id]||{};
       const passed=mine.find(t=>of(t.id).passed);
       if(passed){
@@ -4482,7 +4496,8 @@
         const told=q[id];
         if(told&&(told.open||hingeThreads.get(told.by)&&!hingeThreads.get(told.by).blocked&&!hingeThreads.get(told.by).fumbled))continue; // somebody has it in hand
         if(!qhintLive(id))continue;
-        if((thread.topics||[]).length<(qhintReadIt(id)?2:3))continue; // never her first thing
+        const stalled=world.day>=4&&!!world.help&&world.day-world.help.fpDay>=HELP_STALL_DAYS; // a quiet run: she brings it up sooner
+        if((thread.topics||[]).length<(qhintReadIt(id)||stalled?2:3))continue; // never her first thing
         q[id]={by:thread.id,day:world.day,step:'hint',open:false};
         thread.log.push({who:'her',text:QHINT[id].hint});
         talkState(thread).unread=true;
@@ -5989,7 +6004,17 @@
       if(['ringing','step','police'].includes(ms('envelope')?.stage))out.push('envelope');
       return out;
     }
-    const threatWaits=id=>world.day<THREAT_FROM||threatsLive().some(t=>t!==id);
+    // The rule gives way after five days: a threat that has been live that long no longer holds the others back
+    // (Chris, 4 November 2026: stuck on Day 21 with nothing happening).
+    const THREAT_HOLD_DAYS=5;
+    function threatAges(){
+      if(!world.threatSince||typeof world.threatSince!=='object')world.threatSince={};
+      const live=threatsLive();
+      for(const id of Object.keys(world.threatSince))if(!live.includes(id))delete world.threatSince[id];
+      for(const id of live)if(!Number.isInteger(world.threatSince[id]))world.threatSince[id]=world.day;
+      return world.threatSince;
+    }
+    const threatWaits=id=>{if(world.day<THREAT_FROM)return true;const ages=threatAges();return threatsLive().some(t=>t!==id&&world.day-ages[t]<THREAT_HOLD_DAYS);};
     const miniLive=id=>{const st=ms(id);return !!st&&!['done','skipped','quit','arrested','gone'].includes(st.stage);};
     function sanitizeMinis(raw){
       const out={on:null,st:{},dead:null};
@@ -8379,6 +8404,7 @@
       ignoreNewDay(); // matches you never talk to nudge you, then get angry and unmatch you
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
+      questUnlock(); // a quest that wasn't picked arrives after five quiet days
       miniNewDay(); // the mini quests
       rqNewDay(); // the room quests
       fqNewDay(); // her thing: the mini quests
@@ -8603,6 +8629,7 @@
         return [{id:'hangup',label:'☎ Hang up'}];
       }
       const out=[];
+      if(call.qh&&!call.qhDone)out.push({id:'qh:open',label:QHINT[call.qh].open}); // what's going on in town
       if(!call.flirted)out.push({id:'flirt',label:kit.options.flirt.label});
       if(!call.asked)out.push({id:'ask',label:kit.options.ask.label});
       if((call.mine||0)<2)for(const item of callTopicsFor(hingeThreads.get(call.id),hingeProfile(call.id)).slice(0,1))out.push({id:'mine:'+item.id,label:item.label}); // her own call topics
@@ -8717,6 +8744,9 @@
       }else if(choice==='ask'){
         call.asked=true;
         you(kit.options.ask.player);
+        // A quest that's live and not started comes first: she tells you, and you can open it on this call.
+        const qid=!window.MATCH_NO_QHINT&&qhintTeller(profile)?Object.keys(QHINT).find(id=>qhintLive(id)&&!qhintState()[id]?.open):null;
+        if(qid){call.qh=qid;qhintState()[qid]={by:call.id,day:world.day,step:'asked',open:false};say(`${QHINT[qid].hint} ${QHINT[qid].askReply}`);renderCalls();return;}
         // She tells you something she knows, if there's anything she hasn't told you yet.
         const told=talkState(thread).informed,tells=kit.tells[faction]||[];
         const index=tells.findIndex((item,at)=>!told.includes('call:'+at)&&!(item.fromDay>world.day));
@@ -8728,6 +8758,12 @@
           if(kind){told.push(kind);recordClue(news[kind].informed[faction].note);say(seededPick(news[kind].informed[faction].lines,call.id));}
           else say(freshPick(thread,'callTown',[...talkKit().asides.places,...kit.noTell],call.id+world.day));
         }
+      }else if(choice==='qh:open'&&call.qh){
+        const id=call.qh,q=qhintState()[id];
+        call.qhDone=true;you(QHINT[id].open+'.');say(QHINT[id].openReply);
+        if(q){q.open=true;q.by=call.id;}
+        if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
+        if(id==='chapel')chapel?.onPaperOpened?.();
       }else if(choice.startsWith('mine:')){
         const item=callTopicsFor(thread,profile).find(entry=>'mine:'+entry.id===choice);
         if(item){call.mine=(call.mine||0)+1;you(item.player);say(tellCallTopic(thread,profile,item));}
@@ -8736,7 +8772,7 @@
         call.step='bye';say(freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day));
       }
       // Two things said, and she wraps up herself.
-      if(call.kind==='flirt'&&call.step!=='bye'&&(call.flirted?1:0)+(call.asked?1:0)+(call.mine||0)>=2){
+      if(call.kind==='flirt'&&call.step!=='bye'&&!(call.qh&&!call.qhDone)&&(call.flirted?1:0)+(call.asked?1:0)+(call.mine||0)>=2){
         call.step='bye';
         say(`${call.said} ${freshPick(thread,'callBye',kit.bye[faction]||kit.bye.normie_girls,call.id+world.day)}`);
         thread.callLog.splice(thread.callLog.length-2,1);
