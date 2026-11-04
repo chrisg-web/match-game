@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e18a710053">
+<html lang="en" data-build="2440e3cc2a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e18a710053"></script>
+  <script src="chapel_at_midnight.js?v=2440e3cc2a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e18a710053"></script>
+  <script src="marriage.js?v=2440e3cc2a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e18a710053"></script>
+  <script src="quests/professor-vale.js?v=2440e3cc2a"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4866,6 +4866,7 @@
     // Council put away. Three cassettes to Father Sorrell, he sends them to the bishop, and the Sisters are
     // excommunicated: a win. After that, a Sister who sees you blocks you.
     const TAPE_QUESTIONS=[
+      {id:'trousers',ask:'Ask her what she thinks of women wearing trousers',bad:'A woman should not wear trousers. It is immodest, it is a man’s garment, and the Church taught that long before Father Sorrell was born.',good:'I wear them to dig the garden. God has bigger things to worry about.'}, // the one that outrages the bishop (Chris, 4 November 2026)
       {id:'latin',ask:'Ask her about the Mass in English',bad:'The Mass belongs in Latin. What Father Sorrell says at the altar is a Protestant supper with guitars.',good:'I miss the Latin some days. But the Mass in our own words was a gift, and I wouldn’t go back.'},
       {id:'council',ask:'Ask her what she thinks of the Second Vatican Council',bad:'The Council was a mistake, and one day the bishops will admit it. We keep the faith as it was before.',good:'The Council opened the windows. Some days there’s a draft. It was still right.'},
       {id:'salvation',ask:'Ask her if people of other faiths can be saved',bad:'Outside the Church there is no salvation. I pray for them, but they are lost.',good:'God’s mercy is wider than our walls. That is what the Church teaches now, and I believe it.'},
@@ -5440,7 +5441,7 @@
         serviceTopics(st,serviceId){
           if(serviceId!=='service:chapel'||st.outcome)return [];
           const out=[];
-          if(st.v.dictaphone===null)out.push({key:'sorrell',label:'Ask for Father Sorrell',act:st=>{st.v.dictaphone=world.day;sqLearn('tapes','priest');return 'Father Julian Sorrell. Thank you for calling. The Sisters still teach what the Council put away sixty years ago, but never in front of me. They say it to young men they hope to marry. I’ll send you something tonight. Record them in their own words. Three voices and the bishop has to act.';}});
+          if(st.v.dictaphone===null)out.push({key:'sorrell',label:'Ask for Father Sorrell',act:st=>{st.v.dictaphone=world.day;sqLearn('tapes','priest');return 'Father Julian Sorrell. Thank you for calling. The Sisters still teach what the Council put away sixty years ago, the Latin, the old rules, women in skirts only, but never in front of me. They say it to young men they hope to marry. I’ll send you something tonight. Record them in their own words. Three voices and the bishop has to act.';}});
           else if((st.v.tapes||[]).length>=3)out.push({key:'send',label:'Send Father Sorrell the three cassettes',final:true,act:st=>{st.v.sent=world.day;sqEnd('tapes','won');return 'Three of them, in their own voices. I’ll drive them to the bishop myself tonight. God bless you. You have given this parish back to the living.';}});
           else out.push({key:'how',label:'Tell Father Sorrell how it’s going',reply:st=>`You have ${(st.v.tapes||[]).length} of 3. Keep ringing them. The older ones slip first.`});
           return out;
@@ -5448,7 +5449,7 @@
         news(st,day){
           const out=[];
           if(day===st.start)out.push({id:'sq_tapes_letter',section:'Faith',title:'A PARISH FOR TODAY: THE NEW PRIEST WRITES',summary:'Father Julian Sorrell says St Brigid’s must live by the Second Vatican Council.',body:`Father Julian Sorrell, who came to St Brigid’s this year, writes that the parish must finally live by the Second Vatican Council: the Mass in English, the doors open to every church in town. Some in the parish, he writes, still teach what the Council left behind. He asks anyone troubled by what they hear to call him at St Brigid’s Chapel, ${displayNumber(contactNumbers.chapel)}. Parishioners say the Sisters of Mercy speak more freely on the phone than in the pews.`,gives:['letter']});
-          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_tapes_bishop',section:'Faith',title:'BISHOP EXCOMMUNICATES THE SISTERS OF MERCY',summary:'Recordings of three Sisters rejecting the Council reached the bishop.',body:'The bishop has excommunicated the Sisters of Mercy of St Brigid’s after hearing three Sisters, on tape, reject the teaching of the Second Vatican Council. Father Julian Sorrell called it a sad day and a new beginning. The Sisters have not commented.'});
+          if(st.outcome==='won'&&day===st.outcomeDay+1)out.push({id:'sq_tapes_bishop',section:'Faith',title:'BISHOP EXCOMMUNICATES THE SISTERS OF MERCY',summary:'Recordings of three Sisters rejecting the Council reached the bishop.',body:`The bishop has excommunicated the Sisters of Mercy of St Brigid’s after hearing three Sisters, on tape, reject the teaching of the Second Vatican Council.${(st.v.tapes||[]).some(t=>t.q==='trousers')?' The bishop is said to have been most outraged by one Sister telling a caller that women should not wear trousers.':''} Father Julian Sorrell called it a sad day and a new beginning. The Sisters have not commented.`});
           return out;
         },
         tick(st,day){
