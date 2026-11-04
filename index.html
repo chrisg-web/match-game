@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="6b09bd3d32">
+<html lang="en" data-build="1c3f9765ec">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=6b09bd3d32"></script>
+  <script src="chapel_at_midnight.js?v=1c3f9765ec"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=6b09bd3d32"></script>
+  <script src="marriage.js?v=1c3f9765ec"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=6b09bd3d32"></script>
+  <script src="quests/professor-vale.js?v=1c3f9765ec"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -989,7 +989,7 @@
     // Every quest you haven't won is in every game, as many at once as you like (Chris, 4 November 2026: one or
     // two a run caused problems). They arrive on staggered days so the paper doesn't carry them all at once: the
     // Ledger on Day 1 (the gala was Day 1), Vale and the Chapel by Day 3, the story quests one a day from Day 3,
-    // the radio contest in between. Theon still comes in about one Mogger game in four. A quest you have won stays
+    // the radio contest in between. Theon comes in about one Mogger game in two (Chris, 4 November 2026; it was one in four). A quest you have won stays
     // out of later games until every class is unlocked (questFresh).
     function pickQuests(seed){
       if(window.MATCH_ALL_QUESTS)return {...LEGACY_QUESTS};
@@ -1001,20 +1001,20 @@
       if(big.includes('br'))out.br=1;
       if(big.includes('vale'))out.vale=1+h('vale')%3;
       if(big.includes('chapel'))out.chapel=2+h('chapel')%2;
-      if(selectedDifficulty==='mogger'&&h('theon')%4===0&&questFresh('fionn'))out.fionn=3+h('later')%2; // Theon: about one Mogger game in four
+      if(selectedDifficulty==='mogger'&&h('theon')%2===0&&questFresh('fionn'))out.fionn=3+h('later')%2; // Theon: about one Mogger game in two
       story.sort((a,b)=>h(a)-h(b)).forEach((id,i)=>{out[id]=3+i;});
       if(radio)out.radio=2+h('radioday')%5;
       return out;
     }
     // A run picks one or two of the big quests. If five days go by without anything moving, one that wasn't picked
     // arrives (the next morning's paper carries it), and another five quiet days bring the next (Chris, 4 November 2026).
-    const QUEST_UNLOCK_DAYS=5,QUEST_UNLOCK_ORDER=['vale','chapel','pageant','radio','penpal','seance','priest','tapes'];
+    const QUEST_UNLOCK_DAYS=5,QUEST_UNLOCK_ORDER=['fionn','vale','chapel','pageant','radio','penpal','seance','priest','tapes']; // Theon too, Mogger only (Chris, 4 November 2026)
     function questUnlock(){
       const q=world?.quests;
       if(!q||typeof q!=='object'||world.victory||window.MATCH_ALL_QUESTS)return null;
       const quietSince=Math.max(world.help?.fpDay||1,world.questUnlockDay||1);
       if(world.day-quietSince<QUEST_UNLOCK_DAYS)return null;
-      const id=QUEST_UNLOCK_ORDER.find(k=>!Number.isInteger(q[k])&&questFresh(k)); // not one you have already won
+      const id=QUEST_UNLOCK_ORDER.find(k=>!Number.isInteger(q[k])&&questFresh(k)&&(k!=='fionn'||(selectedDifficulty==='mogger'&&!threatsLive().length))); // not one you have already won; Theon only in a Mogger game, and not while something else deadly is live
       if(!id)return null;
       q[id]=world.day;world.questUnlockDay=world.day;
       return id;
