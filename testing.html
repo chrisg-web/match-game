@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="7f7e62a7b7">
+<html lang="en" data-build="29761cf645">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -738,11 +738,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=7f7e62a7b7"></script>
+  <script src="chapel_at_midnight.js?v=29761cf645"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=7f7e62a7b7"></script>
+  <script src="marriage.js?v=29761cf645"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=7f7e62a7b7"></script>
+  <script src="quests/professor-vale.js?v=29761cf645"></script>
 </head>
 <body>
   <main class="workbench">
@@ -9745,7 +9745,7 @@
       {id:'fortnight',group:'Surviving',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
       {id:'first-death',group:'Deaths',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
       {id:'ten-endings',group:'Collecting',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
-      {id:'married',group:'The ladder',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>Object.values(playerProfile().wins).some(n=>n>0)},
+      {id:'married',group:'The ladder',title:'Married',points:50,hint:'Win a run: marry a Sister of Mercy or into the Bluebirds.',test:()=>!!(endingsFound()['win:marriage']||endingsFound()['win:thunderbirds']||['marriage','thunderbirds'].includes(world?.victory?.type))}, // a wedding, not a quest won
       {id:'climb-mogger',group:'The ladder',title:'Moving up',points:25,hint:'Unlock Mogger.',test:()=>playerProfile().unlocked>=2},
       {id:'climb-truecel',group:'The ladder',title:'Down to Truecel',points:50,hint:'Unlock Truecel.',test:()=>playerProfile().unlocked>=3},
       {id:'win-truecel',group:'The ladder',title:'Against the odds',points:100,hint:'Win a run as a Truecel.',test:()=>(playerProfile().wins.truecel||0)>0},
@@ -9886,7 +9886,8 @@
     }
     function ladderWin(){
       const v=world?.victory;
-      if(!v||!['marriage','thunderbirds','stacey','divorce','denise'].includes(v.type))return null; // a wedding, or the Looksmaxxer's and the Divorcé's own wins
+      const questWon=()=>{try{return !!QUEST_WINS[v.type];}catch{return false;}}; // read safely: this can run while the page is still loading
+      if(!v||!(['marriage','thunderbirds','stacey','divorce','denise'].includes(v.type)||questWon()))return null; // a wedding, the Looksmaxxer's and the Divorcé's own wins, or a quest won (Chris, 4 November 2026)
       return ladderCountWin(ladderIndex(selectedDifficulty)>=0?selectedDifficulty:'normie',String(world.seed||''));
     }
     // The victory screen: what you unlocked, and what to play next.
@@ -9983,7 +9984,7 @@
           const pill=r.soon?'Soon':!open?'Locked':wins?'Won':i===playing?'Playing':'Open';
           return `<div class="it-cell${r.soon||!open?' off':''}">${itFace(r.img,r.name[0])}<span class="it-txt"><b>${i+1}. ${esc(r.name)}</b><small>${esc(state)}</small></span><span class="it-pill${wins?' on':''}">${pill}</span></div>`;
         }).join('');
-        $('opened').innerHTML=itPage('You','you',`${card}<div class="it-you">${itFace(rung.img,rung.name[0])}<span><b>${esc(rung.name)}</b><small>${esc(rung.blurb)}</small><span class="it-stars">${ladderPoints()} points</span></span></div><p class="it-head">This run</p><div class="it-list">${run.map(([k,v])=>`<div class="it-cell"><span class="it-txt"><b>${esc(k)}</b></span><small>${esc(v)}</small></div>`).join('')}</div><p class="it-head">Your journey: win a run (a wedding) to unlock the next class</p><div class="it-list">${steps}</div>`);
+        $('opened').innerHTML=itPage('You','you',`${card}<div class="it-you">${itFace(rung.img,rung.name[0])}<span><b>${esc(rung.name)}</b><small>${esc(rung.blurb)}</small><span class="it-stars">${ladderPoints()} points</span></span></div><p class="it-head">This run</p><div class="it-list">${run.map(([k,v])=>`<div class="it-cell"><span class="it-txt"><b>${esc(k)}</b></span><small>${esc(v)}</small></div>`).join('')}</div><p class="it-head">Your journey: win a run (a wedding, or a quest) to unlock the next class</p><div class="it-list">${steps}</div>`);
         hydrateInlineImages($('opened'));return;
       }
       journalView='awards'; // every achievement there is, earned ones first in each group
