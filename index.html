@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="dadb86c1fc">
+<html lang="en" data-build="69d399f6e7">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=dadb86c1fc"></script>
+  <script src="chapel_at_midnight.js?v=69d399f6e7"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=dadb86c1fc"></script>
+  <script src="marriage.js?v=69d399f6e7"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=dadb86c1fc"></script>
+  <script src="quests/professor-vale.js?v=69d399f6e7"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2402,7 +2402,7 @@
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       qhintMaybe(thread,profileNow); // she tells you what's going on in town
-      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
+      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow),...kesslerChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
@@ -2602,6 +2602,7 @@
       if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
       if(id.startsWith('qh:'))return chooseQhint(id,thread,profile); // what's going on in town
       if(id.startsWith('sq:'))return chooseSqChat(id,thread,profile); // the story quests
+      if(id.startsWith('kh:'))return chooseKesslerChat(id,thread,profile); // hiding from Kessler
       if(id==='photo'){
         const sent=picturesSent(thread,profile),another=sent.length>0;
         thread.photoRequests++;
@@ -7074,7 +7075,7 @@
       if(fionnActive())out.push('fionn');
       if(['seen','taken'].includes(world.coyote?.stage))out.push('coyote');
       if(['calling','carry'].includes(ms('husband')?.stage))out.push('husband');
-      if(['ringing','step','police'].includes(ms('envelope')?.stage))out.push('envelope');
+      if(['ringing','step','police','hunting'].includes(ms('envelope')?.stage))out.push('envelope');
       return out;
     }
     // The rule gives way after five days: a threat that has been live that long no longer holds the others back
@@ -7167,7 +7168,8 @@
           }
           if(['calling','carry'].includes(st.stage)&&st.warned>=4&&!Number.isInteger(st.dieDay))st.dieDay=world.day; // he comes
         }else if(id==='envelope'){
-          if(st.stage==='denise'&&world.day>st.stepDay){st.stage='done';if(hashSeed(world.seed+'|kessler')%3===0)st.dieDay=world.day+1;} // nothing at her house: one time in three he comes back for you
+          if(st.stage==='denise'&&world.day>st.stepDay){st.stage='hunting';st.huntDay=world.day;st.comeDay=world.day+2;st.hcalls=0;} // nothing at her house: he comes back for you (Chris, 4 November 2026)
+          if(st.stage==='hunting')kesslerNight(st);
           if(st.stage==='step'&&world.day>st.stepDay){
             st.has=false;st.stage='done';
             if(st.took){showGameNotice(kit.short);st.dieDay=world.day+1;}
@@ -7201,6 +7203,40 @@
           }
         }
       }
+    }
+    // The night Kessler comes, or the morning after you paid him.
+    function kesslerNight(st){
+      const fill=t=>fillIn(t,{ex:EX.name});
+      if(Number.isInteger(st.paidDay)&&world.day>st.paidDay){
+        if(st.paidOk){st.stage='done';showGameNotice(KESSLER_HUNT.paid);classWinCheck();}else st.dieDay=world.day; // an empty step: he comes in
+        return;
+      }
+      if(world.day<st.comeDay)return;
+      if(Number.isInteger(st.reportedDay)){ // the police were waiting
+        st.stage='caught';st.has=false;
+        let line=KESSLER_HUNT.caught;
+        if(st.took&&envelopeHasMoney(st)){line+=KESSLER_HUNT.caughtCash;if(walletOn()){cashMove(-envelopeCash(),'Cash handed to police');walletRender();}st.cash=false;st.took=false;}
+        showGameNotice(line);queueNews({id:'mini_kessler_arrest',...KESSLER_HUNT.news,body:fill(KESSLER_HUNT.news.body),image:'kessler_arrest',fallbackImage:'police_roadblock'},world.day);
+        classWinCheck();return;
+      }
+      if(st.hideWith&&world.day<=st.hideUntil){ // you weren't there
+        st.stage='done';showGameNotice(KESSLER_HUNT.ransacked);
+        queueNews({id:'mini_kessler_ransacked',...KESSLER_HUNT.newsRansacked,body:fill(KESSLER_HUNT.newsRansacked.body),image:'kessler_ransacked',fallbackImage:'crime_motel'},world.day);
+        classWinCheck();return;
+      }
+      st.dieDay=world.day; // he comes in
+    }
+    // Hiding: a woman who likes you lets you stay two nights.
+    function kesslerChatChoices(thread,profile){
+      const st=ms('envelope');
+      if(!st||st.stage!=='hunting'||st.hideWith||!profile||thread.blocked||thread.fumbled||thread.pending||profile.jeweller||warmthOf(thread)<3)return [];
+      return [['kh:hide',KESSLER_HUNT.hideLabel]];
+    }
+    function chooseKesslerChat(id,thread,profile){
+      const st=ms('envelope');
+      if(id!=='kh:hide'||!st||st.stage!=='hunting'||st.hideWith)return;
+      thread.log.push({who:'you',text:'Could I stay at yours for a couple of nights? I’d rather not be at mine.'});
+      return fionnReply(thread,profile,[{text:KESSLER_HUNT.hideYes[hashSeed(world.seed+'|hide|'+thread.id)%KESSLER_HUNT.hideYes.length]}],()=>{st.hideWith=thread.id;st.hideUntil=Math.max(st.comeDay,world.day+1);warmBy(thread,1);recordClue(`You are sleeping at ${hingeProfile(thread.id)?.name||'a friend’s'} until Kessler gives up.`);saveRun(true);});
     }
     // The woman selling pills, or stealing rings, is arrested: her customers may be next.
     function miniArrest(id){
@@ -7291,6 +7327,7 @@
       if(police&&c&&c.stage==='open'&&!Number.isInteger(c.tipDay))out.push({id:'mini:cleaner:tip',label:kit.cleaner.tip.label,mini:true});
       if(police&&c&&c.has&&!c.handed)out.push({id:'mini:cleaner:hand',label:kit.cleaner.handIn.label,mini:true});
       if(police&&e&&e.stage==='ringing')out.push({id:'mini:envelope:tip',label:kit.envelope.tip.label,mini:true});
+      if(police&&e&&e.stage==='hunting'&&!Number.isInteger(e.reportedDay))out.push({id:'mini:envelope:report',label:KESSLER_HUNT.reportLabel,mini:true}); // Kessler: the police wait at your door
       if(serviceId==='service:newsroom'&&w&&w.calls>=1&&!['exposing','done','skipped'].includes(w.stage)&&!w.newsroomDay)out.push({id:'mini:watch:news',label:kit.watch.newsroom.label,mini:true});
       return out;
     }
@@ -7301,6 +7338,7 @@
       if(id==='cleaner'&&act==='tip'){st.tipped=true;st.tipDay=world.day;return kit.tip.reply;}
       if(id==='cleaner'&&act==='hand'){st.handed=true;st.has=false;showGameNotice(kit.handedNotice);const tb=liveMatches().find(t=>hingeProfile(t.id).factionId==='thunderbirds');if(tb){herLine(tb,kit.thanks);warmBy(tb,1);arcsState().fav[tb.id]='ready';}return kit.handIn.reply;}
       if(id==='envelope'&&act==='tip'){st.stage='police';st.policeDay=world.day;return kit.tip.reply;}
+      if(id==='envelope'&&act==='report'&&st.stage==='hunting'){st.reportedDay=world.day;return KESSLER_HUNT.report;}
       if(id==='watch'&&act==='news'){
         if(!st.page)return kit.newsroom.noProof;
         st.newsroomDay=world.day;st.stage='exposing';st.exposeDay=world.day;
@@ -7321,6 +7359,7 @@
       const h=ms('husband'),e=ms('envelope'),w=ms('watch');
       if(h&&['calling','carry','left'].includes(h.stage)&&h.callDay!==world.day&&world.day>=h.nextCall)return 'x:m-husband';
       if(e&&e.stage==='ringing'&&e.callDay!==world.day)return 'x:m-envelope';
+      if(e&&e.stage==='hunting'&&e.callDay!==world.day&&!Number.isInteger(e.paidDay)&&!e.hideWith)return 'x:m-envelope'; // Kessler, after Denise
       if(w&&['calling','joined'].includes(w.stage)&&w.callDay!==world.day&&world.day>=w.nextCall)return 'x:m-watch';
       return null;
     }
@@ -7331,6 +7370,7 @@
       let said;
       if(which==='husband'&&st.stage==='left'){st.stage='done';said=kit.leftCall;} // his last call
       else if(which==='husband')said=miniFill(st.calls===1?kit.open:kit.again[(st.calls-2)%kit.again.length],'husband');
+      else if(which==='envelope'&&st.stage==='hunting'){said=st.hcalls?KESSLER_HUNT.again[(st.hcalls-1)%KESSLER_HUNT.again.length]:KESSLER_HUNT.open;st.hcalls=(st.hcalls||0)+1;}
       else if(which==='envelope')said=st.calls===1?kit.open:kit.later[(st.calls-2)%kit.later.length];
       else said=st.stage==='joined'?kit.ask:(ms('cleaner')?.handed||ms('cleaner')?.tbTold?kit.openRing:kit.open);
       if(which==='watch'&&st.calls===1)recordClue(kit.clue);
@@ -7340,6 +7380,7 @@
     function miniCallChoices(call){
       const kit=miniKit()[call.mini],st=ms(call.mini),c=kit.choices;
       if(call.mini==='husband'){if(st.stage==='done')return [{id:'m:hang',label:'Hang up'}];return [{id:'m:lie',label:c.lie},{id:'m:friends',label:c.friends},{id:'m:truth',label:c.truth},{id:'m:hang',label:c.hang}];}
+      if(call.mini==='envelope'&&st?.stage==='hunting'){const k=KESSLER_HUNT.choices;return [{id:'m:pay',label:k.pay},{id:'m:never',label:k.never},{id:'m:police',label:k.police},{id:'m:hang',label:k.hang}];}
       if(call.mini==='envelope')return [{id:'m:step',label:c.step},{id:'m:police',label:c.police},...(st?.stage==='ringing'&&deniseFree()?[{id:'m:denise',label:`Tell him ${EX.name} has it, and give him her address`}]:[]),{id:'m:hang',label:c.hang}]; // the Divorcé: send him to Denise
       if(call.phase==='what')return [{id:'m:join',label:c.join},{id:'m:refuse',label:c.refuse}];
       if(call.phase==='ask'){
@@ -7357,6 +7398,14 @@
         if(choice==='m:lie'){st.warned++;call.said=kit.lie;}
         else if(choice==='m:friends'){st.warned++;call.said=kit.friends;}
         else if(choice==='m:truth'){st.stage='told';st.toldDay=world.day;call.said=kit.truth;}
+        return done();
+      }
+      if(which==='envelope'&&st.stage==='hunting'){
+        const K=KESSLER_HUNT;
+        if(choice==='m:hang'){st.comeDay=Math.min(st.comeDay,world.day+1);showGameNotice(K.hang);endHerCall();return;} // hang up on him and he comes sooner
+        if(choice==='m:pay'){st.paidDay=world.day;st.paidOk=!!st.took&&envelopeHasMoney(st);if(st.paidOk){if(walletOn()){cashMove(-envelopeCash(),'Cash withdrawal');walletRender();}st.cash=false;st.took=false;}call.said=st.paidOk?K.pay:K.payEmpty;return done();}
+        if(choice==='m:never'){call.said=K.never;return done();}
+        if(choice==='m:police'){if(Number.isInteger(st.reportedDay)){st.comeDay=Math.max(st.comeDay,world.day+2);call.said=K.policeTrue;}else call.said=K.policeBluff;return done();}
         return done();
       }
       if(which==='envelope'){
@@ -7388,6 +7437,7 @@
       const which=MINI_CALLERS[id],kit=miniKit()[which],st=ms(which);
       if(!st)return;
       if(which==='husband'){st.nextCall=world.day+1;if(['calling','carry'].includes(st.stage)){st.ignored=(st.ignored||0)+1;if(st.ignored%2===0)st.warned++;} /* lies and hang-ups provoke him; so does every second call you let ring out (Chris, 4 November 2026) */strangerVoicemail(st.calls>=1?kit.name:'Unknown number',kit.voicemail[(st.calls+world.day)%kit.voicemail.length]);}
+      else if(which==='envelope'&&st.stage==='hunting'){strangerVoicemail('Unknown number',st.hcalls?KESSLER_HUNT.again[(st.hcalls-1)%KESSLER_HUNT.again.length]:KESSLER_HUNT.open);st.hcalls=(st.hcalls||0)+1;}
       else if(which==='envelope'){st.warned++;strangerVoicemail('Unknown number',kit.later[(st.warned+world.day)%kit.later.length]);}
       else{st.hangs=(st.hangs||0)+1;st.nextCall=world.day+1;if(st.hangs>=3&&st.stage==='calling'){st.stage='refused';st.revengeDay=world.day+1;}}
       saveRun(true);
@@ -10648,6 +10698,30 @@
     };
     var LAWYER_LAST='It’s your lawyer. I read the paper. The support order ends with her. There is nothing left to file and nothing left to pay. Take care of yourself.'; // his last word on it (Chris, 4 November 2026: after she dies, none of the lawyer stuff is needed)
     var KESSLER_DENISE='{ex}. My ex-wife. East side, the house with the dog. Fine. If it isn’t there, I know where you live.';
+    // Kessler comes back (Chris, 4 November 2026). You sent him to Denise and his money wasn't there. Once she is
+    // dead he rings again: two nights, his money on the step, or he comes in. Pay him, have the police waiting, or
+    // sleep somewhere else; otherwise he comes. The Divorcé's win waits until he is dealt with.
+    var KESSLER_HUNT={
+      open:'Your ex-wife didn’t have it. She had a dog and a lot to say, and now she hasn’t. I still don’t have my money. You sent me to that house, so now you’re my problem. Two nights. Put it on the step, or I come in.',
+      again:['One night left. You know which step.','I drove past your door today. You weren’t looking.','I don’t want you. I want what’s mine. Don’t make me want you.'],
+      choices:{pay:'Tell him the money will be on the step tonight',never:'Tell him you never took it',police:'Tell him the police are watching your door',hang:'Hang up'},
+      pay:'Good. Tonight. Then you forget this number, and so do I.',
+      payEmpty:'Tonight, then. And it had better all be there.',
+      never:'Then somebody did, and you’re the only somebody I know.',
+      policeTrue:'Are they? Then I’ll wait until they get bored.',
+      policeBluff:'No, they aren’t. I’d have seen them.',
+      hang:'The line goes dead. A minute later a text, from no number at all: Tomorrow, then.',
+      paid:'The money has gone from the step in the morning. Nothing else. Not even a note. Your phone stays quiet.',
+      reportLabel:'Report a man who has threatened to come to your door',
+      report:'Doreen takes it down. An officer will sit outside your door every night this week. If he comes, we’ll have him. And whatever he’s after, don’t keep it in your room.',
+      caught:'Blue lights outside your door in the night. Shouting, then nothing. In the morning there is a chalk mark on the step where a man went down.',
+      caughtCash:' Later an officer knocks for the envelope money. They knew it was here. You hand it over.',
+      hideLabel:'Ask if you can stay at hers for a couple of nights',
+      hideYes:['Two nights. Bring a toothbrush, not trouble.','Of course. The couch is yours. Don’t ask why there is a sword on the wall.','Fine. Two nights. My mother will ask questions. Lie well.','Yes. I won’t ask. Come after dark.'],
+      ransacked:'He came while you were away. Your room is torn apart: the mattress cut open, the drawers on the floor, and on the mirror, in your own toothpaste, WRONG STEP. He hasn’t called since.',
+      news:{section:'Crime',title:'ARMED MAN ARRESTED AT MOTEL DOOR',summary:'Police waiting outside a room on the interstate caught a man with a gun.',body:'Police watching a motel room on the interstate arrested an armed man in the night. Detectives want to question him about the death of {ex} on the east side. He told officers a man had given him her address. Police say they are not looking for anyone else.'},
+      newsRansacked:{section:'Crime',title:'MOTEL ROOM TORN APART ON THE INTERSTATE',summary:'Nothing taken, the manager says.',body:'A room at the interstate motel was ransacked in the night while its tenant was away. Nothing appears to have been taken. Police are looking for a man seen leaving in a gray sedan, who is also wanted for questioning about the death of {ex}.'}
+    };
     var COVER={ask:'Weird question. If anyone asks, could you say I was with you that night? All night.',
       yes:['Fine. You were here. All night. We watched a movie and you fell asleep. You owe me.','Okay. You were here. Don’t make me regret it.'],
       no:['I’m not lying to the police for you. I barely know you.','No. Whatever this is, I don’t want to know.'],
@@ -10883,6 +10957,7 @@
       if(!world||world.victory)return;
       const s=sororityState(),pl=selectedDifficulty==='divorce'?denisePlan():null,gone=!!pl&&pl.stage==='clear'; // Denise dead, and nobody looking at you
       if(selectedDifficulty==='looksmaxxer'&&s.yes)world.victory={type:'stacey',bride:s.yes,day:world.day};
+      else if(gone&&ms('envelope')?.stage==='hunting'){achToast(`${EX.name} is gone, but the man from the envelope is still looking for you.`);return;} // Kessler first
       else if(gone&&!(pl.owe>0))world.victory=s.yes?{type:'divorce',bride:s.yes,day:world.day}:{type:'denise',day:world.day}; // her death is the win: with the cheerleader if she has said yes, without her otherwise
       else{
         if(gone&&pl.owe>0){achToast('The man from the Cactus wants his other thousand first.');return;}
