@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="ac2f55cb43">
+<html lang="en" data-build="5bc68ff59a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -174,6 +174,7 @@
     .tut-ask h2 { margin: 0; font-size: clamp(18px,11cqw,44px); line-height: 1.2; font-weight: bold; }
     .tut-ask-yes { width: 92%; padding: 10% 0; border: 0; border-radius: 12px; background: linear-gradient(#5fd35b,#2c9a2a); color: #fff; font: bold clamp(20px,12cqw,48px) Arial,sans-serif; box-shadow: 0 4px 0 #1d6b1c, 0 8px 18px #0009; cursor: pointer; }
     .tut-ask-no { width: 44%; padding: 3.5% 0; border: 0; border-radius: 8px; background: linear-gradient(#e2605a,#b2302b); color: #fff; font: bold clamp(12px,5.5cqw,22px) Arial,sans-serif; box-shadow: 0 2px 0 #7d1f1b; cursor: pointer; }
+    .tut-ask-never { margin-top: -6%; padding: 2% 4%; border: 0; background: none; color: #c9d4e4; text-decoration: underline; font: clamp(10px,4.2cqw,17px) Arial,sans-serif; cursor: pointer; }
     .tut-ask small { color: #9fb0c8; font-size: clamp(9px,3.6cqw,14px); }
     .screen { container-type: inline-size; }
     .day-dialog { position: absolute; z-index: 30; top: 21px; left: 50%; transform: translateX(-50%); width: 78%; padding: 8px 9px; border: 2px solid #c39a61; border-radius: 3px; background: #090e1cf0; box-shadow: inset 0 0 0 1px #3a2a12, 0 0 0 1px #030612, 0 6px 14px #0009; color: #fff0d3; text-align: center; font: bold 11px Arial,sans-serif; }
@@ -616,9 +617,10 @@
     .coach-arrow::before { content: ''; position: absolute; left: 10px; top: 0; width: 24px; height: 40px; background: #e02633b3; border-radius: 4px; }
     .coach-arrow::after { content: ''; position: absolute; left: 0; top: 36px; border: 22px solid transparent; border-top: 34px solid #e02633b3; border-bottom: 0; }
     html.coach-art .coach-arrow::before, html.coach-art .coach-arrow::after { display: none; }
-    html.coach-art .coach-arrow { background: var(--coach-arrow) center / contain no-repeat; }
+    html.coach-art .coach-arrow { width: 92px; height: 92px; background: var(--coach-arrow) center / contain no-repeat; animation: coachSwoop .9s ease-in-out infinite; } /* the curved spray-paint arrow: its tip is the bottom-right corner */
+    @keyframes coachSwoop { 50% { translate: var(--swoop-x,4px) var(--swoop-y,4px); } }
     .coach-note { position: absolute; width: 230px; padding: 12px 14px 10px; background: #f6f1e4; color: #1d1a16; text-shadow: none; border: 1px solid #cfc6b0; box-shadow: 0 4px 12px #0007; font: bold 13px/1.35 'Courier New', Courier, monospace; pointer-events: auto; }
-    html.coach-art .coach-note { background: none; border-style: solid; border-color: transparent; border-width: 14px 16px; border-image: var(--coach-note) 40 fill / 14px 16px stretch; box-shadow: 0 4px 12px #0006; padding: 2px 4px; }
+    html.coach-art .coach-note { background: none; border-style: solid; border-color: transparent; border-width: 16px 16px; border-image: var(--coach-note) 48 fill / 16px 16px stretch; box-shadow: none; filter: drop-shadow(0 4px 8px #0008); padding: 4px 6px; }
     .coach-note p { margin: 0 0 6px; color: #1d1a16; }
     .coach-note div { display: flex; justify-content: space-between; gap: 8px; }
     .coach-note button { border: 0; background: none; color: #a8121e; font: bold 11px 'Courier New', Courier, monospace; text-decoration: underline; cursor: pointer; padding: 0; }
@@ -779,11 +781,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=ac2f55cb43"></script>
+  <script src="chapel_at_midnight.js?v=5bc68ff59a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=ac2f55cb43"></script>
+  <script src="marriage.js?v=5bc68ff59a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=ac2f55cb43"></script>
+  <script src="quests/professor-vale.js?v=5bc68ff59a"></script>
 </head>
 <body>
   <main class="workbench">
@@ -915,7 +917,7 @@
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go to bed"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
-              <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2 id="tut-ask-title">Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><small>It is always in iTunes, under How to play.</small></div>
+              <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2 id="tut-ask-title">Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><button class="tut-ask-never" id="tut-ask-never" hidden>Don’t ask again</button><small id="tut-ask-note">It is always in iTunes, under How to play.</small></div>
               <div class="day-dialog pop-l" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
@@ -2413,11 +2415,12 @@
     }
     function ensureHingeThread(profile,responseMode='now'){
       if(hingeThreads.has(profile.id))return hingeThreads.get(profile.id);
-      const awaiting=responseMode==='tomorrow'||responseMode==='ghost';
+      const awaiting=(responseMode==='tomorrow'||responseMode==='ghost')&&!(world&&!world.guide&&typeof coachState==='function'&&coachState().on===true); // your first match on the tour replies at once
       const thread={id:profile.id,topics:[],number:null,pending:false,fumbled:false,blocked:false,photoRequests:0,photoRefusals:0,
         warmth:0,followUp:null,deeper:null,talk:sanitizeTalk(null),matchDay:world.day,
         awaiting,replyOnDay:responseMode==='tomorrow'?world.day+1:responseMode==='ghost'?world.day+2+hashSeed(world.seed+'|ghost|'+profile.id)%3:null,ghosted:responseMode==='ghost',
         log:awaiting?[]:[{who:'her',text:introFor(profile)}],callLog:[]};
+      if(world&&!world.guide&&typeof coachState==='function'&&coachState().on===true&&profile.id!==bearHingeCard.id&&!profile.sorority&&!mustReply(profile))world.guide=profile.id; // your guide for the tour
       if(!awaiting&&botched())botchTree(thread).said=true; // her first message was about it
       thread.bj=thread.log.length;
       hingeThreads.set(profile.id,thread);
@@ -2434,7 +2437,23 @@
     // A woman who leaves you on read (ghosts) comes back 2-4 days later: half the time with a
     // late reply, half the time by unmatching you. A woman a quest needs always replies.
     const LATE_REPLIES=['Sorry, I vanished for a few days.','Sorry! My week ate me alive.','I saw your message and then life happened. Sorry.','Okay, I’m finally answering. Hi.'];
+    // Your guide (Chris, 5 November 2026): the first woman you match while the guided tour is on. Until the tour is over
+    // (or Day 4) she can't unmatch, block or go quiet on you, a wrong answer costs nothing, she warms up faster, and she
+    // gives you her number after a couple of exchanges, so the first conversation teaches the game instead of ending it.
+    function guideActive(id){return !!world&&!!id&&world.guide===id&&world.day<=4&&typeof coachState==='function'&&coachState().on===true;}
+    // The safety net: whatever a side story does (a quest that blocks you for the wrong answer, a fetish, an event),
+    // your guide takes it back while the tour lasts. Found by the tour bot: 1 game in 200 lost her to a side story.
+    const GUIDE_SORRY=['Sorry. Ignore that. I’m being dramatic. Where were we?','Okay, I take that back. Bad day. Keep talking to me.','Wait. Don’t go. I didn’t mean that. Ask me something.'];
+    function guideShield(){
+      if(!world?.guide||!guideActive(world.guide))return;
+      const t=hingeThreads.get(world.guide);if(!t||t.missing||t.dead||t.pending)return;
+      if(!(t.blocked||t.unmatched||t.quiet||t.fumbled))return;
+      t.blocked=false;t.unmatched=false;t.quiet=false;t.fumbled=false;
+      for(const line of t.log)if(line.block)delete line.block;
+      t.log.push({who:'her',text:GUIDE_SORRY[(t.log.length)%GUIDE_SORRY.length]});
+    }
     function mustReply(profile){
+      if(guideActive(profile?.id))return true; // your guide always replies
       const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA,...window.MATCH_CHAPEL_ENGINE.ids.FLYER_GOTHS]:[];
       return !!(profile.jeweller||profile.factionId==='sisters_of_mercy'||chapelIds.includes(profile.id)||PV?.engine?.profileToPerson?.(profile.id)||fionnGirlNow(profile.id)); // Theon's three, while he's at large
     }
@@ -2562,8 +2581,8 @@
         if(topic.id==='pv_rumour'&&(qhintState().vale?.by===thread.id||chatCovered(thread,'vale')))continue; // you've already talked about him: don't ask if she's heard of him (Chris, 5 November 2026)
         add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${topic.confirm?'⚠ ':'🎓 '}${esc(topic.label)}</button>`,1); // ⚠ final: it happens on the first tap
       }
-      if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number && talkState(thread).numberRefusedDay!==world.day){
-        add('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>',2);
+      if((guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length>=2:thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2)) && !thread.number && talkState(thread).numberRefusedDay!==world.day){ // your guide: after any two things you've said
+        add('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>',guideActive(thread.id)?0:2); // on the tour it always shows
       }
       // Always offered. After her first picture it becomes "Another one?".
       add(`<button class="hinge-chat-choice photo-choice" data-hinge-topic="photo">${esc(flirtAskLabel(thread,hingeProfile(thread.id),picturesSent(thread,hingeProfile(thread.id)).length>0))}</button>`,3);
@@ -2578,6 +2597,7 @@
     const QUEST_ASK=/^(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     const QUEST_ASK_HTML=/data-hinge-topic="(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     function renderHinge(){
+      guideShield(); // the tour: your guide never stays lost
       touchThreads(); // the chat list order, and closed chats
       let body='';
       skipMatchedCards(); // never someone you've already matched with
@@ -2722,6 +2742,7 @@
       },900+Math.floor(gameRandom()*1800));
     }
     function chooseHingeTopic(id){
+      guideShield();
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(id==='dad:unmatch'&&thread&&profile&&!thread.blocked)return chooseDad(id,thread,profile); // her father: even while her reply is pending
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked||thread.quiet)return;
@@ -2765,7 +2786,7 @@
           return;
         }
         // A woman over fifty is scandalised to be asked, and blocks you on the spot.
-        if((profile.age||0)>OLDER_WOMAN_AGE){
+        if((profile.age||0)>OLDER_WOMAN_AGE&&!guideActive(profile.id)){ // (your guide just doesn't answer that one)
           thread.blocked=true;
           thread.log.push({who:'her',text:gamePick(OLDER_WOMAN_LINES),block:true});
           maybeReported(profile,.3,'older'); // Truecel: asking a woman over fifty
@@ -2785,7 +2806,7 @@
           const talked=thread.topics.length+warmthOf(thread)+heatOf(thread); // warmth counts, and a cold woman needs more talk; so does the heat between you
           const willing=tone()==='mogger'||(tone()==='normie'?talked>=needs:talked>=needs+2&&gameRandom()<.5);
           const refused=thread.photoRefusals||0; // how many times she has already said no
-          if(unseen.length&&!willing&&refused>=1&&gameRandom()<pushRisk(refused,warmthOf(thread))){
+          if(unseen.length&&!willing&&refused>=1&&!guideActive(profile.id)&&gameRandom()<pushRisk(refused,warmthOf(thread))){
             // Pushed past no, without the rapport to get away with it: she blocks you.
             thread.blocked=true;thread.pending=false;
             thread.log.push({who:'her',text:gamePick(PUSH_BLOCK_LINES),block:true});
@@ -2828,10 +2849,10 @@
         thread.log.push({who:'you',text:'Do you always take yourself this seriously? It was meant to be a compliment.'});
         reply=hingeDialogue?.characterLines?.[profile.id]?.fumble||'Wow. That was rude. I don’t think we should carry on talking.';
       }else if(id==='number'){
-        if(thread.topics.length<(hingeDialogue?.numberUnlockAfterTopics||2))return;
+        if(guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length<2:thread.topics.length<(hingeDialogue?.numberUnlockAfterTopics||2))return;
         thread.followUp=null;
         thread.log.push({who:'you',text:hingeDialogue?.phoneNumber?.player||'Could I have your number?'});
-        if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'&&!profile.jeweller){ // she's gone cold on you: not today (a jeweller still gives her shop line: she wants customers, 4 November 2026)
+        if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'&&!profile.jeweller&&!guideActive(profile.id)){ // she's gone cold on you: not today (a jeweller still gives her shop line: she wants customers, 4 November 2026)
           talkState(thread).numberRefusedDay=world.day;
           lineSpeaker=profile.id;
           reply=variedPick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.','Not today.','You’ll have to earn that one.'],profile.id+'|nonumber|'+world.day);
@@ -2858,7 +2879,7 @@
       renderHinge();
       herWait(thread,()=>{
         thread.log.push({who:'her',text:reply});thread.pending=false;
-        if(id==='fumble')thread.fumbled=true;
+        if(id==='fumble'&&!guideActive(profile.id))thread.fumbled=true; // your guide forgives it
         else if(tone()==='mogger'&&profile.factionId!=='sisters_of_mercy'&&gameRandom()<.35){ // Mogger: unasked pictures
           const unseen=(profile.privatePhotos||[]).filter(picture=>!picturesSent(thread,profile).includes(picture.src));
           if(unseen.length)thread.log.push({who:'her',text:unaskedCaption(thread,profile),image:gamePick(unseen).src});
@@ -2914,6 +2935,7 @@
     };
     const warmthOf=thread=>Number.isFinite(thread?.warmth)?thread.warmth:0;
     const warmBy=(thread,delta)=>{
+      if(guideActive(thread.id))delta=delta<0?0:delta+1; // your guide: a wrong answer costs nothing, a good one counts double
       if(delta>0&&tone()==='truecel'&&kindred(hingeProfile(thread.id))&&hashSeed(world.seed+'|kin|'+thread.id+'|'+warmthOf(thread))%2===0)delta+=1; // outsiders recognise one of their own
       thread.warmth=Math.max(-3,Math.min(5,warmthOf(thread)+delta));if(thread.warmth>=3&&thread.number)ensureCallSchedule();
     };
@@ -4411,21 +4433,42 @@
         {title:'The cheerleaders',points:['You are older now, and the sorority girls on Hinge call you daddy.','Send one flowers ($40), twice, and talk until she really likes you.','Ask her out with $800 in the bank, and she may say yes.']},
         {title:'Getting rid of Denise',points:['There is more than one way: a man at the Lucky Cactus who solves problems, her brakes, a bottle of wine with pills in it, a borrowed revolver, and stranger things.','Each has a way to go wrong. Detective Moss asks questions afterwards: have an alibi ready.']},
         {title:'Free at last',points:['Denise gone, nothing owed, and nobody looking at you: you win.','A cheerleader who said yes as well makes it a better win.']}
+      ],
+      // The Mogger's and the Truecel's own (Chris, 5 November 2026). Pictures: assets/tutorial/mogger-N.png, truecel-N.png.
+      mogger:[
+        {title:'Easy mode',points:['Women come to you. Most of them like you before you say a word.','Some like you first and message you. Some send pictures you never asked for.','A wrong answer costs you less than it costs anyone else.']},
+        {title:'Jealousy',points:['Women who know each other talk. Two friends who both like you will find out, and both ring you on the same day.','Tell one of them a joke you already told her friend, and she will know.']},
+        {title:'Her dad',points:['Some of the women you talk to have fathers. One of them is a police officer.','He rings you and tells you to unmatch his daughter. Do what he says, or deal with him.']},
+        {title:'The girl who keeps calling',points:['Moira matched with you, and now she will not stop ringing.','Her mother and her newsroom know things about her. Ask her friends, and find out how to make it stop.']},
+        {title:'Your face is worth stealing',points:['A man called Theon is sending your pictures to women as his own. He rings you, and he speaks in verse.','Find out who he is before he comes for you. Keep something in your cupboard.']}
+      ],
+      truecel:[
+        {title:'Back to reality',points:['Matches are rare. Some only matched you as a dare, or because they felt sorry for you.','Every word counts: a shrug from you is a no from her, and a wrong answer costs double.']},
+        {title:'Careful what you say',points:['Ask a woman for a picture and she may report you. Push past a no, or ask a Sister of Mercy or a woman over fifty, and the odds go up a lot.','The first time, the police ring with a warning. The second time, they come for you.']},
+        {title:'Your own kind',points:['The goth girls and the shy, quiet ones know one of their own when they see him.','They are never curt with you, and they warm up faster.']},
+        {title:'The group chat',points:['Someone is posting screenshots of your messages in the girls’ group chat.','Work out who, and ask her. Accuse the wrong girl and everyone hears about it.']},
+        {title:'Undeniable',points:['Now and then the paper sells LPC-A365. One tablet at night, and for a while women see someone else.','Then it wears off. Read the paper: the man selling it is running for mayor.']}
       ]
     };
     var tutorialPage=0,tutorialSet='main';
     const tutorialPages=()=>CLASS_TUTORIALS[tutorialSet]||TUTORIAL;
-    const TUTORIAL_NAMES={looksmaxxer:'The Looksmaxxer',divorce:'The Divorcé'};
+    const TUTORIAL_NAMES={looksmaxxer:'The Looksmaxxer',divorce:'The Divorcé',mogger:'The Mogger',truecel:'The Truecel'};
     function openTutorial(page=0,set='main'){tutorialSet=CLASS_TUTORIALS[set]?set:'main';tutorialPage=Math.max(0,Math.min(tutorialPages().length-1,page));$('tutorial').hidden=false;renderTutorial();}
+    // Every class has a tutorial, offered every time you start it (Chris, 5 November 2026): Yes opens it (the Normie's
+    // is the guided tour, for that game), No goes straight in, and Don't ask again stops it for that class. All of
+    // them stay in Settings, under How to play.
+    const CLASS_NAMES={normie:'Normie',mogger:'Mogger',truecel:'Truecel',looksmaxxer:'Looksmaxxer',divorce:'Divorcé'};
+    const CLASS_TUT_OFF='matchClassTutorialsOff';
+    function classTutorialOff(){try{return JSON.parse(localStorage.getItem(CLASS_TUT_OFF)||'{}')||{};}catch{return {};}}
     function classTutorialMaybe(){
       const cls=selectedDifficulty;
-      if(!CLASS_TUTORIALS[cls]||window.MATCH_NO_CLASS_TUTORIAL)return;
-      let seen={};try{seen=JSON.parse(localStorage.getItem('matchClassTutorials')||'{}')||{};}catch{}
-      if(seen[cls])return;
-      seen[cls]=true;try{localStorage.setItem('matchClassTutorials',JSON.stringify(seen));}catch{}
-      // Asked, not opened (Chris, 5 November 2026): the same big Yes and small No as the first launch, once per class.
+      if(!CLASS_NAMES[cls]||(cls!=='normie'&&!CLASS_TUTORIALS[cls])||window.MATCH_NO_CLASS_TUTORIAL||window.MATCH_NO_TUTORIAL_ASK)return;
+      if(classTutorialOff()[cls])return; // Don't ask again
+      if(FIRST_VISIT&&!firstRunStarted)return; // the very first game has its own question, which turns the guided tour on
+      if(cls==='normie'&&coachState().on===true&&COACH_STEPS.some(st=>st.core&&!coachState().done[st.id]))return; // the tour is already on
       tutAskClass=cls;
-      $('tut-ask-title').textContent=`Do you want to play the ${{looksmaxxer:'Looksmaxxer',divorce:'Divorcé'}[cls]||'class'} tutorial?`;
+      $('tut-ask-title').textContent=`Do you want to play the ${CLASS_NAMES[cls]} tutorial?`;
+      $('tut-ask-never').hidden=false;$('tut-ask-note').textContent='They are all in Settings, under How to play.';
       setLowered(false);
       $('tut-ask').hidden=false;
     }
@@ -6778,6 +6821,7 @@
     }
     function flirtUnseen(thread,profile){const sent=picturesSent(thread,profile);return (profile.privatePhotos||[]).filter(picture=>!sent.includes(picture.src));}
     function flirtBlock(thread,profile,text,reason){
+      if(guideActive(thread.id)){thread.log.push({who:'her',text:seededPick(['Easy. I’m going to pretend you didn’t say that.','Okay, that one was a bit much. I’ll let it go. Once.','Wow. Rewind. Try that again, nicer.'],thread.id+'|'+thread.log.length)});return;} // your guide on the tour: a telling-off, not a block
       thread.blocked=true;
       thread.log.push({who:'her',text,block:true});
       maybeReported(profile,.5,reason); // Truecel: she reports you
@@ -11109,33 +11153,54 @@
     const coachYouSpoke=()=>[...hingeThreads.values()].some(t=>t.log.some(l=>l.who==='you'));
     const coachNumber=()=>[...hingeThreads.values()].some(t=>t.number);
     const coachHome=()=>!!world&&!currentApp&&!stage.classList.contains('lowered');
+    const guideThread=()=>world?.guide?hingeThreads.get(world.guide):null;
+    const guideNumber=()=>guideThread()?.number||null;
+    const inGuideChat=()=>currentApp==='hinge'&&hingeView==='thread'&&!!world?.guide&&activeChatId===world.guide;
+    const onGuideCall=()=>!!world?.guide&&(activeCallId===world.guide||herCall?.id===world.guide);
     var COACH_STEPS=[
-      {id:'hinge',core:1,target:'[data-app="hinge"]',text:'Tap Hinge. This is where you meet the women of Sunfall.',when:()=>coachHome(),done:()=>currentApp==='hinge'},
+      {id:'hinge',core:1,nav:1,target:'[data-app="hinge"]',text:'Tap Hinge. This is where you meet the women of Sunfall.',when:()=>coachHome()&&['swipe','chats','open','talk','more','asknumber'].includes(coachNextCore()),done:()=>false}, // a way back in: shown whenever the next step is inside Hinge
       {id:'swipe',core:1,target:'[data-swipe="like"]',text:'Like her with the heart, or pass. Ten swipes a day. Tap her photo to see more of her.',when:()=>currentApp==='hinge'&&hingeView==='discover'&&!!document.querySelector('[data-swipe="like"]'),done:()=>hingeSwipesToday>0||hingeThreads.size>0},
       {id:'chats',core:1,target:'[data-hinge-tab="chats"]',text:'It’s a match. Open your chats to talk to her.',when:()=>currentApp==='hinge'&&hingeView==='discover'&&hingeThreads.size>0,done:()=>hingeView!=='discover'&&currentApp==='hinge'},
-      {id:'open',core:1,target:'[data-chat-open]',text:'Tap her to open the conversation.',when:()=>currentApp==='hinge'&&hingeView==='chats',done:()=>hingeView==='thread'},
-      {id:'talk',core:1,target:'.hinge-options',text:'Pick what to say. Ask about her life and answer her questions. Warm her up and she’ll give you her number.',when:()=>currentApp==='hinge'&&hingeView==='thread'&&!!document.querySelector('.hinge-chat-choice'),done:()=>coachYouSpoke()},
-      {id:'bed',core:1,target:'#day-button',text:'Done for today? Tap the day up here to go to bed. Tomorrow brings new matches and the paper.',when:()=>coachHome()&&coachYouSpoke()&&world.day===1,done:()=>world.day>1},
+      {id:'open',core:1,target:()=>world?.guide&&document.querySelector(`[data-chat-open="${world.guide}"]`)||'[data-chat-open]',text:'Tap her to open the conversation.',when:()=>currentApp==='hinge'&&hingeView==='chats',done:()=>hingeView==='thread'},
+      {id:'talk',core:1,target:'.hinge-options',text:'She’s your guide today, so don’t worry about saying the wrong thing. Pick what to say: ask about her life, answer her questions.',when:()=>currentApp==='hinge'&&hingeView==='thread'&&!!document.querySelector('.hinge-chat-choice'),done:()=>coachYouSpoke()},
+      {id:'more',core:1,target:'.hinge-options',text:'Good. Say one more thing and you can ask for her number.',when:()=>inGuideChat()&&coachYouSpoke()&&!guideNumber()&&!document.querySelector('[data-hinge-topic="number"]')&&!!document.querySelector('.hinge-chat-choice'),done:()=>!!guideNumber()||!!document.querySelector('[data-hinge-topic="number"]')},
+      {id:'asknumber',core:1,target:'[data-hinge-topic="number"]',text:'Now ask for her number. With it you can ring her.',when:()=>inGuideChat()&&!guideNumber()&&!!document.querySelector('[data-hinge-topic="number"]'),done:()=>!!guideNumber()},
+      {id:'home',core:1,target:'#home-hit',text:'You’ve got her number. Press the Home button to go back to your apps.',when:()=>!!currentApp&&!!guideNumber()&&!world.guideCalled&&!['notes','calls'].includes(currentApp)&&!onGuideCall(),done:()=>!currentApp||['notes','calls'].includes(currentApp)},
+      {id:'contacts',core:1,target:'[data-app="notes"]',text:'Open Contacts. Everyone who gives you a number is in here.',when:()=>coachHome()&&!!guideNumber()&&!world.guideCalled,done:()=>currentApp==='notes'||currentApp==='calls'},
+      {id:'dial',core:1,target:()=>document.querySelector(`[data-note-dial="${guideNumber()}"]`),text:'Tap her name to ring her.',when:()=>currentApp==='notes'&&!!guideNumber()&&!world.guideCalled,done:()=>currentApp==='calls'},
+      {id:'ring',core:1,target:'#dial-call',text:'Press the green button to call her.',when:()=>currentApp==='calls'&&!!guideNumber()&&!world.guideCalled&&!onGuideCall()&&!!document.querySelector('#dial-call'),done:()=>onGuideCall()||!!world.guideCalled},
+      {id:'oncall',core:1,target:'[data-call-topic], #call-bubble.visible .call-bubble-buttons',text:'You’re through. Pick what to ask her. On the phone she tells you things she wouldn’t type.',when:()=>onGuideCall(),done:()=>!!world.guideCalled},
+      {id:'back',core:1,nav:1,target:'#home-hit',text:'Nice. Press the Home button to get back to your apps.',when:()=>!!currentApp&&!onGuideCall()&&!herCall&&!activeCallId&&coachNextCore()==='bed'&&coachYouSpoke()&&currentApp!=='hinge',done:()=>false}, // a way back out: shown whenever the next step is on the home screen
+      {id:'bed',core:1,target:'#day-button',text:'Done for today? Tap the day up here to go to bed. Tomorrow brings new matches and the paper.',when:()=>coachHome()&&coachYouSpoke()&&world.day===1&&(!guideNumber()||!!world.guideCalled),done:()=>world.day>1},
       {id:'paper',core:1,target:'[data-app="news"]',text:'The Sunfall Daily comes every morning. Read it: everything in it ends up being useful.',when:()=>coachHome()&&world.day>=2,done:()=>currentApp==='news'},
-      {id:'number',core:1,target:'#home-hit',text:'You’ve got her number. Press Home, then open Calls to ring her.',when:()=>!!currentApp&&currentApp!=='calls'&&coachNumber(),done:()=>coachNumber()&&(!currentApp||currentApp==='calls')},
-      {id:'calls',core:1,target:'[data-app="calls"]',text:'Calls: ring her here. On the phone she tells you more than she writes.',when:()=>coachHome()&&coachNumber(),done:()=>currentApp==='calls'},
-      {id:'ring',target:'#incoming-banner',text:'She’s ringing. Tap to answer.',when:()=>!!world&&!$('incoming-banner').hidden,done:()=>$('incoming-banner').hidden},
+      {id:'ringing',target:'#incoming-banner',text:'She’s ringing. Tap to answer.',when:()=>!!world&&!$('incoming-banner').hidden,done:()=>$('incoming-banner').hidden},
       {id:'door',target:'.floor-item',text:'Something was left at your door. Tap it to pick it up: it goes in your bedside cupboard.',when:()=>!!world&&stage.classList.contains('lowered')&&!!document.querySelector('.floor-item'),done:()=>!document.querySelector('.floor-item')},
       {id:'notes',target:'[data-app="blackbook"]',text:'Clues and leads you pick up are kept in Notes.',when:()=>coachHome()&&(world.clues||[]).length>0,done:()=>currentApp==='blackbook'},
       {id:'bank',target:'#bank-app',text:'Your money lives in the Bank. Bills come out of it, so keep an eye on it.',when:()=>coachHome()&&walletOn()&&!$('bank-app').hidden,done:()=>currentApp==='bank'}
     ];
+    // Future-proofing: a step whose target can't be found for a while is skipped rather than stuck; the tour's own
+    // steps finish by themselves from Day 5; and a call with your guide that ends counts as done.
+    const COACH_WAIT_MS=12000,COACH_LAST_DAY=4;var coachMissing={};
+    function coachNextCore(){const c=coachState();return (COACH_STEPS.find(st=>st.core&&!st.nav&&!c.done[st.id])||{}).id||null;}
+    function coachTarget(step){const t=typeof step.target==='function'?step.target():step.target;if(!t)return null;if(typeof t!=='string')return t;return [...document.querySelectorAll(t)].find(e=>e.offsetParent!==null||e.getClientRects().length)||null;}
     function coachState(){const p=playerProfile();if(!p.coach||typeof p.coach!=='object')p.coach={on:null,done:{}};if(!p.coach.done||typeof p.coach.done!=='object')p.coach.done={};return p.coach;}
     var coachNow=null;
     function coachTick(){
       const el=$('coach');if(!el)return;
-      if(window.MATCH_NO_TUTORIAL_ASK||window.MATCH_NO_COACH||!world||!$('tut-ask').hidden||!$('fatal-overlay')||$('fatal-overlay').classList.contains('visible')||$('home-invasion').classList.contains('visible')){el.hidden=true;coachNow=null;return;}
+      if(window.MATCH_NO_TUTORIAL_ASK||window.MATCH_NO_COACH||!world||!$('tut-ask').hidden||$('fatal-overlay')?.classList.contains('visible')||$('home-invasion')?.classList.contains('visible')){el.hidden=true;coachNow=null;return;}
       const c=coachState();let changed=false;
+      if(onGuideCall())world.guideOnCall=true;else if(world.guideOnCall){world.guideOnCall=false;world.guideCalled=true;} // the call with your guide is over
       const eligible=st=>!c.done[st.id]&&(st.core?c.on===true:c.on!==false);
-      for(const st of COACH_STEPS)if(eligible(st)&&(st.core||coachNow===st.id)&&st.done()){c.done[st.id]=world.day||1;changed=true;} // a step you have already done (shown or not) is done
-      if(changed)saveProfile();
+      if(world.day>COACH_LAST_DAY)for(const st of COACH_STEPS)if(st.core&&eligible(st)){c.done[st.id]=world.day;changed=true;} // the tour's days are over
+      for(let guard=0;guard<COACH_STEPS.length;guard++){const first=COACH_STEPS.find(st=>st.core&&!st.nav&&eligible(st));if(!first||!first.done())break;c.done[first.id]=world.day||1;changed=true;} // the tour's own steps finish in order: one you have already done is ticked off
+      for(const st of COACH_STEPS)if(eligible(st)&&coachNow===st.id&&st.done()){c.done[st.id]=world.day||1;changed=true;} // the step on screen, once you've done what it says
+      if(!COACH_STEPS.some(st=>st.core&&!st.nav&&eligible(st))&&!c.done.hinge){c.done.hinge=world.day||1;changed=true;} // the tour is over: no more way-back arrows
       const step=COACH_STEPS.find(st=>eligible(st)&&st.when());
-      const target=step&&[...document.querySelectorAll(step.target)].find(e=>e.offsetParent!==null||e.getClientRects().length);
+      const target=step&&coachTarget(step);
+      if(step&&!target){const t0=coachMissing[step.id]||(coachMissing[step.id]=Date.now());if(Date.now()-t0>COACH_WAIT_MS){c.done[step.id]=world.day||1;changed=true;}} // nothing to point at: skip it, never get stuck
+      if(changed)saveProfile();
       if(!step||!target){el.hidden=true;coachNow=null;return;}
+      delete coachMissing[step.id];
       coachNow=step.id;coachPlace(target,step.text);
     }
     function coachPlace(target,text){
@@ -11144,7 +11209,10 @@
       el.hidden=false;$('coach-text').textContent=text;
       const ring=$('coach-ring'),rw=w*1.18+18,rh=h*1.35+18,d=rh;ring.style.width=rw+'px';ring.style.height=rh+'px';ring.style.left=(x+w/2-rw/2)+'px';ring.style.top=(y+h/2-rh/2)+'px'; // an oval that hugs the target
       const arrow=$('coach-arrow'),note=$('coach-note'),up=y+h/2>H*0.55; // a target low on the screen: arrow and note above it, pointing down
-      arrow.style.left=(x+w/2-22)+'px';arrow.style.top=(up?y-d/2+h/2-78:y+h/2+d/2+6)+'px';arrow.style.rotate=up?'0deg':'180deg';
+      if(document.documentElement.classList.contains('coach-art')){ // the curved arrow swoops in from the side with room; its tip (bottom-right of the art) lands on the ring
+        const A=92,fromLeft=x+w/2>W/2,sx=fromLeft?1:-1,sy=up?1:-1,tipX=x+w/2-sx*rw*0.28,tipY=up?y+h/2-rh/2+4:y+h/2+rh/2-4;
+        arrow.style.rotate='0deg';arrow.style.transform=`scale(${sx},${sy})`;arrow.style.left=(fromLeft?tipX-A:tipX)+'px';arrow.style.top=(up?tipY-A:tipY)+'px';arrow.style.setProperty('--swoop-x',sx*5+'px');arrow.style.setProperty('--swoop-y',sy*5+'px');
+      }else{arrow.style.transform='';arrow.style.left=(x+w/2-22)+'px';arrow.style.top=(up?y-d/2+h/2-78:y+h/2+d/2+6)+'px';arrow.style.rotate=up?'0deg':'180deg';}
       const nw=230,nl=Math.max(8,Math.min(W-nw-8,x+w/2-nw/2));note.style.left=nl+'px';
       const nh=note.offsetHeight||90;note.style.top=(up?Math.max(8,y-d/2+h/2-84-nh):Math.min(H-nh-8,y+h/2+d/2+84))+'px';
     }
@@ -12401,7 +12469,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert'],...EXTRA_WALLPAPERS.filter(([v])=>wallpapersDrawn.has(v))];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-coach-restart>Guided tour ›</button><button data-tutorial-open>Tutorial ›</button>${Object.keys(CLASS_TUTORIALS).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-coach-restart>Guided tour ›</button><button data-tutorial-open>Tutorial ›</button>${['mogger','truecel','looksmaxxer','divorce'].filter(k=>CLASS_TUTORIALS[k]).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -12625,9 +12693,12 @@
     function tutorialAskDone(yes){
       if($('tut-ask').hidden)return;
       $('tut-ask').hidden=true;
-      if(tutAskClass){ // a class's own tutorial: Yes opens it, No goes straight into the game
+      if(tutAskClass){ // a class's own tutorial: Yes opens it (the Normie's: the guided tour), No goes straight into the game
         const cls=tutAskClass;tutAskClass=null;$('tut-ask-title').textContent='Do you want to play the tutorial?';
-        if(yes)openTutorial(0,cls);else if(world)openApp('hinge');
+        $('tut-ask-never').hidden=true;$('tut-ask-note').textContent='It is always in iTunes, under How to play.';
+        if(yes==='never'){const off=classTutorialOff();off[cls]=true;try{localStorage.setItem(CLASS_TUT_OFF,JSON.stringify(off));}catch{}yes=false;}
+        if(yes&&cls==='normie'){coachRestart();if(world){world.guide=null;world.guideCalled=false;openApp('hinge');}}
+        else if(yes)openTutorial(0,cls);else if(world)openApp('hinge');
         return;
       }
       try{localStorage.setItem(TUT_ASK_KEY,'1');}catch{}
@@ -12687,6 +12758,7 @@
     $('new-game').onclick=()=>pickDifficulty();
     $('tut-ask-yes').onclick=event=>{event.stopPropagation();tutorialAskDone(true);};
     $('tut-ask-no').onclick=event=>{event.stopPropagation();tutorialAskDone(false);};
+    $('tut-ask-never').onclick=event=>{event.stopPropagation();tutorialAskDone('never');};
     function pickClass(id){
       if(!ladderUnlocked(id))return false; // locked classes can't be chosen
       const p=playerProfile();if(p.fresh===id){p.fresh=null;saveProfile();}
@@ -14161,7 +14233,7 @@
       $('day-caption').classList.remove('visible');
       dialledNumber='';dialStatus='Enter a number using the keypad.';
       classStart(); // the Looksmaxxer and the Divorcé: a wallet, looks, the payment schedule
-      classTutorialMaybe(); // their own tutorial, the first time
+      classTutorialMaybe(); // the class's own tutorial: asked every time you start it
       try{const pp=playerProfile();if(!pp.played[selectedDifficulty]){pp.played[selectedDifficulty]=true;saveProfile();}}catch{} // the classes you have played (achievements)
       randomiseRoomLook();setLowered(false);fit();updateRunStatus('Fresh run started. Day 1 · 10 swipes.');
       const holdHinge=!$('tut-ask').hidden||tutorialAskWaiting; // the first visit: the tutorial question is still up, or How to play is open
