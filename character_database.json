@@ -14966,7 +14966,86 @@
       "look": "Rosy fair skin, sandy shag with a fringe, a beauty mark above her lip, plain white shirt and slim black pants",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_photos",
+            "label": "Ask what she photographs",
+            "player": "What does a crime scene photographer actually photograph?",
+            "reply": "Whatever’s still there when everyone else has gone. Tire marks, doorways, the things people leave on tables. I make it tidy. Somebody has to."
+          },
+          {
+            "id": "b_italian",
+            "label": "Ask about her Italian",
+            "player": "I hear you’re learning Italian.",
+            "reply": "From an old lady’s recipe cards. So I can say flour, patience and too much salt beautifully. Sophia Moretti’s family corrects me at the bakery.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_flowers",
+            "label": "Ask about the flowers in her photos",
+            "player": "You always have flowers in your pictures.",
+            "reply": "Fresh every week, from Elena Vargas’s shop. If I arrange something every evening, the day stays arranged. That’s the theory.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_field",
+            "label": "Ask what else she has photographed",
+            "player": "You said you photograph things nobody asks for. Like what?",
+            "reply": "A call about something else took me past the drive-in’s back field, late. A van with its lights off, two men, a laptop, and a crate with air holes. I took the pictures out of habit. They’re in my own file, not the station’s. I haven’t decided who should see them.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Elena threw a sprig of something into my flowers this week. She couldn’t name it. It’s on my kitchen table, being mysterious.",
+            "more": "Elena Vargas does my flowers every week. I arrange them badly and then well, which is the whole point. This one she found growing out of a crack behind the shop. She said it was either a weed or a miracle. I said in my line of work those look alike."
+          },
+          {
+            "feel": "good",
+            "news": "Italian lesson at the Moretti bakery. I asked for a loaf and accidentally asked for a husband.",
+            "more": "Whitney Ashford lends me recipe cards an old Italian lady wrote, and I learn the words for flour and patience. Sophia’s family corrects me over the counter. Today I mixed up two words and the whole bakery laughed. I got the loaf. Still looking for the husband."
+          },
+          {
+            "feel": "odd",
+            "news": "Elena told me someone orders lilies to the old interstate junction every week. Nobody signs the card.",
+            "more": "She mentioned it over the counter, puzzled, the way you mention a thing you want someone else to carry. Lilies, every week, to a junction where nobody lives. I photograph roads for a living. I know which ones get flowers and why. That one, I don’t know yet."
+          },
+          {
+            "feel": "bad",
+            "news": "A crash on the canyon road went in the file as weather. I photographed the tire marks. There were two sets.",
+            "more": "I took the pictures, the file said weather, and the file was closed. Brenda Velasco measured the second set of tracks with me. Nobody asked for the measurements. I keep them in a drawer next to the money I call my resignation. I haven’t spent either."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-113",
+            "warmth": 1,
+            "says": "Katrina Ford and I share the crime scene rota. She broods, I arrange. Between us the nights are covered.",
+            "note": "Noreen Gallagher shares the crime scene rota with Katrina Ford.",
+            "ask": "Noreen says she arranges and you brood.",
+            "answer": "She’s not wrong. She shows up to a scene with a thermos and a plan. I show up with a feeling. We get the same pictures. Hers are tidier.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-109",
+            "warmth": 2,
+            "says": "Brenda Velasco measured a second set of tire marks on the canyon road with me. Nobody filed them.",
+            "note": "Noreen Gallagher says Brenda Velasco measured a second set of tire marks on the canyon road that nobody filed.",
+            "ask": "Noreen says you measured a second set of tire marks on the canyon road.",
+            "answer": "I did. Nobody wanted the numbers, so I kept them. Two vehicles, one going much faster than the other. The file says weather. Weather doesn’t leave tread.",
+            "mood": -1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-125",
@@ -17530,7 +17609,86 @@
       "look": "Freckled fair skin, brown waves with teal tips, a gap-toothed smile, corduroy jacket with enamel pins",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_records",
+            "label": "Ask about her records",
+            "player": "What do you collect?",
+            "reply": "Singers who made one album and vanished. I play them late. Somebody should remember the people who stopped."
+          },
+          {
+            "id": "b_climate",
+            "label": "Ask about her campaign",
+            "player": "What does a climate campaigner actually do all day?",
+            "reply": "Counts water. Argues with the county about the water table. Organizes marches that are mostly the same ninety people and, last time, a dog.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_car",
+            "label": "Ask about the car in her photos",
+            "player": "Is that your station wagon in the photos?",
+            "reply": "My parents’. It’s done more miles than anyone should ask of it. I’m the one in my group with a car, so I’m the one who knows where everyone went.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_drove",
+            "label": "Ask what really happened the night before the fire",
+            "player": "You said you know the whole story of that night. What is it?",
+            "reply": "Two people were each given half. I drove the whole thing. Vanessa and Rosa to Rosa’s place, then back. Then Vanessa and Caleb and a bag to the edge of campus. Then the rest of the bag, alone, to a flat with no lights. There’s no gray sedan in our story. There’s my parents’ station wagon. I’ve never said that out loud.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Found a record by a singer who made one album and vanished. Played it four times. Miriam banged on the ceiling, then asked what it was.",
+            "more": "I collect singers who stopped. One album, then nothing. Somebody should remember the people who quit. Miriam Landry lives under me and we play records at each other through the floor. Tonight she lost the argument and asked for the name."
+          },
+          {
+            "feel": "good",
+            "news": "The climate march had ninety people and one very confused dog. Best turnout of the year.",
+            "more": "We marched from the reservoir to the county building with signs about the water table. The dog joined at the second corner and stayed for the speeches. Ninety people and a dog. I’m counting the dog."
+          },
+          {
+            "feel": "odd",
+            "news": "Somebody asked me again who drove who home the night before the fire. I gave the answer I always give. I’m tired of it.",
+            "more": "I’m the one in the group who knows where everything is. Keys, bags, rides. Two people have told two different stories about that night, and both of them got half from the same person. I drove. I know the whole thing. I keep deciding not to say it."
+          },
+          {
+            "feel": "bad",
+            "news": "Sat at the Lucky Cactus at sunrise again, deciding whether to leave the group. Didn’t decide. Ate pancakes.",
+            "more": "Two years of being useful to someone who never asked how I was. I go to the diner before anyone’s awake and sit next to the booth where Dolores always sits and try to make up my mind. The pancakes are good. The decision is not getting easier."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-052",
+            "warmth": 1,
+            "says": "Vanessa Greer recruited me. I was the first one who wasn’t in love with her. That made me useful.",
+            "note": "Annika Joseph says Vanessa Greer recruited her, and that being useful to Vanessa was the job.",
+            "ask": "Annika says she was the first person you recruited who wasn’t in love with you.",
+            "answer": "Annika is the most useful person I have ever met. That is a compliment. Lately she hears it as something else. I don’t know why.",
+            "mood": -1
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-090",
+            "warmth": 2,
+            "says": "Miriam Landry lives under me. We play records at each other through the floor. It’s the best friendship I have.",
+            "note": "Annika Joseph and Miriam Landry play records at each other through the floor.",
+            "ask": "Annika says you two play records at each other through the floor.",
+            "answer": "She plays singers who vanished. I play singers who should have. It’s a war. I’m losing and I love it.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-154",
@@ -20773,7 +20931,86 @@
       "look": "Rosy fair skin, glossy black ponytail, a small nose stud, chambray shirt and chinos",
       "status": "awaiting portrait",
       "type": "unflappable-mastermind",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_camera",
+            "label": "Ask about her job",
+            "player": "What do you film?",
+            "reply": "The bulletin’s soft pieces. Bake sales, the drive-in, the bear. My father filmed riots and lost an eye. I film bake sales on purpose."
+          },
+          {
+            "id": "b_souvenirs",
+            "label": "Ask about the shelf in her photo",
+            "player": "What’s on that shelf behind you?",
+            "reply": "Roadside souvenirs. A plastic alien, a snow globe with a gas station in it, a spoon from a town of nine people. Every one cost a dollar. They’re priceless.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_calm",
+            "label": "Ask why she’s so calm",
+            "player": "How are you always this calm?",
+            "reply": "I decided panicking was a luxury. Also, I’m usually three moves ahead. It helps.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_dinner",
+            "label": "Ask about the lodge dinner",
+            "player": "Are you going to film the lodge dinner?",
+            "reply": "I am. Warmly, like they asked. But I’m leaving my own camera running in the van, pointed at the cellar door. Not the bureau’s. Mine. If anything comes out of it, you’ll be the first person I ring.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "dodge",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Filmed the Sisters’ bake sale for the bulletin. Came home with four minutes of footage and a bag of shortbread.",
+            "more": "I do the soft pieces. The bear, the drive-in reopening, bake sales. A camera is a thing people hit, my father says, so I film things nobody wants to hit. Today the shortbread was so good I forgot to change the battery."
+          },
+          {
+            "feel": "good",
+            "news": "Found a snow globe at the market with a gas station inside it. Best dollar I’ve spent this year.",
+            "more": "I collect odd roadside souvenirs. A plastic alien, a spoon from a town of nine people, and now a gas station in a snow globe. Nixie Adler found the same stall ten minutes after me. She’s still angry."
+          },
+          {
+            "feel": "odd",
+            "news": "An old friend asked me to film a charity dinner at the lodge. Warmly, she said. Nobody says warmly unless they mean something else.",
+            "more": "Nina and I knew each other in the city years ago. She went into consulting and now she works for a trust with a lot of money. She wants the bureau’s camera at the lodge’s dinner, as a favor, warmly. I said I’d think about it. I’ve been filming for nine years. I know what warmly means."
+          },
+          {
+            "feel": "bad",
+            "news": "Watched my bake sale footage back and found four seconds I can’t explain. A woman at the back of the hall. I keep rewinding.",
+            "more": "A woman in a headscarf, buying shortbread at the back of St Brigid’s hall. Four seconds. I didn’t notice her when I filmed it. Now I can’t stop noticing her. I showed Ashley and nobody else."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-173",
+            "warmth": 1,
+            "says": "Ashley Grant does the real news at the bureau. I do the bake sales. Somebody has to be the calm one.",
+            "note": "Pearl Hartley films the soft pieces at the bureau; Ashley Grant does the hard news.",
+            "ask": "Pearl says she’s the calm one at the bureau.",
+            "answer": "She is. I keep the tapes, she keeps me. She’s always three moves ahead and she never tells me what the moves are.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-197",
+            "warmth": 2,
+            "says": "Nixie Adler and I fight over the same souvenir stall at the market. She lost the snow globe. She’s still not over it.",
+            "note": "Pearl Hartley and Nixie Adler fight over the same souvenir stall at the market.",
+            "ask": "Pearl says you lost the snow globe to her.",
+            "answer": "She got there ten minutes early. That is not winning, that is cheating. I’m getting the alien next time. Tell her.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-185",
@@ -23417,7 +23654,86 @@
       "look": "Pale skin, glossy black ponytail, a small nose stud, long black velvet coat",
       "status": "awaiting portrait",
       "type": "curious-contrarian",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_jewelry",
+            "label": "Ask about her jewelry",
+            "player": "What do you make at the Canal Bench?",
+            "reply": "Bells, mostly. Small silver ones that actually ring. Everyone else makes skulls. I was a historian of religion before I was a jeweler, so I make what I know."
+          },
+          {
+            "id": "b_lecturer",
+            "label": "Ask why she left the university",
+            "player": "You were a lecturer? Why did you leave?",
+            "reply": "I had a question I couldn’t ask in a seminar. So I left to ask it somewhere else. I’m still asking.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_thesis",
+            "label": "Ask about her thesis",
+            "player": "What was your doctorate about?",
+            "reply": "The religion of the women who founded Sunfall. Nobody cared for years. Then somebody did, in very beautiful handwriting. That’s a longer story.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_page",
+            "label": "Ask what the founders’ book really says",
+            "player": "You said you advised them on a book. What does it say?",
+            "reply": "There’s a page about the husbands. I told them it was a metaphor. I advised it as a metaphor, for years, for a fee. Then I went to the Cemetery Chapel and read the names. It isn’t a metaphor. I’m the only living scholar who has read the whole thing, and I’m telling you because I’m tired of being the only one.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Taught my guitar student the history of the round along with the chords. She asked for just the chords. She got both.",
+            "more": "I teach once a week for nothing. The deal is you get the music and the history whether you want them or not. Years ago I taught Kiki O’Dell the same way and sent her to the Furnace. Now she runs the open mic. I take full credit."
+          },
+          {
+            "feel": "good",
+            "news": "Finished a silver bell pendant at the Canal Bench. It actually rings. Small, but it rings.",
+            "more": "Everyone at the bench makes skulls and moons. I make bells, because bells were my subject before jewelry was. The mission period, the founders, what they rang and why. This one is the size of a thumbnail and it rings one clean note. I may never sell it."
+          },
+          {
+            "feel": "odd",
+            "news": "Someone asked for my old thesis again. The mission’s founding women and their rites. Nobody cared for years. Now everyone does.",
+            "more": "I wrote my doctorate on the religion of the women who founded Sunfall, long before anyone thought it mattered. Rosa Gutierrez wants it for her own research. I’ve blocked the request. I have reasons. They’re not good ones, but they’re mine."
+          },
+          {
+            "feel": "bad",
+            "news": "Went past the Cemetery Chapel tonight and stood at the gate for a while. Didn’t go in.",
+            "more": "Years ago I was paid, in very beautiful handwriting, to advise a private study group on an old book. I told them a page was a metaphor. I advised it as a metaphor. I’ve stood at that chapel gate a few times since, wondering what else I got wrong."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-152",
+            "warmth": 1,
+            "says": "I taught Kiki O’Dell guitar years ago and sent her to the Furnace. She runs the open mic now. I take all the credit.",
+            "note": "Marlowe Poe taught Kiki O’Dell guitar and sent her to the Furnace.",
+            "ask": "Marlowe says she taught you guitar and takes all the credit for the open mic.",
+            "answer": "She taught me three chords and a history lecture every lesson. I kept the chords. I still know more about the mission bells than anyone at the Furnace needs to.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-126",
+            "warmth": 2,
+            "says": "Harriet Boyle grew up across the street from me. Our fathers had rival bookshops. Both are vape shops now.",
+            "note": "Marlowe Poe and Harriet Boyle grew up across the street from each other, in rival bookshops.",
+            "ask": "Marlowe says your fathers had rival bookshops.",
+            "answer": "They did. Hers sold mysteries, mine sold sermons. Both sell vapes now. Marlowe says that’s the most honest thing that ever happened on that street.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-215",
@@ -25661,7 +25977,86 @@
       "look": "Freckled fair skin, copper waist-length waves, a gap-toothed smile, turquoise peasant top",
       "status": "awaiting portrait",
       "type": "shy-gentle",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_dogs",
+            "label": "Ask about dog walking",
+            "player": "How many dogs do you walk?",
+            "reply": "Six, at sunrise and dusk. Three lapdogs, a retriever who belonged to a police sergeant, and a very wise mutt. We go through the chapel grounds. It’s quiet. Usually."
+          },
+          {
+            "id": "b_dresses",
+            "label": "Ask about the dresses",
+            "player": "I hear you restore old dresses.",
+            "reply": "From Lucia Romano’s thrift shop. Lace and seams and covered buttons. Every one was somebody’s best night once. I like giving them another.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_father",
+            "label": "Ask about her father",
+            "player": "What did your father do?",
+            "reply": "He was the groundsman at the Cemetery Chapel for thirty years. He dug more graves than the parish ever wrote down. He won’t say more than that. Yet.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_count",
+            "label": "Ask how many graves her father dug",
+            "player": "You said your father dug more graves than the parish wrote down. How many more?",
+            "reply": "I finally asked him. Eleven, over thirty years, at night, at stones that already had names. A woman from the club paid him for each one, in cash, and he wrote the dates in the back of his almanac. He said he’d tell the rest to someone who would actually do something about it.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Walked six dogs through the Cemetery Chapel grounds at sunrise. The angels have their backs to the city. The dogs don’t mind.",
+            "more": "I walk the old parish families’ dogs and three widows’ lapdogs at sunrise and at dusk, through the chapel grounds. I know every stone by now. My father was the groundsman for thirty years. I knew the names before I could read them."
+          },
+          {
+            "feel": "good",
+            "news": "Finished restoring a dress from Lucia Romano’s shop. Took three weeks. It looks like someone’s first dance again.",
+            "more": "Lucia gets donations from the old families and I fix the ones worth fixing. Lace, seams, little covered buttons. This one is pale green with a hand-sewn hem. I want to know whose it was. Lucia says not to ask donated dresses questions."
+          },
+          {
+            "feel": "odd",
+            "news": "A man I’ve been writing to sends the most beautiful letters. In person he talks about his lawn. I’m starting to wonder who writes them.",
+            "more": "His letters are lovely, really lovely. Then we talk and it’s weather and his lawn. And the handwriting is one I think I’ve seen before, on Christmas cards to the widows I walk dogs for. I wanted the person who wrote the letters. I’m not sure that’s who I’ve got."
+          },
+          {
+            "feel": "bad",
+            "news": "Once, at dusk, behind the angels, the dogs all went quiet at the same time. Dogs don’t do that.",
+            "more": "A car with no lights, two men, a long shape, and a grave already dug at a stone that already had a name on it. Six dogs, and not one of them made a sound. The parish says it was a family burial with permission. My father says in thirty years the diocese never gave permission for anything. The club did."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-048",
+            "warmth": 1,
+            "says": "I walk Helen Markham’s dog on her long days. He’s smarter than both of us.",
+            "note": "Roxanne Pierce walks Helen Markham’s dog.",
+            "ask": "Roxanne says your dog is smarter than both of you.",
+            "answer": "He is. He knows the way home from anywhere and he never brings it up. Roxanne is the only walker he’s ever waited for at the gate.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-183",
+            "warmth": 2,
+            "says": "Jules Moreland runs past the Cemetery Chapel some evenings. We’ve never spoken. I think she saw the same thing I did one night.",
+            "note": "Roxanne Pierce thinks Jules Moreland saw the same thing she did behind the Cemetery Chapel one night.",
+            "ask": "Roxanne thinks you saw the same thing she did behind the Cemetery Chapel.",
+            "answer": "A car with no lights. I was on the other side of the angels. I thought I was the only one. I’ve never told anyone. Tell her I’ll buy her a coffee.",
+            "mood": -1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-243",
@@ -34637,6 +35032,11 @@
           "caption": "One pass. One camera. One shot.",
           "melt": "I’m blunt, so: that worked. Very well. Again."
         },
+        "MATCH-184": {
+          "muse": "Three moves ahead, as always. Move one was messaging you. You can guess the other two.",
+          "caption": "Chambray, ponytail, nose stud. Usually behind the camera. For once, in front of it.",
+          "melt": "I had this all planned out. You weren’t in the plan. I’m rewriting it."
+        },
         "MATCH-003": {
           "caption": "Hecate took this. She stares at corners where nothing is. Now she stares at you.",
           "melt": "Sweetheart. You said that like you meant to hurt me. The moon approves. So do I."
@@ -34785,6 +35185,11 @@
           "muse": "Locked up the back room, put a record on and racked the balls for nobody. Come and lose to me at pool sometime.",
           "caption": "The back room after close. Chalk on my hands and nobody left to throw out.",
           "melt": "Okay. You. I wasn’t planning on liking anyone this week. Don’t you dare get comfortable."
+        },
+        "MATCH-214": {
+          "muse": "Finished a bell that rings one clean note and thought of you, which is unusual. I mostly think about dead founders.",
+          "caption": "Velvet coat, nose stud, a doctorate nobody asks about.",
+          "melt": "I question everything. I stopped questioning this. Don’t make me regret it."
         },
         "MATCH-005": {
           "muse": "Pancake is asleep on my feet and I’m diagnosing myself. Verdict: touch-starved, with a side of very bad ideas about you.",
@@ -35117,6 +35522,11 @@
           "caption": "Work clothes. The ponytail is structural.",
           "melt": "I’ve written you down in my journal. For me, that’s serious."
         },
+        "MATCH-242": {
+          "muse": "Six dogs walked, one dress hemmed, and I’m sitting here hoping you write back. You don’t have to write beautifully. Just write like you.",
+          "caption": "Turquoise top, copper hair, a dog’s nose just out of frame.",
+          "melt": "You sound exactly like yourself. Do you know how rare that is? I do."
+        },
         "MATCH-002": {
           "muse": "Major checked every room and went to sleep. I checked every room and I’m lying here rereading your messages. Give me something to investigate.",
           "caption": "Off duty. Cuffs not included. Ask nicely.",
@@ -35271,6 +35681,11 @@
           "muse": "Finished a collage tonight and it came out the color of your last message. That’s not a finding. It’s just true.",
           "caption": "White shirt, black pants. A Barlow looks like a Barlow.",
           "melt": "I don’t usually say things out loud. I’m saying this one. I like you."
+        },
+        "MATCH-124": {
+          "muse": "Fresh flowers on the table, an Italian recipe I’m about to ruin, and a free evening. Two of those are better with company.",
+          "caption": "White shirt, black pants. My uniform for looking calm.",
+          "melt": "I arrange everything. I didn’t arrange this. I like it anyway."
         },
         "MATCH-008": {
           "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
@@ -35434,6 +35849,11 @@
           "muse": "Open mic’s over, the amps are cooling and I’ve got one song left in me. Want it?",
           "caption": "Glasses, guitar case, terrible lighting. You’re welcome.",
           "melt": "Okay, fine. I’m sceptical about everyone, and I’ve stopped being sceptical about you. It’s annoying."
+        },
+        "MATCH-153": {
+          "muse": "Put on a record by a singer nobody remembers and thought about you, which is a strange combination. Come and argue with me about it.",
+          "caption": "Corduroy, pins, teal ends. I am exactly who you think.",
+          "melt": "I’ve been useful to people for years. You just made me feel like more than that."
         },
         "MATCH-001": {
           "muse": "Eating chips in the bath again with a terrible novel. The novel just got very steamy. So did the bath. Come and read me the next chapter.",
