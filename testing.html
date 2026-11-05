@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="556ce78933">
+<html lang="en" data-build="db7dd26da5">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=556ce78933"></script>
+  <script src="chapel_at_midnight.js?v=db7dd26da5"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=556ce78933"></script>
+  <script src="marriage.js?v=db7dd26da5"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=556ce78933"></script>
+  <script src="quests/professor-vale.js?v=db7dd26da5"></script>
 </head>
 <body>
   <main class="workbench">
@@ -8264,6 +8264,16 @@
       rqRun={index,reps,hits:0,miss:0,pull,dieAt:dies?2+hashSeed(world.seed+'|rqbarat')%3:-1,window:Math.round(({truecel:900,normie:1000,mogger:1200}[tone()]??1000)*(mod==='slow'?1.25:mod==='fast'?.8:1)),tire:{truecel:.6,normie:.45,mogger:.3}[tone()]??.45,open:false}; // arms tire: Truecel fastest, Mogger slowest
       playScene([{image:pull?RQ_PICS.spotter.bar:RQ_PICS.spotter.floor,stand:'room',caption:kit.scene[pull?'pull':'push']}],()=>rqRepNext(),{keep:true,gap:1700});
     }
+    // The push-ups as frames: up between reps (straining once your arms tire), down on every tap, flat on the
+    // floor when you miss. Each frame waits for its picture; until then the one push-up picture stands in.
+    const PUSHUP_FRAMES={down:'assets/rooms/spotter-floor-down.png',strain:'assets/rooms/spotter-floor-strain.png',collapse:'assets/rooms/spotter-floor-collapse.png'};
+    function rqFrame(key){
+      const run=rqRun;if(!run||run.pull||run.turn)return;
+      const img=$('invasion-image');if(!img)return;
+      const base=RQ_PICS.spotter.floor,src=key==='up'?base:/\/motel\//.test(base)?base:PUSHUP_FRAMES[key]||base; // the motel has no frames yet
+      img.onerror=()=>{img.onerror=null;img.src=assetUrl(base);};
+      img.src=assetUrl(src);
+    }
     function rqRepNext(){
       const run=rqRun,kit=rqKit().spotter;
       if(!run)return;
@@ -8273,6 +8283,7 @@
       q.className='qte';q.hidden=false;
       // Your arms tire as the set goes on: less time to tap, and the button shakes harder.
       const spent=run.hits/Math.max(1,run.reps);
+      rqFrame(spent>=.6?'strain':'up'); // back up, shaking by the end of the set
       run.cur=Math.round(run.window*(1-run.tire*spent));
       q.innerHTML=`<button class="rq-rep" data-rq-rep style="--shake:${(run.tire*spent*22).toFixed(1)}px">${esc(run.turn?kit.turn.down:kit.down[run.pull?'pull':'push'])}</button>`;
       const button=q.querySelector('[data-rq-rep]');
@@ -8286,7 +8297,7 @@
       if(!run||!run.open)return;
       run.open=false;window.clearTimeout(qteTimer);
       const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
-      run.hits++;
+      run.hits++;rqFrame('down'); // all the way down
       const count=run.turn?kit.turn.count:rqT(kit.count);
       $('invasion-caption').textContent=count[(run.hits-1)%count.length];
       playUiSound(260+run.hits*12);
@@ -8296,7 +8307,7 @@
     function rqRepMiss(){
       const run=rqRun,kit=rqKit()?.spotter;
       if(!run||!run.open)return;
-      run.open=false;run.miss++;
+      run.open=false;run.miss++;rqFrame('collapse'); // face on the floorboards
       const q=$('qte');if(q){q.hidden=true;q.innerHTML='';}
       if(run.miss>=3){ // she gives up on you for today
         $('invasion-caption').textContent=run.turn?kit.turn.fail:kit.fail;
