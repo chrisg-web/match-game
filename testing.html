@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="f301540e81">
+<html lang="en" data-build="d3970cbe1f">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -748,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=f301540e81"></script>
+  <script src="chapel_at_midnight.js?v=d3970cbe1f"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=f301540e81"></script>
+  <script src="marriage.js?v=d3970cbe1f"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=f301540e81"></script>
+  <script src="quests/professor-vale.js?v=d3970cbe1f"></script>
 </head>
 <body>
   <main class="workbench">
@@ -9579,8 +9579,8 @@
         }
       }
     }
-    // ===== Her story (Chris, 5 November 2026: focus on ten women and make them far more interesting) =====
-    // Ten women have a storyline of their own (characters/her-stories.json, merged as characterDB.tales). Each is a
+    // ===== Her story (Chris, 5 November 2026: focus on ten women and make them far more interesting; then ten more) =====
+    // Twenty women have a storyline of their own (characters/her-stories.json, merged as characterDB.tales). Each is a
     // run of beats: a message she sends you on a new day, or a question you can ask her. Her lines end in replies that
     // branch, and a reply can open more replies. What you choose sets flags that her later beats and other women's
     // stories read (Celina's film goes to Genevieve's darkroom, Maria runs Rosa's plate), feeds the cases (a Blue
@@ -9638,7 +9638,7 @@
     }
     function taleReady(id,beat,thread,how){
       const st=taleSt(id);
-      if(st.end||st.done.includes(beat.id)||(how&&beat.how!==how))return false;
+      if((st.end&&!beat.late)||st.done.includes(beat.id)||(how&&beat.how!==how))return false; // late: another woman's story can still reach her after hers has ended
       if(beat.day&&world.day<beat.day)return false;
       if(beat.warmth&&warmthOf(thread)<beat.warmth)return false;
       if(beat.after&&![].concat(beat.after).some(b=>st.done.includes(b)))return false;
@@ -9657,7 +9657,7 @@
     function taleGive(e,profile){
       const g=e?.gives,values={},later=[];
       if(g){
-        if(g.chapel)values.night=(givesOpen({chapel:g.chapel})&&chapel?.tellNight?.(firstName(profile)))||'on the night with no moon';
+        if(g.chapel)values.night=(givesOpen({chapel:g.chapel})&&chapel?.tellNight?.(firstName(profile)))||taleNightKnown()||'on the night with no moon';
         if(g.theon&&givesOpen({theon:g.theon}))fionnClue(g.theon);
         if(g.moira){const c=callerState();if(givesOpen({moira:g.moira}))c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();values.number=c.momNumber;}
         if(g.br)later.push(()=>{if(givesOpen({br:g.br}))brFindScrap(g.br,`From ${profile.name}`);});
@@ -9665,6 +9665,11 @@
         else if(typeof g.sq==='string'){const [quest,...fact]=g.sq.split(':');later.push(()=>sqLearn(quest,fact.join(':')));}
       }
       return {values,after:()=>later.forEach(fn=>fn())};
+    }
+    // The night of the rite, said the way the Chapel says it, when somebody already told you (so it reads the same).
+    function taleNightKnown(){
+      const st=chapel?.state?.(),n=Number.isInteger(st?.riteDay)?st.riteDay-world.day:null;
+      return n===null||st.outcome?null:n<0?'already over':n===0?'tonight':n===1?'tomorrow night':`in ${n} nights`;
     }
     function taleEnding(id,slug){if(slug)noteEnding(`tale:${id}:${slug}`,'');}
     function taleGone(thread,how){
