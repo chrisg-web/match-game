@@ -31,21 +31,24 @@
       "short": "Old Mission",
       "guide": "The Old Mission Chapel: its bell cracked long ago and has never rung since.",
       "riddle": "where the bell forgot its voice",
-      "never": "She says the Old Mission is too far out for the cars."
+      "never": "She says the Old Mission is too far out for the cars.",
+      "lore": "The mission’s own church. The founders kept it after the town moved to the canal, until the thirtieth year, when the parish closed it and began the Watch at its door. The deed says it is the parish’s. The three houses beside it say otherwise."
     },
     "cemetery_chapel": {
       "name": "the Cemetery Chapel of Rest",
       "short": "Cemetery Chapel",
       "guide": "The Cemetery Chapel of Rest: its stone angels face the desert, with their backs to the city.",
       "riddle": "where the angels turn their backs on the city",
-      "never": "She says the Cemetery Chapel has too many security lights now."
+      "never": "She says the Cemetery Chapel has too many security lights now.",
+      "lore": "Built by the founders for their dead and consecrated by the diocese. The angels were turned to face the Old Mission, the stonemason was told. The club’s husbands lie here under blue ribbons."
     },
     "st_brigid": {
       "name": "St. Brigid's Chapel",
       "short": "St. Brigid's",
       "guide": "St. Brigid's Chapel: a copy of the saint's cloak hangs above the altar.",
       "riddle": "beneath the saint's cloak",
-      "never": "She says St. Brigid's is crawling with Sisters."
+      "never": "She says St. Brigid's is crawling with Sisters.",
+      "lore": "Built by the canal on land the Crossleys gave the parish, with a clause the chancery’s review now quotes. Its first bell was lent for a fair forty years ago and never came back. The Sisters sing the first-light Mass here."
     }
   },
   "flyerGoths": {
@@ -169,7 +172,8 @@
     "reply": "Then we'll be at {place} with every candle in the parish. Thank you for telling me.",
     "changed": "Then we'll move. {Place} it is. I hope you're sure this time.",
     "callLabel": "Warn them: the Midnight Rite is at {short}",
-    "callReply": "Thank you. I'll tell Sister Margaret. The Sisters will keep watch at {place}."
+    "callReply": "Thank you. I'll tell Sister Margaret. The Sisters will keep watch at {place}.",
+    "history": "The Sisters have kept the Watch at the Old Mission on every new moon for sixty years, since the parish began it after the night the bell forgot its voice. The chancery has told them to stop for the length of its review. They will be there anyway."
   },
   "chalkPlaces": "Chalk crescents appeared on the doors of {chalkA} and {chalkB}.",
   "news": {
@@ -290,7 +294,8 @@
     "sister": {
       "label": "Ask when the next new moon is",
       "player": "Do you know when the next new moon is?",
-      "reply": "We keep a vigil on every new moon. The next one is {night}. Why do you ask?"
+      "reply": "We keep a vigil on every new moon. The next one is {night}. Why do you ask?",
+      "replyDispute": "We keep a vigil on every new moon, whatever the chancery writes this season. The next one is {night}. Why do you ask?"
     },
     "clue": "{who} told you which night the moon goes dark."
   },

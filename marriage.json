@@ -73,7 +73,8 @@
       ],
       "pass": "FIVE! Five in a row! I think I just squealed in the parish office. You know your faith… and I think you know my heart a little, too.",
       "noRing": "A girl does need a ring, darling! Go and see a jeweler. I'll wait. Probably.",
-      "accept": "A ring?! Yes! Yes, yes, a hundred times yes! I'm calling Nonna. No, I'm calling Father first. No… NONNA!"
+      "accept": "A ring?! Yes! Yes, yes, a hundred times yes! I'm calling Nonna. No, I'm calling Father first. No… NONNA!",
+      "dispute": "Before we start, darling: you’ll have heard about the bishop and us. Nonna says a man who can pass this can pass anything the chancery sends. So. Five in a row."
     },
     "MATCH-055": {
       "name": "Margaret Holloway",
@@ -98,7 +99,8 @@
       ],
       "pass": "Five in a row. I… did not expect that. Very well. You follow through, and that matters to me more than I usually admit.",
       "noRing": "A proposal without a ring is a plan without preparation. Come back when it's done properly.",
-      "accept": "With a ring, and on your word. Yes. I accept. I'll draw up the guest list tonight, and you will be on time."
+      "accept": "With a ring, and on your word. Yes. I accept. I'll draw up the guest list tonight, and you will be on time.",
+      "dispute": "One thing first. The chancery is reviewing whether we exist. A fellowship that marries and raises its daughters in the faith cannot be reviewed out of existence, which is why I take this seriously. Five in a row."
     },
     "MATCH-056": {
       "name": "Teresa Bellamy",
@@ -123,7 +125,8 @@
       ],
       "pass": "Five out of five, in a row! Full marks. I'm telling my grandmother. She's been asking whether I'd ever meet a man who knew his Ember days.",
       "noRing": "Without a ring? My grandmother would never let me hear the end of it. She sells them, you know. Bellamy & Daughters, in Old Town.",
-      "accept": "Yes! Yes, of course yes. Oh, Granny is going to cry all over the display cases."
+      "accept": "Yes! Yes, of course yes. Oh, Granny is going to cry all over the display cases.",
+      "dispute": "You know about the review, I expect. The bishop can review the fellowship. He cannot review a marriage. So the examination matters more this season, not less. Gold stars for five in a row."
     },
     "MATCH-057": {
       "name": "Evelyn Rosales",
@@ -148,7 +151,8 @@
       ],
       "pass": "Five consecutive. I checked twice. You actually know this. I don't say it often: I trust you.",
       "noRing": "No ring? I can't approve an unfunded proposal. Even a free ring would do.",
-      "accept": "A ring, a proper proposal and five correct answers. Everything reconciles. Yes. I'll marry you."
+      "accept": "A ring, a proper proposal and five correct answers. Everything reconciles. Yes. I'll marry you.",
+      "dispute": "I should say, before I ask anything: the chancery is reviewing us, and I keep the minutes of it, and I am not brave in front of people. I can be brave with one person. Five in a row, please."
     },
     "MATCH-066": {
       "name": "Priya Nair",
@@ -173,7 +177,8 @@
       ],
       "pass": "Five in a row. I've cataloged a thousand books and I've never read anything quite as lovely as you getting that last one right.",
       "noRing": "Without a ring? That's a hymn book without a binding. Lovely, but it'll fall apart. Come back with one.",
-      "accept": "Yes. With all my heart, yes. I'm going to write this down in the most beautiful hand I have."
+      "accept": "Yes. With all my heart, yes. I'm going to write this down in the most beautiful hand I have.",
+      "dispute": "A note before we begin. The diocese is reviewing the fellowship and the council is reviewing my reading room, and I have filed both under pending. A husband I would file under now. Five in a row."
     }
   },
   "jewellers": {
@@ -246,6 +251,10 @@
       "listen": {
         "label": "Stay on the line and listen to her story",
         "reply": "…and Walter dropped the ring in the font, and Father fished it out with the aspergillum, and we laughed all the way through the Gloria. Oh, I've talked for ages and you listened to every word. There's a plain gold band in my window that's been waiting for someone like you. No, put your wallet away. It's free. Walter would haunt me. It's on its way to you now."
+      },
+      "bell": {
+        "label": "Ask what she remembers of the year of the bell",
+        "reply": "The bell! Oh, dear. I was a young wife. They took it down from St. Brigid’s tower on a truck and rang it at the founders’ fair, and nine ladies from the club sang a round under it, very prettily, and the radio man cut them off. A young priest from the chancery signed for it. Soft hands. I remember his hands, and he is not young now, dear. The bell went up the ridge road on the same truck and never came down. The caretaker who rang it never collected his wages. Walter said never mind. I have minded for forty years."
       }
     },
     "rafael": {
@@ -996,6 +1005,13 @@
       "With a ring and on your word? Yes. Yes, I will marry you.",
       "Yes. A thousand times yes. I am telling my mother straight away.",
       "Yes. I have prayed about this, and the answer is yes."
+    ],
+    "dispute": [
+      "Before I begin: you will have heard about the bishop and the review. The Sisters marry. That is one thing no chancery can take from us. Five in a row.",
+      "One thing first. The diocese is reviewing whether we should exist. I would like to answer it with a wedding. Five in a row, please.",
+      "You know about the review, I think. It makes this matter more, not less. A fellowship that marries cannot be dissolved by letter. Five in a row.",
+      "I should say it plainly: the chancery is reviewing us, and I am asking you these questions anyway, because the faith is older than the chancery. Five in a row.",
+      "Before we start: the bishop can review a fellowship. He cannot review a marriage. My mother said that first, and she is usually right. Five in a row."
     ]
   },
   "thunderbirds": {

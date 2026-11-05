@@ -506,7 +506,7 @@
     }
     function sisterMoon(st,id){
       if(!isSister(api.profile(id))||isClosed(id)||st.outcome||st.nightKnown)return;
-      converse(id,data.moon.sister.player,fill(data.moon.sister.reply),st=>learnNight(st,firstName(id)));
+      converse(id,data.moon.sister.player,fill(api.disputeKnown?.()&&data.moon.sister.replyDispute||data.moon.sister.reply),st=>learnNight(st,firstName(id))); // once you know about the chancery's review, she says so
     }
     // ---------- the Sisters of Mercy ----------
     function sisterThreads(){
@@ -882,8 +882,10 @@
           '<p>You need a way to reach them. Any Sister of Mercy will give you St. Brigid’s number if you ask her.</p>';
         sisters=now+send;
       }
+      if(api.disputeKnown?.()&&data.sisterTalk.history)sisters=`<p>${esc(data.sisterTalk.history)}</p>`+sisters; // the Watch's history (SISTERS_AND_THE_CHURCH.md), once you know about the review
       // The three chapels are listed once something points at a chapel at all.
-      const where=placeClue(st)?`<p>It will be in one of the city’s three old chapels.</p>${list(PLACES.map(place=>data.places[place].guide))}`:'<p>Nobody will say where.</p>';
+      const lore=api.disputeKnown?.(); // the chapels' histories (SISTERS_AND_THE_CHURCH.md), once you know about the review
+      const where=placeClue(st)?`<p>It will be in one of the city’s three old chapels.</p>${list(PLACES.map(place=>data.places[place].guide+(lore&&data.places[place].lore?' '+data.places[place].lore:'')))}`:'<p>Nobody will say where.</p>';
       return `<div class="chapel-case"><button class="profile-back chapel-back" data-chapel-choice="close-case">‹ Cupboard</button><h3>☾ The Chapel at Midnight</h3><p class="chapel-status">${esc(statusText(st))}</p>${hintFor(st)?`<p class="chapel-hint">Hint: ${esc(hintFor(st))}</p>`:''}`+
         `<h4>Where?</h4><div class="paper">${where}</div>`+
         `<h4>What you’ve heard</h4><div class="paper">${heard}</div>`+

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="6b8f28bd7c">
+<html lang="en" data-build="4a422ef6cd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -748,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=6b8f28bd7c"></script>
+  <script src="chapel_at_midnight.js?v=4a422ef6cd"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=6b8f28bd7c"></script>
+  <script src="marriage.js?v=4a422ef6cd"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=6b8f28bd7c"></script>
+  <script src="quests/professor-vale.js?v=4a422ef6cd"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1486,6 +1486,47 @@
     }
     $('raised').onclick=()=>setLowered(false);
     $('lowered').onclick=()=>setLowered(true);
+    // ---- The Sisters and the church (SISTERS_AND_THE_CHURCH.md) ----
+    // The quarrel between the Sisters of Mercy and the diocese is the weather every other story happens
+    // in: a bishop who wants guitars, a chancery review that is really about the canal-side land and the
+    // Old Mission, and a vigil the Sisters will keep anyway. Everyone in town has an opinion, but only once
+    // you have heard of it: a faith story in the paper, or a Sister mentioning the bishop, the chancery or
+    // the diocese to you. disputeKnown() is the one gate; everything below asks it.
+    const DISPUTE_RX=/\b(the bishop|bishop’s|bishop's|chancery|chancellor|diocese|diocesan|Monsignor)\b/i;
+    function disputeHeard(){if(world){if(!world.flags||typeof world.flags!=='object')world.flags={};if(!world.flags.disputeHeard)world.flags.disputeHeard=world.day||1;}}
+    function disputeKnown(){
+      if(!world)return false;
+      if(!world.flags||typeof world.flags!=='object')world.flags={};
+      if(world.flags.disputeHeard)return true;
+      const said=entry=>!!entry&&entry.who==='her'&&DISPUTE_RX.test(String(entry.text||''));
+      for(const thread of hingeThreads.values()){
+        if(hingeProfile(thread.id)?.factionId!=='sisters_of_mercy')continue;
+        if((thread.log||[]).some(said)||(thread.callLog||[]).some(said)){disputeHeard();return true;}
+      }
+      return false;
+    }
+    const topicOpen=topic=>!topic?.needs||(topic.needs==='dispute'?disputeKnown():true); // a town topic that waits until you've heard of it
+    const CHAPEL_GREETING='St. Brigid’s parish office. If this is the chancery, the Sisters have received your letter. If it isn’t, how may I help you?';
+    // Three stories over a run, on days from the run's seed: the review confirmed, the vigil ordered to stop, the land named.
+    const DISPUTE_NEWS=[
+      {id:'sisters_review',section:'Faith',title:'CHANCERY CONFIRMS REVIEW OF THE SISTERS OF MERCY',summary:'The diocese says a review of the fellowship’s standing and the parish’s property is routine.',body:'The diocesan chancery has confirmed that the Sisters of Mercy of St. Brigid’s are under review, along with the parish’s property and what the chancery calls customs outside the diocesan calendar. Monsignor Aldo Ferrante, the bishop’s chancellor, said such reviews were routine and would end with a pastoral visit by the bishop himself. The Sisters said they had written to the bishop five times about the music and received no reply, and that nobody had reviewed them in sixty years until the guitars. The parish office is taking calls from anyone who wants to know more.',image:'sisters_review',fallbackImage:'religion_chapel'},
+      {id:'sisters_vigil',section:'Faith',title:'CHANCERY TELLS SISTERS TO END THE OLD MISSION VIGIL',summary:'The new-moon watch at the Old Mission is not in the diocesan calendar, the diocese says.',body:'The chancery has asked St. Brigid’s to suspend the Sisters of Mercy’s vigil at the Old Mission Chapel for the length of its review, on the grounds that the devotion is not in the diocesan calendar. The Sisters have kept the watch on every new moon for sixty years and say the parish began it long before the diocese had a calendar. They say they will keep the next one. Neighbors on the mission road say the three empty houses beside the Old Mission have new locks.',image:'sisters_vigil',fallbackImage:'bishop_guitars'},
+      {id:'sisters_land',section:'Faith',title:'SISTERS OF MERCY: THE REVIEW IS ABOUT OUR LAND',summary:'The bishop will visit St. Brigid’s before the review ends. The Sisters say the questions were about the canal side.',body:'In a second letter to this newspaper the Sisters of Mercy say the chancery’s review asked about the land by the canal on which St. Brigid’s and its reading room stand, about the Sisters’ house and garden, and about the deed to the Old Mission, before it asked anything about music. The chancery called the letter regrettable and the review routine. The Blue Ribbon Foundation, the diocese’s largest donor, declined to comment. The bishop’s pastoral visit to St. Brigid’s has been fixed for the close of the review. The Sisters said they would bake.',image:'sisters_land',fallbackImage:'religion_chapel'},
+      {id:'sisters_keane',section:'Letters',title:'LETTER: FATHER KEANE WRITES FROM THE PRIESTS’ HOME',summary:'The old pastor of St. Brigid’s remembers signing the Sisters’ charter.',body:'Father Anselm Keane, pastor of St. Brigid’s for fifty-three years until the diocese retired him to the city this year, writes that he countersigned the Sisters of Mercy’s charter as a young curate and again as pastor, that the bishop of that day had stood the Watch at the Old Mission himself, and that the chancery has his copy if it has kept it. He writes that he lent nobody a bell. He asks the parish to keep a place for him at the first-light Mass, and says he is well, which the Sisters say is not quite true.',image:'sisters_keane',fallbackImage:'religion_benefit'},
+      {id:'sisters_bells',section:'Community',title:'PARISH BAKES FOR A BELL',summary:'The Sisters of Mercy open a fund to bring St. Brigid’s bell home, wherever it is.',body:'The Sisters of Mercy have opened a bell fund at St. Brigid’s with a bake sale in the chapel garden. The bell was lent to the town for the founders’ fair forty years ago and never returned; the diocese’s receipt says it was sold for the repair of the tower, which was not repaired. Mrs. Delgado’s shortbread sold out first, whatever Sophia Moretti says. The chancery said the fund was a matter for the parish and the review would continue.',image:'sisters_bells',fallbackImage:'charity_volunteers'}
+    ];
+    // Five stories, in DISPUTE_NEWS order: the review (Day 3 or 4), the vigil, the land, then later in the run Father Keane's letter and the bell fund.
+    function disputeDays(){const h=n=>hashSeed(world.seed+'|dispute|'+n);const a=3+h('a')%2,b=a+4+h('b')%2,c=b+4+h('c')%2,d=c+4+h('d')%2,e=d+4+h('e')%3;return [a,b,c,d,e];}
+    function disputeNews(day){
+      if(!world||world.sq?.tapes?.outcome==='won')return []; // the Sisters excommunicated: the quarrel is over
+      const days=disputeDays(),out=[];
+      DISPUTE_NEWS.forEach((story,i)=>{
+        if(day!==days[i])return;
+        if(i===1&&Number.isInteger(questStart('priest')))return; // the new priest's own story carries the vigil in that run
+        out.push({...story,locked:true});
+      });
+      return out;
+    }
     const newsArticles = [
       {id:'charity_gala',section:'Community',title:'BLUEBIRDS ANNOUNCE CHARITY EVENING',summary:'The annual benefit will raise funds for local families.'},
       {id:'professor_fire',section:'Investigation',title:'PROFESSOR ESCAPES HOUSE FIRE',summary:'Investigators have not yet established the cause of the blaze.'},
@@ -1588,6 +1629,7 @@
       const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Oakley's ad
       if(campus)items.push(campus);
       if(gunAd)items.push(gunAd);
+      items.push(...disputeNews(day)); // the Sisters and the church: the review, the vigil, the land
       items.push(...sqNews(day)); // the story quests: the pageant, the radio contest, the pen pal, the Veil Line, the new priest
       if(Array.isArray(world.personalNews)){ // about you: a spurned woman's ad, her storyline; once printed, it lives in the edition
         for(const item of world.personalNews.filter(entry=>entry.day===day))items.push({id:item.id,section:item.section,title:item.title,summary:item.summary,body:item.body,image:item.image||'classifieds',...(item.fallbackImage?{fallbackImage:item.fallbackImage}:{})});
@@ -1607,6 +1649,7 @@
       const key=edition.day+':'+articleId;
       if(expandedNews.has(key))expandedNews.delete(key);else expandedNews.add(key);
       if(!world.seenArticles.includes(key))world.seenArticles.push(key);
+      if(/^(sisters_|sq_priest_|sq_tapes_)/.test(articleId)||articleId==='bishop_guitars'||(articleId==='religion_chapel'&&!item.chapelOutcome&&!item.chapelFragment))disputeHeard(); // a faith story: now you've heard of the Sisters and the bishop
       sqRead(item); // a story quest opens when you read about it
       if(item.clue)recordClue(item.clue);
       // Contacts: every edition prints the newsroom tip line and the police number;
@@ -1715,7 +1758,7 @@
         }
         const contact=Object.entries(contactNumbers).find(([,value])=>value===dialledNumber);
         const names={police:'Sunfall Police',newsroom:'Sunfall Daily',chapel:'St. Brigid’s Chapel',university:'University Office'};
-        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?(gravesKnowsYou()?DISPATCH.known:DISPATCH.greeting):(contact[0]==='university'&&questOn('vale')&&valeKnown()&&PV?.serviceGreeting?.('service:university'))||`${names[contact[0]]}. Hello, how may I help you?`});return;} // Professor Vale: Lorraine notices who keeps ringing
+        if(contact){startSimulatedCall({id:'service:'+contact[0],name:names[contact[0]],portrait:'assets/icons/calls.png',generic:true,greeting:contact[0]==='police'?(gravesKnowsYou()?DISPATCH.known:DISPATCH.greeting):(contact[0]==='university'&&questOn('vale')&&valeKnown()&&PV?.serviceGreeting?.('service:university'))||(contact[0]==='chapel'&&disputeKnown()?CHAPEL_GREETING:null)||`${names[contact[0]]}. Hello, how may I help you?`});return;} // Professor Vale: Lorraine notices who keeps ringing; St Brigid's, once you know about the review
         const jewellerLine=marriage?.contactForNumber(dialledNumber); // Marriage: the five jewellers
         if(jewellerLine){startSimulatedCall({...jewellerLine,generic:true});return;}
         const valeLine=PV?.contactForNumber(dialledNumber); // Professor Vale: numbers found during the case
@@ -2057,7 +2100,12 @@
       ],
       'service:chapel':[
         {id:'sisters',label:'Ask about the Sisters of Mercy',flag:'chapelQuestion',reply:'The sisters are attending evening prayers. Please respect their privacy.'},
-        {id:'gala',known:'br',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organize it.'}
+        {id:'gala',known:'br',label:'Ask about the charity gala',flag:'chapelGala',reply:'Some parishioners volunteered for the event, but the chapel did not organize it.'},
+        // The Sisters and the church (SISTERS_AND_THE_CHURCH.md): once you have heard of the review, the parish office will talk. Each once.
+        {id:'review',known:'dispute',once:true,label:'Ask about the bishop’s review',flag:'chapelReview',reply:'The chancery’s review is still open. It asked about our standing, the land by the canal, the Sisters’ house, the deed to the Old Mission, and the music, in that order. Margaret has written to the bishop five times. We keep the replies in a file. The file is empty.',clue:'St. Brigid’s parish office says the chancery’s review asked about the canal-side land and the Old Mission’s deed before the music, and the bishop has answered none of five letters.'},
+        {id:'vigil',known:'dispute',once:true,label:'Ask about the new-moon vigil',flag:'chapelVigil',reply:'We keep the Watch on every new moon at the Old Mission, as the parish has for sixty years under our name and longer before it. The chancery has asked us to stop for the length of the review. You may tell the chancery we received the letter. We will be there with every candle in the parish.',clue:'St. Brigid’s says the Sisters will keep the new-moon vigil at the Old Mission whatever the chancery writes.'},
+        {id:'keane',known:'story:sisters_keane',once:true,label:'Ask after Father Keane',flag:'chapelKeane',reply:'He is at the priests’ home in the city, where the diocese put him. One of us drives him back for the Watch when he is well enough, and he says the first-light Mass in the Sisters’ house kitchen when he is not supposed to. He asked whether anybody from outside the parish had been asking about the charter. We told him about you. He said good.',clue:'St. Brigid’s says Father Keane, retired to the city by the diocese, is driven back for the Watch and still says the first-light Mass in the Sisters’ kitchen.'},
+        {id:'history',known:'dispute',once:true,label:'Ask how the Sisters began',flag:'chapelHistory',reply:'Sixty years ago, when the old Mass was put away, the women who kept the Watch at the Old Mission asked the bishop of that day for a charter, and he gave it: a fellowship of the faithful, with leave to keep the Watch and the first-light Mass. He signed it and Father Keane countersigned it. The Watch itself is older. The parish began it after the night the bell forgot its voice. That is the short version. Rosalie has the long one.',clue:'St. Brigid’s says the Sisters were chartered sixty years ago by the bishop of that day, and the Watch at the Old Mission is older still.'}
       ]
     };
     // Fixed service topics plus any Blue Ribbon questions currently available on that line.
@@ -2069,7 +2117,7 @@
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
       if(serviceId.startsWith('service:sq-'))return sqLineTopics(serviceId); // the story quests
-      return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown), // 911: Doreen; a case's questions only once you've read about it
+      return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown).filter(topic=>!(topic.once&&world?.flags?.[topic.flag])), // 911: Doreen; a case's questions only once you've read about it; some are asked once
 ...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId),...sqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
@@ -2953,7 +3001,7 @@
       const work=base.find(topic=>topic.id==='work');
       const own=(womanOf(profile)?.conversation?.own||[]).filter(item=>!asked.has('own:'+item.id)&&warmEnough(warmth,item)&&ownTopicInRun(item,profile)).map(item=>({id:'own:'+item.id,label:item.label}));
       // Each woman offers the town topics in her own order, so no two chats look alike.
-      const pool=[...(characterDB?.worldTopics||[]).filter(topic=>warmEnough(warmth,topic)).map(topic=>({id:'world:'+topic.id,label:topic.label})),
+      const pool=[...(characterDB?.worldTopics||[]).filter(topic=>warmEnough(warmth,topic)&&topicOpen(topic)).map(topic=>({id:'world:'+topic.id,label:topic.label})),
         ...base.filter(topic=>topic.id!=='work').map(topic=>({id:topic.id,label:topic.label}))].filter(topic=>!asked.has(topic.id));
       pool.sort((a,b)=>hashSeed(world.seed+profile.id+a.id)-hashSeed(world.seed+profile.id+b.id));
       // A mix: small talk first, then one of her own topics and one about the town, then whatever is left.
@@ -3249,6 +3297,7 @@
       if(quest==='chapel'){const ch=chapel?.state?.();return !!(ch?.active&&!ch.outcome&&!ch.dead);}
       if(quest==='theon')return fionnActive()&&fionnKnown();
       if(quest==='moira')return callerActive()&&callerState().calls>=1;
+      if(quest==='dispute')return disputeKnown(); // the Sisters and the church: once you have heard of the review
       return true;
     }
     function givesOpen(gives){
@@ -3309,6 +3358,7 @@
       if(/^(br_|charity_|missing_)/.test(id))return 'charity';
       if(/^(professor_|pv_)/.test(id)||item?.pvReadKey)return 'professor';
       if(/^(bishop_|religion_)/.test(id))return 'faith';
+      if(/^sisters_/.test(id))return 'dispute'; // the Sisters and the church: the review, the vigil, the land
       if(/^hal_/.test(id))return 'halloran'; // Undeniable: what she thinks of him
       if(/^political_/.test(id))return 'protest';
       if(/^(crime_|police_)/.test(id))return 'crime';
@@ -3517,7 +3567,7 @@
       }
       if(id.startsWith('world:')){
         const topic=characterDB.worldTopics.find(item=>'world:'+item.id===id);
-        if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic))return;
+        if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic)||!topicOpen(topic))return;
         thread.followUp=null;thread.topics.push(id);
         thread.log.push({who:'you',text:myVoice(topic.player,profile.id)});
         lines.push(talkOpener(thread,profile,topic.id));
@@ -4261,7 +4311,7 @@
     function valeKnown(){return !!world.flags.valePaperSeen||!!PV?.isOpen?.();}
     function valeCallerDue(){return questOn('vale')&&PV?.isOpen?.()&&!window.MATCH_NO_VALE_CALLS?PV.valeCallerDue?.()||null:null;} // Professor Vale rings you himself (the conversation tests switch it off)
     function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
-    function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():true);}
+    function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():topic.known==='dispute'?disputeKnown():String(topic.known).startsWith('story:')?(world?.seenArticles||[]).some(key=>key.endsWith(':'+String(topic.known).slice(6))):true);} // story:<id>: once you have read that story
     // ===== Mogger: her dad, and Theon =====
     // Two men who aren't on Hinge. They ring you (their ids start x:) and you can't ring them back.
     // Theon is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
@@ -13617,7 +13667,7 @@
     // this is the full list of game functions it is allowed to use.
     chapel=window.MATCH_CHAPEL_ENGINE?window.MATCH_CHAPEL_ENGINE.create({
       document,$,esc,assetUrl,hydrate:hydrateInlineImages,recordClue,fit,setLowered,drawDeathTitle,playUiSound,openApp,
-      world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,ensureThread:profile=>ensureHingeThread(profile,'now'),refuse:id=>botchRefusal(id), // botched: no date
+      world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,ensureThread:profile=>ensureHingeThread(profile,'now'),refuse:id=>botchRefusal(id),disputeKnown:()=>disputeKnown(), // botched: no date; the Sisters and the church
       questDay:()=>questStart('chapel'), // the day the Chapel begins in this run, or null if it isn't in it
       warmth:id=>warmthOf(hingeThreads.get(id)),warmBy:(id,delta)=>{const thread=hingeThreads.get(id);if(thread)warmBy(thread,delta);},serviceKnown,
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
@@ -13650,6 +13700,7 @@
       document,$,esc,assetUrl,setLowered,playUiSound,
       world:()=>world,threads:()=>hingeThreads,profile:hingeProfile,refuse:id=>botchRefusal(id), // botched: no wedding
       sisterIds:()=>hingeProfiles.filter(profile=>profile.factionId==='sisters_of_mercy').map(profile=>profile.id), // every Sister can be married
+      disputeKnown:()=>disputeKnown(),recordClue, // the Sisters and the church: her aside before the first question, and Agnes Bellamy's memory of the bell
       replyDelay:hingeReplyDelay,status:updateRunStatus,newNumber:unusedContactNumber,
       save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(),blessed:()=>sistersBless(), // the priest is gone: no examination needed
       rerender:()=>{if(currentApp==='hinge')renderHinge();else if(currentApp==='notes')renderNotes();else if(currentApp==='blackbook')renderBook();else if(currentApp==='journal')renderJournal();else if(currentApp==='bank')renderBank();if(cupboardIsOpen()&&['shelf','wedding'].includes(cupboardView))renderCupboard();},

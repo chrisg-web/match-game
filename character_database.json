@@ -1742,7 +1742,8 @@
         "views": {
           "believe": "In old things that never died, only waited.",
           "sisters": "They leave their door open at night. Sweet. As if a door ever kept anything out.",
-          "speakers": "Houellebecq understands that the modern world is a lonely room with good lighting. The protesters and the professor are fighting over the light switch."
+          "speakers": "Houellebecq understands that the modern world is a lonely room with good lighting. The protesters and the professor are fighting over the light switch.",
+          "dispute": "The Sisters stand at the Old Mission’s door on moonless nights with candles and tell the dark to go home. The bishop wants them to stop. For once the bishop and I want the same thing, and I don’t trust it either."
         },
         "calls": [],
         "likes": "tease",
@@ -2301,12 +2302,19 @@
             "fromDay": 3,
             "note": "Sophia Moretti suspects the Sisters are quietly looking after someone upstairs at the charity shop.",
             "quest": "br"
+          },
+          {
+            "id": "b_guitars",
+            "label": "Ask what she thinks of the guitars",
+            "player": "What do you make of the guitars at Mass?",
+            "reply": "I like a guitar. Kiki O’Dell played one at our Mass for years and nobody minded. Then the bishop’s program sent a man with a guitar to stand where she stood, and that is the difference between music and a program. We still sing the old Mass at first light. The goth girls come for the Latin. Nobody comes for the man."
           }
         ],
         "views": {
           "believe": "That God loves us more than we deserve, and that a warm meal is a kind of prayer.",
           "speakers": "Professor Vale gave me a Houellebecq book once. It made me sad for everyone in it. They were all so lonely, and nobody prayed.",
-          "goths": "They’re not wicked. Most of them are just sad in very good clothes. Except one or two. Be careful with Victoria."
+          "goths": "They’re not wicked. Most of them are just sad in very good clothes. Except one or two. Be careful with Victoria.",
+          "dispute": "Nonna says the bishop is a boy who hasn’t been fed properly and should be prayed for and sent shortbread. I’ve sent the shortbread. We’ve sung the same Mass in that chapel since before he was born, and I have the keys this season, so it will be sung tomorrow too."
         },
         "calls": [],
         "likes": "sincere",
@@ -5108,7 +5116,9 @@
             "needsWarmth": 1
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "Priya at the parish reading room and I swap the books we’re not allowed to stock. The council wants her room closed and the diocese wants her land reviewed, in the same month. I’m a librarian. I notice when two letters have the same handwriting."
+        },
         "calls": [
           {
             "id": "c_deadcard",
@@ -5830,6 +5840,14 @@
             "player": "Whose photo is above your mirror?",
             "reply": "My nana. She raised us. Her face had eighty years in it. When I do someone’s make-up I think: let them look like that, one day.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_pew",
+            "label": "Ask about her nan’s pew",
+            "player": "Did your nana have a pew at St. Brigid’s?",
+            "reply": "Third from the front on the left, under the window with the cloak. Eighty years in it. The parish office rang to say the chancery wants a list of who sits where at the first-light Mass. Mom said over her dead body, and then said sorry, because nana only just died. The pew is still ours. I sit in it so it isn’t empty when the bishop’s man counts.",
+            "needsWarmth": 1,
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -6940,7 +6958,9 @@
             "needsWarmth": 1
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I run the food program with Margaret Holloway and I translate between her and the treasurer. The treasurer says review. Margaret says land. My abuela says both of them should eat something. I refuse to take a side and I bring the trays."
+        },
         "calls": [
           {
             "id": "c_sheet",
@@ -8228,12 +8248,21 @@
             "reply": "The chancellor’s letter came the week after our caretaker stopped coming to Mass. The guitars are an excuse. Somebody wants our land, and our papers. I have put the papers where the review won’t find them, and I don’t have the key. Truthfully.",
             "needsWarmth": 2,
             "note": "Margaret Holloway says the bishop’s review of the Sisters is about their land and papers, which she has hidden."
+          },
+          {
+            "id": "b_letters",
+            "label": "Ask what she wrote to the bishop",
+            "player": "What did you write to the bishop?",
+            "reply": "The first letter was about the music. The second asked whether he knew what that round of his was. The third asked whether he had read the second. The fourth asked where his chancellor’s informant had gone. The fifth is in the post. None has been answered, and I have kept copies, which is the only part of this I enjoy.",
+            "needsWarmth": 1,
+            "note": "Margaret Holloway has written the bishop five letters: the music, the founding round, the unread letters, the missing caretaker, and one more in the post. None answered."
           }
         ],
         "views": {
           "believe": "In order. God made an orderly world and people keep untidying it.",
           "campus": "Young people shouting is not new. Young people refusing to listen at all is.",
-          "sisters": "We are not a museum. We are a household. We just happen to have very old furniture."
+          "sisters": "We are not a museum. We are a household. We just happen to have very old furniture.",
+          "dispute": "Five letters. No replies. A reply is a reply. The guitars are an excuse and the review is the thing, and I have put the papers where the review won’t find them. Ask me anything else about it and I’ll tell you I don’t have the key, which is true."
         },
         "calls": [],
         "likes": "sincere",
@@ -8370,11 +8399,20 @@
             "gives": {
               "chapel": "night"
             }
+          },
+          {
+            "id": "b_visit",
+            "label": "Ask about the bishop’s visit to the school",
+            "player": "Did the bishop really visit your school?",
+            "reply": "Twice. The hamster bit him both times. The second time he asked my children which of their parents went to the first-light Mass, and I said that was not a question for children, and he smiled the way men smile when they have decided to remember you. I am on a list now. I’ve put a gold star next to it.",
+            "needsWarmth": 1,
+            "note": "Teresa Bellamy says the bishop asked her class which parents go to the first-light Latin Mass, and she refused him."
           }
         ],
         "views": {
           "believe": "That small kindnesses are how the world gets mended, one stitch at a time.",
-          "goths": "One of them asked me about the old bell tower once. She wasn’t curious. She was taking notes."
+          "goths": "One of them asked me about the old bell tower once. She wasn’t curious. She was taking notes.",
+          "dispute": "My class hamster has bitten the bishop twice and I call that a theological position. He is a guest, and hospitality is holy, and a guest who comes to take the house is still a guest until he leaves. I will not teach my children that round for his concert, whatever the diocese calls it."
         },
         "calls": [],
         "likes": "sincere",
@@ -8509,9 +8547,18 @@
             "fromDay": 3,
             "note": "Evelyn Rosales’s pantry minutes record one more for supper, upstairs, until further notice.",
             "quest": "br"
+          },
+          {
+            "id": "b_fare",
+            "label": "Ask about the diocesan meeting",
+            "player": "Is there a diocesan meeting coming?",
+            "reply": "There is one every season, in the city, with the chancellor at the table. Anyone from a parish may speak. I have never once spoken. I keep the train fare in a tin, exactly, in case I ever do, and I count it more often than I would like you to know.",
+            "needsWarmth": 2
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I keep the accounts and the minutes, so I know exactly what the review is and exactly who signed what. I have shown nobody. Showing it means standing up in a room full of people and saying it, and I will do anything so long as it isn’t that. I’m working on that."
+        },
         "calls": [],
         "likes": "sincere",
         "life": [
@@ -8757,7 +8804,9 @@
             "needsWarmth": 1
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I printed the Sisters’ letter and the chancery rang me the same afternoon to say the dispute was about liturgical traditions. I ran that word for word. Readers can hear a man clearing his throat."
+        },
         "calls": [
           {
             "id": "c_owner",
@@ -9537,9 +9586,19 @@
             "needsWarmth": 2,
             "note": "Priya Nair says a young man borrowing on the late Harold Oakley’s reading card returned a missal with a crescent and new Latin inside.",
             "quest": "chapel"
+          },
+          {
+            "id": "b_parcel",
+            "label": "Ask about the letters about the reading room",
+            "player": "What do the letters about the reading room say?",
+            "reply": "The council’s letter and the chancery’s review both name the same parcel of land by the canal, with the same survey number, in the same month. I filed them together under pending. The old men who read the papers here have nowhere else to go, and I have said so in print. I will say it again.",
+            "needsWarmth": 1,
+            "note": "Priya Nair says the council’s letter about closing the reading room and the chancery’s review name the same canal-side parcel, with the same survey number."
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "The council wants to close my reading room and the chancery wants to review the land it stands on, and both letters name the same parcel by the canal. I filed them together. My grandmother endowed that room to thank God for a daughter who got better. It is not the diocese’s to sell."
+        },
         "calls": [],
         "likes": "sincere",
         "life": [
@@ -10171,6 +10230,14 @@
             "player": "Why the choir at St. Brigid’s?",
             "reply": "Old ladies who don’t know who my father is. Neither do I. It’s the only hour of the week where I’m not performing for somebody.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_deep",
+            "label": "Ask about the hymn she cries at",
+            "player": "Is there a hymn that gets to you?",
+            "reply": "The one about the deep. Jessica hands me a tissue and never asks. The bishop’s man wants that hymn out and a round in, for his concert, and the old ladies told him the choir has sung it since before his diocese had a cathedral. I’m nineteen and broke and I’ve never been on anyone’s side before. I’m on theirs.",
+            "needsWarmth": 1,
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -11786,7 +11853,9 @@
             "needsWarmth": 2
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "A fellowship of unmarried women keeping candles at a ruin on moonless nights. The diocese should have reviewed it decades ago. The chapel sits on land the parish cannot afford to keep, and sentiment is not a title deed."
+        },
         "calls": [
           {
             "id": "c_fourth",
@@ -12441,9 +12510,20 @@
             "player": "What are you reading right now?",
             "reply": "A mystery where a girl finds a door nobody uses in a big house. Everyone says she’s imagining things. She isn’t. They never are.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_clause",
+            "label": "Ask what the club’s archive says about the land",
+            "player": "Does the club’s archive say anything about the chapel land?",
+            "reply": "A deed of gift, a copy, in the Crossley box. Land by the canal to the parish, forever, unless the parish stops using it for the purposes of the parish, in which case it goes back to the donor’s heirs. The chancery’s review uses those exact words. I noticed. I’m an archivist. I have not told the committee that I noticed.",
+            "needsWarmth": 2,
+            "note": "Whitney Ashford says the club’s archive holds a copy of the Crossley deed of gift for the chapel land, with a reversion clause the chancery’s review quotes word for word.",
+            "quest": "dispute"
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I read at the parish reading room most evenings and I’m the only member of the club who does. Priya Nair wrote the council a letter that made me want to stand up and clap. The bishop’s review names the same bit of land. I noticed. I’m an archivist. Noticing is the job."
+        },
         "calls": [
           {
             "id": "c_gate",
@@ -12545,6 +12625,15 @@
             "needsWarmth": 2,
             "note": "Delphine Moreau can copy anyone’s handwriting after an hour with a sample, and keeps every sample she has worked from.",
             "quest": "br"
+          },
+          {
+            "id": "b_nine",
+            "label": "Ask if her mother remembers the founders’ fair",
+            "player": "Does your mother remember the old founders’ fair?",
+            "reply": "She sang at it. Nine women on the Old Mission’s steps under a borrowed bell, forty years ago, and the radio cut them off mid-round. She is ninety and remembers every voice. She will not tell me what the round was for. She says the bell knows, and then she asks for her tea.",
+            "needsWarmth": 2,
+            "note": "Delphine Moreau says her mother, ninety, was one of nine women who sang a round under St. Brigid’s borrowed bell at the founders’ fair forty years ago.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -12647,7 +12736,9 @@
             "needsWarmth": 2
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I process the Foundation’s gifts. Sacred music was one of this year’s. I’m not going to tell you what the others were, and you can draw your own conclusions from how quickly I said that."
+        },
         "calls": [
           {
             "id": "c_husband",
@@ -14536,6 +14627,15 @@
             "player": "Do you own your place?",
             "reply": "My grandmother left me a little house beside the Old Mission Chapel. It needs a roof and a miracle. Somebody wants it very badly. I’m not selling.",
             "needsWarmth": 2
+          },
+          {
+            "id": "b_keys",
+            "label": "Ask about her grandmother and the chapel keys",
+            "player": "Your grandmother kept the Old Mission’s keys?",
+            "reply": "Forty years, for the parish, after the diocese stopped caring. She lent them to the sacristan and, when he died, handed them to the caretaker, and told me the chapel was the parish’s and nobody else’s, and that there was a paper at St. Brigid’s to prove it. She died in the spring. The twin of the crypt key is on a nail in my kitchen. I have never used it.",
+            "needsWarmth": 2,
+            "note": "Opal Franklin says her grandmother kept the Old Mission’s keys for the parish for forty years, and a twin of the crypt key hangs on a nail in Opal’s kitchen.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -15741,9 +15841,19 @@
             "player": "What were you like as a teenager?",
             "reply": "Ill, mostly. Thin and tired with a thing the doctors were slow to name. Mom left. Dad sold farm machinery and sat with me. I decided to be cheerful out of spite and I’ve never backed down.",
             "needsWarmth": 2
+          },
+          {
+            "id": "b_back",
+            "label": "Ask why she goes to the vigil",
+            "player": "Why do you sit at the back of the Sisters’ vigil?",
+            "reply": "Because I don’t believe, and a year ago I was in a home with nothing to believe in, and Margaret Holloway visited me there when nobody else did. The chancery wants the Watch stopped. I don’t pray. I will sit at the back with every candle they give me until somebody carries me out.",
+            "needsWarmth": 1,
+            "quest": "dispute"
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I rent a room above the Sisters’ shop and I sit at the back of their vigil and I don’t believe a word of it, and I haven’t missed one in a year. If the bishop wants to know why, he can come and sit at the back too."
+        },
         "calls": [
           {
             "id": "c_wall",
@@ -16379,6 +16489,14 @@
             "needsWarmth": 1,
             "note": "Freya Castillo says the dark house next to hers on the Old Mission road has candles behind the blinds and cars outside on nights with no moon, and she has heard a bell.",
             "quest": "chapel"
+          },
+          {
+            "id": "b_review",
+            "label": "Ask what she makes of the bishop’s review",
+            "player": "What do you make of this review of the Sisters?",
+            "reply": "I don’t believe in any of it and I still know a land grab when I read one. My sister keeps the garden accounts at that chapel. If the review ends her, it ends the one thing she has that grows. I would have to speak to her about that. I haven’t spoken to her in six years. Don’t tell her I said any of this.",
+            "needsWarmth": 1,
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -17208,6 +17326,15 @@
             "player": "What gets under your skin?",
             "reply": "People who smile too kindly. A kind smile you didn’t earn is usually a warning.",
             "needsWarmth": 2
+          },
+          {
+            "id": "b_steps",
+            "label": "Ask about her oldest postcard",
+            "player": "What’s the oldest postcard you have?",
+            "reply": "Nine women on the steps of the Old Mission, in white, with a bell on a cart behind them. No date on it, which is the point of a postcard. The Daily printed the same picture once with names under it. Bea at the archive has the names. I have the faces. One of them is still alive.",
+            "needsWarmth": 1,
+            "note": "Annabel Yates has a postcard of nine women on the Old Mission’s steps with a bell on a cart; Bea Hollis has the names.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -17660,7 +17787,9 @@
             "note": "Agnes Castillo says a payment to Halcyon Ridge Consultancy was hidden in her garden accounts."
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "There is a payment in my garden accounts to a company I had never heard of, and nobody chose the garden line by accident. I’ve prayed about it. God hasn’t told me who yet. I think the review is about the Old Mission, and the Old Mission is about my father, and I haven’t said either of those out loud until now."
+        },
         "calls": [],
         "likes": "dodge",
         "life": [
@@ -17768,9 +17897,18 @@
             "reply": "Something Margaret is afraid of the bishop finding. Her hand goes to that cabinet when he’s mentioned, and Evelyn’s hand goes to her collar. I’ve worked out they’re the same thing. I haven’t said so. I’m saying it to you because you won’t tell.",
             "needsWarmth": 2,
             "note": "Eliza Montoya believes the pantry’s locked cabinet holds what Margaret Holloway is hiding from the bishop, and Evelyn Rosales wears its key."
+          },
+          {
+            "id": "b_doorway",
+            "label": "Ask what the review means for the pantry",
+            "player": "What happens to the pantry if the review goes badly?",
+            "reply": "Nobody from the chancery has ever come through that door. People come in ashamed and leave a little less ashamed, and the tins are the excuse. If the Sisters go, the pantry goes, and half of Brown Avenue finds that out in a bad month. I don’t say that to the people who come in. I’m saying it to you.",
+            "needsWarmth": 1
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "Nobody from the chancery has ever come through the pantry door. People come in ashamed and leave a little less ashamed, and that is what the review would end. The Sisters fed my family once. I owe them the rest of my life, and the bishop can review that if he likes."
+        },
         "calls": [],
         "likes": "sincere",
         "life": [
@@ -17887,9 +18025,19 @@
             "reply": "Aurelio Baca. He kept the bell tower and the Old Mission’s keys. He never missed Mass and he never collected his last wages. Eleven weeks now. Nobody has reported him missing but me.",
             "needsWarmth": 2,
             "note": "Rosalie Kemp says the caretaker Aurelio Baca, who kept the Old Mission’s keys, vanished eleven weeks ago without collecting his wages."
+          },
+          {
+            "id": "b_charter",
+            "label": "Ask about the Sisters’ charter",
+            "player": "Do the Sisters actually have a charter?",
+            "reply": "Sixty years ago, when the old Mass was put away, the women who kept the Watch asked the bishop of that day for one, and he gave it, because he had stood a Watch himself as a curate. It is in my registers with his signature, and I copied the page before Margaret locked the original away. If the chancery ever asks to read my books I will show them. They have never asked.",
+            "needsWarmth": 1,
+            "note": "Rosalie Kemp has a copy of the Sisters’ charter, signed by the bishop of sixty years ago, who had stood the Watch himself."
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "The charter is in my registers, with the old bishop’s signature, and so is the thirtieth year, and so is a caretaker who never collected his wages. The diocese has never once asked to read my books. That tells you what the review is for better than I can."
+        },
         "calls": [],
         "likes": "sincere",
         "life": [
@@ -17997,9 +18145,19 @@
             "needsWarmth": 2,
             "note": "Bernadette Flores says the Foundation’s loan to the museum includes a bell clapper and a crescent-marked book that is not a hymnal.",
             "quest": "chapel"
+          },
+          {
+            "id": "b_inventory",
+            "label": "Ask what the chancery wanted from the museum",
+            "player": "Did the chancery write to the museum?",
+            "reply": "An inventory of parish property on loan: the chalice, the vestments, two paintings of saints with half their faces gone. I wrote back that the parish’s old things are not for sale and that I am the one keeping them from falling apart. The jeweler on Fifth Avenue has asked about the chalice twice. I have started to think the two letters know each other.",
+            "needsWarmth": 1,
+            "note": "Bernadette Flores says the chancery asked the museum for an inventory of parish property on loan, the same season Clara Whitmore asked twice about the parish chalice."
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "The chancery asked the museum for an inventory of the parish’s old things on loan. I wrote back that they are not for sale. A mended thing has a story and a new thing has a price, and the diocese is pricing the parish. I keep beautiful things from falling apart. That includes churches."
+        },
         "calls": [],
         "likes": "sincere",
         "life": [
@@ -18104,7 +18262,9 @@
             "quest": "br"
           }
         ],
-        "views": {},
+        "views": {
+          "dispute": "I’m from the city and I’m new to all of this. The diocese keeps writing to ask about my building. My aunt’s letter said never sell to the swallow, and I didn’t know what the swallow was, and I do now, and my answer is still no. That is the whole of my opinion and it fits on a postcard."
+        },
         "calls": [
           {
             "id": "c_trunk",
@@ -18337,6 +18497,15 @@
             "label": "Ask what the archive is like",
             "player": "What’s it like down in the archive?",
             "reply": "A hundred years of the town lying to itself in very nice fonts. I know the paper better than anyone alive, which is a lonely thing to know."
+          },
+          {
+            "id": "b_caretakers",
+            "label": "Ask about the two caretakers",
+            "player": "Is it true two caretakers vanished from the Old Mission?",
+            "reply": "Forty years apart. The first the year of the fair, the second eleven weeks ago. Same job, same keys, same line in the parish’s wages book: never collected. The Daily ran four paragraphs the first time and nothing the second. I pulled both clippings. Rosalie at the chapel has both names. Between us there’s a pattern, and nobody has asked us to put it together.",
+            "needsWarmth": 2,
+            "note": "Arielle Brooks says two Old Mission caretakers vanished forty years apart, both with wages uncollected; she has the clippings and Rosalie Kemp has the names.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -20487,6 +20656,15 @@
             "player": "What do you do for fun?",
             "reply": "The crossword, in pen. If you’re going to be wrong, be wrong in ink and own it.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_bell",
+            "label": "Ask what happened to St. Brigid’s bell",
+            "player": "Whatever happened to St. Brigid’s old bell?",
+            "reply": "Lent to the town for the founders’ fair, forty years ago, by a bishop who liked the founders’ dinners. Nine women sang under it, the broadcast was cut, and the bell never went back up the tower. The diocese’s receipt says sold. The caretaker who rang it that day never collected his wages. I have the reel. The reel has the bell on it. I can’t prove where the bell is. I have a guess, and it has a dining room.",
+            "needsWarmth": 2,
+            "note": "Bea Hollis says St. Brigid’s bell was lent for the founders’ fair forty years ago and never came back; the diocese’s receipt says sold, and the caretaker who rang it vanished.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -22156,6 +22334,15 @@
             "player": "What do you do?",
             "reply": "Gothic jewelry at the bench by the canal. Bats, coffins, mourning rings. My mother would faint. That’s a bonus.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_keepers",
+            "label": "Ask what the Crossleys had to do with the church",
+            "player": "Did your family have anything to do with St. Brigid’s?",
+            "reply": "We gave the parish the land by the canal, with a clause: use it for the parish or it comes back to us. My brothers found the clause last year. And my mother told me, before the wedding I walked out of, that the Crossley women were the founders’ keepers of the bell. The clapper sat in our safe until it was lent to the museum. I was supposed to carry it one day. I carry cacti.",
+            "needsWarmth": 2,
+            "note": "Indigo Crossley says the Crossleys gave the parish the canal-side land with a clause that returns it if the parish stops using it, and kept the Old Mission bell’s clapper until it went to the museum.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -23683,6 +23870,15 @@
             "player": "Do you really rehearse phone calls?",
             "reply": "In the shower, every time. I once said you too to a waiter who told me to enjoy my meal. I still think about it at night.",
             "needsWarmth": 1
+          },
+          {
+            "id": "b_office",
+            "label": "Ask about her mom and the parish school",
+            "player": "Does your mom hear things at the parish school?",
+            "reply": "Everything. The chancery’s questions for the school came through her desk: which teachers go to the first-light Mass, whether the infants are learning the concert piece, who signed the Sisters’ letter. Mom typed the answers slowly. Very slowly. She has been slow for ten weeks now.",
+            "needsWarmth": 2,
+            "note": "Jessica Rivera says the chancery’s questionnaire for the parish school asked which teachers go to the first-light Mass and who signed the Sisters’ letter.",
+            "quest": "dispute"
           }
         ],
         "views": {},
@@ -26554,6 +26750,183 @@
       "category": "faith"
     },
     {
+      "id": "dispute",
+      "label": "Ask about the Sisters and the bishop",
+      "player": "What’s going on between the Sisters of Mercy and the bishop?",
+      "category": "faith",
+      "needs": "dispute",
+      "views": {
+        "thunderbirds": [
+          "The Foundation paid for the cathedral’s organ, darling. One is allowed an opinion on the music. The Sisters have had sixty years of theirs.",
+          "A review is routine. That’s what the chancery told the committee, and the committee repeated it, and now I’m repeating it to you.",
+          "The flower committee is with the Latin and the treasurer is with the bishop, and I sit between them at lunch. Pass the salt.",
+          "Augustus plays golf with the new priest every week. Draw your own conclusions. I’ve drawn mine and I keep them in a drawer.",
+          "My grandmother would have rung the bishop and told him to leave those women alone. My mother rings the bishop about other things."
+        ],
+        "police": [
+          "The Sisters feed half the people we pick up overnight. If the bishop closes that pantry he can come and work the night shift.",
+          "A church fight. Everyone polite, nobody lying exactly, nobody telling the truth either. Give me a bar brawl.",
+          "We had a call about the chancery’s men measuring the chapel garden. Measuring isn’t a crime. I wrote it down anyway.",
+          "Their caretaker hasn’t been seen in eleven weeks and nobody but a parish archivist reported it. That’s the part I think about."
+        ],
+        "progressives": [
+          "I’m not religious and I’m on the Sisters’ side, which has confused everyone including me. You don’t review people out of their own church.",
+          "The folk Mass is lovely, honestly. Guitars, English, everyone welcome. The Sisters sit in the back pew and don’t sing, and I kind of respect that too.",
+          "Follow the money. A diocese doesn’t suddenly care about a reading room on the canal unless somebody else cares about the canal.",
+          "Kiki played guitar at that church for years. The bishop’s program replaced her with a man with a guitar. Even Margaret Holloway was on her side. That’s how you know it isn’t about guitars."
+        ],
+        "sisters_of_mercy": [
+          "We have written to the bishop five times. He has replied to none of them. That is a reply.",
+          "The guitars are the excuse. The review is the thing. I will say that much and no more.",
+          "We keep the Watch on every new moon, as the parish has for longer than the diocese has had a calendar. We will keep the next one.",
+          "The bishop means well, I think. The people around him mean something else. Pray for all of them. I do."
+        ],
+        "fourth_estate": [
+          "Best story of the year. Guitars on the front page, a property review on page four, and nobody at the chancery will say the two are related.",
+          "The faith desk gets more letters than crime now. Half of them from nanas. The other half from the Foundation’s press office, which is interesting.",
+          "The chancellor answers every question with the word routine. Monsignor Ferrante has said routine to me eleven times. I’ve counted.",
+          "The Sisters wrote us a letter that didn’t name the Council, the land or the chancellor. The most careful letter I’ve ever printed. Somebody told them to be careful."
+        ],
+        "goth_girls": [
+          "Latin, candles, a vigil at a ruined chapel on moonless nights. The Sisters are the most goth thing in this town and the bishop wants to give them a guitar.",
+          "They leave the chapel door open at night and never ask what you’re doing in the back pew. The chancery can take that from them over my dead body, and I mean that professionally.",
+          "A diocese that wants the Old Mission empty on moonless nights. I wonder who asked for that. I wonder who’s paying for it.",
+          "The bishop’s man wants the parish schools to sing some old round at his concert. I’ve heard it. It isn’t a hymn."
+        ],
+        "normie_girls": [
+          "My nana cried when they stopped the Latin and she’ll cry again if they stop the Sisters. I’m on nana’s side. I’m always on nana’s side.",
+          "I honestly thought it was about guitars until my cousin said the bishop’s people were asking about the land by the canal. Then I got weird about it.",
+          "The Sisters fed my aunt’s family one winter. Whatever the bishop is reviewing, he’s reviewing that.",
+          "I went to the folk Mass once. It was fine? The Sisters sat at the back and didn’t sing. It felt like watching your grandparents at a kid’s party."
+        ]
+      },
+      "ask": [
+        "Whose side are you on?",
+        "And you? Where do you land on it?",
+        "What do you make of it?"
+      ],
+      "stances": [
+        {
+          "id": "sisters",
+          "label": "Side with the Sisters",
+          "player": "I’m with the Sisters. You don’t review people out of their own church.",
+          "tags": [
+            "faith",
+            "honest"
+          ]
+        },
+        {
+          "id": "bishop",
+          "label": "Side with the bishop",
+          "player": "He’s the bishop. A parish doesn’t get to make up its own rules.",
+          "tags": [
+            "progress"
+          ]
+        },
+        {
+          "id": "land",
+          "label": "Say it’s about the land",
+          "player": "It isn’t about guitars. Somebody wants that land, and the bishop is being used.",
+          "tags": [
+            "honest"
+          ]
+        }
+      ],
+      "replies": {
+        "sisters": {
+          "thunderbirds": [
+            0,
+            "How loyal. The committee would call that sentimental. I might call it something else, privately."
+          ],
+          "police": [
+            1,
+            "Fair. They’ve never once asked us for anything, and they’ve fed everyone we’ve ever brought in."
+          ],
+          "progressives": [
+            1,
+            "Same, weirdly. I never thought I’d be defending a Latin Mass. Institutions shouldn’t steamroll people, even religious ones."
+          ],
+          "sisters_of_mercy": [
+            2,
+            "Thank you. Truly. You don’t know what it is to hear that from outside the parish. Come to the first-light Mass sometime. Bring a coat."
+          ],
+          "fourth_estate": [
+            1,
+            "Noted. So is most of the town, which the chancery seems not to have noticed. That’s a story in itself."
+          ],
+          "goth_girls": [
+            1,
+            "Good. They keep the door open for us. Somebody should keep one open for them."
+          ],
+          "normie_girls": [
+            1,
+            "Aw. Nana would adopt you."
+          ]
+        },
+        "bishop": {
+          "thunderbirds": [
+            1,
+            "Sensible. Order matters, and a diocese is not a democracy. The treasurer will like you."
+          ],
+          "police": [
+            0,
+            "Rules are rules, sure. I just notice who wrote these ones, and when."
+          ],
+          "progressives": [
+            -1,
+            "Authority for its own sake? That’s a strange hill. I expected better from you, honestly."
+          ],
+          "sisters_of_mercy": [
+            -2,
+            "I see. Then we will disagree, and I will pray for you, and I will keep the Watch anyway. Forgive me if I am quiet for a moment."
+          ],
+          "fourth_estate": [
+            0,
+            "A defender of the chancery. Rare. Do you want to be quoted? No? Didn’t think so."
+          ],
+          "goth_girls": [
+            -1,
+            "Siding with the man with the guitar. Bold. Wrong, but bold."
+          ],
+          "normie_girls": [
+            -1,
+            "Oh. Nana is going to have words with you."
+          ]
+        },
+        "land": {
+          "thunderbirds": [
+            -1,
+            "Darling, what land? I’m sure I don’t know what you mean. Shall we talk about something else?"
+          ],
+          "police": [
+            1,
+            "Now you’re thinking like a detective. Who benefits. Write it down and don’t say it on the phone."
+          ],
+          "progressives": [
+            1,
+            "Yes. Thank you. Follow the money. It always comes back to who owns what."
+          ],
+          "sisters_of_mercy": [
+            1,
+            "Margaret says the same, and she is usually right, and I wish she weren’t. Be careful who you say it to."
+          ],
+          "fourth_estate": [
+            2,
+            "There it is. If you ever find a piece of paper that says so, my number is the same as it was."
+          ],
+          "goth_girls": [
+            1,
+            "Someone wants the Old Mission empty on moonless nights. I wonder who. I don’t wonder for long."
+          ],
+          "normie_girls": [
+            0,
+            "That’s what my cousin said. I don’t know. It all sounds very grown-up and sad."
+          ]
+        }
+      },
+      "big": true
+    },
+    {
       "id": "campus",
       "label": "Ask about the campus protests",
       "player": "What do you think about all the protests up at the university?",
@@ -29038,6 +29411,79 @@
             "Everyone at work argues about him. It’s the most anyone’s talked about the mayor in years."
           ]
         }
+      },
+      "dispute": {
+        "views": {
+          "thunderbirds": [
+            "A review of the Sisters. The committee discussed it for ten minutes and the flowers for forty. That tells you where the club stands, darling.",
+            "The chancery says routine. Augustus says routine. When two men say routine in the same week I count the silver.",
+            "If the bishop closes that chapel the flower committee will never forgive him, and the flower committee outlives bishops.",
+            "A pastoral visit, how lovely. The Sisters will bake. The bishop will be polite. Nothing will be said and everything will be decided."
+          ],
+          "police": [
+            "The chancery’s review made the paper. The caretaker who vanished eleven weeks ago didn’t. Priorities.",
+            "I read it twice. Nobody in that story is accused of anything, which is how you know it’s serious.",
+            "We had a car outside the chapel garden last week. Diocesan plates. Measuring. I noted it.",
+            "Church stories. Everyone’s polite and nobody tells the truth. I’d rather work a robbery."
+          ],
+          "progressives": [
+            "A review of a women’s fellowship by a room full of men in the city. I don’t even go to church and I’m furious.",
+            "The paper keeps saying liturgical traditions. Nobody fights this hard over a hymn book. Follow the money.",
+            "I wanted to be fair to the bishop. Then I read the word consultancy and stopped wanting to.",
+            "The Sisters didn’t name anyone in their letter. That restraint is doing a lot of work. Somebody should name someone."
+          ],
+          "sisters_of_mercy": [
+            "We read it at the pantry table. Then we did the dishes. There is always something to do while you wait for a bishop.",
+            "The paper calls it a review. We call it a letter that arrived the week our caretaker stopped coming to Mass.",
+            "We will keep the Watch whatever the chancery writes. We have kept it for sixty years. It isn’t ours to stop.",
+            "Margaret read the story aloud and then said nothing for a full minute. That is the worst thing Margaret does."
+          ],
+          "fourth_estate": [
+            "My story, and the chancery rang before the ink was dry to say the word routine. I put the word in. Readers can hear a throat being cleared.",
+            "The Sisters won’t name the chancellor and the chancellor won’t name the land. I’ve got two sides of a page and a hole in the middle.",
+            "The faith desk has never had this many letters. One of them was from the Foundation’s press office, unsolicited. Interesting.",
+            "Somebody at the chancery leaked the visit to us before they told the parish. Somebody wanted the parish to read it in the paper."
+          ],
+          "goth_girls": [
+            "The bishop wants the Old Mission empty on moonless nights. I read that twice and went very quiet.",
+            "Latin, candles, a vigil at a ruin. The Sisters are more goth than half the Old Quarter and the diocese wants to give them a tambourine.",
+            "The paper ran the Sisters’ letter next to the guitar story. Somebody at the Daily has a sense of humor.",
+            "My friend sits in the back pew of that chapel at night and nobody has ever asked her to leave. Review that."
+          ],
+          "normie_girls": [
+            "My nana read it to me down the phone. Twice. Then she said she was writing to the bishop, and nana does not write to people.",
+            "I thought it was about guitars. It isn’t about guitars, is it. Nothing is ever about guitars.",
+            "The Sisters fed my aunt’s family one winter and never made them feel small. I don’t know what a review is but it can’t be about that.",
+            "A pastoral visit sounds nice? Like a garden party? My cousin says it isn’t like a garden party."
+          ]
+        },
+        "informed": {
+          "sisters_of_mercy": {
+            "lines": [
+              "The chancellor’s letter came the week after our caretaker stopped coming to Mass. We have never said that to the paper. We have said it to the bishop. Five times.",
+              "The review asked about the land by the canal and the deed to the Old Mission before it asked a single question about the music. Margaret has the letter. The paper hasn’t."
+            ],
+            "note": "A Sister says the chancery’s review asked about the canal-side land and the Old Mission’s deed before the music, and arrived the week after the caretaker vanished."
+          },
+          "fourth_estate": {
+            "lines": [
+              "Off the record: the property review the chancery won’t talk about was done by a consultancy called Halcyon Ridge, and the invoice didn’t go through the diocese. It went through the parish."
+            ],
+            "note": "A reporter says the diocese’s property review was done by Halcyon Ridge Consultancy and invoiced through the parish, not the diocese."
+          },
+          "thunderbirds": {
+            "lines": [
+              "Between us: the Foundation’s gift to sacred music this year was larger than the scholarship fund. Augustus called it an investment. In what, he didn’t say."
+            ],
+            "note": "A Bluebird says the Foundation’s gift to the diocese’s music program this year was larger than the scholarship fund, and Pell called it an investment."
+          },
+          "progressives": {
+            "lines": [
+              "My friend at the council says the planning enquiry about the canal-side parcel and the chancery’s review came in the same week, from the same surveyor. She wasn’t supposed to tell me."
+            ],
+            "note": "A Progressive says the council’s enquiry about the canal-side parcel and the chancery’s review came from the same surveyor in the same week."
+          }
+        }
       }
     },
     "skimmed": [
@@ -30127,7 +30573,8 @@
         "crime": "the crime report",
         "bear": "the bear",
         "local": "the local news",
-        "halloran": "the Halloran story"
+        "halloran": "the Halloran story",
+        "dispute": "the Sisters and the bishop"
       },
       "question": [
         "What did you make of it?",

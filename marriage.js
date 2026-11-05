@@ -82,8 +82,8 @@
     }
 
     // ---------- state ----------
-    function freshSister(){return {started:false,passed:false,active:false,streak:0,asked:[],current:null,attempts:0,draws:0,best:0,proposedWithoutRing:0,day:null,todayCount:0};}
-    function freshJeweller(){return {asked:false,church:false,favourAsked:false,chapelTold:false,orderedDay:null,ready:false,met:false};}
+    function freshSister(){return {started:false,passed:false,active:false,streak:0,asked:[],current:null,attempts:0,draws:0,best:0,proposedWithoutRing:0,day:null,todayCount:0,disputeSaid:false};}
+    function freshJeweller(){return {asked:false,church:false,favourAsked:false,chapelTold:false,orderedDay:null,ready:false,met:false,bellTold:false};}
     function freshState(){
       return {v:1,sisters:Object.fromEntries(SISTERS.map(id=>[id,freshSister()])),
         ring:null,jewellers:Object.fromEntries(JEWELLERS.map(id=>[id,freshJeweller()])),numbers:{},married:null,tb:null};
@@ -97,7 +97,7 @@
         const s=raw.sisters[id];
         if(!s||typeof s!=='object')continue;
         const o=out.sisters[id]||(out.sisters[id]=freshSister());
-        for(const key of ['started','passed','active'])o[key]=s[key]===true;
+        for(const key of ['started','passed','active','disputeSaid'])o[key]=s[key]===true;
         for(const key of ['streak','attempts','draws','best','proposedWithoutRing'])o[key]=Math.max(0,int(s[key])||0);
         o.day=int(s.day)!==null&&s.day>0?s.day:null;
         o.todayCount=Math.min(QUESTIONS_PER_DAY_MAX,Math.max(0,int(s.todayCount)||0));
@@ -114,7 +114,7 @@
         const j=raw.jewellers?.[id];
         if(!j||typeof j!=='object')continue;
         const o=out.jewellers[id];
-        for(const key of ['asked','church','favourAsked','chapelTold','ready','met'])o[key]=j[key]===true;
+        for(const key of ['asked','church','favourAsked','chapelTold','ready','met','bellTold'])o[key]=j[key]===true;
         o.orderedDay=int(j.orderedDay);
       }
       if(raw.numbers&&typeof raw.numbers==='object')for(const id of JEWELLERS)if(typeof raw.numbers[id]==='string'&&/^\d{7}$/.test(raw.numbers[id]))out.numbers[id]=raw.numbers[id];
@@ -145,6 +145,7 @@
       const first=profile.name.split(' ')[0];
       const made={name:profile.name,slug:profile.slug,shared:true,start:one(pool.start),player:fill(one(pool.player),{first}),intro:one(pool.intro),resume:one(pool.resume),pause:one(pool.pause),
         correct:some(pool.correct,4),wrong:some(pool.wrong,4),pass:one(pool.pass),noRing:one(pool.noRing),accept:one(pool.accept)};
+      made.dispute=pool.dispute?.length?one(pool.dispute):null; // last, so the picks above stay what they were
       sharedCache.set(id,made);
       return made;
     }
@@ -226,7 +227,11 @@
       const opening=s.started?sis.resume:sis.intro;
       const firstTime=!s.started;
       const q=s.current!==null?question(s.current):null;
-      converse(id,firstTime?sis.player:'Shall we carry on with the examination?',[opening],()=>{
+      // The Sisters and the church (SISTERS_AND_THE_CHURCH.md): once you know about the bishop's review, she says
+      // once, before her first question, why the examination matters more this season.
+      const aside=firstTime&&!s.disputeSaid&&sis.dispute&&api.disputeKnown?.()?sis.dispute:null;
+      if(aside)s.disputeSaid=true;
+      converse(id,firstTime?sis.player:'Shall we carry on with the examination?',[aside,opening].filter(Boolean),()=>{
         s.started=true;s.active=true;
         const next=q||draw(st,id);
         threadOf(id).log.push({who:'her',text:next.question});
@@ -344,8 +349,10 @@
       if(!id)return [];
       if(st.ring)return [{id:'have-ring',label:data.jewellerTalk.haveRing.label,marriage:true}];
       const j=st.jewellers[id];
+      // Agnes Bellamy remembers the year of the bell (SISTERS_AND_THE_CHURCH.md), once you know about the review; told once.
+      const bell=id==='agnes'&&data.jewellerTalk.agnes.bell&&!j.bellTold&&api.disputeKnown?.()?[topic(id,'bell')]:[];
       switch(id){
-        case 'agnes':return !j.asked?[topic(id,'ask')]:!j.church?[topic(id,'church'),topic(id,'discount')]:[topic(id,'listen')];
+        case 'agnes':return [...(!j.asked?[topic(id,'ask')]:!j.church?[topic(id,'church'),topic(id,'discount')]:[topic(id,'listen')]),...bell];
         case 'rafael':return !j.favourAsked?[topic(id,'ask')]:!j.chapelTold?[topic(id,'waiting')]:[topic(id,'done')];
         case 'clara':{
           if(!j.asked)return [topic(id,'ask')];
@@ -382,6 +389,7 @@
         case 'agnes:discount':return t.discount.reply;
         case 'agnes:church':j.church=true;return t.church.reply+(threadOf('MATCH-056')?t.church.teresa:'');
         case 'agnes:listen':giveRing(st,'agnes');return t.listen.reply;
+        case 'agnes:bell':j.bellTold=true;api.recordClue?.('Agnes Bellamy remembers St. Brigid’s bell going up the ridge road on the fair’s truck forty years ago, signed for by a young priest from the chancery with soft hands.');return t.bell.reply;
         case 'rafael:ask':j.favourAsked=true;return t.ask.reply;
         case 'rafael:waiting':return t.waiting.reply;
         case 'rafael:done':giveRing(st,'rafael');return t.done.reply;
