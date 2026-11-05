@@ -25966,7 +25966,86 @@
       "look": "Rosy fair skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
       "status": "awaiting portrait",
       "type": "all-in-romantic",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_teaching",
+            "label": "Ask about her class",
+            "player": "What’s it like teaching at St Brigid’s?",
+            "reply": "Twenty-two eight-year-olds and one visiting hamster. I read them poetry. They like it more than adults do. Adults are embarrassed by poetry. Children just want to know who dies."
+          },
+          {
+            "id": "b_postcards",
+            "label": "Ask about the postcards in her photos",
+            "player": "What are those postcards on your wall?",
+            "reply": "Old Sunfall chapels. I have the Old Mission from the founding years with nine women on the steps. Nobody can tell me who they are. I find that very romantic and slightly worrying.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_jacket",
+            "label": "Ask about the jacket she wears in her photos",
+            "player": "That jacket looks too big for you. Whose is it?",
+            "reply": "Someone who took a job at the lodge’s stables and stopped writing back. He went to the coast. I kept the jacket. That’s either romantic or sad and I change my mind every day.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_oakley",
+            "label": "Ask why Mrs Oakley locks her door",
+            "player": "You said Mrs Oakley started locking her door. Why?",
+            "reply": "I asked her in the end, over the tomatoes. It isn’t burglars. It’s her grandson, Ethan. He comes home at sunrise on the darkest nights with chalk on his hands and he won’t say where he’s been. She’s selling her husband’s things. She said she didn’t want Harold’s gun in the house with him in it. Then she went inside and locked the door.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "The hamster visited my class today. Twenty-two eight-year-olds went completely silent. I have never achieved that.",
+            "more": "Teresa’s class keeps a hamster and lends him to us once a week like a visiting dignitary. They read to him. He sleeps through it. Today one of my quietest read a whole page out loud because the hamster was listening. I went and sat in my car afterwards for a minute."
+          },
+          {
+            "feel": "good",
+            "news": "Found a postcard of the Cemetery Chapel from the founding years at the flea market. A dollar. I nearly cried at the stall.",
+            "more": "I collect old postcards of Sunfall’s chapels. The Old Mission, St Brigid’s, the Cemetery Chapel. This one has the angels before anyone put the fence round them. The man selling it said nobody wants chapels. I said I do. He gave me a second one for free, I think out of pity."
+          },
+          {
+            "feel": "odd",
+            "news": "Mrs Oakley next door has started locking her kitchen door. She’s left it open for twenty years.",
+            "more": "She gives me tomatoes over the fence and talks about her late husband like he’s in the next room. Her grandson lives in the room over her garage. The light is never on. I’d decided he was studious. This week I saw him come home at sunrise with chalk on his hands. Now she locks the kitchen door. I haven’t asked why."
+          },
+          {
+            "feel": "bad",
+            "news": "The bishop’s new music man took over our Mass with a guitar. The children used to sing there. I wrote to the bishop. Nothing.",
+            "more": "My class sang at the chapel every month. Now there’s a man with a guitar and a binder. I wrote to the bishop, very politely. Margaret Holloway lent me her letters as a model. She’s written four. He hasn’t answered hers either. I’m starting a fifth for her."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-056",
+            "warmth": 1,
+            "says": "Teresa Bellamy teaches the class above mine. Her hamster visits my room once a week. It is the most important event in the school calendar.",
+            "note": "Morgan Palmer teaches the class below Teresa Bellamy’s.",
+            "ask": "Morgan says your hamster is the most important event in the school calendar.",
+            "answer": "He is. He has a schedule and a fan club. Morgan pretends she isn’t in the fan club. She brought him a carrot last week.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-055",
+            "warmth": 2,
+            "says": "Margaret Holloway lent me her letters to the bishop so I could write my own. Four letters. Not one reply.",
+            "note": "Morgan Palmer says Margaret Holloway has written the bishop four letters with no reply.",
+            "ask": "Morgan says you’ve written the bishop four letters.",
+            "answer": "Five, by now. He replies to nobody. I keep copies. One day someone will want to know who asked first.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-242",
@@ -32208,7 +32287,16 @@
           "player": [
             "I was hoping it was you.",
             "You have a ridiculously good phone voice.",
-            "Funny. I was just thinking about you."
+            "Funny. I was just thinking about you.",
+            "Honestly? You just made my whole day.",
+            "I could listen to you talk all night.",
+            "I saw your name come up and smiled like an idiot.",
+            "You sound even better than you text. That shouldn’t be possible.",
+            "This is nice. In person would be nicer.",
+            "I missed your voice. Is that weird? It’s been a day.",
+            "You always ring at exactly the right moment.",
+            "You’re the best part of my day. Don’t tell anyone.",
+            "I kept checking my phone, hoping you’d ring."
           ]
         },
         "ask": {
@@ -35526,6 +35614,11 @@
           "muse": "Six dogs walked, one dress hemmed, and I’m sitting here hoping you write back. You don’t have to write beautifully. Just write like you.",
           "caption": "Turquoise top, copper hair, a dog’s nose just out of frame.",
           "melt": "You sound exactly like yourself. Do you know how rare that is? I do."
+        },
+        "MATCH-241": {
+          "muse": "Read my class a poem about a lily maid today and thought about you the whole time, which is unprofessional. Tell me something to make up for it.",
+          "caption": "Floral blouse, glasses, a bun that has given up. School photo energy.",
+          "melt": "I fall fast. I warned you. You didn’t run. That’s a very good sign."
         },
         "MATCH-002": {
           "muse": "Major checked every room and went to sleep. I checked every room and I’m lying here rereading your messages. Give me something to investigate.",

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="bcd0610af0">
+<html lang="en" data-build="722bff1ba9">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=bcd0610af0"></script>
+  <script src="chapel_at_midnight.js?v=722bff1ba9"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=bcd0610af0"></script>
+  <script src="marriage.js?v=722bff1ba9"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=bcd0610af0"></script>
+  <script src="quests/professor-vale.js?v=722bff1ba9"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -10502,8 +10502,9 @@
       next:{label:'Ask what she’s going to do about it',player:'What are you going to do about it?',
         reply:['Nothing yet. I needed somebody to know first.','I don’t know. Keep my head down and my eyes open, probably.','Write it all down, mostly. Then decide if I’m brave.','I was hoping you’d have an idea. No pressure.']}
     };
-    var FLIRT_CALL_LABELS=['Tell her you were hoping it was her','Tell her she has a good phone voice','Say you were just thinking about her']; // the same order as the lines you say
-    const flirtPickOf=call=>hashSeed(String(call.id)+'|flirtcall|'+world.day)%FLIRT_CALL_LABELS.length;
+    var FLIRT_CALL_LABELS=['Tell her you were hoping it was her', 'Tell her she has a good phone voice', 'Say you were just thinking about her', 'Tell her she just made your day', 'Say you could listen to her all night', 'Tell her you smiled when she rang', 'Say she sounds even better than she texts', 'Say in person would be nicer', 'Tell her you missed her voice', 'Say she always rings at the right time', 'Tell her she is the best part of your day', 'Say you were hoping she would ring']; // the same order as the lines you say (twelve, so a long run doesn't repeat itself: the sense check, Chris, 5 November 2026)
+    const flirtPickOf=call=>{const t=hingeThreads.get(call.id),n=(t?.callLog||[]).filter(l=>l.who==='you').length;return (hashSeed(String(call.id)+'|flirtcall')+n)%FLIRT_CALL_LABELS.length;}; // a different line each time you talk to her
+    const CALL_FLIRT_BACK=['Okay, now I’m smiling at my phone like an idiot.', 'Stop it. I have to go back to work after this.', 'Careful. I might start believing you.', 'That’s going straight to my head.', 'My friend just asked why I’m blushing. Thanks for that.', 'Say that again, slower.', 'Okay, you win this call.', 'I’m keeping that one.', 'You’re trouble. The good kind.', 'You can’t just say things like that in the middle of the day.']; // and more ways for her to take it
     function herCallChoices(){
       const kit=talkKit().calls,call=herCall;
       if(call.step==='bye')return [{id:'hangup',label:'☎ Hang up'}];
@@ -10645,7 +10646,7 @@
         const lead=callDodge(call);call.flirted=true;
         you(lead+((kit.options.flirt.player||[])[flirtPickOf(call)]||seededPick(kit.options.flirt.player,call.id+world.day)));
         if(tone()!=='truecel'||warmthOf(thread)>=4)warmBy(thread,1);
-        say(freshPick(thread,'flirtBack',[...(kit.flirtBack[faction]||kit.flirtBack.normie_girls),...(personalityOf(profile)?.reactions?.warm||[])],call.id+world.day));
+        say(freshPick(thread,'flirtBack',[...(kit.flirtBack[faction]||kit.flirtBack.normie_girls),...CALL_FLIRT_BACK,...(personalityOf(profile)?.reactions?.warm||[])],call.id+world.day));
       }else if(choice==='ask'){
         const lead=callDodge(call);call.asked=true;
         you(lead+freshPick(thread,'callAsk',[kit.options.ask.player,...CALL_ASK],call.id+world.day)); // not the same words every call

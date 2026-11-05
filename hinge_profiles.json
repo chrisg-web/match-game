@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 231,
-  "imageCount": 1605,
-  "publicImageCount": 934,
-  "privateImageCount": 671,
+  "characterCount": 232,
+  "imageCount": 1613,
+  "publicImageCount": 939,
+  "privateImageCount": 674,
   "characters": [
     {
       "id": "MATCH-001",
@@ -7893,6 +7893,44 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-241",
+      "slug": "morgan_palmer",
+      "name": "Morgan Palmer",
+      "age": 26,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Primary school teacher",
+      "gallery": [
+        "assets/hinge/roster_expansion/morgan_palmer_01.webp",
+        "assets/hinge/roster_expansion/morgan_palmer_02.webp",
+        "assets/hinge/roster_expansion/morgan_palmer_03.webp",
+        "assets/hinge/roster_expansion/morgan_palmer_04.webp",
+        "assets/hinge/roster_expansion/morgan_palmer_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/morgan_palmer_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Morgan Palmer, consistent Rosy fair skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/morgan_palmer_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Morgan Palmer, consistent Rosy fair skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/morgan_palmer_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Morgan Palmer, consistent Rosy fair skin, dark brown messy bun, thin wire-rimmed glasses, floral blouse and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing primary school teacher and collecting vintage postcards.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {

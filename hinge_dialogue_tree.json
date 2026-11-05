@@ -1417,6 +1417,14 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
+    "MATCH-241": {
+      "intro": "Hi. My errands are not done. Collecting vintage postcards is going very well though.",
+      "work": "I'm a primary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
+      "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
+      "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
     "MATCH-128": {
       "intro": "Hi. I should be running errands. I’m collecting odd roadside souvenirs instead.",
       "work": "I'm a police dispatcher. I tend to be blunt and unexpectedly generous. Outside work I've been collecting odd roadside souvenirs.",
@@ -1430,14 +1438,6 @@
       "work": "I'm a gothic jewelry maker. I tend to be skeptical but kind. Outside work I've been fixing up a used bicycle.",
       "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been fixing up a used bicycle. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
-    "MATCH-241": {
-      "intro": "Hi. My errands are not done. Collecting vintage postcards is going very well though.",
-      "work": "I'm a primary school teacher. I tend to be calm in a crisis and terrible at small talk. Outside work I've been collecting vintage postcards.",
-      "friends": "My friends say I'm calm in a crisis and terrible at small talk. I suppose they know me better than I know myself.",
-      "weekend": "I've been collecting vintage postcards. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     }
