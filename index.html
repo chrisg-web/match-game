@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d922fd9206">
+<html lang="en" data-build="a26e113226">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d922fd9206"></script>
+  <script src="chapel_at_midnight.js?v=a26e113226"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d922fd9206"></script>
+  <script src="marriage.js?v=a26e113226"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d922fd9206"></script>
+  <script src="quests/professor-vale.js?v=a26e113226"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1642,6 +1642,7 @@
       if(honey)items.push(honey);
       items.push(...lxAdsFor(day)); // the Looksmaxxer: surgeons and gadgets in the classifieds
       items.push(...halNewsItems(day)); // Undeniable: Cole Halloran
+      {const pawn=armsAdItem(day);if(pawn)items.push(pawn);} // Sunfall Pawn
       const fionnStory=fionnNewsItem(day); // Theon: how it ended
       if(fionnStory)items.push(fionnStory);
       const campus=fionnCampusItem(day),gunAd=fionnAdItem(day); // Theon: the three students, and Mrs Oakley's ad
@@ -1693,6 +1694,7 @@
       if(items.some(item=>item.id==='rq_hotline_ad')&&rqs('hotline'))rqs('hotline').seen=true; // room quests: the hotline
       if(items.some(item=>item.halProfile))halState().knowsName=true; // Undeniable: his name, from the paper
       if(items.some(item=>item.fionnAd))fionnState().gunSeen=true; // Theon: the revolver
+      if(items.some(item=>item.pawnAd))armsState().pawnSeen=true; // Sunfall Pawn
       if(questOn('br')&&world.day>=2)world.flags.brPaperSeen=true; // the Day 1 paper only announces the benefit; Elena is missing from Day 2
       if(questOn('vale'))world.flags.valePaperSeen=true;
       chapel?.onPaperOpened?.(); // Task 2: seeing Victoria's flyer starts her countdown
@@ -1758,6 +1760,8 @@
         const lxNumber=lxLine(dialledNumber); // the Looksmaxxer: a surgeon or a gadget from the classifieds
         if(lxNumber){startSimulatedCall(lxNumber);return;}
         const lpcLine=glowLine(dialledNumber); // Truecel: LPC Laboratories
+        const pawnLine=armsLine(dialledNumber); // Sunfall Pawn
+        if(pawnLine){startSimulatedCall(pawnLine);return;}
         const gunLine=fionnGunLine(dialledNumber); // Theon: Mrs Oakley
         if(gunLine){startSimulatedCall(gunLine);return;}
         if(lpcLine){startSimulatedCall(lpcLine);return;}
@@ -2158,6 +2162,7 @@
       if(serviceId==='service:lpc')return [...glowTopics(),...halLpcTopics()]; // Truecel: LPC-A365 (and Halloran's parcel)
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
+      if(serviceId==='service:pawn')return armsPawnTopics(); // Sunfall Pawn
       if(serviceId.startsWith('service:sq-'))return sqLineTopics(serviceId); // the story quests
       return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown).filter(topic=>!(topic.once&&world?.flags?.[topic.flag])), // 911: Doreen; a case's questions only once you've read about it; some are asked once
 ...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId),...sqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
@@ -2187,6 +2192,7 @@
       else if(topic.lx)reply=chooseLxTopic(id); // the Looksmaxxer: the classifieds
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
       else if(topic.fionn)reply=chooseFionnServiceTopic(id); // Theon
+      else if(topic.arms)reply=chooseArmsService(id); // Sunfall Pawn
       else if(topic.marriage)reply=marriage.chooseServiceTopic(activeGenericCall.id,id); // Marriage
       else if(topic.pv)reply=chooseValeServiceTopic(topic); // Professor Vale
       else if(topic.coyote)reply=chooseCoyoteTopic(id); // the Coyote: where she is
@@ -2511,6 +2517,7 @@
       for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
+      for(const [id,label] of armsChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,fionnActive()||halOpen()?1:5); // more ways to a gun: it matters once trouble is near, otherwise only when there is room
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label] of taleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her story: the ten
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
@@ -2717,6 +2724,7 @@
       if(id==='finale:ask'||id.startsWith('finale:list:'))return chooseFinale(thread,profile,id); // the Founders' Ball
       if(id==='lpc:ask')return chooseGlowChat(thread,profile); // LPC-A365: what was in it
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
+      if(id.startsWith('gun:'))return chooseArmsChat(id,thread,profile); // more ways to a gun
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
       if(id.startsWith('fionn:')){coverChat(thread,'fionn');return chooseFionnChat(id,thread,profile);} // Theon
@@ -3063,7 +3071,10 @@
         const question=kit.herQuestions?.find(item=>item.id===follow.id);
         return question?question.answers.map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer})):[];
       }
-      if(follow.kind==='news'){const n=thread?talkState(thread).newsCount||0:0,h=thread?hashSeed(thread.id):0;return moods(kit.newsFollow?.options).map(o=>({...o,player:thread&&NEWS_REPLY[o.id]?NEWS_REPLY[o.id][(n+h)%NEWS_REPLY[o.id].length]:o.player}));} // varied by day
+      if(follow.kind==='news'){ // varied by day, and shaped by what she said: her opinion, her question, or that she only skimmed it
+        const n=thread?talkState(thread).newsCount||0:0,h=thread?hashSeed(thread.id):0,shape=NEWS_SHAPES[follow.shape]?follow.shape:'S',set=NEWS_SHAPES[shape];
+        return moods(kit.newsFollow?.options).map(o=>({...o,label:set.label[o.id]||o.label,player:set.reply[o.id]?set.reply[o.id][(n+h)%set.reply[o.id].length]:o.player}));
+      }
       if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
       if(follow.kind==='lie')return twoTruthsSet(follow)?['first','second','third'].map((word,index)=>({id:String(index),label:`The ${word} one is the lie`,player:`The ${word} one. That’s the lie.`,tags:[]})):[];
       if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
@@ -3404,6 +3415,32 @@
     }
     var SQ_NEWS_PHRASES={sq_pageant:'the Miss Sunfall story',sq_radio:'the KSUN contest',sq_penpal:'the Lyle Dunmore story',sq_seance:'the Veil Line story',sq_priest:'the St Brigid’s story',sq_tapes:'Father Sorrell’s letter',sq_brief:'Around Sunfall'};
     // Your side of it, varied so the same chat never hears the same reply twice in a row (Chris, 5 November 2026: the sense check).
+    // What you can say back, by what she said (the sense check, Chris, 5 November 2026).
+    const NEWS_WORTH_ASK=['Is it worth reading?','Should I bother?','Tell me the short version?','Worth my time, or not?'];
+    var NEWS_REPLY_JOKE=['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.'];
+    var NEWS_SHAPES={
+      S:{label:{warm:'Agree with her',challenge:'Read it differently',joke:'Make a joke'},get reply(){return NEWS_REPLY;},
+        react:{warm:{pos:['Exactly. Thank you.','See? I knew it wasn’t just me.','Okay, good. I was starting to think I was the only one.','Right? Nobody at work agreed with me.','Good. You get it.'],
+            neg:['Hm. Easy to say.','You’re just agreeing with me, aren’t you.','Okay, but you don’t sound sure.']},
+          challenge:{pos:['Huh. I hadn’t thought of it like that.','Okay, fair. You might have a point.','I don’t agree, but I like that you said it.','Fine. I’ll read it again tonight.'],
+            neg:['We’ll have to agree to disagree.','Wow. Okay. Remind me not to talk news with you.','No. I’m right about this one.','Hm. I don’t see it.']},
+          joke:{pos:['Ha. Okay, fair.','I need to know more about that piano.','You’re ridiculous. Go on.','That’s honestly the best review it’ll get.'],
+            neg:['Can you be serious for one second?','I was asking properly.','Okay. Not the time.']}}},
+      Q:{label:{warm:'Say you get it',challenge:'Say you don’t',joke:'Make a joke'},
+        reply:{warm:['Not at all. Same.','No, I get it completely.','Honestly? Me too.','Not weird. I thought it too.','No. Anyone would.'],
+          challenge:['A little, yes.','Hm. I wouldn’t.','Honestly? I’d steer clear.','Maybe a bit. Just a bit.','I see it the other way.'],
+          joke:NEWS_REPLY_JOKE},
+        react:{warm:{pos:['Okay, good. I thought I was the weird one.','See, you get it.','Thank you. My mom thinks I’m strange.','Good. We’re both weird, then.'],neg:['You’re just saying that.','Hm. Nice try.']},
+          challenge:{pos:['Fair. Maybe I am.','Okay, you might be right.','Hm. That’s fair, actually.'],neg:['Wow. Okay. Judge me, then.','Noted. I’m still right.','Hm. Thanks, I guess.']},
+          joke:{pos:['Ha. Okay.','You’re ridiculous. I like it.'],neg:['I was asking properly.','Okay. Not the time.']}}},
+      K:{label:{warm:'Tell her to read it',challenge:'Tell her to skip it',joke:'Make a joke'},
+        reply:{warm:['Read it. It’s worth it.','It’s worth reading. I thought about it all day.','Read it. The headline doesn’t do it justice.','Yes. Read it properly, it’s better than it sounds.','Read it tonight. Then tell me what you think.'],
+          challenge:['Skip it. They’re making a meal of it.','Honestly? Don’t bother. It’s the same as last week.','Skip it. The headline is the whole story.','I wouldn’t. It’ll only annoy you.','Save yourself. It’s mostly guessing.'],
+          joke:NEWS_REPLY_JOKE},
+        react:{warm:{pos:['Okay. I’ll read it properly tonight.','Fine, you’ve sold me on it.','Now I have to read it. Thanks a lot.','Okay, okay. Tonight.'],neg:['Hm. We’ll see.','You say that about everything.']},
+          challenge:{pos:['Good. I wasn’t going to anyway.','One less thing to worry about. Thank you.','Perfect. More time for my book.'],neg:['Hm. Now I want to read it more.','You’re no fun.']},
+          joke:{pos:['Ha. Okay, fair.','That’s honestly the best review it’ll get.'],neg:['I was asking properly.','Okay. Not the time.']}}}
+    };
     var NEWS_REPLY={warm:['You’re right. I read it the same way.','Same. That’s exactly how it read to me.','I’m with you on that one.','I thought the same thing over breakfast.','Honestly? Agreed.'],
       challenge:['I’m not sure. I read it differently.','Really? I took it the other way.','Hm. I don’t think it’s that simple.','I’d push back on that a little.','I read the same story and came out somewhere else.'],
       joke:['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.']};
@@ -3669,17 +3706,26 @@
         const Phrase=phrase.charAt(0).toUpperCase()+phrase.slice(1);
         const ask=again?[`Did you see the latest on ${phrase}?`,`More on ${phrase} today. Did you read it?`,`${Phrase} again. Did you see today’s paper?`,`Any news on ${phrase}? It’s still in the paper.`,`Still following ${phrase}?`][(again-1)%5]:`${news.player} ${Phrase}?`;
         thread.log.push({who:'you',text:myVoice(ask,profile.id)});
-        const op=talkOpener(thread,profile,null);
-        lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
+        // The sense check (Chris, 5 November 2026): her take, what she knows, then one question, and nothing else in between.
+        // No mood or callback here (they waited in the middle of the exchange), and your replies fit what she said:
+        // an opinion (S: agree or not), a question about her own take (Q: answer it), or that she only skimmed it (K: is it worth reading?).
+        const view=variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true);
+        const take=voiced(view||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day); // another woman's view is hers, not this one's
+        const shape=!view?'K':/\?\s*$/.test(take)?'Q':'S';
+        const extra=[];
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
         const informed=about.informed?.[profile.factionId]?.fromDay>world.day?null:about.informed?.[profile.factionId]; /* gala gossip only once the gala has happened */
         const chance={mogger:1,normie:warmthOf(thread)>=1?1:.5,truecel:warmthOf(thread)>=1?.5:.2}[tone()];
         let note=null;
-        if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);lines.push(seededPick(informed.lines,profile.id));note=informed.note;}
-        if(kind==='bear')lines.push(...bearEgg());
-        lines.push(op); // her mood or a callback, after her take on the story
-        lines.push(freshPick(thread,'newsAsk',kit.newsFollow.questionByFaction?.[profile.factionId]||kit.newsFollow.question,profile.id+world.day));
-        thread.followUp={kind:'news',id:kind};
+        if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);extra.push(seededPick(informed.lines,profile.id));note=informed.note;}
+        if(kind==='bear')extra.push(...bearEgg());
+        if(shape==='Q')lines.push(...extra,take); // her question about her own take comes last, so your answer answers it
+        else{
+          lines.push(take,...extra);
+          if(shape==='S'){const asks=kit.newsFollow.questionByFaction?.[profile.factionId]||kit.newsFollow.question,fits=['crime','charity','professor','halloran','chapel','protest'].includes(kind)?asks:asks.filter(q=>!/what would you (actually )?do|have done the same|in their shoes/i.test(q));lines.push(freshPick(thread,'newsAsk',fits.length?fits:asks,profile.id+world.day));} // what would you do? only about something somebody did
+          else if(!/\?\s*$/.test(take))lines.push(freshPick(thread,'newsWorth',NEWS_WORTH_ASK,profile.id+world.day)); // she skimmed it: is it worth reading?
+        }
+        thread.followUp={kind:'news',id:kind,shape};
         after=()=>{if(note)recordClue(note);moggerPicture(thread,profile);};
       }else if(id==='daily'){
         // Once a day: how was hers? Her mood, a slice of her life in Sunfall, maybe what she
@@ -3825,7 +3871,8 @@
         if(heard&&!state.recycled&&gameRandom()<.7){state.recycled=true; // once per chat
           lines.push(fillIn(seededPick(tone()==='mogger'?kit.eggs.recycledJokeMogger:kit.eggs.recycledJoke,profile.id+follow.id),{other:otherName(heard)}));
           delta=tone()==='mogger'?0:Math.min(delta,0)-1;
-        }else lines.push(reaction(delta,profile.id+follow.id+choice.id));
+        }else if(follow.kind==='news'){const r=NEWS_SHAPES[NEWS_SHAPES[follow.shape]?follow.shape:'S'].react[choice.mood]||{};lines.push(delta>0?freshPick(thread,'newsReactPos',r.pos||WARM_REACTIONS,profile.id+world.day):delta<0?freshPick(thread,'newsReactNeg',r.neg||COOL_REACTIONS,profile.id+world.day):variedPick(kit.neutral,profile.id+world.day));} // her reaction fits a chat about the paper
+        else lines.push(reaction(delta,profile.id+follow.id+choice.id));
         if(jokers&&!jokers.includes(profile.id))jokers.push(profile.id);
       }
       // Easter egg (Truecel only): a woman who gets as few matches as you.
@@ -4510,6 +4557,8 @@
       what:'It was Harold’s, from his years on the force. He never fired it, he always said. I never asked.',
       when:'Tomorrow, love. He’s a good boy. He’ll leave it on the step.',
       delivered:'A shoebox just inside your door, wrapped in a dish towel. Inside is Harold Oakley’s revolver, and a note: please don’t tell me.',
+      ammo:'Oh, you have one already? Then you don’t need Harold’s, love. But he left bullets in the study, and I won’t have them in the house either. Hollow-points, and a box he called dum-dums, the ones that open up. My grandson will leave them on the step tomorrow. No charge. Please don’t tell me what they’re for.',
+      ammoHave:'Harold left bullets too, if you want them. Hollow-points, and a box of dum-dums. My grandson will leave them on the step tomorrow.',
       item:'Harold Oakley’s service revolver, in its box, wrapped in a dish towel. Loaded. Mrs. Oakley’s note says: please don’t tell me what it’s for.'
     };
     // Three women at the university. Each knows your face from his profile, one thing about him,
@@ -4575,7 +4624,8 @@
     }
     function fionnAdItem(day){
       const f=fionnState();
-      if(!fionnActive()||!Number.isInteger(f.startDay)||day<=f.startDay||f.gun!=='none')return null;
+      const theon=fionnActive()&&Number.isInteger(f.startDay)&&day>f.startDay; // daily while Theon is about; otherwise every few days from Day 3 (more ways to a gun)
+      if(f.gun!=='none'||hollowPoints()||armsState().roundsDay||(!theon&&(day<3||(day+hashSeed(world.seed+'|oakley'))%3!==0)))return null;
       if(!f.gunNumber)f.gunNumber=unusedContactNumber();
       return {id:'gun_ad_'+day,section:GUN.ad.section,title:GUN.ad.title,summary:GUN.ad.summary,body:fillIn(GUN.ad.body,{number:f.gunNumber}),image:'classifieds',locked:true,fionnAd:true};
     }
@@ -4585,9 +4635,10 @@
     }
     function fionnGunTopics(){
       const gun=fionnState().gun;
-      if(gun==='none')return [{id:'gun_buy',label:'Ask to buy the revolver',fionn:true},{id:'gun_what',label:'Ask whose it was',fionn:true}];
+      const bullets=!hollowPoints()&&!armsState().roundsDay;
+      if(gun==='none')return [...(anyGun()&&!bullets?[]:[{id:'gun_buy',label:'Ask to buy the revolver',fionn:true}]),{id:'gun_what',label:'Ask whose it was',fionn:true}]; // with a gun already, buying gets you bullets
       if(gun==='ordered')return [{id:'gun_when',label:'Ask when it will come',fionn:true}];
-      return [{id:'gun_what',label:'Ask whose it was',fionn:true}];
+      return [{id:'gun_what',label:'Ask whose it was',fionn:true},...(bullets?[{id:'gun_ammo',label:'Ask if Harold left any bullets',fionn:true}]:[])];
     }
     function isStranger(id){return typeof id==='string'&&id.startsWith('x:');}
     // What the phone shows for a caller: a Hinge match, or one of the two men.
@@ -6228,7 +6279,11 @@
     }
     function chooseFionnServiceTopic(id){
       const f=fionnState(),has=clue=>f.clues.includes(clue);
-      if(id==='gun_buy'){if(f.gun==='none'){f.gun='ordered';f.gunDay=world.day+1;}return GUN.order;}
+      if(id==='gun_buy'){
+        if(anyGun()||gunComing()){const a=armsState();if(!hollowPoints()&&!a.roundsDay)a.roundsDay=world.day+1;return GUN.ammo;} // one gun is enough: Harold's bullets instead
+        if(f.gun==='none'){f.gun='ordered';f.gunDay=world.day+1;}return GUN.order;
+      }
+      if(id==='gun_ammo'){const a=armsState();if(!hollowPoints()&&!a.roundsDay)a.roundsDay=world.day+1;return GUN.ammoHave;}
       if(id==='gun_what')return GUN.what;
       if(id==='gun_when')return GUN.when;
       if(id==='fionn_uni'){fionnClue('name');return FIONN.uni;}
@@ -6249,7 +6304,126 @@
       else if(FIONN.notes.over[f.stage])lines.push(FIONN.notes.over[f.stage]);
       return lines;
     }
-    function fionnRevolver(){const f=fionnState();return f.gun==='delivered'&&(fionnActive()||f.stage==='shot');}
+    // ---- More ways to a gun (Chris, 5 November 2026) ----
+    // The revolver only came from Mrs. Oakley's ad, and only while Theon was about. Now there are ten easy ways:
+    // ask a woman on Hinge where a man gets one (police, goth, Bluebird, progressive and press women each have
+    // their own answer; a normie's brother runs the pawnshop), Mrs. Oakley's estate sale in any run, Sunfall Pawn
+    // in the classifieds, a loose floorboard, and a woman who likes you bringing her dad's when trouble is near.
+    // One gun is enough: once you have one, everybody offers bullets instead (hollow-points and dum-dums), which
+    // steady your aim at the door. A gun you own works for Theon, Cole Halloran and Denise's porch alike.
+    var ARMS={
+      ask:{label:'Ask where a man gets a gun around here',player:'Strange question. Where does a man get a gun around here?'},
+      by:{
+        police:{reply:'I’m not supposed to say this. When the department switched to automatics, I kept my old service revolver. It lives in my sock drawer and I hate it. I’ll drop it in your mailbox tomorrow. You didn’t get it from me.',
+          label:'Her old service revolver',delivered:'Your mailbox is heavier than usual. Inside, wrapped in a police academy t-shirt: her old service revolver. No note.',
+          item:'A police service revolver, retired when the department switched to automatics. Wrapped in an academy t-shirt. Loaded.'},
+        goth_girls:{reply:'My ex left a revolver in my closet when he moved out. He said it was for protection. Mine, apparently. I want it gone. I’ll leave it on your step tomorrow in a velvet bag. Don’t make it weird.',
+          label:'Her ex’s revolver',delivered:'A black velvet bag on your step, tied with a ribbon. Inside: her ex’s revolver, and a dried rose she clearly didn’t want either.',
+          item:'Her ex’s revolver, in a black velvet bag with a dried rose. Loaded. She says it was always too heavy for him.'},
+        thunderbirds:{reply:'Daddy has a gun room at the club. Glass cases, little brass labels. He won’t notice one missing for a year. I’ll send it over with the club’s courier tomorrow. Tip him. He gossips.',
+          label:'A revolver from the club’s gun room',delivered:'The club’s courier hands you a walnut box and waits for a tip. Inside, on green felt: a revolver with a little brass label you decide not to read.',
+          item:'A revolver from her father’s gun room at the club, in a walnut box on green felt. Loaded. It is nicer than anything else you own.'},
+        progressives:{reply:'This is so awkward. Somebody left a revolver in the collective’s donation bin. We had a meeting about it. Then a vote. It can’t stay in the building. I’ll bring it round tomorrow in a tote bag. Please don’t tell anyone at the collective.',
+          label:'The revolver from the donation bin',delivered:'A canvas tote bag on your step, printed with a slogan about community. Inside, under a scarf: the revolver from the donation bin, and the minutes of the vote.',
+          item:'The revolver from the collective’s donation bin, in a tote bag under a scarf. Loaded. The minutes of the meeting say the vote was eleven to two.'},
+        fourth_estate:{reply:'A source paid off a favor in a revolver once. I never wrote about it and I never wanted it. It’s in my desk at the paper. I’ll leave it with your name on it at the front desk... no, better. Your step, tomorrow, in a newspaper.',
+          label:'A source’s revolver',delivered:'A bundle of yesterday’s Sunfall Daily on your step. Inside the sports pages: a revolver, and a sticky note that says off the record.',
+          item:'A revolver a source once gave a reporter, wrapped in the sports pages. Loaded. The sticky note says off the record.'},
+        normie_girls:{reply:'My brother runs Sunfall Pawn out on the interstate. Guitars, gold, and usually one revolver nobody came back for. I’ll text you his number. Tell him you’re my friend and he won’t ask questions.',pawn:true}
+      },
+      has:'You already have one? Then you don’t need another. If you want bullets for it, ring Sunfall Pawn, or the widow selling her husband’s things in the classifieds.',
+      pawn:{greeting:'Sunfall Pawn. Guitars, gold, and no questions.',
+        buy:'The revolver? Sure. Six rounds in it already, nobody came back for it. I’ll have it on your step tomorrow. Cash, and I never saw you.',
+        broke:'The revolver’s two hundred and fifty. Come back when your bank says yes.',
+        what:'Came in with a man who needed bus fare. He said it was his father’s. They always say it was their father’s.',
+        rounds:'Since you’ve got a gun already, what you want is bullets. Hollow-points, and a box of dum-dums, the ones that open up when they hit. On your step tomorrow.',
+        delivered:'A paper bag from Sunfall Pawn on your step, folded over twice. Inside is the revolver nobody came back for.',
+        label:'The pawnshop revolver',item:'The revolver nobody came back for, from Sunfall Pawn. Loaded. There is still a price tag on the trigger guard.'},
+      ad:{section:'Classifieds',title:'SUNFALL PAWN: GUITARS, GOLD, ONE REVOLVER',summary:'Out on the interstate. Cash only, no questions.',body:'Sunfall Pawn, out on the interstate past the car lots. Guitars, gold, power tools and one revolver nobody came back for. Cash only, no questions. Ring {number}.'},
+      floor:{notice:'The loose floorboard by your bed finally lifts. Underneath, wrapped in an oily rag, is the last tenant’s revolver. It’s in your cupboard now.',
+        label:'The last tenant’s revolver',item:'A revolver from under the loose floorboard by your bed, wrapped in an oily rag. Loaded. The last tenant left in a hurry.'},
+      gift:{line:'I keep thinking about you over there on your own, with everything in the paper. My dad’s old revolver is in a shoebox in my closet and I hate it. I’m leaving it on your step tomorrow. Don’t argue.',
+        delivered:'A shoebox on your step, taped shut twice. Inside: her dad’s old revolver, and a note that says lock your door.',
+        label:'Her dad’s old revolver',item:'Her dad’s old revolver, from a shoebox in her closet. Loaded. Her note says lock your door.'},
+      rounds:{delivered:'A small heavy box on your step: hollow-points, and a box of dum-dum rounds. Your gun is loaded with them now. Your hands feel steadier already.',
+        label:'Hollow-points and dum-dums',short:'Bullets',item:'Hollow-points, and a box of dum-dum rounds, the kind that open up. Your revolver is loaded with them. With these, close enough is good enough.'}
+    };
+    function armsState(){
+      const a=world.arms;
+      if(!a||typeof a!=='object'||Array.isArray(a))world.arms={from:null,who:null,day:null,pending:null,rounds:false,roundsDay:null,asked:{},pawnNumber:null,pawnSeen:false,floorDone:false,giftDone:false};
+      const s=world.arms;
+      if(!s.asked||typeof s.asked!=='object'||Array.isArray(s.asked))s.asked={};
+      if(s.pending&&(typeof s.pending!=='object'||!Number.isInteger(s.pending.day)))s.pending=null;
+      return s;
+    }
+    function myGun(){const a=armsState();return !!a.from&&Number.isInteger(a.day)&&world.day>=a.day;} // one of the ten ways
+    function anyGun(){return fionnState().gun==='delivered'||myGun()||halState().gun==='have';} // any gun you can reach for
+    const gunComing=()=>!!armsState().pending||fionnState().gun==='ordered';
+    const hollowPoints=()=>armsState().rounds===true;
+    function gunName(){const a=armsState();if(myGun())return (a.from==='pawn'?ARMS.pawn:a.from==='floor'?ARMS.floor:a.from==='gift'?ARMS.gift:ARMS.by[a.from]||ARMS.gift).label.replace(/^Her /,'her ').replace(/^The /,'the ').replace(/^A /,'a ');return fionnState().gun==='delivered'?'Harold’s revolver':'the revolver';}
+    function armsChoices(thread,profile){
+      const a=armsState();
+      if(!profile||!ARMS.by[profile.factionId]||(world.day||1)<2||a.asked[profile.id]||gunComing()||(anyGun()&&(hollowPoints()||a.roundsDay)))return [];
+      if(warmthOf(thread)<1||thread.blocked||thread.closed)return [];
+      return [['gun:ask',ARMS.ask.label]];
+    }
+    function chooseArmsChat(id,thread,profile){
+      if(!armsChoices(thread,profile).some(([choice])=>choice===id))return;
+      const a=armsState(),way=ARMS.by[profile.factionId];
+      a.asked[profile.id]=world.day;
+      lineSpeaker=profile.id;
+      thread.log.push({who:'you',text:ARMS.ask.player});
+      if(anyGun()){deliverTalk(thread,profile,[ARMS.has],'talk',null,true);return;} // one is enough: she points you at bullets
+      const after=way.pawn?()=>{a.pawnNumber=a.pawnNumber||unusedContactNumber();a.pawnSeen=true;recordClue(`${profile.name}’s brother runs Sunfall Pawn: ${displayNumber(a.pawnNumber)}.`);}:()=>{if(!myGun()&&!gunComing())a.pending={from:profile.factionId,day:world.day+1,who:profile.id};};
+      deliverTalk(thread,profile,[way.reply],'talk',after,true);
+    }
+    // Sunfall Pawn: in the classifieds every few days until you have a gun and bullets, or from a normie's brother.
+    function armsAdItem(day){
+      const a=armsState();
+      if(day<2||(anyGun()&&(hollowPoints()||a.roundsDay))||gunComing()||(day+hashSeed(world.seed+'|pawn'))%4!==0)return null;
+      a.pawnNumber=a.pawnNumber||unusedContactNumber();
+      return {id:'pawn_ad_'+day,section:ARMS.ad.section,title:ARMS.ad.title,summary:ARMS.ad.summary,body:fillIn(ARMS.ad.body,{number:displayNumber(a.pawnNumber)}),image:'classifieds',locked:true,pawnAd:true};
+    }
+    function armsLine(number){const a=armsState();return a.pawnNumber&&a.pawnNumber===String(number)?{id:'service:pawn',name:'Sunfall Pawn',portrait:'assets/icons/calls.png',generic:true,greeting:ARMS.pawn.greeting}:null;}
+    function armsPawnTopics(){
+      const a=armsState(),out=[];
+      if(!anyGun()&&!gunComing())out.push({id:'pawn_buy',label:walletOn()?'Buy the revolver ($250)':'Buy the revolver',arms:true});
+      else if(anyGun()&&!hollowPoints()&&!a.roundsDay)out.push({id:'pawn_rounds',label:'Buy the revolver',arms:true}); // you already have one: he sells you bullets
+      out.push({id:'pawn_what',label:'Ask whose the revolver was',arms:true});
+      return out;
+    }
+    function chooseArmsService(id){
+      const a=armsState();
+      if(id==='pawn_buy'){
+        if(anyGun()||gunComing())return ARMS.pawn.rounds;
+        if(walletOn()){if(classState().cash<250)return ARMS.pawn.broke;cashMove(-250,'Sunfall Pawn: a revolver');}
+        a.pending={from:'pawn',day:world.day+1,who:null};return ARMS.pawn.buy;
+      }
+      if(id==='pawn_rounds'){if(!hollowPoints()&&!a.roundsDay)a.roundsDay=world.day+1;return ARMS.pawn.rounds;}
+      if(id==='pawn_what')return ARMS.pawn.what;
+      return '…';
+    }
+    function armsNewDay(){
+      const a=armsState(),day=world.day;
+      if(a.pending&&day>=a.pending.day){
+        const p=a.pending;a.pending=null;
+        if(!anyGun()){a.from=p.from;a.who=p.who;a.day=day;fionnNotices.push((p.from==='pawn'?ARMS.pawn:p.from==='gift'?ARMS.gift:ARMS.by[p.from]||ARMS.gift).delivered);}
+      }
+      if(a.roundsDay&&day>=a.roundsDay){a.roundsDay=null;a.rounds=true;fionnNotices.push(ARMS.rounds.delivered);}
+      if(!a.floorDone&&!anyGun()&&!gunComing()&&hashSeed(world.seed+'|floorboard')%3===0&&day===2+hashSeed(world.seed+'|floorday')%4){a.floorDone=true;a.from='floor';a.day=day;fionnNotices.push(ARMS.floor.notice);}
+      // trouble is near and a woman who likes you has heard: she brings her dad's (once a run)
+      if(!a.giftDone&&!anyGun()&&!gunComing()&&(fionnActive()||halOpen())){
+        const t=[...hingeThreads.values()].find(t=>!t.blocked&&!t.closed&&warmthOf(t)>=3&&ARMS.by[hingeProfile(t.id)?.factionId]);
+        if(t){a.giftDone=true;lineSpeaker=t.id;herLine(t,ARMS.gift.line);a.pending={from:'gift',day:day+1,who:t.id};}
+      }
+    }
+    function armsItems(){
+      const a=armsState(),out=[];
+      if(myGun()){const w=a.from==='pawn'?ARMS.pawn:a.from==='floor'?ARMS.floor:a.from==='gift'?ARMS.gift:ARMS.by[a.from]||ARMS.gift;out.push({id:'arms:gun',door:a.from!=='floor',floor:'shoebox',label:w.label,short:'Revolver',image:'assets/items/revolver.png',text:w.item+(hollowPoints()?' Hollow-points and dum-dums in it now.':'')});}
+      if(hollowPoints())out.push({id:'arms:rounds',door:true,floor:'parcel',label:ARMS.rounds.label,short:ARMS.rounds.short,image:'assets/items/bullets.png',text:ARMS.rounds.item});
+      return out;
+    }
+    function fionnRevolver(){const f=fionnState();return anyGun()&&(fionnActive()||f.stage==='shot');} // any gun you have, not only Harold's
     function fionnNewsItem(day){
       const f=fionnState();
       const kind=(f.stage==='caught'||f.stage==='sorted')&&f.endDay===day?f.stage:Number.isInteger(f.hideDay)&&day===f.hideDay+1?'hidden':null;
@@ -6274,7 +6448,7 @@
       preloadScene([...['door','side','close','face'].map(theonFrame),{image:'assets/events/theon-hands.png'}]); // his whole approach, ready before he opens the door
       playScene([theonFrame('door')],()=>{
         showSceneStep(theonFrame('side'),1); // the sidestep: if you have the revolver, now's your chance
-        if(armed)fionnQteOpen(invited?3800:2200);
+        if(armed)fionnQteOpen(Math.round((invited?3800:2200)*(hollowPoints()?1.5:1))); // hollow-points: close enough is good enough
         invasionTimers.push(window.setTimeout(()=>showSceneStep(theonFrame('close'),2),1900));
         if(!armed)invasionTimers.push(window.setTimeout(theonFinal,3800));
       },{keep:true});
@@ -6433,7 +6607,7 @@
       truecel:{pre:['Sorry.','Um.','Okay, random question.','Not to be weird.','Hope this is okay to ask.'],
         post:['Sorry if that’s a weird thing to say.','I mean that in a good way, by the way.','Ha. Sorry.','I’ve been working out how to say that for a while, honestly.','That came out wrong. Or maybe not. I don’t know.','Feel free to ignore that.']},
       mogger:{pre:['So.','Right.','Go on, then.','Quick one.'],
-        post:['Obviously.','Keep up.','You’re welcome.','Easy.','Don’t overthink it.','I already know the answer, by the way.']}
+        post:['Obviously.','Trust me.','Simple as that.','Easy.','Don’t overthink it.','Take it from me.']}
     };
     // A question takes a lead-in (So. Quick one.) and never a tag after it (What do you write about? You're welcome.);
     // a statement takes either, from the lead-ins that suit a statement (Chris, 5 November 2026: the sense check).
@@ -7023,7 +7197,7 @@
     let steadyRun=null;
     function halArrive(){
       const h=halState();halSyncFloor();
-      const armed=h.gun==='have';
+      const armed=h.gun==='have'||myGun()||fionnState().gun==='delivered'; // their shoebox, or a gun of your own
       playScene([halFrame('door'),halFrame('close')],()=>{
         if(armed){halSteadyOpen();return;}
         const leaves=hashSeed(world.seed+'|halunarmed')%2===0;
@@ -7059,7 +7233,7 @@
       steadyRun=null;closeQte();
       const h=halState();
       if(choice==='shoot'){
-        if(Math.hypot(s.x,s.y)<=.32){h.shot='down';h.outcome='shot';h.outcomeDay=world.day+1;h.gun='used';saveRun(true);
+        if(Math.hypot(s.x,s.y)<=(hollowPoints()?.45:.32)){h.shot='down';h.outcome='shot';h.outcomeDay=world.day+1;if(h.gun==='have')h.gun='used';saveRun(true);
           playScene([{image:'assets/events/halloran-down.png',stand:'shadow',caption:HAL.visit.down}],halHideChoices,{keep:true});return;}
         clearInvasion();halDie('shot');return;
       }
@@ -7151,6 +7325,7 @@
       classNewDay(); // the Looksmaxxer and the Divorcé: paydays, alimony, surgery in bed
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
+      armsNewDay(); // more ways to a gun: what was promised arrives
       jealousyNewDay();coffeeNewDay();notesNewDay(); // the new events below
       if(tone()==='mogger'&&gameRandom()<.22){ // a woman likes you first: about one every four or five days
         const chapelIds=window.MATCH_CHAPEL_ENGINE?[window.MATCH_CHAPEL_ENGINE.ids.VICTORIA]:[];
@@ -10324,6 +10499,11 @@
       done.push(call.id+':'+ask.id);
       return ask;
     }
+    // The sense check (Chris, 5 November 2026): you don't ask the same thing on every call, and when she opens with a question
+    // you don't talk straight past it.
+    const CALL_ASK=['What’s the gossip? I know you have some.','Tell me something I don’t know about this town.','What’s everyone talking about today?','Go on. What have you heard?','What’s new out there? I’ve been stuck inside all day.'];
+    const CALL_DODGE=['Ha. Good question.','Hm. I’ll have to think about that one.','Ha. I’ll answer that one later.','Good question. Ask me again tomorrow.'];
+    const callDodge=call=>/\?\s*$/.test(call.said||'')&&!call.flirted&&!call.asked&&!call.reacted?seededPick(/\b(do|did) you ever\b/i.test(call.said)?['All the time, honestly.','Sometimes. More lately.','Honestly? Yes.']:CALL_DODGE,call.id+'|'+world.day)+' ':''; // Do you ever...? gets a real answer
     function chooseHerCall(choice){
       if(!herCall)return;
       const kit=talkKit().calls,call=herCall,profile=hingeProfile(call.id),thread=hingeThreads.get(call.id);
@@ -10425,13 +10605,13 @@
         if(choice==='react:thanks')warmBy(thread,1);
         say(freshPick(thread,'confide'+choice.slice(6),r.reply,call.id+world.day));
       }else if(choice==='flirt'){
-        call.flirted=true;
-        you((kit.options.flirt.player||[])[flirtPickOf(call)]||seededPick(kit.options.flirt.player,call.id+world.day));
+        const lead=callDodge(call);call.flirted=true;
+        you(lead+((kit.options.flirt.player||[])[flirtPickOf(call)]||seededPick(kit.options.flirt.player,call.id+world.day)));
         if(tone()!=='truecel'||warmthOf(thread)>=4)warmBy(thread,1);
         say(freshPick(thread,'flirtBack',[...(kit.flirtBack[faction]||kit.flirtBack.normie_girls),...(personalityOf(profile)?.reactions?.warm||[])],call.id+world.day));
       }else if(choice==='ask'){
-        call.asked=true;
-        you(kit.options.ask.player);
+        const lead=callDodge(call);call.asked=true;
+        you(lead+freshPick(thread,'callAsk',[kit.options.ask.player,...CALL_ASK],call.id+world.day)); // not the same words every call
         // A quest that's live and not started comes first: she tells you, and you can open it on this call.
         const qid=!window.MATCH_NO_QHINT&&qhintTeller(profile)?Object.keys(QHINT).find(id=>qhintLive(id)&&!qhintState()[id]?.open&&!chatCovered(thread,id)):null;
         // A story quest: she tells it her own way, as in chat.
@@ -11026,7 +11206,7 @@
         brakes:{label:'Denise’s street: under her car, in the dark',sub:'A wrench and a flashlight. You have watched a lot of television. Some nights her car is not there.',once:true,show:()=>deniseFree(),cause:'YOUR OWN BRAKES',miss:{chance:.5,line:'Her car is not on the street tonight. You wait an hour in the dark, then drive home.',toast:'Her car was not there. Another night.'},image:'assets/trips/ex-house-night.png',place:'Denise’s street',
           done:['You lie under a car in the dark for twenty minutes with a wrench. You are fairly sure it was the right car.'],
           deaths:['The brakes go on the hill down from the Lucky Cactus. It was your car. Same model, same color. You bought them together.']},
-        gun:{label:'Denise’s house: take Harold’s revolver',sub:'Six rounds, older than you are.',show:()=>deniseFree()&&fionnRevolver(),risk:()=>hashSeed(world.seed+'|gun')%3===0,cause:'DENISE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
+        gun:{get label(){return 'Denise’s house: take '+gunName();},sub:'Six rounds, older than you are.',show:()=>deniseFree()&&anyGun(),risk:()=>hashSeed(world.seed+'|gun')%3===0,cause:'DENISE',image:'assets/trips/ex-house-night.png',place:'Denise’s house',
           done:['Three shots on a quiet street. The dog barks and barks. You drive home with your lights off.'],
           deaths:['The porch light comes on before you reach the door. Denise kept the shotgun from the divorce. She always said she would.']},
         house:{label:'Denise’s house: drop off the check',sub:'Pay what you owe now.',show:()=>deniseAlive(),image:'assets/trips/ex-house.png',place:'Denise’s house',done:['You leave the check in the mailbox. The dog barks at you from the window. It used to be your dog.']}
@@ -13229,7 +13409,8 @@
       if(glowState().stage==='delivered')items.push({id:'lpc',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item,action:{id:'take-lpc',label:'💊 Take one tonight'}}); // Truecel
       if(glowState().second==='delivered')items.push({id:'lpc2',door:true,floor:'parcel',label:'LPC-A365',short:'LPC-A365',image:'assets/items/lpc-a365.png',text:GLOW.item2,action:{id:'take-lpc2',label:'💊 Take one tonight'}}); // Never two
       if(glowState().taken&&glowState().stage!=='delivered'&&glowState().second!=='delivered')items.push({id:'lpc-empty',label:'LPC-A365 (empty)',short:'Empty pot',image:'assets/items/lpc-a365.png',text:GLOW.empty}); // what was in it?
-      if(fionnRevolver())items.push({id:'revolver',door:true,floor:'shoebox',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
+      items.push(...armsItems()); // more ways to a gun, and the bullets
+      if(fionnState().gun==='delivered')items.push({id:'revolver',door:true,floor:'shoebox',label:'Harold’s revolver',short:'Revolver',image:'assets/items/revolver.png',text:GUN.item}); // Theon
       const m=world.marriage;
       if(m?.ring)items.push({id:'ring',label:'Wedding ring',short:'Ring',image:'assets/marriage/wedding-ring.png',text:`A gold wedding band, a gift from ${marriage?.jewellerName?.(m.ring.from)||'a jeweler'}. It sits on your bedside table, ready for the right Sister.`,file:'wedding'});
       if(BR){
@@ -13551,6 +13732,7 @@
         const warning=key==='police'&&world.falsePoliceReports?` · ⚠ ${world.falsePoliceReports}/${MAX_FALSE_REPORTS} false reports`:'';
         list.push({key:'service:'+key,name,detail:detail+warning,number:contactNumbers[key],portrait:`assets/contacts/${key}.png`,fallback:'assets/icons/calls.png'}); // its own picture once made
       }
+      {const a=armsState();if(a.pawnSeen&&a.pawnNumber)list.push({key:'service:pawn',name:'Sunfall Pawn',detail:'Guitars, gold, no questions',number:a.pawnNumber,portrait:'assets/contacts/pawn.png',fallback:'assets/icons/calls.png'});} // more ways to a gun
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
       {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
       if(selectedDifficulty==='looksmaxxer'&&world.cls?.lx){const l=world.cls.lx;for(const [k,ad] of Object.entries(LOOKS_ADS))if(l.seen[k]&&l.numbers[k])list.push({key:'service:lx-'+k,name:ad.name,detail:'From the classifieds',number:l.numbers[k],portrait:lxFace(k),fallback:'assets/icons/calls.png'});} // the Looksmaxxer
@@ -13753,7 +13935,7 @@
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
-            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing','into'].includes(raw.followUp.kind)&&(raw.followUp.kind!=='into'||['more','dodged'].includes(raw.followUp.id))&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id}:null,
+            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing','into'].includes(raw.followUp.kind)&&(raw.followUp.kind!=='into'||['more','dodged'].includes(raw.followUp.id))&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id,...(['S','Q','K'].includes(raw.followUp.shape)?{shape:raw.followUp.shape}:{})}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
