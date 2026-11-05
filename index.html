@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="825781de17">
+<html lang="en" data-build="f301540e81">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -294,6 +294,8 @@
     .news-expand span { font: bold 10px Arial,sans-serif; color: #dce9f5; }
     @keyframes foldOpen { from { opacity: .3; transform: scale(.90) } to { opacity: 1; transform: scale(1) } }
     .bezel { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
+    .screen-crack { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
+    .screen-crack[hidden] { display: none; }
     /* The uncut original has an opaque display. Four precisely aligned edge slices
        preserve its artwork and leave a real interactive hole for the HTML screen. */
     .bezel-top { clip-path: inset(0 0 84.7% 0); }
@@ -746,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=825781de17"></script>
+  <script src="chapel_at_midnight.js?v=f301540e81"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=825781de17"></script>
+  <script src="marriage.js?v=f301540e81"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=825781de17"></script>
+  <script src="quests/professor-vale.js?v=f301540e81"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -902,6 +904,7 @@
               <button class="incoming-banner" id="incoming-banner" hidden aria-live="assertive"></button><!-- She is calling: tap to open the call -->
 
             </div>
+            <img class="screen-crack" id="screen-crack" alt="" hidden><!-- the Divorcé: a crack across the glass, always -->
             <img class="bezel bezel-top" src="assets/ui/iphone3g-bezel.png" alt="Vintage black iPhone 3G bezel">
             <img class="bezel bezel-bottom" src="assets/ui/iphone3g-bezel.png" alt="">
             <img class="bezel bezel-left" src="assets/ui/iphone3g-bezel.png" alt="">
@@ -1209,7 +1212,19 @@
       return {width,left:g.left+inner[0]*g.width-inner[1]*width};
     }
     var gripToken=0;
+    // Each class has its own phone (Chris, 5 November 2026): the Normie and the Mogger the iPhone 3G, the Truecel an
+    // ugly Android, the Looksmaxxer a gold iPhone 5, the Divorcé a cracked Android with a crack across the glass.
+    // All have a button at the bottom. Until a phone is drawn, the iPhone 3G stands in.
+    var PHONE_DEFAULT='assets/ui/iphone3g-bezel.png';
+    var PHONES={truecel:'assets/ui/phone-truecel.png',looksmaxxer:'assets/ui/phone-looksmaxxer.png',divorce:'assets/ui/phone-divorce.png'};
+    function setPhone(){
+      const src=assetUrl(PHONES[selectedDifficulty]||PHONE_DEFAULT),fallback=assetUrl(PHONE_DEFAULT);
+      document.querySelectorAll('.bezel').forEach(img=>{if(img.dataset.phone===src)return;img.dataset.phone=src;img.onerror=()=>{img.onerror=null;img.src=fallback;};img.src=src;});
+      const crack=$('screen-crack');
+      if(crack){if(selectedDifficulty==='divorce'){crack.onerror=()=>{crack.hidden=true;};crack.src=assetUrl('assets/ui/screen-crack.png');crack.hidden=false;}else crack.hidden=true;}
+    }
     function setGrip() {
+      setPhone(); // and the phone in your hands
       const pose=$('hand-pose').value;
       const g=gripGeometry[pose];
       if (!g) return;
@@ -13251,6 +13266,7 @@
         world.policeArrestPhase=dayPhases.includes(saved.world.policeArrestPhase)?saved.world.policeArrestPhase:null;
         selectedDifficulty=LADDER.some(rung=>rung.id===saved.selectedDifficulty&&!rung.soon)?saved.selectedDifficulty:'normie';
         ladderGrant(selectedDifficulty); // a run saved before the ladder keeps its class
+        setPhone(); // the class's own phone
         document.querySelectorAll('[data-difficulty]').forEach(button=>{
           const isCurrent=button.dataset.difficulty===selectedDifficulty;
           button.classList.toggle('selected',isCurrent);button.setAttribute('aria-pressed',String(isCurrent));
