@@ -543,7 +543,7 @@
       "pictures": "after-trust",
       "traits": "Methodical, loyal and quietly fearless; keeps notes on everything; first to act in a crisis.",
       "first": {
-        "mogger": "I already wrote you into my diary. Favourably.",
+        "mogger": "I already wrote you into my diary. Favorably.",
         "normie": "I keep notes on everyone I meet. So far yours just says promising.",
         "truecel": "My notes on you so far: unclear. Let’s improve that."
       },
@@ -7135,7 +7135,7 @@
           },
           {
             "feel": "good",
-            "news": "Reorganised my wardrobe by color again. Spring is a very confusing season.",
+            "news": "Reorganized my wardrobe by color again. Spring is a very confusing season.",
             "more": "Everything I own is chosen. Nothing in my apartment is an accident. The wardrobe goes from white to black like a gradient, and spring ruins it every year with pastels. Today I put a mint sweater between sage and pistachio and felt completely at peace."
           }
         ],
@@ -9422,7 +9422,7 @@
             "reply": "With my sister. She bakes, I’d do the coffee and the shouting. Somewhere with no laptops after dark, just people talking."
           },
           {
-            "id": "recognised",
+            "id": "recognized",
             "label": "Ask about the patient she recognized",
             "player": "Did you recognize a patient?",
             "reply": "A man came in with burns on his hands, and I knew his face from the newspaper. He gave a different name. I told no one. I’m telling you.",
@@ -10076,7 +10076,7 @@
           },
           {
             "id": "paint",
-            "label": "Ask about her watercolours",
+            "label": "Ask about her watercolors",
             "player": "What do you paint?",
             "reply": "The desert, over and over. It’s the only thing in Sunfall that doesn’t want anything from me. I’m bad at it, which is the point."
           },
@@ -14069,10 +14069,10 @@
             "id": "c_sedan",
             "label": "Ask if anything has turned up twice in her data",
             "player": "Has anything turned up twice in your data?",
-            "reply": "A grey sedan. Logged on campus the night before the fire, and on the Sunfall Road after the gala, same plate. I have the registration. I haven’t told anyone. The first person I’d tell is the problem.",
+            "reply": "A gray sedan. Logged on campus the night before the fire, and on the Sunfall Road after the gala, same plate. I have the registration. I haven’t told anyone. The first person I’d tell is the problem.",
             "needsWarmth": 1,
             "fromDay": 2,
-            "note": "Monica Herrera says the same grey sedan was logged on campus the night before Vale’s fire and on the Sunfall Road after the gala.",
+            "note": "Monica Herrera says the same gray sedan was logged on campus the night before Vale’s fire and on the Sunfall Road after the gala.",
             "quest": "vale"
           },
           {
@@ -18945,7 +18945,7 @@
             "reply": "Every clear night. Out past the canyon the sky is so full it’s almost loud. You remember how small Sunfall is, and how small its scandals are."
           },
           {
-            "id": "favour",
+            "id": "favor",
             "label": "Ask about the favor",
             "player": "Has someone asked you for a favor?",
             "reply": "An old friend wants me to lose a box of clippings about the old chapel’s last caretaker. She’s never asked me for anything before. That’s what worries me.",
@@ -21824,7 +21824,7 @@
           {
             "feel": "good",
             "news": "Sat at Cassandra’s collective today with people who have no idea what I make. Bliss.",
-            "more": "Nobody asked about the silver. We painted terrible watercolours of a lemon. Mine looked like a sad moon. Cassandra said it had integrity. I’m going to frame it and price it at a thousand."
+            "more": "Nobody asked about the silver. We painted terrible watercolors of a lemon. Mine looked like a sad moon. Cassandra said it had integrity. I’m going to frame it and price it at a thousand."
           }
         ],
         "gossip": [
@@ -22248,7 +22248,7 @@
           },
           {
             "id": "purple",
-            "label": "Ask about her watercolours",
+            "label": "Ask about her watercolors",
             "player": "What do you paint?",
             "reply": "The desert in the evening, very badly. I paint everything purple. My tutor said that’s not how color works. I said that’s how it works for me."
           },
@@ -24511,10 +24511,10 @@
             "reply": "I followed a man here from St. Petersburg. The man left. The ovens stayed. I chose the ovens."
           },
           {
-            "id": "watercolour",
+            "id": "watercolor",
             "label": "Ask about her painting",
-            "player": "You paint watercolours?",
-            "reply": "Desert landscapes. Watercolour is like this town: you can’t correct a mistake, only paint over it and hope."
+            "player": "You paint watercolors?",
+            "reply": "Desert landscapes. Watercolor is like this town: you can’t correct a mistake, only paint over it and hope."
           },
           {
             "id": "page",
@@ -24541,7 +24541,7 @@
             "id": "b_dawn",
             "label": "Ask when she paints",
             "player": "When do you paint?",
-            "reply": "At dawn, before the dough. Badly, which is the point. Watercolour is like this town: you can’t fix a mistake, only paint over it and hope.",
+            "reply": "At dawn, before the dough. Badly, which is the point. Watercolor is like this town: you can’t fix a mistake, only paint over it and hope.",
             "needsWarmth": 1
           }
         ],
@@ -24569,7 +24569,7 @@
           {
             "feel": "good",
             "news": "Painted the desert at dawn before the dough. Made a mistake. Couldn’t fix it. Painted a cloud over it.",
-            "more": "Watercolour is like this town: you can’t correct a mistake, only paint over it and hope. The cloud is now my favorite part. It looks like a dog. My actual dog looked at it and barked. High praise."
+            "more": "Watercolor is like this town: you can’t correct a mistake, only paint over it and hope. The cloud is now my favorite part. It looks like a dog. My actual dog looked at it and barked. High praise."
           },
           {
             "feel": "odd",
@@ -31322,7 +31322,7 @@
       ],
       "restless": [
         "I can’t sit still today. Distract me.",
-        "I’ve reorganised my whole kitchen today. Talk to me before I start on the garage.",
+        "I’ve reorganized my whole kitchen today. Talk to me before I start on the garage.",
         "Everything feels like it’s about to happen today.",
         "I’ve cleaned everything twice. Give me a problem to solve.",
         "I keep starting things and not finishing them. Distract me properly.",
@@ -31476,7 +31476,7 @@
         "likedMore": [
           "My mother’s bridge club has heard of you. They said sensible. That’s high praise from them.",
           "A woman at the yacht club says you talk sense. She never says that about anyone.",
-          "Your name came up at a luncheon. Favourably, for once.",
+          "Your name came up at a luncheon. Favorably, for once.",
           "The committee ladies think you’re a gentleman. Don’t ruin it.",
           "Someone at the gala said you’d fit right in. I’m deciding whether that’s a compliment."
         ],

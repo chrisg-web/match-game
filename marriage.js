@@ -160,11 +160,13 @@
     const askedToday=s=>s.day===today()?s.todayCount:0;
     const canAsk=s=>askedToday(s)<perDay();
     function countAnswer(s){if(s.day!==today()){s.day=today();s.todayCount=0;}s.todayCount++;}
-    const dayDoneLine=(id,key)=>pick(data?.rules?.dayDone||['That’s enough for today. Ask me again tomorrow.'],key+':done');
+    const dayDoneLine=(id,key)=>pickFresh(data?.rules?.dayDone||['That’s enough for today. Ask me again tomorrow.'],key+':done',threadOf(id));
     const threadOf=id=>api.threads().get(id);
     const esc=value=>api.esc(value);
     const fill=(text,vars)=>String(text||'').replace(/\{(\w+)\}/g,(match,key)=>vars&&vars[key]!=null?String(vars[key]):match);
     function pick(list,key){const rnd=seeded(`${api.world().seed||'match'}:marriage:${key}`);return list[Math.floor(rnd()*list.length)];}
+    // Not the same line twice in her chat while she has others left (the sense check, Chris, 5 November 2026).
+    function pickFresh(list,key,thread){const said=new Set((thread?.log||[]).filter(l=>l.who==='her').map(l=>l.text));const fresh=list.filter(l=>!said.has(l));return pick(fresh.length?fresh:list,key);}
 
     // ---------- Hinge: examination and proposal ----------
     function button(action,label,{mark='💍',extra=''}={}){
@@ -255,10 +257,10 @@
             api.save();
             return;
           }
-          thread.log.push({who:'her',text:pick(sis.correct,key+':c')});
+          thread.log.push({who:'her',text:pickFresh(sis.correct,key+':c',thread)});
         }else{
           s.streak=0;s.asked=[];s.attempts++;
-          thread.log.push({who:'her',text:pick(sis.wrong,key+':w')});
+          thread.log.push({who:'her',text:pickFresh(sis.wrong,key+':w',thread)});
         }
         if(!canAsk(s)){ // that's her two for today
           s.active=false;s.current=null;

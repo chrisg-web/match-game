@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="35b708e9db">
+<html lang="en" data-build="e6fb873b4a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -781,11 +781,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=35b708e9db"></script>
+  <script src="chapel_at_midnight.js?v=e6fb873b4a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=35b708e9db"></script>
+  <script src="marriage.js?v=e6fb873b4a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=35b708e9db"></script>
+  <script src="quests/professor-vale.js?v=e6fb873b4a"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2989,6 +2989,15 @@
       return choice;
     }
     // Like seededPick, but she won't say the same line to you twice until she's run through them all.
+    // Your side: a wording you haven't already said to her, while there is one (the sense check, Chris, 5 November 2026).
+    function freshMine(thread,list,start=0){
+      if(!Array.isArray(list))return list;if(!list.length)return null;
+      const mine=(thread?.log||[]).filter(l=>l.who==='you').map(l=>String(l.text));
+      for(let i=0;i<list.length;i++){const line=list[(start+i)%list.length];if(!mine.some(t=>t.includes(line)))return line;}
+      return list[start%list.length];
+    }
+    // Hers: a line she hasn't already said to you, while there is one.
+    function freshHers(thread,list,seed){const said=new Set((thread?.log||[]).filter(l=>l.who==='her').map(l=>l.text));const fresh=(list||[]).filter(l=>!said.has(l));return seededPick(fresh.length?fresh:list,seed);}
     function freshPick(thread,key,list,seed){
       if(!list?.length)return null;
       const state=talkState(thread);
@@ -3116,7 +3125,7 @@
       }
       if(follow.kind==='news'){ // varied by day, and shaped by what she said: her opinion, her question, or that she only skimmed it
         const n=thread?talkState(thread).newsCount||0:0,h=thread?hashSeed(thread.id):0,shape=NEWS_SHAPES[follow.shape]?follow.shape:'S',set=NEWS_SHAPES[shape];
-        return moods(kit.newsFollow?.options).map(o=>({...o,label:set.label[o.id]||o.label,player:set.reply[o.id]?set.reply[o.id][(n+h)%set.reply[o.id].length]:o.player}));
+        return moods(kit.newsFollow?.options).map(o=>({...o,label:set.label[o.id]||o.label,player:set.reply[o.id]?freshMine(thread,set.reply[o.id],n+h):o.player}));
       }
       if(follow.kind==='tone'&&follow.id==='hello')return TONES.map(key=>({id:key,label:HELLO_LABEL[key],player:seededPick(HELLO_PLAYER[key],world.seed+(thread?.id||'')+key),tags:[],tone:key})); // her opening line
       if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
@@ -3485,11 +3494,11 @@
     var NEWS_REPLY_JOKE=['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.'];
     var NEWS_SHAPES={
       S:{label:{warm:'Agree with her',challenge:'Read it differently',joke:'Make a joke'},get reply(){return NEWS_REPLY;},
-        react:{warm:{pos:['Exactly. Thank you.','See? I knew it wasn’t just me.','Okay, good. I was starting to think I was the only one.','Right? Nobody at work agreed with me.','Good. You get it.'],
+        react:{warm:{pos:['Exactly. Thank you.','See? I knew it wasn’t just me.','Okay, good. I was starting to think I was the only one.','Right? Nobody at work agreed with me.','Good. You get it.','Finally, someone sensible.','Thank you. I’m screenshotting this for my sister.','Yes! Okay, you can stay.','That’s what I said out loud to nobody this morning.','Good. I trust your taste now. A little.'],
             neg:['Hm. Easy to say.','You’re just agreeing with me, aren’t you.','Okay, but you don’t sound sure.']},
-          challenge:{pos:['Huh. I hadn’t thought of it like that.','Okay, fair. You might have a point.','I don’t agree, but I like that you said it.','Fine. I’ll read it again tonight.'],
+          challenge:{pos:['Huh. I hadn’t thought of it like that.','Okay, fair. You might have a point.','I don’t agree, but I like that you said it.','Fine. I’ll read it again tonight.','Hm. That’s annoyingly reasonable.','You might be right. Don’t tell anyone I said that.','Okay, that’s a better take than mine.','I hate that you made me think.'],
             neg:['We’ll have to agree to disagree.','Wow. Okay. Remind me not to talk news with you.','No. I’m right about this one.','Hm. I don’t see it.']},
-          joke:{pos:['Ha. Okay, fair.','I need to know more about that piano.','You’re ridiculous. Go on.','That’s honestly the best review it’ll get.'],
+          joke:{pos:['Ha. Okay, fair.','I need to know more about that piano.','You’re ridiculous. Go on.','That’s honestly the best review it’ll get.','I laughed out loud on the bus. Thanks.','Okay, that got me.','Stop. I’m supposed to be serious today.','You’re a menace. Continue.'],
             neg:['Can you be serious for one second?','I was asking properly.','Okay. Not the time.']}}},
       Q:{label:{warm:'Say you get it',challenge:'Say you don’t',joke:'Make a joke'},
         reply:{warm:['Not at all. Same.','No, I get it completely.','Honestly? Me too.','Not weird. I thought it too.','No. Anyone would.'],
@@ -3502,8 +3511,8 @@
         reply:{warm:['Read it. It’s worth it.','It’s worth reading. I thought about it all day.','Read it. The headline doesn’t do it justice.','Yes. Read it properly, it’s better than it sounds.','Read it tonight. Then tell me what you think.'],
           challenge:['Skip it. They’re making a meal of it.','Honestly? Don’t bother. It’s the same as last week.','Skip it. The headline is the whole story.','I wouldn’t. It’ll only annoy you.','Save yourself. It’s mostly guessing.'],
           joke:NEWS_REPLY_JOKE},
-        react:{warm:{pos:['Okay. I’ll read it properly tonight.','Fine, you’ve sold me on it.','Now I have to read it. Thanks a lot.','Okay, okay. Tonight.'],neg:['Hm. We’ll see.','You say that about everything.']},
-          challenge:{pos:['Good. I wasn’t going to anyway.','One less thing to worry about. Thank you.','Perfect. More time for my book.'],neg:['Hm. Now I want to read it more.','You’re no fun.']},
+        react:{warm:{pos:['Okay. I’ll read it properly tonight.','Fine, you’ve sold me on it.','Now I have to read it. Thanks a lot.','Okay, okay. Tonight.','Fine. It’s going in my bag for the bus.','You make it sound better than the paper does.','All right. I’ll read it with my coffee.','Okay. If it’s boring, I’m blaming you.'],neg:['Hm. We’ll see.','You say that about everything.']},
+          challenge:{pos:['Good. I wasn’t going to anyway.','One less thing to worry about. Thank you.','Perfect. More time for my book.','Great. Skipping it with a clear conscience.','Thank you. My attention span thanks you too.','Noted. I’ll just read the headline and pretend.','Good. I had other plans for those five minutes.'],neg:['Hm. Now I want to read it more.','You’re no fun.','Telling me not to only makes me want to.','Too late. I already started.','Hm. Now I’m suspicious.']},
           joke:{pos:['Ha. Okay, fair.','That’s honestly the best review it’ll get.'],neg:['I was asking properly.','Okay. Not the time.']}}}
     };
     var NEWS_REPLY={warm:['You’re right. I read it the same way.','Same. That’s exactly how it read to me.','I’m with you on that one.','I thought the same thing over breakfast.','Honestly? Agreed.'],
@@ -3800,7 +3809,7 @@
         if(!daily||state.dayDay===world.day)return;
         thread.followUp=null;state.dayDay=world.day;state.lastDay=world.day;
         if(!thread.topics.includes('daily'))thread.topics.push('daily');
-        thread.log.push({who:'you',text:myVoice(seededPick(daily.player,profile.id+world.day),profile.id)});
+        thread.log.push({who:'you',text:myVoice(freshMine(thread,daily.player,hashSeed(profile.id+world.day)),profile.id)});
         lines.push(reputationLine(thread,profile));
         lines.push(variedPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
         lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
@@ -3817,7 +3826,7 @@
         thread.deeper=null;
         if(!category)return;
         state.roots.push(category);
-        thread.log.push({who:'you',text:myVoice(seededPick(kit.deeper.player,profile.id+category),profile.id)});
+        thread.log.push({who:'you',text:myVoice(freshMine(thread,kit.deeper.player,hashSeed(profile.id+category)),profile.id)});
         lines.push(personalityOf(profile).roots[category]);
         warmBy(thread,1); // she opened up to you
         maybeHerQuestion(thread,profile,lines);
@@ -10115,7 +10124,7 @@
         if(!nudged&&world.day-last>=IGNORE_DAYS&&nudgesToday<2){ // two nudges a morning at most; the rest wait a day (the pacing check, Chris, 5 November 2026)
           nudgesToday++;
           const spoke=thread.log.some(l=>l.who==='you'),pool=spoke?(['question','news','day'].includes(thread.followUp?.kind)?NUDGE_ASKED:NUDGE_QUIET):kit.nudge; // you went quiet mid-conversation, or never said a word
-          thread.log.push({who:'her',text:seededPick(pool.length?pool:kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
+          thread.log.push({who:'her',text:freshHers(thread,pool.length?pool:kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
           thread.nudgeDay=world.day;st.unread=true;st.morningDay=world.day;st.musedDay=world.day; // that's her message for the morning
         }
       }
@@ -10389,7 +10398,7 @@
       for(const thread of hingeThreads.values()){
         if(sent>=2)break;
         if(!morningRoom(thread))continue;
-        if(thread.id===bearHingeCard.id||warmthOf(thread)<2||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet)continue;
+        if(thread.id===bearHingeCard.id||warmthOf(thread)<2||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet||thread.followUp)continue; // she asked you something: she waits for that, not good morning
         const profile=hingeProfile(thread.id),state=talkState(thread);
         if(!profile||state.morningDay===world.day||gameRandom()>=.4)continue;
         const tag=[...state.tags].reverse().find(item=>kit.callbacks[item]);
@@ -11363,6 +11372,7 @@
       garnish:['Second time. My lawyer is taking it straight out of your paycheck now. Enjoy your half. You still owe me ${amount}.'],
       paid:['Got it. Wow. You can be an adult when you try.','Received. Don’t expect a thank you card.'],
       time:['Two more days. That’s it. I’m writing this down.'],
+      flowersAgain:['Again? You’re spoiling me. Don’t stop.','Two bunches. My roommate thinks I have a secret admirer. I told her he’s not that secret.','More flowers. Okay, I’m keeping you.','The second bunch is even better than the first. Show-off.'],
       flowersHer:['Flowers! Nobody sends flowers anymore. Okay, you win this round.','They just arrived. They smell amazing. Who taught you that?','You sent me flowers? That is so old school. I love it.'],
       review:['My lawyer got the review through. ${amount} from now on. Buy yourself something nice with what’s left.','The judge agreed with my lawyer. ${amount} now. Should have gone to law school.','Good news. For me. The review went through: ${amount}. Your lawyer can contest it, if you can afford one.']};
     const DRIVES={
@@ -12055,7 +12065,10 @@
       const own=k.women[profile.id],job=botchJob(profile);
       const pool=[...((k.factions[botchFaction(profile)]||k.factions.normie_girls).jab),...botchParts().flatMap(p=>k.parts[p].lines),...(own?.jab||[]),...(job?[job]:[])];
       lineSpeaker=profile.id;
-      return botchFill(variedPick(pool,profile.id+'|bjab|'+thread.log.length+'|'+world.day),profile,'jab'+thread.log.length);
+      // not a remark she has already made, however the {botch} part came out (the sense check, 5 November 2026)
+      const hers=thread.log.filter(l=>l.who==='her').map(l=>String(l.text)),fixed=t=>String(t).split('{botch}').map(x=>x.trim()).sort((a,b)=>b.length-a.length)[0]||String(t);
+      const fresh=pool.filter(t=>!hers.some(h=>h.includes(fixed(t))));
+      return botchFill(variedPick(fresh.length?fresh:pool,profile.id+'|bjab|'+thread.log.length+'|'+world.day),profile,'jab'+thread.log.length);
     }
     function botchTree(thread){const ep=world.cls.botchEp||0;if(!thread.bt||thread.bt.ep!==ep)thread.bt={ep,step:0,said:false};return thread.bt;}
     // She notices the first time you open her chat after it happened (a new match opens with it instead).
@@ -12367,8 +12380,8 @@
       const c=classState();
       if(id!=='gift:flowers'||c.cash<FLOWERS||!giftChoices(thread,profile).length)return;
       cashMove(-FLOWERS,`Flowers for ${firstName(profile)}`);c.gifts[profile.id]=world.day;c.giftsN[profile.id]=(c.giftsN[profile.id]||0)+1;
-      thread.log.push({who:'you',text:'I sent you something. Check your door.'});
-      deliverTalk(thread,profile,[EX.flowersHer[hashSeed(world.seed+'|flowers|'+profile.id+'|'+world.day)%EX.flowersHer.length]],'talk',null,true);
+      thread.log.push({who:'you',text:c.giftsN[profile.id]>1?freshMine(thread,['Another delivery. Check your door again.','More flowers. I couldn’t help it.','Something else is on its way to you.'],hashSeed(profile.id)):'I sent you something. Check your door.'}); // the second time, new words
+      deliverTalk(thread,profile,[c.giftsN[profile.id]>1?freshHers(thread,EX.flowersAgain,world.seed+'|flowers2|'+profile.id):freshHers(thread,EX.flowersHer,world.seed+'|flowers|'+profile.id+'|'+world.day)],'talk',null,true);
       warmBy(thread,1);walletRender();saveRun(true);
     }
     // ---- the cheap clinic, and the sheriff ----
