@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e4aefa5c0e">
+<html lang="en" data-build="caa34954d6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e4aefa5c0e"></script>
+  <script src="chapel_at_midnight.js?v=caa34954d6"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e4aefa5c0e"></script>
+  <script src="marriage.js?v=caa34954d6"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e4aefa5c0e"></script>
+  <script src="quests/professor-vale.js?v=caa34954d6"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2517,6 +2517,7 @@
       for(const [id,label] of finaleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // the Founders' Ball
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
+      if(helloOpen(thread,profileNow)){const k=likedTone(profileNow)==='tease'?'tease':'sincere';add(`<button class="hinge-chat-choice" data-hinge-topic="hello:${k}">${esc(HELLO_LABEL[k])}</button>`,4);} // answer her opening line, when there is room: teasing for the bold ones
       for(const [id,label] of armsChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,fionnActive()||halOpen()?1:5); // more ways to a gun: it matters once trouble is near, otherwise only when there is room
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
       for(const [id,label] of taleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her story: the ten
@@ -3075,6 +3076,7 @@
         const n=thread?talkState(thread).newsCount||0:0,h=thread?hashSeed(thread.id):0,shape=NEWS_SHAPES[follow.shape]?follow.shape:'S',set=NEWS_SHAPES[shape];
         return moods(kit.newsFollow?.options).map(o=>({...o,label:set.label[o.id]||o.label,player:set.reply[o.id]?set.reply[o.id][(n+h)%set.reply[o.id].length]:o.player}));
       }
+      if(follow.kind==='tone'&&follow.id==='hello')return TONES.map(key=>({id:key,label:HELLO_LABEL[key],player:seededPick(HELLO_PLAYER[key],world.seed+(thread?.id||'')+key),tags:[],tone:key})); // her opening line
       if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
       if(follow.kind==='lie')return twoTruthsSet(follow)?['first','second','third'].map((word,index)=>({id:String(index),label:`The ${word} one is the lie`,player:`The ${word} one. That’s the lie.`,tags:[]})):[];
       if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
@@ -3238,6 +3240,23 @@
       good:{tease:['Look at you, showing off.','So you’re famous now. Do I need an appointment?','Careful, you’ll get a big head.'],sincere:['That’s brilliant. You deserve it.','I’m really pleased for you.','That’s lovely. Honestly.'],dodge:['Nice. Anyway, what are you up to later?','Good for you. So, seen anything good lately?','Cool. Did you see the paper today?']},
       bad:{tease:['So, worst week in Sunfall history, then?','At least it makes a good story.','Well, that’s one for the memoirs.'],sincere:['I’m sorry. That’s really hard. How are you holding up?','That’s rotten. I’m glad you told me.','You didn’t deserve that. Anything I can do?'],dodge:['That’s rough. Anyway, how’s work?','Ah. Shall we talk about something nicer?','Right. Have you eaten today?']},
       odd:{tease:['That is the most Sunfall thing I’ve ever heard.','You’re making that up.','I knew this town was haunted.'],sincere:['That’s strange. Are you all right?','Huh. What do you make of it?','That would rattle me too. Thanks for telling me.'],dodge:['Weird. Anyway, how was your day?','Strange town. So, what are you up to this weekend?','Huh. Changing the subject: coffee or tea?']}};
+    // Her opening line gets an answer first (the sense check, Chris, 5 November 2026: the first buttons ignored what she said).
+    const HELLO_PLAYER={tease:['Is that the line you use on everyone?','Do you open with that on everyone, or am I special?','Bold opener. Do you use it on everyone?'],
+      sincere:['Hi. I’m really glad we matched.','Hi! That made me smile.','Hi. You seem like someone worth talking to.'],
+      dodge:['Hi. So, what’s your story?','Hey. Tell me something about you.','Hi. What brings you to Hinge?']};
+    const HELLO_LABEL={tease:'😏 Tease her about it',sincere:'♡ Say hi properly',dodge:'Ask about her'};
+    const HELLO_REACT={tease:{pos:['Ha. Only on the ones I like.','Good. I worked on that one.','Maybe. You’ll have to find out.'],neg:['Wow. Okay. Strong start.','Hm. Not the reply I was hoping for.']},
+      sincere:{pos:['Me too. Hi.','Hi. Okay, I like you already.','That’s sweet. Hi back.'],neg:['Calm down, it’s Hinge.','Okay. Easy, tiger.']},
+      dodge:{pos:['My story? Long. Mostly good. You first, though.','Ask me anything. Within reason.','Hm. Where do I start?'],neg:['Straight to business, huh.','Wow, no small talk at all.']}};
+    const helloOpen=(thread,profile)=>!!profile&&thread.id!==bearHingeCard.id&&!profile.sorority&&!mustReply(profile)&&!talkState(thread).hello&&thread.log.length>0&&!thread.log.some(l=>l.who==='you')&&!thread.followUp;
+    function answerHello(key,thread,profile){
+      if(!HELLO_PLAYER[key]||!helloOpen(thread,profile))return;
+      talkState(thread).hello=true;lineSpeaker=profile.id;
+      thread.log.push({who:'you',text:seededPick(HELLO_PLAYER[key],world.seed+thread.id+key)}); // no voice tag on a hello
+      const delta=settleScore(toneScore(key,profile,'hello'),{personality:personalityOf(profile),profile});
+      warmBy(thread,Math.max(-1,Math.min(1,delta)));
+      deliverTalk(thread,profile,[seededPick(HELLO_REACT[key][delta<0?'neg':'pos'],world.seed+thread.id+'|hello')],'talk',null,true);
+    }
     const TONE_REACT={
       tease:{pos:['Ha. Shut up. Okay, that was funny.','You’re lucky you make me laugh.','Rude. I love it.','Stop. I’m laughing on the bus.'],neg:['That’s not funny, actually.','Wow. Okay. Never telling you anything again.','Really? I tell you that and you make a joke?']},
       sincere:{pos:['Thank you. That means more than you think.','That’s kind. I needed someone to say that.','You’re sweet, you know that?','Okay, that was nice. Thank you.'],neg:['Don’t get soppy on me.','Okay, Dear Diary. Calm down.','Bit much, but thanks.']},
@@ -3254,6 +3273,7 @@
     }
     function toneScore(choice,profile,feel){
       const p=personalityOf(profile),[,,E,A]=p?.bigFive||[3,3,3,3,3],contrarian=CONTRARIANS.has(p?.id);
+      if(feel==='hello')return choice==='dodge'?1:choice==='tease'?(E>=4||contrarian?1:A>=4?0:-1):(contrarian?0:1); // asking about her always works; teasing suits the bold ones
       let score=choice===likedTone(profile)?1:0;
       if(choice==='tease'){if(feel==='bad'&&A>=4)score-=1;if(E>=4||contrarian)score+=1;}
       if(choice==='sincere'){if(feel==='bad')score+=1;else if(contrarian)score-=1;}
@@ -3622,12 +3642,13 @@
       const elapsed=Math.max(0,Math.min(t.ms,Date.now()-t.start));
       return `<div class="typing-wrap hesitant" style="--d:${t.ms}ms;--late:-${elapsed}ms">${dots}<div class="typing-seen">Seen</div></div>`;
     }
-    const isTalkTopic=id=>/^(own|world|follow|egg|svc|gossip|life):/.test(id)||id==='news'||id==='deeper'||id==='daily'||id==='game';
+    const isTalkTopic=id=>/^(own|world|follow|egg|svc|gossip|life|hello):/.test(id)||id==='news'||id==='deeper'||id==='daily'||id==='game';
     function chooseTalk(id,thread,profile){
       lineSpeaker=profile.id;
       const kit=talkKit();
       if(!characterDB||!kit)return;
       if(id.startsWith('follow:'))return answerFollow(id.slice(7),thread,profile);
+      if(id.startsWith('hello:'))return answerHello(id.slice(6),thread,profile); // her opening line
       const state=talkState(thread),c=convo(),lines=[];
       let after=null,gossip=null;
       if(id.startsWith('gossip:')){
@@ -3849,9 +3870,9 @@
         lines.push(delta>0?reactionFrom([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),WARM_REACTIONS,profile.id+'day'+world.day):delta<0?reactionFrom([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),COOL_REACTIONS,profile.id+'day'+world.day):variedPick(kit.neutral,profile.id+world.day));
       }else if(follow.kind==='tone'){
         delta=settleScore(toneScore(choice.tone,profile,follow.id),{personality,profile});
-        const pool=TONE_REACT[choice.tone][delta<0?'neg':'pos'];
+        const pool=(follow.id==='hello'?HELLO_REACT:TONE_REACT)[choice.tone][delta<0?'neg':'pos'];
         lines.push(delta===0?variedPick(kit.neutral,profile.id+'tone'+world.day):delta>0?reactionFrom([...pool,...(personality?.reactions?.warm||[])],WARM_REACTIONS,profile.id+choice.tone+world.day):reactionFrom([...pool,...(personality?.reactions?.cool||[])],COOL_REACTIONS,profile.id+choice.tone+world.day));
-        state.memory.tone=`${world.day}:${choice.tone}:${Math.sign(delta)}`;
+        if(follow.id!=='hello')state.memory.tone=`${world.day}:${choice.tone}:${Math.sign(delta)}`; // saying hi is not something she brings up tomorrow
       }else if(follow.kind==='lie'){
         const game=kit.games.twoTruths,set=twoTruthsSet(follow);
         const right=set&&Number(choice.id)===set.lie;
@@ -13951,7 +13972,7 @@
           return [id,{id,topics:Array.isArray(raw.topics)?raw.topics.filter(t=>typeof t==='string'):[],number:validDemoNumber(raw.number)?raw.number:null,
             pending:false,fumbled:!!raw.fumbled,blocked:!!raw.blocked,photoRequests:Math.max(0,Number(raw.photoRequests)||0),photoRefusals:Math.max(0,Math.min(9,Math.trunc(Number(raw.photoRefusals))||0)),
             warmth:Number.isFinite(raw.warmth)?Math.max(-3,Math.min(5,Math.trunc(raw.warmth))):0,
-            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing','into'].includes(raw.followUp.kind)&&(raw.followUp.kind!=='into'||['more','dodged'].includes(raw.followUp.id))&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id,...(['S','Q','K'].includes(raw.followUp.shape)?{shape:raw.followUp.shape}:{})}:null,
+            followUp:raw.followUp&&['topic','question','news','day','tone','flirt','pic','tempt','thing','into'].includes(raw.followUp.kind)&&(raw.followUp.kind!=='into'||['more','dodged'].includes(raw.followUp.id))&&typeof raw.followUp.id==='string'&&raw.followUp.id.length<200&&(raw.followUp.kind!=='tone'||['good','bad','odd','hello'].includes(raw.followUp.id))&&(raw.followUp.kind!=='flirt'||['0','1','2'].includes(raw.followUp.id))&&(raw.followUp.kind!=='pic'||['dress','pool','night','roll'].includes(raw.followUp.id))?{kind:raw.followUp.kind,id:raw.followUp.id,...(['S','Q','K'].includes(raw.followUp.shape)?{shape:raw.followUp.shape}:{})}:null,
             deeper:['love','faith','world'].includes(raw.deeper)?raw.deeper:null,talk:sanitizeTalk(raw.talk),
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
