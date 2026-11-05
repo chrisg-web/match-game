@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="b32bd5d8e7">
+<html lang="en" data-build="246a9f88e0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -212,8 +212,9 @@
     /* Notes (Chris, 3 November 2026): the 2008 iPhone Notes look, a yellow legal pad. Kept between games. */
     /* iTunes (Chris, 3 November 2026): How to play, You and Achievements in the 2008 iTunes Store look (internal app id journal) */
     .mini-app.journal-mode { padding: 0; background: #e6e9ee; color: #1d2633; font-family: Helvetica,Arial,sans-serif; }
-    .it-top { position: sticky; top: 0; z-index: 2; padding: 9px 10px; text-align: center; color: #fff; font: bold 16px Helvetica,Arial,sans-serif; text-shadow: 0 -1px 0 #34465d; background: linear-gradient(#b3bfd0,#7187a6 50%,#5d7699 51%,#6c84a5); border-bottom: 1px solid #2d3e55; }
-    .it-body { min-height: calc(100% - 88px); padding-bottom: 6px; }
+    .it-wrap { display: flex; flex-direction: column; height: 100%; overflow: hidden; } /* the page scrolls in .it-body, so the tab bar stays at the bottom (sticky drifted mid-screen on a tester's phone) */
+    .it-top { flex: none; position: relative; z-index: 2; padding: 9px 10px; text-align: center; color: #fff; font: bold 16px Helvetica,Arial,sans-serif; text-shadow: 0 -1px 0 #34465d; background: linear-gradient(#b3bfd0,#7187a6 50%,#5d7699 51%,#6c84a5); border-bottom: 1px solid #2d3e55; }
+    .it-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
     .it-banner { margin: 8px; padding: 12px; border-radius: 8px; color: #fff; background: linear-gradient(135deg,#4c6d9b,#22324a); box-shadow: inset 0 1px 0 #ffffff40; }
     .it-banner b { display: block; font: bold 17px Helvetica,Arial,sans-serif; }
     .it-banner small { color: #d6e2f3; font: 12px/1.35 Helvetica,Arial,sans-serif; }
@@ -241,7 +242,7 @@
     .it-shot img { display: block; width: 100%; image-rendering: pixelated; }
     .it-card { width: auto; margin: 8px; }
     .it-wait { display: block; aspect-ratio: 3 / 4; background: linear-gradient(135deg,#d9dfe8,#b4bfcf); color: #ffffffcc; font: bold 54px/1 Helvetica,Arial,sans-serif; display: grid; place-items: center; }
-    .it-tabs { position: sticky; bottom: 0; z-index: 2; display: flex; gap: 2px; padding: 3px; background: linear-gradient(#3d3d3d,#151515 50%,#000 51%,#0d0d0d); border-top: 1px solid #555; }
+    .it-tabs { flex: none; position: relative; z-index: 2; display: flex; gap: 2px; padding: 3px; background: linear-gradient(#3d3d3d,#151515 50%,#000 51%,#0d0d0d); border-top: 1px solid #555; }
     .it-tabs button { flex: 1; padding: 4px 2px 3px; border: 0; border-radius: 4px; background: transparent; color: #9a9a9a; font: bold 10px Helvetica,Arial,sans-serif; cursor: pointer; }
     .it-tabs button i { display: block; font: normal 19px/21px Helvetica,Arial,sans-serif; color: #8c8c8c; }
     .it-tabs button.on { color: #fff; background: #ffffff22; }
@@ -374,7 +375,7 @@
     .hinge-bubble { max-width: 91%; padding: 7px; border-radius: 11px; color: #34323b; background: #ece5e7; font: calc(10px * var(--reading-scale))/1.45 Verdana,sans-serif; }
     .hinge-bubble.you { align-self: flex-end; background: #f5cbd3; }
     .hinge-bubble.her { align-self: flex-start; }
-    .hinge-bubble.typing { display: flex; gap: 4px; align-items: center; min-height: 29px; }
+    .hinge-bubble.typing { display: flex; gap: 4px; align-items: center; min-height: 29px; cursor: pointer; } /* tap: her reply now */
     .hinge-bubble.typing i { display: block; width: 4px; height: 4px; border-radius: 50%; background: #f1e7e6; animation: typingPulse 900ms steps(2,end) infinite; }
     .hinge-bubble.typing i:nth-child(2) { animation-delay: 180ms; }
     .hinge-bubble.typing i:nth-child(3) { animation-delay: 360ms; }
@@ -754,11 +755,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=b32bd5d8e7"></script>
+  <script src="chapel_at_midnight.js?v=246a9f88e0"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=b32bd5d8e7"></script>
+  <script src="marriage.js?v=246a9f88e0"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=b32bd5d8e7"></script>
+  <script src="quests/professor-vale.js?v=246a9f88e0"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2670,7 +2671,7 @@
       thread.topics.push(id);
       thread.log.push({who:'you',text:scene.player});
       thread.pending=true;renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         thread.log.push({who:'her',text:scene.reply});thread.pending=false;
         world.bearAffinity=Math.max(world.bearAffinity,scene.affinity);
         if(id==='boundaries'){world.bearChoice='boundaries';world.bearPrepared=true;}
@@ -2740,7 +2741,7 @@
         }
         thread.pending=true;
         renderHinge();
-        window.setTimeout(()=>{
+        herWait(thread,()=>{
           // Each yes sends one of her private pictures you haven't seen yet. Whether she says yes
           // depends on her type (how much talk she needs first) and the difficulty: Mogger always,
           // Normie once you've talked enough, Truecel only after much more, and often not even then.
@@ -2821,7 +2822,7 @@
       }
       thread.pending=true;
       renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         thread.log.push({who:'her',text:reply});thread.pending=false;
         if(id==='fumble')thread.fumbled=true;
         else if(tone()==='mogger'&&profile.factionId!=='sisters_of_mercy'&&gameRandom()<.35){ // Mogger: unasked pictures
@@ -3544,12 +3545,20 @@
       const left=kept.join(' ');
       return kept.length<parts.length&&left.length>=40?left:text;
     }
+    // Tap her typing dots to have her reply now (a tester, 5 November 2026: waiting is annoying).
+    const herHurry=new Map();
+    function herWait(thread,fn,ms){
+      let done=false,timer=null;
+      const go=()=>{if(done)return;done=true;clearTimeout(timer);if(herHurry.get(thread.id)===go)herHurry.delete(thread.id);fn();};
+      timer=window.setTimeout(go,ms);herHurry.set(thread.id,go);return timer;
+    }
+    function hurryHer(id){const go=herHurry.get(id);if(!go)return false;go();return true;}
     function deliverTalk(thread,profile,lines,delayKey,after,scripted=false){
       if(lines.length&&!scripted)lines[0]=toned(lines[0],profile,thread.log.length+'|'+world.day); // her first reply, never an Easter egg after it; scripted event lines stay as written
       const delay=hingeReplyDelay(profile,delayKey);
       thread.pending=true;thread.typing={ms:delay,start:Date.now(),hesitant:hesitates(thread)};
       renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         for(const text of lines)if(text)thread.log.push({who:'her',text:scripted?text:withoutRetold(thread,text),...(lines.botch?{bj:true}:{})}); // bj: already about the botch
         thread.pending=false;delete thread.typing;
         if(after)after();
@@ -6163,7 +6172,7 @@
     }
     function fionnReply(thread,profile,entries,after){
       thread.pending=true;renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         for(const entry of entries)thread.log.push({who:'her',...entry});
         thread.pending=false;
         if(after)after();
@@ -6532,7 +6541,7 @@
       lineSpeaker=profile.id;
       const reply=(list,key)=>flirtFill(variedPick(list,profile.id+'|'+key+'|'+world.day+'|'+thread.log.length),profile);
       const say=(text,after)=>deliverTalk(thread,profile,[text],'talk',after,true);
-      const later=fn=>{thread.pending=true;renderHinge();window.setTimeout(()=>{thread.pending=false;fn();if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();saveRun(true);},hingeReplyDelay(profile,'talk'));};
+      const later=fn=>{thread.pending=true;renderHinge();herWait(thread,()=>{thread.pending=false;fn();if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();saveRun(true);},hingeReplyDelay(profile,'talk'));};
       const win=k=>gameRandom()<flirtOdds(thread,profile,k);
       const melt=(list,key)=>{const own=flirtOwn(thread,profile,'melt');if(own){flirtOwnUsed(thread,'melt');return flirtFill(own,profile);}return reply(list,key);}; // her own line, the first time it really lands
       if(follow.kind==='flirt'){
@@ -10856,7 +10865,7 @@
     function journalDelete(id){const p=playerProfile();p.notes=p.notes.filter(note=>note.id!==id);saveProfile();bookView='main';if(currentApp==='blackbook')renderBook();}
     const itFace=(src,letter)=>src?`<img class="it-art" src="${esc(assetUrl(src))}" alt="" onerror="this.outerHTML='<span class=&quot;it-art&quot;>${esc(letter)}</span>'">`:`<span class="it-art">${esc(letter)}</span>`;
     function itPage(title,tab,body){
-      return `<div class="it-top">${esc(title)}</div><div class="it-body">${body}</div><nav class="it-tabs">${IT_TABS.map(([id,icon,label])=>`<button data-journal-view="${id}"${id===tab?' class="on"':''}><i>${icon}</i>${esc(label)}</button>`).join('')}</nav>`;
+      return `<div class="it-wrap"><div class="it-top">${esc(title)}</div><div class="it-body">${body}</div><nav class="it-tabs">${IT_TABS.map(([id,icon,label])=>`<button data-journal-view="${id}"${id===tab?' class="on"':''}><i>${icon}</i>${esc(label)}</button>`).join('')}</nav></div>`;
     }
     function renderJournal(){
       const p=playerProfile();
@@ -12104,6 +12113,7 @@
       if(box&&box.dataset&&box.dataset.journalText!==undefined)journalWrite(box.dataset.journalText,box.value);
     });
     $('opened').addEventListener('click',event=>{
+      if(event.target.closest('.hinge-bubble.typing,.typing-wrap')&&currentApp==='hinge'&&hurryHer(activeChatId))return; // tap her typing dots: her reply now
       const marriageChoice=event.target.closest('[data-marriage-choice]'); // Marriage
       if(marriageChoice){marriage?.choose(marriageChoice.dataset.marriageChoice);return;}
       const chapelChoice=event.target.closest('[data-chapel-choice]'); // Task 2
@@ -12204,6 +12214,7 @@
       if(scan){$('news-expand-image').src=scan.src;$('news-expand-image').alt='Your scan';$('news-expand').classList.add('visible');return;}
       const herChoice=event.target.closest('[data-her-call]');
       if(herChoice){chooseHerCall(herChoice.dataset.herCall);return;}
+      if(!event.target.closest('button,a,[data-call-pic]')&&finishCallTypewriter())return; // tap the words (anywhere but a button): the whole line at once
       if(event.target.closest('[data-call-next]')){
         if(finishCallTypewriter())return;
         callSpeechState='options';
@@ -12762,7 +12773,7 @@
       thread.log.push({who:'you',text:result.player});
       if(!result.reply){renderHinge();return;}
       thread.pending=true;renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         thread.log.push({who:'her',text:result.reply});
         thread.pending=false;
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
@@ -12866,7 +12877,7 @@
       if(!thread.topics.includes(id))thread.topics.push(id);
       thread.log.push({who:'you',text:topic.player});
       thread.pending=true;renderHinge();
-      window.setTimeout(()=>{
+      herWait(thread,()=>{
         const line={who:'her',text:topic.reply==='{review}'?brReviewHint():topic.reply};
         if(topic.scrap&&brFindScrap(topic.scrap,`Hinge chat with ${profile.name}`))line.evidence=topic.scrap;
         thread.log.push(line);thread.pending=false;
