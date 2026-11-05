@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a26e113226">
+<html lang="en" data-build="34c232633e">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a26e113226"></script>
+  <script src="chapel_at_midnight.js?v=34c232633e"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a26e113226"></script>
+  <script src="marriage.js?v=34c232633e"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a26e113226"></script>
+  <script src="quests/professor-vale.js?v=34c232633e"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -6417,10 +6417,16 @@
         if(t){a.giftDone=true;lineSpeaker=t.id;herLine(t,ARMS.gift.line);a.pending={from:'gift',day:day+1,who:t.id};}
       }
     }
+    // Each gun's own picture on the shelf and wrapping on the floor (566-578). Until a shelf picture loads, Harold's revolver stands in.
+    var GUN_ART={police:'assets/items/gun-police.png',goth_girls:'assets/items/gun-velvet.png',thunderbirds:'assets/items/gun-walnut.png',progressives:'assets/items/gun-tote.png',fourth_estate:'assets/items/gun-newspaper.png',pawn:'assets/items/gun-pawn.png',floor:'assets/items/gun-floorboard.png',rounds:'assets/items/bullets.png'};
+    var GUN_FLOOR={police:'parcel',goth_girls:'velvet',thunderbirds:'walnut',progressives:'tote',fourth_estate:'newspaper',pawn:'paperbag',gift:'shoebox'};
+    var gunArtReady=new Set();
+    function loadGunArt(){if(typeof Image!=='function')return;for(const src of Object.values(GUN_ART)){const img=new Image();img.onload=()=>gunArtReady.add(src);img.src=assetUrl(src);}}
+    const gunArt=key=>gunArtReady.has(GUN_ART[key])?GUN_ART[key]:key==='rounds'?null:'assets/items/revolver.png';
     function armsItems(){
       const a=armsState(),out=[];
-      if(myGun()){const w=a.from==='pawn'?ARMS.pawn:a.from==='floor'?ARMS.floor:a.from==='gift'?ARMS.gift:ARMS.by[a.from]||ARMS.gift;out.push({id:'arms:gun',door:a.from!=='floor',floor:'shoebox',label:w.label,short:'Revolver',image:'assets/items/revolver.png',text:w.item+(hollowPoints()?' Hollow-points and dum-dums in it now.':'')});}
-      if(hollowPoints())out.push({id:'arms:rounds',door:true,floor:'parcel',label:ARMS.rounds.label,short:ARMS.rounds.short,image:'assets/items/bullets.png',text:ARMS.rounds.item});
+      if(myGun()){const w=a.from==='pawn'?ARMS.pawn:a.from==='floor'?ARMS.floor:a.from==='gift'?ARMS.gift:ARMS.by[a.from]||ARMS.gift;out.push({id:'arms:gun',door:a.from!=='floor',floor:GUN_FLOOR[a.from]||'shoebox',label:w.label,short:'Revolver',image:gunArt(a.from),text:w.item+(hollowPoints()?' Hollow-points and dum-dums in it now.':'')});}
+      if(hollowPoints())out.push({id:'arms:rounds',door:true,floor:'parcel',label:ARMS.rounds.label,short:ARMS.rounds.short,...(gunArt('rounds')?{image:gunArt('rounds')}:{}),text:ARMS.rounds.item});
       return out;
     }
     function fionnRevolver(){const f=fionnState();return anyGun()&&(fionnActive()||f.stage==='shot');} // any gun you have, not only Harold's
@@ -13443,7 +13449,7 @@
     // lands on the floor just inside your door. Tap it to pick it up: only then is it in the bedside
     // cupboard. A save from before the floor keeps what it already had in the cupboard.
     const FLOOR_SPOT={x:.585,y:.522,w:.07}; /* on the room art: the floorboards inside the door */
-    const FLOOR_ART={letter:'assets/items/floor-letter.png',envelope:'assets/items/floor-envelope.png',shoebox:'assets/items/floor-shoebox.png',parcel:'assets/items/floor-parcel.png'};
+    const FLOOR_ART={letter:'assets/items/floor-letter.png',envelope:'assets/items/floor-envelope.png',shoebox:'assets/items/floor-shoebox.png',parcel:'assets/items/floor-parcel.png',velvet:'assets/items/floor-velvet.png',walnut:'assets/items/floor-walnut.png',tote:'assets/items/floor-tote.png',newspaper:'assets/items/floor-newspaper.png',paperbag:'assets/items/floor-paperbag.png'}; // the guns' wrappings (566-578): a plain parcel until drawn
     const FLOOR_LIGHT={'bedroom-morning':1,'bedroom-afternoon':.95,'bedroom-dusk':.78,'bedroom-night':.55};
     function sanitizeFloor(c){
       if(c&&typeof c==='object'&&'picked' in c){if(Array.isArray(c.picked))c.picked=c.picked.filter(id=>typeof id==='string').slice(-300);else delete c.picked;}
@@ -14256,6 +14262,7 @@
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
     loadPopupArt(); // the pop-up frames, once drawn
+    loadGunArt(); // the guns' own pictures, once drawn
     loadExtraWallpapers(); // Earth and the clownfish, once drawn
     tutorialAskMaybe(); // the first time: play the tutorial?
     randomiseRoomLook();
