@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="8746a1c453">
+<html lang="en" data-build="825781de17">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=8746a1c453"></script>
+  <script src="chapel_at_midnight.js?v=825781de17"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=8746a1c453"></script>
+  <script src="marriage.js?v=825781de17"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=8746a1c453"></script>
+  <script src="quests/professor-vale.js?v=825781de17"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1105,6 +1105,7 @@
     }
     const device = $('device'), time = $('time'), stage = $('stage'), holder = $('holder');
     let currentApp = null;
+    let callReturnTo=null; // where you were when she rang: her call ends back there, not on the keypad
     let fontScale=1.15,wallpaperLocked=false;
     function setFontScale(value){
       const number=Number(value);
@@ -1920,7 +1921,7 @@
       if(herCall){herCall=null;}
       stopCallTypewriter();callRevealText='';callRevealProgress=0;callRevealElement=null;
       if(ringTimer!==null){clearTimeout(ringTimer);ringTimer=null;}
-      ringingContact=null;activeCallId=null;activeGenericCall=null;tapesRecording=null;
+      ringingContact=null;activeCallId=null;activeGenericCall=null;tapesRecording=null;callReturnTo=null;
       stage.classList.remove('ringing');
       $('call-bubble').classList.remove('visible');
       if(typeof navigator!=='undefined'&&navigator.vibrate)navigator.vibrate(0);
@@ -2383,7 +2384,7 @@
       // Every choice gets a rank (lower matters more). At most MAX_CHAT_CHOICES are shown, in
       // their usual order; when there are more, the least important are left out for now.
       // 0 quests in progress · 1 case questions, and the Blue Ribbon question after the paper · 2 first small talk, numbers · 3 picture, paper,
-      // deeper, her family · 4 Easter egg, the marriage question · 5 extra small talk (she still has it next time).
+      // her family · 4 Easter egg, deeper (why she thinks that), the marriage question · 5 extra small talk (she still has it next time).
       const choices=[];
       // Rank 0 is a story in progress (a quest, a room quest, her own story, the Ball): those buttons wear the case style
       // (gold, like the Ledger's and Vale's questions) so a player can tell a case from her small talk (4 November 2026, the sense check).
@@ -2410,7 +2411,7 @@
       tallMaybe(thread,profileNow); // the Looksmaxxer past 6 ft 6: she notices
       for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow),...kesslerChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
-      if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,3);
+      if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,4); // it keeps until asked: the paper and a picture go first
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
       if(newsTalkAvailable(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="news">📰 ${esc(characterDB.newsTalk.label)}</button>`,3);
       for(const key of Object.keys(SERVICE_ASKS))if(serviceAskable(key,thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="svc:${key}">☎ ${esc(SERVICE_ASKS[key].label)}</button>`,2);
@@ -2435,7 +2436,7 @@
       if(thread.number)shown.push(`<div style="font:9px Verdana,sans-serif;color:#a8e8bc;text-align:center">Number saved: ${thread.number}</div>`);
       return shown.join('');
     }
-    const MAX_CHAT_CHOICES=5; // a conversation never shows more than five choices at once
+    const MAX_CHAT_CHOICES=4; // a conversation never shows more than four choices at once (Chris: five at most, preferably four; asking for a picture counts)
     // Questions a quest lets you ask her. Free while she's talking, gone once she's done for the day.
     const QUEST_ASK=/^(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
     const QUEST_ASK_HTML=/data-hinge-topic="(mini:|lpc:ask|hal:|leak:ask|caller:friend|fionn:(look|verse|run|g:))/;
@@ -9942,6 +9943,7 @@
     // Tapping the banner: raise the phone and show the incoming call.
     function openIncomingCall(){
       if(!incomingCall)return;
+      callReturnTo=currentApp==='calls'?null:{app:currentApp,hingeView,activeChatId}; // the chat, the paper or the home screen you were on
       setLowered(false);
       callsView='keypad';
       openApp('calls');
@@ -10208,7 +10210,15 @@
       stopCallTypewriter();
       $('call-bubble').classList.remove('visible');
       saveRun(true);
+      const back=callReturnTo;callReturnTo=null;
+      if(back&&currentApp==='calls'){returnAfterCall(back);return;} // Chris: a call ends back where you were, not in Calls
       if(currentApp==='calls')renderCalls();
+    }
+    // Where her call found you: the home screen, or an app (a Hinge chat reopens on the same thread).
+    function returnAfterCall(back){
+      if(!back.app){returnHome();return;}
+      if(back.app==='hinge'){hingeView=back.hingeView;activeChatId=back.activeChatId;}
+      openApp(back.app);
     }
 
     // Easter egg: tap her name five times and she tells you a secret.
