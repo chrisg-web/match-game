@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a50dea9d37">
+<html lang="en" data-build="a7f4dcc3d2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a50dea9d37"></script>
+  <script src="chapel_at_midnight.js?v=a7f4dcc3d2"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a50dea9d37"></script>
+  <script src="marriage.js?v=a7f4dcc3d2"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a50dea9d37"></script>
+  <script src="quests/professor-vale.js?v=a7f4dcc3d2"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1004,7 +1004,7 @@
     }
     // Every quest you haven't won is in every game, as many at once as you like (Chris, 4 November 2026: one or
     // two a run caused problems). They arrive on staggered days so the paper doesn't carry them all at once: the
-    // Ledger on Day 1 (the gala was Day 1), Vale and the Chapel by Day 3, the story quests one a day from Day 3,
+    // Ledger on Day 1 (the gala was Day 1), Vale and the Chapel by Day 3, the story quests three days apart from Day 4 (5 November 2026),
     // the radio contest in between. Theon comes in about one Mogger game in two (Chris, 4 November 2026; it was one in four). A quest you have won stays
     // out of later games until every class is unlocked (questFresh).
     function pickQuests(seed){
@@ -1018,8 +1018,8 @@
       if(big.includes('vale'))out.vale=1+h('vale')%3;
       if(big.includes('chapel'))out.chapel=2+h('chapel')%2;
       if(selectedDifficulty==='mogger'&&h('theon')%2===0&&questFresh('fionn'))out.fionn=3+h('later')%2; // Theon: about one Mogger game in two
-      story.sort((a,b)=>h(a)-h(b)).forEach((id,i)=>{out[id]=3+i;});
-      if(radio)out.radio=2+h('radioday')%5;
+      story.sort((a,b)=>h(a)-h(b)).forEach((id,i)=>{out[id]=4+3*i;}); // three days apart (the pacing check, Chris, 5 November 2026: one a day from Day 3 piled six stories into the first week)
+      if(radio)out.radio=5+h('radioday')%2;
       return out;
     }
     // A run picks one or two of the big quests. If five days go by without anything moving, one that wasn't picked
@@ -3344,7 +3344,9 @@
     function quietNewDay(){ // the morning after her last conversation she says goodbye
       const lines=talkKit()?.quiet;
       if(!lines?.length)return;
+      let byes=0; // two goodbyes a morning at most: several women leaving at once felt like everyone was walking out (the pacing check, Chris, 5 November 2026)
       for(const thread of hingeThreads.values()){
+        if(byes>=2)break;
         if(thread.quiet||thread.blocked||thread.unmatched||thread.left||thread.fumbled||thread.awaiting||thread.pending||thread.missing||thread.followUp)continue; // she asked you something: she waits for your answer first
         if(talkState(thread).later)continue; // she owes you an answer: she gives it before she goes quiet
         const profile=hingeProfile(thread.id);
@@ -3352,6 +3354,7 @@
         thread.quiet=true;
         lineSpeaker=profile.id;
         thread.log.push({who:'her',text:variedPick(lines,profile.id+'|quiet')});
+        byes++;
         talkState(thread).unread=true;
       }
     }
@@ -9751,11 +9754,11 @@
         if(!(profile.id in a.pick)){
           if(told||warmthOf(thread)<2||thread.topics.length<2)continue;
           const mine=arcOf(profile);
-          if(mine){told++;arcTell(thread,profile,mine);}
+          if(mine&&morningRoom(thread)){told++;arcTell(thread,profile,mine);} // a calm morning: four women at most
           continue;
         }
         if(!arc||!st)continue;
-        if(st.stage==='hook'&&!told&&warmthOf(thread)>=2){told++;arcTell(thread,profile,arc);}
+        if(st.stage==='hook'&&!told&&warmthOf(thread)>=2&&morningRoom(thread)){told++;arcTell(thread,profile,arc);}
         else if(st.stage==='waiting'&&st.day<world.day)arcConsequence(thread,profile,arc,st);
         else if(st.stage==='after'&&st.day+2<=world.day&&warmthOf(thread)>=1){
           st.stage='done';st.day=world.day;
@@ -10031,6 +10034,7 @@
         heardToday=true;
         lineSpeaker=friend.id;herLine(friend,fillIn(seededPick(lines,world.seed+'|heard|'+gone.id),{first:firstName(p)}));warmBy(friend,-1);
       }
+      let nudgesToday=0;
       for(const thread of hingeThreads.values()){
         if(thread.blocked||thread.unmatched||thread.left||thread.missing||thread.fumbled||thread.awaiting||thread.ghosted||thread.quiet||thread.pending)continue;
         const profile=hingeProfile(thread.id);
@@ -10043,7 +10047,8 @@
           thread.blocked=true;thread.unmatched=true;thread.followUp=null;st.unread=true;thread.angryDay=world.day;
           continue;
         }
-        if(!nudged&&world.day-last>=IGNORE_DAYS){
+        if(!nudged&&world.day-last>=IGNORE_DAYS&&nudgesToday<2){ // two nudges a morning at most; the rest wait a day (the pacing check, Chris, 5 November 2026)
+          nudgesToday++;
           const spoke=thread.log.some(l=>l.who==='you'),pool=spoke?(['question','news','day'].includes(thread.followUp?.kind)?NUDGE_ASKED:NUDGE_QUIET):kit.nudge; // you went quiet mid-conversation, or never said a word
           thread.log.push({who:'her',text:seededPick(pool.length?pool:kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
           thread.nudgeDay=world.day;st.unread=true;st.morningDay=world.day;st.musedDay=world.day; // that's her message for the morning
@@ -10234,11 +10239,11 @@
       for(const thread of hingeThreads.values()){
         if(sent>=TALE_MORNING_MAX)break;
         const profile=hingeProfile(thread.id),tale=profile&&taleOf(profile.id);
-        if(!tale||thread.blocked||thread.unmatched||thread.left||thread.fumbled||thread.missing||thread.awaiting||thread.pending||thread.followUp)continue;
+        if(!tale||thread.blocked||thread.quiet||thread.unmatched||thread.left||thread.fumbled||thread.missing||thread.awaiting||thread.pending||thread.followUp||!(spokeThisMorning(thread)||morningRoom(thread)))continue; // not once she has gone quiet; and a calm morning (four women at most, though one who has already written may go on)
         if(!thread.log.some(e=>e.who==='you'))continue; // she writes first only once you've talked
         const beat=tale.beats.find(b=>b.how==='message'&&taleReady(profile.id,b,thread));
         if(!beat)continue;
-        lineSpeaker=profile.id;thread.quiet=false;
+        lineSpeaker=profile.id;
         const give=taleGive(beat,profile);
         for(const line of taleLines(profile.id,beat))herLine(thread,fillIn(line,give.values));
         const ts=talkState(thread);ts.morningDay=world.day;ts.musedDay=world.day; // that's her message this morning
