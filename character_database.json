@@ -22992,7 +22992,86 @@
       "look": "Lightly tanned fair skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
       "status": "awaiting portrait",
       "type": "restless-heartbreaker",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_backroom",
+            "label": "Ask about her back room",
+            "player": "What’s the back room like?",
+            "reply": "A venue for twenty and a bar for forty, at the back of the Old Quarter’s pool hall. I book the smallest nights in town and I run it like a tavern. Everyone in there owes me something."
+          },
+          {
+            "id": "b_pool",
+            "label": "Ask if she’s any good at pool",
+            "player": "Are you any good at pool?",
+            "reply": "I play for the washing-up. I win from everyone in the Quarter except one woman, and I do her washing-up for a week every time. I never mind.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_stay",
+            "label": "Ask why she never lets anyone stay",
+            "player": "Why don’t you ever let anyone stay over?",
+            "reply": "Staying is the part I’m bad at. Somebody stays, somebody holds on, then somebody isn’t there in the morning. I’d rather say goodnight at the door and mean it.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_father",
+            "label": "Ask about her father",
+            "player": "You never talk about your father.",
+            "reply": "He went up to the quarry on the ridge to work when I was eighteen and didn’t come home. My mother stopped saying his name, so I took hers. Kestrel. A man from the quarry got drunk in my back room once and said my father saw something up there he shouldn’t have. I haven’t let that man back in.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Sold out the back room for a band nobody’s heard of. Twenty in the room, forty at the bar, one encore nobody asked for.",
+            "more": "Three women from the Night Wire crowd with a drum machine and a grudge. I booked them because the singer argued with me about the door split and won. Twenty people came, then forty, then the bar ran out of ice. They played the same song twice as the encore because they only have six. Nobody minded. I’m the hostess. That’s the job: make it feel like everyone was invited."
+          },
+          {
+            "feel": "bad",
+            "news": "The licensing committee sent Wren another letter. I went across the road and shouted at nobody in particular.",
+            "more": "Wren runs Black’s, across the road from my hall. Every spring the committee finds a new rule her bar breaks, and every spring she frames the letter and keeps pouring. This one is about the fire exit. There is a fire exit. I stood in the street and told the committee what I thought of it, at volume, to a lamppost. Wren brought me a lemonade and told me to come inside. She always does."
+          },
+          {
+            "feel": "odd",
+            "news": "A camera from Black’s lost-property had one deleted picture on it. I’m nosy. I got it back.",
+            "more": "Wren gave me the camera after it sat in her lost-property for a month. One frame had been deleted, and a man at the market showed me how to bring it back for a fiver. It’s my own back room, from the door, on a night with no moon: a woman in red at the pool table, and a man in a lanyard handing her a piece of paper. I don’t know what it is. It’s on a card in my chalk tin."
+          },
+          {
+            "feel": "odd",
+            "news": "The woman in red came in again. I lost to her on purpose. She noticed.",
+            "more": "She comes in alone, plays one game, never says her name, and I’ve never asked. She’s very good. Tonight I missed an easy black on purpose, just to keep her at the table another minute, and she looked at me like she knew exactly what I’d done. She put the cue back and said, don’t do that again. Then she bought me a drink. I don’t lose on purpose. I want that on the record."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-215",
+            "warmth": 1,
+            "says": "Wren Black runs the bar across the road from my hall. Sober, steady, never once raised her voice. She lets me shout for both of us.",
+            "note": "Lilith Kestrel says Wren Black, across the road at Black’s, lets her do the shouting for both of them.",
+            "ask": "Lilith says you let her do the shouting for both of you.",
+            "answer": "Somebody has to stay calm while she gets herself cautioned in the street. She thinks I keep the lights on late for the regulars. I keep them on so there’s a light across the road from her. Don’t tell her that.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-203",
+            "warmth": 2,
+            "says": "Billie Wraith books the goth night at the casino lounge. My mother pours the drinks there. Neither of them mentions me, apparently.",
+            "note": "Lilith Kestrel says her mother pours the drinks at the casino lounge where Billie Wraith books the goth night.",
+            "ask": "Lilith says her mother pours the drinks at your goth night.",
+            "answer": "She does. Never says a word about having a daughter. But she laughs exactly like Lilith, all at once and too loud, and every time she does it I nearly drop a record. I’ll never tell either of them.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-212",
@@ -34385,6 +34464,11 @@
           "muse": "Walked the strip in the rain with my camera and every sign doubled in the road. Two of everything. Including me, tonight.",
           "caption": "Neon in the rain. No smile required.",
           "melt": "I don’t do it with my face. I’m doing it now. Look."
+        },
+        "MATCH-211": {
+          "muse": "Locked up the back room, put a record on and racked the balls for nobody. Come and lose to me at pool sometime.",
+          "caption": "The back room after close. Chalk on my hands and nobody left to throw out.",
+          "melt": "Okay. You. I wasn’t planning on liking anyone this week. Don’t you dare get comfortable."
         },
         "MATCH-005": {
           "muse": "Pancake is asleep on my feet and I’m diagnosing myself. Verdict: touch-starved, with a side of very bad ideas about you.",

@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 221,
-  "imageCount": 1525,
-  "publicImageCount": 884,
-  "privateImageCount": 641,
+  "characterCount": 222,
+  "imageCount": 1533,
+  "publicImageCount": 889,
+  "privateImageCount": 644,
   "characters": [
     {
       "id": "MATCH-001",
@@ -6715,6 +6715,44 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and restoring old film cameras.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-211",
+      "slug": "lilith_kestrel",
+      "name": "Lilith Kestrel",
+      "age": 25,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Music venue manager",
+      "gallery": [
+        "assets/hinge/roster_expansion/lilith_kestrel_01.webp",
+        "assets/hinge/roster_expansion/lilith_kestrel_02.webp",
+        "assets/hinge/roster_expansion/lilith_kestrel_03.webp",
+        "assets/hinge/roster_expansion/lilith_kestrel_04.webp",
+        "assets/hinge/roster_expansion/lilith_kestrel_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/lilith_kestrel_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Lilith Kestrel, consistent Lightly tanned fair skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lilith_kestrel_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Lilith Kestrel, consistent Lightly tanned fair skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/lilith_kestrel_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Lilith Kestrel, consistent Lightly tanned fair skin, dark brown messy bun, gray-green eyes, silver-buckled platform boots and black jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and playing pool with her neighbors.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
