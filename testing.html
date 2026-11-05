@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="df007ca0f6">
+<html lang="en" data-build="556ce78933">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=df007ca0f6"></script>
+  <script src="chapel_at_midnight.js?v=556ce78933"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=df007ca0f6"></script>
+  <script src="marriage.js?v=556ce78933"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=df007ca0f6"></script>
+  <script src="quests/professor-vale.js?v=556ce78933"></script>
 </head>
 <body>
   <main class="workbench">
@@ -834,6 +834,7 @@
         <button class="bar-button" id="chapel-preview">Open the Chapel at Midnight case now</button><!-- Task 2 -->
         <button class="bar-button" id="victoria-preview">Preview Victoria Blackwood’s attack (always fatal)</button><!-- Task 2 -->
         <button class="bar-button" id="police-preview">Preview two false police reports</button>
+        <button class="bar-button" id="cash-preview">+$10,000 in the bank (testing)</button>
         <button class="bar-button" id="marriage-preview">Preview a Sister of Mercy wedding (cycles through all five)</button><!-- Marriage -->
         <button class="bar-button" id="vale-preview">Open the Professor Vale case now</button><!-- Professor Vale -->
         <button class="bar-button" id="theon-preview">Start Theon’s quest now (Mogger: he rings at once)</button>
@@ -889,7 +890,7 @@
               <div class="wallpaper" id="wallpaper"></div>
               <div class="screen-shade" id="shade"></div>
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go to bed"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
-              <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2>Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><small>It is always in iTunes, under How to play.</small></div>
+              <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2 id="tut-ask-title">Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><small>It is always in iTunes, under How to play.</small></div>
               <div class="day-dialog pop-l" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
@@ -4296,7 +4297,11 @@
       let seen={};try{seen=JSON.parse(localStorage.getItem('matchClassTutorials')||'{}')||{};}catch{}
       if(seen[cls])return;
       seen[cls]=true;try{localStorage.setItem('matchClassTutorials',JSON.stringify(seen));}catch{}
-      window.setTimeout(()=>openTutorial(0,cls),700);
+      // Asked, not opened (Chris, 5 November 2026): the same big Yes and small No as the first launch, once per class.
+      tutAskClass=cls;
+      $('tut-ask-title').textContent=`Do you want to play the ${{looksmaxxer:'Looksmaxxer',divorce:'Divorcé'}[cls]||'class'} tutorial?`;
+      setLowered(false);
+      $('tut-ask').hidden=false;
     }
     function closeTutorial(){$('tutorial').hidden=true;}
     function renderTutorial(){
@@ -12219,6 +12224,7 @@
     // The first time you open the game (no saved game, never asked): play the tutorial? Yes opens How to play in
     // iTunes; No, or the home button, goes straight to the game (Chris, 4 November 2026).
     const TUT_ASK_KEY=SAVE_KEY+':tutorialAsked';
+    var tutAskClass=null; // the Looksmaxxer's or the Divorcé's own question, when it is theirs
     var tutorialAskWaiting=false,firstRunStarted=false; // the first game starts while the question is up: don't open Hinge over it (or over How to play)
     function tutorialAskMaybe(){
       if(window.MATCH_NO_TUTORIAL_ASK)return false;
@@ -12231,6 +12237,11 @@
     function tutorialAskDone(yes){
       if($('tut-ask').hidden)return;
       $('tut-ask').hidden=true;
+      if(tutAskClass){ // a class's own tutorial: Yes opens it, No goes straight into the game
+        const cls=tutAskClass;tutAskClass=null;$('tut-ask-title').textContent='Do you want to play the tutorial?';
+        if(yes)openTutorial(0,cls);else if(world)openApp('hinge');
+        return;
+      }
       try{localStorage.setItem(TUT_ASK_KEY,'1');}catch{}
       tutorialAskWaiting=yes&&!firstRunStarted; // if the first game hasn't started yet, it won't open Hinge over How to play
       if(yes)openApp('journal'); // iTunes opens on How to play
@@ -13763,6 +13774,12 @@
       if(holdHinge)return;
       openApp('hinge');
     }
+    $('cash-preview').onclick=()=>{ // testing: money in the bank (Chris, 5 November 2026)
+      if(!world)return;
+      cashMove(10000,'Testing: +$10,000');saveRun(true);
+      updateRunStatus('+$10,000. Bank balance $'+classState().cash.toLocaleString('en-US')+'.');
+      if(currentApp==='bank')openApp('bank');
+    };
     $('police-preview').onclick=()=>{
       startNewRun(true);
       filePoliceCrimeReport();filePoliceCrimeReport();
