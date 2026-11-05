@@ -14036,7 +14036,7 @@
             "id": "b_guitar",
             "label": "Ask what she does on her day off",
             "player": "What do you do on your day off?",
-            "reply": "I teach my cousin Mateo guitar, because my mom taught me. He’s twelve and he only wants to play one song. It’s a good song. I’m starting to hate it.",
+            "reply": "I teach my uncle Mateo guitar, because my mom taught me. He’s sixty and he only wants to play one song. It’s a good song. I’m starting to hate it.",
             "needsWarmth": 1
           },
           {
@@ -16708,7 +16708,7 @@
             "id": "b_godchild",
             "label": "Ask what she does with her weekends",
             "player": "What do you do with your weekends?",
-            "reply": "Some weekends I have my goddaughter. She’s eight and she names every cactus. There’s one called Mr. Stabs. He is thriving.",
+            "reply": "Some weekends I water my neighbor’s garden. She’s eighty and she names every cactus. There’s one called Mr. Stabs. He is thriving.",
             "needsWarmth": 1
           },
           {
@@ -18205,8 +18205,8 @@
           },
           {
             "feel": "good",
-            "news": "Taught a boy from the pantry to plant a seed. He checked on it every hour.",
-            "more": "He’s seven and very serious. He put the seed in the pot like he was posting a letter, then came back every hour to see if it had answered. Seeds sit for years until the rain comes. He doesn’t have years. I watered it twice to help."
+            "news": "Taught an old man from the pantry to plant a seed. He checked on it every hour.",
+            "more": "He’s eighty-one and very serious. He put the seed in the pot like he was posting a letter, then came back every hour to see if it had answered. Seeds sit for years until the rain comes. He says he doesn’t have years. I watered it twice to help."
           }
         ],
         "gossip": [
@@ -19623,7 +19623,7 @@
             "id": "b_ollie",
             "label": "Ask about her cousin",
             "player": "Who’s the cousin you teach?",
-            "reply": "Ollie. Eleven. He only wants to learn one song and I’ve taught it to him eighty times. I don’t mind. I like being needed. That’s probably the problem.",
+            "reply": "Ollie, a retired mailman. He only wants to learn one song and I’ve taught it to him eighty times. I don’t mind. I like being needed. That’s probably the problem.",
             "needsWarmth": 1
           },
           {
@@ -19659,8 +19659,8 @@
         "life": [
           {
             "feel": "good",
-            "news": "Taught my cousin Ollie his one song for the eighty-first time. He nearly got the middle bit.",
-            "more": "He’s eleven and only wants to learn one song. I’ve taught it to him eighty-one times. I don’t mind. I like it when people need me. Today he got the middle bit right and looked at me like he’d won a war. I clapped like an idiot."
+            "news": "Taught Ollie, my retired mailman, his one song for the eighty-first time. He nearly got the middle bit.",
+            "more": "He’s seventy-four and only wants to learn one song. I’ve taught it to him eighty-one times. I don’t mind. I like it when people need me. Today he got the middle bit right and looked at me like he’d won a war. I clapped like an idiot."
           },
           {
             "feel": "bad",
@@ -36681,7 +36681,7 @@
           "tub": "Their bathtub.",
           "closet": "Their closet. Try something on."
         },
-        "reply": "Tomorrow. Eleven o’clock viewing."
+        "reply": "Tomorrow. The morning viewing."
       },
       "caroline": {
         "name": "Caroline Prescott",
@@ -41162,10 +41162,15 @@
     "events/complaint-cuff.png",
     "events/complaint-grab.png",
     "events/complaint-threshold.png",
+    "events/dad-01.png",
+    "events/dad-02.png",
+    "events/dad-03.png",
+    "events/dad-04.png",
     "events/goth-afternoon-charge.webp",
     "events/goth-afternoon-lunge.webp",
     "events/goth-afternoon-threshold.webp",
     "events/goth-dusk-charge.webp",
+    "events/goth-dusk-lunge.webp",
     "events/goth-dusk-threshold.webp",
     "events/goth-morning-charge.webp",
     "events/goth-morning-lunge.webp",

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c30369c461">
+<html lang="en" data-build="e4aefa5c0e">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c30369c461"></script>
+  <script src="chapel_at_midnight.js?v=e4aefa5c0e"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c30369c461"></script>
+  <script src="marriage.js?v=e4aefa5c0e"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c30369c461"></script>
+  <script src="quests/professor-vale.js?v=e4aefa5c0e"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2103,7 +2103,7 @@
       return WIRE_JOBS.find(([pattern])=>pattern.test(job))?.[1]||null;
     }
     function wireAskable(thread,profile){
-      return !!(thread&&profile&&!thread.blocked&&!thread.fumbled&&PV?.wireNeeded?.()&&wireJobLine(profile));
+      return !!(thread&&profile&&!thread.blocked&&!thread.quiet&&!thread.fumbled&&PV?.wireNeeded?.()&&wireJobLine(profile));
     }
     function askHerForWire(){
       const thread=hingeThreads.get(activeCallId),profile=hingeProfile(activeCallId);
@@ -3184,7 +3184,7 @@
         if(sent>=4)break;
         const profile=hingeProfile(thread.id),st=talkState(thread),life=lifeOf(profile);
         if(thread.id===CALLER_ID&&callerActive())continue; // Mogger: the girl who keeps calling has a story of her own
-        if(!profile||!life.length||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.quiet||thread.awaiting||thread.ghosted||thread.unmatched||thread.left||thread.missing||thread.pending)continue;
+        if(!profile||!life.length||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.quiet||thread.awaiting||thread.ghosted||thread.unmatched||thread.left||thread.missing||thread.pending||thread.followUp||lifeAskOpen(thread,profile))continue; // she asked you something, or her last news is still unanswered: this one waits (the sense check, Chris, 5 November 2026)
         const days=st.days||[],n=st.lifeN||0;
         if(!days.length||Math.max(...days)<world.day-3||n>=life.length||st.lifeDay===world.day)continue; // only women you've been talking to
         if(st.lifeDay&&!days.some(day=>day>=st.lifeDay))continue; // you haven't talked since her last news
@@ -3650,9 +3650,7 @@
         const pool=LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,said=thread.log.filter(l=>l.who==='you').map(l=>l.text).join('|');
         const react=pool.find(r=>!said.includes(r))||seededPick(pool,profile.id+world.day); // one you haven't said to her yet
         thread.log.push({who:'you',text:fresh?myVoice(react,profile.id):'Going back to what you told me earlier. '+react});
-        lines.push(item.more);
-        gossip=pickGossip(thread,profile,.8);
-        if(gossip)lines.push(gossip.says);
+        lines.push(item.more); // the rest of her story, and only that: your reply is to it
         thread.followUp={kind:'tone',id:['good','bad','odd'].includes(item.feel)?item.feel:'odd'};
         return deliverTalk(thread,profile,lines,'talk',gossip?()=>recordClue(gossip.note):null,true);
       }
@@ -3663,10 +3661,12 @@
         thread.log.push({who:'you',text:myVoice(topic.player,profile.id)});
         const op=talkOpener(thread,profile,topic.id);if(openerFirst)lines.push(op);
         lines.push(coldTrim(voiced(topicView(topic,profile),profile,topic.id),thread)); // texting tension: short when she's cold
-        if(!openerFirst)lines.push(op); // her mood or a callback, once she has answered
-        if(topic.id==='bear')lines.push(...bearEgg());
-        lines.push(talkAside(thread,profile));
-        gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says); // something she's heard
+        // One extra at most after her view (the sense check, Chris, 5 November 2026): the bear's nickname, a callback, an aside or a bit of gossip.
+        const extra=topic.id==='bear'?bearEgg():[];
+        if(!extra.length&&!openerFirst&&op)extra.push(op);
+        if(!extra.length){const aside=talkAside(thread,profile);if(aside)extra.push(aside);}
+        if(!extra.length){gossip=pickGossip(thread,profile);if(gossip)extra.push(gossip.says);}
+        lines.push(...extra);
         // Easter egg: she knew the last person in your room.
         if(['sunfall','leave'].includes(topic.id)&&!state.tenant&&warmthOf(thread)>=2&&hashSeed(world.seed+'|tenant|'+profile.id)%4===0){state.tenant=true;lines.push(seededPick(kit.eggs.lastTenant,profile.id));}
         const ask=topic.ask||topic.follow?.question;
@@ -3689,8 +3689,8 @@
         }else{
           const told=topicTold(own,profile);
           lines.push(coldTrim(told.text,thread)); // short when she's cold (the clue is in your notes)
-          lines.push(op); // her mood or a callback, after the answer
-          gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
+          if(op)lines.push(op); // her mood or a callback, after the answer
+          else{gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);} // or something she has heard: one extra at most
           if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
           maybeHerQuestion(thread,profile,lines);
           after=()=>{told.after();moggerPicture(thread,profile);};
@@ -3738,8 +3738,8 @@
         lines.push(reputationLine(thread,profile));
         lines.push(variedPick(daily.mood[moodOf(profile)]||daily.mood.bright,profile.id+world.day));
         lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
-        gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
-        if(gameRandom()<.35){
+        gossip=gameRandom()<.5?pickGossip(thread,profile):null;if(gossip)lines.push(gossip.says); // one extra at most: gossip, or what she heard about the paper
+        if(!gossip&&gameRandom()<.35){
           const pk=storyKind(gamePick(getNewsEdition(world.day).items||[])),phrase=kit.newsFollow.phrases[pk]||SQ_NEWS_PHRASES[pk];
           if(phrase)lines.push(fillIn(seededPick(daily.heard,profile.id+world.day),{story:phrase}));
         }
@@ -4840,7 +4840,11 @@
     // it has covered, however they came up: she raised it, you asked, she rang you about it. A question that starts
     // a quest from scratch (has she heard, what does she think, what's going on) is not offered in a chat that has
     // already covered that quest, and she doesn't bring up as news what you have already talked about.
-    function chatCovered(thread,quest){return !!thread?.covered?.[quest];}
+    // She has already talked about it in her own words (her take on the paper, her news): that counts as covered too,
+    // so nobody asks if she's heard of Professor Vale after she told you about him (the sense check, Chris, 5 November 2026).
+    var QUEST_NAMES={vale:/Professor Vale|\bVale\b/,seance:/Veil Line|Madame Ilona/,penpal:/Lyle Dunmore/,priest:/Father Sorrell|Father Julian/,tapes:/Father Sorrell|Father Julian/,pageant:/Miss Sunfall/,radio:/KSUN|late request line/,br:/Blue Ribbon|Elena Cross/,chapel:/Midnight Rite/,fionn:/Theon/};
+    function herMentioned(thread,quest){const re=QUEST_NAMES[quest];return !!(re&&thread?.log?.some(l=>l.who==='her'&&re.test(String(l.text||''))));}
+    function chatCovered(thread,quest){return !!thread?.covered?.[quest]||herMentioned(thread,quest);}
     var SAME_SUBJECT={priest:['tapes'],tapes:['priest']}; // both are about Father Sorrell: talk about him once
     function coverChat(thread,quest){if(!thread||!quest)return;const c=thread.covered||(thread.covered={});for(const q of [quest,...(SAME_SUBJECT[quest]||[])])c[q]=world?.day||1;}
     function qhintState(){if(!world.qhints||typeof world.qhints!=='object')world.qhints={};return world.qhints;}
@@ -5093,10 +5097,10 @@
       return (thread.log||[]).some(l=>{if(l.who!=='her')return false;const have=new Set(sayWords(l.text));return words.filter(w=>have.has(w)).length/words.length>=.55;});
     }
     function sqTopics(id,st,thread,profile){
-      const saidO=st.asked.includes(thread.id+':'+id+':o')||qhintState()[id]?.by===thread.id; // she has already told you her side of it
+      const saidO=st.asked.includes(thread.id+':'+id+':o')||qhintState()[id]?.by===thread.id||herMentioned(thread,id); // she has already told you her side of it (or talked about it in her own words)
       const out=(SQ[id].chat?.(st,thread,profile)||[]).filter(t=>!(t.key==='op'&&saidO)&&!alreadySaid(thread,t.reply)); // so asking what she thinks would repeat it, or contradict it
       const o=sqOpenerTopic(id,st,thread,profile);
-      if(o)out.unshift(o);
+      if(o&&!saidO)out.unshift(o); // no opener once she has talked about it
       return out;
     }
     // ---- When you ring her (Chris, 4 November 2026): ask about work, who she knows, seeing her. Each leads
@@ -6188,11 +6192,11 @@
         if(day>=world.day)continue;
         const thread=hingeThreads.get(id);
         delete f.waiting[id];
-        if(thread&&!thread.blocked&&!thread.unmatched){thread.log.push({who:'her',text:FIONN.gone[world.day%FIONN.gone.length]});blockForEvent(thread);}
+        if(thread&&!thread.blocked&&!thread.quiet&&!thread.unmatched){thread.log.push({who:'her',text:FIONN.gone[world.day%FIONN.gone.length]});blockForEvent(thread);}
       }
       const n=world.day-f.startDay;
       if(n<1)return;
-      for(const id of fionnGirls()){const t=hingeThreads.get(id);if(t&&!t.blocked&&!t.fumbled&&!t.unmatched)fionnGirlOpens(t);} // already matched: she tells you
+      for(const id of fionnGirls()){const t=hingeThreads.get(id);if(t&&!t.blocked&&!t.quiet&&!t.fumbled&&!t.unmatched)fionnGirlOpens(t);} // already matched: she tells you
       const pool=[...hingeThreads.values()].filter(t=>fionnTarget(t)&&!f.complained.includes(t.id)).sort((a,b)=>hashSeed(world.seed+'|fionnw|'+a.id)-hashSeed(world.seed+'|fionnw|'+b.id));
       if(n===3&&dadState().stage==='none'){ // one of them has a father in the police
         const daughter=pool.shift()||[...hingeThreads.values()].find(t=>f.waiting[t.id]!==undefined&&fionnTarget(t));
@@ -6892,7 +6896,7 @@
     const halInRun=()=>!!window.MATCH_ALL_QUESTS||hashSeed(world.seed+'|halloran')%2===0;
     function halEligible(){const g=glowState();return halInRun()&&['delivered','active','spent'].includes(g.stage);}
     function halWarmest(){return [...hingeThreads.values()].filter(eventReady).sort((a,b)=>warmthOf(b)-warmthOf(a))[0]?.id||null;}
-    function halThread(id){const t=id&&hingeThreads.get(id);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing?t:null;}
+    function halThread(id){const t=id&&hingeThreads.get(id);return t&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing?t:null;}
     function halNewDay(){
       const h=halState();
       if(h.stage==='none'){
@@ -7346,7 +7350,7 @@
       if(tone()==='truecel'&&gameRandom()<.2){
         const victims=[...hingeThreads.values()].filter(thread=>{
           const profile=hingeProfile(thread.id);
-          return profile&&thread.id!==bearHingeCard.id&&!mustReply(profile)&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.pending&&warmthOf(thread)<=0&&thread.topics.length>=1&&!kindred(profile);
+          return profile&&thread.id!==bearHingeCard.id&&!mustReply(profile)&&!thread.blocked&&!thread.quiet&&!thread.fumbled&&!thread.awaiting&&!thread.pending&&warmthOf(thread)<=0&&thread.topics.length>=1&&!kindred(profile);
         });
         if(victims.length){
           const thread=gamePick(victims);
@@ -7358,7 +7362,7 @@
     // Women who can still be part of these events: talking to you, not closed, not a Sister.
     const eventReady=thread=>{
       const profile=hingeProfile(thread.id);
-      return profile&&thread.id!==bearHingeCard.id&&profile.factionId!=='sisters_of_mercy'&&!profile.jeweller&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending;
+      return profile&&thread.id!==bearHingeCard.id&&profile.factionId!=='sisters_of_mercy'&&!profile.jeweller&&!thread.blocked&&!thread.quiet&&!thread.unmatched&&!thread.left&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending;
     };
     const pairKey=(a,b)=>[a,b].sort().join('|');
     function unmatchForEvent(thread){if(mustReply(hingeProfile(thread.id)))return;thread.blocked=true;thread.unmatched=true;}
@@ -7562,11 +7566,11 @@
       const rule=MINI_HOST_RULES[id],taken=new Set(Object.values(minisState().st).map(st=>st.host).filter(Boolean));
       const fits=[...hingeThreads.values()].filter(t=>{
         const p=hingeProfile(t.id);
-        return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!taken.has(t.id)&&!mustReply(p)&&!p.jeweller&&p.factionId!=='sisters_of_mercy'&&(!rule.factions||rule.factions.includes(p.factionId))&&!t.blocked&&!t.fumbled&&!t.awaiting&&!t.ghosted&&warmthOf(t)>=rule.warmth&&t.topics.length>=1&&(!rule.number||t.number);
+        return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!taken.has(t.id)&&!mustReply(p)&&!p.jeweller&&p.factionId!=='sisters_of_mercy'&&(!rule.factions||rule.factions.includes(p.factionId))&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.fumbled&&!t.followUp&&!t.awaiting&&!t.ghosted&&warmthOf(t)>=rule.warmth&&t.topics.length>=1&&(!rule.number||t.number);
       });
       return fits.length?fits[hashSeed(world.seed+'|minihost|'+id)%fits.length]:null;
     }
-    const liveMatches=(except=[])=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!except.includes(t.id)&&!t.blocked&&!t.fumbled&&!t.awaiting&&!p.jeweller;});
+    const liveMatches=(except=[])=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&t.id!==bearHingeCard.id&&t.id!==CALLER_ID&&!except.includes(t.id)&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.fumbled&&!t.awaiting&&!p.jeweller;});
     // Start the ones due today. A story that needs a woman waits for one (a week at most).
     function miniStart(id){
       const kit=miniKit()?.[id],m=minisState();
@@ -7979,7 +7983,7 @@
       if(raw.dead&&ids.includes(raw.dead.id))out.dead={id:raw.dead.id};
       return out;
     }
-    const rqThread=(id,who)=>{const t=hingeThreads.get(who||rqKit()?.[id]?.host);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
+    const rqThread=(id,who)=>{const t=hingeThreads.get(who||rqKit()?.[id]?.host);return t&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
     // The woman a room quest is waiting on likes you back, and won't nudge or block you while it's on.
     function rqLikesYou(id){return Object.values(rqState().st).some(st=>(st.stage==='deck'&&st.host===id)||(st.stage==='rival'&&st.rival===id&&!st.rivalMet))||fqLikesYou(id);}
     function rqHolds(id){return Object.values(rqState().st).some(st=>!RQ_OVER.includes(st.stage)&&(st.host===id||st.rival===id))||fqHolds(id);}
@@ -8594,7 +8598,7 @@
     // Alice always seats you beside the woman you like most.
     function rqSeatPick(st){
       const seated=new Set(st.seated||[]);
-      return [...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==st.host&&!seated.has(t.id)&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id;})
+      return [...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==st.host&&!seated.has(t.id)&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id;})
         .sort((a,b)=>warmthOf(b)-warmthOf(a)||hashSeed(world.seed+'|seat|'+a.id)-hashSeed(world.seed+'|seat|'+b.id))[0]||null;
     }
     function rqSeatingHeard(){
@@ -8792,7 +8796,7 @@
     const coyoteStartDay=()=>9+hashSeed(world.seed+'|coyoted')%3;
     const coyotePlace=id=>coyoteKit()?.places.find(place=>place.id===id)||null;
     function coyoteVictim(){
-      const pick=min=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&warmthOf(t)>=min&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id&&(talkState(t).days||[]).length>0;}).sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
+      const pick=min=>[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&warmthOf(t)>=min&&!mustReply(p)&&!rqHolds(t.id)&&t.id!==bearHingeCard.id&&(talkState(t).days||[]).length>0;}).sort((a,b)=>warmthOf(b)-warmthOf(a))[0];
       return pick(3)||pick(2)||null;
     }
     function coyoteNews(key,c){
@@ -8946,7 +8950,7 @@
         f.stage='invited';
         queueNews({id:'finale_ball',section:kit.news.section,title:kit.news.title,summary:kit.news.summary,body:kit.news.body,image:'founders_ball',fallbackImage:'charity_gala'},world.day);
         const t=f.host&&hingeThreads.get(f.host);
-        if(t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing){lineSpeaker=t.id;herLine(t,kit.offer.arrived);}
+        if(t&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing){lineSpeaker=t.id;herLine(t,kit.offer.arrived);}
         return;
       }
       if(f.stage==='offered'&&world.day>f.offerDay+1){f.stage='none';delete f.host;delete f.offerDay;} // she never heard back
@@ -8959,7 +8963,7 @@
     }
     // Who offers to get you on the list: a woman from the club if one likes you, otherwise whoever likes you most.
     function finaleOfferHost(){
-      const fits=t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==bearHingeCard.id&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!t.awaiting&&warmthOf(t)>=1;};
+      const fits=t=>{const p=hingeProfile(t.id);return p&&flirtable(p)&&t.id!==bearHingeCard.id&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled&&!t.awaiting&&warmthOf(t)>=1;};
       const list=[...hingeThreads.values()].filter(fits).sort((a,b)=>warmthOf(b)-warmthOf(a)||hashSeed(world.seed+'|ballhost|'+a.id)-hashSeed(world.seed+'|ballhost|'+b.id));
       return list.find(t=>hingeProfile(t.id).factionId==='thunderbirds')||list[0]||null;
     }
@@ -9209,7 +9213,7 @@
     const intoLines=mine=>[mine.hint,mine.closer,mine.closest].filter(Boolean);
     function intoOpen(thread,profile){
       const st=talkState(thread),mine=thingOf(profile?.id);
-      return !!mine&&!!fetishKit()?.kit?.ask&&flirtable(profile)&&!st.thing&&warmthOf(thread)>=INTO_WARMTH&&!(st.intoShut>world.day)&&!thread.blocked&&!thread.unmatched&&!rqHolds(thread.id);
+      return !!mine&&!!fetishKit()?.kit?.ask&&flirtable(profile)&&!st.thing&&warmthOf(thread)>=INTO_WARMTH&&!(st.intoShut>world.day)&&!thread.blocked&&!thread.quiet&&!thread.unmatched&&!rqHolds(thread.id);
     }
     // Each morning: a woman who likes you a lot and messaged you first may be in the mood to be asked.
     function intoNewDay(){
@@ -9275,7 +9279,7 @@
       const hosts=new Set(Object.values(fqKit()||{}).map(q=>q.host));
       const ids=Object.keys(fetishKit()?.women||{}).filter(id=>flirtable(hingeProfile(id))&&!hosts.has(id)&&(thingOf(id).level||1)>=2);
       if(!ids.length)return;
-      const id=ids.find(x=>{const t=hingeThreads.get(x);return t&&!t.blocked&&!t.unmatched;})||ids[hashSeed(world.seed+'|intotest|'+world.day)%ids.length];
+      const id=ids.find(x=>{const t=hingeThreads.get(x);return t&&!t.blocked&&!t.quiet&&!t.unmatched;})||ids[hashSeed(world.seed+'|intotest|'+world.day)%ids.length];
       const profile=hingeProfile(id),t=hingeThreads.get(id)||ensureHingeThread(profile,'now'),st=talkState(t),kit=flirtFaction(profile);
       Object.assign(t,{blocked:false,unmatched:false,left:false,fumbled:false,awaiting:false,ghosted:false,pending:false,followUp:null});
       if(warmthOf(t)<INTO_WARMTH)t.warmth=INTO_WARMTH;
@@ -9307,7 +9311,7 @@
     function fqStartDay(id){const i=fqOn().indexOf(id);return i<0?null:paceDay('fq',id)??(i===0?3+hashSeed(world.seed+'|fqd0')%3:5+hashSeed(world.seed+'|fqd'+i)%4);}
     const fqs=id=>fqState().st[id]||null;
     const sanitizeFq=raw=>sanitizeRq(raw,FQ_IDS);
-    const fqThread=(id,who)=>{const t=hingeThreads.get(who||fqKit()?.[id]?.host);return t&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
+    const fqThread=(id,who)=>{const t=hingeThreads.get(who||fqKit()?.[id]?.host);return t&&!t.blocked&&!t.quiet&&!t.unmatched&&!t.left&&!t.missing&&!t.fumbled?t:null;};
     function fqLikesYou(id){return Object.values(fqState().st).some(st=>(st.stage==='deck'&&st.host===id)||(st.stage==='rival'&&st.rival===id));}
     function fqHolds(id){return Object.values(fqState().st).some(st=>!RQ_OVER.includes(st.stage)&&(st.host===id||(st.stage==='rival'&&st.rival===id)));}
     function fqImages(id){const out=Object.entries(FQ_PICS).filter(([q])=>fqKit()?.[q]?.host===id).map(([,path])=>path);if(fqKit()?.letter?.host===id)for(const p of Object.values(FQ_LETTER_PICS))if(!out.includes(p))out.push(p);return out;}
@@ -9584,7 +9588,7 @@
     function thingTestStart(){
       const ids=Object.keys(fetishKit()?.women||{}).filter(id=>flirtable(hingeProfile(id)));
       if(!ids.length)return;
-      const id=ids.find(x=>{const t=hingeThreads.get(x);return t&&!t.blocked&&!t.unmatched;})||ids[hashSeed(world.seed+'|thingtest|'+world.day)%ids.length];
+      const id=ids.find(x=>{const t=hingeThreads.get(x);return t&&!t.blocked&&!t.quiet&&!t.unmatched;})||ids[hashSeed(world.seed+'|thingtest|'+world.day)%ids.length];
       const profile=hingeProfile(id),t=hingeThreads.get(id)||ensureHingeThread(profile,'now'),st=talkState(t);
       Object.assign(t,{blocked:false,unmatched:false,left:false,fumbled:false,awaiting:false,ghosted:false,pending:false,followUp:null});
       if(warmthOf(t)<2)t.warmth=2;
@@ -9693,14 +9697,18 @@
         if(!mustReply(profile)){const last=thread.log[thread.log.length-1];if(last)last.block=true;if(effect.unmatch)unmatchForEvent(thread);else thread.blocked=true;}
       }
     }
+    // The sense check (Chris, 5 November 2026): a nudge after you stopped replying mid-conversation, not one that says you never spoke.
+    const NUDGE_ASKED=['You never answered me, by the way.','I asked you something. It wasn’t a trick question.','Still waiting on that answer.','Was that too personal? You can say.','Hello? I asked you a question.'];
+    const NUDGE_QUIET=['You went quiet on me.','Was it something I said?','Hi. Still there?','I liked talking to you. Where did you go?','Two days. I’m counting. Hi.','I don’t usually chase. This is me not chasing. Hi.'];
     function arcsNewDay(){
       if(!storyKit())return;
       const a=arcsState();
       let told=0; // one new story a morning
       for(const thread of hingeThreads.values()){
         const profile=hingeProfile(thread.id);
-        if(!profile||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet)continue;
+        if(!profile||thread.id===bearHingeCard.id||thread.blocked||thread.fumbled||thread.awaiting||thread.ghosted||thread.pending||thread.quiet||thread.unmatched||thread.left)continue;
         const st=a.st[profile.id],arc=storyArc(a.pick[profile.id]);
+        if(thread.followUp&&(!st||['hook','after'].includes(st.stage)||!(profile.id in a.pick)))continue; // she asked you something: her news waits for your answer (the sense check, Chris, 5 November 2026)
         if(!(profile.id in a.pick)){
           if(told||warmthOf(thread)<2||thread.topics.length<2)continue;
           const mine=arcOf(profile);
@@ -9860,7 +9868,8 @@
       const v=world.spurn?.[id];
       return !!v&&v.n>=1&&(v.mood===''||v.mood==='plead')&&v.day!==null&&v.day<world.day; // she rings again the next day
     }
-    function herLine(thread,text,extra){if(!text)return;thread.log.push({who:'her',text,...extra});talkState(thread).unread=true;}
+    function herLine(thread,text,extra){if(!text)return;if(thread.quiet&&!extra?.wake)return; // she has said goodbye: nothing more from her (Chris, 5 November 2026)
+      thread.log.push({who:'her',text,...extra});talkState(thread).unread=true;}
     const pleadLines=profile=>profile.factionId==='sisters_of_mercy'?spurnKit().pleadSister:spurnKit().plead;
     // She rang and you declined, or let it ring out.
     function spurned(id,missed){
@@ -9913,7 +9922,7 @@
         .map(item=>({id:str(item.id),day:item.day,section:str(item.section),title:str(item.title),summary:str(item.summary),body:str(item.body),image:str(item.image)||'classifieds',...(item.fallbackImage?{fallbackImage:str(item.fallbackImage)}:{})}));
     }
     function otherMatches(id){
-      return [...hingeThreads.values()].filter(thread=>thread.id!==id&&thread.id!==bearHingeCard.id&&thread.id!==CALLER_ID&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&hingeProfile(thread.id)&&!hingeProfile(thread.id).jeweller);
+      return [...hingeThreads.values()].filter(thread=>thread.id!==id&&thread.id!==bearHingeCard.id&&thread.id!==CALLER_ID&&!thread.blocked&&!thread.quiet&&!thread.fumbled&&!thread.awaiting&&hingeProfile(thread.id)&&!hingeProfile(thread.id).jeweller);
     }
     // Spite: one thing, chosen by what is true. She tells your other matches, puts you in the paper, or reports you.
     function spiteAct(thread,profile){
@@ -9942,7 +9951,7 @@
       for(const [id,v] of Object.entries(world.spurn)){
         const thread=hingeThreads.get(id),profile=hingeProfile(id);
         if(!thread||!profile)continue;
-        if(v.mood==='plead'&&!thread.blocked&&!thread.fumbled){
+        if(v.mood==='plead'&&!thread.blocked&&!thread.quiet&&!thread.fumbled){
           v.m=(v.m||0)+1;
           if(v.m>5)spurnGiveUp(thread,profile,v); // five mornings with no answer
           else herLine(thread,freshPick(thread,'spurnPlead',pleadLines(profile),id+world.day+'|m'));
@@ -9996,7 +10005,8 @@
           continue;
         }
         if(!nudged&&world.day-last>=IGNORE_DAYS){
-          thread.log.push({who:'her',text:seededPick(kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
+          const spoke=thread.log.some(l=>l.who==='you'),pool=spoke?(['question','news','day'].includes(thread.followUp?.kind)?NUDGE_ASKED:NUDGE_QUIET):kit.nudge; // you went quiet mid-conversation, or never said a word
+          thread.log.push({who:'her',text:seededPick(pool.length?pool:kit.nudge,world.seed+'|nudge|'+thread.id+'|'+world.day)});
           thread.nudgeDay=world.day;st.unread=true;st.morningDay=world.day;st.musedDay=world.day; // that's her message for the morning
         }
       }
@@ -10178,7 +10188,7 @@
         if(d.ending)taleEnding(d.who,d.ending);
         const thread=hingeThreads.get(d.who);
         if(!thread)continue;
-        if(d.line&&!thread.blocked&&!thread.unmatched&&!thread.missing){lineSpeaker=d.who;thread.quiet=false;herLine(thread,d.line);}
+        if(d.line&&!thread.blocked&&!thread.quiet&&!thread.unmatched&&!thread.left&&!thread.missing){lineSpeaker=d.who;herLine(thread,d.line);} // once she has stopped replying, her story goes on without you (Chris, 5 November 2026)
         if(d.gone)taleGone(thread,d.gone);
       }
       let sent=0;
@@ -10315,7 +10325,7 @@
     }
     function herCallers(){
       const today=callsToday();
-      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id)||spurnCallingToday(thread.id)||helpCallingToday(thread.id))&&!thread.blocked&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
+      return [...hingeThreads.values()].filter(thread=>thread.id!==bearHingeCard.id&&thread.number&&(warmthOf(thread)>=3||jealousToday(thread.id)||callerCallingToday(thread.id)||laviniaCallingToday(thread.id)||spurnCallingToday(thread.id)||helpCallingToday(thread.id))&&!thread.blocked&&!(thread.quiet&&!spurnCallingToday(thread.id))&&!thread.unmatched&&!thread.left&&!thread.fumbled&&!thread.awaiting&&!thread.ghosted&&!thread.pending&&(!today.callers.includes(thread.id)||callerCallingToday(thread.id))&&hingeProfile(thread.id)); // she may ring twice a day
     }
     // One part of the day: maybe someone rings. Returns true if the phone started ringing.
     function tryHerCall(slot,force=false){
@@ -11444,7 +11454,7 @@
         startBearAttack(`The bear found no honey at ${EX.name}’s house. He remembered your kitchen.`);return true;
       }
       if(pl.stage==='number'&&pl.cop&&!pl.warned){ // a policewoman who likes you tips you off
-        const cop=[...hingeThreads.values()].find(t=>hingeProfile(t.id)?.factionId==='police'&&!t.blocked&&!t.unmatched&&warmthOf(t)>=2);
+        const cop=[...hingeThreads.values()].find(t=>hingeProfile(t.id)?.factionId==='police'&&!t.blocked&&!t.quiet&&!t.unmatched&&warmthOf(t)>=2);
         if(cop){pl.warned=true;lineSpeaker=cop.id;herLine(cop,DENISE_WARN[hashSeed(world.seed+'|warn')%DENISE_WARN.length]);}
       }
       if(['paid','set'].includes(pl.stage)&&world.day>pl.doneDay){if(pl.stage==='paid')pl.how='solver';deniseDies();}

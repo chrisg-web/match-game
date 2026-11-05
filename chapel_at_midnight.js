@@ -205,7 +205,7 @@
     const placeName=key=>data.places[key]?.name||'an unknown place';
     const placeShort=key=>data.places[key]?.short||'unknown';
     const threadOf=id=>api.threads().get(id)||null;
-    const isClosed=id=>{const thread=threadOf(id);return !!(thread&&(thread.blocked||thread.fumbled));};
+    const isClosed=id=>{const thread=threadOf(id);return !!(thread&&(thread.blocked||thread.fumbled||thread.quiet||thread.unmatched||thread.left));};
     const cap=text=>text.charAt(0).toUpperCase()+text.slice(1);
     const holder=(st,role)=>FLYER_GOTHS.find(id=>st.roles[id]===role);
     const isGoth=profile=>!!profile&&profile.factionId==='goth_girls'&&profile.id!==VICTORIA;
@@ -261,7 +261,7 @@
     }
     function deliver(id,text){
       const thread=threadOf(id);
-      if(!thread||thread.blocked||thread.fumbled)return false;
+      if(!thread||thread.blocked||thread.fumbled||thread.quiet||thread.unmatched||thread.left)return false; // she has stopped replying: no countdown from her
       thread.awaiting=false;thread.ghosted=false;thread.replyOnDay=null;
       thread.log.push({who:'her',text});
       return true;
