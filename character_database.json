@@ -39825,5 +39825,2683 @@
     "variants/iphone-standard/bedroom-night-open.webp",
     "variants/iphone-standard/bedroom-night.webp",
     "variants/iphone-standard/death-shadow.webp"
-  ]
+  ],
+  "tales": {
+    "MATCH-168": {
+      "title": "The Last Tenant",
+      "endings": {
+        "burned": "You told her to burn the film",
+        "printed": "Her first picture in the paper",
+        "hidden": "Prints in the bread bin",
+        "gone": "She left Sunfall again",
+        "window": "Somebody in your window"
+      },
+      "beats": [
+        {
+          "id": "radiator",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Tell her your radiator sings at night",
+          "player": "My radiator sings at night. Like somebody humming in the wall.",
+          "lines": [
+            "Wait. Above the laundromat on Sunfall Road? With the taco van out back?",
+            "That was my room. Seven months. I left it in one night. I just reread that sentence and it doesn’t get any less weird."
+          ],
+          "choices": [
+            {
+              "id": "left",
+              "label": "Ask if she left anything behind",
+              "player": "Did you leave anything behind?",
+              "reply": [
+                "Maybe. Don’t laugh. The radiator never sang before I put something inside it.",
+                "Let me think about whether I want it back. I’ll tell you tomorrow."
+              ],
+              "warm": 1,
+              "set": [
+                "hint"
+              ]
+            },
+            {
+              "id": "good",
+              "label": "Tell her it’s a good room",
+              "player": "It’s a good room. I like it here.",
+              "reply": [
+                "It was. The light comes in sideways in the mornings and Hector says hello to everybody.",
+                "Don’t let anyone tell you it isn’t safe. Sorry. That came out wrong. I’ll explain tomorrow."
+              ],
+              "warm": 1,
+              "set": [
+                "hint"
+              ]
+            },
+            {
+              "id": "why",
+              "label": "Ask why she left in one night",
+              "player": "Why did you leave in one night?",
+              "reply": [
+                "Not by text. I reread everything six times and that one I’d reread sixty.",
+                "Ask me tomorrow. I’ll have decided by then."
+              ],
+              "set": [
+                "hint"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "canister",
+          "how": "message",
+          "after": "radiator",
+          "lines": [
+            "I didn’t sleep. I kept thinking about your radiator.",
+            "There’s a film canister wedged behind the cover, on the left, where the pipe goes into the wall. That’s what sings. Would you look? Don’t open it. Light ruins it."
+          ],
+          "choices": [
+            {
+              "id": "look",
+              "label": "Look behind the radiator",
+              "player": "Okay. Looking now.",
+              "notice": "Behind the radiator cover, wedged against the pipe: a black film canister, warm to the touch. The radiator goes quiet.",
+              "reply": [
+                "It’s still there? Oh God. Okay. Okay.",
+                "Put it somewhere dark. Not the fridge, everyone says the fridge. A sock. Put it in a sock."
+              ],
+              "warm": 1,
+              "set": [
+                "film"
+              ]
+            },
+            {
+              "id": "leave",
+              "label": "Tell her you’d rather not touch it",
+              "player": "I’d rather not touch it. It’s yours, not mine.",
+              "reply": [
+                "That’s fair. That’s actually very fair.",
+                "Forget I said anything. Let it sing."
+              ],
+              "set": [
+                "untouched"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "window",
+          "how": "message",
+          "after": "canister",
+          "needs": [
+            "untouched"
+          ],
+          "gap": 2,
+          "lines": [
+            "The radiator stopped singing last night, didn’t it?",
+            "I walked past your building on my way home. Your window was dark and somebody was standing in it, very still. I thought it was you. Was it you?"
+          ],
+          "choices": [
+            {
+              "id": "me",
+              "label": "Tell her it was you",
+              "player": "It was me. I couldn’t sleep.",
+              "reply": [
+                "Okay. Good. Okay.",
+                "Goodnight. Lock your door. I know you will. I just like saying it."
+              ],
+              "end": "window"
+            },
+            {
+              "id": "asleep",
+              "label": "Tell her you were asleep",
+              "player": "I was asleep. My light was off all night.",
+              "notice": "You check the radiator. The cover has been put back on crooked. Behind it, against the pipe, there is nothing.",
+              "reply": [
+                "Then who was standing in your window?",
+                "Don’t answer that. Neither of us knows. I’m going to stop walking past your building."
+              ],
+              "warm": -1,
+              "end": "window"
+            }
+          ]
+        },
+        {
+          "id": "whatson",
+          "how": "topic",
+          "after": "canister",
+          "needs": [
+            "film"
+          ],
+          "gap": 0,
+          "label": "Ask what’s on the film",
+          "player": "There’s a canister in my sock drawer. What’s on it, Celina?",
+          "lines": [
+            "A society shoot. Valerie Huxley, at a Bluebird luncheon, for the Daily. I took nine frames of a woman who looked unwell, and I didn’t know why I kept taking them.",
+            "Two nights later a letter came under my door. Unsigned. It said the room wasn’t safe for a girl who looked at Bluebirds through a lens. I hid the roll in the radiator in case they stopped me on the stairs, and then I left it there, because leaving it was easier than deciding."
+          ],
+          "choices": [
+            {
+              "id": "gen",
+              "label": "Offer to get it developed somewhere safe",
+              "player": "I could get it developed somewhere nobody will talk.",
+              "reply": [
+                "There’s one person in town who develops film without a shop seeing it. Genevieve Locke. She has a darkroom under her house in the gallery district. The Daily’s photographers whisper about her.",
+                "Will you send it to her? Put your name on the note, not mine. I can’t have my name anywhere near her."
+              ],
+              "set": [
+                "genevieve"
+              ],
+              "note": "Celina Rojas says Genevieve Locke develops film privately, in a darkroom under her house in the gallery district.",
+              "refer": "MATCH-085"
+            },
+            {
+              "id": "self",
+              "label": "Tell her to develop it herself",
+              "player": "You’re a photographer. Develop it yourself.",
+              "reply": [
+                "Assistant. I hold the bag.",
+                "But the Daily has a darkroom nobody uses after the night desk goes home. Leave it in my mom’s café mailbox, in the sock. You’re right. I can hold my own film."
+              ],
+              "warm": 1,
+              "set": [
+                "self"
+              ]
+            },
+            {
+              "id": "burn",
+              "label": "Tell her to burn it",
+              "player": "Burn it. Nothing on a roll of film is worth that letter.",
+              "reply": [
+                "You’re probably right. You’re right. I’ll stop thinking about it.",
+                "I won’t stop thinking about it. But I’ll stop asking you to."
+              ],
+              "end": "burned"
+            }
+          ]
+        },
+        {
+          "id": "prints",
+          "how": "message",
+          "after": "whatson",
+          "needs": [
+            "self"
+          ],
+          "lines": [
+            "I did it. The Daily’s darkroom, red light, my heart going like a dryer full of shoes.",
+            "Nine frames of Valerie. In four of them there’s a hand at her glass that isn’t hers. A woman’s hand, with a blue ribbon tied around the ring finger.",
+            "And three frames I didn’t take. Of me. Asleep. In your room."
+          ],
+          "choices": [
+            {
+              "id": "key",
+              "label": "Ask who had a key to the room",
+              "player": "Who had a key to that room?",
+              "reply": [
+                "The landlord. Whoever he lent it to. I never changed the lock. Do you lock yours? Please tell me you lock yours.",
+                "What do I do with the prints?"
+              ],
+              "choices": [
+                {
+                  "id": "editor",
+                  "label": "Tell her to take Valerie’s frames to her editor",
+                  "player": "Take the four frames to your editor. Tonight.",
+                  "reply": [
+                    "Fiona Blake. She’ll either print it or bury me.",
+                    "Okay. My first picture in the paper, and it’s this one. I’ll tell you what she says."
+                  ],
+                  "set": [
+                    "printed"
+                  ],
+                  "end": "printed",
+                  "fates": [
+                    {
+                      "in": 2,
+                      "news": {
+                        "title": "WHOSE HAND? SOCIETY PAGE PHOTOGRAPHS RAISE QUESTIONS",
+                        "summary": "Four frames from a Bluebird luncheon show a woman’s hand at Mrs. Valerie Huxley’s glass.",
+                        "body": "Photographs taken for this paper’s society page in the spring, and printed today for the first time, show a woman’s hand at Mrs. Valerie Huxley’s glass during a Bluebird Club luncheon. A blue ribbon is tied around the ring finger. Mrs. Huxley has been unwell since. The club declined to comment. Photographs by Celina Rojas.",
+                        "fallback": "society_club",
+                        "image": "tale_celina_whose_hand"
+                      }
+                    },
+                    {
+                      "in": 2,
+                      "line": "Page four. My name under it. My mom bought eleven copies and gave one to the man who fixes our coffee machine. I keep reading my own name like it belongs to somebody braver."
+                    },
+                    {
+                      "in": 4,
+                      "chance": 35,
+                      "die": {
+                        "cause": "THE BLUE RIBBON",
+                        "verb": "SILENCED",
+                        "line": "An envelope under your door with no stamp. Inside, a photograph of you asleep in this room, taken last night, from the foot of the bed."
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "hide",
+                  "label": "Tell her to hide the prints",
+                  "player": "Hide them. Somewhere nobody would think to look.",
+                  "reply": [
+                    "The bread bin at my mom’s café. Nobody looks for evidence under a sourdough.",
+                    "I’ll sleep at home tonight with the light on. Thank you for not making me be brave."
+                  ],
+                  "warm": 1,
+                  "end": "hidden"
+                }
+              ]
+            },
+            {
+              "id": "editor",
+              "label": "Tell her to take Valerie’s frames to her editor",
+              "player": "Take the four frames to your editor. Tonight.",
+              "reply": [
+                "Fiona Blake. She’ll either print it or bury me.",
+                "Okay. My first picture in the paper, and it’s this one. I’ll tell you what she says."
+              ],
+              "set": [
+                "printed"
+              ],
+              "end": "printed",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "WHOSE HAND? SOCIETY PAGE PHOTOGRAPHS RAISE QUESTIONS",
+                    "summary": "Four frames from a Bluebird luncheon show a woman’s hand at Mrs. Valerie Huxley’s glass.",
+                    "body": "Photographs taken for this paper’s society page in the spring, and printed today for the first time, show a woman’s hand at Mrs. Valerie Huxley’s glass during a Bluebird Club luncheon. A blue ribbon is tied around the ring finger. Mrs. Huxley has been unwell since. The club declined to comment. Photographs by Celina Rojas.",
+                    "fallback": "society_club",
+                    "image": "tale_celina_whose_hand"
+                  }
+                },
+                {
+                  "in": 2,
+                  "line": "Page four. My name under it. My mom bought eleven copies and gave one to the man who fixes our coffee machine. I keep reading my own name like it belongs to somebody braver."
+                },
+                {
+                  "in": 4,
+                  "chance": 35,
+                  "die": {
+                    "cause": "THE BLUE RIBBON",
+                    "verb": "SILENCED",
+                    "line": "An envelope under your door with no stamp. Inside, a photograph of you asleep in this room, taken last night, from the foot of the bed."
+                  }
+                }
+              ]
+            },
+            {
+              "id": "hide",
+              "label": "Tell her to hide the prints",
+              "player": "Hide them. Somewhere nobody would think to look.",
+              "reply": [
+                "The bread bin at my mom’s café. Nobody looks for evidence under a sourdough.",
+                "I’ll sleep at home tonight with the light on. Thank you for not making me be brave."
+              ],
+              "warm": 1,
+              "end": "hidden"
+            }
+          ]
+        },
+        {
+          "id": "returned",
+          "how": "message",
+          "after": "whatson",
+          "needs": [
+            "genevieve",
+            "MATCH-085:returned"
+          ],
+          "lines": [
+            "A cake box came for me at the Daily. Inside: nine prints of Valerie Huxley, and three of me asleep in your room.",
+            "In four of Valerie’s there’s a woman’s hand at her glass with a blue ribbon on the ring finger. And a card, in purple ink: Lovely composition. G."
+          ],
+          "choices": [
+            {
+              "id": "g",
+              "label": "Ask her what she wants to do now",
+              "player": "What do you want to do with them?",
+              "reply": [
+                "I want to be the kind of person who knows. I’m not. You decide."
+              ],
+              "choices": [
+                {
+                  "id": "editor",
+                  "label": "Tell her to take Valerie’s frames to her editor",
+                  "player": "Take the four frames to your editor. Tonight.",
+                  "reply": [
+                    "Fiona Blake. She’ll either print it or bury me.",
+                    "Okay. My first picture in the paper, and it’s this one. I’ll tell you what she says."
+                  ],
+                  "set": [
+                    "printed"
+                  ],
+                  "end": "printed",
+                  "fates": [
+                    {
+                      "in": 2,
+                      "news": {
+                        "title": "WHOSE HAND? SOCIETY PAGE PHOTOGRAPHS RAISE QUESTIONS",
+                        "summary": "Four frames from a Bluebird luncheon show a woman’s hand at Mrs. Valerie Huxley’s glass.",
+                        "body": "Photographs taken for this paper’s society page in the spring, and printed today for the first time, show a woman’s hand at Mrs. Valerie Huxley’s glass during a Bluebird Club luncheon. A blue ribbon is tied around the ring finger. Mrs. Huxley has been unwell since. The club declined to comment. Photographs by Celina Rojas.",
+                        "fallback": "society_club",
+                        "image": "tale_celina_whose_hand"
+                      }
+                    },
+                    {
+                      "in": 2,
+                      "line": "Page four. My name under it. My mom bought eleven copies and gave one to the man who fixes our coffee machine. I keep reading my own name like it belongs to somebody braver."
+                    },
+                    {
+                      "in": 4,
+                      "chance": 35,
+                      "die": {
+                        "cause": "THE BLUE RIBBON",
+                        "verb": "SILENCED",
+                        "line": "An envelope under your door with no stamp. Inside, a photograph of you asleep in this room, taken last night, from the foot of the bed."
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "hide",
+                  "label": "Tell her to hide the prints",
+                  "player": "Hide them. Somewhere nobody would think to look.",
+                  "reply": [
+                    "The bread bin at my mom’s café. Nobody looks for evidence under a sourdough.",
+                    "I’ll sleep at home tonight with the light on. Thank you for not making me be brave."
+                  ],
+                  "warm": 1,
+                  "end": "hidden"
+                }
+              ]
+            },
+            {
+              "id": "editor",
+              "label": "Tell her to take Valerie’s frames to her editor",
+              "player": "Take the four frames to your editor. Tonight.",
+              "reply": [
+                "Fiona Blake. She’ll either print it or bury me.",
+                "Okay. My first picture in the paper, and it’s this one. I’ll tell you what she says."
+              ],
+              "set": [
+                "printed"
+              ],
+              "end": "printed",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "WHOSE HAND? SOCIETY PAGE PHOTOGRAPHS RAISE QUESTIONS",
+                    "summary": "Four frames from a Bluebird luncheon show a woman’s hand at Mrs. Valerie Huxley’s glass.",
+                    "body": "Photographs taken for this paper’s society page in the spring, and printed today for the first time, show a woman’s hand at Mrs. Valerie Huxley’s glass during a Bluebird Club luncheon. A blue ribbon is tied around the ring finger. Mrs. Huxley has been unwell since. The club declined to comment. Photographs by Celina Rojas.",
+                    "fallback": "society_club",
+                    "image": "tale_celina_whose_hand"
+                  }
+                },
+                {
+                  "in": 2,
+                  "line": "Page four. My name under it. My mom bought eleven copies and gave one to the man who fixes our coffee machine. I keep reading my own name like it belongs to somebody braver."
+                },
+                {
+                  "in": 4,
+                  "chance": 35,
+                  "die": {
+                    "cause": "THE BLUE RIBBON",
+                    "verb": "SILENCED",
+                    "line": "An envelope under your door with no stamp. Inside, a photograph of you asleep in this room, taken last night, from the foot of the bed."
+                  }
+                }
+              ]
+            },
+            {
+              "id": "hide",
+              "label": "Tell her to hide the prints",
+              "player": "Hide them. Somewhere nobody would think to look.",
+              "reply": [
+                "The bread bin at my mom’s café. Nobody looks for evidence under a sourdough.",
+                "I’ll sleep at home tonight with the light on. Thank you for not making me be brave."
+              ],
+              "warm": 1,
+              "end": "hidden"
+            }
+          ]
+        },
+        {
+          "id": "kept",
+          "how": "message",
+          "after": "whatson",
+          "needs": [
+            "genevieve",
+            "MATCH-085:kept"
+          ],
+          "lines": [
+            "I got another letter. Same hand as the Christmas cards. It says I have been warned once, and that some girls only need warning once.",
+            "I’m going to my aunt’s in the city for a while. Don’t send anything else with my name near it. I’m not angry. I just reread everything you ever sent me six times, and I still don’t know why you let her keep it."
+          ],
+          "gone": "left",
+          "end": "gone"
+        }
+      ]
+    },
+    "MATCH-085": {
+      "title": "The Darkroom",
+      "endings": {
+        "insurance": "She gave you one strip of the real books",
+        "wife": "You told Mrs. Kell the truth",
+        "fall": "A fall in the darkroom",
+        "huxley": "She kept the Huxley prints",
+        "ordinary": "Sensible and dull"
+      },
+      "beats": [
+        {
+          "id": "secret",
+          "how": "message",
+          "warmth": 1,
+          "day": 2,
+          "lines": [
+            "I’m going to tell you something nobody at the club knows, and see what you do with it.",
+            "Celeste Van Doren colors her eyebrows with boot polish. You have two days."
+          ],
+          "choices": [
+            {
+              "id": "keep",
+              "label": "Promise to keep it to yourself",
+              "player": "It stays with me.",
+              "reply": [
+                "Everyone promises, darling. We’ll see."
+              ],
+              "set": [
+                "quiet"
+              ]
+            },
+            {
+              "id": "why",
+              "label": "Ask why she’s testing you",
+              "player": "Why are you testing me?",
+              "reply": [
+                "Because everybody fails. I like to know what at."
+              ],
+              "set": [
+                "quiet"
+              ]
+            },
+            {
+              "id": "loud",
+              "label": "Tell her you’ll tell everyone",
+              "player": "I’m telling the whole town by lunch.",
+              "reply": [
+                "Good. Then I’ll know you’re honest, which is rarer than discreet."
+              ],
+              "warm": 1,
+              "set": [
+                "loud"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "passed",
+          "how": "message",
+          "after": "secret",
+          "gap": 2,
+          "lines": [
+            "Two days and not one word about Celeste’s eyebrows. Either you’re discreet or you have no friends. Both are useful."
+          ],
+          "alt": [
+            {
+              "needs": [
+                "loud"
+              ],
+              "lines": [
+                "Two days. You didn’t tell a soul, did you. All bark. I like that less and more than I expected."
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "id": "film",
+              "label": "Ask what she’s developed lately",
+              "player": "What came up in your tray this week?",
+              "reply": [
+                "A man with a hundred photographs of the same front door. A honeymoon in which nobody is smiling.",
+                "And film from the police station that I was never meant to see. I printed none of it. I looked at all of it."
+              ],
+              "set": [
+                "police"
+              ],
+              "note": "Genevieve Locke says she has developed film from the police station that she was never meant to see."
+            },
+            {
+              "id": "want",
+              "label": "Ask what she wants from you",
+              "player": "What do you actually want from me?",
+              "reply": [
+                "Nothing yet. That’s what makes you interesting."
+              ],
+              "warm": 1
+            }
+          ]
+        },
+        {
+          "id": "frame",
+          "how": "message",
+          "after": "passed",
+          "needs": [
+            "q:br"
+          ],
+          "day": 3,
+          "lines": [
+            "A print came up in my tray last night that I don’t want in my house.",
+            "A woman in a blue dress going through a window at night. Her hand is cut on the frame. I’m not going to tell you where the negative came from."
+          ],
+          "choices": [
+            {
+              "id": "why",
+              "label": "Ask why she’s telling you",
+              "player": "Why tell me?",
+              "reply": [
+                "Because Celeste Van Doren wants that woman found, and I would rather lose to anyone in the world than Celeste.",
+                "Somebody outside the club should know she was alive going through that window."
+              ],
+              "warm": 1,
+              "set": [
+                "ally"
+              ],
+              "note": "Genevieve Locke has a print of a woman in a blue dress climbing out of a window at night, alive, with a cut hand."
+            },
+            {
+              "id": "where",
+              "label": "Ask where the window is",
+              "player": "Where’s the window?",
+              "reply": [
+                "A weigh station on the old interstate, if you know your windows. I know my windows."
+              ],
+              "set": [
+                "ally"
+              ],
+              "note": "Genevieve Locke says the window in her print is at the old weigh station on the interstate."
+            },
+            {
+              "id": "police",
+              "label": "Tell her you’ll take it to the police",
+              "player": "I’m taking this to the police.",
+              "reply": [
+                "Which police, darling? The ones whose cabinet it came out of?",
+                "Do what you like. I never sent you anything."
+              ],
+              "warm": -1,
+              "set": [
+                "cold"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "celina",
+          "how": "topic",
+          "needs": [
+            "MATCH-168:genevieve"
+          ],
+          "label": "Ask about a roll of film with your name on it",
+          "player": "Did a roll of film come to you, with my name on the note?",
+          "lines": [
+            "It did. From a girl at the Daily, with your name and her terrible handwriting.",
+            "Nine frames of Valerie Huxley at a club luncheon, with a hand at her glass, and three of the photographer asleep in a room I assume is yours. You keep strange company. I approve.",
+            "Now. Do I send the prints back to your little photographer, or do I keep them? If I keep them, I owe you. I always pay."
+          ],
+          "choices": [
+            {
+              "id": "back",
+              "label": "Ask her to send them back to Celina",
+              "player": "Send them back to her. All of them.",
+              "reply": [
+                "In a cake box, then. Nobody opens a cake box with suspicion."
+              ],
+              "set": [
+                "returned"
+              ]
+            },
+            {
+              "id": "keep",
+              "label": "Tell her to keep them",
+              "player": "Keep them.",
+              "reply": [
+                "A Huxley. Darling, you have no idea what you’ve just given me. Here’s something of mine.",
+                "A strip of negative from a canister marked Brownie Hawkeye. Page forty of a ledger the Foundation says doesn’t exist.",
+                "Don’t hold it up to a lamp in your window."
+              ],
+              "gives": {
+                "br": "tb_charity_ledger"
+              },
+              "set": [
+                "kept"
+              ],
+              "ending": "huxley",
+              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, from a canister marked Brownie Hawkeye."
+            }
+          ]
+        },
+        {
+          "id": "wife",
+          "how": "message",
+          "after": "passed",
+          "warmth": 2,
+          "gap": 2,
+          "lines": [
+            "A woman rang my darkroom three times tonight. The third time she asked me if I was the accountant.",
+            "She’s married to a man I see on the nights his wife thinks he’s at the lodge. She found a receipt from my chemical supplier in his coat. And darling, she has your number. She found it in his phone under a woman’s name. Don’t ask me how it got there."
+          ],
+          "choices": [
+            {
+              "id": "lie",
+              "label": "Promise to say she’s his accountant",
+              "player": "If she rings me, you’re his accountant.",
+              "reply": [
+                "You’ll lie for me. Good. You lie beautifully, I can tell from here.",
+                "Come and see the canisters one day. You’d be the first."
+              ],
+              "warm": 1,
+              "set": [
+                "trusted"
+              ]
+            },
+            {
+              "id": "truth",
+              "label": "Tell her you’ll tell his wife the truth",
+              "player": "If she rings me, I’m telling her the truth.",
+              "reply": [
+                "Then you’ve chosen her. How sweet. Goodbye."
+              ],
+              "gone": "blocked",
+              "end": "wife",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "CLUB EVENTS DIRECTOR’S MARRIAGE ENDS",
+                    "summary": "His wife has asked a lawyer to look at the Bluebird Club’s own accounts.",
+                    "body": "The wife of the Bluebird Club’s events director has filed for divorce and asked her lawyer to examine the club’s own accounts, a source close to the family said. The club’s compliance office, which keeps those accounts, declined to comment.",
+                    "fallback": "society_club",
+                    "image": "tale_genevieve_club_events"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "mess",
+              "label": "Tell her to handle her own mess",
+              "player": "That sounds like your problem.",
+              "reply": [
+                "Sensible. Dull, but sensible."
+              ],
+              "ending": "ordinary"
+            }
+          ]
+        },
+        {
+          "id": "canisters",
+          "how": "message",
+          "after": "wife",
+          "needs": [
+            "trusted"
+          ],
+          "warmth": 3,
+          "gap": 2,
+          "lines": [
+            "I’ve decided somebody outside the club should hold one strip, in case I fall down my own stairs.",
+            "Accidents happen to Bluebird husbands. Lately they’ve started happening to Bluebirds."
+          ],
+          "choices": [
+            {
+              "id": "safe",
+              "label": "Tell her you’ll keep it safe",
+              "player": "Send it. I’ll keep it safe.",
+              "reply": [
+                "A strip of negative from a canister marked Brownie Hawkeye. Page forty of a ledger the Foundation says doesn’t exist.",
+                "Don’t hold it up to a lamp in your window.",
+                "If I fall, send it to the federal people. Not the station."
+              ],
+              "gives": {
+                "br": "tb_charity_ledger"
+              },
+              "warm": 1,
+              "end": "insurance",
+              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, to send to federal investigators if anything happens to her."
+            },
+            {
+              "id": "police",
+              "label": "Tell her to take all of it to the police",
+              "player": "Take all of it to the police. Tonight.",
+              "reply": [
+                "And be the next ribbon? No.",
+                "You’ve disappointed me in the most ordinary way. Goodnight."
+              ],
+              "warm": -1,
+              "end": "fall",
+              "fates": [
+                {
+                  "in": 3,
+                  "chance": 50,
+                  "gone": "dead",
+                  "news": {
+                    "title": "GALLERY DISTRICT WOMAN DIES IN BASEMENT FALL",
+                    "summary": "Genevieve Locke, 37, was found at the foot of her darkroom stairs.",
+                    "body": "Genevieve Locke, a compliance administrator at the Bluebird Club, was found dead at the foot of the stairs to her basement darkroom. Police said the darkroom light had been left on and there was nothing to suggest anyone else was involved. Her shelves of film canisters were empty.",
+                    "fallback": "police_evidence",
+                    "image": "tale_genevieve_gallery_district"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-115": {
+      "title": "The Shivering Sand",
+      "endings": {
+        "markham": "She walked into Helen Markham’s office",
+        "home": "She drove home",
+        "sand": "The reservoir",
+        "silence": "You didn’t hang up"
+      },
+      "beats": [
+        {
+          "id": "key",
+          "how": "message",
+          "warmth": 1,
+          "day": 3,
+          "lines": [
+            "Strange day. A man asked me where a key lives. The little brass one for the cabinet upstairs, where they keep the photographs from that big party at the club.",
+            "I told him. I tell people where things live. It’s the job."
+          ],
+          "choices": [
+            {
+              "id": "who",
+              "label": "Ask who the man was",
+              "player": "Who was the man?",
+              "reply": [
+                "A man I’d do anything for. I’ve told you that before, haven’t I. It keeps being true."
+              ],
+              "set": [
+                "him"
+              ]
+            },
+            {
+              "id": "dont",
+              "label": "Tell her not to let anyone take it",
+              "player": "Don’t let anybody take that key.",
+              "reply": [
+                "It hangs on a hook. Anybody can take a key off a hook. That’s the whole point of a hook."
+              ],
+              "set": [
+                "warned"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "envelope",
+          "how": "message",
+          "after": "key",
+          "gap": 2,
+          "lines": [
+            "There’s an envelope on my kitchen table with more money in it than I’ve ever seen in one place.",
+            "It’s for my mom’s home. The nice one. My aunt left it to me. An aunt in the city."
+          ],
+          "choices": [
+            {
+              "id": "aunt",
+              "label": "Ask which aunt",
+              "player": "Which aunt?",
+              "reply": [
+                "Nobody asks which aunt.",
+                "There’s no aunt. You knew that. Anybody would know that if anybody asked. A man in a gray sedan gave it to me for a key, and I did it because a detective I’ve loved since I was seventeen asked me to. Vic Lowry. There. Now you’re the only one who knows."
+              ],
+              "warm": 1,
+              "set": [
+                "confessed"
+              ],
+              "note": "Kelsey Donovan admits she gave the photograph cabinet’s key to a man in a gray sedan for an envelope of money, because Detective Vic Lowry asked her to."
+            },
+            {
+              "id": "none",
+              "label": "Say it’s none of your business",
+              "player": "That’s none of my business.",
+              "reply": [
+                "Thank you. You’re the first man who’s ever said that and meant it kindly."
+              ],
+              "warm": 1,
+              "set": [
+                "kind"
+              ]
+            },
+            {
+              "id": "back",
+              "label": "Tell her to give it back",
+              "player": "Give it back.",
+              "reply": [
+                "To who? The man in the gray sedan would laugh. Then he’d stop laughing."
+              ],
+              "set": [
+                "sedan"
+              ],
+              "note": "Kelsey Donovan’s envelope of money came from a man in a gray sedan."
+            }
+          ]
+        },
+        {
+          "id": "darkroom",
+          "how": "topic",
+          "after": "key",
+          "needs": [
+            "MATCH-085:police"
+          ],
+          "label": "Tell her where the station’s film ended up",
+          "player": "Film from your station ended up in a private darkroom in the gallery district.",
+          "lines": [
+            "A darkroom. In the gallery district.",
+            "Then it was never for him. It was for them. He didn’t even want it for himself. He just handed it on, the way I handed it to him."
+          ],
+          "warm": 1,
+          "set": [
+            "handed"
+          ]
+        },
+        {
+          "id": "box",
+          "how": "message",
+          "after": "envelope",
+          "warmth": 2,
+          "lines": [
+            "If anything happens to me, there’s a box. Shelf nine, bottom row, the case number that doesn’t exist.",
+            "There’s a sign-out sheet in it with the real name on, and a note in another man’s hand saying who told him to sign the party evidence out. Somebody outside the station has to know. Imani should open it. Not him. Promise me."
+          ],
+          "choices": [
+            {
+              "id": "promise",
+              "label": "Promise",
+              "player": "I promise.",
+              "reply": [
+                "Thank you. I feel lighter. That’s not a good sign, is it."
+              ],
+              "set": [
+                "promise"
+              ],
+              "note": "Kelsey Donovan says a box on shelf nine, bottom row, holds the real sign-out sheet; Imani Harper should be the one to open it."
+            },
+            {
+              "id": "markham",
+              "label": "Tell her to take it to Sergeant Markham now",
+              "player": "Take the box to Sergeant Markham. Now.",
+              "reply": [
+                "Helen Markham would take me apart, put me back together and make me testify.",
+                "Give me a day. One more day."
+              ],
+              "set": [
+                "markham"
+              ]
+            },
+            {
+              "id": "using",
+              "label": "Tell her he’s been using her for years",
+              "player": "He’s been using you for eighteen years.",
+              "reply": [
+                "I know what he is. I’ve known since I was eighteen. Saying it out loud is the one thing that doesn’t help."
+              ],
+              "set": [
+                "said"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "water",
+          "how": "message",
+          "after": "box",
+          "lines": [
+            "I’m at the reservoir. I like it here at night. You can’t see where the water starts.",
+            "Say something. Anything. I’ll do what you say. I always do what I’m told."
+          ],
+          "alt": [
+            {
+              "needs": [
+                "handed"
+              ],
+              "lines": [
+                "I’m at the reservoir. I keep thinking about that darkroom. He handed me on like a roll of film.",
+                "Say something. Anything. I’ll do what you say. I always do what I’m told."
+              ]
+            },
+            {
+              "needs": [
+                "markham"
+              ],
+              "lines": [
+                "I drove to the station first. The light in Helen Markham’s office was on. I sat in the lot for an hour and couldn’t go in. Now I’m at the reservoir.",
+                "Say something. Anything. I’ll do what you say. I always do what I’m told."
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "id": "fault",
+              "label": "Tell her it wasn’t her fault",
+              "player": "It wasn’t your fault, Kelsey.",
+              "reply": [
+                "Don’t. Don’t say that one.",
+                "Say it again."
+              ],
+              "choices": [
+                {
+                  "id": "again",
+                  "label": "Say it again",
+                  "player": "It wasn’t your fault.",
+                  "reply": [
+                    "Okay.",
+                    "I’m getting in the car. I’m driving to the station. Not to him. To Helen Markham’s office. If her light’s on, I’m going in with the box."
+                  ],
+                  "set": [
+                    "walked"
+                  ],
+                  "gives": {
+                    "br": "tb_witness_statement"
+                  },
+                  "end": "markham",
+                  "note": "Kelsey Donovan took the box from shelf nine to Sergeant Helen Markham.",
+                  "fates": [
+                    {
+                      "in": 1,
+                      "news": {
+                        "title": "ARCHIVE ASSISTANT HANDS SERGEANT A BOX THAT WASN’T THERE",
+                        "summary": "A civilian assistant has given Sgt. Helen Markham an evidence box with no case number.",
+                        "body": "A civilian assistant in the Sunfall Police evidence archive has handed Sergeant Helen Markham a box from the bottom shelf of the archive that carried a case number which does not exist. It is understood to contain a sign-out sheet for evidence from the Bluebird benefit and a handwritten note. The assistant has been suspended on full pay. Sgt. Markham said only that she had read everything in it twice.",
+                        "fallback": "police_evidence",
+                        "image": "tale_kelsey_archive_assistant"
+                      }
+                    },
+                    {
+                      "in": 2,
+                      "line": "Suspended. Alive. Mom’s home is paid until spring. Helen Markham made me tea, which I didn’t know sergeants could do. Thank you for saying it twice."
+                    }
+                  ]
+                },
+                {
+                  "id": "away",
+                  "label": "Tell her to come away from the water",
+                  "player": "Come away from the water. Get in the car.",
+                  "reply": [
+                    "Okay. Walking back to the car. Stay with me while I walk.",
+                    "I’m in the car. I’m going home. I don’t know what I’m doing tomorrow, but I’m going home tonight."
+                  ],
+                  "end": "home"
+                }
+              ]
+            },
+            {
+              "id": "away",
+              "label": "Tell her to come away from the water",
+              "player": "Come away from the water. Get in the car.",
+              "reply": [
+                "Okay. Walking back to the car. Stay with me while I walk.",
+                "I’m in the car. I’m going home. I don’t know what I’m doing tomorrow, but I’m going home tonight."
+              ],
+              "end": "home"
+            },
+            {
+              "id": "fall",
+              "label": "Tell her she’ll be the one who takes the fall",
+              "player": "You’ll be the one who takes the fall. You know that.",
+              "reply": [
+                "Yes.",
+                "Thank you. That’s what I needed somebody to say."
+              ],
+              "end": "sand",
+              "fates": [
+                {
+                  "in": 1,
+                  "gone": "dead",
+                  "news": {
+                    "title": "WOMAN FOUND IN RESERVOIR",
+                    "summary": "Police say there are no suspicious circumstances.",
+                    "body": "The body of a woman was recovered from the Sunfall reservoir yesterday morning. She has been named as Kelsey Donovan, 35, a civilian assistant in the police evidence archive. A sergeant said there were no suspicious circumstances. A jogger told this paper she had seen a gray sedan in the north lot with its lights off. Colleague Imani Harper asked that nobody touch the archive.",
+                    "fallback": "police_evidence",
+                    "image": "tale_kelsey_woman_found"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "nothing",
+              "label": "Say nothing",
+              "player": "…",
+              "reply": [
+                "You’re still there. I can hear you not saying anything.",
+                "That’s something."
+              ],
+              "end": "silence",
+              "fates": [
+                {
+                  "in": 1,
+                  "line": "I went home. I don’t know why. Maybe because you didn’t hang up."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-049": {
+      "title": "Lena",
+      "endings": {
+        "laugh": "Her own laugh",
+        "father": "Her father’s daughter",
+        "widow": "Lena is a widow",
+        "blown": "You blew her cover"
+      },
+      "beats": [
+        {
+          "id": "lena",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Ask who she is at work",
+          "player": "Who are you when you’re at work?",
+          "lines": [
+            "Lena. She pours drinks at a bar on the motel strip, laughs at everything, and has a boyfriend nobody has ever met.",
+            "I invented him in a bathroom in about four seconds. He’s tall, he works away, and he never answers his phone."
+          ],
+          "choices": [
+            {
+              "id": "jealous",
+              "label": "Ask if Lena’s boyfriend is the jealous type",
+              "player": "Is Lena’s boyfriend the jealous type?",
+              "reply": [
+                "Very. It keeps the hands off Lena. It doesn’t stop the men asking for his number."
+              ],
+              "warm": 1,
+              "set": [
+                "boyfriend"
+              ]
+            },
+            {
+              "id": "laugh",
+              "label": "Tell her you like her real laugh",
+              "player": "I like your real laugh better.",
+              "reply": [
+                "You’ve never heard my real laugh. That’s the nicest wrong thing anybody’s said to me."
+              ],
+              "warm": 1,
+              "set": [
+                "boyfriend"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "call",
+          "how": "message",
+          "after": "lena",
+          "warmth": 2,
+          "lines": [
+            "Don’t shout. The men on the strip wanted Lena’s boyfriend’s number, and I gave them yours.",
+            "One of them is going to ring you tonight. You just have to be him. Tall, jealous, works away. Can you do that?"
+          ],
+          "choices": [
+            {
+              "id": "yes",
+              "label": "Agree to be Lena’s boyfriend",
+              "player": "Fine. I’m Lena’s boyfriend.",
+              "reply": [
+                "Thank you. Don’t be charming. He isn’t charming. He’s the kind of man you’d cross the street to avoid."
+              ],
+              "set": [
+                "agreed"
+              ]
+            },
+            {
+              "id": "no",
+              "label": "Refuse",
+              "player": "No. Find another boyfriend.",
+              "reply": [
+                "Fine. Lena’s boyfriend is dead. She’ll wear black. It suits her."
+              ],
+              "warm": -1,
+              "end": "widow"
+            }
+          ]
+        },
+        {
+          "id": "howwent",
+          "how": "message",
+          "after": "call",
+          "needs": [
+            "agreed"
+          ],
+          "lines": [
+            "He rang you last night, didn’t he. What did you tell him?"
+          ],
+          "choices": [
+            {
+              "id": "mine",
+              "label": "Say you told him Lena’s yours and to keep away",
+              "player": "I told him Lena is mine and he should keep away from her.",
+              "reply": [
+                "That’s exactly him.",
+                "He told Lena her boyfriend sounds like a man who’d drive down here. Nobody touched my elbow all night. Thank you."
+              ],
+              "warm": 1,
+              "set": [
+                "good"
+              ]
+            },
+            {
+              "id": "ignored",
+              "label": "Say you didn’t pick up",
+              "player": "I didn’t pick up.",
+              "reply": [
+                "Lena’s boyfriend never answers his phone.",
+                "That might be the most him thing you could have done."
+              ],
+              "set": [
+                "good"
+              ]
+            },
+            {
+              "id": "never",
+              "label": "Say you told him you’d never heard of Lena",
+              "player": "I told him I’d never heard of anybody called Lena.",
+              "reply": [
+                "You what?",
+                "Okay. Okay. I have to go."
+              ],
+              "gone": "missing",
+              "end": "blown",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "BAR WORKER MISSING FROM MOTEL STRIP",
+                    "summary": "Regulars say a bartender known as Lena didn’t come in.",
+                    "body": "A bartender known to regulars on the interstate motel strip as Lena has not been seen for two nights. Her apartment above the bar was left with the lights on and a photograph of a man nobody could name on the dresser. Police declined to comment on whether she was known to them.",
+                    "fallback": "police_station",
+                    "image": "tale_maria_bar_worker"
+                  }
+                },
+                {
+                  "in": 3,
+                  "chance": 40,
+                  "die": {
+                    "cause": "THE MEN FROM THE STRIP",
+                    "verb": "KILLED",
+                    "line": "Two men at your door, asking for Lena’s boyfriend. They said they had been wanting to meet you."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "swallow",
+          "how": "topic",
+          "after": "lena",
+          "needs": [
+            "q:br",
+            "told:c_swallow"
+          ],
+          "label": "Ask why the name Mrs. Swallow made her smile",
+          "player": "Why did the name Mrs. Swallow make you smile?",
+          "lines": [
+            "There’s a little swallow on the Bluebirds’ brooch. Gold, wings back. Every member wears one.",
+            "Whoever she was, she hid from the club under the club’s own bird. She wanted them to know she was laughing. I liked her the second I read it."
+          ],
+          "warm": 1,
+          "note": "Maria Vega says the swallow is the Bluebirds’ brooch: the woman in room twelve hid from the club under its own bird."
+        },
+        {
+          "id": "plate",
+          "how": "topic",
+          "needs": [
+            "MATCH-054:plate"
+          ],
+          "label": "Ask her to run a plate for a friend",
+          "player": "A friend has a gray car parked outside her building most nights. She got the plate. Could you run it?",
+          "lines": [
+            "Send it.",
+            "Okay. It’s registered to a trust. Halcyon Ridge. The same trust whose men lend money on my strip two days a week. Tell your friend to sleep somewhere else for a while, and not to look at the car when she leaves."
+          ],
+          "set": [
+            "ran"
+          ],
+          "note": "Maria Vega ran the plate of the gray car outside Rosa Gutierrez’s building: it belongs to the Halcyon Ridge Trust."
+        },
+        {
+          "id": "brad",
+          "how": "topic",
+          "needs": [
+            "MATCH-024:brad"
+          ],
+          "label": "Ask about a man called Brad with a cut hand",
+          "player": "A vet’s assistant says a man called Brad paid cash to have his hand cleaned up. Know him?",
+          "lines": [
+            "Brad Keller. Lends money on the strip two days a week and works for the lodge up on the ridge the rest. He has a key to the back door of the old cinema on Main Street, and I would love to know why.",
+            "If your vet sees him again, tell her to charge him double and say nothing."
+          ],
+          "set": [
+            "brad"
+          ],
+          "note": "Maria Vega says Brad Keller lends money on the motel strip, works for the lodge on the ridge, and has a key to the old cinema’s back door."
+        },
+        {
+          "id": "dad",
+          "how": "message",
+          "after": "howwent",
+          "needs": [
+            "good"
+          ],
+          "warmth": 3,
+          "gap": 2,
+          "lines": [
+            "My dad rang. He’s heard about you. He rings every man I talk to and tells him to unmatch me.",
+            "He was a sergeant for thirty years. He’ll ring you. Be nice to him. Or don’t. I want to see what you do."
+          ],
+          "choices": [
+            {
+              "id": "nice",
+              "label": "Promise to be nice to him",
+              "player": "I’ll be nice to him. I’ll call him sir.",
+              "reply": [
+                "I laughed at that. My own laugh. I heard it.",
+                "Don’t tell anyone."
+              ],
+              "warm": 1,
+              "end": "laugh"
+            },
+            {
+              "id": "herself",
+              "label": "Ask her to tell him about you herself",
+              "player": "Can’t you tell him yourself?",
+              "reply": [
+                "Tell him what? That I’m somebody else six nights a week?",
+                "He knows. That’s why he rings."
+              ],
+              "end": "father"
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-192": {
+      "title": "Thirteen",
+      "endings": {
+        "marked": "Her mark, on your wrist",
+        "unmarked": "Not yet",
+        "brothers": "Two brothers on the phone"
+      },
+      "beats": [
+        {
+          "id": "mark",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Ask what her maker’s mark looks like",
+          "player": "What does your maker’s mark look like?",
+          "lines": [
+            "A V inside a little moon, smaller than a grain of rice. On everything I cast.",
+            "I can name my own work across a room. Lately I’ve had to."
+          ],
+          "choices": [
+            {
+              "id": "seen",
+              "label": "Ask what she’s seen across rooms",
+              "player": "What have you seen across rooms?",
+              "reply": [
+                "Thirteen pendants I made for a girl who wouldn’t take off her sunglasses.",
+                "I keep seeing them on people who shouldn’t have them."
+              ],
+              "set": [
+                "seen"
+              ]
+            },
+            {
+              "id": "me",
+              "label": "Ask if she’d mark something for you",
+              "player": "Would you put your mark on something for me?",
+              "reply": [
+                "I don’t mark things for people I don’t intend to keep."
+              ],
+              "warm": 1,
+              "heat": 1,
+              "set": [
+                "seen"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "count",
+          "how": "message",
+          "after": "mark",
+          "lines": [
+            "I went to the Vestry last night to count. Five of my thirteen were in the room.",
+            "Two on girls I know. One on a man in a charity lanyard, under his shirt. I saw it when he leaned over the bar. He paid for his drink with a Bluebird Club card."
+          ],
+          "choices": [
+            {
+              "id": "keep",
+              "label": "Ask her to keep counting",
+              "player": "Keep counting. Write them down.",
+              "reply": [
+                "I already am. A list of names, in silver. Nobody has ever made a list like it."
+              ],
+              "set": [
+                "counting"
+              ],
+              "note": "Lenore Vale saw one of her thirteen pendants on a man in a charity lanyard who paid with a Bluebird Club card."
+            },
+            {
+              "id": "stop",
+              "label": "Tell her it isn’t safe",
+              "player": "That isn’t safe, Lenore.",
+              "reply": [
+                "Nothing I like is safe.",
+                "Fine. I’ll count from home. Through the window. With binoculars, like a widow."
+              ],
+              "warm": 1,
+              "set": [
+                "careful"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "night",
+          "how": "message",
+          "after": "count",
+          "needs": [
+            "q:chapel"
+          ],
+          "lines": [
+            "The girl in sunglasses came back to the bench today. Not for more. She wanted to know if silver tarnishes when it gets wet outdoors, in the dark.",
+            "She said all thirteen will be worn together, outdoors, for the first time {night}. Then she left an iron key on Rowan Pike’s counter across the canal and walked away without it."
+          ],
+          "gives": {
+            "chapel": "night"
+          },
+          "note": "Lenore Vale says all thirteen of her pendants will be worn together, outdoors, for the first time on the night with no moon.",
+          "choices": [
+            {
+              "id": "sisters",
+              "label": "Ask her to tell the Sisters of Mercy",
+              "player": "Would you tell the Sisters of Mercy?",
+              "reply": [
+                "The Sisters wouldn’t take a call from a goth with a blowtorch.",
+                "They’d take one from you."
+              ]
+            },
+            {
+              "id": "girl",
+              "label": "Ask her to warn the girl in sunglasses",
+              "player": "Can you warn the girl in sunglasses?",
+              "reply": [
+                "She’s gone. Her phone’s off. Whatever she’s afraid of, she’s more afraid of it than I am."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "key",
+          "how": "message",
+          "needs": [
+            "MATCH-079:lenore"
+          ],
+          "gap": 1,
+          "lines": [
+            "A Bluebird I’ve never met had an iron key couriered to my bench this morning, with a card that said: melt this.",
+            "I don’t melt iron. And it’s cold. It’s been in my hand an hour and it’s still cold."
+          ],
+          "choices": [
+            {
+              "id": "crypt",
+              "label": "Tell her it opens the Old Mission’s crypt",
+              "player": "It opens an iron door in the crypt at the Old Mission.",
+              "reply": [
+                "Then it shouldn’t be melted. It should be in the hands of people who pray at that chapel.",
+                "The Sisters keep a vigil there on the new moon. I’ll leave it at St Brigid’s with a note. Unsigned. I’m learning."
+              ],
+              "note": "Lenore Vale is leaving the iron key to the Old Mission’s crypt at St Brigid’s for the Sisters of Mercy."
+            },
+            {
+              "id": "drawer",
+              "label": "Ask her to keep it",
+              "player": "Keep it. Somewhere nobody looks.",
+              "reply": [
+                "In my drawer of things for the dead. It fits."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ring",
+          "how": "topic",
+          "after": "mark",
+          "needs": [
+            "q:vale"
+          ],
+          "label": "Ask if her uncle is Professor Vale",
+          "player": "That ring your uncle never collected. Is your uncle Professor Vale?",
+          "lines": [
+            "Adrian. Yes. We don’t admit it. He doesn’t, so I don’t, and the protesters would burn my bench if I did.",
+            "There’s something inside the band he’s never noticed. A little moon, much older than my mark. The Bluebirds gave him a dead husband’s ring with their circle inside it. And my father rang from another state last week to ask me if his brother is safe."
+          ],
+          "note": "Lenore Vale says Professor Vale’s Bluebird signet ring has an old circle mark hidden inside the band.",
+          "choices": [
+            {
+              "id": "notsafe",
+              "label": "Tell her he isn’t safe",
+              "player": "He isn’t safe.",
+              "reply": [
+                "Then I’ll ring my father back. They haven’t spoken in ten years.",
+                "If two Vales are going to be a scandal, they might as well be one together."
+              ],
+              "set": [
+                "brothers"
+              ]
+            },
+            {
+              "id": "give",
+              "label": "Tell her to give him the ring back",
+              "player": "Give him the ring back and show him what’s inside.",
+              "reply": [
+                "And tell him what? That his friends marked him?",
+                "He’d lecture me on symbols for an hour and then keep wearing it."
+              ]
+            },
+            {
+              "id": "keep",
+              "label": "Tell her to keep the ring",
+              "player": "Keep the ring. Don’t give it back.",
+              "reply": [
+                "I don’t melt rings for the dead. I don’t give them to the living when they’re cursed. I’ll keep it."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "brothers",
+          "how": "message",
+          "after": "ring",
+          "needs": [
+            "brothers"
+          ],
+          "gap": 2,
+          "lines": [
+            "They talked. Forty minutes. My father cried, and my uncle explained why crying is a cultural construct, and then he cried.",
+            "He’s coming to the bench for the ring. I’m going to show him what’s inside it."
+          ],
+          "ending": "brothers"
+        },
+        {
+          "id": "wrist",
+          "how": "message",
+          "after": "count",
+          "warmth": 3,
+          "gap": 2,
+          "lines": [
+            "I don’t make my mark on people I don’t intend to keep. I’ve been alone a year because of it.",
+            "I’m telling you because I keep thinking about the inside of your wrist."
+          ],
+          "choices": [
+            {
+              "id": "yes",
+              "label": "Tell her you’d wear it",
+              "player": "I’d wear it.",
+              "reply": [
+                "Then think about it for a week. If you still want it, I’ll make it small.",
+                "And I won’t ever make it again on anybody else."
+              ],
+              "warm": 1,
+              "heat": 1,
+              "end": "marked"
+            },
+            {
+              "id": "notyet",
+              "label": "Tell her you’re not ready",
+              "player": "I’m not ready for that.",
+              "reply": [
+                "Good. Nobody should be.",
+                "I’ll wait. I’m very good at waiting. Ask anybody I’ve made a locket for."
+              ],
+              "warm": 1,
+              "end": "unmarked"
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-079": {
+      "title": "The Third House",
+      "endings": {
+        "stone": "She said it out loud",
+        "ribbon": "A fall, and a ribbon",
+        "dress": "The same dress every year"
+      },
+      "beats": [
+        {
+          "id": "asked",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Ask who keeps asking her for things",
+          "player": "You said you’ve had enough of being asked. Who keeps asking?",
+          "lines": [
+            "Everyone at the club. My sister, about whether I’m happy.",
+            "My brother, about money, with both his hands wrapped in bandages, in a hospital parking lot."
+          ],
+          "choices": [
+            {
+              "id": "hands",
+              "label": "Ask what happened to his hands",
+              "player": "What happened to his hands?",
+              "reply": [
+                "Caleb says a frying pan. Caleb has never cooked anything in his life."
+              ],
+              "warm": 1,
+              "set": [
+                "caleb"
+              ]
+            },
+            {
+              "id": "never",
+              "label": "Tell her you’ll never ask her for anything",
+              "player": "I’ll never ask you for anything.",
+              "reply": [
+                "Everybody says that. Then they ask."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "houses",
+          "how": "message",
+          "after": "asked",
+          "day": 2,
+          "lines": [
+            "I signed for three houses by the Old Mission this year. Cash, through a company with a made-up name. It’s my job to sign things.",
+            "I know what two of them are for. The third has a key on my desk. I look at it every day."
+          ],
+          "choices": [
+            {
+              "id": "third",
+              "label": "Ask what the third key opens",
+              "player": "What does the third key open?",
+              "reply": [
+                "An iron door in the crypt under the Old Mission chapel. One of the men from the lodge left it with me because nobody searches a compliance administrator’s desk.",
+                "I want it gone, and if I throw it away they’ll know."
+              ],
+              "set": [
+                "key"
+              ],
+              "note": "Adeline Marsh has the key to an iron door in the Old Mission’s crypt, left on her desk by one of the men from the lodge.",
+              "choices": [
+                {
+                  "id": "lenore",
+                  "need": [
+                    "met:MATCH-192"
+                  ],
+                  "label": "Tell her to send it to Lenore Vale to melt",
+                  "player": "Send it to Lenore Vale at the Canal Bench. She works metal. Ask her to melt it.",
+                  "reply": [
+                    "A goth with a blowtorch. Perfect. Nobody at the club would look for it at a jewelry bench.",
+                    "I’ll have it couriered in the morning. No name."
+                  ],
+                  "set": [
+                    "lenore"
+                  ]
+                },
+                {
+                  "id": "hide",
+                  "label": "Tell her to hide it somewhere they won’t look",
+                  "player": "Hide it somewhere they’d never look.",
+                  "reply": [
+                    "Inside the biggest cactus in the conservatory. It took me an hour and a pair of tongs. I’m bleeding a little. I feel wonderful."
+                  ],
+                  "set": [
+                    "hidden"
+                  ]
+                },
+                {
+                  "id": "water",
+                  "label": "Tell her to throw it in the reservoir",
+                  "player": "Throw it in the reservoir.",
+                  "reply": [
+                    "The reservoir has enough of our things in it.",
+                    "No. I’ll keep looking at it. That seems to be my punishment."
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "stop",
+              "label": "Tell her to stop signing things",
+              "player": "So stop signing things.",
+              "reply": [
+                "Then they’d find a woman who will. That’s how they found me."
+              ],
+              "warm": -1
+            }
+          ]
+        },
+        {
+          "id": "caleb",
+          "how": "message",
+          "after": "asked",
+          "needs": [
+            "q:vale"
+          ],
+          "day": 3,
+          "lines": [
+            "The nurse who wrapped my brother’s hands wrote down another name for him and knew his face from the paper. The Professor’s house. The fire.",
+            "Caleb did it. Somebody sent him. If the club finds out, they’ll destroy him, and I’ll be the one who hands them the matches."
+          ],
+          "choices": [
+            {
+              "id": "who",
+              "label": "Ask who sent him",
+              "player": "Who sent him?",
+              "reply": [
+                "Vanessa Greer. She runs a little group at the back of his seminar. She doesn’t know I know.",
+                "Thank you for asking that, instead of the other thing."
+              ],
+              "set": [
+                "told"
+              ],
+              "note": "Adeline Marsh says her brother Caleb set the fire at Professor Vale’s house, and that Vanessa Greer sent him."
+            },
+            {
+              "id": "protect",
+              "label": "Promise you won’t tell anyone",
+              "player": "I won’t tell anyone.",
+              "reply": [
+                "Thank you. I’ll owe you, and I don’t owe people."
+              ],
+              "warm": 1,
+              "set": [
+                "protect"
+              ]
+            },
+            {
+              "id": "police",
+              "label": "Tell her Caleb should turn himself in",
+              "player": "Caleb should turn himself in.",
+              "reply": [
+                "Caleb, in a cell, with men who owe the club favors? No.",
+                "Ask me something else. Ask me about cacti."
+              ],
+              "warm": -1
+            }
+          ]
+        },
+        {
+          "id": "stone",
+          "how": "message",
+          "after": "houses",
+          "warmth": 2,
+          "gap": 2,
+          "lines": [
+            "I dreamed about his face again. The man from my dinner, eleven years ago. The club voted him in and he didn’t last. I helped him not last.",
+            "Can a person stop being what she did at twenty-three? Answer honestly. I’ll know if you don’t."
+          ],
+          "choices": [
+            {
+              "id": "aloud",
+              "label": "Tell her yes, if she says it out loud",
+              "player": "Yes. If she says it out loud, to somebody who matters.",
+              "reply": [
+                "Then I’ll say it out loud. To his stone first. At the Cemetery Chapel, in the morning. The one without a ribbon. I made sure it never got one.",
+                "Then to my cousin Helena, who’s building a case against all of us. Including me."
+              ],
+              "end": "stone",
+              "fates": [
+                {
+                  "in": 1,
+                  "line": "I stood at his stone for an hour and told him. Then I drove to Helena’s and told her too, all of it, with my coat still on. She didn’t say anything. She made me sign it. I’m very good at signing things."
+                },
+                {
+                  "in": 3,
+                  "chance": 45,
+                  "gone": "dead",
+                  "news": {
+                    "title": "BLUEBIRD DIES IN FALL AT FAMILY HOME",
+                    "summary": "Adeline Marsh, 34, was found at the foot of the stairs at the Marsh house.",
+                    "body": "Adeline Marsh, a compliance administrator for the Blue Ribbon Foundation, died after a fall at the family house she bought back from the bank eleven years ago. Her mother died the same way. The club has sent a wreath tied with blue ribbon. Her sister has asked for it to be removed.",
+                    "fallback": "society_club",
+                    "image": "tale_adeline_bluebird_dies"
+                  },
+                  "ending": "ribbon"
+                }
+              ]
+            },
+            {
+              "id": "no",
+              "label": "Tell her no",
+              "player": "No. I don’t think she can.",
+              "reply": [
+                "Good. Then I don’t have to try.",
+                "The dressmaker comes on the first of the season. Same dress. Same numbers."
+              ],
+              "end": "dress"
+            },
+            {
+              "id": "club",
+              "label": "Tell her it was the club, not her",
+              "player": "It was the club. Not you.",
+              "reply": [
+                "It was the club. It was also my hand. Both things are true, and only one of them has dreams."
+              ],
+              "warm": 1
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-163": {
+      "title": "Dead Air",
+      "endings": {
+        "handed": "She gave Helen Markham the tapes",
+        "dropped": "She dropped it",
+        "digging": "She kept digging",
+        "bethany": "She sleeps at her sister’s"
+      },
+      "beats": [
+        {
+          "id": "callers",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Ask about her loneliest caller",
+          "player": "Who’s the loneliest caller you’ve ever had?",
+          "lines": [
+            "Three men, over two years, from the same payphone, very late, asking for help. Each one said they’re coming back, and then the line went to a tone.",
+            "The switchboard says the line they were put through to doesn’t exist. The payphone is at the old weigh station, where the interstate meets the canyon road."
+          ],
+          "choices": [
+            {
+              "id": "me",
+              "label": "Ask who they wanted help from",
+              "player": "Who did they think would help them?",
+              "reply": [
+                "Whoever answers a radio station at that hour. Me. I wasn’t on, those nights.",
+                "I keep thinking, what if I had been."
+              ],
+              "warm": 1
+            },
+            {
+              "id": "police",
+              "label": "Ask if she’s told the police",
+              "player": "Have you told the police?",
+              "reply": [
+                "I asked them for their dispatch logs for those three nights. Politely. In writing. I’m waiting."
+              ],
+              "set": [
+                "asked"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "contest",
+          "how": "topic",
+          "needs": [
+            "radio"
+          ],
+          "label": "Ask her for a hint about tonight’s question",
+          "player": "Any chance of a hint about tonight’s contest question?",
+          "lines": [
+            "You can’t ask me that. I write those questions.",
+            "Tonight’s is: {question} And I am not telling you it’s {answer}. I did not just type that."
+          ],
+          "gives": {
+            "sq": "radio:next"
+          },
+          "choices": [
+            {
+              "id": "heard",
+              "label": "Promise you didn’t see it",
+              "player": "I didn’t see a thing.",
+              "reply": [
+                "Good. If you win with it, I’ll know, and I’ll act shocked on air."
+              ],
+              "warm": 1
+            },
+            {
+              "id": "fair",
+              "label": "Tell her you want to win fair",
+              "player": "I want to win this fair.",
+              "reply": [
+                "Then forget I said anything.",
+                "You can’t, can you. Nobody can. That’s radio."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "reel",
+          "how": "message",
+          "after": "callers",
+          "lines": [
+            "I’m going to hold my phone to the speaker. Forty seconds of a fair at the Old Mission, forty years ago. Listen under the crowd.",
+            "There. The bell. And nine women singing a round. The Old Mission’s bell hasn’t rung in living memory, and on this tape it rings."
+          ],
+          "choices": [
+            {
+              "id": "heard",
+              "label": "Tell her you heard it",
+              "player": "I heard it. The bell, and the round.",
+              "reply": [
+                "So did I. Everybody else says it’s tape hiss.",
+                "The Sunfall Players are rehearsing that same round for their founding musical. An actor I know there, Nia Walker, should hear where her show’s music comes from."
+              ],
+              "set": [
+                "reel"
+              ],
+              "refer": "MATCH-041",
+              "note": "Odette Price’s forty-year-old tape of the Old Mission fair has the bell ringing and nine women singing a round, the same round the Sunfall Players use in their founding musical."
+            },
+            {
+              "id": "nothing",
+              "label": "Tell her you heard nothing",
+              "player": "I can’t hear anything but crowd.",
+              "reply": [
+                "That’s what Chuck said. That’s what everyone says.",
+                "Never mind. Some things only play for one person."
+              ],
+              "warm": -1
+            }
+          ]
+        },
+        {
+          "id": "owner",
+          "how": "message",
+          "after": "callers",
+          "gap": 2,
+          "lines": [
+            "I went to draw the old Rialto on Main Street for my sketchbook. Number twelve. The woman who runs the ballroom came out to watch.",
+            "She told me the man who owns my station has asked her, twice, whether I live alone. Why would she know? Why would he ask her?"
+          ],
+          "choices": [
+            {
+              "id": "sister",
+              "label": "Tell her to stay with one of her sisters",
+              "player": "Stay with one of your sisters for a while.",
+              "reply": [
+                "Bethany’s. She has a sofa bed and a lecture about late fees. Okay.",
+                "I’ll finish the sketch from memory. I have a very good memory. That’s apparently the problem."
+              ],
+              "set": [
+                "bethany"
+              ],
+              "ending": "bethany"
+            },
+            {
+              "id": "finish",
+              "label": "Tell her to finish the sketch",
+              "player": "Go back and finish the sketch.",
+              "reply": [
+                "In daylight. With my sister Samantha, who sells houses and is frightened of nothing except carpet."
+              ],
+              "warm": 1
+            },
+            {
+              "id": "who",
+              "label": "Ask who owns the station",
+              "player": "Who owns your station?",
+              "reply": [
+                "A man who sits at a numbered table at the Bluebird Club. He’s never once listened to the late show.",
+                "I think he’s started."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "doreen",
+          "how": "message",
+          "after": "callers",
+          "day": 4,
+          "gap": 1,
+          "lines": [
+            "The dispatch logs never came. Doreen on the night desk rang me herself instead.",
+            "She said the same three nights my payphone men rang the station, they rang 911 first, and every call was put through to one sergeant. Lowry. Then she hung up very fast."
+          ],
+          "note": "Odette Price says Doreen on dispatch told her the three 911 calls from the weigh station payphone were all put through to Sergeant Lowry.",
+          "choices": [
+            {
+              "id": "markham",
+              "need": [
+                "MATCH-115:walked"
+              ],
+              "label": "Tell her Kelsey Donovan went to Sergeant Markham",
+              "player": "Kelsey Donovan from the archive just took a box to Sergeant Helen Markham.",
+              "reply": [
+                "Then it isn’t a radio story anymore. It’s Helen Markham’s.",
+                "I’ll take her my tapes in the morning. I’ve never handed anybody a story before. It feels like giving away a cat."
+              ],
+              "end": "handed",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "NIGHT CALLS FROM OLD WEIGH STATION WENT TO ONE SERGEANT",
+                    "summary": "Three calls for help, two years apart, were all routed to Sgt. Vic Lowry.",
+                    "body": "Three men who rang emergency services from the payphone at the old weigh station on the interstate, on three nights over two years, were each put through to the same officer, Sergeant Vic Lowry, according to dispatch logs seen by Sgt. Helen Markham. None of the calls was recorded as an incident. A local radio researcher supplied recordings of the same men calling her station on the same nights.",
+                    "fallback": "police_station",
+                    "image": "tale_odette_night_calls"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "drop",
+              "label": "Tell her to drop it",
+              "player": "Drop it, Odette. Please.",
+              "reply": [
+                "Dropped. I have three sisters and a station that plays the same twelve songs. That’s plenty to lose."
+              ],
+              "end": "dropped"
+            },
+            {
+              "id": "dig",
+              "label": "Tell her to keep digging",
+              "player": "Keep digging.",
+              "reply": [
+                "I wasn’t going to stop. I just wanted somebody to say it."
+              ],
+              "end": "digging",
+              "fates": [
+                {
+                  "in": 2,
+                  "chance": 60,
+                  "news": {
+                    "title": "RADIO RESEARCHER’S APARTMENT BROKEN INTO",
+                    "summary": "Only a reel of old tape was taken.",
+                    "body": "The Old Town apartment of a researcher for local radio was broken into while she was at work. Police said nothing of value was taken. The researcher said a reel of tape was missing from her desk, recorded forty years ago at the Old Mission fair.",
+                    "fallback": "police_evidence",
+                    "image": "tale_odette_radio_researchers"
+                  },
+                  "line": "Somebody went through my apartment. They took the reel and nothing else. I’m at Bethany’s. I’m fine. I’m not fine."
+                },
+                {
+                  "in": 4,
+                  "chance": 30,
+                  "die": {
+                    "cause": "THE BLUE RIBBON",
+                    "verb": "SILENCED",
+                    "line": "Your phone rang once, late, from a payphone. When you picked up, there was only a tone. In the morning, the Daily said nothing at all."
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-041": {
+      "title": "Act Two",
+      "endings": {
+        "speech": "The speech, unsponsored",
+        "gold": "Their name in gold"
+      },
+      "beats": [
+        {
+          "id": "lines",
+          "how": "topic",
+          "label": "Offer to run lines with her",
+          "player": "Want somebody to run lines with?",
+          "lines": [
+            "Yes. Nobody ever offers. You’re the town doctor. I’m dying of fever in a covered wagon.",
+            "Your cue is me saying: Doctor, will I see the spring?"
+          ],
+          "choices": [
+            {
+              "id": "hope",
+              "label": "You’ll see the spring, and every spring after.",
+              "player": "You’ll see the spring, and every spring after.",
+              "reply": [
+                "Wrong. I die in four lines.",
+                "But you said it like you meant it, which is more than Kitteridge’s doctor manages."
+              ],
+              "warm": 1,
+              "set": [
+                "actor"
+              ]
+            },
+            {
+              "id": "rest",
+              "label": "No. Rest now. I’m sorry.",
+              "player": "No. Rest now. I’m sorry.",
+              "reply": [
+                "That’s the line. That’s actually the line.",
+                "How did you know the line?"
+              ],
+              "warm": 1,
+              "heat": 1,
+              "set": [
+                "actor"
+              ]
+            },
+            {
+              "id": "cowboy",
+              "label": "Not if I have anything to say about it!",
+              "player": "Not if I have anything to say about it!",
+              "reply": [
+                "That’s not a doctor, that’s a cowboy.",
+                "I love him. I’m going to make Kitteridge cast him."
+              ],
+              "warm": 1,
+              "set": [
+                "actor"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "offer",
+          "how": "message",
+          "after": "lines",
+          "lines": [
+            "Kitteridge offered me Lady Macbeth in the spring.",
+            "The condition is that the Players take the Foundation’s sponsorship. Their name at the top of my program, above mine, in gold."
+          ],
+          "choices": [
+            {
+              "id": "take",
+              "label": "Tell her to take the part",
+              "player": "Take the part. Take their money.",
+              "reply": [
+                "Then I’ll take their money and say every word like it’s about them."
+              ],
+              "set": [
+                "sponsored"
+              ]
+            },
+            {
+              "id": "slam",
+              "label": "Tell her to do the speech at the slam instead",
+              "player": "Do the speech at the slam. Unsponsored.",
+              "reply": [
+                "On a milk crate at the slam, with Jennifer heckling. Okay. Yes. Okay."
+              ],
+              "warm": 1,
+              "set": [
+                "slam"
+              ]
+            },
+            {
+              "id": "want",
+              "label": "Ask what she wants",
+              "player": "What do you want?",
+              "reply": [
+                "The speech. I want the speech, and I want it to be mine."
+              ],
+              "warm": 1,
+              "set": [
+                "slam"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "round",
+          "how": "message",
+          "after": "lines",
+          "day": 3,
+          "gap": 2,
+          "lines": [
+            "Something’s wrong with act two. After I die there’s a scene at the Old Mission, and nine women sing a round.",
+            "Whitney Ashford says the music was copied out of the Bluebird Club’s archive. Their founders’ hymn. And we open on the night with no moon. I keep waiting to feel something about that, and what I feel is cold."
+          ],
+          "alt": [
+            {
+              "needs": [
+                "MATCH-163:reel"
+              ],
+              "lines": [
+                "A woman from the radio sent me forty seconds of tape. The Old Mission fair, forty years ago. Nine women singing our round, with a bell nobody’s heard ring since.",
+                "Whitney Ashford says the music was copied out of the Bluebird Club’s archive. And we open on the night with no moon. I keep waiting to feel something about that, and what I feel is cold."
+              ]
+            }
+          ],
+          "choices": [
+            {
+              "id": "kitt",
+              "need": [
+                "MATCH-163:reel"
+              ],
+              "label": "Tell her to play the tape to Kitteridge",
+              "player": "Play the tape to Kitteridge and watch his face.",
+              "reply": [
+                "I did. He went white and asked who else had it. Then he said the round was traditional. Then he went for a walk in the rain, and it isn’t raining."
+              ],
+              "note": "Nia Walker says the Players’ director went white when he heard the forty-year-old tape of the round, and asked who else had it."
+            },
+            {
+              "id": "dont",
+              "label": "Tell her not to sing it",
+              "player": "Don’t sing it.",
+              "reply": [
+                "I’m dead by then. I’m in the dressing room eating chips.",
+                "But Raven Solis refused to sing it, and now I know why her face did that."
+              ]
+            },
+            {
+              "id": "who",
+              "label": "Ask her who’s singing it",
+              "player": "Who’s singing it, then?",
+              "reply": [
+                "Eight Players and one empty place. Kitteridge says it’s mine if I want it. I don’t."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "program",
+          "how": "topic",
+          "after": "lines",
+          "needs": [
+            "q:theon"
+          ],
+          "label": "Ask if she still has the program from his play",
+          "player": "The boy who spoke in verse. Do you still have the program from your play with him?",
+          "lines": [
+            "In my makeup box. His real surname is on it, and the paper doesn’t have it.",
+            "He was kind to me when the whole course wasn’t. Is a surname a thing you give the police, about a boy who was kind to you?"
+          ],
+          "choices": [
+            {
+              "id": "give",
+              "label": "Tell her to give it to the police",
+              "player": "Give it to the police.",
+              "reply": [
+                "Okay. I took it to the station after rehearsal. I told them he was kind. I made them write that down.",
+                "They looked him up while I waited. He rents the apartment above the old Rialto on Main Street. I didn’t want to know that."
+              ],
+              "gives": {
+                "theon": "home"
+              },
+              "note": "Nia Walker gave the police the program from her student play with the boy who speaks in verse: he rents the apartment above the old Rialto on Main Street."
+            },
+            {
+              "id": "keep",
+              "label": "Tell her to keep it",
+              "player": "Keep it. It’s yours.",
+              "reply": [
+                "Thank you. I will.",
+                "Some things you keep because they knew you before."
+              ],
+              "warm": 1
+            }
+          ]
+        },
+        {
+          "id": "speech",
+          "how": "message",
+          "after": "offer",
+          "needs": [
+            "slam"
+          ],
+          "gap": 2,
+          "lines": [
+            "I did it. The speech, on a milk crate, unsponsored. Jennifer didn’t heckle once. She cried, and then she denied crying, loudly.",
+            "I won a trophy shaped like a microphone. I’m sleeping with it."
+          ],
+          "end": "speech",
+          "fates": [
+            {
+              "in": 1,
+              "news": {
+                "title": "POETRY SLAM WON BY A LADY MACBETH",
+                "summary": "Nia Walker of the Sunfall Players took the slam with a speech nobody sponsored.",
+                "body": "The open slam at the student union was won by Nia Walker, 20, of the Sunfall Players, who stood on a milk crate and gave a speech from a play she has never been allowed to be in. Judges called it furious. A heckler in the front row was seen crying.",
+                "fallback": "local_ad",
+                "image": "tale_nia_poetry_slam"
+              }
+            }
+          ]
+        },
+        {
+          "id": "gold",
+          "how": "message",
+          "after": "offer",
+          "needs": [
+            "sponsored"
+          ],
+          "gap": 3,
+          "lines": [
+            "The programs came back from the printer. The Foundation’s name in gold at the top. Mine underneath, in black, spelled wrong.",
+            "I’m going to be so good they have to reprint it."
+          ],
+          "end": "gold"
+        }
+      ]
+    },
+    "MATCH-024": {
+      "title": "Gerald",
+      "endings": {
+        "free": "Gerald, uncollared",
+        "caught": "The van got Gerald"
+      },
+      "beats": [
+        {
+          "id": "dart",
+          "how": "topic",
+          "label": "Ask who’s been darting the bear",
+          "player": "Who would dart a bear privately?",
+          "lines": [
+            "Two men in a van with no plates. They’ve been parked out by the ridge with a laptop.",
+            "One of them came into the clinic with a cut hand and paid cash to have it cleaned. Brad, he said. Like that’s a whole name."
+          ],
+          "choices": [
+            {
+              "id": "do",
+              "label": "Ask what she’s going to do about it",
+              "player": "What are you going to do about it?",
+              "reply": [
+                "Something stupid, probably. I do my best work stupid."
+              ],
+              "warm": 1,
+              "set": [
+                "brad"
+              ]
+            },
+            {
+              "id": "out",
+              "label": "Tell her to stay out of it",
+              "player": "Stay out of it, Rachel.",
+              "reply": [
+                "Sure. Absolutely. Totally out of it.",
+                "Anyway."
+              ],
+              "set": [
+                "brad"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "collar",
+          "how": "message",
+          "after": "dart",
+          "lines": [
+            "Everybody calls the bear Gerald now. Molly at reception named a cactus after him.",
+            "I saw him through binoculars from the canyon road. He’s wearing a collar. Not a ranger collar. Somebody tagged Gerald like luggage."
+          ],
+          "choices": [
+            {
+              "id": "how",
+              "label": "Ask how she’d get it off him",
+              "player": "How would you even get it off him?",
+              "reply": [
+                "Dart him with the clinic’s stuff, the proper dose, and cut it off while he snores.",
+                "Easy. Ish. If I find him before the van does."
+              ]
+            },
+            {
+              "id": "ranger",
+              "label": "Tell her to call the ranger",
+              "player": "Call the ranger.",
+              "reply": [
+                "Marisol knows. Marisol has a boss. Bosses have donors. Donors have the van."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "window",
+          "how": "message",
+          "after": "collar",
+          "lines": [
+            "Gerald comes down Sunfall Road at night for the burnt tortillas Hector leaves behind his van. Right behind the laundromat.",
+            "That’s under your window, isn’t it? If you see him, text me. I’ll come with a dart and some bolt cutters."
+          ],
+          "choices": [
+            {
+              "id": "watch",
+              "label": "Agree to watch for him",
+              "player": "I’ll keep watch tonight.",
+              "reply": [
+                "You’re a hero. A sitting-down hero, but they count."
+              ],
+              "warm": 1,
+              "set": [
+                "watch"
+              ]
+            },
+            {
+              "id": "danger",
+              "label": "Tell her it’s too dangerous",
+              "player": "That’s too dangerous. For both of you.",
+              "reply": [
+                "He’s a bear. Dangerous is sort of his whole brand.",
+                "Watch for him anyway. Please."
+              ],
+              "set": [
+                "watch"
+              ]
+            },
+            {
+              "id": "leave",
+              "label": "Tell her to leave Gerald alone",
+              "player": "Leave Gerald alone.",
+              "reply": [
+                "Then the van gets him, and he ends up wherever the lodge keeps things.",
+                "Fine. Fine."
+              ],
+              "warm": -1,
+              "end": "caught",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "BEAR TAKEN ON RIDGE ROAD, RANGERS SAY NO PERMIT",
+                    "summary": "Two men in a van with no plates were seen loading a sedated bear.",
+                    "body": "A young male bear known around town as Gerald was darted and loaded into an unmarked van on the ridge road, a hiker told this paper. The state rangers said no permit had been issued. The van was last seen heading up toward the lodge. A cactus at the Sunfall Road vet clinic has been draped in black.",
+                    "fallback": "local_storm",
+                    "image": "tale_rachel_bear_taken"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sighting",
+          "how": "message",
+          "after": "window",
+          "needs": [
+            "watch"
+          ],
+          "lines": [
+            "Well? Did you see him last night?"
+          ],
+          "choices": [
+            {
+              "id": "saw",
+              "label": "Tell her he was at Hector’s van",
+              "player": "He was at Hector’s van. Eating everything.",
+              "reply": [
+                "I KNEW it. Tonight, then. Me, a dart, bolt cutters and a sandwich for after.",
+                "If you hear a woman yelling sorry at a bear, that’s me."
+              ],
+              "set": [
+                "saw"
+              ],
+              "ending": "free",
+              "fates": [
+                {
+                  "in": 1,
+                  "chance": 20,
+                  "die": {
+                    "cause": "A BEAR",
+                    "verb": "EATEN",
+                    "line": "You opened the window to watch her work. Gerald was awake."
+                  }
+                },
+                {
+                  "in": 1,
+                  "news": {
+                    "title": "TRACKING COLLAR FOUND CUT ON SUNFALL ROAD",
+                    "summary": "A collar with no ranger markings was left by the taco van behind the laundromat.",
+                    "body": "A heavy tracking collar, cut through, was found behind the laundromat on Sunfall Road, next to a taco van whose owner said a bear had eaten all his burnt tortillas and then lay down and snored. The collar carried no ranger markings. Bear prints led back up toward the ridge.",
+                    "fallback": "local_storm",
+                    "image": "tale_rachel_tracking_collar"
+                  },
+                  "line": "He snored like my dad. The collar’s in a bucket of water in the clinic sink in case it’s listening. Gerald walked off toward the ridge without saying thank you, which is very him."
+                }
+              ]
+            },
+            {
+              "id": "missed",
+              "label": "Tell her you didn’t see him",
+              "player": "I didn’t see him.",
+              "reply": [
+                "Then tomorrow. He’s a creature of habit.",
+                "So is the van."
+              ],
+              "end": "caught",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "BEAR TAKEN ON RIDGE ROAD, RANGERS SAY NO PERMIT",
+                    "summary": "Two men in a van with no plates were seen loading a sedated bear.",
+                    "body": "A young male bear known around town as Gerald was darted and loaded into an unmarked van on the ridge road, a hiker told this paper. The state rangers said no permit had been issued. The van was last seen heading up toward the lodge. A cactus at the Sunfall Road vet clinic has been draped in black.",
+                    "fallback": "local_storm",
+                    "image": "tale_rachel_bear_taken"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "stall",
+          "how": "message",
+          "after": "sighting",
+          "needs": [
+            "saw"
+          ],
+          "warmth": 2,
+          "gap": 2,
+          "lines": [
+            "I asked my dad again why he stopped going to the lodge. He finally told me.",
+            "A stall at the end of the stables with a chain on the door. Something in there that wasn’t a horse. It knocked when he walked past. Three times. Like a person."
+          ],
+          "note": "Rachel Lowe’s father heard something knock three times from inside a chained stall at the lodge’s stables, like a person.",
+          "choices": [
+            {
+              "id": "did",
+              "label": "Ask what her father did",
+              "player": "What did he do?",
+              "reply": [
+                "Nothing. He went home and never went back.",
+                "He says it’s the only thing he’s ashamed of in thirty years. He said it to the dog, not to me."
+              ]
+            },
+            {
+              "id": "away",
+              "label": "Tell her to stay away from the lodge",
+              "player": "Stay away from that lodge.",
+              "reply": [
+                "I wasn’t going to go.",
+                "I was. I’m not now."
+              ],
+              "warm": 1
+            }
+          ]
+        }
+      ]
+    },
+    "MATCH-054": {
+      "title": "The Gray Car",
+      "endings": {
+        "published": "Who owns the rain, in print",
+        "softened": "Softened",
+        "later": "After graduation"
+      },
+      "beats": [
+        {
+          "id": "car",
+          "how": "topic",
+          "warmth": 1,
+          "label": "Ask why she really checks the lock",
+          "player": "Why do you really check the lock twice?",
+          "lines": [
+            "Because there’s a car. Gray. Parked across from my building three nights out of five, engine off, somebody in it.",
+            "It’s probably nothing. That’s my word. Probably. I’m going to have it engraved on something."
+          ],
+          "choices": [
+            {
+              "id": "plate",
+              "label": "Ask her to get the plate",
+              "player": "Can you get the plate number?",
+              "reply": [
+                "From behind my curtain, like a woman in an old movie. Okay. I can do that."
+              ],
+              "set": [
+                "plateq"
+              ]
+            },
+            {
+              "id": "nothing",
+              "label": "Tell her it’s probably nothing",
+              "player": "It’s probably nothing.",
+              "reply": [
+                "Thank you. That’s exactly what I needed somebody else to say, so I could stop believing it."
+              ],
+              "warm": -1
+            }
+          ]
+        },
+        {
+          "id": "plate",
+          "how": "message",
+          "after": "car",
+          "needs": [
+            "plateq"
+          ],
+          "lines": [
+            "I got the plate. I wrote it on my hand with an eyeliner pencil, because it was the only thing by the window.",
+            "What do I do with it?"
+          ],
+          "choices": [
+            {
+              "id": "maria",
+              "need": [
+                "met:MATCH-049"
+              ],
+              "label": "Tell her you know a detective who can run it",
+              "player": "I know a detective. I’ll ask her to run it.",
+              "reply": [
+                "You know detectives. Who are you?",
+                "Okay. Send it. Don’t tell her my name. Tell her my name if it helps."
+              ],
+              "set": [
+                "plate"
+              ],
+              "note": "Rosa Gutierrez has the plate of the gray car parked outside her building most nights."
+            },
+            {
+              "id": "police",
+              "label": "Tell her to take it to the police",
+              "player": "Take it to the police.",
+              "reply": [
+                "The police. Sure. The station where everybody’s friend is a sergeant who knows somebody. No."
+              ],
+              "warm": -1
+            },
+            {
+              "id": "friend",
+              "label": "Tell her to stay with a friend for a while",
+              "player": "Stay with a friend for a few nights.",
+              "reply": [
+                "Isabel has a sofa. And a ranch dog the size of a sofa.",
+                "Okay. Yes. Toothbrush, laptop, thesis."
+              ],
+              "warm": 1,
+              "set": [
+                "isabel"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "trust",
+          "how": "topic",
+          "needs": [
+            "MATCH-049:ran"
+          ],
+          "label": "Tell her who owns the gray car",
+          "player": "The car belongs to something called the Halcyon Ridge Trust.",
+          "lines": [
+            "Halcyon Ridge. That’s the trust that bought our housing co-op’s debt.",
+            "It isn’t watching me. It’s watching the people I sit with. Which means somebody up on that ridge already knows what the people at the back of the room are planning, and is letting them plan it."
+          ],
+          "note": "Rosa Gutierrez says the Halcyon Ridge Trust’s car is watching the student group at the back of the room, and letting them plan.",
+          "choices": [
+            {
+              "id": "away",
+              "label": "Tell her to sleep somewhere else",
+              "player": "Sleep somewhere else for a while.",
+              "reply": [
+                "Isabel’s, with the dog. I’m packing a toothbrush and the whole thesis."
+              ],
+              "warm": 1
+            },
+            {
+              "id": "quit",
+              "label": "Tell her to stop going to the meetings",
+              "player": "Stop going to the meetings.",
+              "reply": [
+                "And then what? Then they’re only watching the others.",
+                "No. I’ll sit nearer the door."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rain",
+          "how": "message",
+          "after": "car",
+          "warmth": 2,
+          "gap": 2,
+          "lines": [
+            "My supervisor wants me to soften chapter one. The part where I say the Shawcrosses own the rain.",
+            "He sits on a committee with Veronica Shawcross. Hannah Webb at the Desert Ledger says she’ll print chapter one exactly as it is, if I want."
+          ],
+          "choices": [
+            {
+              "id": "print",
+              "label": "Tell her to send it to the Ledger",
+              "player": "Send it to the Ledger. As it is.",
+              "reply": [
+                "Sent. Before I could talk myself out of it.",
+                "I feel sick and wonderful. Mostly sick."
+              ],
+              "end": "published",
+              "fates": [
+                {
+                  "in": 2,
+                  "news": {
+                    "title": "WHO OWNS THE RAIN? A STUDENT NAMES SUNFALL’S WATER",
+                    "summary": "A graduate thesis traces the town’s water rights to one founding family.",
+                    "body": "The first chapter of a graduate thesis, printed in full in the Desert Ledger, traces every water right in the county back to the Shawcross family and the lawyers who got there first. Its author, Rosa Gutierrez, 23, said her supervisor had asked her to soften it. The Shawcross family said it was proud to have kept Sunfall in water for three generations.",
+                    "fallback": "political_protest",
+                    "image": "tale_rosa_owns_rain"
+                  }
+                },
+                {
+                  "in": 3,
+                  "line": "The gray car is back. It parks closer now. And I slept nine hours. Isn’t that strange? I finally said it out loud."
+                }
+              ]
+            },
+            {
+              "id": "soften",
+              "label": "Tell her to soften it",
+              "player": "Soften it. Graduate first.",
+              "reply": [
+                "You sound like him.",
+                "Okay. Softened. It reads like a weather report now."
+              ],
+              "warm": -1,
+              "end": "softened"
+            },
+            {
+              "id": "wait",
+              "label": "Tell her to wait until she’s safe",
+              "player": "Wait until you’re somewhere safe.",
+              "reply": [
+                "There’s no such thing as safe for somebody who says who owns the water.",
+                "But okay. After I graduate. I’m writing that date on my hand too."
+              ],
+              "end": "later"
+            }
+          ]
+        }
+      ]
+    }
+  }
 }

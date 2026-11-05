@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="473d9a86b8">
+<html lang="en" data-build="71969833ac">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=473d9a86b8"></script>
+  <script src="chapel_at_midnight.js?v=71969833ac"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=473d9a86b8"></script>
+  <script src="marriage.js?v=71969833ac"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=473d9a86b8"></script>
+  <script src="quests/professor-vale.js?v=71969833ac"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1455,6 +1455,7 @@
         if(fionnAfterDayStart())return; // Theon: he comes, or the police do
         if(callerAfterDayStart())return; // Mogger: the girl who keeps calling
         if(miniAfterDayStart())return; // mini quests: an arrest, or a visitor
+        if(taleAfterDayStart())return; // her story: what you set in motion days ago
         if(rqAfterDayStart()||fqAfterDayStart()||coyoteAfterDayStart()||finaleAfterDayStart())return; // room quests, her thing, the Coyote, the Founders' Ball
         if(glowAfterDayStart())return; // Truecel: the second pot of LPC-A365
         if(halAfterDayStart())return; // Undeniable: an arrest, a visitor, a knock
@@ -2207,6 +2208,7 @@
     }
     function addJewellersToDeck(){
       addSororityToDeck(); // the sorority deals in with the jewellers
+      addTalesToDeck(); // two or three of the ten, early
       for(const card of jewellerCards()){
         if(hingeDeck.some(item=>item.id===card.id)||hingeThreads.has(card.id))continue;
         const left=Math.max(1,hingeDeck.length-hingeIndex);
@@ -2400,6 +2402,7 @@
       for(const [id,label] of [...fqChoices(thread,profileNow),...intoChoices(thread,profileNow)])add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her thing
       for(const [id,label] of glowChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // LPC-A365: what was in it
       for(const [id,label] of halChatChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // Undeniable: Cole Halloran
+      for(const [id,label] of taleChoices(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,0); // her story: the ten
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]===0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her own story, a favour, her family
       qhintMaybe(thread,profileNow); // she tells you what's going on in town
       tallMaybe(thread,profileNow); // the Looksmaxxer past 6 ft 6: she notices
@@ -2588,6 +2591,7 @@
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
+      if(id.startsWith('tale:'))return chooseTale(id,thread,profile); // her story: the ten
       if(id.startsWith('mini:'))return chooseMini(id,thread,profile); // mini quests
       if(id.startsWith('rq:'))return chooseRq(id,thread,profile); // room quests
       if(id.startsWith('gift:'))return chooseGift(id,thread,profile); // the Divorcé: flowers
@@ -2940,6 +2944,7 @@
       if(['flirt','tempt','pic'].includes(follow.kind))return flirtFollowChoices(follow,thread); // flirting
       if(follow.kind==='thing')return thingFollowChoices(follow); // her thing
       if(follow.kind==='into')return intoFollowChoices(follow); // digging for it
+      if(follow.kind==='tale')return taleFollowChoices(follow,thread); // her story: your replies
       const moods=options=>['warm','challenge','joke'].filter(key=>options?.[key]).map(key=>({id:key,label:options[key].label,player:options[key].player,mood:key,tags:[]}));
       if(follow.kind==='question'){
         const question=kit.herQuestions?.find(item=>item.id===follow.id);
@@ -2979,6 +2984,7 @@
       if(window.MATCH_ENDLESS_CHAT||!profile||profile.jeweller||thread.id===bearHingeCard.id||thread.id===CALLER_ID||mustReply(profile))return true;
       const story=arcsState().st[profile.id];
       if(story&&story.stage&&!['done','hook'].includes(story.stage))return true; /* her story is under way */
+      if(taleUnderWay(profile.id))return true; /* the ten: hers is under way */
       return Object.values(minisState().st||{}).some(st=>st&&st.host===profile.id&&st.stage&&st.stage!=='done');
     }
     const chatsUsed=thread=>(talkState(thread).days||[]).filter(day=>day<world.day).length;
@@ -3606,6 +3612,7 @@
       thread.followUp=null;
       if(choice.thing)return answerThing(choice,thread,profile); // her thing
       if(choice.into)return answerInto(choice,thread,profile); // digging for it
+      if(choice.tale)return answerTale(choice,thread,profile,follow); // her story
       if(choice.flirt)return answerFlirt(choice,thread,profile,follow); // flirting
       const kit=talkKit(),c=convo(),state=talkState(thread),personality=personalityOf(profile),faction=profile.factionId;
       const toneKit=profile.factionId==='sisters_of_mercy'?null:TONE_TALK[talkTone()];
@@ -9132,7 +9139,7 @@
     const arcFill=(text,profile,extra={})=>fillIn(text,{name:profile.name,first:firstName(profile),...extra});
     const ARC_NEWS_IMAGE={Business:'local_ad',Community:'charity_volunteers','Around town':'charity_volunteers',Crime:'police_interview',Education:'professor_campus',Classifieds:'classifieds'};
     function arcEligible(profile){
-      return !!(storyKit()&&profile&&!profile.jeweller&&profile.id!==CALLER_ID&&profile.id!==bearHingeCard.id&&profile.name!=='Victoria Blackwood');
+      return !!(storyKit()&&profile&&!profile.jeweller&&profile.id!==CALLER_ID&&profile.id!==bearHingeCard.id&&profile.name!=='Victoria Blackwood'&&!taleOf(profile.id)); // the ten have stories of their own
     }
     // Decided once for each woman: a storyline of her own, or none. Asked about her family: likelier, and a family one.
     function arcOf(profile,family=false){
@@ -9509,6 +9516,223 @@
         }
       }
     }
+    // ===== Her story (Chris, 5 November 2026: focus on ten women and make them far more interesting) =====
+    // Ten women have a storyline of their own (characters/her-stories.json, merged as characterDB.tales). Each is a
+    // run of beats: a message she sends you on a new day, or a question you can ask her. Her lines end in replies that
+    // branch, and a reply can open more replies. What you choose sets flags that her later beats and other women's
+    // stories read (Celina's film goes to Genevieve's darkroom, Maria runs Rosa's plate), feeds the cases (a Blue
+    // Ribbon scrap, the Chapel's night, where Theon lives, tonight's radio answer), puts stories in the paper days
+    // later, makes her leave, or gets somebody killed. Deaths come without warning. The engine is only data-driven
+    // plumbing: the women are in the JSON. (var, not const: the first deck is dealt while the page is still loading.)
+    var TALE_MORNING_MAX=3,TALE_LIVE_DAYS=4;
+    function taleKit(){return characterDB?.tales||null;}
+    function taleOf(id){const t=taleKit()?.[id];return t&&Array.isArray(t.beats)?t:null;}
+    function talesState(){
+      if(!world.tales||typeof world.tales!=='object'||Array.isArray(world.tales))world.tales={flags:[],st:{},due:[]};
+      const t=world.tales;
+      if(!Array.isArray(t.flags))t.flags=[];
+      if(!t.st||typeof t.st!=='object'||Array.isArray(t.st))t.st={};
+      if(!Array.isArray(t.due))t.due=[];
+      return t;
+    }
+    function taleSt(id){
+      const all=talesState().st;
+      if(!all[id]||typeof all[id]!=='object')all[id]={done:[],day:null,end:null};
+      if(!Array.isArray(all[id].done))all[id].done=[];
+      return all[id];
+    }
+    // Her story is under way: started, not over, and something happened in the last few days. She doesn't go quiet then.
+    function taleUnderWay(id){
+      if(!taleOf(id)||!world?.tales?.st?.[id])return false;
+      const st=taleSt(id);
+      return st.done.length>0&&!st.end&&Number.isInteger(st.day)&&world.day-st.day<=TALE_LIVE_DAYS;
+    }
+    // Tonight's KSUN contest question, if Odette could still tip you off about it.
+    function taleRadioQ(){
+      const st=sqState('radio');
+      if(!st||st.outcome||world.day<st.start)return null;
+      const n=world.day-st.start,Q=n>=1&&n<=5?RADIO_QUESTIONS.find(q=>q.id===st.v.qs[n-1]):null;
+      return Q&&!st.v.answered[Q.id]&&!sqHas(st,'a:'+Q.id)?Q:null;
+    }
+    // Conditions: a flag of hers, MATCH-xxx:flag (another woman's story), q:quest (a reason to ask), on:quest,
+    // met:MATCH-xxx (you've talked to her), told:topic (she told you that one), radio (a contest question tonight).
+    function taleTest(id,token){
+      token=String(token);
+      if(token==='radio')return !!taleRadioQ();
+      const at=token.indexOf(':'),k=at<0?'':token.slice(0,at),v=at<0?token:token.slice(at+1);
+      if(k==='q')return !!questReason(v);
+      if(k==='on')return !!questOn(v);
+      if(k==='met'){const t=hingeThreads.get(v);return !!t&&t.log.some(e=>e.who==='you');}
+      if(k==='told'){const t=hingeThreads.get(id);return !!t&&(t.topics.includes('own:'+v)||(talkState(t).callTold||[]).includes(v));}
+      return talesState().flags.includes(k?token:id+':'+token);
+    }
+    function taleAll(id,list){return (list||[]).every(x=>taleTest(id,x));}
+    function taleNone(id,list){return !(list||[]).some(x=>taleTest(id,x));}
+    // Like her own topics: a beat that talks about a quest (Vale, the gala, the rite) only plays in a run that has it.
+    function taleInRun(beat){
+      const text=[beat.label,beat.player,...(beat.lines||[]),...(beat.choices||[]).flatMap(c=>[c.label,c.player,...(c.reply||[])])].filter(Boolean).join(' ').replace(/Lenore Vale/g,'Lenore');
+      return Object.entries(OWN_QUEST_RX).every(([quest,pattern])=>!pattern.test(text)||questOn(quest));
+    }
+    function taleReady(id,beat,thread,how){
+      const st=taleSt(id);
+      if(st.end||st.done.includes(beat.id)||(how&&beat.how!==how))return false;
+      if(beat.day&&world.day<beat.day)return false;
+      if(beat.warmth&&warmthOf(thread)<beat.warmth)return false;
+      if(beat.after&&![].concat(beat.after).some(b=>st.done.includes(b)))return false;
+      const gap=Number.isInteger(beat.gap)?beat.gap:beat.how==='message'?1:0;
+      if(Number.isInteger(st.day)&&world.day<st.day+gap)return false;
+      return taleAll(id,beat.needs)&&taleNone(id,beat.not)&&taleInRun(beat);
+    }
+    function taleLines(id,beat){const alt=(beat.alt||[]).find(a=>taleAll(id,a.needs)&&taleNone(id,a.not));return (alt||beat).lines||[];}
+    function taleOptions(id,choices){return (choices||[]).filter(c=>taleAll(id,c.need)&&taleNone(id,c.not));}
+    function taleNode(beat,path){
+      let node=beat;
+      for(const step of String(path||'').split('/').filter(Boolean)){node=(node?.choices||[]).find(c=>c.id===step);if(!node)return null;}
+      return node;
+    }
+    // What a beat or a reply gives a case: filled into her words now, handed over once she has said them.
+    function taleGive(e,profile){
+      const g=e?.gives,values={},later=[];
+      if(g){
+        if(g.chapel)values.night=(givesOpen({chapel:g.chapel})&&chapel?.tellNight?.(firstName(profile)))||'on the night with no moon';
+        if(g.theon&&givesOpen({theon:g.theon}))fionnClue(g.theon);
+        if(g.moira){const c=callerState();if(givesOpen({moira:g.moira}))c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();values.number=c.momNumber;}
+        if(g.br)later.push(()=>{if(givesOpen({br:g.br}))brFindScrap(g.br,`From ${profile.name}`);});
+        if(g.sq==='radio:next'){const Q=taleRadioQ();if(Q){values.question=Q.q;values.answer=Q.a;later.push(()=>sqLearn('radio','a:'+Q.id));}}
+        else if(typeof g.sq==='string'){const [quest,...fact]=g.sq.split(':');later.push(()=>sqLearn(quest,fact.join(':')));}
+      }
+      return {values,after:()=>later.forEach(fn=>fn())};
+    }
+    function taleEnding(id,slug){if(slug)noteEnding(`tale:${id}:${slug}`,'');}
+    function taleGone(thread,how){
+      thread.followUp=null;
+      if(how==='left'){thread.unmatched=true;return;}
+      if(how==='blocked'){const last=[...thread.log].reverse().find(e=>e.who==='her');if(last)last.block=true;thread.blocked=true;return;}
+      thread.blocked=true;thread.missing=true; // missing, or dead: the chat just stops
+    }
+    // Later: a story in the paper, a message from her, her going, an ending, or a death at the start of a day.
+    // Whether a chance comes off is settled now, by the run's seed, so reloading doesn't change it.
+    function taleFate(id,f,key){
+      if(f.chance&&hashSeed(world.seed+'|tale|'+key)%100>=f.chance)return;
+      const day=world.day+(f.in||1);
+      if(f.news)queueNews({id:'tale_'+key.replace(/[^A-Za-z0-9]+/g,'_'),section:f.news.section||'Local',title:f.news.title,summary:f.news.summary,body:f.news.body,image:f.news.image||'classifieds',fallbackImage:f.news.fallback||'classifieds'},day);
+      if(f.line||f.gone||f.die||f.ending)talesState().due.push({who:id,day,key,line:f.line||null,gone:f.gone||null,die:f.die||null,ending:f.ending||null,done:false});
+    }
+    function taleApply(e,thread,profile,key){
+      const id=profile.id,st=taleSt(id),t=talesState();
+      if(e.warm)warmBy(thread,e.warm);
+      if(e.heat)heatBy(thread,e.heat);
+      for(const f of e.set||[]){const k=f.includes(':')?f:id+':'+f;if(!t.flags.includes(k))t.flags.push(k);}
+      if(e.note)recordClue(e.note);
+      if(e.notice)showGameNotice(e.notice);
+      if(e.refer&&!hingeThreads.has(e.refer))sqReferral(e.refer); // she turns up in your swipes, and likes you
+      (e.fates||[]).forEach((f,i)=>taleFate(id,f,`${id}|${key}|${i}`));
+      if(e.ending)taleEnding(id,e.ending);
+      if(e.end){taleEnding(id,e.end);st.end=e.end;}
+      if(e.gone)taleGone(thread,e.gone);
+    }
+    function taleFinish(id,beat){const st=taleSt(id);if(!st.done.includes(beat.id))st.done.push(beat.id);st.day=world.day;}
+    // Her lines are out: what the beat does, then your replies (or, with none to give, the beat is done).
+    function taleOpened(thread,profile,beat,give){
+      give.after();
+      taleApply(beat,thread,profile,beat.id);
+      if(taleOptions(profile.id,beat.choices).length&&!thread.blocked&&!thread.missing&&!thread.unmatched)thread.followUp={kind:'tale',id:beat.id,path:''};
+      else taleFinish(profile.id,beat);
+    }
+    // The questions her story lets you ask.
+    function taleChoices(thread,profile){
+      const tale=profile&&taleOf(profile.id);
+      if(!tale||thread.followUp||thread.blocked||thread.missing||thread.pending)return [];
+      return tale.beats.filter(b=>b.how==='topic'&&taleReady(profile.id,b,thread)).map(b=>['tale:'+b.id,b.label]);
+    }
+    function chooseTale(key,thread,profile){
+      const beat=taleOf(profile.id)?.beats.find(b=>'tale:'+b.id===key);
+      if(!beat||thread.followUp||!taleReady(profile.id,beat,thread,'topic'))return;
+      thread.log.push({who:'you',text:myVoice(beat.player,profile.id)});
+      lineSpeaker=profile.id;
+      const give=taleGive(beat,profile);
+      deliverTalk(thread,profile,taleLines(profile.id,beat).map(line=>fillIn(line,give.values)),'talk',()=>taleOpened(thread,profile,beat,give),true);
+    }
+    function taleFollowChoices(follow,thread){
+      const beat=taleOf(thread.id)?.beats.find(b=>b.id===follow.id),node=beat&&taleNode(beat,follow.path);
+      return taleOptions(thread.id,node?.choices).map(c=>({id:c.id,label:c.label,player:c.player,tale:true}));
+    }
+    function answerTale(choice,thread,profile,follow){
+      const id=profile.id,beat=taleOf(id)?.beats.find(b=>b.id===follow.id),node=beat&&taleNode(beat,follow.path);
+      const c=node&&taleOptions(id,node.choices).find(x=>x.id===choice.id);
+      if(!c)return;
+      const path=(follow.path?follow.path+'/':'')+c.id;
+      thread.log.push({who:'you',text:myVoice(c.player,id)});
+      lineSpeaker=id;
+      const give=taleGive(c,profile);
+      deliverTalk(thread,profile,(c.reply||[]).map(line=>fillIn(line,give.values)),'talk',()=>{
+        give.after();
+        taleApply(c,thread,profile,beat.id+'/'+path);
+        if(taleOptions(id,c.choices).length&&!thread.blocked&&!thread.missing&&!thread.unmatched)thread.followUp={kind:'tale',id:beat.id,path};
+        else taleFinish(id,beat);
+      },true);
+    }
+    // Each morning: what you set in motion catches up, and up to three of the ten write to you with the next part.
+    function talesNewDay(){
+      if(!taleKit()||!world)return;
+      for(const d of talesState().due){
+        if(!d||d.done||d.die||world.day<d.day)continue;
+        d.done=true;
+        if(d.ending)taleEnding(d.who,d.ending);
+        const thread=hingeThreads.get(d.who);
+        if(!thread)continue;
+        if(d.line&&!thread.blocked&&!thread.unmatched&&!thread.missing){lineSpeaker=d.who;thread.quiet=false;herLine(thread,d.line);}
+        if(d.gone)taleGone(thread,d.gone);
+      }
+      let sent=0;
+      for(const thread of hingeThreads.values()){
+        if(sent>=TALE_MORNING_MAX)break;
+        const profile=hingeProfile(thread.id),tale=profile&&taleOf(profile.id);
+        if(!tale||thread.blocked||thread.unmatched||thread.left||thread.fumbled||thread.missing||thread.awaiting||thread.pending||thread.followUp)continue;
+        if(!thread.log.some(e=>e.who==='you'))continue; // she writes first only once you've talked
+        const beat=tale.beats.find(b=>b.how==='message'&&taleReady(profile.id,b,thread));
+        if(!beat)continue;
+        lineSpeaker=profile.id;thread.quiet=false;
+        const give=taleGive(beat,profile);
+        for(const line of taleLines(profile.id,beat))herLine(thread,fillIn(line,give.values));
+        const ts=talkState(thread);ts.morningDay=world.day;ts.musedDay=world.day; // that's her message this morning
+        taleOpened(thread,profile,beat,give);
+        sent++;
+      }
+    }
+    // A death you set in motion days ago, at the start of a day. Shown again if you reload (world.sqDead).
+    function taleAfterDayStart(){
+      const d=(world?.tales?.due||[]).find(x=>x&&!x.done&&x.die&&world.day>=x.day);
+      if(!d)return false;
+      d.done=true;
+      sqDie('tale',d.die.cause,d.die.verb,d.die.line);
+      return true;
+    }
+    // Two or three of the ten turn up in your first swipes of a run; the rest you meet, or get sent to.
+    function addTalesToDeck(){
+      const kit=taleKit();
+      if(!kit||!world||!hingeDeck.length||!hingeProfiles.length)return;
+      const t=talesState();
+      if(t.dealt)return;
+      t.dealt=true;
+      const ids=Object.keys(kit).filter(id=>taleOf(id)&&!hingeThreads.has(id)&&hingeProfiles.some(p=>p.id===id)).sort((a,b)=>hashSeed(world.seed+'|tale|'+a)-hashSeed(world.seed+'|tale|'+b));
+      ids.slice(0,2+hashSeed(world.seed+'|tales')%2).forEach((id,i)=>{
+        const at=hingeDeck.findIndex((card,n)=>n>=hingeIndex&&card.id===id);
+        if(at>=0)hingeDeck.splice(at,1);
+        const card=hingeProfile(id);
+        if(card)hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1+i*3+hashSeed(world.seed+'|taledeck|'+id)%3),0,card);
+      });
+    }
+    // For the Endings list: every ending and every death in the ten stories.
+    function taleEndingsCatalog(add,death){
+      for(const [id,tale] of Object.entries(taleKit()||{})){
+        if(!taleOf(id))continue;
+        const group=`Her story: ${tale.title}`;
+        for(const [slug,title] of Object.entries(tale.endings||{}))add(group,`tale:${id}:${slug}`,title);
+        const walk=node=>{for(const f of node.fates||[])if(f.die)death(group,f.die.verb,f.die.cause);(node.choices||[]).forEach(walk);};
+        tale.beats.forEach(walk);
+      }
+    }
     // ---------- Calmer mornings (Chris, 3 November 2026) ----------
     // Story messages always arrive. Her small talk (her news, town talk, her thing, flirting, good morning) waits for
     // another day once MORNING_WOMEN women have written this morning, or if she already has.
@@ -9528,6 +9752,7 @@
       ignoreNewDay(); // matches you never talk to nudge you, then get angry and unmatch you
       spurnNewDay(); // the women whose calls you kept declining
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
+      talesNewDay(); // her story: ten women with storylines of their own
       questUnlock(); // a quest that wasn't picked arrives after five quiet days
       sqNewDay(); // the story quests: deadlines and what catches up with you
       miniNewDay(); // the mini quests
@@ -10056,6 +10281,7 @@
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
       for(const id of SQ_IDS)for(const [o,title] of SQ[id].endings||[])add({pageant:'Miss Sunfall',radio:'The radio contest',penpal:'The pen pal',seance:'The Veil Line',priest:'The new priest',tapes:'The Sisters on tape'}[id],`sq:${id}:${o}`,title);
+      taleEndingsCatalog(add,death); // her story: the ten
       add('The Coyote','coyote:saved','You found her in time');
       add('The Coyote','coyote:lost','Too late');
       add('The Founders’ Ball','finale:date','With someone on your arm');
