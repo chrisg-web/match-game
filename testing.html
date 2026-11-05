@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="722bff1ba9">
+<html lang="en" data-build="f7e8839fd3">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -760,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=722bff1ba9"></script>
+  <script src="chapel_at_midnight.js?v=f7e8839fd3"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=722bff1ba9"></script>
+  <script src="marriage.js?v=f7e8839fd3"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=722bff1ba9"></script>
+  <script src="quests/professor-vale.js?v=f7e8839fd3"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4024,9 +4024,23 @@
       if(world.day>c.deadline||c.rage>=4||c.missedInRow>=2){callerDeath();return true;}
       return false;
     }
+    // Deaths that were only words get pictures (Chris, 5 November 2026: invent pictures for the text-only deaths, one or a sequence).
+    // Each plays once, then the usual death screen; a reload goes straight to the screen. Until a frame is drawn, your room stands in.
+    var DEATH_SCENES={"caller": ["moira-1", "moira-2", "moira-3"], "glow": ["lpc-1", "lpc-2"], "sq:priest": ["basket-1", "basket-2"], "tale:ribbon": ["photo-1", "photo-2"], "tale:strip": ["strip-1"], "tale:payphone": ["payphone-1"], "tale:bear": ["tale-bear-1"], "tale:booth": ["booth-1"], "mini:husband": ["husband-1", "husband-2"], "mini:envelope": ["stranger-1", "stranger-2"], "rq:robe": ["family-1", "family-2"], "rq:spotter": ["pullup-1", "pullup-2"], "rq:seating": ["gilt-1", "gilt-2"], "fq:postcard": ["fourth-1", "fourth-2"], "coyote": ["coyote-1", "coyote-2", "coyote-3"], "vale:device": ["device-1", "device-2"], "vale:parcel": ["parcel-1", "parcel-2"], "vale:graves": ["graves-1"]};
+    var DEATH_DOOR=["basket-1", "booth-1", "coyote-2", "coyote-3", "family-2", "graves-1", "husband-2", "moira-2", "parcel-1", "parcel-2", "strip-1"];
+    function deathPlay(key,again){ // true: show the death screen now; false: the pictures play first, then again()
+      const f=DEATH_SCENES[key];
+      if(!f||!world||world.deathPlayed===key||window.MATCH_INSTANT_DEATHS)return true; // the old tests check the screen at once
+      world.deathPlayed=key;try{saveRun(true);}catch{}
+      const run=world;playScene(f.map(n=>({image:'assets/deaths/scenes/'+n+'.png',stand:DEATH_DOOR.includes(n)?'room-open':'room',caption:'',sound:'death'})),()=>{if(world===run)again();},{gap:2200}); // a new game started meanwhile: this death belongs to the old one
+      return false;
+    }
+    function taleDeathKey(d){const t=String(d?.line||'');return /photograph of you asleep/.test(t)?'tale:ribbon':/STRIP/.test(d?.cause||'')?'tale:strip':/payphone/.test(t)?'tale:payphone':/BEAR/.test(d?.cause||'')?'tale:bear':/BOOTH/.test(d?.cause||'')?'tale:booth':null;}
+    function valeDeathKey(info){const c=String(info?.cause||'');return /DEVICE/.test(c)?'vale:device':/BACK ROW/.test(c)?'vale:parcel':/GRAVES|CONSCIENCE/.test(c)?'vale:graves':null;}
     function callerDeath(){
       const c=callerState();
       c.stage='dead';
+      if(!deathPlay('caller',callerDeath))return; // her: the phone, the door, the end of the bed
       stopRinging();herCall=null;
       drawDeathTitle((hingeProfile(CALLER_ID)?.name||'MOIRA BELL').toUpperCase(),'KILLED');
       $('fatal-overlay').querySelector('p').textContent=CALLER.deaths[hashSeed(world.seed+'|callerdeath')%CALLER.deaths.length];
@@ -4205,6 +4219,7 @@
       return true;
     }
     function glowDeathScreen(){
+      if(!deathPlay('glow',glowDeathScreen))return; // the second pot
       stopRinging();herCall=null;
       drawDeathTitle('SOMETHING','KILLED');
       $('fatal-overlay').querySelector('p').textContent=GLOW.deaths[hashSeed(world.seed+'|glowdeath')%GLOW.deaths.length];
@@ -5349,6 +5364,7 @@
       saveRun(true);
     }
     function sqDeathScreen(){
+      {const d=world.sqDead,k=d?.id==='priest'?'sq:priest':d?.id==='tale'?taleDeathKey(d):null;if(k&&!deathPlay(k,sqDeathScreen))return;}
       const d=world.sqDead;if(!d)return;
       stopRinging();herCall=null;
       drawDeathTitle(d.cause,d.verb);
@@ -7729,6 +7745,7 @@
       saveRun(true);
     }
     function miniDeathScreen(){
+      {const id=minisState().dead?.id;if(id&&!deathPlay('mini:'+id,miniDeathScreen))return;}
       const id=minisState().dead?.id,kit=miniKit()?.[id];
       if(!kit)return;
       stopRinging();herCall=null;
@@ -8092,7 +8109,7 @@
       rqDeathScreen();
       saveRun(true);
     }
-    function rqDeathScreen(){const id=rqState().dead?.id,kit=rqKit()?.[id];questDeathScreen(id==='robe'?kit?.celeste:kit,'|rqdeath|'+id);}
+    function rqDeathScreen(){const id=rqState().dead?.id,kit=rqKit()?.[id];if(id&&!deathPlay('rq:'+id,rqDeathScreen))return;questDeathScreen(id==='robe'?kit?.celeste:kit,'|rqdeath|'+id);}
     function questDeathScreen(d,key){
       if(!d?.deaths)return;
       stopRinging();herCall=null;
@@ -8877,6 +8894,7 @@
       return true;
     }
     function coyoteDeathScreen(){
+      if(!deathPlay('coyote',coyoteDeathScreen))return; // the mask, the door, the doorway
       const kit=coyoteKit();
       if(!kit)return;
       stopRinging();herCall=null;
@@ -9394,7 +9412,7 @@
       fqDeathScreen();
       saveRun(true);
     }
-    function fqDeathScreen(){const id=fqState().dead?.id;questDeathScreen(fqKit()?.[id],'|fqdeath|'+id);}
+    function fqDeathScreen(){const id=fqState().dead?.id;if(id&&!deathPlay('fq:'+id,fqDeathScreen))return;questDeathScreen(fqKit()?.[id],'|fqdeath|'+id);}
     // ----- her chat
     function fqChoices(thread,profile){
       const kits=fqKit(),out=[];
@@ -12974,6 +12992,7 @@
       },0);
     }
     function showValeDeath(info){
+      {const k=valeDeathKey(info);if(k&&!deathPlay(k,()=>showValeDeath(info)))return;}
       drawDeathTitle(info.cause,info.verb);
       $('fatal-overlay').querySelector('p').textContent=info.line||info.text;
       $('fatal-overlay').classList.add('visible');
