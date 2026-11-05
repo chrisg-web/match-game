@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="9ba1990c0a">
+<html lang="en" data-build="506dc3d22a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=9ba1990c0a"></script>
+  <script src="chapel_at_midnight.js?v=506dc3d22a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=9ba1990c0a"></script>
+  <script src="marriage.js?v=506dc3d22a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=9ba1990c0a"></script>
+  <script src="quests/professor-vale.js?v=506dc3d22a"></script>
 </head>
 <body>
   <main class="workbench">
@@ -3497,7 +3497,7 @@
     // How women talk to you depends on who you are. A Sister of Mercy talks the same to everyone.
     const TONE_TALK={
       mogger:{
-        close:[' You know you’re dangerous, right?',' Sorry, I got distracted by your photos again.',' Why are you even single?',' My friends are going to lose it when I tell them about you.',' Stop being this easy to talk to.',' Okay, now you’re just showing off.',' Is it weird that I’m smiling at my phone?',' You’re trouble. I can tell.',' I’ve already told my sister about you.',' Don’t let it go to your head. Too late, probably.'],
+        close:[' You know you’re dangerous, right?',' Sorry, I got distracted by your photos again.',' Why are you even single?',' My friends are going to lose it when I tell them about you.',' Stop being this easy to talk to.',' Honestly, I could talk to you all day.',' Is it weird that I’m smiling at my phone?',' You’re trouble. I can tell.',' I’ve already told my sister about you.',' Don’t let it go to your head. Too late, probably.'],
         warm:['Stop. You’re perfect.','Marry me. Kidding. Mostly.','Wow. Okay. Who raised you?','You just went up three levels.','I knew you’d say that. I hoped you would.','That’s the hottest thing anyone has said to me all week.','Okay, now I’m blushing at my phone like an idiot.','Where have you been all my life? Don’t answer, I don’t care.','My friend is going to be so jealous.','You really do have an answer for everything.','I could listen to you all day. Text you all day. Whatever.','Correct. Annoyingly correct.','I’m screenshotting that for my sister.','That’s it. You’re officially my favorite match.'],
         cool:['You’re lucky you’re cute.','Wrong answer. Still talking to you, though.','I’ll allow it. This once.','Bold. I respect bold.','I should mind that. I don’t.','Anyone else and I’d unmatch. You get a pass.','Hm. Your face is doing a lot of work here.','That was terrible. Say something else, quickly.'],
         admirer:['I liked you first. Thought you should know.','I never message first. Making an exception.','My friend dared me to say hi. She also said you’re out of my league. Hi.','You popped up and I panicked and pressed like. Hi.','Okay, I’m doing the thing where I message first. Be nice.']
@@ -6406,7 +6406,9 @@
       if(!v||typeof text!=='string'||!text)return text;
       const h=hashSeed(world.seed+'|voice|'+key+'|'+text);
       if(h%3===0)return text;
-      if(/\?\s*$/.test(text))return `${v.pre[(h>>>3)%v.pre.length]} ${text}`;
+      const lead=/^[A-Z][a-z’']{1,8}[.,!] /.test(text); // it already opens with one (Cool. Okay. Honestly,): no second lead-in
+      if(/\?\s*$/.test(text))return lead?text:`${v.pre[(h>>>3)%v.pre.length]} ${text}`;
+      if(lead)return `${text} ${v.post[(h>>>5)%v.post.length]}`;
       const pre=VOICE_STATEMENT_PRE[tone()]||v.pre;
       return h%2===0?`${pre[(h>>>3)%pre.length]} ${text}`:`${text} ${v.post[(h>>>5)%v.post.length]}`;
     }
