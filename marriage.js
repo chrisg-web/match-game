@@ -519,8 +519,9 @@
       const st=state(),tb=!sister(id),v=tb?data.thunderbirds.victory:data.victory;
       const day=preview?today():(st?.married||st?.tb)?.day;
       const backdrop=tb?data.thunderbirds.backdrop:data.art.victoryBackdrop;
+      const review=tb&&!preview?data.thunderbirds.victory.underReview?.[api.world()?.blueRibbon?.outcome]:null; // the Ledger's verdict on the club you are marrying into (4 November 2026, the sense check)
       const frames=weddingFrames(id);
-      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(frames[3]))}" alt="${esc(brideName(id))} on her wedding day"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(v.subtitle)}</p><p class="line">${esc(fill(v.line,{name:brideName(id),day}))}</p>${!preview&&api.victoryNote?api.victoryNote():''}${preview?'<p class="note">Testing preview. Your run is unchanged.</p><button data-marriage-win="close">Close preview</button>':`<button data-marriage-win="new">${esc(v.newGame)}</button>`}</div>`;
+      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(frames[3]))}" alt="${esc(brideName(id))} on her wedding day"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(v.subtitle)}</p><p class="line">${esc(fill(v.line,{name:brideName(id),day}))}</p>${review?`<p class="line">${esc(review)}</p>`:''}${!preview&&api.victoryNote?api.victoryNote():''}${preview?'<p class="note">Testing preview. Your run is unchanged.</p><button data-marriage-win="close">Close preview</button>':`<button data-marriage-win="new">${esc(v.newGame)}</button>`}</div>`;
       const portrait=win.querySelector?.('.frame img');
       const fallback=fallbackFrame(id,3);
       if(portrait&&fallback)portrait.onerror=()=>{portrait.onerror=null;portrait.src=api.assetUrl(fallback);}; // her own photo until her wedding portrait exists

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="68c32ea726">
+<html lang="en" data-build="8746a1c453">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=68c32ea726"></script>
+  <script src="chapel_at_midnight.js?v=8746a1c453"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=68c32ea726"></script>
+  <script src="marriage.js?v=8746a1c453"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=68c32ea726"></script>
+  <script src="quests/professor-vale.js?v=8746a1c453"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -945,7 +945,7 @@
     const matchRates={truecel:.09,normie:.21,mogger:.36}; // half what they were (Chris, 3 November 2026: too many matches; a quarter was too hard)
     // Victoria Blackwood is half as likely to match: 9% Truecel, 21% Normie, 36% Mogger.
     const MATCH_RARITY={'MATCH-003':.5};
-    const difficultyCopy={truecel:'Truecel: matches are rare, but every conversation still matters.',normie:'Normie: a moderate chance of matching after you like somebody.',mogger:'Mogger: many more matches, with the same 10 swipes per day.',looksmaxxer:'Looksmaxxer: start with Truecel looks and drive out to fix them: gym, skin, teeth, height.',divorce:'Divorcé: fat, balding, Normie odds, a wallet, alimony to Denise every five days, and the girls call him daddy.'};
+    const difficultyCopy={normie:'Normie: where everyone starts. A fair chance of a match.',mogger:'Mogger: women come to you, on the same ten swipes a day. So does trouble.',truecel:'Truecel: matches are rare and every word counts.',looksmaxxer:'Looksmaxxer: start at the bottom with Truecel looks, and drive out to fix your face: gym, skin, teeth, height.',divorce:'Divorcé: broke, bald, Normie odds and a wallet. Alimony to Denise every five days, and the girls call him daddy.'}; // one voice with the ladder's blurbs (4 November 2026, the sense check)
     const SAVE_KEY='matchGameRunV3';
     const FIRST_VISIT=(()=>{try{return !localStorage.getItem(SAVE_KEY)&&!localStorage.getItem(SAVE_KEY+':tutorialAsked');}catch{return false;}})(); // before anything saves: is this the first time? (the tutorial question)
     function hashSeed(input){
@@ -2385,7 +2385,9 @@
       // 0 quests in progress · 1 case questions, and the Blue Ribbon question after the paper · 2 first small talk, numbers · 3 picture, paper,
       // deeper, her family · 4 Easter egg, the marriage question · 5 extra small talk (she still has it next time).
       const choices=[];
-      const add=(html,rank)=>choices.push({html,rank,order:choices.length});
+      // Rank 0 is a story in progress (a quest, a room quest, her own story, the Ball): those buttons wear the case style
+      // (gold, like the Ledger's and Vale's questions) so a player can tell a case from her small talk (4 November 2026, the sense check).
+      const add=(html,rank)=>choices.push({html:rank===0&&html.includes(' data-hinge-topic="')?html.replace(/class="hinge-chat-choice(?! case-choice)/g,'class="hinge-chat-choice case-choice'):html,rank,order:choices.length});
       if(marriageOptions?.html)add(marriageOptions.html,0); // Marriage
       if(chapelOptions?.html)add(chapelOptions.html,0); // Task 2
       for(const ask of gossipAsksFor(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="gossip:${esc(ask.key)}">${esc(fillIn(GOSSIP_ASK_LABEL,{teller:firstName(hingeProfile(ask.by))}))}</button>`,1); // what someone told you about her
@@ -2415,7 +2417,7 @@
       if(realEggAvailable(thread,profileNow))add(`<button class="hinge-chat-choice" data-hinge-topic="egg:real">${esc(talkKit().eggs.real.label)}</button>`,4);
       for(const [id,label,rank] of arcNow.filter(entry=>entry[2]>0))add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`,rank); // her family; the marriage question
       const caseTopic=(hingeDialogue?.topics||[]).find(topic=>topic.id==='case');
-      if(caseTopic&&caseTopicOpen(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,1); // straight after talking about the paper, so never the one left out
+      if(caseTopic&&caseTopicOpen(thread))add(`<button class="hinge-chat-choice case-choice" data-hinge-topic="case">${esc(caseTopic.label)}</button>`,1); // straight after talking about the paper, so never the one left out
       for(const topic of brHingeTopicsFor(hingeProfile(thread.id))){
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
@@ -2460,7 +2462,8 @@
         body=threads.length?`<div class="hinge-list">${threads.map(thread=>{
           const profile=hingeProfile(thread.id);
           const last=thread.log[thread.log.length-1];
-          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${talkState(thread).unread?'💬 New message':thread.quiet?'Gone quiet':thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
+          return `<button data-chat-open="${thread.id}"><img src="${profile.gallery[0]}" alt=""><span><strong>${esc(profile.name)}</strong><br>${talkState(thread).unread?'💬 New message':thread.quiet?'Gone quiet':talkState(thread).warnedQuiet&&chatsLeft(thread)===1?'One more, she said':thread.number?'Number exchanged':thread.awaiting?'Awaiting reply':'New match'}
+<br><small>${esc(last?.text||'No message yet').slice(0,46)}</small></span></button>`;
         }).join('')}</div>`:'<div class="hinge-empty">No conversations yet.<p>Like somebody to start a chat.</p></div>';
       }else if(hingeView==='thread'){
         const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
@@ -3188,11 +3191,15 @@
       ts.asks++;
     }
     function signOffIfDone(thread){ // after her last answer today, and after you've answered anything she asked back
-      const ts=talkState(thread),lines=talkKit()?.dayDone;
+      const ts=talkState(thread),kit=talkKit(),lines=kit?.dayDone;
       if(!lines?.length||!doneForToday(thread)||thread.pending||thread.followUp||thread.quiet||ts.signOffDay===world.day)return;
       ts.signOffDay=world.day;
-      thread.log.push({who:'her',text:variedPick(lines,thread.id+'|done|'+world.day)});
+      const last=chatsLeft(thread)===1&&!!kit.lastOne?.length; // one more after today (4 November 2026, the sense check): she says so, so the budget is a rule you can see
+      if(last)ts.warnedQuiet=world.day;
+      thread.log.push({who:'her',text:variedPick(last?kit.lastOne:lines,thread.id+'|done|'+world.day)});
     }
+    // Conversations she has left after today, or null when she never runs out.
+    const chatsLeft=thread=>{const profile=hingeProfile(thread.id);if(!profile||chatEndless(thread,profile))return null;return chatBudget(thread,profile)-(talkState(thread).days||[]).filter(day=>day<=world.day).length;};
     function quietNewDay(){ // the morning after her last conversation she says goodbye
       const lines=talkKit()?.quiet;
       if(!lines?.length)return;
@@ -6360,7 +6367,7 @@
     // happens from your room: the paper, the phone, chats, the doorstep and the cupboard.
     const HAL={
       news:{
-        profile:{section:'Politics',title:'HALLORAN SURGES',summary:'The car dealer running for mayor is ahead in every poll.',body:'Cole Halloran, 44, a former high school football coach who sells cars on the interstate and hosts a call-in hour on Sunfall AM, has overtaken the mayor in every poll. He says out loud what half the town mutters at the gas station, and the town loves him for it. Asked how he keeps going, he laughed. I take a vitamin at night and I sleep like a baby. That’s my secret. His campaign office at Halloran Motors takes calls on {number}.',clue:'Cole Halloran is running for mayor. His campaign office at Halloran Motors: {number}.'},
+        profile:{section:'Politics',title:'HALLORAN SURGES',summary:'The car dealer running for mayor is ahead in every poll.',body:'Cole Halloran, 44, a former high school football coach who sells cars on the interstate and hosts a call-in hour on Sunfall FM, has overtaken the mayor in every poll. He says out loud what half the town mutters at the gas station, and the town loves him for it. Asked how he keeps going, he laughed. I take a vitamin at night and I sleep like a baby. That’s my secret. His campaign office at Halloran Motors takes calls on {number}.',clue:'Cole Halloran is running for mayor. His campaign office at Halloran Motors: {number}.'},
         debateSoon:{section:'Politics',title:'CHANNEL 4 DEBATE IN FOUR DAYS',summary:'Halloran and the mayor meet live on Channel 4.',body:'Cole Halloran and the mayor will debate live on Channel 4 in four days. Halloran says he’ll be there early. The mayor says he has a patient that afternoon.',clue:'The Channel 4 debate, Halloran against the mayor, is in four days.'},
         debateToday:{section:'Politics',title:'TONIGHT: HALLORAN AND THE MAYOR, LIVE',summary:'The Channel 4 debate is tonight.',body:'Cole Halloran and the mayor debate live on Channel 4 tonight. The station expects its biggest audience since the flood.'},
         won:{section:'Politics',title:'HALLORAN WINS THE DEBATE',summary:'Viewers say the car dealer wiped the floor with the mayor.',body:'Cole Halloran won last night’s Channel 4 debate by every measure the station could find. He was funny, he was rude, and he looked like he’d slept eight hours. The mayor was polite.'},
@@ -7609,10 +7616,18 @@
         if(kit.address&&st.addr==='given'&&st.parcelDay===world.day){const t=rqThread(id);if(t){lineSpeaker=st.host;herLine(t,rqT(kit.address.arrived));rqSpoke(t);}} // her parcel, and her saying so
         if(id==='robe')rqRobeDay(st,kit);
         else if(id==='openhouse')rqHouseDay(st,kit);
-        else if(id==='hotline')rqHotlineDay(st,kit);
+        else if(id==='hotline'){rqHotlineDay(st,kit);rqHotlineBill(st);}
         else if(id==='spotter')rqSpotterDay(st,kit);
         else if(id==='seating')rqSeatingDay(st,kit);
       }
+    }
+    // The bill (4 November 2026, the sense check): forty-one minutes at four ninety-nine a minute, taken from the Bank the
+    // morning it lands on the floor, for the two classes that have an account. Everyone else just has the letter.
+    const HOTLINE_BILL=205;
+    function rqHotlineBill(st){
+      if(!st||st.billed||!Number.isInteger(st.billDay)||world.day<st.billDay||!walletOn())return;
+      st.billed=true;cashMove(-HOTLINE_BILL,'Sunfall After Dark');walletRender();
+      achToast(`Sunfall After Dark took ${money(HOTLINE_BILL)} from your account.`);
     }
     function rqAfterDayStart(){
       if(!rqKit())return false;
@@ -8274,7 +8289,7 @@
       if(r&&Number.isInteger(r.parcelDay)&&world.day>=r.parcelDay)out.push({id:'rq:robe',door:true,floor:'parcel',label:kit.robe.parcel.label,short:'Robe',image:'assets/items/diana-parcel.png',text:kit.robe.parcel.text,actions:r.wearing?[]:[{id:'rq:robe:wear',label:kit.robe.parcel.wear.label}]});
       if(r&&Number.isInteger(r.ribbonDay)&&world.day>=r.ribbonDay)out.push({id:'rq:ribbon',door:true,floor:'envelope',label:kit.robe.celeste.ribbon.label,short:'Ribbon',image:'assets/items/blue-ribbon-card.png',text:kit.robe.celeste.ribbon.text});
       if(h?.still)out.push({id:'rq:still',door:true,floor:'letter',label:kit.openhouse.caroline.still.label,short:'Still',image:'assets/items/cctv-still.png',text:kit.openhouse.caroline.still.text});
-      if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:'assets/items/phone-bill.png',text:kit.hotline.bill.text});
+      if(l&&Number.isInteger(l.billDay)&&world.day>=l.billDay)out.push({id:'rq:bill',door:true,floor:'letter',label:kit.hotline.bill.label,short:'Bill',image:'assets/items/phone-bill.png',text:kit.hotline.bill.text+(l.billed?' The bank took it the morning it came.':'')});
       const a=rqs('seating'),A=kit.seating;
       if(a&&A&&Number.isInteger(a.parcelDay)&&world.day>=a.parcelDay)out.push({id:'rq:chair',door:true,floor:'parcel',label:A.parcel.label,short:'Little chair',image:'assets/items/alice-chair.png',text:A.parcel.text,actions:a.chair?[]:[{id:'rq:seating:sit',label:A.parcel.sit.label}]});
       if(a&&A)(a.seated||[]).forEach((who,i)=>{const first=firstName(hingeProfile(who))||'Her';out.push({id:'rq:card'+i+':'+who,door:true,floor:'envelope',label:fillIn(A.card.label,{first}),short:'Place card',image:'assets/items/place-card.png',text:fillIn(A.card.text,{first,line:(A.lines[i]||[]).join(' ')})});});
@@ -8563,6 +8578,7 @@
       const ch=world.chapel;if(S.chapel[ch?.outcome])out.push(S.chapel[ch.outcome]);
       const co=world.coyote;
       if(co?.stage==='saved'||co?.stage==='lost')out.push(fillIn(S.coyote[co.stage],{name:hingeProfile(co.victim)?.name||'her'}));
+      out.push(...finaleTownParagraphs(S));
       const threads=[...hingeThreads.values()].filter(t=>hingeProfile(t.id)&&t.id!==bearHingeCard.id);
       const warm=threads.filter(t=>warmthOf(t)>=2&&!t.blocked).length,cold=threads.filter(t=>t.blocked||warmthOf(t)<0).length;
       out.push(warm>=4&&warm>cold?S.town.loved:cold>=3&&cold>warm?S.town.shunned:S.town.mixed);
@@ -8570,6 +8586,37 @@
       if(co&&(co.stage==='saved'||co.stage==='lost')&&!co.dead)out.push(S.coyote.atLarge); // he's still out there
       out.push(S.close);
       return out;
+    }
+    // The rest of the town (4 November 2026, the sense check): Denise and Halloran always, then at most three of the
+    // society pages, the minis and the class threats, in a seeded order, so the night stays a night and not a newspaper.
+    function finaleTownParagraphs(S){
+      const out=[],more=[],found=endingsFound();
+      if(selectedDifficulty==='divorce'&&world.cls&&S.denise){
+        const c=world.cls;
+        out.push(fillIn(!deniseAlive()?S.denise.gone:c.misses>0||c.garnish?S.denise.behind:S.denise.alive,{ex:EX.name}));
+      }
+      const h=world.halloran;
+      if(h&&h.stage!=='none'&&S.halloran){
+        const dead=['debate','quiet','shot'].includes(h.outcome);
+        out.push(dead?S.halloran.dead:h.outcome==='driver'?S.halloran.driver:h.outcome==='warned'?S.halloran.warned:Number.isInteger(h.debateDay)&&world.day>=h.debateDay+4?S.halloran.elected:S.halloran.candidate);
+      }
+      const so=S.society||{},mi=S.minis||{},ot=S.others||{};
+      const house=rqs('openhouse');if(house?.choice)more.push(house.choice==='olivia'?so.olivia:so.ridge);
+      const robe=rqs('robe');if(robe){if(robe.after==='joke')more.push(so.celesteJoke);else if(robe.after==='hang')more.push(so.celesteHang);else if(Number.isInteger(robe.ribbonDay)&&world.day>=robe.ribbonDay)more.push(so.ribbon);}
+      const seat=rqs('seating');if(seat){if(found['rq:seating:turn'])more.push(so.seatingTurn);else if(found['rq:seating:caught'])more.push(so.seatingCaught);else if(seat.stage==='done')more.push(so.seating);}
+      const sp=rqs('spotter');if(sp?.stage==='done')more.push(sp.nose?so.spotterNose:so.spotter);
+      if(rqs('hotline')?.stage==='done')more.push(so.hotline);
+      const pills=ms('pills');if(pills?.stage==='arrested')more.push(fillIn(mi.pills,{name:hingeProfile(pills.host)?.name||'The girl from Desert Rx'}));
+      const cl=ms('cleaner');if(cl?.stage==='arrested')more.push(cl.handed?mi.cleanerRing:mi.cleaner);
+      const wt=ms('watch');if(wt?.stage==='done'&&Number.isInteger(wt.exposeDay))more.push(mi.watchExposed);else if(wt?.stage==='joined')more.push(mi.watchJoined);
+      const hb=ms('husband');if(hb?.stage==='left')more.push(fillIn(mi.husbandLeft,{name:hingeProfile(hb.host)?.name||'She'}));else if(hb&&['ringing','calling','told'].includes(hb.stage))more.push(mi.husband);
+      const en=ms('envelope');if(en?.stage==='police')more.push(mi.doreen);else if(en?.stage==='gone')more.push(en.took?mi.short:mi.whiskey);
+      const yes=sororityState().yes;if(yes&&yes!==finaleState().date&&hingeProfile(yes))more.push(fillIn(ot.stacey,{name:hingeProfile(yes).name}));
+      if(['brad','done'].includes(world.lavinia?.stage))more.push(ot.brad);
+      if(['sorted','dead'].includes(world.fionn?.stage))more.push(ot.theon);
+      if(world.caller?.stage==='safe'&&world.caller?.momKnown)more.push(ot.moira);
+      const picked=more.filter(Boolean).sort((a,b)=>hashSeed(world.seed+'|ballmore|'+a)-hashSeed(world.seed+'|ballmore|'+b)).slice(0,3);
+      return out.concat(picked);
     }
     let finaleOverlay=null;
     function playFinale(){
@@ -10280,6 +10327,7 @@
       for(const [id,e] of Object.entries(vale))if(['complete','failure'].includes(e.kind))add('Professor Vale',`vale:${id}`,e.title);
       for(const [id,title] of BR_ENDINGS)add('Blue Ribbon Ledger',`br:${id}`,title);
       for(const [id,title] of CHAPEL_ENDINGS)add('Chapel at Midnight',`chapel:${id}`,title);
+      add('Chapel at Midnight','win:date','A goth girl picked you up');
       for(const id of SQ_IDS)for(const [o,title] of SQ[id].endings||[])add({pageant:'Miss Sunfall',radio:'The radio contest',penpal:'The pen pal',seance:'The Veil Line',priest:'The new priest',tapes:'The Sisters on tape'}[id],`sq:${id}:${o}`,title);
       taleEndingsCatalog(add,death); // her story: the ten
       add('The Coyote','coyote:saved','You found her in time');
@@ -10304,7 +10352,7 @@
     const ACHIEVEMENTS=[
       {id:'first-match',group:'Dating',title:'First match',points:10,hint:'Match with someone on Hinge.',test:()=>hingeThreads.size>=1},
       {id:'ten-matches',group:'Dating',title:'Popular',points:20,hint:'Ten matches in one run.',test:()=>hingeThreads.size>=10},
-      {id:'week',group:'Surviving',title:'A week in Scottsdale',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
+      {id:'week',group:'Surviving',title:'A week in Sunfall',points:15,hint:'Reach Day 7.',test:()=>(world?.day||0)>=7},
       {id:'fortnight',group:'Surviving',title:'Two weeks',points:25,hint:'Reach Day 14.',test:()=>(world?.day||0)>=14},
       {id:'first-death',group:'Deaths',title:'It had to end somehow',points:10,hint:'Die for the first time.',test:()=>Object.keys(endingsFound()).some(key=>key.startsWith('death:'))},
       {id:'ten-endings',group:'Collecting',title:'Collector',points:30,hint:'Find ten endings.',test:()=>Object.keys(endingsFound()).length>=10},
@@ -10398,7 +10446,7 @@
       {id:'endings-all',group:'Collecting',title:'The whole story',points:150,hint:'Find every ending.',test:()=>endingsCatalog().every(e=>endingsFound()[e.key])},
       {id:'win-normie',group:'The ladder',title:'A Normie’s wedding',points:50,hint:'Win a run as a Normie.',test:()=>(playerProfile().wins.normie||0)>0},
       {id:'win-mogger',group:'The ladder',title:'A Mogger’s wedding',points:50,hint:'Win a run as a Mogger.',test:()=>(playerProfile().wins.mogger||0)>0},
-      {id:'win-looks',group:'The ladder',title:'A Looksmaxxer’s wedding',points:75,hint:'Win a run as a Looksmaxxer.',test:()=>(playerProfile().wins.looksmaxxer||0)>0},
+      {id:'win-looks',group:'The ladder',title:'A Looksmaxxer’s date',points:75,hint:'Win a run as a Looksmaxxer.',test:()=>(playerProfile().wins.looksmaxxer||0)>0},
       {id:'every-class',group:'The ladder',title:'Every class',points:200,hint:'Win a run as every class.',test:()=>LADDER.every(r=>(playerProfile().wins[r.id]||0)>0)},
       {id:'pig-nose',group:'Stories',title:'Oink',points:10,hint:'Wear Lauren’s pig nose.',test:()=>!!rqs('spotter')?.nose},
       {id:'little-chair',group:'Stories',title:'A seat at the table',points:10,hint:'Prop Alice’s card in her little chair.',test:()=>!!rqs('seating')?.chair}
@@ -10451,7 +10499,7 @@
     function ladderWin(){
       const v=world?.victory;
       const questWon=()=>{try{return !!QUEST_WINS[v.type];}catch{return false;}}; // read safely: this can run while the page is still loading
-      if(!v||!(['marriage','thunderbirds','stacey','divorce','denise'].includes(v.type)||questWon()))return null; // a wedding, the Looksmaxxer's and the Divorcé's own wins, or a quest won (Chris, 4 November 2026)
+      if(!v||!(['marriage','thunderbirds','date','stacey','divorce','denise'].includes(v.type)||questWon()))return null; // a wedding, the Chapel's date, the Looksmaxxer's and the Divorcé's own wins, or a quest won (Chris, 4 November 2026)
       return ladderCountWin(ladderIndex(selectedDifficulty)>=0?selectedDifficulty:'normie',String(world.seed||''));
     }
     // The victory screen: what you unlocked, and what to play next.
@@ -10760,7 +10808,9 @@
     // Alpha Rho Xi (characters/sorority.json): in Looksmaxxer and Divorcé runs now (their wins need them), in every run once
     // their photos exist. Until then a stand-in photo. Ask one out from her chat: she makes excuses until you have what she
     // wants. The Looksmaxxer: looks of 90, height surgery, veneers, facial surgery, and she likes you. The Divorcé: she likes
-    // you, you have sent her flowers and you have $500. Ask again within two days and she blocks you.
+    // you, you have sent her flowers and you have $800. Ask again within two days and she blocks you. Only those two classes
+    // can ask (4 November 2026, the sense check): for a Normie, a Mogger or a Truecel she is a match like any other, with her
+    // compliment and her small talk and nothing to ask, so sixteen women who could never say yes are not sixteen ways to be blocked.
     function sororityKit(){return characterDB?.sorority||null;}
     function sororityOn(){const k=sororityKit();return !!k&&!!world&&(walletOn()||k.women.some(w=>w.photos?.length));}
     function sororityCards(){
@@ -10797,7 +10847,7 @@
       if(!profile?.sorority||!thread||thread.blocked||thread.unmatched||thread.left)return [];
       const s=sororityState();
       if(s.yes)return [];
-      const out=[['srt:ask','Ask her out']];
+      const out=walletOn()?[['srt:ask','Ask her out']]:[]; // her yes is a Looksmaxxer's or a Divorcé's win; nobody else can ask
       if(profile.complimentLabel&&!s.complimented[profile.id])out.push(['srt:compliment',profile.complimentLabel]);
       return out;
     }
@@ -11491,6 +11541,7 @@
       noteQuestsWon(); // a quest won stays away from the next games until the ladder is done
       const v=world.victory;
       if(v&&['marriage','thunderbirds'].includes(v.type))noteEnding('win:'+v.type,`You married ${hingeProfile(v.bride)?.name||'her'}.`);
+      if(v&&v.type==='date')noteEnding('win:date',`${hingeProfile(v.bride)?.name||'She'} picked you up at your door.`); // the Chapel's win (4 November 2026)
       if(v&&CLASS_WINS[v.type])noteEnding('win:'+v.type,QUEST_WINS[v.type]?CLASS_WINS[v.type].title:v.type==='denise'?`${EX.name} is gone.`:`${hingeProfile(v.bride)?.name||'She'} said yes.`);
       if(!v)questWinCheck(); // a quest that closed well wins the run, the morning after
       const pv=world.professorVale,e=pv?.ending&&window.ProfessorVale?.DATA?.endings?.[pv.ending];
@@ -13314,7 +13365,7 @@
       questDay:()=>questStart('chapel'), // the day the Chapel begins in this run, or null if it isn't in it
       warmth:id=>warmthOf(hingeThreads.get(id)),warmBy:(id,delta)=>{const thread=hingeThreads.get(id);if(thread)warmBy(thread,delta);},serviceKnown,
       replyDelay:hingeReplyDelay,serviceTopics:serviceCallTopics,timePhase:()=>time.value,status:updateRunStatus,
-      newNumber:unusedContactNumber,save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),
+      newNumber:unusedContactNumber,save:()=>saveRun(true),startNewRun:()=>pickDifficulty(),victoryNote:()=>victoryNote(), // the ladder's line on the win screen
       chatDone:id=>{const thread=hingeThreads.get(id);return !!thread&&doneForToday(thread);}, // she's signed off for today
       // A flyer girl you rang comes up in your Hinge deck within the next few cards.
       toDeck:id=>deckSoon(id,'flyer'),
@@ -13336,7 +13387,8 @@
       if($('fatal-overlay').classList.contains('visible')||chapel.state()?.dead){startNewRun(true);time.value=light;fit();}
       chapel.previewAttack();
     };
-    // Marriage: the Sisters of Mercy and the only way to win. Logic lives in
+    // Marriage: the Sisters of Mercy, and the Bluebirds by way of Professor Vale. One way to win beside
+    // the class wins (classWinCheck). Logic lives in
     // marriage.js; this is the full list of game functions it is allowed to use.
     marriage=window.MATCH_MARRIAGE_ENGINE?window.MATCH_MARRIAGE_ENGINE.create({
       document,$,esc,assetUrl,setLowered,playUiSound,

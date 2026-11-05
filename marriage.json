@@ -1022,6 +1022,10 @@
     "victory": {
       "title": "JUST MARRIED",
       "subtitle": "Welcome to the Bluebirds. Welcome to the family.",
+      "underReview": {
+        "success": "The Foundation’s books left in a federal van the week you handed them over. The club marries you anyway. That, Celeste Van Doren says, is what family is for.",
+        "failed": "The federal review came to nothing, and every Bluebird at the top table knows who asked for it. They toast you anyway. Slowly."
+      },
       "line": "You and {name} · The Bluebird Club · Day {day}",
       "newGame": "Start a new game"
     }

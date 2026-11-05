@@ -32765,6 +32765,14 @@
         "This is the last one. Take care of yourself."
       ]
     },
+    "lastOne": [
+      "That’s me for today. Fair warning: I’ve got about one more of these in me, then I’m going quiet for a while.",
+      "Okay, done for today. One more of these, probably, and then I’m taking a break from the app. Make it a good one.",
+      "I have to go. And, honestly? One more of these and I think I’m done on here for a bit. Nothing personal.",
+      "Signing off. I’ll give you one more of these before I go quiet. Then I need my evenings back.",
+      "That’s all the phone I’m allowed today. One more day of this and then I’m going dark for a while. You’ve been told, nicely.",
+      "Phone down. Next time might be the last for a bit. I mean that in a nice way."
+    ],
     "quiet": [
       "I’ve really liked talking to you. I’m going to take a break from the app for a while. Look after yourself.",
       "I think I’ve said everything I know how to say over text. It was nice. Take care.",
@@ -35060,7 +35068,7 @@
         "reply": "The ridge. Right. We’ll have a word with the agency. Thank you, love."
       },
       "handIn": {
-        "label": "Hand in a call you were sold",
+        "label": "Hand in a ring you were sold",
         "reply": "Hand it in? Good man. Leave it in an envelope by the door and an officer will collect it. Nobody needs to know where it came from."
       },
       "handedNotice": "An officer collected the ring. Doreen says the Ashworths will be very glad.",
@@ -38442,6 +38450,49 @@
       "date": {
         "warm": "{first} dances badly and doesn’t care, and at the end of the night she tells you this was the best evening she’s had in years.",
         "cool": "{first} is polite all night, and leaves a little early. You’re fairly sure she had a good time. Fairly."
+      },
+      "denise": {
+        "gone": "Nobody says {ex}’s name all night. Two people ask after the dog.",
+        "alive": "{ex} is here, across the room, with a man who sells swimming pools. She waves. It is not a friendly wave.",
+        "behind": "{ex} is here, across the room, and so is her lawyer. He raises his glass to you. You will be billed for the glass."
+      },
+      "halloran": {
+        "candidate": "Cole Halloran works the room like a car lot, two tables ahead of the mayor, who is dancing with his wife and not looking.",
+        "elected": "Mayor Halloran works the room like a car lot. He shakes your hand without looking at you and tells the Foundation’s table that the audit starts the day he takes office.",
+        "driver": "Cole Halloran gives a toast to Mickey Ruiz and tells the whole room that somebody in Sunfall tried to kill him. He is looking at the top table. Then, for a second, at you.",
+        "warned": "Cole Halloran finds you by the bar, shakes your hand for a long time and says he owes you. He does not say for what. He does not need to.",
+        "dead": "There is a silence for Cole Halloran before the first dance. Half the room means it. The other half looks at the band."
+      },
+      "society": {
+        "olivia": "Olivia Reid is here, unemployed and radiant, telling a table of realtors that she was let go for showing a house too thoroughly.",
+        "ridge": "Caroline Prescott arrives late, alone, and everyone asks her about the house on the ridge road. She says it is shown by appointment. She looks at you when she says it.",
+        "celesteJoke": "Celeste Van Doren points you out to the committee as Diana’s charity case. Diana Moore does not look up from her plate.",
+        "celesteHang": "Celeste Van Doren cuts you dead at the door, and the committee, one by one, does the same. Diana Moore winks.",
+        "ribbon": "There is a blue ribbon tied to the back of your chair. Nobody will say who put it there. Celeste Van Doren raises her glass.",
+        "seating": "Alice Beaumont has seated you. She does not say how she knew you were coming. The place card is in her hand, and it says: behave.",
+        "seatingCaught": "Alice Beaumont stands at the ballroom door all night, watching the pairs leave. When you pass she says, without turning her head, that somebody told. She does not seem to mind.",
+        "seatingTurn": "Alice Beaumont has seated herself beside you. Every woman at the committee table watches her do it.",
+        "spotter": "Lauren Bishop is at the bar in a dress, not drinking, and when she catches your eye she mouths one word at you. It is floor.",
+        "spotterNose": "Lauren Bishop is at the bar in a dress, not drinking, and when she catches your eye she mouths one word at you. It is oink.",
+        "hotline": "A woman from the church choir goes red when she passes your table, and keeps singing. If you know why, you do not say."
+      },
+      "minis": {
+        "pills": "Nobody from Desert Rx is here. {name}’s chair at the pharmacy table stays empty, and nobody moves it.",
+        "cleanerRing": "Constance Ashworth is wearing the ring. She touches it every time she looks at you.",
+        "cleaner": "Constance Ashworth is here without her ring. She looks at every hand in the room.",
+        "watchExposed": "Constance Ashworth has a table to herself. Nobody will sit at it. Every so often she writes something down.",
+        "watchJoined": "Constance Ashworth catches your eye across the room and taps the side of her nose. Two women you have talked to are not here tonight.",
+        "husband": "A man you have only ever heard on the phone stands by the bar all night, not drinking, not dancing, looking at you.",
+        "husbandLeft": "{name} is here with her sister, without her ring, dancing like someone who has just been let out of somewhere.",
+        "whiskey": "Somebody you have never met buys you a whiskey, the good kind, and leaves before you can thank him.",
+        "short": "Your phone rings once during the speeches. Nobody speaks.",
+        "doreen": "Doreen from 911 is here in a sequined dress. She says you did the right thing with that envelope, and that she never says that."
+      },
+      "others": {
+        "stacey": "{name} is here with the whole sorority, and when the band starts she pulls you onto the floor in front of all of them.",
+        "brad": "Lavinia Gravesend is here with Brad. Brad is, in fairness, very tall.",
+        "theon": "Nobody with your face comes to the Ball. Nobody mentions Theon, and the window above the Rialto is dark.",
+        "moira": "Moira Bell’s mother is here, on her own, and finds you to say that Moira is resting and asks after you every day. She does not say where."
       },
       "close": "It’s nearly light when you get home. Your room looks smaller than you remember."
     }

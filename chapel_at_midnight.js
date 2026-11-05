@@ -702,7 +702,7 @@
       if(!win)return;
       const id=st.dateFrom,profile=api.profile(id),v=data.date.victory;
       const portrait=profile?.gallery?.[0]?api.assetUrl(profile.gallery[0]):'';
-      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(v.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(v.picture))}" alt="${esc(nameOf(id))} at your door"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(fill(v.subtitle,{name:nameOf(id)}))}</p><p class="line">${esc(fill(v.line,{day:st.wonDay??today()}))}</p><button data-chapel-choice="new-game">${esc(v.newGame)}</button></div>`;
+      win.innerHTML=`<img class="backdrop" src="${esc(api.assetUrl(v.backdrop))}" alt=""><div class="veil"></div><div class="card"><div class="frame"><img src="${esc(api.assetUrl(v.picture))}" alt="${esc(nameOf(id))} at your door"></div><h2>${esc(v.title)}</h2><p class="sub">${esc(fill(v.subtitle,{name:nameOf(id)}))}</p><p class="line">${esc(fill(v.line,{day:st.wonDay??today()}))}</p>${api.victoryNote?api.victoryNote():''}<button data-chapel-choice="new-game">${esc(v.newGame)}</button></div>`;
       const img=win.querySelector?.('.frame img');
       if(img&&portrait)img.onerror=()=>{img.onerror=null;img.src=portrait;}; // her own photo until the picture at your door exists
       win.classList.add('visible');

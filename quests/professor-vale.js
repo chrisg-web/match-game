@@ -150,6 +150,8 @@
       assembleRested: 'You’ve already tried today. Your hands need a rest.',
       deviceOnDesk: 'Don’t ring the number on the masking tape while the device is still at your house.',
       quietDay: 'Another day without a knock at the door.',
+      quitBin: 'The Back Row went ahead without you, badly: a smouldering bin in the faculty lot, Vale untouched, and arrests by nightfall.',
+      quitDead: 'They got it right the third time without you. The Sunfall Daily runs Vale’s photograph with a black border.',
       wrongManNextDay: 'Vanessa won’t answer. Nobody from the Back Row will.',
       classifiedsRead: 'You copy the three circled numbers into your Contacts.'
     },
@@ -845,6 +847,12 @@
       // Protect: the attack happens on attackDay and is reported the next morning.
       if ((s.stage === 'open' || s.stage === 'withdrawn') && day >= s.attackDay + 1 && !s.attackResolved) {
         s.attackResolved = true;
+        const quit = s.joinedDay !== null; // you joined the Back Row and walked out on it (pv_v_out, late)
+        if (quit && s.device !== 'collected') { // they never got the device: Vanessa goes ahead without it, badly
+          s.cellArrested = true; s.silencedDay = null; s.stage = 'resolved';
+          news(s, day, 'bin_fire'); push(L.quitBin);
+          return out;
+        }
         const tipOk = s.tip && s.tip.withPlan && D.cell.includes(s.tip.name) && s.tip.day <= s.attackDay;
         const tbOk = s.thunderbirdsWarned !== null && s.thunderbirdsWarned <= s.attackDay;
         if (tipOk) {
@@ -873,6 +881,7 @@
           return out;
         }
         news(s, day, 'vale_dead'); news(s, day + 1, 'memorial');
+        if (quit && s.silencedDay !== null) { push(L.quitDead); return out; } // the device you built did it; the Back Row still knows your name
         end(s, 'vale_dies', day, s.stage === 'withdrawn' ? 'walked' : null);
         return finish();
       }
@@ -1122,7 +1131,7 @@
           if (id === 'pv_g_tell') { end(s, 'hero_police', day); return ok(s, ''); }
           if (id === 'pv_g_thanks') { s.arrestCall = false; return ok(s, T(id).reply); }
           if (id === 'pv_g_confess') {
-            if (s.device === 'detonated') { news(s, day + 1, 'player_arrested'); end(s, 'arrested_after', day, 'confessed'); return ok(s, ''); }
+            if (s.device === 'detonated' || s.news.some(n => n.key === 'vale_dead')) { news(s, day + 1, 'player_arrested'); end(s, 'arrested_after', day, 'confessed'); return ok(s, ''); } // nothing brings him back
             news(s, day + 1, 'informant'); end(s, 'confessed', day); return ok(s, '');
           }
           return ok(s, T('pv_g_case').reply);
@@ -1160,7 +1169,7 @@
           if (id === 'pv_v_out') {
             s.offerState = 'refused';
             if (s.device === 'none' && s.inv.semtex === 'none') { s.stage = 'open'; s.exposure = clamp(Math.max(s.exposure, 40)); s.lastRiskDay = day; return ok(s, t.early); }
-            s.silencedDay = day + 2; s.stage = 'open'; s.attackResolved = true;
+            s.silencedDay = day + 2; s.stage = 'open'; // Day A is still reported (newDay): what they did without you
             return ok(s, t.late);
           }
           if (id === 'pv_v_yes') { end(s, 'back_row_forever', day); return ok(s, ''); }
@@ -1367,7 +1376,7 @@
 
     // One short hint for the case file: a nudge, never the answer.
     function hintFor(s) {
-      if (s.ending || s.stage === 'dormant' || s.stage === 'withdrawn' || s.stage === 'resolved') return null;
+      if (s.ending || s.stage === 'dormant' || s.stage === 'withdrawn' || s.stage === 'resolved' || s.attackResolved) return null;
       if (s.stage === 'backrow') {
         if (s.device !== 'none') return s.device === 'assembled' ? 'Vanessa will want to know.' : null;
         if (s.inv.semtex === 'none') return 'Vanessa gave you a word to say.';
