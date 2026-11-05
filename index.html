@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="246a9f88e0">
+<html lang="en" data-build="d922fd9206">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -134,6 +134,11 @@
     html.pop-s .pop-s { border-width: 10px 14px; border-image: var(--pop-s) 40 fill / 10px 14px stretch; }
     html.pop-m .pop-m { border-width: 14px 16px; border-image: var(--pop-m) 48 fill / 14px 16px stretch; }
     html.pop-l .pop-l { border-width: 16px 18px; border-image: var(--pop-l) 56 fill / 16px 18px stretch; }
+    /* Action buttons (Chris, 5 November 2026): drawn plates for the tense moments, applied once each picture has loaded (html.btn-act / btn-pick / btn-aim). */
+    html.btn-act .home-invasion .qte:not(.choices) button:not(.steady-lower) { border-style: solid; border-color: transparent; border-width: 12px 16px; border-radius: 0; background: none; border-image: var(--btn-act) 40 fill / 12px 16px stretch; image-rendering: pixelated; text-shadow: 0 2px 0 #3a0d10; }
+    html.btn-pick .home-invasion .qte.choices button, html.btn-pick .home-invasion .qte .steady-lower, html.btn-pick .bear-alert-options button { border-style: solid; border-color: transparent; border-width: 10px 14px; border-radius: 0; background: none; border-image: var(--btn-pick) 40 fill / 10px 14px stretch; image-rendering: pixelated; color: #fff8ed; text-shadow: 0 1px 0 #000; }
+    html.btn-pick .bear-alert-options button:active, html.btn-pick .home-invasion .qte.choices button:active { filter: brightness(1.3); }
+    html.btn-aim .home-invasion .qte button[data-qte-shoot]::before, html.btn-aim .home-invasion .qte button[data-hal-shoot]::before { content: ''; display: inline-block; width: 1.1em; height: 1.1em; margin-right: .4em; vertical-align: -.15em; background: var(--btn-aim) center / contain no-repeat; image-rendering: pixelated; }
     @keyframes dayCaptionIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
     .bear-shadow { display: none; position: absolute; z-index: 4; width: 32%; height: 38%; top: 24%; left: 34%; object-fit: contain; object-position: center bottom; image-rendering: pixelated; pointer-events: none; filter: drop-shadow(0 1px 8px #060916); }
     .bear-shadow.visible { display: block; animation: lurkingBear 1750ms steps(4,end) infinite alternate; }
@@ -755,11 +760,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=246a9f88e0"></script>
+  <script src="chapel_at_midnight.js?v=d922fd9206"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=246a9f88e0"></script>
+  <script src="marriage.js?v=d922fd9206"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=246a9f88e0"></script>
+  <script src="quests/professor-vale.js?v=d922fd9206"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -12427,9 +12432,11 @@
     var noticeQueue=[];
     // The pop-up frames: load each, and only switch to it once it exists.
     var POPUP_ART={s:'assets/ui/popup-small.png',m:'assets/ui/popup-medium.png',l:'assets/ui/popup-large.png'};
+    var BUTTON_ART={act:'assets/ui/button-action.png',pick:'assets/ui/button-choice.png',aim:'assets/ui/icon-crosshair.png'}; // the tense moments' buttons, once drawn
     function loadPopupArt(){
       if(typeof Image!=='function'||typeof document==='undefined'||!document.documentElement?.style)return;
       for(const [k,src] of Object.entries(POPUP_ART)){const img=new Image();img.onload=()=>{document.documentElement.style.setProperty('--pop-'+k,`url("${assetUrl(src)}")`);document.documentElement.classList.add('pop-'+k);};img.src=assetUrl(src);}
+      for(const [k,src] of Object.entries(BUTTON_ART)){const img=new Image();img.onload=()=>{document.documentElement.style.setProperty('--btn-'+k,`url("${assetUrl(src)}")`);document.documentElement.classList.add('btn-'+k);};img.src=assetUrl(src);}
     }
     const popSize=text=>String(text||'').length<70?'s':String(text||'').length<170?'m':'l'; // a line, a few lines, a paragraph
     function sizePopup(el,text){if(!el?.classList)return;el.classList.remove('pop-s','pop-m','pop-l');el.classList.add('pop-'+popSize(text));}
