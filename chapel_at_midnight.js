@@ -165,7 +165,7 @@
       if(typeof raw.enabled==='boolean')out.enabled=raw.enabled;
       if(out.active)out.enabled=true; // a case already open carries on
       if(out.active&&(out.startDay===null||out.riteDay===null)){out.active=false;out.startDay=null;out.riteDay=null;}
-      out.startedBy=['match','flyer','workbench'].includes(raw.startedBy)?raw.startedBy:null;
+      out.startedBy=['match','flyer','workbench','heard'].includes(raw.startedBy)?raw.startedBy:null;
       if(PLACES.includes(raw.location))out.location=raw.location;
       out.chalkOther=PLACES.includes(raw.chalkOther)&&raw.chalkOther!==out.location?raw.chalkOther:PLACES.find(place=>place!==out.location);
       if(raw.roles&&FLYER_GOTHS.every(id=>ROLES.includes(raw.roles[id]))&&new Set(FLYER_GOTHS.map(id=>raw.roles[id])).size===3)out.roles={...raw.roles};
@@ -312,7 +312,7 @@
       syncTopics(st);
       const edition=(api.world().editions||[]).find(item=>item.day===today());
       if(edition)decorateEdition(edition);
-      journal(st,'A Midnight Rite flyer is in the paper: one night only, on the next moonless night. The host signs only as V.B.');
+      journal(st,how==='heard'?'She told you about a Midnight Rite flyer: one night only, on the next moonless night, signed V.B. You haven’t seen it yourself yet.':'A Midnight Rite flyer is in the paper: one night only, on the next moonless night. The host signs only as V.B.');
       api.status('☾ A new case file is in your bedside cupboard: the Chapel at Midnight.');
       return true;
     }
@@ -336,6 +336,12 @@
       if(!st)return;
       if(!st.active&&st.enabled!==false&&!st.dead&&today()>=startDay())start(st,'flyer');
       if(st.active)syncNews(st,true);
+    }
+    // She told you about the flyer: the case starts, but the paper's clues wait until you read the paper (Chris, 5 November 2026).
+    function onHeard(){
+      const st=state();
+      if(!st)return;
+      if(!st.active&&st.enabled!==false&&!st.dead&&today()>=startDay())start(st,'heard');
     }
     function syncNews(st,openedToday=false){
       const world=api.world(),seen=world.seenArticles||[];
@@ -1014,7 +1020,7 @@
     return {
       statusLine:()=>{const st=sync();return st?statusText(st):'';},
       onNewDay,afterDayStart,decorateEdition,optionsFor,choose,notesEntry,renderCase,afterLoad,reset,previewNow,previewAttack,
-      onMatch,onPaperOpened,dialFlyer,likesYou,
+      onMatch,onPaperOpened,onHeard,dialFlyer,likesYou,
       // A friend finds out which night the moon goes dark (a favour in preview.html). Returns the night, or null.
       tellNight:who=>{const st=sync();if(!st||!st.active||st.nightKnown||st.outcome||st.dead||st.riteDay===null)return null;learnNight(st,who);return relNights(st.riteDay);},
       isCaseOpen:()=>caseOpen,

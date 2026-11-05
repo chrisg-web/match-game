@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="0a93dcc816">
+<html lang="en" data-build="388e93c637">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -748,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=0a93dcc816"></script>
+  <script src="chapel_at_midnight.js?v=388e93c637"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=0a93dcc816"></script>
+  <script src="marriage.js?v=388e93c637"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=0a93dcc816"></script>
+  <script src="quests/professor-vale.js?v=388e93c637"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2445,6 +2445,7 @@
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
       for(const topic of questOn('vale')&&valeKnown()?PV?.hingeTopics(hingeProfile(thread.id))||[]:[]){ // Professor Vale: case questions by faction
+        if(topic.id==='pv_rumour'&&qhintState().vale?.by===thread.id)continue; // she brought him up herself: don't ask if she's heard of him (Chris, 5 November 2026)
         add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${topic.confirm?'⚠ ':'🎓 '}${esc(topic.label)}</button>`,1); // ⚠ final: it happens on the first tap
       }
       if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number && talkState(thread).numberRefusedDay!==world.day){
@@ -4672,6 +4673,7 @@
         const told=q[id];
         if(told&&(told.open||hingeThreads.get(told.by)&&!hingeThreads.get(told.by).blocked&&!hingeThreads.get(told.by).fumbled))continue; // somebody has it in hand
         if(!qhintLive(id))continue;
+        if(SQ[id]&&(sqState(id)?.asked||[]).some(a=>a.startsWith(thread.id+':'+id+':')))continue; // you already asked her about it
         const stalled=world.day>=4&&!!world.help&&world.day-world.help.fpDay>=HELP_STALL_DAYS; // a quiet run: she brings it up sooner
         if((thread.topics||[]).length<(qhintReadIt(id)||stalled?2:3))continue; // never her first thing
         q[id]={by:thread.id,day:world.day,step:'hint',open:false};
@@ -4697,8 +4699,8 @@
       if(step==='ask'){t.step='asked';return fionnReply(thread,profile,[{text:Q.askReply}]);}
       t.open=true;
       return fionnReply(thread,profile,[{text:Q.openReply}],()=>{
-        if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
-        if(id==='chapel')chapel?.onPaperOpened?.();
+        if(id==='vale')PV?.onHeard?.(); // she told you: the notebook says so, not the paper (Chris, 5 November 2026)
+        if(id==='chapel')chapel?.onHeard?.();
         if(SQ[id])sqOpen(id);
       });
     }
@@ -4837,6 +4839,7 @@
       if(!t||t.skip?.(st,thread))return null;
       const gives=typeof t.gives==='function'?t.gives(st,thread):t.gives||[];
       if(st.stage!=='none'&&!gives.some(f=>!sqHas(st,f)))return null;
+      if(qhintState()[id]?.by===thread.id&&!gives.some(f=>!sqHas(st,f)))return null; // she already brought it up in this chat
       return {key:'o',label:t.label,say:t.say,reply:t.reply,gives,after:t.after};
     }
     function sqTopics(id,st,thread,profile){
@@ -10202,8 +10205,8 @@
         const id=call.qh,q=qhintState()[id];
         call.qhDone=true;you(QHINT[id].open+'.');say(QHINT[id].openReply);
         if(q){q.open=true;q.by=call.id;}
-        if(id==='vale'){PV?.onNewsRead?.('car');PV?.onNewsRead?.('fire');}
-        if(id==='chapel')chapel?.onPaperOpened?.();
+        if(id==='vale')PV?.onHeard?.(); // she told you: the notebook says so, not the paper (Chris, 5 November 2026)
+        if(id==='chapel')chapel?.onHeard?.();
         if(SQ[id])sqOpen(id);
       }else if(choice.startsWith('mine:')){
         const item=callTopicsFor(thread,profile).find(entry=>'mine:'+entry.id===choice);

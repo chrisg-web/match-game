@@ -92,8 +92,8 @@
     cell: ['vanessa', 'allison'],
 
     facts: {
-      car_story: 'Paper: Vale’s brakes failed the day after he hosted Camille Paglia on campus.',
-      fire_story: 'Paper: a fire at Vale’s house, the day after his evening with Michel Houellebecq.',
+      car_story: 'Vale’s brakes failed the day after he hosted Camille Paglia on campus.',
+      fire_story: 'A fire at Vale’s house, the day after his evening with Michel Houellebecq.',
       rule: 'Pattern: each accident came the day after one of Vale’s invited speakers came to campus.',
       debate: 'Vale’s next guest: Nathan Cofnas, at Founders’ Hall on Day {T}.',
       back_row: 'A clique called the Back Row sits behind the protests against Vale’s speakers and calls them a hobby.',
@@ -135,6 +135,7 @@
       autoOpened: 'The Sunfall Daily has run two Professor Vale accidents in a row. A case file is in your bedside cupboard.',
       newsLearned: { car: 'Noted: the brakes failed the day after Camille Paglia’s lecture.', fire: 'Noted: the fire came the day after the Houellebecq evening.', debate: 'Noted: Nathan Cofnas speaks at Founders’ Hall on Day {T}.' },
       ruleLearned: 'Two accidents, each the day after one of Vale’s guests came to campus. That isn’t luck.',
+      heard: 'Noted, from what she told you: his brakes failed the day after Camille Paglia’s lecture, and the fire came the day after the Houellebecq evening.',
       unavailable: 'That isn’t possible right now.',
       over: 'This case is closed.',
       exposureWarn: 'Your questions are getting around campus. Ask fewer for a day or two before the Back Row decides you’re a problem.',
@@ -794,6 +795,17 @@
         }
       }
       return null;
+    }
+    // Somebody told you about Vale's accidents (not the paper): the case opens, and you know what she said.
+    function onHeard(s, day) {
+      if (s.ending) return null;
+      if (s.stage === 'dormant') { open(s, day); say(s, L.opened); }
+      if (s.stage === 'dormant') return null;
+      const hadRule = has(s, 'rule'), a = learn(s, 'car_story'), b = learn(s, 'fire_story');
+      if (!a && !b) return null;
+      const r = ok(s, L.heard);
+      if (!hadRule && has(s, 'rule')) r.text += ' ' + say(s, L.ruleLearned);
+      return r;
     }
     function story(s, key, day, v) {
       const n = D.news[key];
@@ -1506,7 +1518,7 @@
       contactForNumber, knownLines, lineTopics, chooseLine,
       roomActions, roomAction, workbenchConfig, assembleResult, wireNeeded, wireFromFriend,
       caseFile, endingInfo, helpLead, helpGive,
-      valeDue, valeRang, valeOpening, valeCallChoices, valeCallChoose, valeMissed, serviceGreeting,
+      onHeard, valeDue, valeRang, valeOpening, valeCallChoices, valeCallChoose, valeMissed, serviceGreeting,
       fakeDue, fakeRang, fakeOpening, fakeCallChoices, fakeCallChoose, fakeMissed,
       profileToPerson: profileId => PEOPLE.find(p => D.cast[p].profileId === profileId) || null
     };
@@ -1703,6 +1715,7 @@
       return r;
     }
     function onNewsRead(key) { return after(E.onNewsRead(state(), key, day())); }
+    function onHeard() { return after(E.onHeard(state(), day())); }
     function newsFor(d) { return E.newsFor(state(), d === undefined ? day() : d); }
     // Hinge: extra topics for this woman's chat, and what happens when one is picked.
     function hingeTopics(profile) { return E.hingeTopics(state(), profile); }
@@ -1753,7 +1766,7 @@ body>.pv-overlay{position:fixed}
       engine: E, state, render, renderNotesPage, assembleFromParts,
       wireNeeded: () => E.wireNeeded(state()),
       wireFromFriend: name => after(E.wireFromFriend(state(), name, day())),
-      onNewDay, onNewsRead, newsFor,
+      onNewDay, onNewsRead, onHeard, newsFor,
       hingeTopics, chooseHingeTopic,
       serviceTopics, chooseServiceTopic, contactForNumber,
       isOpen: () => state().stage !== 'dormant',
