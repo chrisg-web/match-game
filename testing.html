@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c582586eef">
+<html lang="en" data-build="489d71a12a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c582586eef"></script>
+  <script src="chapel_at_midnight.js?v=489d71a12a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c582586eef"></script>
+  <script src="marriage.js?v=489d71a12a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c582586eef"></script>
+  <script src="quests/professor-vale.js?v=489d71a12a"></script>
 </head>
 <body>
   <main class="workbench">
@@ -2694,6 +2694,7 @@
       else if(QUEST_ASK.test(id)&&doneForToday(thread))return; // and quest questions wait for tomorrow
       {const ts=talkState(thread),days=ts.days||(ts.days=[]);if(!days.includes(world.day))days.push(world.day);} /* one conversation a day */
       if(isTalkTopic(id))return chooseTalk(id,thread,profile);
+      if(thread.followUp&&['tone','topic','news','day','question'].includes(thread.followUp.kind))thread.followUp=null; // you changed the subject: those answers would come out of nowhere now
       if(id.startsWith('coffee:'))return chooseCoffee(id,thread,profile); // Truecel: one coffee
       if(id==='caller:friend')return chooseCallerFriend(thread,profile); // Mogger: her friend
       if(id.startsWith('arc:'))return chooseArc(id,thread,profile); // her own story
@@ -3424,12 +3425,13 @@
     }
     // At most one line before her answer: the survey joke, her reputation news, a friend who
     // mentioned you, her mood today, or something you told her earlier.
+    var openerFirst=false; // the survey joke answers your question itself, so it comes first; the rest wait until she has answered
     function talkOpener(thread,profile,topicId){
       const kit=talkKit(),c=convo(),state=talkState(thread);
-      lineSpeaker=profile.id;
+      lineSpeaker=profile.id;openerFirst=false;
       if(topicId){
         const others=(c.asked[topicId]||[]).filter(id=>id!==profile.id&&hingeProfile(id)?.factionId===profile.factionId);
-        if(others.length>=2)return fillIn(seededPick(kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});
+        if(others.length>=2){openerFirst=true;return fillIn(seededPick(kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});}
       }
       if(state.lastDay!==world.day){
         state.lastDay=world.day;
@@ -3586,7 +3588,9 @@
         if(!lifeAskOpen(thread,profile))return;
         const item=lifeOf(profile)[state.lifeOpen];
         state.lifeOpen=null;thread.followUp=null;
-        thread.log.push({who:'you',text:myVoice(seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day),profile.id)});
+        const at=thread.log.map(l=>l.text).lastIndexOf(item.news),fresh=at<0||!thread.log.slice(at+1).some(l=>l.who==='you'); // nothing said since her news, or you've talked about other things
+        const react=seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day);
+        thread.log.push({who:'you',text:fresh?myVoice(react,profile.id):'Going back to what you told me earlier. '+react});
         lines.push(item.more);
         gossip=pickGossip(thread,profile,.8);
         if(gossip)lines.push(gossip.says);
@@ -3598,8 +3602,9 @@
         if(!topic||thread.topics.includes(id)||!warmEnough(warmthOf(thread),topic)||!topicOpen(topic))return;
         thread.followUp=null;thread.topics.push(id);
         thread.log.push({who:'you',text:myVoice(topic.player,profile.id)});
-        lines.push(talkOpener(thread,profile,topic.id));
+        const op=talkOpener(thread,profile,topic.id);if(openerFirst)lines.push(op);
         lines.push(coldTrim(voiced(topicView(topic,profile),profile,topic.id),thread)); // texting tension: short when she's cold
+        if(!openerFirst)lines.push(op); // her mood or a callback, once she has answered
         if(topic.id==='bear')lines.push(...bearEgg());
         lines.push(talkAside(thread,profile));
         gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says); // something she's heard
@@ -3615,16 +3620,17 @@
         if(!own||thread.topics.includes(id)||!warmEnough(warmthOf(thread),own))return;
         thread.followUp=null;thread.topics.push(id);
         thread.log.push({who:'you',text:myVoice(own.player,profile.id)});
-        lines.push(talkOpener(thread,profile,null));
+        const op=talkOpener(thread,profile,null);
         if(laterOK(thread,profile,own)){ // she'll think about it overnight
           const told=topicTold(own,profile);
           state.later={day:world.day+1,lines:[told.text],note:own.note||null};
-          lines.push(variedPick(LATER_LINES,profile.id+world.day));
+          lines.push(variedPick(LATER_LINES,profile.id+world.day));lines.push(op);
           if(tone()!=='truecel')warmBy(thread,1);
           after=()=>moggerPicture(thread,profile);
         }else{
           const told=topicTold(own,profile);
           lines.push(coldTrim(told.text,thread)); // short when she's cold (the clue is in your notes)
+          lines.push(op); // her mood or a callback, after the answer
           gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
           if(tone()!=='truecel')warmBy(thread,1); // she likes being asked about her own life
           maybeHerQuestion(thread,profile,lines);
@@ -3641,7 +3647,7 @@
         const Phrase=phrase.charAt(0).toUpperCase()+phrase.slice(1);
         const ask=again?[`Did you see the latest on ${phrase}?`,`More on ${phrase} today. Did you read it?`,`${Phrase} again. Did you see today’s paper?`,`Any news on ${phrase}? It’s still in the paper.`,`Still following ${phrase}?`][(again-1)%5]:`${news.player} ${Phrase}?`;
         thread.log.push({who:'you',text:myVoice(ask,profile.id)});
-        lines.push(talkOpener(thread,profile,null));
+        const op=talkOpener(thread,profile,null);
         lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
         const informed=about.informed?.[profile.factionId]?.fromDay>world.day?null:about.informed?.[profile.factionId]; /* gala gossip only once the gala has happened */
@@ -3649,6 +3655,7 @@
         let note=null;
         if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);lines.push(seededPick(informed.lines,profile.id));note=informed.note;}
         if(kind==='bear')lines.push(...bearEgg());
+        lines.push(op); // her mood or a callback, after her take on the story
         lines.push(freshPick(thread,'newsAsk',kit.newsFollow.questionByFaction?.[profile.factionId]||kit.newsFollow.question,profile.id+world.day));
         thread.followUp={kind:'news',id:kind};
         after=()=>{if(note)recordClue(note);moggerPicture(thread,profile);};
@@ -4928,13 +4935,53 @@
       }
       return out;
     }
+    // What you actually say for a question that has only a button label (Chris, 5 November 2026: your line in the
+    // chat read Ask how to go over the priest's head, the button, not something a person says).
+    var SQ_SAY={
+      'Ask who could get into the dressing rooms':'Who could actually get into the dressing rooms?',
+      'Ask what it would take to throw a finalist out':'What would it take to get a finalist thrown out?',
+      'Tell her you’ve been calling in':'I’ve been calling in to the late request line, you know.',
+      'Ask about the contest':'So how does the KSUN contest work?',
+      'Play tonight’s question':'Okay. I’m ready for tonight’s question.',
+      'Ask how you’re doing':'How am I doing in the contest?',
+      'Ask if anyone at the parish knows the case':'Does anyone at the parish know about the Lyle Dunmore case?',
+      'Ask her to look up the trial':'Could you look up the Dunmore trial in the archive?',
+      'Ask about the fire marshal who testified':'Who was the fire marshal who testified?',
+      'Ask if she knows anyone at the Lucky Cactus':'Do you know anyone who worked at the Lucky Cactus back then?',
+      'Ask what the law students have found':'What have the law students found?',
+      'Ask if anyone can help him':'Is there anyone who can actually help him?',
+      'Ask how it’s going':'How’s it going?',
+      'Tell them about Lyle Dunmore':'I want to tell you about Lyle Dunmore.',
+      'Give them everything you have':'Here’s everything I have. All of it.',
+      'Ask what’s troubling her':'You seem troubled. What is it?',
+      'Ask how Madame Ilona does it':'How does Madame Ilona actually do it?',
+      'Ask if she has a way to record a call':'Do you have anything I could record a phone call with?',
+      'Ask if the paper has a recorder you could borrow':'Does the paper have a recorder I could borrow?',
+      'Tell her you have Ilona on tape':'I have Madame Ilona on tape.',
+      'Place an obituary for a Walter Finch':'I’d like to place an obituary. Walter Finch.',
+      'Play them Madame Ilona on tape':'Listen to this. It’s Madame Ilona, on tape.',
+      'Ask her to reach someone':'Could you reach someone for me? Someone who’s passed.',
+      'Ask her to reach your late uncle, Walter Finch':'Could you reach my late uncle? Walter Finch.',
+      'Ask her about the parish books':'What’s going on with the parish books?',
+      'Ask who keeps the parish books':'Who keeps the parish books these days?',
+      'Ask how to reach the bishop':'How would someone actually reach the bishop?',
+      'Ask how the circle gets into the Old Mission':'How does the circle get into the Old Mission?',
+      'Ask about the new priest at St Brigid’s':'What do you make of the new priest at St Brigid’s?',
+      'Ask how to go over the priest’s head':'How would I go over the priest’s head?',
+      'Give her the story of Father Sorrell':'I have a story for you. Father Sorrell.',
+      'Ask about Father Sorrell':'What can you tell me about Father Sorrell?',
+      'Ask which Sisters still want the Latin Mass':'Which of the Sisters still want the Latin Mass?',
+      'Ask for Father Sorrell':'Could I speak to Father Sorrell, please?',
+      'Send Father Sorrell the three cassettes':'I have all three cassettes for you, Father.',
+      'Tell Father Sorrell how it’s going':'Here’s how it’s going, Father.'};
+    const sqSay=t=>t.say||SQ_SAY[t.label]||t.label;
     function chooseSqChat(key,thread,profile){
       const [,id,k]=key.split(':'),st=sqState(id);
       if(!st||thread.pending)return;
       const t=sqTopics(id,st,thread,profile).find(x=>x.key===k);
       if(!t||st.asked.includes(thread.id+':'+id+':'+k))return;
       st.asked.push(thread.id+':'+id+':'+k);coverChat(thread,id);
-      thread.log.push({who:'you',text:t.say||t.label});
+      thread.log.push({who:'you',text:sqSay(t)});thread.followUp=null; // a new subject: her last small talk is behind you
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
       return fionnReply(thread,profile,[].concat(reply).map(text=>({text})),()=>{
         if(t.opens!==false)sqOpen(id,true);
@@ -4957,9 +5004,17 @@
       if((qhintState()[id]?.by===thread.id||chatCovered(thread,id))&&!gives.some(f=>!sqHas(st,f)))return null; // already covered in this chat
       return {key:'o',label:t.label,say:t.say,reply:t.reply,gives,after:t.after};
     }
+    // She has already told you this, in other words: most of the answer's words are in one thing she said in this chat.
+    const SAID_STOP=new Set('the a an and or but of to in on at for with is was are were it its he she they them his her you your i my me we our that this as by be from not no so if then than just very about what who'.split(' '));
+    const sayWords=t=>String(t||'').toLowerCase().replace(/[’']/g,'').match(/[a-z]{3,}/g)?.filter(w=>!SAID_STOP.has(w))||[];
+    function alreadySaid(thread,reply){
+      if(typeof reply!=='string'&&!Array.isArray(reply))return false;
+      const words=[...new Set(sayWords([].concat(reply).join(' ')))];if(words.length<6)return false;
+      return (thread.log||[]).some(l=>{if(l.who!=='her')return false;const have=new Set(sayWords(l.text));return words.filter(w=>have.has(w)).length/words.length>=.55;});
+    }
     function sqTopics(id,st,thread,profile){
       const saidO=st.asked.includes(thread.id+':'+id+':o')||qhintState()[id]?.by===thread.id; // she has already told you her side of it
-      const out=(SQ[id].chat?.(st,thread,profile)||[]).filter(t=>!(t.key==='op'&&saidO)); // so asking what she thinks would repeat it, or contradict it
+      const out=(SQ[id].chat?.(st,thread,profile)||[]).filter(t=>!(t.key==='op'&&saidO)&&!alreadySaid(thread,t.reply)); // so asking what she thinks would repeat it, or contradict it
       const o=sqOpenerTopic(id,st,thread,profile);
       if(o)out.unshift(o);
       return out;
@@ -4983,7 +5038,7 @@
     function callTell(id,st,thread,t){ // a quest topic, said on the phone: the same knowledge, said out loud
       st.asked.push(thread.id+':'+id+':'+t.key);coverChat(thread,id);
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
-      thread.callLog.push({who:'you',text:t.say||t.label.replace(/^Ask (her )?/,'').replace(/^./,c=>c.toUpperCase())+'?'},{who:'her',text:[].concat(reply).join(' ')});
+      thread.callLog.push({who:'you',text:t.say||SQ_SAY[t.label]||t.label.replace(/^Ask (her )?/,'').replace(/^./,c=>c.toUpperCase())+'?'},{who:'her',text:[].concat(reply).join(' ')});
       if(t.opens!==false)sqOpen(id,true);
       for(const f of t.gives||[])sqLearn(id,f);
       if(t.warm)warmBy(thread,t.warm);
@@ -5750,7 +5805,7 @@
         goth_girls:{label:'Ask where the circle meets',say:'Where does the circle meet?',reply:'The Old Mission. The new priest lends Victoria the keys and calls it outreach. He came to a rite once and stood at the back, smiling.',gives:['keys']},
         progressives:{label:'Ask what she thinks of the new priest',say:'What do you think of the new priest at St Brigid’s?',reply:'Father Julian? Guitars at Mass, no Latin, he says the vigil was medieval. I like him, honestly. The Sisters can’t stand him, but the Sisters can’t stand anything. Ask them, if you want the other side.'},
         police:{label:'Ask about the lights at the Old Mission',say:'Who goes up to the Old Mission at night?',reply:'Somebody has a key. We asked. Father Sorrell said it was outreach and we should mind our business. Funny thing for a priest to say to a cop.',gives:['keys']},
-        fourth_estate:{label:'Ask what’s on her beat this week',say:'What’s on your beat this week?',reply:'The Faith desk. St Brigid’s sold its bells, and the new priest golfs with Augustus Pell. If you ever go over his head, don’t go through Monsignor Ferrante. Get it in print first.',gives:['complaint','ferrante']}
+        fourth_estate:{label:'Ask what’s on her beat this week',say:'What’s on your beat this week?',reply:'The Faith desk. St Brigid’s sold its bells, and the new priest golfs with Augustus Pell. Somebody ought to go over his head.',gives:['complaint']} /* the Ferrante warning is the next question's answer */
       }
     };
     // The Sisters bless you once the priest is gone (marriage.js asks): any Sister marries you with a ring.
@@ -6340,12 +6395,17 @@
       mogger:{pre:['So.','Right.','Go on, then.','Quick one.'],
         post:['Obviously.','Keep up.','You’re welcome.','Easy.','Don’t overthink it.','I already know the answer, by the way.']}
     };
+    // A question takes a lead-in (So. Quick one.) and never a tag after it (What do you write about? You're welcome.);
+    // a statement takes either, from the lead-ins that suit a statement (Chris, 5 November 2026: the sense check).
+    const VOICE_STATEMENT_PRE={truecel:['Sorry.','Um.','Not to be weird.'],mogger:['Right.','So.']};
     function myVoice(text,key){
       const v=VOICE[tone()];
       if(!v||typeof text!=='string'||!text)return text;
       const h=hashSeed(world.seed+'|voice|'+key+'|'+text);
       if(h%3===0)return text;
-      return h%2===0?`${v.pre[(h>>>3)%v.pre.length]} ${text}`:`${text} ${v.post[(h>>>5)%v.post.length]}`;
+      if(/\?\s*$/.test(text))return `${v.pre[(h>>>3)%v.pre.length]} ${text}`;
+      const pre=VOICE_STATEMENT_PRE[tone()]||v.pre;
+      return h%2===0?`${pre[(h>>>3)%pre.length]} ${text}`:`${text} ${v.post[(h>>>5)%v.post.length]}`;
     }
     // ===== Flirting (characters/flirt.json; Chris, 2 November 2026) =====
     // Heat: how charged it is between you (0 to 3), apart from how much she likes you. She messages
