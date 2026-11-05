@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="4a422ef6cd">
+<html lang="en" data-build="9d99b16768">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -128,6 +128,12 @@
     .stage.day-passing .stage-bg { filter: brightness(.72); transition: filter .55s steps(5,end); }
     .day-caption { display: none; position: absolute; z-index: 10; top: 3%; left: 24%; right: 24%; padding: 10px 5px; border: 1px solid #c39a61; border-radius: 4px; color: #fff0d3; background: #090e1ce8; text-align: center; font: bold 13px/1.3 ui-monospace,Consolas,monospace; letter-spacing: .13em; text-transform: uppercase; pointer-events: none; }
     .day-caption.visible { display: block; animation: dayCaptionIn .6s steps(5,end) both; }
+    /* The pop-up frames (requests): a 16-bit dialog box in three sizes, stretched by its border so the corners stay crisp.
+       Each applies only once its picture has loaded (html.pop-s / pop-m / pop-l), so nothing is ever drawn without a background. */
+    html.pop-s .pop-s, html.pop-m .pop-m, html.pop-l .pop-l { border-style: solid; border-color: transparent; border-radius: 0; background: none; box-shadow: 0 6px 14px #0009; image-rendering: pixelated; }
+    html.pop-s .pop-s { border-width: 10px 14px; border-image: var(--pop-s) 40 fill / 10px 14px stretch; }
+    html.pop-m .pop-m { border-width: 14px 16px; border-image: var(--pop-m) 48 fill / 14px 16px stretch; }
+    html.pop-l .pop-l { border-width: 16px 18px; border-image: var(--pop-l) 56 fill / 16px 18px stretch; }
     @keyframes dayCaptionIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
     .bear-shadow { display: none; position: absolute; z-index: 4; width: 32%; height: 38%; top: 24%; left: 34%; object-fit: contain; object-position: center bottom; image-rendering: pixelated; pointer-events: none; filter: drop-shadow(0 1px 8px #060916); }
     .bear-shadow.visible { display: block; animation: lurkingBear 1750ms steps(4,end) infinite alternate; }
@@ -748,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=4a422ef6cd"></script>
+  <script src="chapel_at_midnight.js?v=9d99b16768"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=4a422ef6cd"></script>
+  <script src="marriage.js?v=9d99b16768"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=4a422ef6cd"></script>
+  <script src="quests/professor-vale.js?v=9d99b16768"></script>
 </head>
 <body>
   <main class="workbench">
@@ -884,7 +890,7 @@
               <div class="screen-shade" id="shade"></div>
               <div class="status"><span>●●● 4G</span><button class="status-day" id="day-button" aria-label="Go to bed"><span id="status-day">Day 1</span><i aria-hidden="true">›</i></button><span class="status-cash" id="status-cash" hidden></span><div class="battery" aria-label="Decorative phone battery"><div class="battery-fill" id="battery-fill"></div></div></div>
               <div class="tut-ask" id="tut-ask" role="dialog" aria-label="Play the tutorial?" hidden><h2>Do you want to play the tutorial?</h2><button class="tut-ask-yes" id="tut-ask-yes">Yes</button><button class="tut-ask-no" id="tut-ask-no">No</button><small>It is always in iTunes, under How to play.</small></div>
-              <div class="day-dialog" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
+              <div class="day-dialog pop-l" id="day-dialog" role="dialog" aria-label="Go to bed" hidden><p>Go to bed?</p><div><button id="day-yes">Go to bed</button><button id="day-no">Not yet</button></div></div>
               <div id="home">
                 <div class="screen-header"><strong>MATCHFALL</strong></div>
                 <div class="app-grid">
@@ -926,7 +932,7 @@
           <div class="fatal-overlay" id="fatal-overlay"><canvas class="death-pixels" id="death-title" width="340" height="138" role="img" aria-label="YOU WERE KILLED BY A BEAR"></canvas><p>Something came through the open door in the night.</p><details class="run-recap" id="run-recap"></details><div class="death-actions"><button id="new-game">New game</button></div></div>
           <div class="tutorial" id="tutorial" role="dialog" aria-label="How to play" hidden><button class="tut-close" id="tut-close" aria-label="Close the tutorial">✕</button><div class="tut-page" id="tut-page"></div><div class="tut-nav"><button id="tut-prev" aria-label="Previous page">‹</button><span class="tut-dots" id="tut-dots"></span><button id="tut-next" aria-label="Next page">›</button></div></div>
           <div class="difficulty-pick" id="difficulty-pick" role="dialog" aria-label="Choose your class for the new game"><div class="pick-wrap"><p class="pick-head">Choose your class</p><div class="pick-cards" id="pick-cards"><button data-pick-difficulty="normie"><img src="assets/difficulty/normie.png" alt=""><b>Normie</b></button><button data-pick-difficulty="mogger"><img src="assets/difficulty/mogger.png" alt=""><b>Mogger</b></button><button data-pick-difficulty="truecel"><img src="assets/difficulty/truecel.png" alt=""><b>Truecel</b></button></div><p class="pick-foot" id="pick-foot"></p></div></div><!-- New game: the class ladder; renderPicker() redraws it with what you have unlocked -->
-          <div class="ach-toast" id="ach-toast" aria-live="polite"></div><!-- Achievements: a banner when you earn one -->
+          <div class="ach-toast pop-s" id="ach-toast" aria-live="polite"></div><!-- Achievements: a banner when you earn one -->
           <div class="marriage-show" id="marriage-show"></div><div class="marriage-win" id="marriage-win"></div><!-- Marriage: wedding slideshow and the victory screen -->
         </div>
       </div>
@@ -2549,7 +2555,7 @@
         const index=hingeGalleryIndex[profile.id]||0;
         body=`<div class="hinge-profile-detail"><button class="profile-back" data-profile-back>‹ Back to conversation</button><img class="portrait" src="${profile.gallery[index]}" alt="${esc(profile.name)} profile photograph"><strong class="profile-identity">${esc(profile.name)}, ${profile.age}</strong><div class="gallery-controls"><button data-profile-prev>‹ Previous</button><span>${index+1} of ${profile.gallery.length}</span><button data-profile-next>Next ›</button></div><small>${esc(hingeJobs[profile.id]||profile.canonicalOccupation)}</small></div>`;
       }
-      const toast=hingeToast&&hingeView==='discover'?`<div class="hinge-toast" role="status">♥ ${esc(hingeToast)}</div>`:''; // only where you swipe
+      const toast=hingeToast&&hingeView==='discover'?`<div class="hinge-toast pop-s" role="status">♥ ${esc(hingeToast)}</div>`:''; // only where you swipe
       const fresh=[...hingeThreads.values()].filter(thread=>chatListed(thread)&&talkState(thread).unread).length;
       $('opened').innerHTML=`<div class="hinge-shell"><div class="hinge-head">Hinge<small>${hingeSwipesToday}/10 today</small></div>${body}<div class="hinge-tabs"><button data-hinge-tab="discover" class="${hingeView==='discover'?'active':''}">♡ Discover</button><button data-hinge-tab="chats" class="${hingeView!=='discover'?'active':''}">▤ Chats (${[...hingeThreads.values()].filter(chatListed).length}${fresh?` · ${fresh} new`:''})</button></div></div>${toast}`;
       hydrateInlineImages($('opened'));
@@ -12254,11 +12260,19 @@
     // Short notices in the room. They queue so one never hides another, and sit
     // at the bottom of the screen while a call bubble covers the top.
     var noticeQueue=[];
+    // The pop-up frames: load each, and only switch to it once it exists.
+    var POPUP_ART={s:'assets/ui/popup-small.png',m:'assets/ui/popup-medium.png',l:'assets/ui/popup-large.png'};
+    function loadPopupArt(){
+      if(typeof Image!=='function'||typeof document==='undefined'||!document.documentElement?.style)return;
+      for(const [k,src] of Object.entries(POPUP_ART)){const img=new Image();img.onload=()=>{document.documentElement.style.setProperty('--pop-'+k,`url("${assetUrl(src)}")`);document.documentElement.classList.add('pop-'+k);};img.src=assetUrl(src);}
+    }
+    const popSize=text=>String(text||'').length<70?'s':String(text||'').length<170?'m':'l'; // a line, a few lines, a paragraph
+    function sizePopup(el,text){if(!el?.classList)return;el.classList.remove('pop-s','pop-m','pop-l');el.classList.add('pop-'+popSize(text));}
     function showGameNotice(text){
       if(dayTransitionInFlight||['warning','attack'].includes(bearState))return;
       const caption=$('day-caption');
       if(noticeTimer!==null){if(caption.textContent!==text&&!noticeQueue.includes(text))noticeQueue.push(text);return;}
-      caption.textContent=text;
+      caption.textContent=text;sizePopup(caption,text); // the frame that fits
       caption.classList.toggle('low',$('call-bubble').classList.contains('visible'));
       caption.classList.add('visible');
       noticeTimer=window.setTimeout(()=>{
@@ -13879,6 +13893,7 @@
     hydrateInlineImages();
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
+    loadPopupArt(); // the pop-up frames, once drawn
     tutorialAskMaybe(); // the first time: play the tutorial?
     randomiseRoomLook();
     fit();
