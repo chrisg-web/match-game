@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 232,
-  "imageCount": 1613,
-  "publicImageCount": 939,
-  "privateImageCount": 674,
+  "characterCount": 234,
+  "imageCount": 1629,
+  "publicImageCount": 949,
+  "privateImageCount": 680,
   "characters": [
     {
       "id": "MATCH-001",
@@ -4077,6 +4077,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-128",
+      "slug": "simone_ashby",
+      "name": "Simone Ashby",
+      "age": 32,
+      "factionId": "police",
+      "canonicalOccupation": "Police dispatcher",
+      "gallery": [
+        "assets/hinge/roster_expansion/simone_ashby_01.webp",
+        "assets/hinge/roster_expansion/simone_ashby_02.webp",
+        "assets/hinge/roster_expansion/simone_ashby_03.webp",
+        "assets/hinge/roster_expansion/simone_ashby_04.webp",
+        "assets/hinge/roster_expansion/simone_ashby_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/simone_ashby_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Simone Ashby, consistent Sun-kissed fair skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/simone_ashby_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Simone Ashby, consistent Sun-kissed fair skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/simone_ashby_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Simone Ashby, consistent Sun-kissed fair skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing police dispatcher and collecting odd roadside souvenirs.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-129",
       "slug": "adriana_ponce",
       "name": "Adriana Ponce",
@@ -6981,6 +7019,44 @@
       ],
       "personality": "calm in a crisis and terrible at small talk",
       "personalGoal": "Make a life for herself in Sunfall while balancing music venue manager and playing pool with her neighbors.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-212",
+      "slug": "ezraine_quinn",
+      "name": "Ezraine Quinn",
+      "age": 33,
+      "factionId": "goth_girls",
+      "canonicalOccupation": "Gothic jewelry maker",
+      "gallery": [
+        "assets/hinge/roster_expansion/ezraine_quinn_01.webp",
+        "assets/hinge/roster_expansion/ezraine_quinn_02.webp",
+        "assets/hinge/roster_expansion/ezraine_quinn_03.webp",
+        "assets/hinge/roster_expansion/ezraine_quinn_04.webp",
+        "assets/hinge/roster_expansion/ezraine_quinn_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/ezraine_quinn_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Ezraine Quinn, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, a sleek low bun, rosy cheeks, velvet choker and black slip dress",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ezraine_quinn_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Ezraine Quinn, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, a sleek low bun, rosy cheeks, velvet choker and black slip dress",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/ezraine_quinn_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Ezraine Quinn, consistent A voluptuous hourglass figure with an enormous bust, rosy fair skin, a sleek low bun, rosy cheeks, velvet choker and black slip dress",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "skeptical but kind",
+      "personalGoal": "Make a life for herself in Sunfall while balancing gothic jewelry maker and fixing up a used bicycle.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {

@@ -15321,7 +15321,86 @@
       "look": "Sun-kissed fair skin, chestnut curly bob, gold hoop earrings, maroon fleece and jeans",
       "status": "awaiting portrait",
       "type": "organised-brave",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_nights",
+            "label": "Ask about the night shift",
+            "player": "What’s night dispatch like?",
+            "reply": "Quiet, then not. Lost dogs, loud parties, and the odd call nobody wants written down. I write everything down anyway."
+          },
+          {
+            "id": "b_souvenirs",
+            "label": "Ask about the souvenirs on her shelf",
+            "player": "What’s on that shelf in your photo?",
+            "reply": "Roadside junk from the drives home. A snow globe with a gas station in it, a plastic alien from a diner, a spoon from a town of nine. All priceless.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_singing",
+            "label": "Ask if she ever did anything else",
+            "player": "Have you always worked dispatch?",
+            "reply": "I sang, for two years, in the city. Then my dad had a stroke and the night line was the only job that let me sit with him in the afternoons. He’s better. I stayed.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_alien",
+            "label": "Ask what she kept from the payphone calls",
+            "player": "You said you kept the times of those payphone calls somewhere. Where?",
+            "reply": "In the plastic alien on my shelf. The base is hollow. Three times, three nights, two years apart and then closer. I looked them up against the paper. Each one was the night before a man died out at the junction. They told me to log them as pranks. I don’t think a man rings dispatch from a payphone for a joke.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Ten years on the night line today. Nobody noticed, which is the job done right.",
+            "more": "Night dispatch is the phones when everyone else is asleep. Lost dogs, loud parties, the odd thing nobody wants to write down. Bravery at night is what you log. That’s all it is. I celebrated with a coffee at the Lucky Cactus at sunrise. Nixie was there. She bought it."
+          },
+          {
+            "feel": "good",
+            "news": "Found a spoon on the drive home from a town with a population of nine. Best souvenir yet.",
+            "more": "I collect odd roadside things on the long drives home. A snow globe with a gas station inside, a plastic alien from a diner, and now a spoon from a town of nine people. Nixie Adler collects the same junk. We compare at sunrise like it’s a stamp club."
+          },
+          {
+            "feel": "odd",
+            "news": "A line I logged last night is gone from the system this morning. Someone with a sergeant’s login took it out.",
+            "more": "A man rang his wife from the station basement, through my board, and said he had to sign something for the sergeant and would be late. I logged it. This morning it’s not there. I write everything down on paper as well, though. Old habit. It isn’t gone from me."
+          },
+          {
+            "feel": "bad",
+            "news": "The payphone at the weigh station rang again on my shift and cut off. Logged as a prank. Third one in two years.",
+            "more": "A man’s voice, a few words, then nothing. The duty sergeant says log it as a prank, so I log it as a prank. Three times now, in two years. I keep the times somewhere nobody would look. I don’t think they were pranks."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-197",
+            "warmth": 1,
+            "says": "Nixie Adler and I have coffee at the Lucky Cactus at sunrise when my shift ends and her venue closes. We have never once talked about work.",
+            "note": "Simone Ashby has coffee with Nixie Adler at the Lucky Cactus at sunrise.",
+            "ask": "Simone says you two have coffee at sunrise and never talk about work.",
+            "answer": "We talk about souvenirs and diners and who’s been rude to us. It’s the best part of my week. Tell her the alien she found is a fake, and that I’m jealous.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-117",
+            "warmth": 2,
+            "says": "Amber Colebrook takes the paper log home in a dress bag. Every night. Nobody asks why.",
+            "note": "Simone Ashby says Amber Colebrook takes the paper dispatch log home every night.",
+            "ask": "Simone says you take the paper log home in a dress bag.",
+            "answer": "Somebody has to keep the real one. The system forgets things. Paper doesn’t. Simone writes everything down too. We’ve never discussed it. We don’t need to.",
+            "mood": -1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-129",
@@ -23556,7 +23635,86 @@
       "look": "Rosy fair skin, a sleek low bun, rosy cheeks, velvet choker and black slip dress",
       "status": "awaiting portrait",
       "type": "wild-heart",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_pieces",
+            "label": "Ask about her jewelry",
+            "player": "What do you make at the bench?",
+            "reply": "Big, angry, beautiful pieces. Iron collars, cuffs like armor. The Old Quarter’s bands wear them on stage. That’s the brief. That’s me."
+          },
+          {
+            "id": "b_bike",
+            "label": "Ask why she won’t drive",
+            "player": "Why the bicycle? Don’t you drive?",
+            "reply": "Not in this town. Not with what cars are here. I’m rebuilding a bike from a skip instead. It mostly goes forward.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_sister",
+            "label": "Ask about her family",
+            "player": "Do you have family here?",
+            "reply": "A sister I haven’t spoken to in eight years, and a mother in a village outside Naples. I left home at seventeen. Everyone thinks I chose the easy thing. They’re wrong.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_cassette",
+            "label": "Ask about her mother’s cassette",
+            "player": "What’s on your mother’s cassette?",
+            "reply": "Half of it is the flood. The other half is her, singing a hymn in Italian in a kitchen I’ve never seen. It sounds old, older than her, like something from a church that isn’t there any more. Some nights I play it and I think I know the tune from somewhere in this town. Then it’s gone again.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "A band wore my biggest piece on stage tonight. The singer swung it like a weapon. I nearly cried at the back of the Vestry.",
+            "more": "I make big, angry, beautiful things at the Canal Bench, and the bands wear them. Tonight the singer from Raven’s band had my iron collar on and the light caught it on the last song. That’s the whole brief. That’s me."
+          },
+          {
+            "feel": "good",
+            "news": "Got the back wheel on the bicycle I’m rebuilding from a skip. It goes round. It goes round!",
+            "more": "I won’t have a car. Not in this town, not with what cars are here. So I pulled a bicycle out of a skip and I’m rebuilding it on my living room floor. Yvette Palmer comes round with a spanner and tells me what I’m doing wrong. Tonight the wheel went round and we both cheered."
+          },
+          {
+            "feel": "odd",
+            "news": "Someone keeps trying to tell me my mother is ill. Through other people. I think it’s my sister playing games.",
+            "more": "My sister and I haven’t spoken in eight years. Our mother went back to her village outside Naples after our father died. Now strangers keep passing me messages that she’s ill. It’s exactly the kind of trick my sister would pull. It’s also exactly the kind of thing that’s true."
+          },
+          {
+            "feel": "bad",
+            "news": "Played my mother’s old cassette again. Half of it went in the flood years ago. The half that’s left is her singing.",
+            "more": "She sent me one cassette, once, of herself singing. It was in my bag when the dry river flooded. Now it’s half hiss and half her voice, a hymn in Italian I don’t know. It’s the only thing of hers I have. I keep thinking someone could clean it up. I keep not asking."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-112",
+            "warmth": 1,
+            "says": "Yvette Palmer helps me rebuild my bicycle. She’s police. Don’t tell the bench.",
+            "note": "Ezraine Quinn says Yvette Palmer helps her rebuild a bicycle.",
+            "ask": "Ezraine says you help her rebuild her bicycle.",
+            "answer": "Somebody has to. She’s been putting the chain on backwards for a month and calling it art. It nearly rides now. Tell her the brakes are next and I mean it.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-166",
+            "warmth": 2,
+            "says": "Delia Maher could probably clean up my mother’s cassette. I haven’t asked her. I don’t know why.",
+            "note": "Ezraine Quinn thinks Delia Maher could clean up her mother’s flood-damaged cassette.",
+            "ask": "Ezraine thinks you could clean up her mother’s cassette.",
+            "answer": "Half of it gone in a flood? I can get more back than she thinks. Tell her to bring it in. Tell her I won’t ask her anything about it.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-213",
@@ -35279,6 +35437,11 @@
           "caption": "Velvet coat, nose stud, a doctorate nobody asks about.",
           "melt": "I question everything. I stopped questioning this. Don’t make me regret it."
         },
+        "MATCH-212": {
+          "muse": "Finished a collar tonight that’s too heavy for anyone sensible to wear. I thought of you. Make of that what you like.",
+          "caption": "Velvet choker, slip dress, a bike chain I’ve given up on.",
+          "melt": "I fight everyone. I haven’t fought you once. That has never happened."
+        },
         "MATCH-005": {
           "muse": "Pancake is asleep on my feet and I’m diagnosing myself. Verdict: touch-starved, with a side of very bad ideas about you.",
           "caption": "Pancake took this. He’s a terrible photographer and a worse wingman. Diagnose me.",
@@ -35779,6 +35942,11 @@
           "muse": "Fresh flowers on the table, an Italian recipe I’m about to ruin, and a free evening. Two of those are better with company.",
           "caption": "White shirt, black pants. My uniform for looking calm.",
           "melt": "I arrange everything. I didn’t arrange this. I like it anyway."
+        },
+        "MATCH-128": {
+          "muse": "Shift’s over, the sun’s coming up, and I’m sitting in a diner thinking about you instead of my eggs.",
+          "caption": "Maroon fleece, gold hoops, ten years of night shift in my face.",
+          "melt": "I log everything. I’m not logging this one. This one’s just for me."
         },
         "MATCH-008": {
           "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
@@ -41259,6 +41427,14 @@
     "events/dad-02.png",
     "events/dad-03.png",
     "events/dad-04.png",
+    "events/dad-05.png",
+    "events/dad-06.png",
+    "events/dad-07.png",
+    "events/dad-08.png",
+    "events/dad-09.png",
+    "events/dad-10.png",
+    "events/dad-11.png",
+    "events/dad-12.png",
     "events/goth-afternoon-charge.webp",
     "events/goth-afternoon-lunge.webp",
     "events/goth-afternoon-threshold.webp",
