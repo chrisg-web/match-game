@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="55135828c8">
+<html lang="en" data-build="106c3f69df">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=55135828c8"></script>
+  <script src="chapel_at_midnight.js?v=106c3f69df"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=55135828c8"></script>
+  <script src="marriage.js?v=106c3f69df"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=55135828c8"></script>
+  <script src="quests/professor-vale.js?v=106c3f69df"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -5184,6 +5184,17 @@
       if(!st.v.rota){st.v.rota=tapesTrad(st).filter(x=>!hingeThreads.get(x)?.blocked).sort((a,b)=>sqSeed('tapes','rota'+a)-sqSeed('tapes','rota'+b)).slice(0,3);for(const id of st.v.rota)sqReferral(id);}
       return st.v.rota;
     }
+    // Lyle Dunmore's letters come under your door: they belong in the cupboard like anything else delivered.
+    function sqItems(){
+      const out=[],p=world?.sq?.penpal;
+      if(!p||!p.v||!(p.v.letters>=1))return out;
+      const exec=(p.start||1)+9;
+      out.push({id:'sq:penpal:letter1',door:true,floor:'letter',label:'Letter from Lyle Dunmore',short:'Letter',image:'assets/items/lyle-letter.png',
+        text:`From death row, in careful pencil. Lyle Dunmore was convicted of the Saguaro Street fire eleven years ago; two people died. He says he was at a bar that night, and nobody asked. His execution is on Day ${exec}.`});
+      if(p.v.letters>=2)out.push({id:'sq:penpal:letter2',door:true,floor:'letter',label:'Second letter from Lyle Dunmore',short:'Letter',image:'assets/items/lyle-letter.png',
+        text:'His second letter. He asks if you have found anyone who will listen. The progressives at the university, he says, have always been on his side.'});
+      return out;
+    }
     function tapesItems(){
       const st=world?.sq?.tapes,out=[];
       if(!st||st.v.dictaphone===null||world.day<=st.v.dictaphone)return out;
@@ -5552,7 +5563,7 @@
         onOpen(st){if(st.v.letters===0){st.v.letters=1;sqLearn('penpal','letter');}},
         tick(st,day){
           if(day===st.start+1&&st.stage==='none'){sqOpen('penpal');}
-          if(day===st.start+4&&!sqHas(st,'clinic'))showGameNotice('Another letter from Lyle Dunmore. He asks if you have found anyone who will listen. The progressives at the university, he says, have always been on his side.');
+          if(day===st.start+4&&!sqHas(st,'clinic')){st.v.letters=Math.max(2,st.v.letters||0);showGameNotice('Another letter from Lyle Dunmore. He asks if you have found anyone who will listen. The progressives at the university, he says, have always been on his side.');}
           if(!st.outcome&&day>=this.exec(st))sqEnd('penpal','lost');
         },
         help(st){
@@ -9812,6 +9823,8 @@
       if(!Array.isArray(t.flags))t.flags=[];
       if(!t.st||typeof t.st!=='object'||Array.isArray(t.st))t.st={};
       if(!Array.isArray(t.due))t.due=[];
+      if(!Array.isArray(t.items))t.items=[];
+      t.items=t.items.filter(i=>i&&typeof i==='object'&&typeof i.id==='string'&&typeof i.label==='string').slice(0,40);
       return t;
     }
     function taleSt(id){
@@ -9909,6 +9922,11 @@
       for(const f of e.set||[]){const k=f.includes(':')?f:id+':'+f;if(!t.flags.includes(k))t.flags.push(k);}
       if(e.note)recordClue(e.note);
       if(e.notice)showGameNotice(e.notice);
+      if(e.item&&!t.items.some(i=>i.id===e.item.id)){ // something you now have: in the cupboard, or by your door if it was sent
+        t.items.push({id:String(e.item.id),label:String(e.item.label),short:String(e.item.short||e.item.label),text:String(e.item.text||''),image:e.item.image||null,door:!!e.item.door,floor:e.item.floor||'parcel'});
+        if(!e.item.door)updateCupboardHint();
+      }
+      for(const gone of e.drop||[])t.items=t.items.filter(i=>i.id!==gone); // handed on, posted, burned
       if(e.refer&&!hingeThreads.has(e.refer))sqReferral(e.refer); // she turns up in your swipes, and likes you
       (e.fates||[]).forEach((f,i)=>taleFate(id,f,`${id}|${key}|${i}`));
       if(e.ending)taleEnding(id,e.ending);
@@ -10244,12 +10262,22 @@
       const callThread=hingeThreads.get(id);
       if(callThread&&!sister){const ts=talkState(callThread);ts.bonus=Math.min(3,(ts.bonus||0)+1);callThread.quiet=false;} /* she rang you: worth another conversation */
       if(wasSpurned==='plead'&&spurnKit()){herCall.said=freshPick(callThread,'spurnRelief',spurnKit().relief,id+world.day);if(callThread&&warmthOf(callThread)<2)warmBy(callThread,2-warmthOf(callThread));} // she had been begging you to pick up
-      else if(!sister&&(herCall.said=callVolunteer(callThread,profile)||''))herCall.kind='flirt'; // she likes you: something she wouldn't type
-      else if(!sister&&(herCall.said=callSubstance(callThread,profile)||''))herCall.kind='flirt'; // her story, or a rumour about your case
+      else if(!sister&&(herCall.said=callVolunteer(callThread,profile)||'')){herCall.kind='flirt';herCall.confided=true;} // she likes you: something she wouldn't type
+      else if(!sister&&(herCall.said=callSubstance(callThread,profile)||''))herCall.kind='flirt'; // her story, or a rumour about your case (gossip, not a confidence)
       else herCall.said=sister?freshPick(callThread,'callOpen',kit.sister.open,id+world.day):voiced(freshPick(callThread,'callOpen',[...(kit.open[profile.factionId]||kit.open.normie_girls),...(talkKit().morning?.[moodOf(profile)]||[])],id+world.day),profile,'call'+world.day);
       hingeThreads.get(id)?.callLog.push({who:'her',text:herCall.said});
       renderCalls();
     }
+    // When she rings to confide something, flirting is not the first thing to say. Answer what she told you;
+    // then, if you like, flirt, with a button that says what you will say (Chris, 5 November 2026).
+    var CONFIDE={
+      thanks:{label:'Thank her for telling you',player:'Thank you for telling me. Really.',
+        reply:['Thank you for listening. I didn’t know who else to tell.','It helps, saying it out loud. Thank you.','Okay. Somebody knows now. That’s something.','You’re the first person I’ve told. Don’t make me regret it. You won’t, will you?']},
+      next:{label:'Ask what she’s going to do about it',player:'What are you going to do about it?',
+        reply:['Nothing yet. I needed somebody to know first.','I don’t know. Keep my head down and my eyes open, probably.','Write it all down, mostly. Then decide if I’m brave.','I was hoping you’d have an idea. No pressure.']}
+    };
+    var FLIRT_CALL_LABELS=['Tell her you were hoping it was her','Tell her she has a good phone voice','Say you were just thinking about her']; // the same order as the lines you say
+    const flirtPickOf=call=>hashSeed(String(call.id)+'|flirtcall|'+world.day)%FLIRT_CALL_LABELS.length;
     function herCallChoices(){
       const kit=talkKit().calls,call=herCall;
       if(call.step==='bye')return [{id:'hangup',label:'☎ Hang up'}];
@@ -10267,7 +10295,8 @@
       }
       const out=[];
       if(call.qh&&!call.qhDone)out.push({id:'qh:open',label:QHINT[call.qh].open}); // what's going on in town
-      if(!call.flirted)out.push({id:'flirt',label:kit.options.flirt.label});
+      if(call.confided&&!call.reacted)out.push({id:'react:thanks',label:CONFIDE.thanks.label},{id:'react:next',label:CONFIDE.next.label}); // she told you something: answer that first
+      if(!call.flirted&&(!call.confided||call.reacted))out.push({id:'flirt',label:FLIRT_CALL_LABELS[flirtPickOf(call)]}); // what you'll actually say
       if(!call.asked)out.push({id:'ask',label:kit.options.ask.label});
       if((call.mine||0)<2)for(const item of callTopicsFor(hingeThreads.get(call.id),hingeProfile(call.id)).slice(0,1))out.push({id:'mine:'+item.id,label:item.label}); // her own call topics
       out.push({id:'go',label:kit.options.go.label});
@@ -10291,6 +10320,7 @@
       const faction=profile.factionId;
       const say=text=>{call.said=text;thread.callLog.push({who:'her',text});};
       const you=text=>thread.callLog.push({who:'you',text});
+      if(call.confided&&!choice.startsWith('react:'))call.reacted=true; // you moved on from what she told you
       if(choice.startsWith('tapes-')){tapesCallChoose(choice,thread,profile);call.said=thread.callLog.filter(l=>l.who==='her').at(-1)?.text||call.said;renderCalls();return;} // the Sisters on tape
       if(call.kind==='lavinia'){
         const l=laviniaState();
@@ -10374,9 +10404,15 @@
           call.step='bye';
           say(`${score>0?seededPick([].concat(answer.pos),call.id):score<0?seededPick([].concat(answer.neg),call.id):seededPick(talkKit().neutral,call.id)} ${seededPick(kit.sister.bye,call.id+world.day)}`);
         }
+      }else if(choice==='react:thanks'||choice==='react:next'){
+        const r=CONFIDE[choice.slice(6)];
+        call.reacted=true;
+        you(r.player);
+        if(choice==='react:thanks')warmBy(thread,1);
+        say(freshPick(thread,'confide'+choice.slice(6),r.reply,call.id+world.day));
       }else if(choice==='flirt'){
         call.flirted=true;
-        you(seededPick(kit.options.flirt.player,call.id+world.day));
+        you((kit.options.flirt.player||[])[flirtPickOf(call)]||seededPick(kit.options.flirt.player,call.id+world.day));
         if(tone()!=='truecel'||warmthOf(thread)>=4)warmBy(thread,1);
         say(freshPick(thread,'flirtBack',[...(kit.flirtBack[faction]||kit.flirtBack.normie_girls),...(personalityOf(profile)?.reactions?.warm||[])],call.id+world.day));
       }else if(choice==='ask'){
@@ -13198,6 +13234,8 @@
       items.push(...finaleItems()); // the Founders' Ball: the invitation
       items.push(...halItems()); // Undeniable: his parcel, the library book, the shoebox
       items.push(...tapesItems()); // the Sisters on tape: the dictaphone, the cassettes
+      items.push(...talesState().items.map(i=>({id:'tale:'+i.id,door:i.door,floor:i.floor,label:i.label,short:i.short,image:i.image,text:i.text}))); // her story: what she gave you or you found
+      items.push(...sqItems()); // the story quests: Lyle Dunmore's letters
       for(const item of arcsState().items)items.push({id:item.id,door:true,floor:/card|postcard|letter|note|photo|ticket/i.test(item.label)?'letter':'parcel',label:item.label,short:item.label.split(' ').slice(-1)[0],image:null,text:item.text}); // keepsakes from her story
       return items;
     }

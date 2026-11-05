@@ -14876,7 +14876,86 @@
       "look": "Rosy fair skin, strawberry-blonde braid crown, long lashes and a sleepy gaze, olive field jacket",
       "status": "awaiting portrait",
       "type": "girl-sleuth",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_job",
+            "label": "Ask what being a detective constable is like",
+            "player": "What’s it like being a detective constable?",
+            "reply": "Four months in. I drive the pool car too fast, I write everything down twice, and I ask one more question than anybody wants. That last part is the job."
+          },
+          {
+            "id": "b_drums",
+            "label": "Ask about the drums",
+            "player": "I hear you play the drums.",
+            "reply": "In a lock-up on the railway side. I can’t be loud anywhere else, so I’m loud there. The neighbors have stopped complaining. I think they’ve given up.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_hinge",
+            "label": "Ask why she’s on Hinge",
+            "player": "Why are you on Hinge?",
+            "reply": "Honestly? Practice. I ask everyone the same four questions and watch who lies. You’re doing well, by the way. Mostly.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_sergeant",
+            "label": "Ask about her sergeant",
+            "player": "Who got you onto the force?",
+            "reply": "Sergeant Lowry. He saw me in the station waiting room years ago, there to collect my dad, and he said he saw something in me. He got me every step after that. Lately he keeps asking when I’ll close my first case, and I keep finding reasons not to. I don’t know why that makes my neck go cold.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Filed my first report with no corrections. The sergeant signed it without reading it. I’m choosing to take that as a compliment.",
+            "more": "Eleven pages on a stolen pool car that turned out to be parked at the wrong station. I wrote everything down twice, like they taught us. I checked the spelling of every street. The sergeant took it, signed the last page, and handed it back without turning a single one. Either he trusts me or he doesn’t care. I’ve decided it’s trust."
+          },
+          {
+            "feel": "odd",
+            "news": "My first real case file had been signed out twice before it reached my desk. Nobody will tell me by whom.",
+            "more": "A missing-persons file. Old, thin, and supposed to be simple. The records stubs show it went out twice before me, under two different case numbers, and came back both times with nothing added. I asked records. Records looked at me like I’d asked for their bank details. I’ve been told to close it in a week. I’ve taken three."
+          },
+          {
+            "feel": "bad",
+            "news": "Paid my dad’s tab at the Lucky Cactus again before he got there. The barman’s stopped asking why.",
+            "more": "My dad works the track on the railway side, and since my mom died he drinks at the Lucky Cactus most nights. I go in before him and settle the tab so it never gets big enough to be a problem. The barman used to raise an eyebrow. Now he just nods. My dad thinks he has a very generous friend. In a way, he does."
+          },
+          {
+            "feel": "good",
+            "news": "Drove the pool car back from the ridge under the speed limit the whole way. Nobody at the station believes me.",
+            "more": "I have a reputation. It’s earned. But today there was a family in the back seat, a grandmother and her grandson’s dog, and I drove like a hearse. Sergeant Graves was at the window when I parked. She looked at the clock, looked at me, and said nothing. From her, that’s a medal."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-002",
+            "warmth": 1,
+            "says": "Eleanor Graves is the best detective in Sunfall. I would rather be arrested than tell her that.",
+            "note": "Bridget Keogh says Eleanor Graves is the best detective in Sunfall, and would never tell her so.",
+            "ask": "Bridget Keogh says you’re the best detective in Sunfall. She’d rather be arrested than tell you.",
+            "answer": "She doesn’t have to tell me. She copies how I hold a pen. She’s quick, and she’s more honest than that station deserves, which worries me. I’m keeping an eye on who keeps an eye on her.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-108",
+            "warmth": 2,
+            "says": "Naoko Watanabe sits with the families of the missing. Lately she sits with me too, after my shift, and doesn’t ask anything. I like that more than I can say.",
+            "note": "Bridget Keogh says Naoko Watanabe has started sitting with her after her shifts.",
+            "ask": "Bridget says you’ve started sitting with her after her shifts.",
+            "answer": "She doesn’t talk. She taps her fingers on the table, the same four bars, over and over, like she’s drumming. I’ve started to like the song. She looks like somebody waiting for bad news she hasn’t been given yet.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-124",
@@ -34941,6 +35020,11 @@
           "caption": "Bedsheet cinema. Front row. Come sit.",
           "melt": "That gave me the kind of feeling the sheet gets when the wind catches it. All rippled. Again."
         },
+        "MATCH-123": {
+          "muse": "Finished my shift, drummed for an hour, and I’m still buzzing. Tell me something that isn’t a case.",
+          "caption": "Off duty. The jacket stays on.",
+          "melt": "Okay. I had four questions ready for you and I’ve forgotten every one. That has never happened."
+        },
         "MATCH-008": {
           "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
           "caption": "Seized the means of production. Produced this.",
@@ -40491,7 +40575,14 @@
               "warm": 1,
               "set": [
                 "film"
-              ]
+              ],
+              "item": {
+                "id": "film",
+                "label": "Film canister",
+                "short": "Canister",
+                "image": "assets/items/film-canister.png",
+                "text": "A black film canister from behind your radiator, Celina Rojas’s. It was warm when you found it. She says keep it dark: it is in a sock."
+              }
             },
             {
               "id": "leave",
@@ -40571,7 +40662,10 @@
                 "genevieve"
               ],
               "note": "Celina Rojas says Genevieve Locke develops film privately, in a darkroom under her house in the gallery district.",
-              "refer": "MATCH-085"
+              "refer": "MATCH-085",
+              "drop": [
+                "film"
+              ]
             },
             {
               "id": "self",
@@ -40584,6 +40678,9 @@
               "warm": 1,
               "set": [
                 "self"
+              ],
+              "drop": [
+                "film"
               ]
             },
             {
@@ -40594,7 +40691,10 @@
                 "You’re probably right. You’re right. I’ll stop thinking about it.",
                 "I won’t stop thinking about it. But I’ll stop asking you to."
               ],
-              "end": "burned"
+              "end": "burned",
+              "drop": [
+                "film"
+              ]
             }
           ]
         },
@@ -41056,7 +41156,16 @@
                 "kept"
               ],
               "ending": "huxley",
-              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, from a canister marked Brownie Hawkeye."
+              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, from a canister marked Brownie Hawkeye.",
+              "item": {
+                "id": "negative",
+                "label": "Strip of negative",
+                "short": "Negative",
+                "image": "assets/items/negative-strip.png",
+                "door": true,
+                "floor": "envelope",
+                "text": "From Genevieve Locke, in a plain envelope: a strip of negative from a canister marked Brownie Hawkeye. Page forty of a ledger the Foundation says doesn’t exist. Don’t hold it up to a lamp in your window."
+              }
             }
           ]
         },
@@ -41145,7 +41254,16 @@
               },
               "warm": 1,
               "end": "insurance",
-              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, to send to federal investigators if anything happens to her."
+              "note": "Genevieve Locke gave you a negative of page forty of the Foundation’s real ledger, to send to federal investigators if anything happens to her.",
+              "item": {
+                "id": "negative",
+                "label": "Strip of negative",
+                "short": "Negative",
+                "image": "assets/items/negative-strip.png",
+                "door": true,
+                "floor": "envelope",
+                "text": "From Genevieve Locke, in a plain envelope: a strip of negative from a canister marked Brownie Hawkeye. Page forty of a ledger the Foundation says doesn’t exist. Don’t hold it up to a lamp in your window."
+              }
             },
             {
               "id": "police",

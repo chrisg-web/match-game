@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 222,
-  "imageCount": 1533,
-  "publicImageCount": 889,
-  "privateImageCount": 644,
+  "characterCount": 223,
+  "imageCount": 1541,
+  "publicImageCount": 894,
+  "privateImageCount": 647,
   "characters": [
     {
       "id": "MATCH-001",
@@ -3884,6 +3884,44 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing community safety officer and playing five-on-five soccer.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-123",
+      "slug": "bridget_keogh",
+      "name": "Bridget Keogh",
+      "age": 18,
+      "factionId": "police",
+      "canonicalOccupation": "Detective constable",
+      "gallery": [
+        "assets/hinge/roster_expansion/bridget_keogh_01.webp",
+        "assets/hinge/roster_expansion/bridget_keogh_02.webp",
+        "assets/hinge/roster_expansion/bridget_keogh_03.webp",
+        "assets/hinge/roster_expansion/bridget_keogh_04.webp",
+        "assets/hinge/roster_expansion/bridget_keogh_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/bridget_keogh_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Bridget Keogh, consistent Rosy fair skin, strawberry-blonde braid crown, long lashes and a sleepy gaze, olive field jacket",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bridget_keogh_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Bridget Keogh, consistent Rosy fair skin, strawberry-blonde braid crown, long lashes and a sleepy gaze, olive field jacket",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/bridget_keogh_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Bridget Keogh, consistent Rosy fair skin, strawberry-blonde braid crown, long lashes and a sleepy gaze, olive field jacket",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "calm in a crisis and terrible at small talk",
+      "personalGoal": "Make a life for herself in Sunfall while balancing detective constable and teaching herself the drums.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
