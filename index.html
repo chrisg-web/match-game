@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="d03df2c4a6">
+<html lang="en" data-build="6b8f28bd7c">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -748,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=d03df2c4a6"></script>
+  <script src="chapel_at_midnight.js?v=6b8f28bd7c"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=d03df2c4a6"></script>
+  <script src="marriage.js?v=6b8f28bd7c"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=d03df2c4a6"></script>
+  <script src="quests/professor-vale.js?v=6b8f28bd7c"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -2445,7 +2445,7 @@
         if(brTopicAvailable(topic,thread))add(caseHingeTopicButton(topic),1);
       }
       for(const topic of questOn('vale')&&valeKnown()?PV?.hingeTopics(hingeProfile(thread.id))||[]:[]){ // Professor Vale: case questions by faction
-        if(topic.id==='pv_rumour'&&qhintState().vale?.by===thread.id)continue; // she brought him up herself: don't ask if she's heard of him (Chris, 5 November 2026)
+        if(topic.id==='pv_rumour'&&(qhintState().vale?.by===thread.id||chatCovered(thread,'vale')))continue; // you've already talked about him: don't ask if she's heard of him (Chris, 5 November 2026)
         add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${topic.confirm?'⚠ ':'🎓 '}${esc(topic.label)}</button>`,1); // ⚠ final: it happens on the first tap
       }
       if(thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2) && !thread.number && talkState(thread).numberRefusedDay!==world.day){
@@ -2632,7 +2632,7 @@
       if(id.startsWith('hal:'))return chooseHalChat(id,thread,profile); // Undeniable
       if(id==='leak:ask')return chooseLeak(thread,profile); // Truecel: the group chat
       if(id.startsWith('dad:'))return chooseDad(id,thread,profile); // Mogger: her dad
-      if(id.startsWith('fionn:'))return chooseFionnChat(id,thread,profile); // Theon
+      if(id.startsWith('fionn:')){coverChat(thread,'fionn');return chooseFionnChat(id,thread,profile);} // Theon
       if(id.startsWith('qh:'))return chooseQhint(id,thread,profile); // what's going on in town
       if(id.startsWith('sq:'))return chooseSqChat(id,thread,profile); // the story quests
       if(id.startsWith('kh:'))return chooseKesslerChat(id,thread,profile); // hiding from Kessler
@@ -2745,7 +2745,7 @@
         if(id==='fumble')thread.fumbled=true;
         else if(tone()==='mogger'&&profile.factionId!=='sisters_of_mercy'&&gameRandom()<.35){ // Mogger: unasked pictures
           const unseen=(profile.privatePhotos||[]).filter(picture=>!picturesSent(thread,profile).includes(picture.src));
-          if(unseen.length)thread.log.push({who:'her',text:personalityOf(profile)?.unasked||'Thought you might like this.',image:gamePick(unseen).src});
+          if(unseen.length)thread.log.push({who:'her',text:unaskedCaption(thread,profile),image:gamePick(unseen).src});
         }
         if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===profile.id)renderHinge();
       },hingeReplyDelay(profile,id));
@@ -2901,6 +2901,7 @@
         later:src.later&&Number.isInteger(src.later.day)&&Array.isArray(src.later.lines)?{day:src.later.day,lines:src.later.lines.filter(line=>typeof line==='string').slice(0,4).map(line=>line.slice(0,1500)),note:typeof src.later.note==='string'?src.later.note.slice(0,400):null}:null,
         gossipDay:day(src.gossipDay),lifeDay:day(src.lifeDay),lifeN:Number.isInteger(src.lifeN)?Math.max(0,Math.min(20,src.lifeN)):0,lifeOpen:Number.isInteger(src.lifeOpen)&&src.lifeOpen>=0&&src.lifeOpen<20?src.lifeOpen:null,recalled:words(src.recalled),
         repShown:!!src.repShown,friendShown:!!src.friendShown,secretTold:!!src.secretTold,tenant:!!src.tenant,unread:!!src.unread,
+        newsKinds:words(src.newsKinds).slice(-20),newsCount:Number.isInteger(src.newsCount)?Math.max(0,Math.min(999,src.newsCount)):0,recycled:!!src.recycled, // the paper chat: what you've talked about
         used:Object.fromEntries(Object.entries(src.used&&typeof src.used==='object'?src.used:{}).filter(([,list])=>Array.isArray(list)).slice(0,20).map(([key,list])=>[key,list.filter(item=>typeof item==='string').slice(-30)]))};
     }
     function womanOf(profile){return characterDB?.women?.find(woman=>woman.id===profile?.id)||null;}
@@ -2978,7 +2979,7 @@
         const question=kit.herQuestions?.find(item=>item.id===follow.id);
         return question?question.answers.map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer})):[];
       }
-      if(follow.kind==='news')return moods(kit.newsFollow?.options);
+      if(follow.kind==='news'){const n=thread?talkState(thread).newsCount||0:0,h=thread?hashSeed(thread.id):0;return moods(kit.newsFollow?.options).map(o=>({...o,player:thread&&NEWS_REPLY[o.id]?NEWS_REPLY[o.id][(n+h)%NEWS_REPLY[o.id].length]:o.player}));} // varied by day
       if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
       if(follow.kind==='lie')return twoTruthsSet(follow)?['first','second','third'].map((word,index)=>({id:String(index),label:`The ${word} one is the lie`,player:`The ${word} one. That’s the lie.`,tags:[]})):[];
       if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
@@ -3288,6 +3289,12 @@
       const lead=freshPick(thread,'callLead',talkKit()?.callLead||[''],profile.id+world.day);
       return `${lead?lead+' ':''}${tellCallTopic(thread,profile,open[0])}`;
     }
+    var UNASKED_MORE=['Thought you might like this.','Another one. Don’t get used to it.','For you.','Since you’ve been nice.','I took this today. Thoughts?','You didn’t ask, but here.'];
+    function unaskedCaption(thread,profile){ // her own caption the first time; after that, something she hasn't said yet
+      const own=personalityOf(profile)?.unasked,said=new Set(thread.log.filter(l=>l.who==='her').map(l=>l.text));
+      if(own&&!said.has(own))return own;
+      return UNASKED_MORE.find(l=>!said.has(l))||UNASKED_MORE[thread.log.length%UNASKED_MORE.length];
+    }
     function newsTalkAvailable(thread){
       // Only once you've read today's paper (opened the News app today).
       return !!characterDB?.newsTalk&&!!talkKit()&&world.paperDay===world.day&&thread.topics.length>=1&&talkState(thread).newsDay!==world.day;
@@ -3306,8 +3313,14 @@
       if(/^political_/.test(id))return 'protest';
       if(/^(crime_|police_)/.test(id))return 'crime';
       if(id==='local_bear')return 'bear';
+      const sq=/^sq_(pageant|radio|penpal|seance|priest|tapes|brief)/.exec(id);if(sq)return 'sq_'+sq[1]; // the story quests, by name
       return 'local';
     }
+    var SQ_NEWS_PHRASES={sq_pageant:'the Miss Sunfall story',sq_radio:'the KSUN contest',sq_penpal:'the Lyle Dunmore story',sq_seance:'the Veil Line story',sq_priest:'the St Brigid’s story',sq_tapes:'Father Sorrell’s letter',sq_brief:'Around Sunfall'};
+    // Your side of it, varied so the same chat never hears the same reply twice in a row (Chris, 5 November 2026: the sense check).
+    var NEWS_REPLY={warm:['You’re right. I read it the same way.','Same. That’s exactly how it read to me.','I’m with you on that one.','I thought the same thing over breakfast.','Honestly? Agreed.'],
+      challenge:['I’m not sure. I read it differently.','Really? I took it the other way.','Hm. I don’t think it’s that simple.','I’d push back on that a little.','I read the same story and came out somewhere else.'],
+      joke:['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.']};
     // She talks about the story closest to her world: one her faction knows more about, if
     // today's paper has one she hasn't told you about yet, otherwise the front page.
     // The Blue Ribbon question follows talk about today's paper: ask her what she made of it
@@ -3317,11 +3330,12 @@
       return !!thread&&questOn('br')&&brKnown()&&world.day>=questStart('br')+1&&!thread.topics.includes('case')&&talkState(thread).newsDay===world.day&&paperHasBlueRibbon();
     }
     function newsStoryFor(thread,profile){
-      const kinds=(getNewsEdition(world.day).items||[]).map(storyKind);
-      if(questOn('br')&&world.day>=questStart('br')+1&&!thread.topics.includes('case')&&kinds.includes('charity'))return 'charity'; // until you've asked her about it, the Blue Ribbon story is the one she talks about
+      const kinds=(getNewsEdition(world.day).items||[]).map(storyKind),talked=talkState(thread).newsKinds||[];
+      if(questOn('br')&&world.day>=questStart('br')+1&&!thread.topics.includes('case')&&kinds.includes('charity')&&!talked.includes('charity'))return 'charity'; // the first time, the Blue Ribbon story is the one she talks about
       const informed=characterDB.newsTalk.kinds||{};
       const told=talkState(thread).informed;
-      return kinds.find(kind=>informed[kind]?.informed?.[profile.factionId]&&!told.includes(kind))||kinds[0]||'local';
+      const fresh=kind=>{const i=informed[kind]?.informed?.[profile.factionId];return !!i&&!told.includes(kind)&&!(i.fromDay>world.day);}; // she knows something new about it
+      return kinds.find(fresh)||kinds.find(kind=>!talked.includes(kind))||kinds[talked.length%Math.max(1,kinds.length)]||'local'; // otherwise a story you haven't talked about yet (Chris, 5 November 2026)
     }
     function bearEgg(){
       const kit=talkKit(),c=convo();
@@ -3398,7 +3412,7 @@
     function moggerPicture(thread,profile){
       if(tone()!=='mogger'||profile.factionId==='sisters_of_mercy'||gameRandom()>=.25)return;
       const unseen=(profile.privatePhotos||[]).filter(picture=>!picturesSent(thread,profile).includes(picture.src));
-      if(unseen.length)thread.log.push({who:'her',text:personalityOf(profile)?.unasked||'Thought you might like this.',image:gamePick(unseen).src});
+      if(unseen.length)thread.log.push({who:'her',text:unaskedCaption(thread,profile),image:gamePick(unseen).src});
     }
     // How women talk to you depends on who you are. A Sister of Mercy talks the same to everyone.
     const TONE_TALK={
@@ -3543,8 +3557,12 @@
         const news=characterDB.newsTalk,kind=newsStoryFor(thread,profile),about=news.kinds[kind]||{};
         thread.followUp=null;state.newsDay=world.day;
         if(!thread.topics.includes('news'))thread.topics.push('news');
-        const phrase=kit.newsFollow.phrases[kind]||'the paper';
-        thread.log.push({who:'you',text:myVoice(`${news.player} ${phrase.charAt(0).toUpperCase()+phrase.slice(1)}?`,profile.id)});
+        const phrase=kit.newsFollow.phrases[kind]||SQ_NEWS_PHRASES[kind]||'the paper';
+        (state.newsKinds||(state.newsKinds=[])).push(kind);state.newsKinds=state.newsKinds.slice(-20);state.newsCount=(state.newsCount||0)+1;
+        const again=(state.newsKinds||[]).slice(0,-1).filter(k=>k===kind).length; // you've talked about this story before: a follow-on, not the same question
+        const Phrase=phrase.charAt(0).toUpperCase()+phrase.slice(1);
+        const ask=again?[`Did you see the latest on ${phrase}?`,`More on ${phrase} today. Did you read it?`,`${Phrase} again. Did you see today’s paper?`,`Any news on ${phrase}? It’s still in the paper.`,`Still following ${phrase}?`][(again-1)%5]:`${news.player} ${Phrase}?`;
+        thread.log.push({who:'you',text:myVoice(ask,profile.id)});
         lines.push(talkOpener(thread,profile,null));
         lines.push(voiced(variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true)||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day)); // another woman's view is hers, not this one's
         // In her faction's world she may know more than the paper printed: that goes in your notebook.
@@ -3569,7 +3587,7 @@
         lines.push(voiced(ownPick(thread,'life',daily.life[profile.factionId]||daily.life.normie_girls,profile.id+'|'+world.day),profile,'daily'+world.day)); // her day, not another woman's
         gossip=pickGossip(thread,profile);if(gossip)lines.push(gossip.says);
         if(gameRandom()<.35){
-          const phrase=kit.newsFollow.phrases[storyKind(gamePick(getNewsEdition(world.day).items||[]))];
+          const pk=storyKind(gamePick(getNewsEdition(world.day).items||[])),phrase=kit.newsFollow.phrases[pk]||SQ_NEWS_PHRASES[pk];
           if(phrase)lines.push(fillIn(seededPick(daily.heard,profile.id+world.day),{story:phrase}));
         }
         lines.push(freshPick(thread,'dayAsk',daily.askByFaction?.[profile.factionId]||daily.ask,profile.id+world.day));
@@ -3697,7 +3715,7 @@
         // Easter egg: the same joke, told to two women who know each other.
         const jokers=choice.mood==='joke'?(c.jokes[follow.id]||(c.jokes[follow.id]=[])):null;
         const heard=jokers?.find(id=>id!==profile.id&&hingeProfile(id)?.factionId===faction);
-        if(heard&&gameRandom()<.7){
+        if(heard&&!state.recycled&&gameRandom()<.7){state.recycled=true; // once per chat
           lines.push(fillIn(seededPick(tone()==='mogger'?kit.eggs.recycledJokeMogger:kit.eggs.recycledJoke,profile.id+follow.id),{other:otherName(heard)}));
           delta=tone()==='mogger'?0:Math.min(delta,0)-1;
         }else lines.push(reaction(delta,profile.id+follow.id+choice.id));
@@ -4655,6 +4673,13 @@
         story:/chapel|rite|flyer|midnight/i
       }
     };
+    // Asked and answered (Chris, 5 November 2026: apply the rule to everything). Each chat remembers which quests
+    // it has covered, however they came up: she raised it, you asked, she rang you about it. A question that starts
+    // a quest from scratch (has she heard, what does she think, what's going on) is not offered in a chat that has
+    // already covered that quest, and she doesn't bring up as news what you have already talked about.
+    function chatCovered(thread,quest){return !!thread?.covered?.[quest];}
+    var SAME_SUBJECT={priest:['tapes'],tapes:['priest']}; // both are about Father Sorrell: talk about him once
+    function coverChat(thread,quest){if(!thread||!quest)return;const c=thread.covered||(thread.covered={});for(const q of [quest,...(SAME_SUBJECT[quest]||[])])c[q]=world?.day||1;}
     function qhintState(){if(!world.qhints||typeof world.qhints!=='object')world.qhints={};return world.qhints;}
     function qhintLive(id){
       if(!questOn(id))return false;
@@ -4673,10 +4698,10 @@
         const told=q[id];
         if(told&&(told.open||hingeThreads.get(told.by)&&!hingeThreads.get(told.by).blocked&&!hingeThreads.get(told.by).fumbled))continue; // somebody has it in hand
         if(!qhintLive(id))continue;
-        if(SQ[id]&&(sqState(id)?.asked||[]).some(a=>a.startsWith(thread.id+':'+id+':')))continue; // you already asked her about it
+        if(chatCovered(thread,id)||SQ[id]&&(sqState(id)?.asked||[]).some(a=>a.startsWith(thread.id+':'+id+':')))continue; // you already talked about it
         const stalled=world.day>=4&&!!world.help&&world.day-world.help.fpDay>=HELP_STALL_DAYS; // a quiet run: she brings it up sooner
         if((thread.topics||[]).length<(qhintReadIt(id)||stalled?2:3))continue; // never her first thing
-        q[id]={by:thread.id,day:world.day,step:'hint',open:false};
+        q[id]={by:thread.id,day:world.day,step:'hint',open:false};coverChat(thread,id);
         thread.log.push({who:'her',text:QHINT[id].hint});
         talkState(thread).unread=true;
         saveRun(true);
@@ -4729,6 +4754,8 @@
       const st=sqState(id),note=SQ[id].facts?.[f]||SQ[id].factNote?.(f);
       if(!st||sqHas(st,f))return false;
       st.facts.push(f);
+      if(id==='tapes'&&f==='letter')learnService('chapel'); // the chapel's number is in his letter
+      if(f==='letter'&&id==='tapes'||Object.values(SQ_NUMBER_FACT).includes(f))window.setTimeout(()=>{if(world)announceNewContacts();},0); // saved to Contacts
       if(note)recordClue(typeof note==='function'?note(st):note);
       return true;
     }
@@ -4796,7 +4823,16 @@
     }
     // Each story's picture is assets/newspapers/<its id>.png (requests 468-486); the gala photo stands in until it is drawn.
     const sqNewsImage=id=>/^sq_seance_ad_\d+$/.test(id)?'sq_seance_ad':id==='sq_tapes_letter'?'sq_priest_bells':id==='sq_seance_letters'?'sq_seance_ad':/^sq_pageant_out_/.test(id)?'sq_pageant_disqualified':/^sq_radio_q\d$/.test(id)?'sq_radio_ad':id;
-    function sqRead(item){if(item?.sq){sqOpen(item.sq);for(const f of item.gives||[])sqLearn(item.sq,f);}}
+    // Which fact means you know each line's number (Chris, 5 November 2026: a number in the paper goes in Contacts).
+    var SQ_NUMBER_FACT={'pageant:office':'office','radio:station':'station','penpal:clinic':'clinic','seance:veil':'veil','priest:chancery':'chancery'};
+    function sqRead(item){
+      if(!item?.sq)return;
+      sqOpen(item.sq);for(const f of item.gives||[])sqLearn(item.sq,f);
+      const st=sqState(item.sq),text=`${item.body||''} ${item.summary||''}`;
+      for(const [key,num] of Object.entries(st?.numbers||{})){const f=SQ_NUMBER_FACT[item.sq+':'+key];if(f&&text.includes(displayNumber(num)))sqLearn(item.sq,f);} // the number printed in what you read
+      if(text.includes(displayNumber(contactNumbers.chapel)))learnService('chapel'); // Father Sorrell's letter: St Brigid's
+      announceNewContacts();
+    }
     // What you can ask her. Each quest says, per woman, what she knows (needs/gives facts) and how she sees it.
     function sqChatChoices(thread,profile){
       if(!world||!profile||thread.blocked||thread.fumbled||thread.pending)return [];
@@ -4818,7 +4854,7 @@
       if(!st||thread.pending)return;
       const t=sqTopics(id,st,thread,profile).find(x=>x.key===k);
       if(!t||st.asked.includes(thread.id+':'+id+':'+k))return;
-      st.asked.push(thread.id+':'+id+':'+k);
+      st.asked.push(thread.id+':'+id+':'+k);coverChat(thread,id);
       thread.log.push({who:'you',text:t.say||t.label});
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
       return fionnReply(thread,profile,[].concat(reply).map(text=>({text})),()=>{
@@ -4839,11 +4875,12 @@
       if(!t||t.skip?.(st,thread))return null;
       const gives=typeof t.gives==='function'?t.gives(st,thread):t.gives||[];
       if(st.stage!=='none'&&!gives.some(f=>!sqHas(st,f)))return null;
-      if(qhintState()[id]?.by===thread.id&&!gives.some(f=>!sqHas(st,f)))return null; // she already brought it up in this chat
+      if((qhintState()[id]?.by===thread.id||chatCovered(thread,id))&&!gives.some(f=>!sqHas(st,f)))return null; // already covered in this chat
       return {key:'o',label:t.label,say:t.say,reply:t.reply,gives,after:t.after};
     }
     function sqTopics(id,st,thread,profile){
-      const out=[...(SQ[id].chat?.(st,thread,profile)||[])];
+      const saidO=st.asked.includes(thread.id+':'+id+':o')||qhintState()[id]?.by===thread.id; // she has already told you her side of it
+      const out=(SQ[id].chat?.(st,thread,profile)||[]).filter(t=>!(t.key==='op'&&saidO)); // so asking what she thinks would repeat it, or contradict it
       const o=sqOpenerTopic(id,st,thread,profile);
       if(o)out.unshift(o);
       return out;
@@ -4865,7 +4902,7 @@
       return sqTopics(id,st,thread,profile).find(t=>t.key!=='o'&&!(t.needs&&!t.needs.every(f=>sqHas(st,f)))&&!st.asked.includes(thread.id+':'+id+':'+t.key))||null;
     }
     function callTell(id,st,thread,t){ // a quest topic, said on the phone: the same knowledge, said out loud
-      st.asked.push(thread.id+':'+id+':'+t.key);
+      st.asked.push(thread.id+':'+id+':'+t.key);coverChat(thread,id);
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
       thread.callLog.push({who:'you',text:t.say||t.label.replace(/^Ask (her )?/,'').replace(/^./,c=>c.toUpperCase())+'?'},{who:'her',text:[].concat(reply).join(' ')});
       if(t.opens!==false)sqOpen(id,true);
@@ -4915,7 +4952,7 @@
       if(id==='work'&&q){
         if(q.kind==='o'){
           const o=sqOpenerTopic(q.id,q.st,thread,profile);
-          q.st.asked.push(thread.id+':'+q.id+':o');
+          q.st.asked.push(thread.id+':'+q.id+':o');coverChat(thread,q.id);
           thread.callLog.push({who:'you',text:topic.player},{who:'her',text:typeof o.reply==='function'?o.reply(q.st,thread):o.reply});
           sqOpen(q.id,true);for(const f of o.gives||[])sqLearn(q.id,f);
         }else callTell(q.id,q.st,thread,callMore(q.id,q.st,thread,profile));
@@ -5202,7 +5239,7 @@
           if((st.v.accused||[]).includes(thread.id))return [];
           const k=[0,1,2].find(k=>this.revealed(st,k)&&!(st.v.told[thread.id]||[]).includes(k));
           if(k===undefined)return [];
-          return [{key:'ask'+k,label:k===0?'Ask her about the pageant':'Ask her what happened this time',say:k===0?'What’s going on at the pageant?':'I saw the paper. Are you all right?',reply:st=>this.statement(st,thread.id,k),after:st=>{(st.v.told[thread.id]||(st.v.told[thread.id]=[])).push(k);recordClue(`Miss Sunfall, ${sqFull(thread.id)}: ${this.statement(st,thread.id,k)}`);}}];
+          return [{key:'ask'+k,label:k===0?'Ask her about the pageant':'Ask her what happened this time',say:['What’s going on at the pageant?','I saw the paper. Somebody spiked the coffee? Are you all right?','The tape too? Are you okay?'][k],reply:st=>this.statement(st,thread.id,k),after:st=>{(st.v.told[thread.id]||(st.v.told[thread.id]=[])).push(k);recordClue(`Miss Sunfall, ${sqFull(thread.id)}: ${this.statement(st,thread.id,k)}`);}}];
         },
         lines:{office:{name:'Miss Sunfall Pageant Office',portrait:'assets/icons/calls.png',greeting:'Miss Sunfall office, Darlene Voight speaking. If this is the press, no comment.'}},
         lineTopics(st,key){
@@ -10178,18 +10215,18 @@
         call.asked=true;
         you(kit.options.ask.player);
         // A quest that's live and not started comes first: she tells you, and you can open it on this call.
-        const qid=!window.MATCH_NO_QHINT&&qhintTeller(profile)?Object.keys(QHINT).find(id=>qhintLive(id)&&!qhintState()[id]?.open):null;
+        const qid=!window.MATCH_NO_QHINT&&qhintTeller(profile)?Object.keys(QHINT).find(id=>qhintLive(id)&&!qhintState()[id]?.open&&!chatCovered(thread,id)):null;
         // A story quest: she tells it her own way, as in chat.
-        const sid=!window.MATCH_NO_QHINT&&(!qid||SQ[qid])?SQ_IDS.find(id=>qhintLive(id)&&!qhintState()[id]?.open&&sqOpenerTopic(id,sqState(id),thread,profile)&&!sqState(id).asked.includes(thread.id+':'+id+':o')):null;
+        const sid=!window.MATCH_NO_QHINT&&(!qid||SQ[qid])?SQ_IDS.find(id=>qhintLive(id)&&!qhintState()[id]?.open&&!chatCovered(thread,id)&&sqOpenerTopic(id,sqState(id),thread,profile)&&!sqState(id).asked.includes(thread.id+':'+id+':o')):null;
         if(sid){
           const st=sqState(sid),o=sqOpenerTopic(sid,st,thread,profile);
-          call.qh=sid;qhintState()[sid]={by:call.id,day:world.day,step:'asked',open:false};
+          call.qh=sid;qhintState()[sid]={by:call.id,day:world.day,step:'asked',open:false};coverChat(thread,sid);
           st.asked.push(thread.id+':'+sid+':o');
           say(typeof o.reply==='function'?o.reply(st,thread):o.reply);
           for(const f of o.gives||[])sqLearn(sid,f);
           renderCalls();return;
         }
-        if(qid){call.qh=qid;qhintState()[qid]={by:call.id,day:world.day,step:'asked',open:false};say(`${QHINT[qid].hint} ${QHINT[qid].askReply}`);renderCalls();return;}
+        if(qid){call.qh=qid;qhintState()[qid]={by:call.id,day:world.day,step:'asked',open:false};coverChat(thread,qid);say(`${QHINT[qid].hint} ${QHINT[qid].askReply}`);renderCalls();return;}
         // She tells you something she knows, if there's anything she hasn't told you yet.
         const told=talkState(thread).informed,tells=kit.tells[faction]||[];
         const index=tells.findIndex((item,at)=>!told.includes('call:'+at)&&!(item.fromDay>world.day));
@@ -12501,7 +12538,7 @@
       if(!PV||!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked)return;
       const topic=PV.hingeTopics(profile).find(item=>item.id===id);
       if(!topic||doneForToday(thread))return;
-      countAsk(thread,'pv:'+id);
+      countAsk(thread,'pv:'+id);coverChat(thread,'vale');
       const result=PV.chooseHingeTopic(profile,id);
       if(!result?.ok)return;
       thread.log.push({who:'you',text:result.player});
@@ -13289,6 +13326,15 @@
         const unavailable=!!(thread.fumbled||thread.blocked);
         list.push({key:thread.id,name:profile.name,detail:unavailable?(thread.blocked?'Blocked you':'Won’t take your calls'):'Hinge match',number:thread.number,portrait:profile.gallery?.[0]||'assets/icons/hinge.png',unavailable});
       }
+      for(const id of SQ_IDS){ // the story quests' phone lines, once you have read or been given the number
+        const st=world?.sq?.[id];
+        if(!st)continue;
+        for(const [key,num] of Object.entries(st.numbers||{})){
+          const f=SQ_NUMBER_FACT[id+':'+key],L=SQ[id].lines?.[key];
+          if(!f||!L||!sqHas(st,f))continue;
+          list.push({key:`sq:${id}:${key}`,name:L.name,detail:{pageant:'Miss Sunfall',radio:'The radio contest',penpal:'Lyle Dunmore',seance:'The Veil Line',priest:'St Brigid’s'}[id]||'From the paper',number:num,portrait:`assets/contacts/sq-${{pageant:'pageant',radio:'radio',penpal:'clinic',seance:'veil',priest:'chancery'}[id]}.png`,fallback:'assets/icons/calls.png'});
+        }
+      }
       if(BR){
         const s=brState();
         if(s.foundationKnown)list.push({key:'br:foundation',name:'Blue Ribbon Foundation',detail:'Your calls will be noticed',number:brNumber('foundation'),portrait:'assets/factions/thunderbirds_blue_ribbon.png'});
@@ -13474,6 +13520,7 @@
             awaiting:!!raw.awaiting,replyOnDay:Number.isInteger(raw.replyOnDay)?raw.replyOnDay:null,ghosted:!!raw.ghosted,unmatched:!!raw.unmatched,left:!!raw.left,missing:!!raw.missing,
             at:Number.isInteger(raw.at)?raw.at:0,seenLen:log.length,goneDay:Number.isInteger(raw.goneDay)?raw.goneDay:null,
             matchDay:Number.isInteger(raw.matchDay)?raw.matchDay:null,bt:raw.bt&&typeof raw.bt==='object'&&Number.isInteger(raw.bt.ep)&&[0,1,2].includes(raw.bt.step)?{ep:raw.bt.ep,step:raw.bt.step,said:raw.bt.said===true}:null,tallSaid:Number.isInteger(raw.tallSaid)?raw.tallSaid:undefined,bj:log.length,calledDay:Number.isInteger(raw.calledDay)?raw.calledDay:null,nudgeDay:Number.isInteger(raw.nudgeDay)?raw.nudgeDay:null,angryDay:Number.isInteger(raw.angryDay)?raw.angryDay:null,angryTold:raw.angryTold===true,
+            covered:raw.covered&&typeof raw.covered==='object'?Object.fromEntries(Object.entries(raw.covered).filter(([k,v])=>/^[a-z]{2,10}$/.test(k)&&Number.isInteger(v)).slice(0,20)):undefined, // the quests this chat has covered
             log,callLog:Array.isArray(raw.callLog)?raw.callLog.filter(l=>l&&typeof l.text==='string').slice(-100):[]}];
         }));
         stopRinging();herCall=null;scheduleHerCalls();

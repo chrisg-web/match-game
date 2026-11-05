@@ -220,7 +220,7 @@
           reply: 'Off the record? The brakes went the day after Paglia, the fire the day after Houellebecq, and Cofnas is next. Our reporter thinks someone in his own department is leaking his diary.', learn: ['rule', 'diary_leak'] }
       ],
       thunderbirds: [
-        { id: 'pv_tb_vale', label: 'Ask about Professor Vale', stage: ['open', 'resolved'],
+        { id: 'pv_tb_vale', label: 'Ask how well the Bluebirds know Professor Vale', stage: ['open', 'resolved'],
           player: 'Do the Bluebirds know Professor Vale?',
           reply: 'Adrian? We adore him. He brings the most marvelous speakers, and the students throw tantrums. He’s speaking at our next gala. Alice Beaumont looks after him. If anything ever worries you about him, tell me and I’ll tell Alice.', flag: 'tbLinked',
           as: { 'MATCH-042': { reply: 'Adrian? He’s a dear. Paglia, Houellebecq, Cofnas: he invites everyone the students are frightened of, and I adore him for it. I booked him for our gala. If anything ever worries you about him, you tell me.' } } },
