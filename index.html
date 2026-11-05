@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="a7f4dcc3d2">
+<html lang="en" data-build="ac2f55cb43">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -606,6 +606,25 @@
     .shot-card .shot-her { display: block; margin: 0 0 6px auto; max-width: 80%; padding: 5px 8px; border-radius: 9px; background: #2c3138; color: #d6dbe0; font-style: normal; text-align: right; }
     .home-invasion .qte button { padding: 14px 30px; border: 3px solid #ffe1d6; border-radius: 6px; background: #b8343f; color: #fff; font: bold calc(22px * var(--reading-scale)) Verdana,sans-serif; letter-spacing: .12em; cursor: pointer; animation: qtePulse .45s steps(2,end) infinite; }
     .home-invasion .qte.choices button { width: 80%; padding: 10px; font-size: calc(13px * var(--reading-scale)); letter-spacing: 0; background: #1b1420ee; animation: none; }
+    /* The guided tour (Chris, 5 November 2026): a translucent red arrow, a red circle and a printed note, drawn in ChatGPT;
+       a plain red arrow and paper box stand in until they load (html.coach-art). */
+    .coach { position: absolute; inset: 0; z-index: 60; pointer-events: none; }
+    .coach[hidden] { display: none; }
+    .coach-ring { position: absolute; border: 4px solid #e0263399; border-radius: 50%; box-shadow: 0 0 0 2px #e0263333; animation: coachPulse 1.1s ease-in-out infinite; }
+    html.coach-art .coach-ring { border: 0; box-shadow: none; background: var(--coach-ring) center / 100% 100% no-repeat; }
+    .coach-arrow { position: absolute; width: 44px; height: 72px; transform-origin: 50% 50%; animation: coachBob .9s ease-in-out infinite; }
+    .coach-arrow::before { content: ''; position: absolute; left: 10px; top: 0; width: 24px; height: 40px; background: #e02633b3; border-radius: 4px; }
+    .coach-arrow::after { content: ''; position: absolute; left: 0; top: 36px; border: 22px solid transparent; border-top: 34px solid #e02633b3; border-bottom: 0; }
+    html.coach-art .coach-arrow::before, html.coach-art .coach-arrow::after { display: none; }
+    html.coach-art .coach-arrow { background: var(--coach-arrow) center / contain no-repeat; }
+    .coach-note { position: absolute; width: 230px; padding: 12px 14px 10px; background: #f6f1e4; color: #1d1a16; text-shadow: none; border: 1px solid #cfc6b0; box-shadow: 0 4px 12px #0007; font: bold 13px/1.35 'Courier New', Courier, monospace; pointer-events: auto; }
+    html.coach-art .coach-note { background: none; border-style: solid; border-color: transparent; border-width: 14px 16px; border-image: var(--coach-note) 40 fill / 14px 16px stretch; box-shadow: 0 4px 12px #0006; padding: 2px 4px; }
+    .coach-note p { margin: 0 0 6px; color: #1d1a16; }
+    .coach-note div { display: flex; justify-content: space-between; gap: 8px; }
+    .coach-note button { border: 0; background: none; color: #a8121e; font: bold 11px 'Courier New', Courier, monospace; text-decoration: underline; cursor: pointer; padding: 0; }
+    @keyframes coachPulse { 50% { transform: scale(1.08); opacity: .8; } }
+    @keyframes coachBob { 50% { translate: 0 6px; } }
+    @media (prefers-reduced-motion: reduce) { .coach-ring, .coach-arrow { animation: none; } }
     @keyframes qtePulse { 50% { transform: scale(1.1); } }
     @media (prefers-reduced-motion: reduce) { .home-invasion .qte button { animation: none; } }
     /* Lauren's count (room quests): your arms tire, so the button shakes harder as the set goes on (--shake grows) */
@@ -760,11 +779,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=a7f4dcc3d2"></script>
+  <script src="chapel_at_midnight.js?v=ac2f55cb43"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=a7f4dcc3d2"></script>
+  <script src="marriage.js?v=ac2f55cb43"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=a7f4dcc3d2"></script>
+  <script src="quests/professor-vale.js?v=ac2f55cb43"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -926,6 +945,7 @@
             <button class="home-hit" id="home-hit" aria-label="Home: one press for the app grid, or to lower the phone from the home screen; double press or hold to lower the phone"></button>
             <button class="raise-hit" id="raise-hit" aria-label="Tap the top of the phone to raise it"></button>
           </div>
+          <div class="coach" id="coach" hidden aria-live="polite"><div class="coach-ring" id="coach-ring"></div><div class="coach-arrow" id="coach-arrow"></div><div class="coach-note" id="coach-note"><p id="coach-text"></p><div><button id="coach-ok">Got it</button><button id="coach-off">Skip the tour</button></div></div></div><!-- the guided tour -->
           <div class="call-bubble" id="call-bubble" aria-live="polite" role="status"></div>
           <div class="evidence-sheet" id="evidence-sheet" role="dialog" aria-label="Blue Ribbon evidence sheet"></div>
           <div class="bear-alert" id="bear-alert" role="alertdialog" aria-labelledby="bear-alert-title" aria-describedby="bear-alert-text">
@@ -11004,6 +11024,7 @@
       if(ladderIndex(o.fresh)>=0&&!LADDER[ladderIndex(o.fresh)].soon)out.fresh=o.fresh;
       for(const rung of LADDER)if(o.played?.[rung.id]===true)out.played[rung.id]=true; // the classes you have played a game as
       if(Array.isArray(o.questsWon))out.questsWon=[...new Set(o.questsWon.filter(id=>typeof id==='string'&&/^[a-z]{2,12}$/.test(id)))].slice(0,30);
+      if(o.coach&&typeof o.coach==='object'){out.coach={on:o.coach.on===true?true:o.coach.on===false?false:null,done:{}};for(const [k,v] of Object.entries(o.coach.done||{}))if(/^[a-z]{2,12}$/.test(k)&&Number.isInteger(v))out.coach.done[k]=v;} // the guided tour: on or off, and the steps you have done
       return out;
     }
     function playerProfile(){
@@ -11078,10 +11099,66 @@
       const open=LADDER.filter(rung=>ladderUnlocked(rung.id)).length;
       $('pick-foot').textContent=''; // every class is open: the heading just says Choose your class
     }
+    // ---- The guided tour (Chris, 5 November 2026) ----
+    // The first game you play, a red arrow and a printed note walk you through it: open Hinge, swipe, open your chats,
+    // talk to her, ring her once you have her number, read the paper, go to bed. After that, lighter tips, once each,
+    // the first time something comes up (her call, something at your door, a clue in Notes, the Bank). Yes to the
+    // tutorial question turns the tour on; No turns it off. Settings can start it again.
+    var COACH_ART={arrow:'assets/ui/coach-arrow.png',ring:'assets/ui/coach-ring.png',note:'assets/ui/coach-note.png'},coachArtReady=0;
+    function loadCoachArt(){if(typeof Image!=='function'||typeof document==='undefined')return;for(const [k,src] of Object.entries(COACH_ART)){const img=new Image();img.onload=()=>{document.documentElement.style.setProperty('--coach-'+k,`url("${assetUrl(src)}")`);if(++coachArtReady===3)document.documentElement.classList.add('coach-art');};img.src=assetUrl(src);}}
+    const coachYouSpoke=()=>[...hingeThreads.values()].some(t=>t.log.some(l=>l.who==='you'));
+    const coachNumber=()=>[...hingeThreads.values()].some(t=>t.number);
+    const coachHome=()=>!!world&&!currentApp&&!stage.classList.contains('lowered');
+    var COACH_STEPS=[
+      {id:'hinge',core:1,target:'[data-app="hinge"]',text:'Tap Hinge. This is where you meet the women of Sunfall.',when:()=>coachHome(),done:()=>currentApp==='hinge'},
+      {id:'swipe',core:1,target:'[data-swipe="like"]',text:'Like her with the heart, or pass. Ten swipes a day. Tap her photo to see more of her.',when:()=>currentApp==='hinge'&&hingeView==='discover'&&!!document.querySelector('[data-swipe="like"]'),done:()=>hingeSwipesToday>0||hingeThreads.size>0},
+      {id:'chats',core:1,target:'[data-hinge-tab="chats"]',text:'It’s a match. Open your chats to talk to her.',when:()=>currentApp==='hinge'&&hingeView==='discover'&&hingeThreads.size>0,done:()=>hingeView!=='discover'&&currentApp==='hinge'},
+      {id:'open',core:1,target:'[data-chat-open]',text:'Tap her to open the conversation.',when:()=>currentApp==='hinge'&&hingeView==='chats',done:()=>hingeView==='thread'},
+      {id:'talk',core:1,target:'.hinge-options',text:'Pick what to say. Ask about her life and answer her questions. Warm her up and she’ll give you her number.',when:()=>currentApp==='hinge'&&hingeView==='thread'&&!!document.querySelector('.hinge-chat-choice'),done:()=>coachYouSpoke()},
+      {id:'bed',core:1,target:'#day-button',text:'Done for today? Tap the day up here to go to bed. Tomorrow brings new matches and the paper.',when:()=>coachHome()&&coachYouSpoke()&&world.day===1,done:()=>world.day>1},
+      {id:'paper',core:1,target:'[data-app="news"]',text:'The Sunfall Daily comes every morning. Read it: everything in it ends up being useful.',when:()=>coachHome()&&world.day>=2,done:()=>currentApp==='news'},
+      {id:'number',core:1,target:'#home-hit',text:'You’ve got her number. Press Home, then open Calls to ring her.',when:()=>!!currentApp&&currentApp!=='calls'&&coachNumber(),done:()=>coachNumber()&&(!currentApp||currentApp==='calls')},
+      {id:'calls',core:1,target:'[data-app="calls"]',text:'Calls: ring her here. On the phone she tells you more than she writes.',when:()=>coachHome()&&coachNumber(),done:()=>currentApp==='calls'},
+      {id:'ring',target:'#incoming-banner',text:'She’s ringing. Tap to answer.',when:()=>!!world&&!$('incoming-banner').hidden,done:()=>$('incoming-banner').hidden},
+      {id:'door',target:'.floor-item',text:'Something was left at your door. Tap it to pick it up: it goes in your bedside cupboard.',when:()=>!!world&&stage.classList.contains('lowered')&&!!document.querySelector('.floor-item'),done:()=>!document.querySelector('.floor-item')},
+      {id:'notes',target:'[data-app="blackbook"]',text:'Clues and leads you pick up are kept in Notes.',when:()=>coachHome()&&(world.clues||[]).length>0,done:()=>currentApp==='blackbook'},
+      {id:'bank',target:'#bank-app',text:'Your money lives in the Bank. Bills come out of it, so keep an eye on it.',when:()=>coachHome()&&walletOn()&&!$('bank-app').hidden,done:()=>currentApp==='bank'}
+    ];
+    function coachState(){const p=playerProfile();if(!p.coach||typeof p.coach!=='object')p.coach={on:null,done:{}};if(!p.coach.done||typeof p.coach.done!=='object')p.coach.done={};return p.coach;}
+    var coachNow=null;
+    function coachTick(){
+      const el=$('coach');if(!el)return;
+      if(window.MATCH_NO_TUTORIAL_ASK||window.MATCH_NO_COACH||!world||!$('tut-ask').hidden||!$('fatal-overlay')||$('fatal-overlay').classList.contains('visible')||$('home-invasion').classList.contains('visible')){el.hidden=true;coachNow=null;return;}
+      const c=coachState();let changed=false;
+      const eligible=st=>!c.done[st.id]&&(st.core?c.on===true:c.on!==false);
+      for(const st of COACH_STEPS)if(eligible(st)&&(st.core||coachNow===st.id)&&st.done()){c.done[st.id]=world.day||1;changed=true;} // a step you have already done (shown or not) is done
+      if(changed)saveProfile();
+      const step=COACH_STEPS.find(st=>eligible(st)&&st.when());
+      const target=step&&[...document.querySelectorAll(step.target)].find(e=>e.offsetParent!==null||e.getClientRects().length);
+      if(!step||!target){el.hidden=true;coachNow=null;return;}
+      coachNow=step.id;coachPlace(target,step.text);
+    }
+    function coachPlace(target,text){
+      const el=$('coach'),box=stage.getBoundingClientRect(),scale=box.width/(stage.offsetWidth||box.width)||1,r=target.getBoundingClientRect();
+      const x=(r.left-box.left)/scale,y=(r.top-box.top)/scale,w=r.width/scale,h=r.height/scale,W=stage.offsetWidth||box.width/scale,H=stage.offsetHeight||box.height/scale;
+      el.hidden=false;$('coach-text').textContent=text;
+      const ring=$('coach-ring'),rw=w*1.18+18,rh=h*1.35+18,d=rh;ring.style.width=rw+'px';ring.style.height=rh+'px';ring.style.left=(x+w/2-rw/2)+'px';ring.style.top=(y+h/2-rh/2)+'px'; // an oval that hugs the target
+      const arrow=$('coach-arrow'),note=$('coach-note'),up=y+h/2>H*0.55; // a target low on the screen: arrow and note above it, pointing down
+      arrow.style.left=(x+w/2-22)+'px';arrow.style.top=(up?y-d/2+h/2-78:y+h/2+d/2+6)+'px';arrow.style.rotate=up?'0deg':'180deg';
+      const nw=230,nl=Math.max(8,Math.min(W-nw-8,x+w/2-nw/2));note.style.left=nl+'px';
+      const nh=note.offsetHeight||90;note.style.top=(up?Math.max(8,y-d/2+h/2-84-nh):Math.min(H-nh-8,y+h/2+d/2+84))+'px';
+    }
+    function coachInit(){
+      loadCoachArt();
+      $('coach-ok')?.addEventListener('click',()=>{if(coachNow){coachState().done[coachNow]=world?.day||1;saveProfile();coachNow=null;}$('coach').hidden=true;});
+      $('coach-off')?.addEventListener('click',()=>{coachState().on=false;saveProfile();coachNow=null;$('coach').hidden=true;});
+      if(typeof window.setInterval==='function')window.setInterval(()=>{try{coachTick();}catch{}},450);
+    }
+    function coachRestart(){const c=coachState();c.on=true;for(const st of COACH_STEPS)delete c.done[st.id];saveProfile();}
     // ---- The Normie teaches you the game (Chris, 3 November 2026): a tip the first time each thing comes up ----
     const TIPS={hinge:'Tip: swipe right to like her, left to pass. Ten swipes a day. Tap her photo to see the next one.',match:'Tip: you matched. Open Chats in Hinge and talk to her. She remembers what you say.',day:'Tip: done for today? Tap the day at the top of the screen to go to bed.',paper:'Tip: the paper is where things start. Read a story, then ask women about it. Ring the ads in the classifieds.',call:'Tip: your phone is ringing. Tap the banner to answer. Women who like you call.',door:'Tip: something came through your door. Press Home to put the phone down, then tap it on the floor.'};
     function teach(id){
-      if(selectedDifficulty!=='normie'||!TIPS[id]||!world)return;
+      if(selectedDifficulty!=='normie'||!TIPS[id]||!world||coachState().on===true)return; // the guided tour shows it instead
       const p=playerProfile();
       if(p.taught[id])return;
       p.taught[id]=true;saveProfile();achToast(TIPS[id]);
@@ -12324,7 +12401,7 @@
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert'],...EXTRA_WALLPAPERS.filter(([v])=>wallpapersDrawn.has(v))];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button>${Object.keys(CLASS_TUTORIALS).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-coach-restart>Guided tour ›</button><button data-tutorial-open>Tutorial ›</button>${Object.keys(CLASS_TUTORIALS).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
@@ -12387,6 +12464,7 @@
       if(journalDel){journalDelete(journalDel.dataset.journalDelete);return;}
       if(event.target.closest('[data-settings-newgame-yes]')){settingsView='main';pickDifficulty();return;} // then choose a difficulty
       if(event.target.closest('[data-settings-newgame]')){settingsView='newgame';renderSettings();return;} // a new game, any time
+      if(event.target.closest('[data-coach-restart]')){coachRestart();returnHome();return;} // the guided tour, from the start
       if(event.target.closest('[data-tutorial-open]')){openTutorial(0,event.target.closest('[data-tutorial-open]').dataset.tutorialOpen||'main');return;} // How to play, and the classes' own
       const settingsNav=event.target.closest('[data-settings-view]');
       if(settingsNav){settingsView=settingsNav.dataset.settingsView;renderSettings();$('opened').scrollTop=0;return;}
@@ -12553,9 +12631,9 @@
         return;
       }
       try{localStorage.setItem(TUT_ASK_KEY,'1');}catch{}
-      tutorialAskWaiting=yes&&!firstRunStarted; // if the first game hasn't started yet, it won't open Hinge over How to play
-      if(yes)openApp('journal'); // iTunes opens on How to play
-      else if(world)openApp('hinge'); // straight into the game
+      tutorialAskWaiting=false;
+      coachState().on=!!yes;saveProfile(); // Yes: the guided tour (arrows and notes) walks you through your first game; How to play stays in iTunes
+      if(!yes&&world)openApp('hinge'); // No: straight into the game
     }
     function returnHome(){tutorialAskDone(false);if(world&&currentApp)teach('day');endSimulatedCall();closeEvidenceSheet(false);currentApp=null;$('opened').classList.remove('news-mode','calls-mode','connected-mode','hinge-mode','notes-mode','settings-mode','journal-mode','book-mode','bank-mode');$('opened').style.backgroundImage='';$('opened').style.display='none';$('home').style.display='block';$('wallpaper').style.display='block';$('shade').style.display='block';}
     let homeTapTimer=null,homeHoldTimer=null,homeWasHeld=false;
@@ -14318,6 +14396,7 @@
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
     loadPopupArt(); // the pop-up frames, once drawn
+    coachInit(); // the guided tour
     loadGunArt(); // the guns' own pictures, once drawn
     loadExtraWallpapers(); // Earth and the clownfish, once drawn
     tutorialAskMaybe(); // the first time: play the tutorial?
