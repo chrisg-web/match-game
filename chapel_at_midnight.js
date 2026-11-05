@@ -576,6 +576,8 @@
     function dateAct(st,id,act){
       if(!dateChoices(st,id).includes(act)||isClosed(id))return;
       const line=data.date.actions[act];
+      const no=act==='yes'?api.refuse?.(id):null; // the Looksmaxxer, botched for good: no date
+      if(no){converse(id,line.player,no);return;}
       converse(id,line.player,fill(line.reply,{name:firstName(id)}),act==='yes'?st=>winDate(st,id):null);
     }
     // The win: the only date in the game that ever happens.

@@ -44706,5 +44706,795 @@
         }
       ]
     }
+  },
+  "botched": {
+    "parts": {
+      "hair": {
+        "names": [
+          "that bald stripe",
+          "the stripe down your head",
+          "your head"
+        ],
+        "lines": [
+          "Is the stripe a choice? Please tell me it’s a choice.",
+          "My friend thinks you shaved a racing stripe on purpose. I told her nobody would do that on purpose.",
+          "It looks like someone started mowing your head and gave up halfway.",
+          "Wear a hat. Wear two hats.",
+          "Hair doesn’t grow back there, you know. That’s just skin now. Shiny skin.",
+          "Every photo, my eyes go straight to the top of your head. Like a runway."
+        ]
+      },
+      "skin": {
+        "names": [
+          "your skin",
+          "those pink and white patches",
+          "your face"
+        ],
+        "lines": [
+          "Your face looks like a map of a country nobody visits.",
+          "Is that sunburn, or did something happen to you? Something happened to you.",
+          "Pink, then white, then pink again. Your face has stripes, like a flag.",
+          "My friend asked if you were in a fire. I said worse. A nail salon.",
+          "Does it still peel? It looks like it peels.",
+          "I keep zooming in on your skin, and I keep wishing I hadn’t."
+        ]
+      },
+      "teeth": {
+        "names": [
+          "those teeth",
+          "your glowing veneers",
+          "your smile"
+        ],
+        "lines": [
+          "Your teeth lit up my whole screen. I had to turn the brightness down.",
+          "Do they glow in the dark? Be honest. They glow in the dark.",
+          "You’re missing one, right? Front left. I can see the gap from here.",
+          "Those aren’t teeth. Those are bathroom tiles.",
+          "Please don’t smile in your next picture. Please.",
+          "My cat saw your photo and hissed. It was the teeth."
+        ]
+      },
+      "height": {
+        "names": [
+          "your legs",
+          "that limp",
+          "the way you stand"
+        ],
+        "lines": [
+          "Is one of your legs longer than the other? You’re leaning in every photo.",
+          "My friend saw you at the grocery store. She says you walk in a slow circle.",
+          "You’re tilted. In every picture. Like a shelf somebody hung wrong.",
+          "Do you need a cane? You look like you need a cane.",
+          "How do you even stand in line? Do you just go around and around?",
+          "Those legs were supposed to make you taller, right? Now you’re just crooked."
+        ]
+      },
+      "face": {
+        "names": [
+          "your face",
+          "your eyes",
+          "the left side of your face"
+        ],
+        "lines": [
+          "Which eye am I supposed to look at?",
+          "Your face looks like it slid off to the left and stopped halfway.",
+          "One of your eyes is lower than the other. I’m not being mean. It just is.",
+          "It looks like someone put your face back on in the dark.",
+          "My mom saw your photo over my shoulder and crossed herself.",
+          "Your nose points at the door and your eyes point at the window."
+        ]
+      }
+    },
+    "factions": {
+      "normie_girls": {
+        "open": [
+          "Okay, I matched just to ask. What happened to {botch}?",
+          "Hi. Sorry. I have to say it before anything else. What happened to {botch}?",
+          "My friends and I matched you as a group. We have one question, and it’s about {botch}.",
+          "I swiped right because I thought the photo was a filter. It’s not a filter, is it.",
+          "Hey. Before we talk. Is that permanent? It looks permanent."
+        ],
+        "jab": [
+          "Sorry, I’m still thinking about {botch}.",
+          "I keep scrolling back up to look at {botch}.",
+          "My mom saw your photo and asked if you were okay.",
+          "No offense, but I can’t really focus on what you’re saying.",
+          "That’s honestly the least weird thing about you right now.",
+          "I showed my roommate. She screamed a little.",
+          "I keep picturing introducing you to my friends, and then I stop.",
+          "It’s hard to be normal about this. Sorry."
+        ]
+      },
+      "thunderbirds": {
+        "open": [
+          "Mother would ask what happened to {botch}. So I am asking for her.",
+          "Good evening. I matched you by accident, and then I saw {botch}, and now I simply have to know.",
+          "Daddy has a surgeon. Daddy’s surgeon would not touch {botch}. I asked.",
+          "I don’t usually message first. I am making an exception for {botch}.",
+          "Darling. What on earth did you do to yourself?"
+        ],
+        "jab": [
+          "Mother says a man is his face. Hers is very good.",
+          "I couldn’t take you to the club like that. They have rules. Unwritten ones, but rules.",
+          "We hide our mistakes in Sunfall. You’re wearing yours.",
+          "I’m afraid it was all anyone at brunch could talk about.",
+          "One simply doesn’t recover from {botch}. One relocates.",
+          "I’m being polite. You can tell because I haven’t laughed.",
+          "The Bluebirds have a word for men like you now. It isn’t a nice word.",
+          "Do keep the camera further away in your pictures, darling."
+        ]
+      },
+      "fourth_estate": {
+        "open": [
+          "I’m a reporter, so I’ll just ask. What happened to {botch}?",
+          "There has to be a story behind {botch}. Tell me there’s a story.",
+          "On the record or off the record: was it a cheap clinic?",
+          "Hi. Our photo desk saw your picture. They want to run it next to a piece about cheap surgeons.",
+          "I matched for research. I’m writing about men who got botched. You’re the lead."
+        ],
+        "jab": [
+          "Sorry, I’m taking notes.",
+          "Good quote. Nobody will hear it over {botch}.",
+          "I’ve covered car wrecks I could look at for longer.",
+          "Every story needs a picture. Yours would sell papers.",
+          "Can I ask who did it? Readers will want a name.",
+          "My editor says there’s no follow-up to {botch}. It’s the whole story.",
+          "I’ve already got the headline. You won’t like it.",
+          "I can’t print what I’m thinking. Not in a family paper."
+        ]
+      },
+      "progressives": {
+        "open": [
+          "I want to say this kindly. What happened to {botch}?",
+          "Bodies are bodies and I don’t judge. But wow. {Botch}.",
+          "I matched because I feel strongly about predatory clinics. Was it a predatory clinic?",
+          "Hi. I’m really trying not to center your appearance. It’s hard.",
+          "I support everyone’s right to change their body. I just didn’t know it could go like this."
+        ],
+        "jab": [
+          "This is a beauty standards problem. It’s also a you problem.",
+          "I’m not judging. My face is, a little.",
+          "We should be fighting the system that sold you this. You should also wear a hat.",
+          "I’m trying to make eye contact with your photo. It’s hard.",
+          "Honestly? This is what capitalism does to people.",
+          "There’s no shame in it. There’s just no coming back from it.",
+          "I can hold space for this. I can’t hold your hand.",
+          "I need a minute before I can be normal about {botch}."
+        ]
+      },
+      "goth_girls": {
+        "open": [
+          "Finally. Someone on here who looks like he crawled out of a crypt.",
+          "Oh. {Botch}. Beautiful. Horrible. Mostly horrible.",
+          "I collect strange things. You’re the strangest thing on this app.",
+          "Are you cursed? You look cursed. I mean that as a compliment, a little.",
+          "Did you sell your face to something in the desert? Because it kept the receipt."
+        ],
+        "jab": [
+          "Even I have limits. You’re standing on them.",
+          "I’d put your picture on my wall. Not you. Your picture.",
+          "Morbid isn’t the same as romantic. You’re morbid.",
+          "The girls at the Rialto think you’re a costume.",
+          "There’s dark, and then there’s {botch}.",
+          "I love ruins. I don’t date them.",
+          "You’re like a haunted house. Fun to look at. Nobody moves in.",
+          "My tarot cards turned up the Tower three times tonight. I think they meant you."
+        ]
+      },
+      "police": {
+        "open": [
+          "Sunfall Police. I’m off duty, but I have to ask: was {botch} an assault?",
+          "We had a report about a cheap clinic over the border. Was that you?",
+          "Hi. Just so you know, I’ve seen worse at crime scenes. Not much worse.",
+          "Before anything else: is anyone pressing charges for {botch}? Somebody should.",
+          "I matched you to see if you’re a witness. You look like a witness."
+        ],
+        "jab": [
+          "Sorry. I keep looking at {botch} like it’s evidence.",
+          "If you ever go missing, at least the description will be easy.",
+          "I’ve put men in lineups who looked better.",
+          "In my professional opinion, that isn’t going to heal.",
+          "We have a sketch artist. Even she couldn’t make that look good.",
+          "Copy that. Still thinking about {botch}.",
+          "My partner saw your picture and asked if we should open a file.",
+          "That face is a permanent record."
+        ]
+      },
+      "sisters_of_mercy": {
+        "open": [
+          "God bless you. I mean it. What happened to {botch}?",
+          "I will pray for you. I have already started.",
+          "The Lord made you once. Somebody else tried again, and here we are.",
+          "Hello. I am not supposed to stare. I am staring. Forgive me.",
+          "Sister Agnes saw your picture and lit a candle."
+        ],
+        "jab": [
+          "Vanity is a sin. So is laughing, so I am not laughing.",
+          "God forgives everything. Your face, He may take longer over.",
+          "I will keep you in my prayers. That is all I can keep you in.",
+          "Some crosses we carry. Yours shows.",
+          "Mercy is for the soul. The body has to fend for itself.",
+          "Perhaps it was meant as a lesson. It worked on me.",
+          "Father says it is what is inside that counts. Father has not seen {botch}.",
+          "I am sorry. I truly am. But no."
+        ]
+      },
+      "sorority": {
+        "open": [
+          "Oh my God. Oh my God. What happened to {botch}?",
+          "Okay, the whole house is looking at your profile right now. Like, the whole house.",
+          "Hi! Sorry! Was it a dare? Did someone dare you to do that?",
+          "I literally screamed. Not in a good way.",
+          "Babe. No. Babe. What did you do?"
+        ],
+        "jab": [
+          "Sorry, Stacey just walked past my phone and said ew. Like, out loud.",
+          "We have a rule. No botches. It’s in the bylaws.",
+          "I’m literally so sorry. I literally can’t.",
+          "Everyone in this house is a ten. You’re, like, a question mark.",
+          "Can you not like any of my pictures? People will see.",
+          "The vibes are so off right now.",
+          "Honestly, you’re trending in our group chat. Not in a good way.",
+          "I showed the girls {botch}. Brynn had to sit down."
+        ]
+      }
+    },
+    "types": {
+      "witty-sceptic": {
+        "bad": "Not as bad as it looks? It looks exactly as bad as it looks. That’s how looking works.",
+        "past": "See past it? I’d need a periscope.",
+        "fix": "Fixed. Sure. And I’m getting my money back from the lottery.",
+        "date": "One date. With {botch}. I have a reputation, and it isn’t for charity.",
+        "back": "No. There’s no coming back. There’s only going forward, slowly, in a hat."
+      },
+      "principled-plainspoken": {
+        "bad": "I’m going to be straight with you, because nobody else will. It’s worse than it looks.",
+        "past": "I try to see past things. I tried with {botch}. I couldn’t.",
+        "fix": "Nobody fixes that. Whoever says they can is after your money again.",
+        "date": "No. I won’t lead you on. That would be crueler.",
+        "back": "No. You did something you can’t undo. I’m sorry. That’s the truth."
+      },
+      "tomboy-writer": {
+        "bad": "I write horror on the side. I couldn’t have made up {botch}.",
+        "past": "I see past a lot. Scars, tattoos, a guy who collects swords. Not this.",
+        "fix": "In a story, this is where the hero gets fixed. In Sunfall, he doesn’t.",
+        "date": "I’d go out with you for the material. Then I’d feel bad. So no.",
+        "back": "It’s the end of the chapter. There isn’t a next one."
+      },
+      "meddling-matchmaker": {
+        "bad": "I set people up all the time. I went through my whole list. There’s nobody for {botch}.",
+        "past": "I asked around. Nobody can see past it. I asked a lot of people.",
+        "fix": "Honey, I’ve seen men try. It doesn’t get fixed. It gets a nickname.",
+        "date": "I wouldn’t set you up with my worst enemy, and she deserves it.",
+        "back": "There’s no coming back. I checked with everyone. Everyone said no."
+      },
+      "dreamy-chatterbox": {
+        "bad": "Oh, it’s bad, it’s so bad, I keep zooming in and out and in again and it doesn’t get better.",
+        "past": "I tried to imagine you without it, like squinting, and I squinted so hard I got a headache.",
+        "fix": "Fixed? Like, fixed fixed? I looked it up. It’s not a thing.",
+        "date": "A date? With people watching? Everybody would watch. Everybody.",
+        "back": "I don’t think so. Things don’t go back. They just go."
+      },
+      "all-in-romantic": {
+        "bad": "I wanted to fall for you. I really did. I can’t get past {botch}.",
+        "past": "Love is supposed to see past everything. I guess I’m not in love.",
+        "fix": "If a fix existed, somebody would have married it.",
+        "date": "I give everyone a chance. I gave you one when I matched. Then I saw it properly.",
+        "back": "There’s no happy ending for this one. I cried a little, actually."
+      },
+      "reserved-sensible": {
+        "bad": "It is about as bad as it looks. Possibly worse in person.",
+        "past": "I try to be reasonable. Reasonably, no.",
+        "fix": "Surgery doesn’t usually work in reverse. I’d save your money.",
+        "date": "I don’t think that would be sensible for either of us.",
+        "back": "I don’t believe there is. I’m sorry to be the one who says it."
+      },
+      "wild-heart": {
+        "bad": "I’ve done some crazy things. Never anything that permanent.",
+        "past": "I see past everything. Rules, curfews, my dad. I can’t see past {botch}.",
+        "fix": "There’s no fixing that, wild boy. That’s you now.",
+        "date": "I’d ride on the back of anybody’s motorcycle. Not yours.",
+        "back": "No. You went too far and you can’t come back. Even I know that."
+      },
+      "charming-schemer": {
+        "bad": "Oh, it’s much worse than it looks, sweetheart. And it looks dreadful.",
+        "past": "I see past things when there’s something in it for me. There’s nothing in this for me.",
+        "fix": "Darling, the only fix for that is a new town and a new name.",
+        "date": "Be seen with you? I have plans. You are not part of them.",
+        "back": "There’s no way back. Even I couldn’t talk my way out of {botch}."
+      },
+      "unflappable-mastermind": {
+        "bad": "I don’t flinch. I flinched.",
+        "past": "I’ve worked it out from every angle. There’s no angle where it looks fine.",
+        "fix": "I ran the numbers on a fix. There aren’t any numbers.",
+        "date": "A date would be a strategic error. Mine.",
+        "back": "Game over. I don’t say that lightly."
+      },
+      "organised-brave": {
+        "bad": "I’ll be brave and say it. It’s bad.",
+        "past": "I made a list of what I could see past. You weren’t on it.",
+        "fix": "I’ve organized a lot of things. Nobody organizes that back.",
+        "date": "I’m brave. Not that brave.",
+        "back": "No. Better you hear it now, from someone who means well."
+      },
+      "velvet-mystery": {
+        "bad": "Mm. Let’s just say I’ve seen it, and I can’t unsee it.",
+        "past": "Some things are beautiful in the dark. That isn’t one of them.",
+        "fix": "Fixed? No. Some things only get stranger.",
+        "date": "I keep my secrets. You can’t keep yours. It’s on your face.",
+        "back": "No, darling. The door you went through only opens one way."
+      },
+      "golden-careless": {
+        "bad": "Oh no. Oh no no no. Yeah, it’s bad.",
+        "past": "I can’t see past it. It’s literally all I can see.",
+        "fix": "Fixed? Like with makeup? I don’t think makeup goes that far.",
+        "date": "My friends would never let me live it down. Never. Like, at my wedding.",
+        "back": "I don’t think there is? I think that’s just you now. Sorry!"
+      },
+      "cool-sporty": {
+        "bad": "Bad. Like, carried-off-the-field bad.",
+        "past": "I see past bad calls. That’s a career-ending injury.",
+        "fix": "Some injuries heal. That one retired you.",
+        "date": "Pass. Hard pass.",
+        "back": "No comeback from that. Not this season. Not any season."
+      },
+      "restless-heartbreaker": {
+        "bad": "I’ve broken a lot of hearts. I’ve never seen one look like {botch}.",
+        "past": "I don’t see past anything. I just move on. Moving on.",
+        "fix": "Nobody comes back from that. I’d know. Men try to come back from me all the time.",
+        "date": "One date. Then you’d want two. And I’d have to look at you both times.",
+        "back": "No. And I’m not even being mean this time."
+      },
+      "thrill-seeker": {
+        "bad": "I’ve jumped out of a plane. Looking at {botch} was scarier.",
+        "past": "I love a risk. You’re not a risk. You’re a sure thing, and the thing is no.",
+        "fix": "There’s no undo button. I’ve looked for one on a lot of things.",
+        "date": "I’d rather skydive without a parachute. That’s how much I mean no.",
+        "back": "No. That ride only goes one way."
+      },
+      "earnest-heart": {
+        "bad": "I don’t want to hurt you. But yes. It’s really bad.",
+        "past": "I tried. I honestly tried. I looked at your picture for a whole minute.",
+        "fix": "I really hope so. I just don’t think it’s true. I’m so sorry.",
+        "date": "I can’t. I’d spend the whole time being sad for you, and that isn’t a date.",
+        "back": "I don’t think there is. I wish there was. I really do."
+      },
+      "curious-contrarian": {
+        "bad": "Everyone says it’s bad. For once I agree with everyone.",
+        "past": "I usually argue the other side. There isn’t another side to {botch}.",
+        "fix": "I looked into it. Nothing reverses that.",
+        "date": "I’d go out with you just to be different. That’s how bad it is: I won’t.",
+        "back": "No. And believe me, I wanted to disagree."
+      },
+      "spellbinding-storyteller": {
+        "bad": "There’s an old Sunfall story about a man who wanted a new face. You’re that story now.",
+        "past": "In the old stories, the curse breaks when someone looks past it. Nobody ever does.",
+        "fix": "It doesn’t get fixed in any version I know. The ending is always the same.",
+        "date": "I’ll tell people about you for years. I won’t go out with you.",
+        "back": "No. That’s how the story ends. Nobody comes back."
+      },
+      "dignified-outsider": {
+        "bad": "I know what it is to be looked at. This is something else.",
+        "past": "I see past most things. People don’t see past mine. I can’t see past yours.",
+        "fix": "I won’t lie to you. It isn’t going to be fixed.",
+        "date": "I keep to myself. I’ll keep to myself.",
+        "back": "No. Learn to live with it. That’s all any of us do."
+      },
+      "girl-sleuth": {
+        "bad": "I investigated. It’s exactly as bad as the evidence suggests.",
+        "past": "I notice everything. That’s the problem. I can’t stop noticing {botch}.",
+        "fix": "I looked into who did it. Nobody can undo it. Case closed.",
+        "date": "I solve mysteries. You’re not a mystery. Everyone can see what happened.",
+        "back": "No. I followed every lead. It’s permanent."
+      },
+      "chaotic-sweetheart": {
+        "bad": "Oh my God, okay, it’s really bad, I’m sorry, I laughed, I’m a terrible person.",
+        "past": "I tried! I put my hand over half the screen. Then the other half. Nope.",
+        "fix": "Fixed? Babe. Babe, no.",
+        "date": "I love you as a person. As a concept. From far away.",
+        "back": "No. But I’ll send you memes. Supportive ones."
+      },
+      "glamorous-rival": {
+        "bad": "It’s a catastrophe, darling. A fashion catastrophe and a medical one.",
+        "past": "I don’t see past things. I see everything, in good light, and judge it.",
+        "fix": "No amount of money fixes that. I would know. I have a lot of money.",
+        "date": "Be photographed next to you? I’d rather die.",
+        "back": "None. You’ll be the cautionary tale at every party I go to this year."
+      },
+      "shy-gentle": {
+        "bad": "I don’t want to say. But it is. It is really bad.",
+        "past": "I’m sorry. I tried. I really did.",
+        "fix": "I don’t think it can be. I’m sorry. I don’t like saying that.",
+        "date": "I don’t think I could. I’d be too nervous to look at you. Or too sad.",
+        "back": "I don’t think so. Please don’t be upset with me."
+      },
+      "practical-princess": {
+        "bad": "Practically speaking? It’s a disaster.",
+        "past": "I’m practical, not blind.",
+        "fix": "I priced it out for you. It doesn’t come back at any price.",
+        "date": "A date is an investment. You’re a write-off.",
+        "back": "No. Cut your losses. That’s what I’d tell anyone."
+      },
+      "devout-quiet": {
+        "bad": "I won’t lie. Lying is a sin. It is very bad.",
+        "past": "I pray to see the good in everyone. I am still praying.",
+        "fix": "Only God could fix that, and I think He is cross with you.",
+        "date": "No. Forgive me.",
+        "back": "No. Some things are not undone in this life."
+      },
+      "steadfast-second-chance": {
+        "bad": "I believe in second chances. That face used them all up.",
+        "past": "I’ve looked past a lot in my life. A divorce, a fire, a man who sold my car. Not this.",
+        "fix": "I wanted to tell you it gets better. It doesn’t.",
+        "date": "I give second chances. You had yours. It’s on your face.",
+        "back": "No. And I’m the one who always says yes to second chances."
+      },
+      "sorority": {
+        "bad": "Babe, it’s worse. It’s so much worse in the light.",
+        "past": "I can see past, like, a bad haircut. Not a bad face.",
+        "fix": "Fixed? Babe. Our house mom says you can’t un-ring a bell.",
+        "date": "If anyone saw me with you, I’d have to transfer schools.",
+        "back": "No. It’s, like, permanent permanent."
+      }
+    },
+    "jobs": [
+      {
+        "match": "nurse",
+        "line": "I’m a nurse. I’ve seen men come back from car wrecks. Nobody comes back from that."
+      },
+      {
+        "match": "pharmac",
+        "line": "I work in a pharmacy. We don’t sell anything for that. Nobody does."
+      },
+      {
+        "match": "dental|hygienist",
+        "line": "I look at faces up close all day for work. I’ve never wanted to look away from one this fast."
+      },
+      {
+        "match": "veterinar",
+        "line": "I work at a vet’s. We have a word for when something can’t be fixed. We don’t use it on people."
+      },
+      {
+        "match": "forensic|crime scene",
+        "line": "I photograph crime scenes. I’d still look away from yours."
+      },
+      {
+        "match": "evidence|custody|archive|records",
+        "line": "I keep things in boxes for a living. If you were evidence, you’d go in the bottom one."
+      },
+      {
+        "match": "detective|investigat|constable|dispatcher|police|collision|traffic",
+        "line": "I’ve stood at accident scenes for hours. I couldn’t stand next to you for five minutes."
+      },
+      {
+        "match": "photograph|camera",
+        "line": "I take pictures for a living. There’s no light that helps you."
+      },
+      {
+        "match": "reporter|journalist|editor|columnist|newsroom|newspaper|fact",
+        "line": "I write things down for a living. Some things I’m glad I can’t un-write. You’re one of them."
+      },
+      {
+        "match": "radio",
+        "line": "I work in radio. Thank God you’d only be heard."
+      },
+      {
+        "match": "teacher|lecturer",
+        "line": "I grade work all day. This would fail."
+      },
+      {
+        "match": "art|museum|gallery",
+        "line": "I work with art. Some pieces you look at and think, somebody meant this. Nobody meant you."
+      },
+      {
+        "match": "music|venue",
+        "line": "I work at a music venue. I’ve seen every kind of face in the front row. Never one like yours."
+      },
+      {
+        "match": "record",
+        "line": "I dig through record bins all night. Some are so scratched nobody will ever play them again. You’re one of those."
+      },
+      {
+        "match": "jewelry",
+        "line": "I make jewelry. I can fix a broken clasp. I can’t fix anything on you."
+      },
+      {
+        "match": "florist",
+        "line": "I’m a florist. Even the dead flowers look better than that, and we still sell those sometimes."
+      },
+      {
+        "match": "pastry|chef|baker",
+        "line": "If something came out of my oven like that, it would go straight in the trash."
+      },
+      {
+        "match": "diner|waitress|cashier|barista|retail",
+        "line": "I’ve served every face in Sunfall. I’d ask a coworker to take your table."
+      },
+      {
+        "match": "real estate",
+        "line": "I sell houses. Some of them you can’t fix. You knock them down."
+      },
+      {
+        "match": "interior|decorator",
+        "line": "I decorate rooms. Some rooms you can’t save. You just close the door."
+      },
+      {
+        "match": "fitness|coach|instructor|swimming",
+        "line": "I coach people. Some injuries end careers. That one ended yours."
+      },
+      {
+        "match": "charity|fundrais|donor|volunteer",
+        "line": "I raise money for good causes. Even I couldn’t raise money for {botch}."
+      },
+      {
+        "match": "compliance|administrator|bookkeeper|accountant|analyst|statistician",
+        "line": "I run numbers for a living. Your numbers are bad."
+      },
+      {
+        "match": "climate|campaigner|organizer|activist|community",
+        "line": "I campaign for things that can still be saved. You’re not on the list."
+      },
+      {
+        "match": "tattoo",
+        "line": "I tattoo people. I could cover a scar. I can’t cover that."
+      },
+      {
+        "match": "receptionist|front desk",
+        "line": "I work a front desk. If you walked in, I’d say we were closed."
+      },
+      {
+        "match": "tour guide",
+        "line": "I give tours. People would pay to see you. That isn’t a compliment."
+      },
+      {
+        "match": "dog walker",
+        "line": "I walk dogs. The dogs would bark at you. The calm ones."
+      },
+      {
+        "match": "librar|research",
+        "line": "I research things for a living. There is nothing in any book about coming back from that."
+      },
+      {
+        "match": "travel",
+        "line": "I write about places to go. I’d tell my readers to avoid you."
+      },
+      {
+        "match": "event|planner|promoter|party",
+        "line": "I plan events. I’d seat you behind a pillar."
+      },
+      {
+        "match": "theater|actor",
+        "line": "I act. Even with stage makeup, we couldn’t do that to someone."
+      },
+      {
+        "match": "student",
+        "line": "I’m a student. I’d write a paper about you. I’d never go on a date with you."
+      }
+    ],
+    "women": {
+      "SORORITY-01": {
+        "back": "I have a beauty mark everyone loves. You have {botch}. Nobody will ever love that. Not me, not anyone.",
+        "jab": [
+          "I’m Stacey. I decide who gets near this house. You don’t. Not now, not ever."
+        ]
+      },
+      "SORORITY-02": {
+        "back": "I get dimples when I smile. I can’t make them happen looking at you. Nobody can.",
+        "jab": [
+          "In fashion we say you can’t fix a bad cut. I didn’t think it applied to faces."
+        ]
+      },
+      "SORORITY-03": {
+        "back": "I’m six feet tall and I still look down on you. Everyone will, forever.",
+        "jab": [
+          "Legs are kind of my thing. Yours are a tragedy."
+        ]
+      },
+      "SORORITY-04": {
+        "back": "People think my freckles are cute. Nobody will ever think anything on you is cute again.",
+        "jab": [
+          "I study nutrition. There’s no diet for {botch}."
+        ]
+      },
+      "SORORITY-05": {
+        "back": "As chapter president I’m making it official: you’re banned from the house. For life.",
+        "jab": [
+          "I have two different colored eyes and people call it striking. On you, everything is striking. Like a car."
+        ]
+      },
+      "SORORITY-06": {
+        "back": "My hoops are bigger than my patience for this, and my patience is gone. Forever.",
+        "jab": [
+          "I screenshotted your profile on my rhinestone phone. It’s the ugliest thing that’s ever been on it."
+        ]
+      },
+      "SORORITY-07": {
+        "back": "I have a gap in my teeth and it’s cute. That’s the difference between a flaw and a botch. You can’t come back from a botch.",
+        "jab": [
+          "I study psychology. I mostly want to know why you thought this was a good idea."
+        ]
+      },
+      "SORORITY-08": {
+        "back": "I do marketing. I couldn’t sell you. Not on sale, not for free, not ever.",
+        "jab": [
+          "I took my glasses off to look at your picture. It helped."
+        ]
+      },
+      "SORORITY-09": {
+        "back": "I study economics. You’re what we call a sunk cost. You don’t get it back.",
+        "jab": [
+          "I raised one eyebrow at your picture and it hasn’t come down."
+        ]
+      },
+      "SORORITY-10": {
+        "back": "I cut all my hair off once and everybody called me brave. Nobody is ever calling you brave. Nobody is calling you at all.",
+        "jab": [
+          "I study art history. Even the ugliest paintings in my textbook had someone who loved them."
+        ]
+      },
+      "SORORITY-11": {
+        "back": "Back home, when a horse came out like that, there was no fixing it. There was just a long, quiet walk.",
+        "jab": [
+          "I never take my hat off. Get one, and never take it off either."
+        ]
+      },
+      "SORORITY-12": {
+        "back": "I’m Miss Sunfall. In pageants one flaw and you’re out. You’re not out. You were never in.",
+        "jab": [
+          "I have cheekbones you could cut glass on. You have {botch}."
+        ]
+      },
+      "SORORITY-13": {
+        "back": "I have a scar too. Mine’s from a stunt and it’s hot. Yours is from a coupon, and it’s forever.",
+        "jab": [
+          "A scar tells a story. Yours tells a joke."
+        ]
+      },
+      "SORORITY-14": {
+        "back": "I’m the ice queen of the house, and even I feel bad for you. A little. Not enough to ever say yes.",
+        "jab": [
+          "Ballet is all lines. You don’t have a single one going the right way."
+        ]
+      },
+      "SORORITY-15": {
+        "back": "In musical theater we have a word for this. A tragedy. There’s no second act.",
+        "jab": [
+          "You heard my laugh, right? The whole house heard it. That was about you."
+        ]
+      },
+      "SORORITY-16": {
+        "back": "Sisterhood chair here. The sisters voted. It was unanimous. Never.",
+        "jab": [
+          "My smirk is lopsided on purpose. Yours is a whole face."
+        ]
+      },
+      "MATCH-003": {
+        "back": "I like things nobody else likes. Records nobody buys. Chapels nobody prays in. Not you, though. Nobody comes back from that.",
+        "jab": [
+          "I would have taken you somewhere dark and beautiful. Now you’d frighten the bats."
+        ]
+      },
+      "MATCH-020": {
+        "back": "I can fix a bad squat. I can fix a bad back. I can’t fix that, and nobody else can either.",
+        "jab": [
+          "I spot guys at the gym all day. I couldn’t spot you. I couldn’t look."
+        ]
+      },
+      "MATCH-028": {
+        "back": "I cast faces for a living. Yours is cast now. Nobody is ever casting you again.",
+        "jab": [
+          "My client asked about you again. I said you’d retired. It was kinder."
+        ]
+      },
+      "MATCH-042": {
+        "back": "I chair the Bluebird gala. I would seat you in the kitchen, behind the ice machine, for the rest of your life.",
+        "jab": [
+          "Mother has asked me never to mention you at dinner again."
+        ]
+      },
+      "MATCH-010": {
+        "back": "I give money to lost causes. You are the first one I won’t give a cent to.",
+        "jab": [
+          "I have a foundation for nearly everything. Not for {botch}."
+        ]
+      },
+      "MATCH-043": {
+        "back": "I could raise money for almost anything in this town. Nobody would pay to bring you back.",
+        "jab": [
+          "I’m planning a gala. You’re not invited. Sorry, darling."
+        ]
+      },
+      "MATCH-052": {
+        "back": "I fight for lost causes, but I pick ones that can still win. You can’t.",
+        "jab": [
+          "We’re marching downtown on the weekend. Please don’t come. You’d be the only thing in the photos."
+        ]
+      },
+      "MATCH-053": {
+        "back": "I looked it up properly, because that’s my job. There’s no study where anyone comes back from that.",
+        "jab": [
+          "I’m a research assistant. You’d be a fascinating paper. A terrible boyfriend."
+        ]
+      },
+      "MATCH-049": {
+        "back": "I go undercover for a living. You never can again. Everyone will know that face, forever.",
+        "jab": [
+          "I’ve had worse looking suspects. Not many."
+        ]
+      },
+      "MATCH-192": {
+        "back": "I make jewelry out of broken things. Even I don’t use what’s left of you.",
+        "jab": [
+          "I melted down a bad ring last night. I thought of you."
+        ]
+      },
+      "MATCH-163": {
+        "back": "On the radio nobody can see you. Try radio. Nothing else is ever going to work for you.",
+        "jab": [
+          "We did a whole segment on botched surgery. I didn’t say your name. I wanted to."
+        ]
+      },
+      "MATCH-041": {
+        "back": "We’re doing a horror play next month and the director asked if you were free. I said no. For you. That’s the only role left.",
+        "jab": [
+          "I can do a lot with stage makeup. Not that."
+        ]
+      },
+      "MATCH-024": {
+        "back": "Animals come in from the cheap clinic over the border too. They never come back right either.",
+        "jab": [
+          "We have a cone for dogs who won’t stop looking at their stitches. You need one for the whole town."
+        ]
+      },
+      "MATCH-054": {
+        "back": "I’m writing my thesis on bodies and power. You’re a footnote now. Forever.",
+        "jab": [
+          "My seminar group saw your photo. We had a whole discussion."
+        ]
+      },
+      "MATCH-168": {
+        "back": "I’m a photography assistant. I know how to light anything. I can’t light that. Nobody can.",
+        "jab": [
+          "My boss saw your picture and asked if it was for the before-and-after campaign. Just the before."
+        ]
+      },
+      "MATCH-115": {
+        "back": "I keep evidence in boxes for the court. If you were evidence, I’d label you closed. For good.",
+        "jab": [
+          "I see a lot of photos of what people do to each other. You did it to yourself."
+        ]
+      }
+    },
+    "tree": {
+      "open": [
+        "It’s not as bad as it looks.",
+        "Can you see past it?",
+        "I’m getting it fixed."
+      ],
+      "then": [
+        "Give me one date. Just one.",
+        "Is there really no coming back?"
+      ]
+    },
+    "end": [
+      "Nobody in Sunfall is going to date you. Not me. Not anyone. Not ever.",
+      "Every girl on this app has seen it by now. It’s over for you here.",
+      "There’s no version of this where a woman says yes. I’m sorry.",
+      "You can keep messaging. Every one of us is going to say the same thing.",
+      "It isn’t a phase and it isn’t a bad week. It’s the rest of your life.",
+      "You could save a hundred people and marry none of them. Not looking like that."
+    ],
+    "refuse": [
+      "Go out with you? Like that? No. Never. Nobody will.",
+      "I would rather stay single forever. I mean that literally.",
+      "Ask every woman on this app. You’ll get the same answer from all of us.",
+      "Not with {botch}. Not with anybody watching. Not with nobody watching.",
+      "A date means being seen with you. I can’t be seen with you.",
+      "No. That isn’t going to change, so please stop asking."
+    ],
+    "ruined": "There is no coming back from this. No woman in Sunfall will say yes to you now, whatever you do. The game cannot be won like this.",
+    "ruinedAgain": "Dr. Varga only does it once. This time it is for good. The game cannot be won now.",
+    "told": "Every woman in Sunfall will say the same. Nobody will date you, marry you or take you anywhere like this. The game cannot be won.",
+    "questNo": "You did it, and the paper says so. But nobody in Sunfall wants to be seen with that face. No win like this."
   }
 }

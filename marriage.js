@@ -272,6 +272,8 @@
     function propose(st,id){
       const s=sisterState(st,id),sis=sister(id);
       if(!(s.passed||api.blessed?.())||wed(st))return;
+      const no=api.refuse?.(id); // the Looksmaxxer, botched for good: nobody marries that face
+      if(no){converse(id,`${firstName(id)}, will you marry me?`,[no]);return;}
       if(!st.ring){
         s.proposedWithoutRing++;
         converse(id,`${firstName(id)}, will you marry me?`,[data.rules.noRingReply,sis.noRing]);
@@ -293,6 +295,7 @@
     function thunderbirdWedding(id){
       const st=state();
       if(!st||wed(st)||sister(id)||api.profile?.(id)?.factionId!=='thunderbirds')return false;
+      if(api.refuse?.(id))return false; // botched for good: the Bluebirds won't have him either
       st.tb={id,day:today()};
       api.world().victory={type:'thunderbirds',bride:id,day:today()};
       refreshDesk();
