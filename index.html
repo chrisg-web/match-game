@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="388e93c637">
+<html lang="en" data-build="d03df2c4a6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -748,11 +748,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=388e93c637"></script>
+  <script src="chapel_at_midnight.js?v=d03df2c4a6"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=388e93c637"></script>
+  <script src="marriage.js?v=d03df2c4a6"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=388e93c637"></script>
+  <script src="quests/professor-vale.js?v=d03df2c4a6"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -10800,7 +10800,7 @@
       if(o.lx&&typeof o.lx==='object')out.lx=sanitizeLx(o.lx); // the Looksmaxxer: the classifieds
       for(const [id,day] of Object.entries(o.gifts||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(day))out.gifts[id]=day; // flowers for the sorority count too
       for(const [id,n] of Object.entries(o.giftsN||{}).slice(0,200))if(/^(MATCH|SORORITY)-\d+$/.test(id)&&Number.isInteger(n)&&n>0)out.giftsN[id]=Math.min(99,n);
-      if(o.dead&&typeof o.dead==='object'&&['cheap','height','gus','backstreet','sheriff','solver','wine','brakes','gun'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
+      if(o.dead&&typeof o.dead==='object'&&['cheap','height','gus','backstreet','sheriff','solver','wine','brakes','gun','botch'].includes(o.dead.kind))out.dead={kind:o.dead.kind};
       return out;
     }
     function classState(){
@@ -11467,18 +11467,18 @@
     }
     // Dr. Ansel Varga, the Undoing. Thirty years ago he was the best cosmetic surgeon in Scottsdale; he did his own face,
     // botched it, and spent eleven years learning to undo it. Now he only undoes: everything out, every botch with it, and
-    // a face in the middle of the room. He keeps what he takes out in jars. He does it once.
+    // a face in the middle of the room. He keeps what he takes out in jars. He does it once, and a second botch kills you.
     var VARGA_ASK={what:'Ask what he does',jars:'Ask about the jars',face:'Ask about his own face',once:'Ask why only once',after:'Ask what you’ll look like'};
     var VARGA={what:'I undo. Every veneer, every screw, every inch they gave you, I take back out. Then I rebuild what was there before, from the bone, the way it should have healed the first time. You will not be beautiful. You will be you, a little improved. Most men weep.',
       jars:'Ah. You heard. Everything I take out goes in a glass jar with the name of the man who put it in. I have a whole shelf for a dentist called Gus. The vet over the border has a cabinet. One day it all goes to a museum, and the museum will need a strong floor.',
       face:'Thirty years ago I was the best cosmetic surgeon in Scottsdale. I did my own face. I botched it. It took me eleven years to learn how to undo it. Look at me now: the most ordinary face in Arizona. I am very proud of it.',
-      once:'Because the body forgives once. Twice, it remembers. Come back to me with a new mistake and you keep it. I will not even look.',
+      once:'Because the body forgives once. Twice, it remembers, and what it remembers kills it. Do not come back to me with a new mistake. You will not be coming back to anyone.',
       after:'Five foot nine again, I am afraid. Your own teeth, or what I can grow back. Your own jaw, set straight. A face somewhere in the middle of the room. Women will look at you again. Not at first. At first they will only stop looking away.',
       book:'Good. Five thousand dollars, cash, in an envelope. Drive up to Cinder Hill when you have it: the hospital at the top of the hill, the only building with its lights on. Eat nothing the night before. Bring nobody.',
       again:'No. I told you. Once. You have had your once, and now you have a new mistake. Keep it.',
       nothing:'There is nothing left to undo. Go and live. And stay away from kitchens with clippers in them.',
-      result:'Looks 60 of 100. Everything they put in is in a jar now, with your name on it: the veneers, the inches, the titanium, the botch. Sunfall can look at you again. Dr. Varga only does this once.'};
-    var VARGA_STORY={id:'lx_varga_story',section:'Health',title:'THE MAN WHO TAKES IT ALL BACK',summary:'In a ghost town an hour north, a surgeon undoes what cheaper surgeons did.',body:'In the old copper-mine hospital at Cinder Hill, Dr. Ansel Varga has spent twenty years taking things out of people: veneers, titanium plates, the steel frames of leg lengthening gone wrong. His patients arrive botched and leave, in their own word, ordinary. He keeps everything he removes in labeled glass jars. He charges $5,000, cash, and he sees a patient once. Only once, he says. The second mistake is yours to keep. His number is in the classifieds.',image:'varga_story',fallbackImage:'classifieds'};
+      result:'Looks 60 of 100. Everything they put in is in a jar now, with your name on it: the veneers, the inches, the titanium, the botch. Sunfall can look at you again. The body forgives once, Dr. Varga says. Do not test it.'};
+    var VARGA_STORY={id:'lx_varga_story',section:'Health',title:'THE MAN WHO TAKES IT ALL BACK',summary:'In a ghost town an hour north, a surgeon undoes what cheaper surgeons did.',body:'In the old copper-mine hospital at Cinder Hill, Dr. Ansel Varga has spent twenty years taking things out of people: veneers, titanium plates, the steel frames of leg lengthening gone wrong. His patients arrive botched and leave, in their own word, ordinary. He keeps everything he removes in labeled glass jars. He charges $5,000, cash, and he sees a patient once. Only once, he says: the body forgives one botch, never two. His number is in the classifieds.',image:'varga_story',fallbackImage:'classifieds'};
     function vargaTopics(){
       const l=lx();
       if(l.varga==='done')return [{id:'lx:varga:again',label:'Ask him to do it again',lx:true}];
@@ -11566,17 +11566,18 @@
       if(cost)cashMove(-cost,d.ledger||d.label);
       const roll=v=>typeof v==='function'?!!v():!!(v&&gameRandom()<v);
       const wrong=selectedDifficulty==='divorce'&&denisePlan().wrongCar; // the Divorcé: the car he did in the dark was his own
-      const dd=wrong?DRIVES.divorce.brakes:d,dies=wrong||roll(d.risk),ruined=!dies&&roll(d.ruin),missed=!dies&&!ruined&&!!d.miss&&roll(d.miss.chance); // a cheap job: it kills you, or ruins you for good; some nights nothing can be done
+      const dd=wrong?DRIVES.divorce.brakes:d,riskHit=!wrong&&roll(d.risk),rolledRuin=!wrong&&!riskHit&&roll(d.ruin),twice=rolledRuin&&selectedDifficulty==='looksmaxxer'&&(c.botchEp||0)>=1; // botched a second time: you die (Chris, 5 November 2026)
+      const dies=wrong||riskHit||twice,ruined=!dies&&rolledRuin,missed=!dies&&!ruined&&!!d.miss&&roll(d.miss.chance); // a cheap job: it kills you, or ruins you for good; some nights nothing can be done
       closeCupboard();saveRun(true);walletRender();
       const done=d.done[hashSeed(world.seed+'|drive|'+id+'|'+world.day)%d.done.length];
-      const end=dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:missed?d.miss.line:done;
+      const end=twice?`${d.ruinLine} ${BOTCH_TWICE.deaths[hashSeed(world.seed+'|botchtwice')%BOTCH_TWICE.deaths.length]}`:dies?dd.deaths[hashSeed(world.seed+'|cheapdeath')%dd.deaths.length]:ruined?d.ruinLine:missed?d.miss.line:done;
       const staged=!!d.scene&&!wrong; // three to five pictures: you arrive, it happens, and how you come out of it
       const drive={image:DRIVE_PIC,stand:'room',caption:`You grab the keys and drive to ${d.place}.`}; // the drive there, then the place (Chris, 4 November 2026)
       const frames=staged
         ?[drive,...d.scene.map(step=>({image:step.image,stand:'room',caption:step.caption,sound:step.sound})),
-          {image:dies?(DEATH_PICS[id]||d.scene.at(-1).image):ruined?d.ruinImage:d.after,stand:'room',caption:end,sound:dies?'death':ruined?'scream':d.afterSound}]
+          {image:twice?DEATH_PICS.botch:dies?(DEATH_PICS[id]||d.scene.at(-1).image):ruined?d.ruinImage:d.after,stand:'room',caption:end,sound:dies?'death':ruined?'scream':d.afterSound}]
         :[drive,{image:dies?(DEATH_PICS[wrong?'brakes':id]||dd.image):dd.image,stand:'room',caption:end,sound:dies?'death':null}];
-      playScene(frames,()=>dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):missed?arriveMissed(id):arrive(id),{gap:staged?2600:1900});
+      playScene(frames,()=>twice?classDie('botch'):dies?classDie(wrong?'brakes':id):ruined?arriveRuined(id):missed?arriveMissed(id):arrive(id),{gap:staged?2600:1900});
       return true;
     }
     function arriveMissed(id){const d=DRIVES[selectedDifficulty][id];achToast(d.miss.toast||d.miss.line);saveRun(true);updateRunStatus();}
@@ -11587,9 +11588,8 @@
       if(d.bed)c.laidUntil=world.day+d.bed;
       if(looksTier()!==before)setGrip();
       c.botchEp=(c.botchEp||0)+1;c.botchDay=world.day;c.botchPart=d.cat; // every woman will say so (Chris, 5 November 2026)
-      const bk=botchKit(),again=lx().varga==='done';
-      achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]} ${(again?bk?.ruinedAgain:bk?.ruined)||''}`.trim());
-      if(!again&&!lx().vargaStory){lx().vargaStory=true;queueNews({...VARGA_STORY},world.day+1);} // Dr. Varga, in tomorrow's paper
+      achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]} ${botchKit()?.ruined||''}`.trim());
+      if(!lx().vargaStory){lx().vargaStory=true;queueNews({...VARGA_STORY},world.day+1);} // Dr. Varga, in tomorrow's paper
       clinicNews(id);
       checkAchievements();saveRun(true);updateRunStatus();
       if(currentApp==='hinge')renderHinge();
@@ -11712,7 +11712,9 @@
       warmBy(thread,1);walletRender();saveRun(true);
     }
     // ---- the cheap clinic, and the sheriff ----
-    var DEATH_PICS={cheap:'assets/deaths/cheap-surgeon.png',height:'assets/deaths/height.png',gus:'assets/deaths/cheap-dentist.png',backstreet:'assets/deaths/backstreet-surgeon.png',solver:'assets/deaths/solver.png',wine:'assets/deaths/wine.png',brakes:'assets/deaths/brakes.png',gun:'assets/deaths/gun.png'};
+    // Botched twice (Chris, 5 November 2026: if you botch yourself a second time, you just die). No warning.
+    var BOTCH_TWICE={cause:'A SECOND BOTCH',deaths:['The body forgives once, Dr. Varga said. Twice, it remembers. It remembers everything at once, at a red light on the drive home, and your heart simply stops.','Something they did to you the first time tears loose. You make it as far as your own driveway.','You check the damage in the rearview mirror at a red light. It is the last thing you ever see.']};
+    var DEATH_PICS={botch:'assets/deaths/botched-twice.png',cheap:'assets/deaths/cheap-surgeon.png',height:'assets/deaths/height.png',gus:'assets/deaths/cheap-dentist.png',backstreet:'assets/deaths/backstreet-surgeon.png',solver:'assets/deaths/solver.png',wine:'assets/deaths/wine.png',brakes:'assets/deaths/brakes.png',gun:'assets/deaths/gun.png'};
     function classDie(kind){
       const c=classState();
       if(kind==='sheriff'){c.dead={kind};saveRun(true);playScene(SHERIFF.steps,()=>{classDeathScreen();saveRun(true);});return;}
@@ -11724,6 +11726,7 @@
       if(!kind)return;
       stopRinging();herCall=null;
       if(kind==='sheriff'){drawDeathTitle(SHERIFF.cause,SHERIFF.verb);$('fatal-overlay').querySelector('p').textContent=SHERIFF.deaths[hashSeed(world.seed+'|sheriff')%SHERIFF.deaths.length];}
+      else if(kind==='botch'){drawDeathTitle(BOTCH_TWICE.cause,'KILLED');$('fatal-overlay').querySelector('p').textContent=BOTCH_TWICE.deaths[hashSeed(world.seed+'|botchtwice')%BOTCH_TWICE.deaths.length];}
       else if(kind==='solver'){drawDeathTitle('THE MAN FROM THE CACTUS','KILLED');$('fatal-overlay').querySelector('p').textContent=SOLVER.deaths[hashSeed(world.seed+'|solverdeath')%SOLVER.deaths.length];}
       else{const d=DRIVES.looksmaxxer[kind]||DRIVES.divorce[kind]||DRIVES.looksmaxxer.cheap;drawDeathTitle(d.cause||'A CHEAP SURGEON','KILLED');$('fatal-overlay').querySelector('p').textContent=d.deaths[hashSeed(world.seed+'|cheapdeath')%d.deaths.length];}
       $('fatal-overlay').classList.add('visible');
