@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="489d71a12a">
+<html lang="en" data-build="9ba1990c0a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=489d71a12a"></script>
+  <script src="chapel_at_midnight.js?v=9ba1990c0a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=489d71a12a"></script>
+  <script src="marriage.js?v=9ba1990c0a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=489d71a12a"></script>
+  <script src="quests/professor-vale.js?v=9ba1990c0a"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4975,6 +4975,9 @@
       'Send Father Sorrell the three cassettes':'I have all three cassettes for you, Father.',
       'Tell Father Sorrell how it’s going':'Here’s how it’s going, Father.'};
     const sqSay=t=>t.say||SQ_SAY[t.label]||t.label;
+    // The same fact, in her own words: women of one group used to say these word for word (Chris, 5 November 2026).
+    var SQ_REPLY_ALT={"Not through Monsignor Ferrante. He’s Pell’s man in the chancery. Get it in print first. Then the bishop can’t bury it.": ["Whatever you do, don’t go through Monsignor Ferrante. He belongs to Pell. Print it first, and the bishop can’t pretend he never saw it.","Skip Monsignor Ferrante. He answers to Pell, not the bishop. Get it in the paper first. Once it’s printed, nobody can bury it."],"My aunt calls her every week. She says Ilona is the only one who listens.": ["My aunt rings her every week. Apparently Ilona is the only one who really listens.","My mom’s friend calls her all the time. She says Ilona listens better than any of us."],"Ilona? She was in the scene before she went commercial. She’s a fraud, but she’s a good one.": ["Ilona used to read tarot at the Cellar Door before she got a phone line. Total fraud. A talented one.","Madame Ilona? She came up in the scene, then went commercial. Fake, obviously. Very good at it."],"She reads the obituaries before every reading. Every grieving name in the paper. Put a dead man in the obituaries who never lived, give him one detail nobody could guess, then call her and see if she finds it.": ["She reads the obituaries. All of them, every morning, before she picks up the phone. So invent a dead man. Put him in the paper with one detail nobody could know, then call her and see if she finds it.","Obituaries. She works from the death notices. Make one up, a man who never lived, with one odd detail nobody could guess. Then ring her and see if he turns up."],"My dictaphone. I record my band on it. Bring it back, and bring me the gossip.": ["I’ve got a dictaphone I use for band practice. Borrow it. Bring it back with gossip.","Take my dictaphone. It’s mostly drum demos on there. Don’t tape over the good one, and tell me everything."],"Madame Ilona read for my mother. She knew things. Don’t you dare make fun of her.": ["Madame Ilona read for my grandmother at the club. She knew things she couldn’t have known. Be nice.","Mother had a reading with Ilona once and cried for a week. In a good way. Don’t laugh."],"Father Julian? He’s marvelous. He golfs with Augustus every week. The Foundation paid for his new kitchen. Finally a priest who understands people like us.": ["Father Julian is a darling. He plays golf with Augustus every week, and the Foundation paid for his kitchen. A priest who finally understands our sort of people.","Oh, Father Julian. Golf with Augustus every week, a new kitchen courtesy of the Foundation. He understands people like us. It’s refreshing."],"People grieve how they grieve. But taking a widow’s savings is predatory.": ["Grief is grief. But taking a widow’s savings for it is predatory.","I won’t judge how people grieve. I will judge someone billing widows for it."],"The Veil Line? It’s theft dressed up as grief, and it’s worse than theft. Don’t call it.": ["The Veil Line is theft with candles. Don’t call it.","Don’t call the Veil Line. It’s stealing from the grieving, which is worse than stealing."],"Father Sorrell lends Victoria the keys. He says it’s outreach. He came to a rite once. He stood at the back and didn’t say anything.": ["Father Sorrell gives Victoria the keys. Outreach, he calls it. He came to one rite and stood at the back the whole time without a word.","The new priest hands Victoria the keys and calls it outreach. He even came to a rite once. Stood at the back. Said nothing."]};
+    const sqVary=(text,thread)=>{const alts=SQ_REPLY_ALT[text];if(!alts)return text;const all=[text,...alts];return all[hashSeed(String(thread?.id)+'|vary|'+text)%all.length];};
     function chooseSqChat(key,thread,profile){
       const [,id,k]=key.split(':'),st=sqState(id);
       if(!st||thread.pending)return;
@@ -4983,7 +4986,7 @@
       st.asked.push(thread.id+':'+id+':'+k);coverChat(thread,id);
       thread.log.push({who:'you',text:sqSay(t)});thread.followUp=null; // a new subject: her last small talk is behind you
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
-      return fionnReply(thread,profile,[].concat(reply).map(text=>({text})),()=>{
+      return fionnReply(thread,profile,[].concat(reply).map(text=>({text:sqVary(text,thread)})),()=>{
         if(t.opens!==false)sqOpen(id,true);
         for(const f of t.gives||[])sqLearn(id,f);
         if(t.warm)warmBy(thread,t.warm);
@@ -5038,7 +5041,7 @@
     function callTell(id,st,thread,t){ // a quest topic, said on the phone: the same knowledge, said out loud
       st.asked.push(thread.id+':'+id+':'+t.key);coverChat(thread,id);
       const reply=typeof t.reply==='function'?t.reply(st,thread):t.reply;
-      thread.callLog.push({who:'you',text:t.say||SQ_SAY[t.label]||t.label.replace(/^Ask (her )?/,'').replace(/^./,c=>c.toUpperCase())+'?'},{who:'her',text:[].concat(reply).join(' ')});
+      thread.callLog.push({who:'you',text:t.say||SQ_SAY[t.label]||t.label.replace(/^Ask (her )?/,'').replace(/^./,c=>c.toUpperCase())+'?'},{who:'her',text:[].concat(reply).map(x=>sqVary(x,thread)).join(' ')});
       if(t.opens!==false)sqOpen(id,true);
       for(const f of t.gives||[])sqLearn(id,f);
       if(t.warm)warmBy(thread,t.warm);
