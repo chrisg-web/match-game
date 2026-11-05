@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="3df15c3441">
+<html lang="en" data-build="c582586eef">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=3df15c3441"></script>
+  <script src="chapel_at_midnight.js?v=c582586eef"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=3df15c3441"></script>
+  <script src="marriage.js?v=c582586eef"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=3df15c3441"></script>
+  <script src="quests/professor-vale.js?v=c582586eef"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1036,7 +1036,7 @@
     const questOn=id=>{const start=questStart(id);return start!==null&&world.day>=start;};
     function newWorld(seed){
       const text=String(seed);
-      return {version:3,seed:text,quests:pickQuests(text),contactsKnown:{},cupboard:{pos:{},seen:[],picked:[]},rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
+      return {version:3,seed:text,quests:pickQuests(text),contactsKnown:{},cupboard:{pos:{},seen:[],picked:[]},rngState:hashSeed(text),day:1,flags:{},clues:[],editions:[],seenArticles:[],bearOffered:false,bearDay:hashSeed(text+'|bearday')%3===0?3+hashSeed(text+'|bearday2')%6:null,honey:null,bearAffinity:0,bearChoice:'none',bearInvited:false,bearPrepared:false,bearDistracted:false,bearAwaitingResponse:false,bearMessageDay:null,blueRibbon:newBlueRibbonState(),falsePoliceReports:0,policeArrested:false,policeArrestPhase:null};
     }
     // Blue Ribbon Ledger progress lives inside world, so it travels with the
     // existing version-3 save. Older saves without it load a fresh case.
@@ -1116,6 +1116,9 @@
     let currentApp = null;
     let callReturnTo=null; // where you were when she rang: her call ends back there, not on the keypad
     let fontScale=1.15,wallpaperLocked=false;
+    // Two more wallpapers in the spirit of the first iPhones (Chris, 5 November 2026): offered in Settings once drawn.
+    var EXTRA_WALLPAPERS=[['earth','Earth'],['clownfish','Clownfish']],wallpapersDrawn=new Set();
+    function loadExtraWallpapers(){if(typeof Image!=='function')return;for(const [v] of EXTRA_WALLPAPERS){const img=new Image();img.onload=()=>wallpapersDrawn.add(v);img.src=assetUrl(`assets/ui/wallpapers/${v}.png`);}}
     function setFontScale(value){
       const number=Number(value);
       if(![1,1.15,1.3].includes(number))return;
@@ -1347,7 +1350,7 @@
       if (bearState === 'night'||bearState==='visible'||bearState==='warning') scene = time.value+'-open';
       $('background').src = assetUrl(`assets/variants/${device.value}/${scene}.webp`);
       const wallpaper=$('wallpaper-style').value;
-      const wallpaperPath=wallpaper==='original'?`assets/variants/${device.value}/home-wallpaper.webp`:`assets/ui/wallpapers/${wallpaper}.webp`;
+      const wallpaperPath=wallpaper==='original'?`assets/variants/${device.value}/home-wallpaper.webp`:(EXTRA_WALLPAPERS||[]).some(([v])=>v===wallpaper)?`assets/ui/wallpapers/${wallpaper}.png`:`assets/ui/wallpapers/${wallpaper}.webp`;
       $('wallpaper').style.backgroundImage=`url("${assetUrl(wallpaperPath)}")`;
     }
     device.addEventListener('change',fit);
@@ -1628,6 +1631,8 @@
       }
       const lpcAd=glowAdItem(day); // Truecel, rarely: LPC-A365
       if(lpcAd)items.push(lpcAd);
+      const honey=honeyAdItem(day); // the bear comes tomorrow
+      if(honey)items.push(honey);
       items.push(...lxAdsFor(day)); // the Looksmaxxer: surgeons and gadgets in the classifieds
       items.push(...halNewsItems(day)); // Undeniable: Cole Halloran
       const fionnStory=fionnNewsItem(day); // Theon: how it ended
@@ -1657,6 +1662,7 @@
       if(!world.seenArticles.includes(key))world.seenArticles.push(key);
       if(/^(sisters_|sq_priest_|sq_tapes_)/.test(articleId)||articleId==='bishop_guitars'||(articleId==='religion_chapel'&&!item.chapelOutcome&&!item.chapelFragment))disputeHeard(); // a faith story: now you've heard of the Sisters and the bishop
       sqRead(item); // a story quest opens when you read about it
+      honeyRead(item); // the honey ad: a jar on your nightstand
       if(item.clue)recordClue(item.clue);
       // Contacts: every edition prints the newsroom tip line and the police number;
       // Vale's stories name the University Office, the faith pages St Brigid's Chapel.
@@ -1827,6 +1833,7 @@
       bearAttackPhase='bedroom-night';
       $('door').checked=true;
       fit();
+      if(world.honey){beginBearWarning();return true;} // the jar on the nightstand: one chance
       startBearAttack('You left the bear’s messages unanswered. He found your door the following night.');
       return true;
     }
@@ -1887,16 +1894,38 @@
       if(reaction==='hide'&&world.bearPrepared&&!world.bearInvited){
         escapeBear('You kept your address private and stayed silent until the bear left.');return;
       }
-      if(reaction==='honey'&&world.bearDistracted){
-        escapeBear('The bear abandoned its pursuit to follow the honey you threw outside.');return;
+      if(reaction==='honey'&&(world.bearDistracted||world.honey)){
+        const jar=!!world.honey;world.honey=null;
+        escapeBear(jar?'You threw the jar of honey out of the window. The bear went after it.':'The bear abandoned its pursuit to follow the honey you threw outside.');return;
       }
       const failures={
         lock:'The bear was already crossing the threshold. The latch did not catch.',
         hide:'The bear followed your scent into the room.',
-        honey:'You never prepared a distraction. The bear ignores your empty hands.',
+        honey:'You have no honey. The bear ignores your empty hands.',
         peek:'You opened the door to see what was there.'
       };
       startBearAttack(failures[reaction]||'The bear caught you.');
+    }
+    // Honey (Chris, 5 November 2026). The bear never comes unannounced: the day before he does, the paper's
+    // classifieds sell raw desert honey. Read the ad and you have a jar on the nightstand; throw it and he follows it.
+    function bearEve(d){d=Math.max(d,world.day+1);while(world.editions.some(e=>e.day===d-1))d++;return d;} // a day whose eve's paper isn't printed yet
+    function planBear(d){if(Number.isInteger(world.bearDay)&&world.bearDay>=world.day)return world.bearDay;world.bearDay=bearEve(d);return world.bearDay;}
+    const honeyEve=day=>[world.bearDay,world.cls?.plan?.bearBack].some(d=>Number.isInteger(d)&&d===day+1);
+    var HONEY_AD={section:'Classifieds',title:'RAW DESERT HONEY',summary:'Big jars, two dollars, at the farm stand on Canal Road. Today only.',
+      body:'Raw desert honey from the hives past the Old Mission. Big jars at two dollars each, at the farm stand on Canal Road, today only. Wildlife officers ask residents not to leave it out on porches. Something has been going through the bins up on the ridge.'};
+    function honeyAdItem(day){return honeyEve(day)?{id:'honey_ad_'+day,...HONEY_AD,image:'honey_ad',fallbackImage:'classifieds',honeyAd:true}:null;}
+    function honeyRead(item){
+      if(!item?.honeyAd||world.honey)return;
+      world.honey=world.day;
+      showGameNotice('You picked up a jar of honey. It is on your nightstand.');
+      recordClue('You bought a jar of raw desert honey from the farm stand. Wildlife officers say not to leave it out.');
+    }
+    function bearNewDay(){ // his day: he is in your swipes
+      if(world.day!==world.bearDay||bearState!=='none'||hingeThreads.has(bearHingeCard.id))return;
+      const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===bearHingeCard.id);
+      if(at>=0)hingeDeck.splice(at,1);
+      hingeDeck.splice(Math.min(hingeDeck.length,hingeIndex+1),0,bearHingeCard);
+      world.bearOffered=true;
     }
     function startBearAttack(reason){
       if(!['warning','visible','tracking','attack'].includes(bearState))return;
@@ -2232,10 +2261,6 @@
     function skipMatchedCards(){while(hingeDeck[hingeIndex]&&everMatched(hingeDeck[hingeIndex].id))hingeDeck.splice(hingeIndex,1);}
     function setupHingeDeck(){
       hingeDeck=gameShuffleList(hingeProfiles.filter(profile=>!everMatched(profile.id)));
-      if(!world.bearOffered&&gameRandom()<.07){
-        hingeDeck.splice(Math.min(6,hingeDeck.length),0,bearHingeCard);
-        world.bearOffered=true;
-      }
       hingeIndex=0;
       hingeSwipesToday=0;
       addJewellersToDeck();
@@ -2991,11 +3016,9 @@
       const views=topic.views?.[profile.factionId]||[];
       return seededPick(views,profile.id+'|'+topic.id)||seededPick(talkKit()?.neutral||[],profile.id);
     }
-    // Two truths and a lie: each woman offers it once, when she likes you a little.
-    function twoTruthsReady(thread,profile){
-      const game=talkKit()?.games?.twoTruths;
-      return !!game&&!thread.topics.includes('game')&&warmthOf(thread)>=1&&thread.topics.length>=2&&!!(game.sets[profile.factionId]||game.sets.normie_girls);
-    }
+    // Two truths and a lie: taken out (Chris, 5 November 2026: unproductive). Never offered; a game already
+    // under way in an old save can still be answered.
+    function twoTruthsReady(){return false;}
     function twoTruthsSet(follow){
       const [faction,index]=String(follow.id).split(':');
       const sets=talkKit()?.games?.twoTruths?.sets;
@@ -3014,7 +3037,6 @@
       const picked=[];
       if(work&&!asked.has('work'))picked.push({id:'work',label:work.label});
       else if(talkKit()?.daily&&state.dayDay!==world.day)picked.push({id:'daily',label:talkKit().daily.label}); // once a day: how was hers?
-      if(twoTruthsReady(thread,profile))picked.push({id:'game',label:talkKit().games.twoTruths.label}); // two truths and a lie, once
       if(own.length)picked.push(own.shift());
       if(pool.length)picked.push(pool.shift());
       while(picked.length<TALK_CAP&&(own.length||pool.length))picked.push(own.length?own.shift():pool.shift());
@@ -4111,6 +4133,7 @@
     // ----- The bear likes the cologne: while it lasts, he turns up in your swipes
     function glowBear(){
       if(bearState!=='none'||hingeThreads.has(bearHingeCard.id))return;
+      if(!(Number.isInteger(world.bearDay)&&world.bearDay<=world.day)){planBear(world.day+1);return;} // the honey ad first
       if(hingeDeck.slice(hingeIndex,hingeIndex+4).some(card=>card.id===bearHingeCard.id))return;
       if(gameRandom()>=.6)return;
       const at=hingeDeck.findIndex((card,i)=>i>=hingeIndex&&card.id===bearHingeCard.id);
@@ -7022,6 +7045,7 @@
     let toneNotice=null;
     function toneNewDay(){
       glowNewDay();halNewDay();laviniaNewDay();leakNewDay(); // Truecel (halNewDay: Cole Halloran)
+      bearNewDay(); // the bear's day: the honey was in yesterday's paper
       classNewDay(); // the Looksmaxxer and the Divorcé: paydays, alimony, surgery in bed
       callerNewDay(); // Mogger: the girl who keeps calling
       fionnNewDay();dadNewDay(); // Mogger: Theon, and her dad
@@ -11165,7 +11189,7 @@
       if(pl.how==='solver'){pl.owe=1000;pl.collectDay=world.day+2;pl.collectDue=world.day+4;} // the other thousand: he rings in two days, and gives you two more
       queueNews({id:w.id,section:'Local',title:w.title,summary:fill(w.summary),body:fill(w.body),image:w.image,fallbackImage:'crime_motel'},world.day);
       achToast(fill(w.toast));
-      if(pl.how==='bear'&&hashSeed(world.seed+'|bearback')%3===0)pl.bearBack=world.day+1;
+      if(pl.how==='bear'&&hashSeed(world.seed+'|bearback')%3===0)pl.bearBack=bearEve(world.day+1); // the honey ad runs the day before
       if(w.noMoss)classWinCheck();
     }
     // Ask a woman who likes you to say you were with her. A policewoman turns you in.
@@ -11920,7 +11944,7 @@
       settingsView='main';
       const currentWallpaper=$('wallpaper-style').value;
       const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
-      const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert']];
+      const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert'],...EXTRA_WALLPAPERS.filter(([v])=>wallpapersDrawn.has(v))];
       $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-tutorial-open>Tutorial ›</button>${Object.keys(CLASS_TUTORIALS).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
@@ -13894,6 +13918,7 @@
     if (window.MATCH_INLINE_ASSETS) $('fatal-overlay').style.backgroundImage=`linear-gradient(#670000e8,#670000e8),url("${assetUrl('assets/source/death-red.png')}")`;
     drawDeathTitle();
     loadPopupArt(); // the pop-up frames, once drawn
+    loadExtraWallpapers(); // Earth and the clownfish, once drawn
     tutorialAskMaybe(); // the first time: play the tutorial?
     randomiseRoomLook();
     // Resume the saved run once the women, the talk and the quests have loaded (they arrive after
