@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="506dc3d22a">
+<html lang="en" data-build="df007ca0f6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -754,11 +754,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=506dc3d22a"></script>
+  <script src="chapel_at_midnight.js?v=df007ca0f6"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=506dc3d22a"></script>
+  <script src="marriage.js?v=df007ca0f6"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=506dc3d22a"></script>
+  <script src="quests/professor-vale.js?v=df007ca0f6"></script>
 </head>
 <body>
   <main class="workbench">
@@ -3151,9 +3151,9 @@
     // Four bits of news each, in order: on a morning after you've talked, her next one arrives as a
     // message. Ask her about it and she tells you the rest; then you reply with a tone.
     const LIFE_ASK_LABEL='Ask her about it';
-    const LIFE_PLAYER={good:['That’s brilliant. Tell me everything.','Wait, really? How did that happen?','Go on then, the whole story.'],
-      bad:['Oh no. What happened?','Are you all right? What happened?','That sounds rotten. Tell me.'],
-      odd:['Hang on. Tell me more.','That’s strange. Then what?','Go on, I want the rest.']};
+    const LIFE_PLAYER={good:['That’s brilliant. Tell me everything.','Wait, really? How did that happen?','Go on then, the whole story.','No way. Start from the beginning.','I love that. What happened next?'],
+      bad:['Oh no. What happened?','Are you all right? What happened?','That sounds rotten. Tell me.','That’s awful. Are you okay?','Oh, I’m sorry. Tell me what happened.'],
+      odd:['Hang on. Tell me more.','That’s strange. Then what?','Go on, I want the rest.','Wait, what? Explain.','Okay, now I need to know the rest.']};
     function lifeAskOpen(thread,profile){
       const st=talkState(thread);
       return Number.isInteger(st.lifeOpen)&&!!lifeOf(profile)[st.lifeOpen];
@@ -3589,7 +3589,8 @@
         const item=lifeOf(profile)[state.lifeOpen];
         state.lifeOpen=null;thread.followUp=null;
         const at=thread.log.map(l=>l.text).lastIndexOf(item.news),fresh=at<0||!thread.log.slice(at+1).some(l=>l.who==='you'); // nothing said since her news, or you've talked about other things
-        const react=seededPick(LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,profile.id+world.day);
+        const pool=LIFE_PLAYER[item.feel]||LIFE_PLAYER.odd,said=thread.log.filter(l=>l.who==='you').map(l=>l.text).join('|');
+        const react=pool.find(r=>!said.includes(r))||seededPick(pool,profile.id+world.day); // one you haven't said to her yet
         thread.log.push({who:'you',text:fresh?myVoice(react,profile.id):'Going back to what you told me earlier. '+react});
         lines.push(item.more);
         gossip=pickGossip(thread,profile,.8);
