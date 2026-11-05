@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="eaecd0ee6b">
+<html lang="en" data-build="473d9a86b8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -746,11 +746,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=eaecd0ee6b"></script>
+  <script src="chapel_at_midnight.js?v=473d9a86b8"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=eaecd0ee6b"></script>
+  <script src="marriage.js?v=473d9a86b8"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=eaecd0ee6b"></script>
+  <script src="quests/professor-vale.js?v=473d9a86b8"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4131,8 +4131,8 @@
         {title:'You start ugly',points:['Your looks are a score out of 100, and you start at 12. Women see the score: under 35 you are a Truecel to them, from 35 a Normie, from 65 a Mogger.','Your mirror is on the iTunes You page. It changes as you do.']},
         {title:'Your car',points:['Your car keys are in your bedside cupboard. Tap them to drive somewhere. One trip a day.','The gym, the barber and the skin clinic are cheap and safe. Veneers, height surgery and the monobloc cost real money and put you in bed for days.']},
         {title:'Money',points:['You start with $900. Your bank balance is in the cupboard.','Pick up an extra shift: it pays, and it takes the whole day, so no swiping.','A casting agent may ring once your looks are good enough. Modeling pays well.']},
-        {title:'Cheap or proper',points:['Read the ads in the paper: surgeons, clinics and men who work for cash.','Dr. Voss rings for a consultation about the monobloc. He shows you your bones.','Every procedure has a cheap way. It saves money, and it can ruin your face for good or kill you.']},
-        {title:'Win a sorority girl',points:['The sorority girls are on Hinge, Stacey Vandermeer and her sisters. Any of them will do. They want a ninety: veneers, height surgery and the monobloc, and looks of 90 or more.','Talk to one until she really likes you, then ask her out. When she says yes, you win.']}
+        {title:'Cheap or proper',points:['Read the ads in the paper: surgeons, clinics and men who work for cash.','Dr. Voss rings for a consultation about the monobloc. He shows you your bones.','Every procedure has a cheap way. It saves money, and it can ruin your face for good or kill you.','Some ads are mail order: insoles, jaw gum, hair foam, whitening strips, self-tan, creatine, a posture brace. Cheap and safe, through your door the next day.']},
+        {title:'Win a sorority girl',points:['The sorority girls are on Hinge, Stacey Vandermeer and her sisters. Any of them will do. They want a ninety: veneers, height surgery and the monobloc (a botched one still counts), and looks of 90 or more.','Talk to one until she really likes you, then ask her out. When she says yes, you win.']}
       ],
       divorce:[
         {title:'Denise',points:['Your ex-wife Denise wants $450 every 5 days, and $50 more each time.','Pay from your bank before the day it is due, or there is a late fee. Miss too many and Support Enforcement comes for you.']},
@@ -10498,7 +10498,8 @@
     }
     function mirrorStage(){const c=world?.cls;if(!c)return 'truecel';if(c.ruined&&(c.ruined.hair||c.ruined.skin||c.ruined.teeth||c.ruined.face))return 'ruined';if(c.looks>=100)return 'ten';if(c.looks>=90)return 'ninety';return looksTier()||'truecel';} // the bathroom mirror: truecel, normie, mogger, ninety, ten (or ruined)
     function mirrorShot(){return selectedDifficulty==='looksmaxxer'&&world?.cls?`<button class="it-shot it-card" data-it-shot aria-label="The mirror"><img src="${esc(assetUrl(`assets/looks/mirror-${mirrorStage()}.png`))}" alt="" onerror="this.parentNode.remove()"></button>`:'';}
-    function looksCap(){const c=world?.cls;return c&&c.ruined&&(c.ruined.hair||c.ruined.skin)?88:100;} // a cheap haircut or peel gone wrong: for good
+    // A cheap job gone wrong costs looks and closes that door for good, but it no longer caps your looks
+    // (Chris, 5 November 2026: stuck at 88 meant no sorority girl, ever).
     function looksTier(){
       if(selectedDifficulty!=='looksmaxxer')return null;
       const looks=world?.cls?Math.max(0,Math.min(100,world.cls.looks??LOOKS_START)):LOOKS_START;
@@ -10562,7 +10563,7 @@
     }
     function sororityReady(thread,profile){
       const c=world.cls;
-      if(selectedDifficulty==='looksmaxxer')return !!c&&c.looks>=90&&!!(c.did.height||c.did.cheap)&&!!c.did.teeth&&!!c.did.face&&warmthOf(thread)>=4;
+      if(selectedDifficulty==='looksmaxxer'){const had=cat=>!!(cat==='height'?c.did.height||c.did.cheap:c.did[cat])||!!c.ruined?.[cat];return !!c&&c.looks>=90&&had('height')&&had('teeth')&&had('face')&&warmthOf(thread)>=4;} // a botched job counts (Chris, 5 November 2026): it can't be redone, so it can't lock you out
       if(selectedDifficulty==='divorce')return !!c&&warmthOf(thread)>=4&&(c.giftsN?.[profile.id]||0)>=2&&c.cash>=SORORITY_CASH; // (4 November 2026: she said yes by Day 6 in the playtests)
       return false; // every other class: she always has plans
     }
@@ -10777,9 +10778,14 @@
       gum:{name:'JAWLINE PRO',title:'THE GUM THAT BUILDS A JAW',summary:'JAWLINE PRO. Six pieces. One a day.',body:'The hardest gum in America. Six pieces, one a day, and your jaw does the rest. $30, through your door tomorrow: ring {number}.',greeting:'JAWLINE PRO. Chew harder. Order line.',cost:30,image:'looks_ad'},
       smile:{name:'Desert Smile Studio',title:'A SMILE THAT WINS',summary:'Desert Smile Studio. Veneers, $200 off with this ad.',body:'Twenty porcelain veneers, fitted in a day. Mention this ad for $200 off: ring {number}.',greeting:'Desert Smile Studio, Scottsdale. Are you smiling?',trip:'teeth',off:200,image:'looks_ad'},
       vet:{name:'Clínica Veterinaria del Sol',title:'MONOBLOC. SEVEN HUNDRED. WALK IN.',summary:'A vet clinic over the border does faces now. Cash.',body:'The whole face forward, one piece, seven hundred dollars, cash, same day. We also do dogs. Over the border, by the tire shop. Walk in. Ring {number} for directions.',greeting:'Clínica. Dogs or faces?',image:'looks_ad'},
+      roots:{name:'ROOTS Hair Foam',title:'YOUR HAIRLINE WANTS TO COME BACK',summary:'ROOTS hair foam. Eight mornings.',body:'The foam the men at your gym will not tell you about. Rub it in every morning for eight days. $35, through your door tomorrow: ring {number}.',greeting:'ROOTS. Grow back. Order line.',cost:35,image:'looks_ad'},
+      pearl:{name:'PEARL Strips',title:'A WHITER SMILE IN FIVE DAYS',summary:'PEARL whitening strips. One a day.',body:'Whitening strips like the dentists use, probably. One a day for five days. $20, through your door tomorrow: ring {number}.',greeting:'PEARL. Smile. Order line.',cost:20,image:'looks_ad'},
+      bronze:{name:'BRONZE Self-Tan',title:'ARIZONA GOLD, NO SUN NEEDED',summary:'BRONZE self-tan. Two coats.',body:'Golden in two coats, one a day. No sunburn, no lines, no explaining. $25, through your door tomorrow: ring {number}.',greeting:'BRONZE. Glow. Order line.',cost:25,image:'looks_ad'},
+      creatine:{name:'ALPHA Creatine',title:'THE GYM, TWICE OVER',summary:'ALPHA creatine. Ten scoops.',body:'One scoop a day and every rep counts twice. Ten scoops a tub. $45, through your door tomorrow: ring {number}.',greeting:'ALPHA. Lift heavier. Order line.',cost:45,image:'looks_ad'},
+      posture:{name:'STRAIGHT UP Brace',title:'SHOULDERS BACK. LOOK TALLER.',summary:'STRAIGHT UP posture brace. Half an inch, at once.',body:'Pulls your shoulders back and your chest out, under your shirt. Half an inch taller the moment you put it on. $30, through your door tomorrow: ring {number}.',greeting:'STRAIGHT UP. Shoulders back. Order line.',cost:30,image:'looks_ad'},
       gus:{name:'Dr. Gus',title:'VENEERS. CASH. NO QUESTIONS.',summary:'Dr. Gus, in the strip mall by the laundromat. Walk in.',body:'Twenty veneers, $250, same day, cash. No insurance, no appointment, no questions. Dr. Gus, Desert Plaza, between the vape shop and the laundromat. Ring {number} or just walk in.',greeting:'Yeah. Gus. What.',image:'looks_ad'}
     };
-    var LOOKS_AD_TURN=['lift','gum','smile','stature','gus','vet'];
+    var LOOKS_AD_TURN=['lift','gum','roots','smile','pearl','stature','creatine','gus','bronze','vet','posture']; // two a day (5 November 2026)
     var LX_FACES={gus:'assets/contacts/lx-gus.png',vet:'assets/contacts/lx-vet.png'}; // Dr. Gus and the vet have faces; the rest are an office line
     function lxFace(k){return LX_FACES[k]||'assets/icons/calls.png';}
     var LOOKS_ASK={voss:'A monobloc is three thousand dollars, all in. Dr. Voss explains everything on the consultation, and that part is free.',
@@ -10788,7 +10794,30 @@
       gum:'It’s like chewing a tire. One piece a day for six days. Your jaw muscles do the rest.',
       smile:'We file your teeth down to little pegs and bond porcelain over them. Very white. Very permanent.',
       gus:'Two fifty. Cash. You sit down, I do the teeth, you go home. Bring cash.',
-      vet:'Seven hundred. The doctor comes in the evening. He did a horse last week. Bring cash, and someone to drive you home.'};
+      vet:'Seven hundred. The doctor comes in the evening. He did a horse last week. Bring cash, and someone to drive you home.',
+      roots:'A foam. Rub it into your hairline every morning for eight days. It smells like a swimming pool. Your hair does the rest.',
+      pearl:'A strip on your top teeth for half an hour. Five strips, one a day. They sting a little. That means it is working.',
+      bronze:'Rub it on, wash your hands, wait. Two coats, one a day. Do not skip the hands part.',
+      creatine:'A scoop in water, once a day. Have it before the gym and the gym counts double. Ten scoops a tub.',
+      posture:'Straps over both shoulders, under your shirt. It pulls you up straight. Nobody can see it. Mostly.'};
+    // More mail order (Chris, 5 November 2026: more like the gum and the insoles, to make it a bit easier). Each comes
+    // through your door the day after you ring, and you use it in your room, once a day. Used up, ring for another
+    // (the brace you keep). Creatine: a scoop before the gym and the gym counts double that day.
+    var LX_KITS={
+      roots:{doses:8,gain:1,label:'ROOTS hair foam',short:'Foam',image:'assets/items/roots-foam.png',text:'A can of ROOTS foam. Rub it into your hairline every morning. It smells like a swimming pool.',use:'🧴 Rub it in',line:'Cold, then tingly. Your scalp smells like a swimming pool.',last:'The can sputters out. There is hair where there was no hair.'},
+      pearl:{doses:5,gain:1,label:'PEARL whitening strips',short:'Strips',image:'assets/items/pearl-strips.png',text:'A box of PEARL whitening strips. One a day. They sting a little.',use:'😁 Put on a strip',line:'Half an hour with a strip on your teeth. It stings. Whiter.',last:'The last strip. Your teeth are the white of a new fridge.'},
+      bronze:{doses:2,gain:2,label:'BRONZE self-tan',short:'Tan',image:'assets/items/bronze-tan.png',text:'A bottle of BRONZE self-tan and a mitt. Two coats, one a day. Wash your hands after.',use:'🧴 Put on a coat',line:'Orange for an hour, then golden. Your palms are still orange.',last:'The second coat. You look like you have been somewhere.'},
+      creatine:{doses:10,gain:1,label:'ALPHA creatine',short:'Creatine',image:'assets/items/alpha-creatine.png',text:'A tub of ALPHA creatine and a little plastic scoop. One scoop a day. Have it before the gym and the gym counts double.',use:'🥤 Have a scoop',line:'Chalky. You feel like you could lift a car. Go to the gym today.',last:'The last scoop. You scrape the tub. Go to the gym today.'},
+      posture:{doses:1,gain:3,keep:true,label:'STRAIGHT UP brace',short:'Brace',image:'assets/items/posture-brace.png',text:'A STRAIGHT UP posture brace: two straps over the shoulders, under your shirt. It pulls you up straight.',use:'🧍 Put it on',last:'Shoulders back. Half an inch taller, and you look like you mean it.'}
+    };
+    function lxKits(l){return l.kit||(l.kit={});}
+    function lxItemId(k,n){return n>1?`lx:${k}${n}`:`lx:${k}`;} // a second tub is a new parcel at your door
+    function lxCanOrder(k){ // the first one, or another once it is used up (not the insoles or the brace)
+      const l=lx(),kit=LX_KITS[k];
+      if(kit){const s=lxKits(l)[k];return !s||(s.st==='done'&&!kit.keep);}
+      if(k==='gum')return l.gum==='none'||l.gum==='done';
+      return !!LOOKS_ADS[k]?.cost&&l[k]==='none';
+    }
     var CASTING_ID='MATCH-028'; // Nicole Ashbury: the casting agent is a woman from Hinge (Chris, 4 November 2026)
     function castingName(){return firstName(hingeProfile(CASTING_ID))||'Nicole';}
     var MODEL_CALL={open:'Hi, is this the guy from the app? This is {name} at Saguaro Casting. A client saw your pictures. Catalog work, one afternoon, six hundred dollars. Can you do tomorrow?',
@@ -10813,8 +10842,9 @@
     function sanitizeLx(raw){
       const o=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},int=(v,lo,hi)=>Number.isInteger(v)?Math.max(lo,Math.min(hi,v)):null;
       const out={numbers:{},seen:{},off:{},consult:['none','booked','done'].includes(o.consult)?o.consult:'none',plan:o.plan===true,owe:int(o.owe,0,9999)||0,model:['none','due','booked','done','no'].includes(o.model)?o.model:'none',modelDay:int(o.modelDay,0,9999),modelRang:int(o.modelRang,0,9999),model2:o.model2===true,faceFrom:int(o.faceFrom,0,9999),vossDay:int(o.vossDay,0,9999),vossRang:int(o.vossRang,0,9999),vossRings:int(o.vossRings,0,9)||0,
-        lift:['none','ordered','here','worn'].includes(o.lift)?o.lift:'none',liftDay:int(o.liftDay,0,9999),gum:['none','ordered','here','done'].includes(o.gum)?o.gum:'none',gumDay:int(o.gumDay,0,9999),gumLeft:int(o.gumLeft,0,6)||0,gumLast:int(o.gumLast,0,9999)};
-      for(const k of ['voss','lift','stature','gum','smile','gus','vet']){if(typeof o.numbers?.[k]==='string'&&/^\d{7}$/.test(o.numbers[k]))out.numbers[k]=o.numbers[k];if(o.seen?.[k]===true)out.seen[k]=true;}
+        lift:['none','ordered','here','worn'].includes(o.lift)?o.lift:'none',liftDay:int(o.liftDay,0,9999),gum:['none','ordered','here','done'].includes(o.gum)?o.gum:'none',gumDay:int(o.gumDay,0,9999),gumLeft:int(o.gumLeft,0,6)||0,gumLast:int(o.gumLast,0,9999),gumN:int(o.gumN,1,99)||1,kit:{}};
+      for(const k of ['roots','pearl','bronze','creatine','posture']){const s=o.kit?.[k];if(s&&typeof s==='object'&&['ordered','here','done'].includes(s.st))out.kit[k]={st:s.st,day:int(s.day,0,9999),left:int(s.left,0,20)||0,last:int(s.last,0,9999),n:int(s.n,1,99)||1};} // more mail order
+      for(const k of ['voss','lift','stature','gum','smile','gus','vet','roots','pearl','bronze','creatine','posture']){if(typeof o.numbers?.[k]==='string'&&/^\d{7}$/.test(o.numbers[k]))out.numbers[k]=o.numbers[k];if(o.seen?.[k]===true)out.seen[k]=true;}
       out.border=o.border===true; // the big man at the gym told you about the clinic over the border
       out.vet=o.vet===true; // the vet's ad, or Dr. Voss's price
       for(const k of ['height','teeth'])if(o.off?.[k]===true)out.off[k]=true;
@@ -10825,7 +10855,7 @@
       if(selectedDifficulty!=='looksmaxxer'||!world||world.cls?.dead)return [];
       const l=lx(),keys=[];
       if(l.consult==='none'&&day>=5&&day%2===1)keys.push('voss'); // from Day 5: the basics first
-      keys.push(LOOKS_AD_TURN[(day-1)%LOOKS_AD_TURN.length]);
+      const n=LOOKS_AD_TURN.length;keys.push(LOOKS_AD_TURN[(2*day-2)%n],LOOKS_AD_TURN[(2*day-1)%n]); // two a day, so every one is in the paper within a week
       return keys.map(k=>{const ad=LOOKS_ADS[k];if(!l.numbers[k])l.numbers[k]=unusedContactNumber();return {id:`lx_ad_${k}_${day}`,section:'Classifieds',title:ad.title,summary:ad.summary,body:fillIn(ad.body,{number:l.numbers[k]}),image:ad.image,fallbackImage:'classifieds',locked:true,lxAd:k};});
     }
     function lxLine(number){
@@ -10838,7 +10868,7 @@
       if(!ad)return out;
       if(k==='voss'&&l.consult==='none')out.push({id:'lx:voss:book',label:'Book a free consultation',lx:true});
       if(k==='voss'&&l.consult==='booked')out.push({id:'lx:voss:when',label:'Ask when Dr. Voss will ring',lx:true});
-      if(ad.cost&&l[k]==='none')out.push({id:`lx:${k}:order`,label:`Order one (${money(ad.cost)})`,lx:true});
+      if(ad.cost&&lxCanOrder(k)){const again=LX_KITS[k]?!!lxKits(l)[k]:l[k]==='done';out.push({id:`lx:${k}:order`,label:`${again?'Order another':'Order one'} (${money(ad.cost)})`,lx:true});}
       const had=ad.trip==='height'?(c.did.height||c.did.cheap):c.did[ad.trip];
       if(ad.trip&&!l.off[ad.trip]&&!had)out.push({id:`lx:${k}:ad`,label:'Mention the ad',lx:true});
       out.push({id:`lx:${k}:ask`,label:k==='voss'?'Ask what it costs':'Ask how it works',lx:true});
@@ -10849,9 +10879,12 @@
       if(!ad)return '…';
       if(what==='book'&&l.consult==='none'){Object.assign(l,{consult:'booked',vossDay:world.day+1,vossRang:null,vossRings:0});saveRun(true);return 'You’re booked in. Dr. Voss will ring you tomorrow. Have a mirror handy.';}
       if(what==='when')return 'Tomorrow. He’s very punctual. He’s a surgeon.';
-      if(what==='order'&&ad.cost&&l[k]==='none'){
+      if(what==='order'&&ad.cost&&lxCanOrder(k)){
         if(c.cash<ad.cost)return 'Your card was declined. Ring back when it isn’t.';
-        cashMove(-ad.cost,ad.name);l[k]='ordered';l[k+'Day']=world.day+1;saveRun(true);walletRender();
+        cashMove(-ad.cost,ad.name);
+        if(LX_KITS[k]){const was=lxKits(l)[k];l.kit[k]={st:'ordered',day:world.day+1,left:0,last:null,n:(was?.n||0)+1};}
+        else{if(k==='gum'&&l.gum==='done')l.gumN=(l.gumN||1)+1;l[k]='ordered';l[k+'Day']=world.day+1;}
+        saveRun(true);walletRender();
         return 'Posted today. It’ll come through your door tomorrow, in a plain box.';
       }
       if(what==='ad'&&ad.trip&&!l.off[ad.trip]){l.off[ad.trip]=true;saveRun(true);return `Noted: ${money(ad.off)} off. Drive over whenever you’re ready.`;}
@@ -10873,24 +10906,36 @@
       if(l.model==='done'&&!l.model2&&Number.isInteger(l.modelDay)&&world.day>=l.modelDay+8&&world.cls.looks>=85){l.model='due';l.model2=true;} // a week later, if the looks kept coming: a second shoot
       if(l.lift==='ordered'&&world.day>=l.liftDay)l.lift='here';
       if(l.gum==='ordered'&&world.day>=l.gumDay){l.gum='here';l.gumLeft=6;}
+      for(const [k,s] of Object.entries(lxKits(l)))if(s.st==='ordered'&&Number.isInteger(s.day)&&world.day>=s.day&&LX_KITS[k]){s.st='here';s.left=LX_KITS[k].doses;}
     }
     function lxItems(){
       if(selectedDifficulty!=='looksmaxxer'||!world?.cls?.lx)return [];
       const l=world.cls.lx,out=[];
       if(l.lift==='here')out.push({id:'lx:lift',door:true,floor:'shoebox',label:'LIFT insoles',short:'Insoles',image:'assets/items/lift-insoles.png',text:LIFT_ITEM,actions:[{id:'lx:lift:wear',label:'👟 Put them in your shoes'}]});
-      if(l.gum==='here'&&l.gumLeft>0)out.push({id:'lx:gum',door:true,floor:'parcel',label:'JAWLINE PRO',short:'Gum',image:'assets/items/jaw-gum.png',text:`${GUM_ITEM} ${l.gumLeft} of 6 left.`,actions:l.gumLast===world.day?[]:[{id:'lx:gum:chew',label:'🦷 Chew a piece'}]});
+      if(l.gum==='here'&&l.gumLeft>0)out.push({id:lxItemId('gum',l.gumN||1),door:true,floor:'parcel',label:'JAWLINE PRO',short:'Gum',image:'assets/items/jaw-gum.png',text:`${GUM_ITEM} ${l.gumLeft} of 6 left.`,actions:l.gumLast===world.day?[]:[{id:'lx:gum:chew',label:'🦷 Chew a piece'}]});
+      for(const [k,s] of Object.entries(lxKits(l))){
+        const kit=LX_KITS?.[k];if(!kit||s.st!=='here'||s.left<1)continue;
+        const today=s.last===world.day;
+        out.push({id:lxItemId(k,s.n),door:true,floor:'parcel',label:kit.label,short:kit.short,image:kit.image,text:`${kit.text}${kit.doses>1?` ${s.left} of ${kit.doses} left.`:''}${today?' Again tomorrow.':''}`,actions:today?[]:[{id:`lx:${k}:use`,label:kit.use}]});
+      }
       return out;
     }
     function lxCupAct(act){
       const l=lx();
       if(act==='lx:lift:wear'&&l.lift==='here'){l.lift='worn';lxGain(4,'An inch taller. Your heels hurt already.');}
       else if(act==='lx:gum:chew'&&l.gum==='here'&&l.gumLeft>0&&l.gumLast!==world.day){l.gumLeft--;l.gumLast=world.day;if(!l.gumLeft)l.gum='done';lxGain(1,l.gumLeft?`Like chewing a tire. ${l.gumLeft} left.`:'The last piece. Your jaw clicks now.');}
+      else if(/^lx:[a-z]+:use$/.test(act)){
+        const k=act.split(':')[1],kit=LX_KITS[k],s=lxKits(l)[k];
+        if(!kit||!s||s.st!=='here'||s.left<1||s.last===world.day)return;
+        s.left--;s.last=world.day;if(!s.left)s.st='done';
+        lxGain(kit.gain,s.left?`${kit.line} ${s.left} left.`:kit.last);
+      }
       else return;
       cupboardView='shelf';renderCupboard();saveRun(true);
     }
     function lxGain(gain,line){
       const c=classState(),before=looksTier();
-      c.looks=Math.min(looksCap(),c.looks+gain);
+      c.looks=Math.min(100,c.looks+gain);
       const after=looksTier();
       if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
       else achToast(`${line} Looks ${c.looks} of 100.`);
@@ -11060,11 +11105,11 @@
     function arriveMissed(id){const d=DRIVES[selectedDifficulty][id];achToast(d.miss.toast||d.miss.line);saveRun(true);updateRunStatus();}
     function arriveRuined(id){ // the cheap job went wrong: your looks drop for good, and nobody will touch that part of you again
       const c=classState(),d=DRIVES.looksmaxxer[id],before=looksTier();
-      c.ruined[d.cat]=true;c.looks=Math.max(0,Math.min(looksCap(),c.looks-(d.ruinLoss||0)));
+      c.ruined[d.cat]=true;c.looks=Math.max(0,c.looks-(d.ruinLoss||0));
       if(d.cool)c.cool[id]=world.day;
       if(d.bed)c.laidUntil=world.day+d.bed;
       if(looksTier()!==before)setGrip();
-      achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]}${looksCap()<100?' No sorority girl is calling you a ten now.':''}`);
+      achToast(`Looks ${c.looks} of 100. Ruined for good. ${RUINED[d.cat]}`);
       clinicNews(id);
       checkAchievements();saveRun(true);updateRunStatus();
       if(currentApp==='hinge')renderHinge();
@@ -11074,18 +11119,18 @@
       if(selectedDifficulty==='looksmaxxer'&&id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes today.`);}
       else if(selectedDifficulty==='looksmaxxer'){
         const before=looksTier();
-        let gain=d.gain;
-        if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;if(c.streak>=3&&!lx().border){lx().border=true;achToast('The big man at the squat rack says a clinic over the border does legs for $900. He knows a guy. It is on your car keys now.');}}
+        let gain=d.gain,pumped=false;
+        if(id==='gym'){c.streak=c.lastGym===world.day-1?c.streak+1:1;c.lastGym=world.day;if(c.streak>=3)gain+=2;if(lxKits(lx()).creatine?.last===world.day){gain*=2;pumped=true;}/* a scoop of creatine first: double */if(c.streak>=3&&!lx().border){lx().border=true;achToast('The big man at the squat rack says a clinic over the border does legs for $900. He knows a guy. It is on your car keys now.');}}
         if(d.cool)c.cool[id]=world.day;
         if(d.once)c.did[d.didKey||id]=true;
         if(d.surgery){c.did[id==='cheap'?'cheap':'height']=true;c.laidUntil=world.day+d.bed;gain=growTaller(id);} // three inches taller, and the log
         else if(d.bed)c.laidUntil=world.day+d.bed; // facial surgery: in bed, but your legs are your own
         if(id==='face'&&lx().plan)lx().owe=(DRIVES.looksmaxxer.face.cost||3000)-FACE_DOWN; // the rest of Dr. Voss's bill
         if(d.mishap&&gameRandom()<d.mishap.chance){c.laidUntil=world.day+d.mishap.bed;c.bedLine=d.mishap.block;achToast(d.mishap.line);} // one peel in twelve
-        c.looks=Math.min(looksCap(),c.looks+gain);
+        c.looks=Math.min(100,c.looks+gain);
         const after=looksTier();
         if(after!==before){setGrip();achToast(after==='mogger'?'Heads turn now. Your looks are Mogger: women see a Mogger.':'Women are noticing. Your looks are Normie now: more matches, kinder replies.');}
-        else achToast(`Looks ${c.looks} of 100.`);
+        else achToast(`${pumped?'The creatine kicks in: the gym counts double. ':''}Looks ${c.looks} of 100.`);
       }else{
         if(id==='work'){cashMove(d.pay,'Shift pay');hingeSwipesToday=10;achToast(`+${money(d.pay)} for the shift. No swipes today.`);const pl=denisePlan();if(['paid','set'].includes(pl.stage)&&world.day===pl.doneDay)pl.alibi=true;} // a night at work: people saw you
         if(id==='wine'){const p=ms('pills');if(p){p.flushed=true;p.usedOn='denise';}deniseSet('pills');achToast('Two glasses, and hers had the pills in it. Now go home.');}
@@ -12442,7 +12487,7 @@
         if(['assembled','waiting'].includes(file.device))items.push({id:'pv:device',label:'The device',image:'assets/quests/professor/workbench.png',text:file.device==='waiting'?'Wrapped up and waiting on the doorstep for Allison.':'Finished, on your desk. Ring Vanessa when it’s ready to go.',file:'vale'});
       }
       items.push(...carItems()); // the Looksmaxxer and the Divorcé: your car keys
-      items.push(...lxItems()); // the Looksmaxxer: insoles and jaw gum from the classifieds
+      items.push(...lxItems()); // the Looksmaxxer: insoles, jaw gum and the rest of the mail order from the classifieds
       items.push(...miniItems()); // mini quests: on your doorstep
       items.push(...rqItems()); // room quests: Diana's parcel, the ribbon, Caroline's still, the bill, Lauren's box
       items.push(...fqItems()); // her thing: Celeste's postcard, Caroline's presents
