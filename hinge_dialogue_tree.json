@@ -1353,14 +1353,6 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
-    "MATCH-124": {
-      "intro": "Hi! Lately it’s trying to learn Italian, and I’m weirdly proud of it.",
-      "work": "I'm a crime scene photographer. I tend to be skeptical but kind. Outside work I've been trying to learn Italian.",
-      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
-      "weekend": "I've been trying to learn Italian. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
     "MATCH-125": {
       "intro": "Hey you. Heads up, making elaborate paper collages is my whole personality this month.",
       "work": "I'm a public safety statistician. I tend to be wry and observant. Outside work I've been making elaborate paper collages.",
@@ -1369,19 +1361,35 @@
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
-    "MATCH-128": {
-      "intro": "Hi. I should be running errands. I’m collecting odd roadside souvenirs instead.",
-      "work": "I'm a police dispatcher. I tend to be blunt and unexpectedly generous. Outside work I've been collecting odd roadside souvenirs.",
-      "friends": "My friends say I'm blunt and unexpectedly generous. I suppose they know me better than I know myself.",
-      "weekend": "I've been collecting odd roadside souvenirs. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
     "MATCH-152": {
       "intro": "Hello. Ask me about teaching my younger cousin guitar at your own risk.",
       "work": "I'm a community art organizer. I tend to be blunt and unexpectedly generous. Outside work I've been teaching my younger cousin guitar.",
       "friends": "My friends say I'm blunt and unexpectedly generous. I suppose they know me better than I know myself.",
       "weekend": "I've been teaching my younger cousin guitar. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
+    "MATCH-243": {
+      "intro": "Hi there. I’ve been baking elaborate cakes badly instead of answering anyone. You’re the exception.",
+      "work": "I'm an interior decorator. I tend to be wry and observant. Outside work I've been baking elaborate cakes badly.",
+      "friends": "My friends say I'm wry and observant. I suppose they know me better than I know myself.",
+      "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
+    "MATCH-124": {
+      "intro": "Hi! Lately it’s trying to learn Italian, and I’m weirdly proud of it.",
+      "work": "I'm a crime scene photographer. I tend to be skeptical but kind. Outside work I've been trying to learn Italian.",
+      "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
+      "weekend": "I've been trying to learn Italian. I need something to look forward to when I finish work.",
+      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
+      "fumble": "That was rather unnecessary. I think this conversation is over."
+    },
+    "MATCH-128": {
+      "intro": "Hi. I should be running errands. I’m collecting odd roadside souvenirs instead.",
+      "work": "I'm a police dispatcher. I tend to be blunt and unexpectedly generous. Outside work I've been collecting odd roadside souvenirs.",
+      "friends": "My friends say I'm blunt and unexpectedly generous. I suppose they know me better than I know myself.",
+      "weekend": "I've been collecting odd roadside souvenirs. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     },
@@ -1430,14 +1438,6 @@
       "work": "I'm a dog walker. I tend to be skeptical but kind. Outside work I've been restoring vintage dresses.",
       "friends": "My friends say I'm skeptical but kind. I suppose they know me better than I know myself.",
       "weekend": "I've been restoring vintage dresses. I need something to look forward to when I finish work.",
-      "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
-      "fumble": "That was rather unnecessary. I think this conversation is over."
-    },
-    "MATCH-243": {
-      "intro": "Hi there. I’ve been baking elaborate cakes badly instead of answering anyone. You’re the exception.",
-      "work": "I'm an interior decorator. I tend to be wry and observant. Outside work I've been baking elaborate cakes badly.",
-      "friends": "My friends say I'm wry and observant. I suppose they know me better than I know myself.",
-      "weekend": "I've been baking elaborate cakes badly. I need something to look forward to when I finish work.",
       "date": "Coffee sounds lovely. I might tell you what I've been worried about once we know each other better.",
       "fumble": "That was rather unnecessary. I think this conversation is over."
     }

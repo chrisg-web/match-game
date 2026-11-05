@@ -14977,7 +14977,86 @@
       "look": "Fair skin, dark French braid, a tiny scar through one eyebrow, plain white shirt and slim black pants",
       "status": "awaiting portrait",
       "type": "reserved-sensible",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_stats",
+            "label": "Ask what a statistician does at the station",
+            "player": "What does a statistician do at a police station?",
+            "reply": "Counts things nobody wants counted. Where the calls come from, which nights, which streets. Then decides which page to put it on, which is the actual job."
+          },
+          {
+            "id": "b_collage",
+            "label": "Ask about her collages",
+            "player": "I hear you make collages.",
+            "reply": "Out of shredded reports. The numbers I’m not allowed to publish, cut up and glued into shapes. Nobody asks what the blue is. You can, if you like.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_brooch",
+            "label": "Ask about the brooch she wears",
+            "player": "That brooch in your photo. Is it old?",
+            "reply": "It was my mother’s. A blue swallow. A jeweler from the club keeps asking if I’d sell it back. My mother wrote me a letter that says no. So, no.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_letter",
+            "label": "Ask about her mother’s letter",
+            "player": "What else did your mother’s letter say?",
+            "reply": "Three pages about loving me. The fourth is about the night before she left the club: a vote, a man, a glass, and her cousin’s hand. She wrote it down because nobody else would. I haven’t shown my dad. I made it into a collage instead. If you know how to read it, it’s all there.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "dodge",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Got a finding onto page three of a report and the captain read it. Page three. He never reads page three.",
+            "more": "Keiko taught me that page one is for the people who decide what isn’t a finding, so you put the real one on page three, where only the curious go. It’s about where the night calls come from. The captain read it, frowned, and asked who wrote it. Keiko said I did. He said huh. That was the best huh of my life."
+          },
+          {
+            "feel": "odd",
+            "news": "A jeweler from the club asked about my mother’s brooch again. Politely. Twice.",
+            "more": "My mother left me a blue swallow brooch. It was hers before she married my father, back when she was a Van Doren. A jeweler who works for the club has asked me twice now whether I’d consider selling it back. My mother wrote me a letter about exactly this. It says no. So I said no, both times, very politely."
+          },
+          {
+            "feel": "bad",
+            "news": "Read my mother’s letter again tonight. I shouldn’t. It makes the house too quiet.",
+            "more": "She wrote one to each of us, to open when we were older. Mine is four pages. Three are about loving me. The fourth is about something she saw, once, and I haven’t shown it to my dad. He’s downstairs making eggs. He’s always making eggs. I don’t want to be the one who makes him stop."
+          },
+          {
+            "feel": "good",
+            "news": "Made a collage out of a week of shredded traffic reports. It came out blue. Nobody asks why it’s blue.",
+            "more": "The shredder bags go in the recycling, and I take some home. I cut the numbers up and glue them back into shapes. This one is a map, if you know how to read it. It’s blue because the nights are blue. It hangs next to the others in my room. My dad stood in front of it for a long time and said nothing, which from him is a review."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-050",
+            "warmth": 1,
+            "says": "Keiko Nakamura taught me to put the finding on page three. Page one is for the people who decide what isn’t a finding.",
+            "note": "Yvonne Barlow says Keiko Nakamura taught her to put the real finding on page three of a report.",
+            "ask": "Yvonne says you taught her to put the real finding on page three.",
+            "answer": "She learned it faster than I did. She also takes the shredder bags home and makes art out of them, which is technically evidence. I’ve decided not to know that.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-091",
+            "warmth": 2,
+            "says": "Celeste Van Doren is my mother’s cousin. She has never once said my name.",
+            "note": "Yvonne Barlow says Celeste Van Doren is her late mother’s cousin, and has never said her name.",
+            "ask": "Yvonne Barlow says you’re her mother’s cousin, and you’ve never said her name.",
+            "answer": "Isabel’s girl. She has her mother’s eyebrows and her mother’s stubbornness. Tell her the club remembers her mother very fondly. Tell her exactly that, in those words.",
+            "mood": -1
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-126",
@@ -17361,7 +17440,86 @@
       "look": "Freckled fair skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
       "status": "awaiting portrait",
       "type": "witty-sceptic",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_openmic",
+            "label": "Ask about the open mic",
+            "player": "You run an open mic?",
+            "reply": "At the Furnace, for the collective. I tune everyone’s guitar, keep the list and stop the poets going over five minutes. It’s the most power I will ever have."
+          },
+          {
+            "id": "b_cat",
+            "label": "Ask whose cat that is in her photos",
+            "player": "Whose cat is that?",
+            "reply": "Judas. Not mine. He belongs to the man next door, who isn’t next door at the moment. So I feed him. He sits on the man’s pay slip like he’s guarding it.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_mass",
+            "label": "Ask why she stopped playing at Mass",
+            "player": "Why don’t you play at Mass anymore?",
+            "reply": "The diocese replaced me with a program and a man with a guitar. I could have fought it. I decided my Sundays were better spent being angry somewhere comfortable.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_house",
+            "label": "Ask about the empty house next door",
+            "player": "What happened to the man next door?",
+            "reply": "He kept a diary. I read it, because he’s gone and I’m nosy. The last page says he told the monsignor something he saw at the Old Mission, and the monsignor thanked him and asked him to tell nobody else. The car’s been outside since. I haven’t told anyone. I’m telling you because you’re not anyone yet.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "tease",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Ran the open mic at the Furnace. Eleven acts, two of them in tune. Best night of the month.",
+            "more": "A poet who cried, a man who played the saw, a duo who had clearly met that afternoon. I tune everybody’s guitar before they go on, which is the only reason I was invited to run it. At the end the whole room sang the one song everyone in Sunfall knows. I teach that song about twice a week. I still like it."
+          },
+          {
+            "feel": "odd",
+            "news": "The empty house next door still has a car parked outside it every night. Nobody gets in. Nobody gets out.",
+            "more": "Aurelio Baca lives there, or did. He’s the caretaker at the Old Mission. He fixed our fence for nothing, years ago, and never let us pay him. Eleven weeks ago he stopped coming home. I have a key from years ago, for his cat, so I go in every evening, water the plants and feed Judas. His coat is on the hook. His pay slip is on the table. And the car outside never moves."
+          },
+          {
+            "feel": "bad",
+            "news": "The bishop’s new music program gave my old spot at Mass to a man with a guitar. He can’t tune it.",
+            "more": "I played at St Brigid’s for years. Then the diocese sent a program with a binder and a man, and the man has a guitar he has never once tuned. Margaret Holloway sat behind me at the last Mass and said, very quietly, that it was a disgrace. It is the only thing she and I have ever agreed on. We shook hands on it."
+          },
+          {
+            "feel": "good",
+            "news": "Taught the same song for what I think is the two hundredth time today. Still like it.",
+            "more": "Everyone who walks into the collective wanting to learn guitar wants the same song. I don’t know who decided. I’ve stopped asking. I can teach it in my sleep now, and I have, apparently, because I hummed it in a dream and woke up with my fingers on an imaginary fret. Being needed is a strange kind of happy."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-205",
+            "warmth": 1,
+            "says": "Moth Delaney runs the Hive and feeds me at the bar when I forget to eat. My parents think she’s a friend from the collective.",
+            "note": "Kiki O’Dell says Moth Delaney feeds her at the Hive when she forgets to eat.",
+            "ask": "Kiki says you feed her at the bar when she forgets to eat.",
+            "answer": "She forgets because she’s busy feeding somebody else’s cat. I keep a plate back for her. She always sits facing the door, like she’s waiting for a car to pull up. I’ve never asked which car.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-142",
+            "warmth": 2,
+            "says": "Freya Castillo lives three doors down. She’s the only one on our street who’s noticed the light in the empty house next door.",
+            "note": "Kiki O’Dell says Freya Castillo has noticed the light in the empty house on the mission side.",
+            "ask": "Kiki says you’ve noticed the light in the empty house on your street.",
+            "answer": "Kiki goes in every evening at seven. Waters, feeds, sits at his kitchen table for a while. I’ve never asked her. Somebody on our street should be doing it, and it wasn’t me. I just make sure my porch light is on when she comes out.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-153",
@@ -25514,7 +25672,86 @@
       "look": "Porcelain skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
       "status": "awaiting portrait",
       "type": "earnest-heart",
-      "notes": ""
+      "notes": "",
+      "conversation": {
+        "own": [
+          {
+            "id": "b_firm",
+            "label": "Ask about Kimball Sisters Interiors",
+            "player": "Tell me about your business.",
+            "reply": "Me, my sister, a yellow van and a workshop on the edge of the Quarter. We do kitchens, studies and anybody who wants their mother’s house to stop feeling like their mother’s house."
+          },
+          {
+            "id": "b_baking",
+            "label": "Ask about her baking",
+            "player": "I hear you bake.",
+            "reply": "Badly. Elaborately. For a card game full of professional pastry chefs, who are very kind about it. I bring a cake, they let me lose at cards. It’s a good arrangement.",
+            "needsWarmth": 1
+          },
+          {
+            "id": "b_journal",
+            "label": "Ask why she keeps a journal",
+            "player": "Why do you keep a journal?",
+            "reply": "My mom did, every night, until she couldn’t. I started the week after. If I write it down, it happened the way it happened, not the way someone tells me later it did.",
+            "needsWarmth": 2
+          }
+        ],
+        "views": {},
+        "calls": [
+          {
+            "id": "c_beaumont",
+            "label": "Ask about the Beaumont job",
+            "player": "What happened at the Beaumont house?",
+            "reply": "Hugh Beaumont asked me to stay for a drink when I finished the study. I said no. He said that was a pity. The next week I had the Foundation’s committee room as a job, which is what a pity costs, apparently. He told me the safe behind the portrait held the family’s conscience. He laughed. I wrote the laugh down.",
+            "needsWarmth": 3
+          }
+        ],
+        "likes": "sincere",
+        "life": [
+          {
+            "feel": "good",
+            "news": "Finished a kitchen on the edge of the Quarter. The owner cried. The good kind.",
+            "more": "Thirty years of the same brown cupboards, and she wanted yellow, and her husband always said no. He passed last winter. We painted every door the color of egg yolk and put the radio back on the windowsill where he kept it. She stood in the doorway with both hands over her mouth. My sister and I sat in the van afterwards and didn’t say anything for a while."
+          },
+          {
+            "feel": "bad",
+            "news": "Baked for the pastry chefs’ card game again. They ate it out of politeness. I lost at cards out of habit.",
+            "more": "I bring a cake every time because it’s the price of my seat at the table. Professionals eat it. Tonight’s was a lemon drizzle that drizzled sideways. Avery said it had character. Nina said it had structural problems. I lost eleven dollars and laughed the whole time. It’s the best evening of my week."
+          },
+          {
+            "feel": "odd",
+            "news": "Moving a portrait in a client’s study, I found a safe behind it. I put the portrait back. I didn’t look.",
+            "more": "The Beaumont house, last spring. A woman in an old dress with a brooch shaped like a moon, and behind her, a little steel door. I hung her back exactly where she was. Later the man of the house asked me to stay for a drink, and told me the safe held the family’s conscience, and laughed. I wrote the laugh in my journal. Then I tore the page out. Then I wrote it again."
+          },
+          {
+            "feel": "good",
+            "news": "My sister and I painted the van. It’s yellow now. We can be seen from space.",
+            "more": "Kimball Sisters Interiors, in black letters on bright yellow. It took two weekends and most of a can of thinner. People wave at us at the lights now. A man asked if we did ice cream. My sister said yes. We don’t."
+          }
+        ],
+        "gossip": [
+          {
+            "id": "g1",
+            "about": "MATCH-042",
+            "warmth": 1,
+            "says": "I decorated the study at the Beaumont house last spring. Alice Beaumont was the only one there who offered me a coffee.",
+            "note": "Alyssa Kimball decorated the Beaumont study; Alice Beaumont brought her coffee.",
+            "ask": "Alyssa says you were the only one at the Beaumont house who brought her a coffee.",
+            "answer": "She cleaned the portrait of my great-great-grandmother as if it were a person. Nobody in my family has ever been that careful with Ada. Of course I brought her coffee. I’d have brought her lunch if my father hadn’t been home.",
+            "mood": 0
+          },
+          {
+            "id": "g2",
+            "about": "MATCH-100",
+            "warmth": 2,
+            "says": "I rehung Delphine Moreau’s collages in the Foundation’s committee room. She stood next to me and said the middle one was waiting for a face she didn’t have yet.",
+            "note": "Alyssa Kimball says Delphine Moreau told her the middle collage in the committee room is waiting for a face.",
+            "ask": "Alyssa says the middle collage in the committee room is waiting for a face.",
+            "answer": "She hung them straight the first time. Nobody does that. The middle one is still waiting. I’m patient, and the committee is not, which is usually how I win.",
+            "mood": 0
+          }
+        ]
+      }
     },
     {
       "id": "MATCH-244",
@@ -34875,6 +35112,11 @@
           "caption": "Off the bus. Out of the cemetery.",
           "melt": "That’s the feeling of the whole bus going quiet at the good bit. Again."
         },
+        "MATCH-243": {
+          "muse": "Paint on my arms, sawdust in my hair, and I’m thinking about you instead of the baseboards.",
+          "caption": "Work clothes. The ponytail is structural.",
+          "melt": "I’ve written you down in my journal. For me, that’s serious."
+        },
         "MATCH-002": {
           "muse": "Major checked every room and went to sleep. I checked every room and I’m lying here rereading your messages. Give me something to investigate.",
           "caption": "Off duty. Cuffs not included. Ask nicely.",
@@ -35024,6 +35266,11 @@
           "muse": "Finished my shift, drummed for an hour, and I’m still buzzing. Tell me something that isn’t a case.",
           "caption": "Off duty. The jacket stays on.",
           "melt": "Okay. I had four questions ready for you and I’ve forgotten every one. That has never happened."
+        },
+        "MATCH-125": {
+          "muse": "Finished a collage tonight and it came out the color of your last message. That’s not a finding. It’s just true.",
+          "caption": "White shirt, black pants. A Barlow looks like a Barlow.",
+          "melt": "I don’t usually say things out loud. I’m saying this one. I like you."
         },
         "MATCH-008": {
           "muse": "Three rollercoasters in a row and I’m still shaking. Drop me a hundred feet and I’m serene. Text me something filthy and I’m not. Try it.",
@@ -35182,6 +35429,11 @@
           "muse": "Got a four-day stain out of a silk gown tonight and my hands are very gentle right now. Just mentioning it.",
           "caption": "Vintage silk. Brand-new trouble.",
           "melt": "I keep things to myself for a living. I’m not keeping that to myself. I’m telling my mirror."
+        },
+        "MATCH-152": {
+          "muse": "Open mic’s over, the amps are cooling and I’ve got one song left in me. Want it?",
+          "caption": "Glasses, guitar case, terrible lighting. You’re welcome.",
+          "melt": "Okay, fine. I’m sceptical about everyone, and I’ve stopped being sceptical about you. It’s annoying."
         },
         "MATCH-001": {
           "muse": "Eating chips in the bath again with a terrible novel. The novel just got very steamy. So did the bath. Come and read me the next chapter.",
@@ -40482,6 +40734,10 @@
     "events/complaint-approach.png",
     "events/complaint-threshold.png",
     "source/death-red.png",
+    "source/motel-room-afternoon.webp",
+    "source/motel-room-dusk.webp",
+    "source/motel-room-morning.webp",
+    "source/motel-room-night.webp",
     "variants/iphone-standard/bedroom-afternoon-open.webp",
     "variants/iphone-standard/bedroom-afternoon.webp",
     "variants/iphone-standard/bedroom-dusk-open.webp",

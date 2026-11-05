@@ -2,10 +2,10 @@
   "version": 3,
   "source": "63 original MATCH characters plus new illustrated roster entrants",
   "note": "212 new adults are authored (the game uses the first 187, up to MATCH-250) with distinct proposed image identities. Only original illustrated portraits are activated. No image is reused across identities.",
-  "characterCount": 223,
-  "imageCount": 1541,
-  "publicImageCount": 894,
-  "privateImageCount": 647,
+  "characterCount": 226,
+  "imageCount": 1565,
+  "publicImageCount": 909,
+  "privateImageCount": 656,
   "characters": [
     {
       "id": "MATCH-001",
@@ -3925,6 +3925,44 @@
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
+      "id": "MATCH-125",
+      "slug": "yvonne_barlow",
+      "name": "Yvonne Barlow",
+      "age": 21,
+      "factionId": "police",
+      "canonicalOccupation": "Public safety statistician",
+      "gallery": [
+        "assets/hinge/roster_expansion/yvonne_barlow_01.webp",
+        "assets/hinge/roster_expansion/yvonne_barlow_02.webp",
+        "assets/hinge/roster_expansion/yvonne_barlow_03.webp",
+        "assets/hinge/roster_expansion/yvonne_barlow_04.webp",
+        "assets/hinge/roster_expansion/yvonne_barlow_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/yvonne_barlow_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Yvonne Barlow, consistent Fair skin, dark French braid, a tiny scar through one eyebrow, plain white shirt and slim black pants",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yvonne_barlow_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Yvonne Barlow, consistent Fair skin, dark French braid, a tiny scar through one eyebrow, plain white shirt and slim black pants",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/yvonne_barlow_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Yvonne Barlow, consistent Fair skin, dark French braid, a tiny scar through one eyebrow, plain white shirt and slim black pants",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing public safety statistician and making elaborate paper collages.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
       "id": "MATCH-126",
       "slug": "harriet_boyle",
       "name": "Harriet Boyle",
@@ -4796,6 +4834,44 @@
       ],
       "personality": "sunny but stubborn",
       "personalGoal": "Make a life for herself in Sunfall while balancing climate campaigner and mapping hidden hiking routes.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-152",
+      "slug": "kiki_odell",
+      "name": "Kiki O’Dell",
+      "age": 20,
+      "factionId": "progressives",
+      "canonicalOccupation": "Community art organizer",
+      "gallery": [
+        "assets/hinge/roster_expansion/kiki_odell_01.webp",
+        "assets/hinge/roster_expansion/kiki_odell_02.webp",
+        "assets/hinge/roster_expansion/kiki_odell_03.webp",
+        "assets/hinge/roster_expansion/kiki_odell_04.webp",
+        "assets/hinge/roster_expansion/kiki_odell_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/kiki_odell_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Kiki O’Dell, consistent Freckled fair skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/kiki_odell_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Kiki O’Dell, consistent Freckled fair skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/kiki_odell_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Kiki O’Dell, consistent Freckled fair skin, sleek middle-parted dark hair, thin wire-rimmed glasses, hand-knitted sweater",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "blunt and unexpectedly generous",
+      "personalGoal": "Make a life for herself in Sunfall while balancing community art organizer and teaching her younger cousin guitar.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
@@ -7665,6 +7741,44 @@
       ],
       "personality": "quietly intense and loyal",
       "personalGoal": "Make a life for herself in Sunfall while balancing receptionist and building a collection of forgotten records.",
+      "privatePicturePolicy": "optional later, only after mutual trust"
+    },
+    {
+      "id": "MATCH-243",
+      "slug": "alyssa_kimball",
+      "name": "Alyssa Kimball",
+      "age": 25,
+      "factionId": "normie_girls",
+      "canonicalOccupation": "Interior decorator",
+      "gallery": [
+        "assets/hinge/roster_expansion/alyssa_kimball_01.webp",
+        "assets/hinge/roster_expansion/alyssa_kimball_02.webp",
+        "assets/hinge/roster_expansion/alyssa_kimball_03.webp",
+        "assets/hinge/roster_expansion/alyssa_kimball_04.webp",
+        "assets/hinge/roster_expansion/alyssa_kimball_05.webp"
+      ],
+      "privatePhotos": [
+        {
+          "src": "assets/hinge/private_expansion/alyssa_kimball_private_01.webp",
+          "description": "a playful bedroom mirror selfie in a going-out dress, silver digital compact camera in hand; Alyssa Kimball, consistent Porcelain skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
+          "camera": "2006 digital compact mirror selfie",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alyssa_kimball_private_02.webp",
+          "description": "a sunny snapshot in a swimsuit beside a pool, taken by a friend; Alyssa Kimball, consistent Porcelain skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
+          "camera": "2007 compact digital camera",
+          "era": "2005–2010"
+        },
+        {
+          "src": "assets/hinge/private_expansion/alyssa_kimball_private_03.webp",
+          "description": "a late-night bedroom mirror selfie in silky sleepwear or lingerie; Alyssa Kimball, consistent Porcelain skin, glossy black ponytail, a silver ear cuff, white tank top and denim shorts",
+          "camera": "2008 compact camera with flash",
+          "era": "2005–2010"
+        }
+      ],
+      "personality": "wry and observant",
+      "personalGoal": "Make a life for herself in Sunfall while balancing interior decorator and baking elaborate cakes badly.",
       "privatePicturePolicy": "optional later, only after mutual trust"
     },
     {
