@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="e6fb873b4a">
+<html lang="en" data-build="78740f96b1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -781,11 +781,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=e6fb873b4a"></script>
+  <script src="chapel_at_midnight.js?v=78740f96b1"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=e6fb873b4a"></script>
+  <script src="marriage.js?v=78740f96b1"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=e6fb873b4a"></script>
+  <script src="quests/professor-vale.js?v=78740f96b1"></script>
 </head>
 <body>
   <main class="workbench">
@@ -1461,6 +1461,26 @@
     const dayPhases=['bedroom-dusk','bedroom-night','bedroom-morning','bedroom-afternoon'];
     const dayPhaseLabels=['Sunset','Night','Morning','Afternoon'];
     let dayTransitionInFlight=false;
+    // She asked you something and you never answered; overnight she has something else to tell you (a story, a
+    // countdown, an invitation, her morning). Rather than a new subject out of nowhere, she says so first, and her
+    // question still stands (the sense check, Chris, 6 November 2026). Messages about your silence need no bridge.
+    const WAIT_BRIDGE=['Hold that thought. Something else:','You still owe me an answer, by the way. But first:','Answer my question later. This can’t wait.','Different subject, and then you can answer me.','Before you answer that:','Separate thing. My question still stands, though.','Okay, park my question for a second.'];
+    function waitMark(){const out=new Map();for(const t of hingeThreads.values())if(t.followUp&&!t.quiet&&!t.blocked&&t.log.at(-1)?.who==='her')out.set(t.id,{len:t.log.length,follow:t.followUp});return out;}
+    function waitBridge(marks){
+      const kit=talkKit(),strings=o=>typeof o==='string'?[o]:Array.isArray(o)?o.flatMap(strings):o&&typeof o==='object'?Object.values(o).flatMap(strings):[];
+      const fixed=t=>String(t).split(/\{[a-z]+\}/).map(x=>x.trim()).sort((a,b)=>b.length-a.length)[0]||'';
+      const silence=[...NUDGE_ASKED,...NUDGE_QUIET,...strings(kit?.nudge),...strings(kit?.ignored),...strings(kit?.quiet),...strings(kit?.lastOne),...strings(kit?.spurn)].map(fixed).filter(f=>f.length>8);
+      const aboutSilence=text=>silence.some(f=>String(text).includes(f));
+      for(const [id,m] of marks){
+        const t=hingeThreads.get(id);
+        if(!t||t.blocked||t.unmatched||t.left||t.missing||t.quiet||t.fumbled||t.log.length<=m.len)continue;
+        const fresh=t.log.slice(m.len);
+        if(fresh.some(l=>l.bridge))continue; // already said
+        if(!fresh.some(l=>l.who==='her')||fresh.some(l=>l.who==='you'||(l.who==='her'&&aboutSilence(l.text))||l.block))continue; // you spoke, or it's about your silence, or a goodbye
+        lineSpeaker=id;
+        t.log.splice(m.len,0,{who:'her',text:freshHers(t,WAIT_BRIDGE,world.seed+'|bridge|'+id+'|'+world.day),bridge:true});
+      }
+    }
     function advanceToNextDay(){
       if(dayTransitionInFlight||world.policeArrested)return;
       touchThreads(); // a chat closed today leaves the list tomorrow
@@ -1483,6 +1503,7 @@
       window.setTimeout(()=>{
         world.day++;
         visibleNewsDay=world.day;
+        const waiting=waitMark(); // who was waiting on your answer when you went to bed
         deliverNextDayMessages();
         talkNewDay(); // warm women message you first
         jewellerNudge(); // Marriage: once her examination has started, a jeweller is never far
@@ -1491,6 +1512,7 @@
         chapel?.onNewDay(); // Task 2: the night of the rite, and Victoria's visits
         const valeDay=questOn('vale')&&(PV?.isOpen()||world.day>=questStart('vale')+2)?PV?.onNewDay(world.day):null; // Professor Vale: voicemails, deliveries, Day A; before the paper prints. Opens by itself two days after its first story.
         getNewsEdition(world.day);
+        waitBridge(waiting); // her new message, after a question you never answered: she says so first
         if(currentApp==='news')readTodaysPaper(); // the paper was open when the day turned: you're reading today's
         randomiseRoomLook();
         fit();
@@ -1518,6 +1540,7 @@
         if(enforceUnansweredBearAtNight())return;
         if(chapel?.afterDayStart())return; // Task 2: Victoria's attack
         if((bearState==='tracking'||bearState==='night')&&!world.bearAwaitingResponse){scheduleBearReveal();return;}
+        for(const ms of [2500,8000,20000]){const w=world;window.setTimeout(()=>{if(world===w){waitBridge(waiting);if(currentApp==='hinge')renderHinge();}},ms);} // her messages that arrive a little later: the same check
         if(currentApp==='hinge')renderHinge();
         else if(currentApp==='news')renderNews();
       },1650);
@@ -2971,7 +2994,7 @@
         const mine=unsaid(fresh);
         if(strict&&!mine.length)return null; // strict: she's said all of hers, so the caller finds something else
         if(mine.length)fresh=mine;
-        else if(!strict){const any=unsaid(list);if(any.length)fresh=any;} // better a line another woman used than the same one to you twice
+        else if(!strict){const any=unsaid(list);if(any.length)fresh=any;else fresh=[lruLine(list,her.log.filter(entry=>entry.who==='her').map(entry=>String(entry.text)))];} // better a line another woman used than the same one to you twice; all said: the oldest
       }
       const choice=seededPick(fresh.length?fresh:list,key);
       if(choice&&lineSpeaker&&!said[sig(choice)])said[sig(choice)]=lineSpeaker;
@@ -2990,21 +3013,31 @@
     }
     // Like seededPick, but she won't say the same line to you twice until she's run through them all.
     // Your side: a wording you haven't already said to her, while there is one (the sense check, Chris, 5 November 2026).
+    // Templates ({other}, {friend}, {botch}...): one whose fixed words she hasn't said to you yet, then the oldest.
+    function freshTpl(thread,list,seed){
+      if(!list?.length)return null;
+      const hers=(thread?.log||[]).filter(l=>l.who==='her').map(l=>String(l.text)),fixed=t=>String(t).split(/\{[a-z]+\}/).map(x=>x.trim()).sort((a,b)=>b.length-a.length)[0]||String(t);
+      const fresh=list.filter(t=>!hers.some(h=>h.includes(fixed(t))));
+      if(fresh.length)return seededPick(fresh,seed);
+      let best=list[0],at=Infinity;for(const t of list){let last=-1;hers.forEach((h,i)=>{if(h.includes(fixed(t)))last=i;});if(last<at){at=last;best=t;}}return best;
+    }
+    // Of lines all said already, the one said longest ago (texts: what was said, oldest first).
+    function lruLine(list,texts){let best=list[0],at=Infinity;for(const line of list){let last=-1;texts.forEach((t,i)=>{if(t.includes(String(line).trim()))last=i;});if(last<at){at=last;best=line;}}return best;}
     function freshMine(thread,list,start=0){
       if(!Array.isArray(list))return list;if(!list.length)return null;
       const mine=(thread?.log||[]).filter(l=>l.who==='you').map(l=>String(l.text));
       for(let i=0;i<list.length;i++){const line=list[(start+i)%list.length];if(!mine.some(t=>t.includes(line)))return line;}
-      return list[start%list.length];
+      return lruLine(list,mine);
     }
-    // Hers: a line she hasn't already said to you, while there is one.
-    function freshHers(thread,list,seed){const said=new Set((thread?.log||[]).filter(l=>l.who==='her').map(l=>l.text));const fresh=(list||[]).filter(l=>!said.has(l));return seededPick(fresh.length?fresh:list,seed);}
+    // Hers: a line she hasn't already said to you, while there is one; then the one she said longest ago.
+    function freshHers(thread,list,seed){if(!list?.length)return null;const hers=(thread?.log||[]).filter(l=>l.who==='her').map(l=>String(l.text));const fresh=list.filter(l=>!hers.some(t=>t.includes(String(l).trim())));return fresh.length?seededPick(fresh,seed):lruLine(list,hers);}
     function freshPick(thread,key,list,seed){
       if(!list?.length)return null;
       const state=talkState(thread);
       const used=state.used[key]||(state.used[key]=[]);
       const fresh=list.filter(item=>!used.includes(item));
-      if(!fresh.length)used.length=0;
-      const choice=seededPick(fresh.length?fresh:list,seed);
+      if(!fresh.length){const oldest=used.find(item=>list.includes(item));used.length=0;if(oldest!==undefined){used.push(...list.filter(item=>item!==oldest));}} // all used: the one used longest ago comes back first
+      const pool=list.filter(item=>!used.includes(item)),choice=seededPick(pool.length?pool:list,seed);
       used.push(choice);
       if(used.length>30)used.shift();
       return choice;
@@ -3128,7 +3161,7 @@
         return moods(kit.newsFollow?.options).map(o=>({...o,label:set.label[o.id]||o.label,player:set.reply[o.id]?freshMine(thread,set.reply[o.id],n+h):o.player}));
       }
       if(follow.kind==='tone'&&follow.id==='hello')return TONES.map(key=>({id:key,label:HELLO_LABEL[key],player:seededPick(HELLO_PLAYER[key],world.seed+(thread?.id||'')+key),tags:[],tone:key})); // her opening line
-      if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:seededPick((TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],world.seed+follow.id+world.day+key),tags:[],tone:key}));
+      if(follow.kind==='tone')return TONES.map(key=>({id:key,label:TONE_LABEL[key],player:freshMine(thread,(TONE_PLAYER[follow.id]||TONE_PLAYER.odd)[key],hashSeed(world.seed+follow.id+world.day+key)),tags:[],tone:key}));
       if(follow.kind==='lie')return twoTruthsSet(follow)?['first','second','third'].map((word,index)=>({id:String(index),label:`The ${word} one is the lie`,player:`The ${word} one. That’s the lie.`,tags:[]})):[];
       if(follow.kind==='day')return (kit.daily?.follow?.answers||[]).map(answer=>({id:answer.id,label:answer.label,player:answer.player,tags:answer.tags||[],answer}));
       const topic=characterDB?.worldTopics?.find(item=>item.id===follow.id);
@@ -3288,9 +3321,9 @@
     const TONES=['tease','sincere','dodge'];
     const TONE_LABEL={tease:'😏 Tease her',sincere:'♡ Be sincere',dodge:'↪ Change the subject'};
     const TONE_PLAYER={
-      good:{tease:['Look at you, showing off.','So you’re famous now. Do I need an appointment?','Careful, you’ll get a big head.'],sincere:['That’s brilliant. You deserve it.','I’m really pleased for you.','That’s lovely. Honestly.'],dodge:['Nice. Anyway, what are you up to later?','Good for you. So, seen anything good lately?','Cool. Did you see the paper today?']},
-      bad:{tease:['So, worst week in Sunfall history, then?','At least it makes a good story.','Well, that’s one for the memoirs.'],sincere:['I’m sorry. That’s really hard. How are you holding up?','That’s rotten. I’m glad you told me.','You didn’t deserve that. Anything I can do?'],dodge:['That’s rough. Anyway, how’s work?','Ah. Shall we talk about something nicer?','Right. Have you eaten today?']},
-      odd:{tease:['That is the most Sunfall thing I’ve ever heard.','You’re making that up.','I knew this town was haunted.'],sincere:['That’s strange. Are you all right?','Huh. What do you make of it?','That would rattle me too. Thanks for telling me.'],dodge:['Weird. Anyway, how was your day?','Strange town. So, what are you up to this weekend?','Huh. Changing the subject: coffee or tea?']}};
+      good:{tease:['Look at you, showing off.','So you’re famous now. Do I need an appointment?','Careful, you’ll get a big head.','Okay, overachiever.','I’ll need an autograph before you forget me.','Wow. Should I be taking notes?','Is there anything you can’t do? Asking for me.'],sincere:['That’s brilliant. You deserve it.','I’m really pleased for you.','That’s lovely. Honestly.','That made my day, honestly.','You earned that. I mean it.','That’s great news. Tell me everything.','I’m proud of you. Is that weird? I am.'],dodge:['Nice. Anyway, what are you up to later?','Good for you. So, seen anything good lately?','Cool. Did you see the paper today?','Nice one. So, plans this week?','Good stuff. Unrelated: favorite place to eat around here?','Great. Totally different question: dogs or cats?']},
+      bad:{tease:['So, worst week in Sunfall history, then?','At least it makes a good story.','Well, that’s one for the memoirs.','Okay, the universe owes you one now.','That’s a lot of bad luck for one person. Share some.','Remind me never to swap weeks with you.','Silver lining: it can only go up from here. Probably.'],sincere:['I’m sorry. That’s really hard. How are you holding up?','That’s rotten. I’m glad you told me.','You didn’t deserve that. Anything I can do?','That sounds exhausting. I’m here if you want to vent.','I’m sorry. Be kind to yourself today.','That’s awful. Do you want to talk about it, or be distracted?','You’re handling it better than I would.'],dodge:['That’s rough. Anyway, how’s work?','Ah. Shall we talk about something nicer?','Right. Have you eaten today?']},
+      odd:{tease:['That is the most Sunfall thing I’ve ever heard.','You’re making that up.','I knew this town was haunted.','Okay, that’s a movie. I want royalties.','Every day this town gets stranger.','Sunfall never misses, does it.','I need a map of how weird this place is.'],sincere:['That’s strange. Are you all right?','Huh. What do you make of it?','That would rattle me too. Thanks for telling me.','That’s unsettling. Lock your door tonight, okay?','Weird. I’d want to know what that was too.','Huh. That would stay with me all day.'],dodge:['Weird. Anyway, how was your day?','Strange town. So, what are you up to this weekend?','Huh. Changing the subject: coffee or tea?','Odd. Okay, tell me something normal about you.','Spooky. Let’s talk about something nicer. Favorite song right now?','Right. New subject before I get scared: best taco in town?']}};
     // Her opening line gets an answer first (the sense check, Chris, 5 November 2026: the first buttons ignored what she said).
     const HELLO_PLAYER={tease:['Is that the line you use on everyone?','Do you open with that on everyone, or am I special?','Bold opener. Do you use it on everyone?'],
       sincere:['Hi. I’m really glad we matched.','Hi! That made me smile.','Hi. You seem like someone worth talking to.'],
@@ -3463,7 +3496,7 @@
     function unaskedCaption(thread,profile){ // her own caption the first time; after that, something she hasn't said yet
       const own=personalityOf(profile)?.unasked,said=new Set(thread.log.filter(l=>l.who==='her').map(l=>l.text));
       if(own&&!said.has(own))return own;
-      return UNASKED_MORE.find(l=>!said.has(l))||UNASKED_MORE[thread.log.length%UNASKED_MORE.length];
+      return UNASKED_MORE.find(l=>!said.has(l))||lruLine(UNASKED_MORE,thread.log.filter(l=>l.who==='her').map(l=>String(l.text)));
     }
     function newsTalkAvailable(thread){
       // Only once you've read today's paper (opened the News app today).
@@ -3491,33 +3524,33 @@
     // Your side of it, varied so the same chat never hears the same reply twice in a row (Chris, 5 November 2026: the sense check).
     // What you can say back, by what she said (the sense check, Chris, 5 November 2026).
     const NEWS_WORTH_ASK=['Is it worth reading?','Should I bother?','Tell me the short version?','Worth my time, or not?'];
-    var NEWS_REPLY_JOKE=['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.'];
+    var NEWS_REPLY_JOKE=['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.','I read it upside down. It’s more exciting.','I only read the obituaries, to check I’m not in them.','I skip to the comics. Priorities.','I mostly use it to swat flies.','I read it for the coupons. I am a man of simple pleasures.'];
     var NEWS_SHAPES={
       S:{label:{warm:'Agree with her',challenge:'Read it differently',joke:'Make a joke'},get reply(){return NEWS_REPLY;},
         react:{warm:{pos:['Exactly. Thank you.','See? I knew it wasn’t just me.','Okay, good. I was starting to think I was the only one.','Right? Nobody at work agreed with me.','Good. You get it.','Finally, someone sensible.','Thank you. I’m screenshotting this for my sister.','Yes! Okay, you can stay.','That’s what I said out loud to nobody this morning.','Good. I trust your taste now. A little.'],
-            neg:['Hm. Easy to say.','You’re just agreeing with me, aren’t you.','Okay, but you don’t sound sure.']},
+            neg:['Hm. Easy to say.','You’re just agreeing with me, aren’t you.','Okay, but you don’t sound sure.','Agreeing with me won’t get you out of reading it.','Hm. Say it like you mean it.','You’d agree with me if I said the sky was green.']},
           challenge:{pos:['Huh. I hadn’t thought of it like that.','Okay, fair. You might have a point.','I don’t agree, but I like that you said it.','Fine. I’ll read it again tonight.','Hm. That’s annoyingly reasonable.','You might be right. Don’t tell anyone I said that.','Okay, that’s a better take than mine.','I hate that you made me think.'],
-            neg:['We’ll have to agree to disagree.','Wow. Okay. Remind me not to talk news with you.','No. I’m right about this one.','Hm. I don’t see it.']},
+            neg:['We’ll have to agree to disagree.','Wow. Okay. Remind me not to talk news with you.','No. I’m right about this one.','Hm. I don’t see it.','Bold of you. Wrong, but bold.','We are not going to agree on this one.','Okay, devil’s advocate. Noted.','I’m going to pretend you didn’t say that.']},
           joke:{pos:['Ha. Okay, fair.','I need to know more about that piano.','You’re ridiculous. Go on.','That’s honestly the best review it’ll get.','I laughed out loud on the bus. Thanks.','Okay, that got me.','Stop. I’m supposed to be serious today.','You’re a menace. Continue.'],
-            neg:['Can you be serious for one second?','I was asking properly.','Okay. Not the time.']}}},
+            neg:['Can you be serious for one second?','I was asking properly.','Okay. Not the time.','Funny. Now answer me properly.','Ha. No. Try again.','I asked a real question, you know.']}}},
       Q:{label:{warm:'Say you get it',challenge:'Say you don’t',joke:'Make a joke'},
-        reply:{warm:['Not at all. Same.','No, I get it completely.','Honestly? Me too.','Not weird. I thought it too.','No. Anyone would.'],
-          challenge:['A little, yes.','Hm. I wouldn’t.','Honestly? I’d steer clear.','Maybe a bit. Just a bit.','I see it the other way.'],
+        reply:{warm:['Not at all. Same.','No, I get it completely.','Honestly? Me too.','Not weird. I thought it too.','No. Anyone would.','You’re not the only one. Promise.','Completely normal. I’d feel the same.','Not even a little weird.','That’s exactly what I’d do.'],
+          challenge:['A little, yes.','Hm. I wouldn’t.','Honestly? I’d steer clear.','Maybe a bit. Just a bit.','I see it the other way.','I’d think twice, honestly.','Not my call, but I wouldn’t.','Hm. I’d go the other way.','Bit much, maybe.'],
           joke:NEWS_REPLY_JOKE},
         react:{warm:{pos:['Okay, good. I thought I was the weird one.','See, you get it.','Thank you. My mom thinks I’m strange.','Good. We’re both weird, then.'],neg:['You’re just saying that.','Hm. Nice try.']},
           challenge:{pos:['Fair. Maybe I am.','Okay, you might be right.','Hm. That’s fair, actually.'],neg:['Wow. Okay. Judge me, then.','Noted. I’m still right.','Hm. Thanks, I guess.']},
           joke:{pos:['Ha. Okay.','You’re ridiculous. I like it.'],neg:['I was asking properly.','Okay. Not the time.']}}},
       K:{label:{warm:'Tell her to read it',challenge:'Tell her to skip it',joke:'Make a joke'},
-        reply:{warm:['Read it. It’s worth it.','It’s worth reading. I thought about it all day.','Read it. The headline doesn’t do it justice.','Yes. Read it properly, it’s better than it sounds.','Read it tonight. Then tell me what you think.'],
-          challenge:['Skip it. They’re making a meal of it.','Honestly? Don’t bother. It’s the same as last week.','Skip it. The headline is the whole story.','I wouldn’t. It’ll only annoy you.','Save yourself. It’s mostly guessing.'],
+        reply:{warm:['Read it. It’s worth it.','It’s worth reading. I thought about it all day.','Read it. The headline doesn’t do it justice.','Yes. Read it properly, it’s better than it sounds.','Read it tonight. Then tell me what you think.','Give it five minutes. You won’t regret it.','Read it. I want to know what you think.','It’s the best thing in there today.','Read the whole thing, not just the start.'],
+          challenge:['Skip it. They’re making a meal of it.','Honestly? Don’t bother. It’s the same as last week.','Skip it. The headline is the whole story.','I wouldn’t. It’ll only annoy you.','Save yourself. It’s mostly guessing.','Skip it. Read the comics instead.','Not worth your time, honestly.','Nothing in it you don’t already know.','You’ll get more from the weather report.'],
           joke:NEWS_REPLY_JOKE},
         react:{warm:{pos:['Okay. I’ll read it properly tonight.','Fine, you’ve sold me on it.','Now I have to read it. Thanks a lot.','Okay, okay. Tonight.','Fine. It’s going in my bag for the bus.','You make it sound better than the paper does.','All right. I’ll read it with my coffee.','Okay. If it’s boring, I’m blaming you.'],neg:['Hm. We’ll see.','You say that about everything.']},
           challenge:{pos:['Good. I wasn’t going to anyway.','One less thing to worry about. Thank you.','Perfect. More time for my book.','Great. Skipping it with a clear conscience.','Thank you. My attention span thanks you too.','Noted. I’ll just read the headline and pretend.','Good. I had other plans for those five minutes.'],neg:['Hm. Now I want to read it more.','You’re no fun.','Telling me not to only makes me want to.','Too late. I already started.','Hm. Now I’m suspicious.']},
           joke:{pos:['Ha. Okay, fair.','That’s honestly the best review it’ll get.'],neg:['I was asking properly.','Okay. Not the time.']}}}
     };
-    var NEWS_REPLY={warm:['You’re right. I read it the same way.','Same. That’s exactly how it read to me.','I’m with you on that one.','I thought the same thing over breakfast.','Honestly? Agreed.'],
-      challenge:['I’m not sure. I read it differently.','Really? I took it the other way.','Hm. I don’t think it’s that simple.','I’d push back on that a little.','I read the same story and came out somewhere else.'],
-      joke:['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.']};
+    var NEWS_REPLY={warm:['You’re right. I read it the same way.','Same. That’s exactly how it read to me.','I’m with you on that one.','I thought the same thing over breakfast.','Honestly? Agreed.','Couldn’t have said it better.','Yes. That’s the part that got me too.','Exactly my take.','You put it better than the paper did.','Agreed, word for word.'],
+      challenge:['I’m not sure. I read it differently.','Really? I took it the other way.','Hm. I don’t think it’s that simple.','I’d push back on that a little.','I read the same story and came out somewhere else.','I see it, but I don’t buy it.','There’s another side to that one.','I’m going to disagree, nicely.','I think the paper left a lot out.','Maybe. I’m not convinced.'],
+      joke:['I only read the horoscopes.','I just do the crossword and judge people.','I read it for the classifieds. Someone is selling a haunted piano.','Honestly, I just look at the pictures.','I use it to line the bird cage. I don’t have a bird.','I read it upside down. It’s more exciting.','I only read the obituaries, to check I’m not in them.','I skip to the comics. Priorities.','I mostly use it to swat flies.','I read it for the coupons. I am a man of simple pleasures.']};
     // She talks about the story closest to her world: one her faction knows more about, if
     // today's paper has one she hasn't told you about yet, otherwise the front page.
     // The Blue Ribbon question follows talk about today's paper: ask her what she made of it
@@ -3534,11 +3567,11 @@
       const fresh=kind=>{const i=informed[kind]?.informed?.[profile.factionId];return !!i&&!told.includes(kind)&&!(i.fromDay>world.day);}; // she knows something new about it
       return kinds.find(fresh)||kinds.find(kind=>!talked.includes(kind))||kinds[talked.length%Math.max(1,kinds.length)]||'local'; // otherwise a story you haven't talked about yet (Chris, 5 November 2026)
     }
-    function bearEgg(){
+    function bearEgg(thread){
       const kit=talkKit(),c=convo();
       c.bearAsks=(c.bearAsks||0)+1;
       if(!c.gerald&&c.bearAsks>=3){c.gerald=true;return [kit.eggs.gerald.named];}
-      if(c.gerald&&gameRandom()<.6)return [gamePick(kit.eggs.gerald.lines)];
+      if(c.gerald&&gameRandom()<.6)return [thread?freshHers(thread,kit.eggs.gerald.lines,world.seed+'|gerald|'+thread.id+'|'+world.day):gamePick(kit.eggs.gerald.lines)];
       return [];
     }
     // At most one line before her answer: the survey joke, her reputation news, a friend who
@@ -3549,7 +3582,7 @@
       lineSpeaker=profile.id;openerFirst=false;
       if(topicId){
         const others=(c.asked[topicId]||[]).filter(id=>id!==profile.id&&hingeProfile(id)?.factionId===profile.factionId);
-        if(others.length>=2){openerFirst=true;return fillIn(seededPick(kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});}
+        if(others.length>=2){openerFirst=true;return fillIn(freshTpl(thread,kit.eggs.survey,profile.id+topicId),{other:firstName(hingeProfile(others[others.length-1]))});}
       }
       if(state.lastDay!==world.day){
         state.lastDay=world.day;
@@ -3558,7 +3591,7 @@
         const recall=recallLine(thread,profile); // she remembers
         if(recall)return recall;
         const friend=friendOf(profile);
-        if(friend&&!state.friendShown&&hingeThreads.get(friend.id)?.topics?.length){state.friendShown=true;return fillIn(seededPick(kit.asides.friendKnows,profile.id),{friend:firstName(friend)});}
+        if(friend&&!state.friendShown&&hingeThreads.get(friend.id)?.topics?.length){state.friendShown=true;return fillIn(freshTpl(thread,kit.asides.friendKnows,profile.id),{friend:firstName(friend)});}
         if(gameRandom()<.45){ // her mood today is a greeting: before her answer, and never inviting a question you have just asked
           const moods=(kit.moods[moodOf(profile)]||[]).filter(l=>!/Ask me/i.test(l));
           if(moods.length){openerFirst=true;return variedPick(moods,profile.id+world.day);}
@@ -3590,7 +3623,7 @@
       if((c.hector||0)>=4&&!c.hectorDone){c.hectorDone=true;return kit.asides.hectorPayoff;}
       const roll=gameRandom(),friend=friendOf(profile);
       if(roll<.35&&!c.hectorDone){c.hector=(c.hector||0)+1;return seededPick(kit.asides.hector,profile.id+c.hector);}
-      if(roll<.7&&friend)return fillIn(seededPick(kit.asides.friend,profile.id+world.day),{friend:firstName(friend)});
+      if(roll<.7&&friend)return fillIn(freshTpl(thread,kit.asides.friend,profile.id+world.day),{friend:firstName(friend)});
       return seededPick(kit.asides.places,profile.id+world.day);
     }
     // The story behind her opinions: one per kind (love, faith, the world), when she's warm enough.
@@ -3737,7 +3770,7 @@
         const op=talkOpener(thread,profile,topic.id);if(openerFirst)lines.push(op);
         lines.push(coldTrim(voiced(topicView(topic,profile),profile,topic.id),thread)); // texting tension: short when she's cold
         // One extra at most after her view (the sense check, Chris, 5 November 2026): the bear's nickname, a callback, an aside or a bit of gossip.
-        const extra=topic.id==='bear'?bearEgg():[];
+        const extra=topic.id==='bear'?bearEgg(thread):[];
         if(!extra.length&&!openerFirst&&op)extra.push(op);
         if(!extra.length){const aside=talkAside(thread,profile);if(aside)extra.push(aside);}
         if(!extra.length){gossip=pickGossip(thread,profile);if(gossip)extra.push(gossip.says);}
@@ -3779,11 +3812,12 @@
         (state.newsKinds||(state.newsKinds=[])).push(kind);state.newsKinds=state.newsKinds.slice(-20);state.newsCount=(state.newsCount||0)+1;
         const again=(state.newsKinds||[]).slice(0,-1).filter(k=>k===kind).length; // you've talked about this story before: a follow-on, not the same question
         const Phrase=phrase.charAt(0).toUpperCase()+phrase.slice(1);
-        const ask=again?[`Did you see the latest on ${phrase}?`,`More on ${phrase} today. Did you read it?`,`${Phrase} again. Did you see today’s paper?`,`Any news on ${phrase}? It’s still in the paper.`,`Still following ${phrase}?`][(again-1)%5]:`${news.player} ${Phrase}?`;
+        const ask=again?freshMine(thread,[`Did you see the latest on ${phrase}?`,`More on ${phrase} today. Did you read it?`,`${Phrase} again. Did you see today’s paper?`,`Any news on ${phrase}? It’s still in the paper.`,`Still following ${phrase}?`,`What do you make of ${phrase} now?`,`${Phrase} is still going. Keeping up?`,`Any thoughts on today’s bit of ${phrase}?`],again-1):`${news.player} ${Phrase}?`; // never the same question twice
         thread.log.push({who:'you',text:myVoice(ask,profile.id)});
         // The sense check (Chris, 5 November 2026): her take, what she knows, then one question, and nothing else in between.
         // No mood or callback here (they waited in the middle of the exchange), and your replies fit what she said:
         // an opinion (S: agree or not), a question about her own take (Q: answer it), or that she only skimmed it (K: is it worth reading?).
+        lineSpeaker=profile.id; // so her lines are checked against what she has said to you
         const view=variedPick(about.views?.[profile.factionId]||[],profile.id+kind+world.day,true);
         const take=voiced(view||variedPick(news.skimmed||[],profile.id+world.day)||variedPick(kit.neutral,profile.id),profile,'news'+world.day); // another woman's view is hers, not this one's
         const shape=!view?'K':/\?\s*$/.test(take)?'Q':'S';
@@ -3792,8 +3826,8 @@
         const informed=about.informed?.[profile.factionId]?.fromDay>world.day?null:about.informed?.[profile.factionId]; /* gala gossip only once the gala has happened */
         const chance={mogger:1,normie:warmthOf(thread)>=1?1:.5,truecel:warmthOf(thread)>=1?.5:.2}[tone()];
         let note=null;
-        if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);extra.push(seededPick(informed.lines,profile.id));note=informed.note;}
-        if(kind==='bear')extra.push(...bearEgg());
+        if(informed&&!state.informed.includes(kind)&&gameRandom()<chance){state.informed.push(kind);extra.push(freshHers(thread,informed.lines,profile.id));note=informed.note;}
+        if(kind==='bear')extra.push(...bearEgg(thread));
         if(shape==='Q')lines.push(...extra,take); // her question about her own take comes last, so your answer answers it
         else{
           lines.push(take,...extra);
@@ -3835,7 +3869,7 @@
         const key=id.slice(4),ask=SERVICE_ASKS[key];
         if(!serviceAskable(key,thread,profile))return;
         thread.followUp=null;
-        thread.log.push({who:'you',text:myVoice(ask.player,profile.id)});
+        thread.log.push({who:'you',text:myVoice(freshMine(thread,[ask.player,'Me again about that number. Any chance?','Could I try you again for that number?','About that number I asked for. Still no?']),profile.id)}); // asking again after a no: new words
         if(warmthOf(thread)<=-2&&tone()!=='mogger'){state.svcRefusedDay=world.day;lines.push(variedPick(SERVICE_REFUSALS,profile.id+key));}
         else{
           lines.push(fillIn(seededPick(ask.reply,profile.id+key),{number:contactNumbers[key]}));
@@ -3912,11 +3946,11 @@
         const question=kit.herQuestions.find(item=>item.id===follow.id);
         if(contradicted&&gameRandom()<.6){
           const told=question.answers.find(answer=>answer.id===contradicted.answer)?.told||'something else';
-          lines.push(fillIn(seededPick(kit.eggs.twoFaced,profile.id+follow.id),{other:otherName(contradicted.id),told}));
+          lines.push(fillIn(freshTpl(thread,kit.eggs.twoFaced,profile.id+follow.id),{other:otherName(contradicted.id),told}));
           delta=Math.min(delta,0)-1;
         }else{
           lines.push(delta>0?reactionFrom([].concat(choice.answer.pos,choice.answer.pos,personality?.reactions?.warm||[]),WARM_REACTIONS,profile.id+follow.id+world.day):delta<0?reactionFrom([].concat(choice.answer.neg,choice.answer.neg,personality?.reactions?.cool||[]),COOL_REACTIONS,profile.id+follow.id+world.day):variedPick(kit.neutral,profile.id+follow.id));
-          if(agreed&&gameRandom()<.3){lines.push(fillIn(seededPick(kit.eggs.consistent,profile.id+follow.id),{other:otherName(agreed.id)}));delta+=1;}
+          if(agreed&&gameRandom()<.3){lines.push(fillIn(freshTpl(thread,kit.eggs.consistent,profile.id+follow.id),{other:otherName(agreed.id)}));delta+=1;}
         }
         c.told[follow.id]=[...(c.told[follow.id]||[]).filter(entry=>entry.id!==profile.id),{id:profile.id,answer:choice.id,day:world.day}];
       }else if(follow.kind==='day'){
@@ -6488,7 +6522,7 @@
       const a=armsState(),way=ARMS.by[profile.factionId];
       a.asked[profile.id]=world.day;
       lineSpeaker=profile.id;
-      thread.log.push({who:'you',text:ARMS.ask.player});
+      thread.log.push({who:'you',text:freshMine(thread,[ARMS.ask.player,'Back to my strange question. Any idea where a man gets a gun around here?','Still wondering about that gun. Anyone you know?'])});
       if(anyGun()){deliverTalk(thread,profile,[ARMS.has],'talk',null,true);return;} // one is enough: she points you at bullets
       const after=way.pawn?()=>{a.pawnNumber=a.pawnNumber||unusedContactNumber();a.pawnSeen=true;recordClue(`${profile.name}’s brother runs Sunfall Pawn: ${displayNumber(a.pawnNumber)}.`);}:()=>{if(!myGun()&&!gunComing())a.pending={from:profile.factionId,day:world.day+1,who:profile.id};};
       deliverTalk(thread,profile,[way.reply],'talk',after,true);
@@ -6806,7 +6840,7 @@
       const key=k=>world.seed+'|'+follow.kind+'|'+follow.id+'|'+world.day+'|'+k;
       if(follow.kind==='flirt'){
         const tier=Math.max(0,Math.min(2,Number(follow.id)||0));
-        return ['flirt','filthy','sweet','away'].map(k=>{const r=p.react[k],lines=Array.isArray(r.player[0])?r.player[tier]:r.player;return {id:k,label:r.label,player:seededPick(lines,key(k)),flirt:true};});
+        return ['flirt','filthy','sweet','away'].map(k=>{const r=p.react[k],lines=Array.isArray(r.player[0])?r.player[tier]:r.player;return {id:k,label:r.label,player:freshMine(thread,lines,hashSeed(key(k))),flirt:true};});
       }
       if(follow.kind==='tempt')return ['sweet','cheeky','cocky'].map(k=>({id:k,label:p.tempt[k].label,player:p.tempt[k].player,flirt:true}));
       if(follow.kind==='pic'){
@@ -8065,6 +8099,7 @@
     const RQ_OVER=['done','skipped','gone'];
     // A line that changes with the difficulty is {mogger, normie, truecel}; anything else is the line.
     const rqT=value=>value&&typeof value==='object'&&!Array.isArray(value)?(value[tone()]??value.normie??Object.values(value)[0]):value;
+    const rqLine=(thread,value)=>{const v=rqT(value);return Array.isArray(v)?freshHers(thread,v,world.seed+'|rq|'+thread.id+'|'+thread.log.length):v;}; // a line with variants: one she hasn't said to you
     function rqState(){
       const r=world.rq;
       if(!r||typeof r!=='object'||Array.isArray(r)||!r.st||typeof r.st!=='object')world.rq={on:null,st:{},dead:null};
@@ -8303,7 +8338,7 @@
         rqPicture(t,p,RQ_PICS.openhouse[spot],kit.spots[spot]);
         seen.push(spot);st.next=null;
         if(spot==='master'){herLine(t,rqT(kit.masterAfter));st.stage='twist';st.twistDay=world.day+1;return;}
-        if(seen.length<3){herLine(t,rqT(kit.after));st.await='pick';st.pickDay=world.day;}
+        if(seen.length<3){herLine(t,rqLine(t,kit.after));st.await='pick';st.pickDay=world.day;}
         else st.dareDay=world.day+1; // the last house comes tomorrow
         return;
       }
@@ -8703,10 +8738,12 @@
       }else rqSeatingHeard();
       if(st.card<3&&!st.target&&world.day>=st.cardDay){
         const pick=rqSeatPick(st);
-        if(!pick){st.none=(st.none||0)+1;if(st.none>=3){herLine(t,kit.noneQuit);st.stage='done';}else herLine(t,kit.none);rqSpoke(t);return;}
+        if(!pick){st.none=(st.none||0)+1;if(st.none>=3){herLine(t,kit.noneQuit);st.stage='done';}else herLine(t,rqLine(t,kit.none));rqSpoke(t);return;}
         st.seated=(st.seated||[]).slice(0,st.card);st.seated.push(pick.id);
         Object.assign(st,{target:pick.id,cardDay:world.day,sent:false});
-        herLine(t,fillIn(rqT(kit.morning[st.card]),{first:firstName(hingeProfile(pick.id))}));
+        let card=fillIn(rqT(kit.morning[st.card]),{first:firstName(hingeProfile(pick.id))});
+        if(st.missed&&t.log.some(l=>l.who==='her'&&/^Card \w+ is under your door/.test(String(l.text))&&String(l.text).split('.')[0]===card.split('.')[0]))card=card.replace(/^Card \w+ is under your door/,'Another card is under your door'); // the same card again, after one you never read
+        herLine(t,card);
       }
       rqSpoke(t);
     }
@@ -9360,7 +9397,7 @@
       const kit=fetishKit()?.kit,st=talkState(thread);
       if(!kit||!intoOpen(thread,profile))return;
       st.intoAskedDay=world.day;thread.followUp=null;
-      thread.log.push({who:'you',text:seededPick(kit.ask.player,world.seed+'|into|'+profile.id+'|'+world.day)});
+      thread.log.push({who:'you',text:freshMine(thread,kit.ask.player,hashSeed(world.seed+'|into|'+profile.id+'|'+world.day))});
       lineSpeaker=profile.id;
       // The first time, she always gives you a bit of it. After that, asking again is digging.
       if(!st.into||gameRandom()<digOdds(thread,profile)){const [text,follow]=intoNext(thread,profile);return intoSay(thread,profile,text,follow);}
@@ -9371,7 +9408,7 @@
       if(!kit)return [];
       const key=k=>world.seed+'|into|'+follow.id+'|'+world.day+'|'+k;
       const keys=follow.id==='dodged'?['push','drop']:['dig','leave'];
-      return keys.map(k=>({id:'into-'+k,label:kit[k].label,player:seededPick(kit[k].player,key(k)),into:true}));
+      return keys.map(k=>({id:'into-'+k,label:kit[k].label,player:freshMine(hingeThreads.get(activeChatId),kit[k].player,hashSeed(key(k))),into:true}));
     }
     function answerInto(choice,thread,profile){
       const kit=fetishKit()?.kit,st=talkState(thread);
@@ -9888,7 +9925,7 @@
       if(id==='arc:family'){
         if(a.fam.includes(profile.id))return;
         a.fam.push(profile.id);
-        thread.log.push({who:'you',text:kit.family.player});
+        thread.log.push({who:'you',text:freshMine(thread,[kit.family.player,'What’s your family like?','So, your family. Tell me about them.','Who’s in your family?'])}); // her own topics may have asked already
         const arc=arcOf(profile,true),st=a.st[profile.id];
         if(arc&&arc.family&&st?.stage==='hook'){arcTell(thread,profile,arc,{quiet:true});return deliverTalk(thread,profile,[arcFill(arc.hook,profile)],'talk',null,true);} // asking opens her story
         const own=kit.family.byFaction[profile.factionId];
@@ -12068,7 +12105,8 @@
       // not a remark she has already made, however the {botch} part came out (the sense check, 5 November 2026)
       const hers=thread.log.filter(l=>l.who==='her').map(l=>String(l.text)),fixed=t=>String(t).split('{botch}').map(x=>x.trim()).sort((a,b)=>b.length-a.length)[0]||String(t);
       const fresh=pool.filter(t=>!hers.some(h=>h.includes(fixed(t))));
-      return botchFill(variedPick(fresh.length?fresh:pool,profile.id+'|bjab|'+thread.log.length+'|'+world.day),profile,'jab'+thread.log.length);
+      if(!fresh.length){if(thread.bjDay===world.day)return null;thread.bjDay=world.day;} // she has said them all: once a day now, the one said longest ago
+      return botchFill(fresh.length?variedPick(fresh,profile.id+'|bjab|'+thread.log.length+'|'+world.day):freshTpl(thread,pool,profile.id),profile,'jab'+thread.log.length); // all said: the one said longest ago
     }
     function botchTree(thread){const ep=world.cls.botchEp||0;if(!thread.bt||thread.bt.ep!==ep)thread.bt={ep,step:0,said:false};return thread.bt;}
     // She notices the first time you open her chat after it happened (a new match opens with it instead).
@@ -13139,6 +13177,7 @@
     function startHomeInvasion(){
       const s=brState();
       s.retaliated=true;
+      if(noticeTimer!==null){window.clearTimeout(noticeTimer);noticeTimer=null;}noticeQueue=[];$('day-caption').classList.remove('visible','low'); // no notice over the break-in
       clearInvasion();closeEvidenceSheet(false);endSimulatedCall();clearBearTimers();clearBearVisuals();
       stage.classList.add('lowered');
       const overlay=$('home-invasion'),steps=BR?.invasion||[];

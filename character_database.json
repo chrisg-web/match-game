@@ -30523,7 +30523,19 @@
       "Honestly? I’m staying out of that one.",
       "Everyone keeps asking me about it. I keep changing the subject.",
       "I’ll read it properly tonight. Don’t spoil it.",
-      "I saw the picture and decided not to read the rest."
+      "I saw the picture and decided not to read the rest.",
+      "Didn’t read it. Saw the headline, made a face, moved on. Should I go back?",
+      "Honestly, I only read the first line. Is the rest worth it?",
+      "My dad left it on the table open at that page. I didn’t take the hint.",
+      "I read it in line at the bank. I remember none of it. Help me out?",
+      "I glanced at it. It looked like a lot of words about not very much.",
+      "Someone at work summarized it for me. Badly, I think. What’s the real story?",
+      "I skipped it for the crossword. Was that a mistake?",
+      "I keep meaning to read it. Is it worth the five minutes?",
+      "I read the photo caption and called it a day.",
+      "I saw people arguing about it, so I decided not to have an opinion yet.",
+      "My neighbor tried to tell me about it over the fence. I nodded a lot.",
+      "I’ve been avoiding it on purpose. Should I stop?"
     ]
   },
   "talk": {
@@ -31773,7 +31785,11 @@
           "Gerald was spotted outside the Lucky Cactus again, by the way.",
           "Someone made Gerald a fan page. It has more followers than the mayor.",
           "Gerald knocked over the parish bins. The Sisters have forgiven him.",
-          "Hector at the taco stand has started leaving Gerald the burnt tortillas."
+          "Hector at the taco stand has started leaving Gerald the burnt tortillas.",
+          "Someone left a birthday card for Gerald on the trailhead sign. It was signed by half the town.",
+          "My cousin swears Gerald waved at her. From a distance. Thankfully.",
+          "There’s a Gerald fan club now. They have T-shirts. I may have bought one.",
+          "The ranger says Gerald is not a pet. Everybody ignores the ranger."
         ]
       },
       "real": {
@@ -36922,9 +36938,21 @@
         "master": "Last one. A big house on the ridge road, the old judge’s place. The owner is some tennis woman who never smiles. Her master bedroom. Her sheets."
       },
       "after": {
-        "mogger": "My heart is going. That’s you, not the house. Where next, neighbor?",
-        "normie": "Your turn. Where next?",
-        "truecel": "My friends are screaming. Where next?"
+        "mogger": [
+          "My heart is going. That’s you, not the house. Where next, neighbor?",
+          "Still shaking. In a good way. Pick the next one, neighbor.",
+          "That was the best ten minutes of my week. Where to now?"
+        ],
+        "normie": [
+          "Your turn. Where next?",
+          "Okay, that was fun. Pick the next house.",
+          "I can’t stop grinning. Where next?"
+        ],
+        "truecel": [
+          "My friends are screaming. Where next?",
+          "Okay, I’m telling everyone about that one. Next?",
+          "That was insane. Pick another one before I lose my nerve."
+        ]
       },
       "masterAfter": {
         "mogger": "Okay. That one felt like being watched. Later, neighbor.",
@@ -37569,7 +37597,10 @@
           "truecel": "The last card. {first}. I saved the best one. Brace."
         }
       ],
-      "none": "You have nobody worth seating. Match someone, darling, and I’ll seat you tomorrow.",
+      "none": [
+        "You have nobody worth seating. Match someone, darling, and I’ll seat you tomorrow.",
+        "Still an empty chair beside you. Find someone worth the card, darling. Tomorrow."
+      ],
       "noneQuit": "Still nobody. I can’t seat an empty table. Come back when you have a life.",
       "lines": [
         [
@@ -46455,7 +46486,13 @@
           "That’s honestly the least weird thing about you right now.",
           "I showed my roommate. She screamed a little.",
           "I keep picturing introducing you to my friends, and then I stop.",
-          "It’s hard to be normal about this. Sorry."
+          "It’s hard to be normal about this. Sorry.",
+          "I tried to describe {botch} to my sister. She thought I was exaggerating. I wasn’t.",
+          "Okay, I looked again. Still there.",
+          "Is it rude if I keep my camera off forever?",
+          "I’m being nice, but my face isn’t.",
+          "Every time you text I see {botch} in my head. Every time.",
+          "I’m rooting for you. From a distance."
         ]
       },
       "thunderbirds": {
@@ -46474,7 +46511,13 @@
           "One simply doesn’t recover from {botch}. One relocates.",
           "I’m being polite. You can tell because I haven’t laughed.",
           "The Bluebirds have a word for men like you now. It isn’t a nice word.",
-          "Do keep the camera further away in your pictures, darling."
+          "Do keep the camera further away in your pictures, darling.",
+          "Darling, {botch} is the sort of thing one discusses with lawyers.",
+          "I’ve been to three charity dinners this week. None of them were for {botch}, sadly.",
+          "The tennis pro asked after you. I said you were indisposed. Permanently.",
+          "Father would have you escorted off the grounds. Kindly, but firmly.",
+          "One doesn’t say it. One simply looks away.",
+          "I’ve seen better work on a hedge."
         ]
       },
       "fourth_estate": {
@@ -46493,7 +46536,13 @@
           "Can I ask who did it? Readers will want a name.",
           "My editor says there’s no follow-up to {botch}. It’s the whole story.",
           "I’ve already got the headline. You won’t like it.",
-          "I can’t print what I’m thinking. Not in a family paper."
+          "I can’t print what I’m thinking. Not in a family paper.",
+          "Off the record, {botch} is the worst thing I’ve seen this year.",
+          "Sorry, I was fact-checking {botch}. It checks out.",
+          "If you ever want to tell your side, call the newsroom. They’ll want photos.",
+          "Our photographer asked for your angle. I said there isn’t one.",
+          "You’d make a great cautionary feature.",
+          "I keep drafting a reply and deleting the adjectives."
         ]
       },
       "progressives": {
@@ -46512,7 +46561,13 @@
           "Honestly? This is what capitalism does to people.",
           "There’s no shame in it. There’s just no coming back from it.",
           "I can hold space for this. I can’t hold your hand.",
-          "I need a minute before I can be normal about {botch}."
+          "I need a minute before I can be normal about {botch}.",
+          "I want to be supportive about {botch}. I’m working on it.",
+          "Your body, your choice. Your face, though.",
+          "I’m unlearning my reaction to {botch}. Slowly.",
+          "This is not a moral failing. It is a visual one.",
+          "I signed a petition about cheap clinics because of you.",
+          "Let’s talk about anything except {botch}. I’ll go first."
         ]
       },
       "goth_girls": {
@@ -46531,7 +46586,13 @@
           "There’s dark, and then there’s {botch}.",
           "I love ruins. I don’t date them.",
           "You’re like a haunted house. Fun to look at. Nobody moves in.",
-          "My tarot cards turned up the Tower three times tonight. I think they meant you."
+          "My tarot cards turned up the Tower three times tonight. I think they meant you.",
+          "I’ve seen gargoyles with better luck.",
+          "Carve {botch} on a tombstone and it would look great. On you, less so.",
+          "Even the bats are concerned.",
+          "I wrote a poem about {botch}. It doesn’t rhyme. Nothing does anymore.",
+          "Beautiful decay is a phrase. You’re just the decay.",
+          "Midnight is kind to most faces. Not yours."
         ]
       },
       "police": {
@@ -46550,7 +46611,13 @@
           "We have a sketch artist. Even she couldn’t make that look good.",
           "Copy that. Still thinking about {botch}.",
           "My partner saw your picture and asked if we should open a file.",
-          "That face is a permanent record."
+          "That face is a permanent record.",
+          "Noted {botch} for the file. Distinguishing features: all of them.",
+          "If someone did that to you on purpose, I’d arrest them.",
+          "You’d never get away with anything. Witnesses would remember.",
+          "I’ve seen wanted posters with friendlier faces.",
+          "Off duty, I’m allowed to wince. So I am.",
+          "Ten-four. Still processing {botch}."
         ]
       },
       "sisters_of_mercy": {
@@ -46569,7 +46636,13 @@
           "Mercy is for the soul. The body has to fend for itself.",
           "Perhaps it was meant as a lesson. It worked on me.",
           "Father says it is what is inside that counts. Father has not seen {botch}.",
-          "I am sorry. I truly am. But no."
+          "I am sorry. I truly am. But no.",
+          "I said a rosary for {botch}. I may need another.",
+          "Pride goes before a fall. So, it seems, does {botch}.",
+          "Sister Agatha saw your picture and crossed herself.",
+          "I am trying to see your soul. Something keeps getting in the way: {botch}.",
+          "Charity is patient. I am working on patience.",
+          "We are told not to stare. I am failing."
         ]
       },
       "sorority": {
@@ -46588,7 +46661,13 @@
           "Can you not like any of my pictures? People will see.",
           "The vibes are so off right now.",
           "Honestly, you’re trending in our group chat. Not in a good way.",
-          "I showed the girls {botch}. Brynn had to sit down."
+          "I showed the girls {botch}. Brynn had to sit down.",
+          "Brynn wants to know if {botch} is, like, contagious.",
+          "I can’t be seen texting you during rush week.",
+          "We did a vote. It was unanimous. Sorry.",
+          "Stacey said your picture is giving horror movie.",
+          "Okay, but like, who did that to you?",
+          "I had to mute you so my feed stays cute."
         ]
       }
     },

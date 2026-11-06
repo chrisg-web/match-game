@@ -226,14 +226,16 @@
     function start(st,id){
       const s=sisterState(st,id),sis=sister(id);
       if(s.passed||wed(st)||!canAsk(s))return;
-      const opening=s.started?sis.resume:sis.intro;
+      const thread0=threadOf(id),key0=`${id}:${s.draws}:${s.attempts}:resume`;
+      const opening=s.started?pickFresh([sis.resume,'Good, you came back. Let us carry on.','Ready again? Then we continue.','I’ve kept your place. Here is the next one.'],key0,thread0):sis.intro; // her own resume line first, then others: not the same welcome every day
       const firstTime=!s.started;
       const q=s.current!==null?question(s.current):null;
       // The Sisters and the church (SISTERS_AND_THE_CHURCH.md): once you know about the bishop's review, she says
       // once, before her first question, why the examination matters more this season.
       const aside=firstTime&&!s.disputeSaid&&sis.dispute&&api.disputeKnown?.()?sis.dispute:null;
       if(aside)s.disputeSaid=true;
-      converse(id,firstTime?sis.player:'Shall we carry on with the examination?',[aside,opening].filter(Boolean),()=>{
+      const mine=(thread0?.log||[]).filter(l=>l.who==='you').map(l=>l.text),again=['Shall we carry on with the examination?','I’m ready for the next question.','Can we pick up where we left off?','I’ve been studying. Ask me another.'].find(l=>!mine.includes(l))||'Shall we carry on with the examination?';
+      converse(id,firstTime?sis.player:again,[aside,opening].filter(Boolean),()=>{
         s.started=true;s.active=true;
         const next=q||draw(st,id);
         threadOf(id).log.push({who:'her',text:next.question});
