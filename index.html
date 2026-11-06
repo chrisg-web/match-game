@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="78740f96b1">
+<html lang="en" data-build="7259bea81d">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -781,11 +781,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=78740f96b1"></script>
+  <script src="chapel_at_midnight.js?v=7259bea81d"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=78740f96b1"></script>
+  <script src="marriage.js?v=7259bea81d"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=78740f96b1"></script>
+  <script src="quests/professor-vale.js?v=7259bea81d"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1120,14 +1120,19 @@
     // The Divorcé lives in a cheap motel that is falling apart (Chris, 4 November 2026): in his runs a room
     // picture shows its motel version (the same path under assets/motel/) once it is drawn. build-dialogue.mjs
     // lists the drawn ones in character_database.json (motelArt); the rest stay the ordinary bedroom.
+    // The Looksmaxxer has his own room too (Chris, 6 November 2026): clean, cool, posters on the wall, under
+    // assets/lxroom/ the same way (character_database.json: lxroomArt).
+    const CLASS_ROOMS={divorce:['motel','motelArt'],looksmaxxer:['lxroom','lxroomArt']};
     function motelArt(path){
-      if(selectedDifficulty!=='divorce'||typeof path!=='string'||!path.startsWith('assets/')||path.startsWith('assets/motel/'))return path;
-      let drawn=null;try{drawn=characterDB?.motelArt;}catch{return path;} // the database loads later than the first paint
+      const room=CLASS_ROOMS[selectedDifficulty];
+      if(!room||typeof path!=='string'||!path.startsWith('assets/')||/^assets\/(motel|lxroom)\//.test(path))return path;
+      const [dir,key]=room;
+      let drawn=null;try{drawn=characterDB?.[key];}catch{return path;} // the database loads later than the first paint
       if(!Array.isArray(drawn))return path;
       const rel=path.slice(7).replace(/^variants\/[^/]+\//,'variants/iphone-standard/');
       if(!drawn.includes(rel))return path;
       const inline=window.MATCH_INLINE_ASSETS;
-      return inline&&!inline['assets/motel/'+rel]?path:'assets/motel/'+rel; // the one-file preview only has what it embedded
+      return inline&&!inline[`assets/${dir}/`+rel]?path:`assets/${dir}/`+rel; // the one-file preview only has what it embedded
     }
     function assetUrl(path) {
       path = motelArt(path);
@@ -1929,7 +1934,7 @@
       if(bearState!=='warning')return;
       clearBearTimers();clearBearVisuals();
       bearState='escaped';
-      world.flags.bearSurvived=true;
+      world.flags.bearSurvived=true;fameStart('bear'); // the man who stared down a bear
       $('door').checked=false;
       fit();
       $('day-caption').textContent='THE BEAR RETREATS';
@@ -2604,7 +2609,7 @@
         if(topic.id==='pv_rumour'&&(qhintState().vale?.by===thread.id||chatCovered(thread,'vale')))continue; // you've already talked about him: don't ask if she's heard of him (Chris, 5 November 2026)
         add(`<button class="hinge-chat-choice case-choice${topic.confirm?' risky':''}" data-pv-topic="${esc(topic.id)}">${topic.confirm?'⚠ ':'🎓 '}${esc(topic.label)}</button>`,1); // ⚠ final: it happens on the first tap
       }
-      if((guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length>=2:thread.topics.length>=(hingeDialogue?.numberUnlockAfterTopics||2)) && !thread.number && talkState(thread).numberRefusedDay!==world.day){ // your guide: after any two things you've said
+      if((guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length>=2:thread.topics.length>=(famous()?1:hingeDialogue?.numberUnlockAfterTopics||2)) && !thread.number && talkState(thread).numberRefusedDay!==world.day){ // your guide: after any two things you've said
         add('<button class="hinge-chat-choice" data-hinge-topic="number">Ask for her number</button>',guideActive(thread.id)?0:2); // on the tour it always shows
       }
       // Always offered. After her first picture it becomes "Another one?".
@@ -2698,9 +2703,9 @@
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
             else if(selectedDifficulty==='divorce'&&profile.factionId==='sisters_of_mercy')showHingeToast(`${firstName(profile)} doesn’t date divorced men.`,1800); // the Sisters won't look at the Divorcé (Chris, 3 November 2026)
             else if(matchesToday()>=MATCHES_A_DAY){flashBlocked('OUT OF MATCHES',`${MATCHES_A_DAY} matches a day. Try again tomorrow.`);showHingeToast('Out of matches for today.',1800);} // five a day (Chris, 4 November 2026)
-            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
+            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:(famous()?1.5:1)*matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
               const responseMode=hingeLikes===1||profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
-              ensureHingeThread(profile,responseMode);
+              fameOnMatch(ensureHingeThread(profile,responseMode)); // famous: she opens with it
               countMatchToday();
               fionnGirlMatched(profile.id); // Theon: she knows your face
               showHingeToast(`${profile.name} matched with you! ${matchesToday()} of ${MATCHES_A_DAY} today.`);teach('match');
@@ -2872,10 +2877,10 @@
         thread.log.push({who:'you',text:'Do you always take yourself this seriously? It was meant to be a compliment.'});
         reply=hingeDialogue?.characterLines?.[profile.id]?.fumble||'Wow. That was rude. I don’t think we should carry on talking.';
       }else if(id==='number'){
-        if(guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length<2:thread.topics.length<(hingeDialogue?.numberUnlockAfterTopics||2))return;
+        if(guideActive(thread.id)?thread.log.filter(l=>l.who==='you').length<2:thread.topics.length<(famous()?1:hingeDialogue?.numberUnlockAfterTopics||2))return;
         thread.followUp=null;
         thread.log.push({who:'you',text:hingeDialogue?.phoneNumber?.player||'Could I have your number?'});
-        if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'&&!profile.jeweller&&!guideActive(profile.id)){ // she's gone cold on you: not today (a jeweller still gives her shop line: she wants customers, 4 November 2026)
+        if(!thread.number&&warmthOf(thread)<=-2&&tone()!=='mogger'&&!profile.jeweller&&!guideActive(profile.id)&&!famous()){ // she's gone cold on you: not today (a jeweller still gives her shop line: she wants customers, 4 November 2026)
           talkState(thread).numberRefusedDay=world.day;
           lineSpeaker=profile.id;
           reply=variedPick(['I don’t think so. Not after that.','No. Maybe another day, if you’re nicer.','Hard pass, sorry.','Not today.','You’ll have to earn that one.'],profile.id+'|nonumber|'+world.day);
@@ -2917,6 +2922,10 @@
       const dates=talkKit()?.dates;
       thread.topics=thread.topics.filter(topic=>topic!=='date');
       talkState(thread).dateDay=world.day;
+      if(famous()&&warmthOf(thread)>=0&&dates?.yes?.[profile.factionId]?.length){ // you're in the paper: she says yes, and tomorrow she tells you how it went
+        talkState(thread).dateNight=world.day;warmBy(thread,2);
+        return seededPick(dates.yes[profile.factionId],`${profile.id}|dateyes|${world.day}`);
+      }
       return seededPick(dates?.excuses,`${profile.id}|date|${world.day}`)||notYet;
     }
     // Asking again after she's said no: the chance she blocks you. No rapport: 35% after one no,
@@ -2959,6 +2968,7 @@
     const warmthOf=thread=>Number.isFinite(thread?.warmth)?thread.warmth:0;
     const warmBy=(thread,delta)=>{
       if(guideActive(thread.id))delta=delta<0?0:delta+1; // your guide: a wrong answer costs nothing, a good one counts double
+      else if(delta>0&&famous())delta+=1; // you're in the paper: everything nice you say counts for more
       if(delta>0&&tone()==='truecel'&&kindred(hingeProfile(thread.id))&&hashSeed(world.seed+'|kin|'+thread.id+'|'+warmthOf(thread))%2===0)delta+=1; // outsiders recognise one of their own
       thread.warmth=Math.max(-3,Math.min(5,warmthOf(thread)+delta));if(thread.warmth>=3&&thread.number)ensureCallSchedule();
     };
@@ -4566,6 +4576,64 @@
     function valeCallerDue(){return questOn('vale')&&PV?.isOpen?.()&&!window.MATCH_NO_VALE_CALLS?PV.valeCallerDue?.()||null:null;} // Professor Vale rings you himself (the conversation tests switch it off)
     function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
     function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():topic.known==='dispute'?disputeKnown():String(topic.known).startsWith('story:')?(world?.seenArticles||[]).some(key=>key.endsWith(':'+String(topic.known).slice(6))):true);} // story:<id>: once you have read that story
+    // ===== Local hero (Chris, 6 November 2026) =====
+    // Finish a side quest the right way (not a quest that wins the game) and, where it makes sense, the Sunfall Daily
+    // runs a story about you the next morning. For three to five days the women of Sunfall know who you are: some
+    // message you first (oh my gosh, you're the guy who...), new matches open with it, everything nice you say counts
+    // for more, she gives you her number sooner and never turns you down for it, more women swipe back, and when you
+    // ask her out she says yes. Then the paper moves on. One story at a time; a new deed while you're famous starts over.
+    var FAME={
+      deeds:{
+        pills:{news:{section:'Local',title:'THE MAN WHO CALLED IT IN',summary:'A Sunfall resident’s phone call ended the pill sales downtown.',body:'Police say a tip from a local man led them to the woman selling unmarked pills from a downtown apartment. He asked not to be named. Half of Sunfall already knows who he is.'},
+          her:['Oh my gosh. Are you the guy from the paper? The one who called in the pill lady?','Wait. You’re the guy who got the pill dealer arrested? My cousin almost bought from her. Thank you.','So you’re a hero now. The pill story. Everyone at work is talking about you.','I read about the tip. That was you, wasn’t it? That’s honestly really attractive.']},
+        cleaner:{news:{section:'Local',title:'RING THIEF CAUGHT AFTER ONE MAN CAME FORWARD',summary:'A resident went to the police about the stolen rings. The thief is in custody.',body:'The cleaner who took rings from houses on the ridge is in custody, and police credit a local man who came forward. Several families have their jewelry back. One of them sent a cake to the station for him.'},
+          her:['Oh my gosh, you’re the ring guy! From the paper! My aunt got her ring back.','Are you the one who turned in the ring thief? The Bluebirds are obsessed with you now.','You caught the ring thief? Okay, that’s a little bit amazing.','I saw the story about the rings. Honest and cute. Rare combination.']},
+        envelope:{news:{section:'Local',title:'MAN HANDS ENVELOPE OF CASH TO POLICE',summary:'He could have kept it. He took it to the police instead.',body:'An envelope of cash left at the wrong door ended up at the police station, every dollar of it, because the man who found it handed it in. Officers called it the most honest thing they have seen all year.'},
+          her:['Oh my gosh, you’re the guy who handed all that cash to the police? Who does that? I love it.','Wait. You found an envelope of money and gave it back? Are you real?','You’re the honest envelope guy! My mom read the story out loud at breakfast.','The cash story was you? Okay. I trust you with my snacks now.']},
+        watch:{news:{section:'Local',title:'THE NEIGHBOR WHO WOULDN’T WATCH',summary:'One man said no to the neighborhood watch, then told the paper why.',body:'The neighborhood watch that photographed women at their windows is finished, and residents credit the local man who refused to join and took it to the newsroom instead. Several women on the ridge have taken down their blackout curtains.'},
+          her:['Oh my gosh. You’re the guy who blew the whistle on the window watch? Thank you. Honestly.','Wait, that was you? The neighborhood watch story? I owe you a coffee.','You’re the one who stood up to the watch. My roommate cried a little reading it.','So the man who wouldn’t watch is you. That might be the most attractive thing I’ve read all week.']},
+        bear:{news:{section:'Local',title:'MAN STARES DOWN BEAR AT HIS OWN DOOR',summary:'A Sunfall resident sent a bear back into the night and lived to tell it.',body:'A bear came to a local man’s door and left again without him, which rangers say almost never happens. Neighbors describe him as calm, brave and possibly a little bit unhinged.'},
+          her:['Oh my gosh. You’re the bear guy! You fought off a bear?','Wait, are you the man from the paper who stared down a bear? Tell me everything.','My friends think the bear story is made up. Please tell me it was you.','You survived a bear and you’re on Hinge? I have so many questions.']}
+      },
+      inPaper:'You’re in the Sunfall Daily today. People are going to know your name.',
+      over:'The paper has moved on. Nobody stops you in the street today.',
+      date:['Last night was really fun. Same time next week?','I’m still smiling about last night. Don’t let it go to your head.','Okay, that date was good. Like, actually good.','My friends want a full report on last night. I’m making them wait.','I told my sister I went out with the guy from the paper. She didn’t believe me.']
+    };
+    function fameState(){const f=world?.fame;if(!f||typeof f!=='object'||Array.isArray(f))world.fame={id:null,day:null,until:null,told:[],done:[]};const o=world.fame;if(!Array.isArray(o.told))o.told=[];if(!Array.isArray(o.done))o.done=[];return o;}
+    function famous(){const f=world?.fame;return !!f&&!!f.id&&Number.isInteger(f.day)&&world.day>=f.day&&world.day<=f.until;}
+    // A deed done well: the story runs tomorrow, and you're known for three to five days from then.
+    function fameStart(id){
+      const deed=FAME.deeds[id];if(!deed||!world)return;
+      const f=fameState();if(f.done.includes(id))return;
+      f.done.push(id);
+      const day=world.day+1;
+      Object.assign(f,{id,day,until:day+2+hashSeed(world.seed+'|fame|'+id)%3,told:[]}); // three to five days
+      queueNews({id:'fame_'+id,...deed.news,fallbackImage:'local_ad'},day);
+      saveRun(true);
+    }
+    // Each morning while you're famous: a few women who know you message you about it; the morning after a date, she does.
+    function fameNewDay(){
+      const f=fameState();
+      for(const t of hingeThreads.values()){const st=talkState(t);if(st.dateNight===world.day-1&&!t.blocked&&!t.quiet&&!t.unmatched){lineSpeaker=t.id;t.log.push({who:'her',text:freshHers(t,FAME.date,world.seed+'|dated|'+t.id)});st.dateNight=null;st.unread=true;st.morningDay=world.day;}}
+      if(f.id&&Number.isInteger(f.until)&&world.day===f.until+1){showGameNotice(FAME.over);return;}
+      if(!famous())return;
+      if(world.day===f.day)showGameNotice(FAME.inPaper);
+      const deed=FAME.deeds[f.id];let sent=0;
+      const ready=[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&t.id!==bearHingeCard.id&&!f.told.includes(t.id)&&eventReady(t)&&!t.followUp&&!t.unmatched&&!t.left&&!t.missing&&warmthOf(t)>=0&&morningRoom(t);})
+        .sort((a,b)=>hashSeed(world.seed+'|famous|'+a.id+world.day)-hashSeed(world.seed+'|famous|'+b.id+world.day));
+      for(const t of ready){
+        if(sent>=(world.day===f.day?3:2))break;
+        lineSpeaker=t.id;
+        t.log.push({who:'her',text:freshHers(t,deed.her,world.seed+'|fameline|'+t.id)});
+        f.told.push(t.id);warmBy(t,1);talkState(t).unread=true;talkState(t).morningDay=world.day;sent++;
+      }
+    }
+    // A new match while you're famous opens with it.
+    function fameOnMatch(thread){
+      if(!famous()||!thread||thread.awaiting)return;
+      const f=fameState();if(f.told.includes(thread.id))return;
+      lineSpeaker=thread.id;thread.log.push({who:'her',text:freshHers(thread,FAME.deeds[f.id].her,world.seed+'|famematch|'+thread.id)});f.told.push(thread.id);
+    }
     // ===== Mogger: her dad, and Theon =====
     // Two men who aren't on Hinge. They ring you (their ids start x:) and you can't ring them back.
     // Theon is a quest (Mogger runs only: a Mogger's pictures are worth stealing). Her dad is a
@@ -7770,7 +7838,7 @@
             else{showGameNotice(kit.gone);st.gift=true;}
           }
           if(st.stage==='police'&&world.day>st.policeDay){
-            st.has=false;st.stage='done';showGameNotice(kit.collected);
+            st.has=false;st.stage='done';showGameNotice(kit.collected);if(!st.took)fameStart('envelope'); // every dollar of it: the paper wants you
             miniNews('envelope',{...kit.news,extra:{short:st.took?kit.newsShort:''}},world.day,'news');
             if(st.took&&hashSeed(world.seed+'|envshort')%2)st.dieDay=world.day+1;
           }
@@ -7788,7 +7856,7 @@
           }
           if(st.stage==='exposing'&&world.day>st.exposeDay){
             st.stage='done';
-            strangerVoicemail(kit.name,kit.exposedCall);
+            strangerVoicemail(kit.name,kit.exposedCall);fameStart('watch'); // the man who wouldn't watch
             const tb=liveMatches().filter(t=>hingeProfile(t.id).factionId==='thunderbirds');
             for(const t of tb)warmBy(t,-1);
             if(tb[0])herLine(tb[0],kit.tbCool);
@@ -7841,6 +7909,7 @@
       if(st.tipped&&p){const friend=liveMatches([st.host]).find(t=>hingeProfile(t.id).factionId===p.factionId);if(friend){herLine(friend,miniFill(kit.friend,id));warmBy(friend,-1);}}
       // You are on her list. If you reported her, she names you for certain; otherwise the police may or may not get round to you.
       if(st.has&&!st.flushed&&!st.handed&&(st.tipped||hashSeed(world.seed+'|minilist|'+id)%2))st.arrestDay=world.day+1;
+      else if(st.tipped||st.handed)fameStart(id); // you called it in (and you're not on her list): you're in the paper
     }
     // An arrest, or a visitor, at the start of a day.
     function miniAfterDayStart(){
@@ -10413,6 +10482,7 @@
       toneNewDay(); // the difficulty's own luck
       ignoreNewDay(); // matches you never talk to nudge you, then get angry and unmatch you
       spurnNewDay(); // the women whose calls you kept declining
+      fameNewDay(); // you're in the paper: women who know you say so first (before her other news)
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       talesNewDay(); // her story: ten women with storylines of their own
       questUnlock(); // a quest that wasn't picked arrives after five quiet days
