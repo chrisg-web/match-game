@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="eecb789c07">
+<html lang="en" data-build="7dd9175279">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -812,11 +812,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=eecb789c07"></script>
+  <script src="chapel_at_midnight.js?v=7dd9175279"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=eecb789c07"></script>
+  <script src="marriage.js?v=7dd9175279"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=eecb789c07"></script>
+  <script src="quests/professor-vale.js?v=7dd9175279"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4709,15 +4709,15 @@
     // you, and she's dating Brad now. If Graves comes, answer her badly and you're arrested.
     const BF_ART='assets/quests/boyfriend/';
     var BF={
-      confess:['Okay. Full disclosure, because I actually like you.','I have a boyfriend. Tanner. Tanner Voss. He’s running for city council.','His whole campaign is banning dating apps. Decency First. He checks my phone every night.','He just saw our messages. He went very quiet and then he started writing a speech. I’m so sorry in advance.'],
+      confess:['Okay. Full disclosure, because I actually like you.','I have a boyfriend. Tanner. Tanner Voss. He’s running for city council. As a Democrat. He tells everyone that in the first minute.','His whole campaign is banning dating apps to protect women from men like, well. You. Decency First. He checks my phone every night.','He just saw our messages. He went very quiet and then he started writing a speech. I’m so sorry in advance.'],
       rallyMsg:['I’m so sorry. He read our messages out at his rally. Into a microphone. To four hundred people.','He did voices. He did YOUR voice.','And he printed your shirtless picture the size of a garage door. People are making it their wallpaper.','I can’t do this anymore. If Tanner was out of the picture, I’d be all yours. Just saying.'],
       rally:[
-        {image:'rally-podium.png',caption:'You wake up famous. Last night, at the Decency First rally, Tanner Voss held up your shirtless mirror selfie. The size of a garage door.'},
+        {image:'rally-podium.png',caption:'You wake up famous. Last night, at the Sunfall Democrats’ Decency First rally, Tanner Voss held up your shirtless mirror selfie. The size of a garage door.'},
         {image:'rally-podium.png',caption:'Then he read your messages out loud. All of them. He did your voice.'},
         {image:'rally-crowd.png',caption:'Four hundred people laughed for eleven minutes. Someone has already put it on a T-shirt.'}
       ],
       askNumber:{label:'Ask her how to reach Tanner',you:'Give me his number. I’ll talk to him.',her:['It’s on every yard sign in Sunfall. {number}.','Good luck. He eats men like you for breakfast. He has a protein thing.']},
-      tanner:{name:'Tanner Voss',detail:'Decency First',greeting:'Tanner Voss, Decency First. Sunfall deserves better. Who’s this?',after:'Tanner Voss, Decency First. Oh, it’s you again. Everybody! It’s HIM!'},
+      tanner:{name:'Tanner Voss',detail:'Democrat for City Council',greeting:'Tanner Voss, Democrat for City Council. Decency First. Sunfall deserves better. Who’s this?',after:'Tanner Voss, Democrat for City Council. Oh, it’s you again. Everybody! It’s HIM!'},
       tannerTopics:[
         {id:'back',label:'Tell him to back off',reply:'Oh, it’s YOU. The shirtless guy! Hang on, buddy, I’m at a fundraiser. I’m putting you on speaker. EVERYBODY, it’s him! Say it again, champ. Tell me to back off.'},
         {id:'threat',label:'Threaten him',reply:'Did you just threaten a candidate? Hold on. I want my donors to hear this. You’re on speaker, pal. Go ahead. Threaten me again, slower.'},
@@ -4726,7 +4726,7 @@
       ],
       speaker:[
         {image:'speaker.png',caption:'You’re on speaker. Forty donors in tuxedos lean in toward the phone.'},
-        {image:'speaker.png',caption:'Tanner: Ladies and gentlemen, THIS is what the apps are doing to our young men.'},
+        {image:'speaker.png',caption:'Tanner: Ladies and gentlemen, THIS is why Democrats have to protect women from these apps. And from him.'},
         {image:'rally-crowd.png',caption:'Somebody filmed it. By tonight it’s a ringtone.'}
       ],
       speakerMsg:['He posted the call. It has forty thousand views. Someone set it to music.','Please make him stop. I’ll owe you forever.'],
@@ -4763,9 +4763,9 @@
       tell:{label:'Tell her it was you',you:'Tanner won’t be a problem anymore. That was me.',her:['Wait. That was YOU?','Oh my god. I don’t know if I’m scared or impressed.','Okay, so. This is awkward.','Yeah, sorry. I’m dating Brad now.','We met outside Tanner’s house last night, watching the ambulances. He’s six foot four and he has a boat.','Please don’t message me again. Brad gets jealous. Not that he needs to.']},
       dumped:'She blocked you.',
       news:{
-        rally:{id:'bf_rally',section:'Politics',title:'DECENCY FIRST: CANDIDATE READS LOCAL MAN’S DATING MESSAGES TO CROWD',summary:'Tanner Voss says the messages show what dating apps are doing to Sunfall.',body:'Council candidate Tanner Voss held up a shirtless photograph of a local man at his Decency First rally and read the man’s messages to his girlfriend aloud, doing the voices. The crowd of about four hundred laughed for eleven minutes. Voss says he will ban dating apps within the city limits if he is elected. Asked whether that was legal, he said decency is always legal. His number is on every yard sign in town.',image:BF_ART+'rally-podium.png',fallbackImage:'halloran_debate'},
-        raid:{id:'bf_raid',section:'Front page',title:'COUNCIL HOPEFUL DRAGGED FROM HOT TUB',summary:'Police raided Tanner Voss’s home after a 911 call. {found}',body:'Tactical officers, two ambulances and a fire truck answered a 911 call at the home of council candidate Tanner Voss, who was live on his campaign stream in his hot tub at the time. {found} Voss fainted into a hedge and was treated at the scene. {police}',image:BF_ART+'mugshot.png',fallbackImage:'gus_raid'},
-        apps:{id:'bf_apps',section:'Politics',title:'DECENCY CANDIDATE HAD FOUR DATING APPS',summary:'Tanner Voss, who wants dating apps banned, had four of them on his phone.',body:'Officers who seized Tanner Voss’s phone during the raid found four dating apps on it, two of them open. His campaign says he was doing research. His girlfriend has not commented. His poll numbers went up.',image:BF_ART+'hedge.png',fallbackImage:'halloran_profile'}
+        rally:{id:'bf_rally',section:'Politics',title:'DECENCY FIRST: DEMOCRAT READS LOCAL MAN’S DATING MESSAGES TO CROWD',summary:'Democratic candidate Tanner Voss says the messages show what dating apps are doing to Sunfall.',body:'Democratic council candidate Tanner Voss held up a shirtless photograph of a local man at his Decency First rally and read the man’s messages to his girlfriend aloud, doing the voices. The crowd of about four hundred laughed for eleven minutes. Voss, who wants to ban dating apps within the city limits to protect women, says the messages prove his point. Asked whether that was legal, he said decency is always legal. His number is on every yard sign in town.',image:BF_ART+'rally-podium.png',fallbackImage:'halloran_debate'},
+        raid:{id:'bf_raid',section:'Front page',title:'COUNCIL HOPEFUL DRAGGED FROM HOT TUB',summary:'Police raided Tanner Voss’s home after a 911 call. {found}',body:'Tactical officers, two ambulances and a fire truck answered a 911 call at the home of Democratic council candidate Tanner Voss, who was live on his campaign stream in his hot tub at the time. {found} Voss fainted into a hedge and was treated at the scene. {police}',image:BF_ART+'mugshot.png',fallbackImage:'gus_raid'},
+        apps:{id:'bf_apps',section:'Politics',title:'DEMOCRAT WHO WANTS APPS BANNED HAD FOUR OF THEM',summary:'Tanner Voss, the Democrat who wants dating apps banned, had four of them on his phone.',body:'Officers who seized Tanner Voss’s phone during the raid found four dating apps on it, two of them open. His campaign says he was doing research for the women of Sunfall. His girlfriend has not commented. His poll numbers went up.',image:BF_ART+'hedge.png',fallbackImage:'halloran_profile'}
       },
       graves:{
         intro:[{image:'graves-door.png',stand:'room-open',caption:'KNOCK KNOCK. Detective Eleanor Graves, Sunfall Police. Don’t get up. I have a few questions about Tanner Voss.'}],
@@ -5104,21 +5104,21 @@
         },
         outroNotice:'Go home. Go to bed. Your phone will not stop buzzing.',
         after:{
-          tshirt:{msgs:['Okay so. Don’t be mad.','Chadwick and I are engaged. It was very fast. He says hesitation is for betas.','He wants you to be an usher. He says it would be good for you.','Also they’re selling T-shirts with your face on them. I got you a medium.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+          tshirt:{msgs:['Okay so. Don’t be mad.','I went back to Chadwick’s hotel. We did not sleep much.','He says I’m the most alpha woman he’s ever met. He said it twice. The second time was at about four in the morning.','He says to tell you no hard feelings. Then he laughed for a really long time.','Also they’re selling T-shirts with your face on them. I got you a medium.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says the night proved his method works.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer from the audience showed, in Stone’s words, exactly what not to be. Stone left with a date. The volunteer left alone. Stone’s online course sold eleven thousand copies overnight, and a T-shirt with the volunteer’s face on it sold out.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
-            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'},{image:'merch.png',caption:'Then one of the merch table. Your face, on a T-shirt, under a big red cross. Sold out.'}]},
-          hired:{msgs:['Okay so. Don’t be mad.','Chadwick and I are engaged. It was very fast. He says hesitation is for betas.','He says you start the tour on the bus next week. You’re the before. He’s the after.','You’ll be great at it. You’re a natural.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'},{image:'merch.png',caption:'Then one of the merch table. Your face, on a T-shirt, under a big red cross. Sold out.'}]},
+          hired:{msgs:['Okay so. Don’t be mad.','I went back to Chadwick’s hotel last night. I haven’t been home yet. My hair is a crime scene.','He says you start the tour on the bus next week. You’re the before. He’s the after. I was there for the after.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone hires a local man as his before picture.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, and he has hired the volunteer who joined him on stage to tour with him as what he calls the before picture. Stone left with a date. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
-            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'},{image:'tour-poster.png',caption:'Then the tour poster. Chadwick on the right, glowing. You on the left, in gray, slumped. The tour is called Before and After.'}]},
-          choked:{msgs:['Chadwick visited you in the hospital. For the cameras.','Then he took me to dinner. We’re engaged. It was very fast. He says hesitation is for betas.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'},{image:'tour-poster.png',caption:'Then the tour poster. Chadwick on the right, glowing. You on the left, in gray, slumped. The tour is called Before and After.'}]},
+          choked:{msgs:['Chadwick visited you in the hospital. For the cameras.','Then he drove me home. Well. To his hotel.','I’m still here. He’s ordering room service for both of us.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'A man who took a swing at Chadwick Stone woke up in the hospital. Stone’s course sold out.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer took a swing at him on stage and was put to sleep in a chokehold that Stone explained step by step. The man was treated at Sunfall General and released. Stone visited him there with a camera crew. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/chokehold.png',fallbackImage:'local_ad'},
-            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'}]},
+            scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'}]},
           walked:{msgs:['Thank you for getting me out of there. Seriously.','Also, um. You’re trending. The clip of you leaving. Chadwick put a sad violin on it.','I don’t care. I had fun. Same time next week? Somewhere with no lasers.'],lose:false,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says a man who walked out proved his point.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. A clip of a man walking out mid-session, which Stone set to a sad violin, has been watched two million times. Stone says the man proved everything he teaches. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
             scene:[{image:'merch.png',caption:'The clip of you walking out, set to a sad violin, is on every phone in Sunfall by morning. Chadwick sells it as a lesson.'}]},
-          declined:{msgs:['So I went by myself.','Chadwick picked me out of the crowd. We’re engaged. It was very fast. He says hesitation is for betas.','You should have come. He did a whole bit about men who stay home.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
-            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone proposes on stage to a woman he met that night.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. He proposed on stage to a woman from the audience an hour after meeting her, and she said yes. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
-            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'}]}
+          declined:{msgs:['So I went by myself.','Chadwick picked me out of the crowd. Then he picked me up. Then I went back to his hotel.','You should have come. He did a whole bit about men who stay home. I laughed. It was funnier at the time.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone leaves his own seminar with a woman from the crowd.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. He left the stage with a woman from the audience an hour after meeting her, and neither of them came down to breakfast. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
+            scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'}]}
         }
       }
     };
