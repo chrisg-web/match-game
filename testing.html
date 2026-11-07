@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="cbecf8a0f5">
+<html lang="en" data-build="003b43b9cd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -209,6 +209,37 @@
     .settings-btc button { margin-top: 5px; padding: 6px 10px; border: 1px solid #b89a63; border-radius: 4px; background: #fff8e8; color: #5a4320; font: bold 10px Verdana,sans-serif; cursor: pointer; }
     .settings-donate { display: block; margin-top: 8px; padding: 9px; border: 1px solid #5f8f5a; border-radius: 5px; background: #e8f6e5; color: #24502a; text-align: center; text-decoration: none; font: bold 12px Tahoma,sans-serif; }
     .settings-back { margin: 0 0 6px; border: 0; background: none; color: #3d6a96; font: bold 12px Tahoma,sans-serif; cursor: pointer; padding: 2px 0; }
+    /* Settings laid out like a game's menu (Chris, 7 November 2026): New Game on top as a big card, then Display, Help and Extras
+       as grouped rows; the tour and the tutorials have their own page. */
+    .settings-newgame { display: flex; align-items: center; gap: 10px; width: 100%; margin: 2px 0 4px; padding: 12px; border: 1px solid #1d3047; border-radius: 10px; background: linear-gradient(160deg,#5b86b6,#29436a 55%,#1a2a44); color: #fff; text-align: left; cursor: pointer; box-shadow: 0 3px 9px #1a2a4466, inset 0 1px 0 #ffffff4d; }
+    .settings-newgame:active { transform: translateY(1px); box-shadow: 0 1px 4px #1a2a4466, inset 0 1px 0 #ffffff4d; }
+    .settings-newgame .ng-icon { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #ffffff26; border: 1px solid #ffffff66; font: 15px/1 Arial,sans-serif; padding-left: 2px; box-sizing: border-box; }
+    .settings-newgame b { display: block; font: bold 16px Tahoma,sans-serif; letter-spacing: .03em; text-shadow: 0 1px 1px #0005; }
+    .settings-newgame small { display: block; margin-top: 2px; font: 11px Tahoma,sans-serif; color: #d6e4f4; }
+    .settings-newgame .ng-go { margin-left: auto; font: bold 22px Arial,sans-serif; color: #cfe0f3; }
+    .settings-group { border: 1px solid #afb7c2; border-radius: 8px; background: #fff; overflow: hidden; }
+    .settings-group > button { display: flex; align-items: center; gap: 9px; width: 100%; min-height: 40px; padding: 8px 10px; border: 0; border-top: 1px solid #e1e5eb; background: #fff; color: #27374d; text-align: left; font: bold 12px Tahoma,sans-serif; cursor: pointer; }
+    .settings-group > button:first-child { border-top: 0; }
+    .settings-group > button:active { background: #eef3f8; }
+    .settings-group .row-icon { flex: none; width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: #fff; font: bold 13px/1 Arial,sans-serif; }
+    .settings-group .row-text { min-width: 0; }
+    .settings-group .row-text small { display: block; margin-top: 1px; color: #7a8796; font: 10px Tahoma,sans-serif; }
+    .settings-group .row-value { margin-left: auto; color: #7a8796; font: 11px Tahoma,sans-serif; white-space: nowrap; }
+    .settings-group .row-go { margin-left: 4px; color: #9aa5b2; font: bold 16px Arial,sans-serif; }
+    .settings-group .row-value + .row-go { margin-left: 4px; }
+    .settings-group .row-text + .row-go { margin-left: auto; }
+    .settings-seg { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid #afb7c2; border-radius: 7px; overflow: hidden; background: #fff; }
+    .settings-seg button { min-height: 34px; padding: 6px 4px; border: 0; border-left: 1px solid #d3d9e1; background: #fff; color: #27374d; font: bold 11px Tahoma,sans-serif; cursor: pointer; }
+    .settings-seg button:first-child { border-left: 0; }
+    .settings-seg button.selected { background: #4f79a8; color: #fff; }
+    .settings-options.two { grid-template-columns: 1fr 1fr; }
+    .settings-hint { margin: 5px 2px 0; }
+    .settings-confirm { margin-top: 6px; padding: 16px 12px 12px; border: 1px solid #afb7c2; border-radius: 10px; background: #fff; text-align: center; }
+    .settings-confirm .ng-big { width: 52px; height: 52px; margin: 0 auto 8px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg,#5b86b6,#1a2a44); color: #fff; font: 24px/1 Arial,sans-serif; box-shadow: 0 2px 6px #1a2a4455; }
+    .settings-confirm h3 { margin: 0 0 6px !important; }
+    .settings-confirm p { margin: 0 0 12px; font-size: 12px !important; line-height: 1.45; }
+    .settings-confirm .settings-options button { text-align: center; min-height: 38px; font-size: 12px; }
+    .settings-confirm .settings-options button.danger { border-color: #8e2b2b; background: linear-gradient(#d65a4f,#a8322b); color: #fff; text-shadow: 0 1px 1px #0005; }
     .a-news { background: linear-gradient(#f4ead4,#98734d); color: #3e2c1b; }
     .a-notes { background: linear-gradient(#eacf6b,#7b6027); color: #31220d; }
     .a-calls { background: linear-gradient(#91bd7e,#2d6c43); }
@@ -781,11 +812,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=cbecf8a0f5"></script>
+  <script src="chapel_at_midnight.js?v=003b43b9cd"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=cbecf8a0f5"></script>
+  <script src="marriage.js?v=003b43b9cd"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=cbecf8a0f5"></script>
+  <script src="quests/professor-vale.js?v=003b43b9cd"></script>
 </head>
 <body>
   <main class="workbench">
@@ -12595,21 +12626,34 @@
         +groups.map(g=>`<h4>${esc(g)}</h4>${cat.filter(e=>e.group===g).map(e=>item(e.title,found[e.key])).join('')}`).join('')
         +(extra.length?`<h4>Other</h4>${extra.map(k=>item(k.slice(6).replace('|',' BY '),found[k])).join('')}`:'')+'</div>';
     }
+    function runSummary(){const day=Number.isInteger(world?.day)?world.day:1;const cls=CLASS_NAMES[selectedDifficulty];return `Day ${day}`+(cls?` as the ${cls}`:'');}
     function renderSettings(){
       if(settingsView==='newgame'){ // asked inside the phone: some browsers block their own confirm box
-        $('opened').innerHTML='<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>New game</h3><p>Start again from day one? This run ends here.</p><div class="settings-options"><button data-settings-newgame-yes>Start a new game</button><button data-settings-view="main">Keep playing</button></div></div>';
+        $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><div class="settings-confirm"><div class="ng-big">⟲</div><h3>Start a new game?</h3><p>${esc(runSummary())} ends here. You go back to day one and pick a class. Endings you have found stay found.</p><div class="settings-options"><button class="danger" data-settings-newgame-yes>Start a new game</button><button data-settings-view="main">Keep playing</button></div></div></div>`;
         return;
       }
       if(settingsView==='endings'){$('opened').innerHTML=endingsPageHtml();return;} // Endings found, and this run
+      if(settingsView==='help'){ // How to play: the guided tour and every tutorial
+        const classRows=['mogger','truecel','looksmaxxer','divorce'].filter(k=>CLASS_TUTORIALS[k]).map(k=>`<button data-tutorial-open="${k}"><span class="row-icon" style="background:#7b5ea7">★</span><span class="row-text">${esc(TUTORIAL_NAMES[k])}</span><span class="row-go">›</span></button>`).join('');
+        $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>How to play</h3><h4>Start here</h4><div class="settings-group"><button data-coach-restart><span class="row-icon" style="background:#3f9a62">➜</span><span class="row-text">Guided tour<small>Walks you through your first days</small></span><span class="row-go">›</span></button><button data-tutorial-open><span class="row-icon" style="background:#4f8bd0">?</span><span class="row-text">Tutorial<small>The basics, in pictures</small></span><span class="row-go">›</span></button></div>${classRows?`<h4>The classes</h4><div class="settings-group">${classRows}</div>`:''}</div>`;
+        return;
+      }
       if(settingsView==='credits'&&creditsUnlocked()){
         $('opened').innerHTML=`<div class="settings-panel"><button class="settings-back" data-settings-view="main">‹ Settings</button><h3>Credits</h3><h4>A note from the developer</h4><div class="settings-note">${DEVELOPER_NOTE.map(line=>`<p>${esc(line)}</p>`).join('')}<div class="settings-btc"><code>${esc(BITCOIN_ADDRESS)}</code><button data-copy-btc>Copy address</button></div><p class="signature">${esc(DEVELOPER_SIGNATURE)}</p></div>${DONATE_URL?`<a class="settings-donate" href="${esc(DONATE_URL)}" target="_blank" rel="noopener">♥ Support Matchfall</a>`:''}<h4>Made by</h4><div class="settings-note"><p>Chris</p></div><p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
         return;
       }
       settingsView='main';
       const currentWallpaper=$('wallpaper-style').value;
-      const sizeOptions=[[1,'Normal text'],[1.15,'Comfortable text'],[1.3,'Large text']];
+      const sizeOptions=[[1,'Normal'],[1.15,'Comfortable'],[1.3,'Large']];
       const backgrounds=[['city-twilight','City twilight'],['prism-aurora','Prism aurora'],['original','Classic desert'],...EXTRA_WALLPAPERS.filter(([v])=>wallpapersDrawn.has(v))];
-      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3><h4>How to play</h4><div class="settings-options"><button data-coach-restart>Guided tour ›</button><button data-tutorial-open>Tutorial ›</button>${['mogger','truecel','looksmaxxer','divorce'].filter(k=>CLASS_TUTORIALS[k]).map(k=>`<button data-tutorial-open="${k}">${esc(TUTORIAL_NAMES[k])} ›</button>`).join('')}</div><h4>Endings</h4><div class="settings-options"><button data-settings-view="endings">Endings found: ${endingsCount().join(' of ')} ›</button></div><p>Make the phone easier to read. Changes apply to every app and remain in your saved run.</p><h4>Text size</h4><div class="settings-options">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${fontScale===value?'✓ ':''}${label}</button>`).join('')}</div><h4>Home screen background</h4><div class="settings-options">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p>Press the physical Home button to see your new wallpaper.</p><h4>Game</h4><div class="settings-options"><button data-settings-newgame>New game ›</button></div>${creditsUnlocked()?'<h4>About</h4><div class="settings-options"><button data-settings-view="credits">Credits ›</button></div>':''}<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
+      const found=endingsCount();
+      $('opened').innerHTML=`<div class="settings-panel"><h3>⚙ Settings</h3>`
+        +`<button class="settings-newgame" data-settings-newgame><span class="ng-icon">▶</span><span><b>New Game</b><small>${esc(runSummary())}</small></span><span class="ng-go">›</span></button>`
+        +`<h4>Text size</h4><div class="settings-seg">${sizeOptions.map(([value,label])=>`<button data-setting-font="${value}" class="${fontScale===value?'selected':''}" aria-pressed="${fontScale===value}">${label}</button>`).join('')}</div><p class="settings-hint">Makes every app easier to read, and stays in your saved run.</p>`
+        +`<h4>Home screen background</h4><div class="settings-options two">${backgrounds.map(([value,label])=>`<button data-setting-wallpaper="${value}" class="${currentWallpaper===value?'selected':''}" aria-pressed="${currentWallpaper===value}">${currentWallpaper===value?'✓ ':''}${label}</button>`).join('')}</div><p class="settings-hint">Press the physical Home button to see it.</p>`
+        +`<h4>Help</h4><div class="settings-group"><button data-settings-view="help"><span class="row-icon" style="background:#4f8bd0">?</span><span class="row-text">How to play<small>Guided tour and tutorials</small></span><span class="row-go">›</span></button></div>`
+        +`<h4>Extras</h4><div class="settings-group"><button data-settings-view="endings"><span class="row-icon" style="background:#c08a2e">★</span><span class="row-text">Endings found</span><span class="row-value">${found.join(' of ')}</span><span class="row-go">›</span></button>${creditsUnlocked()?'<button data-settings-view="credits"><span class="row-icon" style="background:#c0506a">♥</span><span class="row-text">Credits</span><span class="row-go">›</span></button>':''}</div>`
+        +`<p class="settings-version">Matchfall version ${GAME_VERSION}</p></div>`;
     }
     function openApp(app){
       currentApp=app;
