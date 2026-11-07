@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="003b43b9cd">
+<html lang="en" data-build="eecb789c07">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -812,11 +812,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=003b43b9cd"></script>
+  <script src="chapel_at_midnight.js?v=eecb789c07"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=003b43b9cd"></script>
+  <script src="marriage.js?v=eecb789c07"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=003b43b9cd"></script>
+  <script src="quests/professor-vale.js?v=eecb789c07"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -1560,6 +1560,7 @@
         updateRunStatus();
         saveRun(true);
         if(valeGameOver(valeDay?.ending))return; // Professor Vale: an arrest or death is already playing in the room
+        if(starterAfterDayStart())return; // the starting quest: a scene, or someone at your door
         if(caseEvent==='invasion'){startHomeInvasion();return;}
         if(caseEvent==='warning')showGameNotice('A gray sedan is idling outside your home.');
         if(reportedAfterDayStart())return; // Truecel: she reported you
@@ -1834,6 +1835,8 @@
       $('dial-call').onclick=()=>{
         if(dialledNumber.includes('*')||dialledNumber.includes('#')){dialStatus='Service code entered. No service in demo.';updateDialDisplay();return;}
         if(dialledNumber!=='911'&&!/^\d{7}$/.test(dialledNumber)){dialStatus='Dial 911 for police or enter all seven digits.';updateDialDisplay();return;}
+        const tannerLine=bfLine(dialledNumber); // the Boyfriend: Tanner's campaign line
+        if(tannerLine){startSimulatedCall(tannerLine);return;}
         const halLine=halOfficeLine(dialledNumber); // Undeniable: his campaign office
         if(halLine){startSimulatedCall(halLine);return;}
         const hotLine=rqHotlineLine(dialledNumber); // room quests: the hotline in the classifieds
@@ -2162,7 +2165,7 @@
       const nothingLeft=asking&&!thread&&!serviceTopics.length;
       const speech=nothingLeft?'That’s everything for now. Thanks for calling.':asking?'What would you like to ask next?':latest;
       const buttons=asking?(thread?callTreeButtons(thread,profile).map(([id,label])=>`<button data-call-topic="${esc(id)}">${esc(label)}</button>`).join('')+(wireAskable(thread,profile)?'<button data-call-topic="vale-wire">Ask if she has any wire</button>':''):serviceTopics.map(caseServiceTopicButton).join('')):`<button data-call-next>Next ▸</button>`;
-      $('call-bubble').innerHTML=`<img src="${profile?.gallery[0]||called.portrait}" alt="${esc(called.name)}"><div class="call-bubble-content"><strong class="speaker">${esc(called.name)}</strong><p class="speech" aria-live="off">${esc(speech)}</p><div class="call-bubble-buttons">${buttons}<button data-call-hangup>End</button></div></div>`;
+      $('call-bubble').innerHTML=`<img src="${profile?.gallery[0]||called.portrait}" alt="${esc(called.name)}" onerror="this.onerror=null;this.src='${assetUrl('assets/icons/calls.png')}'"><div class="call-bubble-content"><strong class="speaker">${esc(called.name)}</strong><p class="speech" aria-live="off">${esc(speech)}</p><div class="call-bubble-buttons">${buttons}<button data-call-hangup>End</button></div></div>`;
       $('call-bubble').classList.add('visible');
       hydrateInlineImages($('call-bubble'));
       startCallTypewriter(speech);
@@ -2242,10 +2245,11 @@
       if(serviceId.startsWith('service:lx-'))return lxTopics(serviceId); // the Looksmaxxer: the classifieds
       if(serviceId==='service:lpc')return [...glowTopics(),...halLpcTopics()]; // Truecel: LPC-A365 (and Halloran's parcel)
       if(serviceId==='service:hal')return halOfficeTopics(); // Undeniable: his campaign office
+      if(serviceId==='service:bf-tanner')return bfTannerTopics(); // the Boyfriend
       if(serviceId==='service:oakley')return fionnGunTopics(); // Theon: the revolver
       if(serviceId==='service:pawn')return armsPawnTopics(); // Sunfall Pawn
       if(serviceId.startsWith('service:sq-'))return sqLineTopics(serviceId); // the story quests
-      return [...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown).filter(topic=>!(topic.once&&world?.flags?.[topic.flag])), // 911: Doreen; a case's questions only once you've read about it; some are asked once
+      return [...bfServiceTopics(serviceId),...(serviceId==='service:police'?dispatchTopics():[]),...(serviceCallTopics[serviceId]||[]).filter(topicKnown).filter(topic=>!(topic.once&&world?.flags?.[topic.flag])), // 911: Doreen; a case's questions only once you've read about it; some are asked once
 ...quest,...(marriage?.serviceTopics(serviceId)||[]),...valeServiceTopics(serviceId),...fionnServiceTopics(serviceId),...arcServiceTopics(serviceId),...callerNewsroomTopics(serviceId),...miniServiceTopics(serviceId),...rqServiceTopics(serviceId),...coyoteServiceTopics(serviceId),...sqServiceTopics(serviceId)]; // Marriage: jewellers; Professor Vale; Theon; her story; Moira's newsroom; mini quests
     }
     // Professor Vale topics carry pv:true. Final ones (joining, accusing, confessing,
@@ -2269,6 +2273,7 @@
       else if(topic.sqs)reply=chooseSqService(id,activeGenericCall.id); // and what they add to the newsroom and 911
       else if(topic.rq)reply=chooseRqService(id); // room quests: the hotline
       else if(topic.callerNewsroom){const c=callerState();c.momKnown=true;c.momNumber=c.momNumber||unusedContactNumber();recordClue(fillIn(CALLER.clues.number,{number:c.momNumber}));reply=fillIn(CALLER.newsroom.reply,{number:c.momNumber});} // Mogger: Moira's newsroom
+      else if(topic.bf)reply=chooseBfService(id); // the Boyfriend
       else if(topic.hal)reply=chooseHalTopic(id); // Undeniable
       else if(topic.lx)reply=chooseLxTopic(id); // the Looksmaxxer: the classifieds
       else if(topic.glow)reply=chooseGlowTopic(id); // Truecel: LPC-A365
@@ -2504,7 +2509,7 @@
     // your guide takes it back while the tour lasts. Found by the tour bot: 1 game in 200 lost her to a side story.
     const GUIDE_SORRY=['Sorry. Ignore that. I’m being dramatic. Where were we?','Okay, I take that back. Bad day. Keep talking to me.','Wait. Don’t go. I didn’t mean that. Ask me something.'];
     function guideShield(){
-      if(!world?.guide||!guideActive(world.guide))return;
+      if(!world?.guide||!guideActive(world.guide)||world.bf?.dumped||world.st?.lost)return; // a starting quest: she meant it
       const t=hingeThreads.get(world.guide);if(!t||t.missing||t.dead||t.pending)return;
       if(!(t.blocked||t.unmatched||t.quiet||t.fumbled))return;
       t.blocked=false;t.unmatched=false;t.quiet=false;t.fumbled=false;
@@ -2580,6 +2585,7 @@
       if(thread.left)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · You unmatched her.</div>';
       if(thread.unmatched)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">UNMATCHED · She unmatched you.</div>';
       if(thread.blocked)return '<div style="color:#b93243;text-align:center;font:bold 10px Verdana,sans-serif;padding:8px">BLOCKED · This conversation is closed.</div>';
+      {const st=starterChoices(thread);if(st.length&&(thread.fumbled||thread.quiet))return st.map(([id,label])=>`<button class="hinge-chat-choice" data-hinge-topic="${esc(id)}">${esc(label)}</button>`).join('');} // a starting quest still needs her: she answers that
       if(thread.fumbled)return '<div style="color:#e7a0ac;text-align:center;font:10px Verdana,sans-serif;padding:8px">Conversation ended. She is no longer responding.</div>';
       if(thread.quiet)return '<div style="color:#e7a0ac;text-align:center;font:10px Verdana,sans-serif;padding:8px">She has stopped replying.</div>';
       const marriageOptions=marriage?.optionsFor(thread); // Marriage: examination answers and the proposal
@@ -2623,7 +2629,7 @@
       qhintMaybe(thread,profileNow); // she tells you what's going on in town
       tallMaybe(thread,profileNow); // the Looksmaxxer past 6 ft 6: she notices
       botchMaybe(thread,profileNow); // botched: she says so
-      for(const [id,label,risky] of [...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow),...kesslerChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
+      for(const [id,label,risky] of [...starterChoices(thread),...dadChoices(thread),...fionnChoices(thread,profileNow),...qhintChoices(thread),...sqChatChoices(thread,profileNow),...kesslerChatChoices(thread,profileNow)])add(`<button class="hinge-chat-choice${risky?' risky':''}" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Mogger: her dad; Theon
       for(const [id,label] of coffeeChoices(thread))add(`<button class="hinge-chat-choice" data-hinge-topic="${id}">${esc(label)}</button>`,0); // Truecel: her coffee offer
       if(thread.deeper&&rootCategory(thread,profileNow,thread.deeper))add(`<button class="hinge-chat-choice deeper-choice" data-hinge-topic="deeper">${esc(talkKit()?.deeper?.label||'Ask why she thinks that')}</button>`,4); // it keeps until asked: the paper and a picture go first
       talkTopicsFor(thread,profileNow).forEach((topic,index)=>add(`<button class="hinge-chat-choice" data-hinge-topic="${esc(topic.id)}">${esc(topic.label)}</button>`,index===0?2:5));
@@ -2734,7 +2740,7 @@
             if(world.hingeReview===world.day&&!fionnGirlNow(profile.id))showHingeToast(spurnKit()?.report||'Your matches are paused today.',1800); // a woman you ignored reported you
             else if(selectedDifficulty==='divorce'&&profile.factionId==='sisters_of_mercy')showHingeToast(`${firstName(profile)} doesn’t date divorced men.`,1800); // the Sisters won't look at the Divorcé (Chris, 3 November 2026)
             else if(matchesToday()>=MATCHES_A_DAY){flashBlocked('OUT OF MATCHES',`${MATCHES_A_DAY} matches a day. Try again tomorrow.`);showHingeToast('Out of matches for today.',1800);} // five a day (Chris, 4 November 2026)
-            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:(famous()?1.5:1)*matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
+            else if(profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)||(hingeLikes===1&&rarity===1)||gameRandom()<(glowState().stage==='active'?.9:(famous()?1.5:1)*infamyRate()*matchRates[profile.factionId==='sisters_of_mercy'&&baseClass()==='truecel'?'normie':baseClass()])*rarity){ // the Sisters show a Truecel mercy: Normie odds
               const responseMode=hingeLikes===1||profile.jeweller||fionnGirlNow(profile.id)||chapel?.likesYou?.(profile.id)||rqLikesYou(profile.id)||sqLikes(profile.id)?'now':gameRandom()<.50?'now':gameRandom()<.60?'tomorrow':'ghost';
               fameOnMatch(ensureHingeThread(profile,responseMode)); // famous: she opens with it
               countMatchToday();
@@ -2804,6 +2810,7 @@
       guideShield();
       const thread=hingeThreads.get(activeChatId),profile=hingeProfile(activeChatId);
       if(id==='dad:unmatch'&&thread&&profile&&!thread.blocked)return chooseDad(id,thread,profile); // her father: even while her reply is pending
+      if((id.startsWith('bf:')||id.startsWith('st:'))&&thread&&profile&&!thread.pending&&!thread.awaiting&&!thread.blocked){thread.quiet=false;thread.fumbled=false;return starterChoose(id,thread,profile);} // the starting quest: never uses up the day, and she answers it even when she'd gone quiet
       if(!thread||!profile||thread.pending||thread.awaiting||thread.fumbled||thread.blocked||thread.quiet)return;
       if(!freeAsk(thread,profile,id)){if(doneForToday(thread))return;countAsk(thread,id);} // small talk uses up the day
       else if(QUEST_ASK.test(id)&&doneForToday(thread))return; // and quest questions wait for tomorrow
@@ -4607,6 +4614,646 @@
     function valeCallerDue(){return questOn('vale')&&PV?.isOpen?.()&&!window.MATCH_NO_VALE_CALLS?PV.valeCallerDue?.()||null:null;} // Professor Vale rings you himself (the conversation tests switch it off)
     function fionnKnown(){const f=fionnState();return f.calls>0||f.complained.length>0||(world.strangerVm||[]).some(v=>v.from==='Withheld number');}
     function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():topic.known==='dispute'?disputeKnown():String(topic.known).startsWith('story:')?(world?.seenArticles||[]).some(key=>key.endsWith(':'+String(topic.known).slice(6))):true);} // story:<id>: once you have read that story
+    // ===== Starting quests (Chris, 7 November 2026): the Normie's first days on the guided tour =====
+    // When the tour starts, the run rolls one of three, one in three each: The Boyfriend, The Town Hall, Alpha Sunfall.
+    // Each is guided by the tour's arrow, branches on what you choose, and has at least one choice that ends the run.
+    // Only you get humiliated: the powerful men in them come out on top whatever you do (except Tanner Voss, who
+    // you are allowed to ruin). Every picture lives in assets/quests/<quest>/; until one is drawn your room stands in.
+    var STARTERS=['bf','townhall','alpha'];
+    function starterId(){
+      if(!world)return null;
+      if(!STARTERS.includes(world.starterId)){ // never a villain with your guide's surname: he would sound like her brother
+        const sur=String(hingeProfile(world.guide)?.name||'').split(' ').pop(),clash={bf:'Voss',alpha:'Stone'};
+        const pool=STARTERS.filter(id=>clash[id]!==sur);
+        world.starterId=pool[hashSeed(world.seed+'|starter')%pool.length];
+      }
+      return world.starterId;
+    }
+    function starterReady(){ // the tour is on and you have your guide: day 1 after your call, or the next morning
+      if(!world||window.MATCH_NO_BOYFRIEND||selectedDifficulty!=='normie')return false;
+      if(!world.guide||coachState().on!==true||!(world.guideCalled||world.day>=2))return false;
+      const t=hingeThreads.get(world.guide);return !!t&&!t.blocked&&!t.unmatched;
+    }
+    const starterHerName=id=>firstName(hingeProfile(id))||'She';
+    function starterHerSays(id,lines,fill=x=>x,last){
+      const t=hingeThreads.get(id);if(!t)return;
+      lineSpeaker=t.id;
+      lines.forEach((text,i)=>t.log.push({who:'her',text:fill(text),...(last&&i===lines.length-1?{block:true}:{})}));
+      talkState(t).unread=true;
+      if(currentApp==='hinge')renderHinge();
+    }
+    const sceneOf=dir=>s=>({...s,image:'assets/quests/'+dir+'/'+s.image,stand:s.stand||'room'});
+    // The police take you away, in your own room (the arrest pictures for the time of day).
+    function starterArrestSteps(captions){const ph=(dayPhases.includes(time.value)?time.value:'bedroom-night').replace('bedroom-','');return ['threshold','approach','cuff','grab'].map((f,i)=>({image:`assets/events/police-${ph}-${f}.webp`,stand:'room',caption:captions[i]}));}
+    function starterMaybeStart(){if(!starterReady())return;const id=starterId();if(id==='bf')bfMaybeStart();else stMaybeStart();}
+    function starterNewDay(){if(!world)return;if((world.bf?.stage||'none')==='none'&&(world.st?.stage||'none')==='none')starterMaybeStart();bfNewDay();stNewDay();infamyNewDay();}
+    function starterAfterDayStart(){return bfAfterDayStart()||stAfterDayStart();}
+    function starterChoices(thread){return [...bfChoices(thread),...stChoices(thread)];}
+    function starterChoose(id,thread,profile){return id.startsWith('bf:')?chooseBf(id,thread,profile):chooseStChat(id,thread,profile);}
+    function starterCoach(){return world?.bf&&world.bf.stage!=='none'?bfCoach():world?.st&&world.st.stage!=='none'?stCoach():null;}
+
+    // ---- Everybody saw (Chris, 7 November 2026): for two or three days after a starting quest, women around town
+    // recognize you. They message you about it, and it changes your odds: the rally, the billboard and the seminar
+    // put women off; walking out on Chadwick Stone with a woman on your arm does the opposite.
+    var INFAMY={
+      rally:{good:false,lines:['Wait. Are you the shirtless guy from the Tanner Voss rally?','My whole office has your selfie as their wallpaper. Sorry.','I saw the rally clip. You have a very honest torso.','Okay, I have to ask. Was that really you on the giant poster?']},
+      poster:{good:false,lines:['Are you the billboard guy? From the freeway?','My mom saw you on TV and said a prayer for you. Not a nice one.','So the government thinks you’re an epidemic. Cool, cool.','I drive past your face every day now. It’s a lot.']},
+      stage:{good:false,lines:['Are you the guy who did four push-ups at Alpha Sunfall?','My brother bought the T-shirt. With your face on it. Sorry.','Chadwick Stone made a whole video about you. It has a sad violin.','Okay so I saw the seminar clip. Are you okay?']},
+      walked:{good:true,lines:['You walked out on Chadwick Stone? Honestly, iconic.','My friends and I watched you leave that seminar like forty times. Legend.','The sad violin did not work on me. You looked free.','I need to know. Was walking out on Chadwick as good as it looked?']}
+    };
+    function infamyStart(kind){if(!world||!INFAMY[kind])return;world.infamy={kind,day:world.day,until:world.day+1+hashSeed(world.seed+'|infamy|'+kind)%2,told:[]};}
+    function infamous(){const f=world?.infamy;return !!f&&!!INFAMY[f.kind]&&world.day>=f.day&&world.day<=f.until;}
+    function infamyRate(){return infamous()?(INFAMY[world.infamy.kind].good?1.25:.7):1;}
+    function infamyNewDay(){
+      if(!infamous())return;
+      const f=world.infamy,kit=INFAMY[f.kind],skip=[world.bf?.her,world.st?.her];let sent=0;
+      if(!Array.isArray(f.told))f.told=[];
+      const ready=[...hingeThreads.values()].filter(t=>{const p=hingeProfile(t.id);return p&&t.id!==bearHingeCard.id&&!skip.includes(t.id)&&!f.told.includes(t.id)&&eventReady(t)&&!t.followUp&&!t.blocked&&!t.unmatched&&!t.left&&!t.missing&&morningRoom(t);})
+        .sort((a,b)=>hashSeed(world.seed+'|infamy|'+a.id+world.day)-hashSeed(world.seed+'|infamy|'+b.id+world.day));
+      for(const t of ready){
+        if(sent>=2)break;
+        lineSpeaker=t.id;
+        t.log.push({who:'her',text:freshHers(t,kit.lines,world.seed+'|infamyline|'+t.id)});
+        f.told.push(t.id);warmBy(t,kit.good?1:-1);talkState(t).unread=true;talkState(t).morningDay=world.day;sent++;
+      }
+    }
+
+    // ---- Sunfall General (Chris, 7 November 2026): nobody dies in a starting quest. What would kill you plays out,
+    // then you wake up in hospital with Dr. Bernadette Hale standing over you: you're lucky, you're fine, and in
+    // Sunfall that luck runs out. After that the quest carries on another way, or ends lost.
+    var HOSPITAL={
+      first:[
+        {image:'wake.png',caption:'You wake up in Sunfall General. Everything hurts. Somebody is standing over you.'},
+        {image:'doctor.png',caption:'Dr. Bernadette Hale: Well. Look who’s awake. You are lucky. Very, very lucky. You’re going to be fine.'},
+        {image:'doctor.png',caption:'But listen to me, because I won’t say it twice. This is Sunfall. People here die from the choices they make. Every week. I sign the papers.'},
+        {image:'doctor.png',caption:'Next time you do something stupid, you will not wake up in my ward. Protect yourself. This town does not pull punches.'}
+      ],
+      again:[
+        {image:'wake.png',caption:'You wake up in Sunfall General. Again.'},
+        {image:'doctor.png',caption:'Dr. Bernadette Hale: You again. I told you. I am running out of ways to say it. This is the last time you get lucky.'}
+      ],
+      notice:'In Sunfall, your choices have consequences. From here on, death is real.'
+    };
+    function starterHospital(lead,after){
+      const n=(world.hospital=(Number(world.hospital)||0)+1);
+      const steps=[...lead,...(n===1?HOSPITAL.first:HOSPITAL.again).map(sceneOf('hospital'))];
+      playScene(steps,()=>{setLowered(false);showGameNotice(HOSPITAL.notice);after();saveRun(true);},{gap:3400});
+    }
+
+    // ===== The Boyfriend =====
+    // Your guide has a boyfriend: Tanner Voss, a council candidate running on banning dating apps. Day 2 you wake up to
+    // find he read your messages out at his rally. She wants him gone. Ring him: tell him to back off and he puts you
+    // on speaker at his fundraiser; challenge him to a fight and he kills you on a livestream. Then 911: tell Doreen
+    // the truth and you are arrested on the spot; tell her a lie and the raid plays out on the news, and the lie decides
+    // whether Detective Graves comes round later (never for a tiger, always for hostages). Day 3 you tell her it was
+    // you, and she's dating Brad now. If Graves comes, answer her badly and you're arrested.
+    const BF_ART='assets/quests/boyfriend/';
+    var BF={
+      confess:['Okay. Full disclosure, because I actually like you.','I have a boyfriend. Tanner. Tanner Voss. He’s running for city council.','His whole campaign is banning dating apps. Decency First. He checks my phone every night.','He just saw our messages. He went very quiet and then he started writing a speech. I’m so sorry in advance.'],
+      rallyMsg:['I’m so sorry. He read our messages out at his rally. Into a microphone. To four hundred people.','He did voices. He did YOUR voice.','And he printed your shirtless picture the size of a garage door. People are making it their wallpaper.','I can’t do this anymore. If Tanner was out of the picture, I’d be all yours. Just saying.'],
+      rally:[
+        {image:'rally-podium.png',caption:'You wake up famous. Last night, at the Decency First rally, Tanner Voss held up your shirtless mirror selfie. The size of a garage door.'},
+        {image:'rally-podium.png',caption:'Then he read your messages out loud. All of them. He did your voice.'},
+        {image:'rally-crowd.png',caption:'Four hundred people laughed for eleven minutes. Someone has already put it on a T-shirt.'}
+      ],
+      askNumber:{label:'Ask her how to reach Tanner',you:'Give me his number. I’ll talk to him.',her:['It’s on every yard sign in Sunfall. {number}.','Good luck. He eats men like you for breakfast. He has a protein thing.']},
+      tanner:{name:'Tanner Voss',detail:'Decency First',greeting:'Tanner Voss, Decency First. Sunfall deserves better. Who’s this?',after:'Tanner Voss, Decency First. Oh, it’s you again. Everybody! It’s HIM!'},
+      tannerTopics:[
+        {id:'back',label:'Tell him to back off',reply:'Oh, it’s YOU. The shirtless guy! Hang on, buddy, I’m at a fundraiser. I’m putting you on speaker. EVERYBODY, it’s him! Say it again, champ. Tell me to back off.'},
+        {id:'threat',label:'Threaten him',reply:'Did you just threaten a candidate? Hold on. I want my donors to hear this. You’re on speaker, pal. Go ahead. Threaten me again, slower.'},
+        {id:'beg',label:'Beg him to leave her alone',reply:'Are you begging? Oh, this is beautiful. Hold on, I’m putting you on speaker. Folks, he’s begging. Keep going, buddy. Louder.'},
+        {id:'fight',label:'Challenge him to a fight',reply:'A fight? Oh, buddy. YES. Tomorrow morning, Founders Park. Bring a mouthguard. I’m going to stream it.',fight:true}
+      ],
+      speaker:[
+        {image:'speaker.png',caption:'You’re on speaker. Forty donors in tuxedos lean in toward the phone.'},
+        {image:'speaker.png',caption:'Tanner: Ladies and gentlemen, THIS is what the apps are doing to our young men.'},
+        {image:'rally-crowd.png',caption:'Somebody filmed it. By tonight it’s a ringtone.'}
+      ],
+      speakerMsg:['He posted the call. It has forty thousand views. Someone set it to music.','Please make him stop. I’ll owe you forever.'],
+      chicken:{label:'Call off the fight',reply:'Calling it off? Folks! He’s calling it off! Hang on, I’m putting you on the stream. Say it again, buddy. Say you’re scared.'},
+      chickenMsg:['He put you calling it off on his stream. In slow motion. With a chicken sound.','Okay. I’m glad you’re alive. But he has to go. Please.'],
+      fightMsg:['Did you just challenge Tanner to a FIGHT?','He’s been doing jiu-jitsu since he was four. He has a coach. He has a cornerman. Please don’t go.'],
+      fight:[
+        {image:'fight-park.png',caption:'Founders Park, first thing in the morning. Tanner has brought six campaign volunteers, a boxing coach, a ring light and a livestream.'},
+        {image:'fight-down.png',caption:'It takes nine seconds. The livestream gets four hundred thousand views.'}
+      ],
+      fightAfter:['I watched the stream. Nine seconds. Are you okay??','He’s calling it self-defense. He wept on the stream. His poll numbers went up.','He still has to go. Please. Not with your fists this time.'],
+      report:{label:'Report Tanner Voss',reply:'Report him for what, love?'},
+      // What you tell 911 decides how hard the police look for who made the call: the chance Detective Graves comes round
+      // (in quarters: a tiger never, meth or a bomb one run in four, hostages one in two; one in four on average).
+      lies:{
+        tiger:{label:'He has a tiger in his garage',reply:'A tiger. In Sunfall. Right. I’m sending everybody, love. Everybody.',chyron:'POLICE STORM CANDIDATE’S HOME OVER REPORTED TIGER',found:'No tiger was found.',graves:'said Tanner Voss had a tiger in his garage',police:'Police say the call was obviously a prank and they will not be looking into it.',visit:0},
+        meth:{label:'He’s cooking meth in his hot tub',reply:'In the hot tub? That’s a new one. Units are on their way.',chyron:'DRUG RAID ON CANDIDATE’S HOT TUB',found:'No drugs were found in the hot tub, only a rubber duck and the candidate.',graves:'said Tanner Voss was cooking meth in his hot tub',police:'Police say they may look into who made the call.',visit:1},
+        bomb:{label:'He’s building a bomb out of yard signs',reply:'Out of yard signs? I don’t know how that works and neither do you. Sending everyone.',chyron:'BOMB SQUAD CALLED TO CANDIDATE’S HOME',found:'The only device recovered was a ring light.',graves:'said Tanner Voss was building a bomb out of yard signs',police:'Police say they are looking into who made the call.',visit:1},
+        hostages:{label:'He’s holding his campaign staff hostage',reply:'Hostages. Okay. Stay on the line. No, actually, don’t. I’m sending the tactical team.',chyron:'HOSTAGE SCARE AT CANDIDATE’S HOME',found:'His campaign staff were found at a bar, unharmed, celebrating.',graves:'said Tanner Voss was holding his campaign staff hostage',police:'Detective Eleanor Graves says she will find whoever made the call, and that she has a fairly good idea.',visit:2}
+      },
+      truth:{label:'Tell her the truth: you just want him gone',reply:'You want me to send the police to a man’s house because you don’t like him. Love, that’s a crime. And you just did it on a recorded line. Stay right where you are.'},
+      truthArrest:['KNOCK KNOCK. SUNFALL POLICE!','Doreen from 911 says hello.','Making a false report. Out loud. On a recorded line.','You panic and run for the window. The taser finds you first.'],
+      truthAfter:['Tanner played the 911 tape at his rally. The part where you got tased too.','I can’t do this. I’m dating Brad now. He’s six foot four and he has a boat.','Please don’t message me again.'],
+      raid:[
+        {image:'hottub.png',caption:'Across town, Tanner Voss is live on his campaign stream. In his hot tub. In his sash.'},
+        {image:'raid.png',caption:'SUNFALL POLICE! HANDS WHERE WE CAN SEE THEM!'},
+        {image:'dragged.png',caption:'Two officers haul him out in a pink towel. The stream is still running. Eleven thousand people are watching.'},
+        {image:'hedge.png',caption:'He faints face first into his own hedge. Two ambulances. A fire truck, for some reason.'},
+        {image:'tv.png',caption:'BREAKING: {chyron}. You watch it from bed with a bag of chips.'},
+        {image:'mugshot.png',caption:'{found} They did find four dating apps on his phone. His whole platform was banning them.'}
+      ],
+      raidNotice:'What a day. Go to bed. Tomorrow, the paper.',
+      seenMsg:['Are you seeing this?? Tanner got arrested. In a TOWEL. On a livestream.','The paper says he had four dating apps on his phone. FOUR.'],
+      tell:{label:'Tell her it was you',you:'Tanner won’t be a problem anymore. That was me.',her:['Wait. That was YOU?','Oh my god. I don’t know if I’m scared or impressed.','Okay, so. This is awkward.','Yeah, sorry. I’m dating Brad now.','We met outside Tanner’s house last night, watching the ambulances. He’s six foot four and he has a boat.','Please don’t message me again. Brad gets jealous. Not that he needs to.']},
+      dumped:'She blocked you.',
+      news:{
+        rally:{id:'bf_rally',section:'Politics',title:'DECENCY FIRST: CANDIDATE READS LOCAL MAN’S DATING MESSAGES TO CROWD',summary:'Tanner Voss says the messages show what dating apps are doing to Sunfall.',body:'Council candidate Tanner Voss held up a shirtless photograph of a local man at his Decency First rally and read the man’s messages to his girlfriend aloud, doing the voices. The crowd of about four hundred laughed for eleven minutes. Voss says he will ban dating apps within the city limits if he is elected. Asked whether that was legal, he said decency is always legal. His number is on every yard sign in town.',image:BF_ART+'rally-podium.png',fallbackImage:'halloran_debate'},
+        raid:{id:'bf_raid',section:'Front page',title:'COUNCIL HOPEFUL DRAGGED FROM HOT TUB',summary:'Police raided Tanner Voss’s home after a 911 call. {found}',body:'Tactical officers, two ambulances and a fire truck answered a 911 call at the home of council candidate Tanner Voss, who was live on his campaign stream in his hot tub at the time. {found} Voss fainted into a hedge and was treated at the scene. {police}',image:BF_ART+'mugshot.png',fallbackImage:'gus_raid'},
+        apps:{id:'bf_apps',section:'Politics',title:'DECENCY CANDIDATE HAD FOUR DATING APPS',summary:'Tanner Voss, who wants dating apps banned, had four of them on his phone.',body:'Officers who seized Tanner Voss’s phone during the raid found four dating apps on it, two of them open. His campaign says he was doing research. His girlfriend has not commented. His poll numbers went up.',image:BF_ART+'hedge.png',fallbackImage:'halloran_profile'}
+      },
+      graves:{
+        intro:[{image:'graves-door.png',stand:'room-open',caption:'KNOCK KNOCK. Detective Eleanor Graves, Sunfall Police. Don’t get up. I have a few questions about Tanner Voss.'}],
+        doubt:'graves-squint.png',
+        questions:[
+          {image:'graves-close.png',ask:'Somebody rang 911 from this phone and {lie}. Was that you?',answers:[
+            {label:'No. My phone was in a drawer all evening.',bad:0,reply:'In a drawer. Sure. Lots of people keep their phones in drawers.'},
+            {label:'Is he okay? I felt bad when he fainted.',bad:1,reply:'You felt bad. Nobody in Sunfall feels bad for Tanner Voss. Except the man who made the call.'},
+            {label:'Yes, and I’d do it again.',bad:2,reply:'Thank you. That saves us both a lot of time.'}]},
+          {image:'graves-close.png',ask:'Where were you that evening?',answers:[
+            {label:'Here. Watching the news like everyone else.',bad:0,reply:'That’s the first thing you’ve said that I believe.'},
+            {label:'At the gym.',bad:1,reply:'Which gym? Sunfall has one gym and it’s been a smoothie bar for two years.'},
+            {label:'Why? Where was Tanner?',bad:1,reply:'In a hedge. You know that. Everybody knows that.'}]},
+          {image:'graves-close.png',ask:'Do you know {her}? She used to date Mr. Voss.',answers:[
+            {label:'We matched once. {brad}',bad:0,reply:'{bradReply}'},
+            {label:'Never heard of her.',bad:1,reply:'She showed me your messages. All of them. You use a lot of exclamation points.'},
+            {label:'She’s my girlfriend.',bad:2,reply:'She said you’d say that. She also said Brad is six foot four.'}]}
+        ],
+        cleared:[{image:'graves-leave.png',stand:'room-open',caption:'Don’t waste police time again. And stay away from hot tubs.'}],
+        clearedNotice:'She’s gone. You got away with it.',
+        caught:[
+          {image:'graves-cuffs.png',stand:'room-open',caption:'Hands where I can see them. You’re under arrest for making a false report.'},
+          {image:'graves-cuffs.png',stand:'room-open',caption:'You bolt for the door. Graves tases you without looking up from her notebook.'}
+        ],
+        caughtAfter:'The charges were dropped. Detective Graves decided you had suffered enough.',
+      }
+    };
+    const bfStep=sceneOf('boyfriend');
+    function bfState(){
+      if(!world)return null;
+      if(!world.bf||typeof world.bf!=='object'||Array.isArray(world.bf))world.bf={stage:'none'};
+      return world.bf;
+    }
+    const bfHerName=()=>starterHerName(world?.bf?.her);
+    const bfFill=(text,b)=>String(text).replace(/\{number\}/g,displayNumber(b?.number||'')).replace(/\{chyron\}/g,BF.lies[b?.lie]?.chyron||'').replace(/\{found\}/g,BF.lies[b?.lie]?.found||'').replace(/\{police\}/g,BF.lies[b?.lie]?.police||'').replace(/\{lie\}/g,BF.lies[b?.lie]?.graves||'').replace(/\{her\}/g,hingeProfile(b?.her)?.name||'her').replace(/\{brad\}/g,b?.dumped?'She’s dating some guy called Brad now.':'That’s it. I swear.').replace(/\{bradReply\}/g,b?.dumped?'Brad. Of course it’s Brad. It’s always Brad.':'Matched once. Sure. She has forty of your messages saved in a folder.');
+    const bfHerSays=(lines,b)=>starterHerSays(b.her,lines,text=>bfFill(text,b));
+    function bfMaybeStart(){
+      if(!starterReady()||starterId()!=='bf')return;
+      const b=bfState();if(b.stage!=='none')return;
+      Object.assign(b,{stage:'told',her:world.guide,toldDay:world.day});
+      bfHerSays(BF.confess,b);
+      queueNews(BF.news.rally,world.day+1);
+      showGameNotice(`${bfHerName()} sent you a message.`);
+      saveRun(true);
+    }
+    function bfNewDay(){
+      const b=world?.bf;if(!b||b.stage==='none')return;
+      if(b.stage==='told'&&world.day>b.toldDay){b.stage='rally';b.rallyDay=world.day;b.scene='rally';bfHerSays(BF.rallyMsg,b);infamyStart('rally');}
+      else if(b.stage==='reported'&&world.day>b.reportDay){b.stage='arrested';b.arrestDay=world.day;bfHerSays(BF.seenMsg,b);}
+      else if(b.stage==='fight'&&world.day>b.fightDay)b.scene='fight';
+      if(Number.isInteger(b.visitDay)&&world.day===b.visitDay&&!b.visited&&!b.scene)b.scene='graves';
+    }
+    function bfAfterDayStart(){
+      const b=world?.bf;if(!b?.scene)return false;
+      const scene=b.scene;b.scene=null;saveRun(true);
+      if(scene==='rally'){playScene(BF.rally.map(bfStep),()=>{setLowered(false);showGameNotice(`${bfHerName()} messaged you. Read the paper first.`);},{gap:3200});return true;}
+      if(scene==='fight'){b.hospital='fight';starterHospital(BF.fight.map(bfStep),()=>{b.stage='humiliated';b.fightDay=null;bfHerSays(BF.fightAfter,b);});return true;} // you live: Tanner still has to go
+      if(scene==='graves'){bfGraves();return true;}
+      return false;
+    }
+    function bfChoices(thread){
+      const b=world?.bf;if(!b||thread?.id!==b.her||thread.blocked)return [];
+      if(b.stage==='rally'&&!b.number)return [['bf:number',BF.askNumber.label]];
+      if(b.stage==='arrested'&&!b.told)return [['bf:tell',BF.tell.label]];
+      return [];
+    }
+    function chooseBf(id,thread,profile){
+      const b=bfState();
+      if(!bfChoices(thread).some(([key])=>key===id))return;
+      if(id==='bf:number'){
+        b.number=b.number||unusedContactNumber();
+        thread.log.push({who:'you',text:BF.askNumber.you});
+        return fionnReply(thread,profile,BF.askNumber.her.map(text=>({text:bfFill(text,b)})),()=>{b.stage='tanner';recordClue(`Tanner Voss’s campaign line: ${displayNumber(b.number)}. He’s in your Contacts.`);});
+      }
+      if(id==='bf:tell'){
+        b.told=true;
+        thread.log.push({who:'you',text:BF.tell.you});
+        return fionnReply(thread,profile,BF.tell.her.map((text,i,all)=>({text,...(i===all.length-1?{block:true}:{})})),()=>{b.stage='dumped';b.dumped=true;thread.blocked=true;showGameNotice(BF.dumped);});
+      }
+    }
+    function bfLine(number){
+      const b=world?.bf;if(!b?.number||String(number)!==b.number)return null;
+      return {id:'service:bf-tanner',name:BF.tanner.name,portrait:BF_ART+'tanner.png',generic:true,noAnswer:!['tanner','humiliated','fight'].includes(b.stage),greeting:b.stage==='tanner'?BF.tanner.greeting:BF.tanner.after};
+    }
+    function bfContact(){
+      const b=world?.bf;if(!b?.number)return null;
+      return {key:'service:bf-tanner',name:BF.tanner.name,detail:BF.tanner.detail,number:b.number,portrait:BF_ART+'tanner.png',fallback:'assets/icons/calls.png'};
+    }
+    function bfTannerTopics(){
+      const b=world?.bf;
+      if(b?.stage==='fight')return [{id:'bf:t:chicken',label:BF.chicken.label,bf:true}]; // you can still back out
+      if(b?.stage!=='tanner')return [];
+      return BF.tannerTopics.map(t=>({id:'bf:t:'+t.id,label:t.label,bf:true,final:!!t.fight}));
+    }
+    function bfServiceTopics(serviceId){
+      const b=world?.bf;if(serviceId!=='service:police'||b?.stage!=='humiliated')return [];
+      if(!b.reporting)return [{id:'bf:report',label:BF.report.label,bf:true}];
+      return [...Object.entries(BF.lies).map(([k,l])=>({id:'bf:lie:'+k,label:l.label,bf:true,final:true})),{id:'bf:truth',label:BF.truth.label,bf:true,final:true}];
+    }
+    function bfLater(b,fn){window.setTimeout(()=>{if(world?.bf===b)fn();},3200);}
+    function chooseBfService(id){
+      const b=bfState(),parts=id.split(':');
+      if(parts[1]==='t'){
+        if(parts[2]==='chicken'&&b.stage==='fight'){b.stage='humiliated';b.chickened=true;b.fightDay=null;saveRun(true);bfLater(b,()=>playScene(BF.speaker.slice(2).map(bfStep),()=>{setLowered(false);bfHerSays(BF.chickenMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000}));return BF.chicken.reply;}
+        const t=BF.tannerTopics.find(x=>x.id===parts[2]);if(!t||b.stage!=='tanner')return '';
+        b.tannerDay=world.day;b.tannerPick=t.id;
+        if(t.fight){b.stage='fight';b.fightDay=world.day;saveRun(true);bfLater(b,()=>{endSimulatedCall();bfHerSays(BF.fightMsg,b);showGameNotice(`${bfHerName()} messaged you.`);if(currentApp==='calls')returnHome();});return t.reply;}
+        b.stage='humiliated';saveRun(true);
+        bfLater(b,()=>playScene(BF.speaker.map(bfStep),()=>{setLowered(false);bfHerSays(BF.speakerMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000}));
+        return t.reply;
+      }
+      if(parts[1]==='report'){b.reporting=true;return BF.report.reply;}
+      if(parts[1]==='truth'&&b.stage==='humiliated'){
+        b.stage='lost';b.reporting=false;b.hospital='truth';saveRun(true);
+        bfLater(b,()=>starterHospital(starterArrestSteps(BF.truthArrest),()=>{starterHerSays(b.her,BF.truthAfter,x=>x,true);const t=hingeThreads.get(b.her);if(t)t.blocked=true;b.dumped=true;b.stage='dumped';b.told=true;}));
+        return BF.truth.reply;
+      }
+      if(parts[1]==='lie'){
+        const l=BF.lies[parts[2]];if(!l||b.stage!=='humiliated')return '';
+        Object.assign(b,{stage:'reported',lie:parts[2],reportDay:world.day,reporting:false});
+        queueNews({...BF.news.raid,summary:bfFill(BF.news.raid.summary,b),body:bfFill(BF.news.raid.body,b)},world.day+1);
+        queueNews(BF.news.apps,world.day+1);
+        if(hashSeed(world.seed+'|bfvisit')%4<l.visit)b.visitDay=world.day+2+hashSeed(world.seed+'|bfvisitday')%3; // the bigger the lie, the likelier Graves comes round
+        saveRun(true);
+        bfLater(b,()=>playScene(BF.raid.map(s=>bfStep({...s,caption:bfFill(s.caption,b)})),()=>{setLowered(false);showGameNotice(BF.raidNotice);saveRun(true);},{gap:3200}));
+        return l.reply;
+      }
+      return '';
+    }
+    function bfGoal(){
+      const b=world?.bf;if(!b||selectedDifficulty!=='normie')return null;
+      const name=bfHerName();
+      if(b.stage==='rally'&&!b.number)return {chat:b.her,choice:'bf:number',text:`${name} wants Tanner gone. Ask her how to reach him.`};
+      if(b.stage==='tanner')return {dial:b.number,service:'service:bf-tanner',text:'Ring Tanner Voss. He’s in your Contacts. Tell him to back off.'};
+      if(b.stage==='humiliated'&&!(activeGenericCall?.id==='service:bf-tanner'))return {dial:'911',service:'service:police',text:b.hospital==='fight'?'Your fists didn’t work. Try the phone. Ring 911.':'That backfired. Time for something bigger. Ring 911.'};
+      if((b.stage==='reported'&&world.day===b.reportDay)||(b.stage==='fight'&&world.day===b.fightDay))return {bed:true,text:b.stage==='fight'?'You have a fight in the morning. Go to bed, or ring Tanner and call it off.':BF.raidNotice};
+      if(b.stage==='arrested'&&!b.told){
+        if(currentApp==='news')b.paperDay=world.day;
+        return b.paperDay>=b.arrestDay?{chat:b.her,choice:'bf:tell',text:'Tell her Tanner won’t be a problem anymore.'}:{app:'news',text:'Read the paper. You’re on the front page, sort of.'};
+      }
+      if(b.stage==='dumped'&&!b.swiped){
+        if(currentApp==='hinge'&&hingeView==='discover'){b.swiped=true;saveRun(true);return null;}
+        return {app:'hinge',swipe:true,text:b.lie?'She blocked you. That’s dating in Sunfall: Tanner’s in a cell and she’s on a boat. Swipe on. There are two hundred more women.':'She blocked you. That’s dating in Sunfall: Tanner’s still on his yard signs and she’s on a boat. Swipe on. There are two hundred more women.'};
+      }
+      return null;
+    }
+    // The tour's arrow for a goal: where to tap next to get there.
+    function starterArrow(g){
+      if(!g||stage.classList.contains('lowered')||$('home-invasion')?.classList.contains('visible')||ringingContact||incomingCall)return null;
+      const home={target:'#home-hit',text:g.text+' Press the Home button first.'};
+      if(g.call)return herCall?{target:'#call-bubble.visible .call-bubble-buttons',text:g.text}:null;
+      if(herCall)return null;
+      if(g.chat){
+        if(currentApp==='hinge'){
+          if(hingeView==='thread'&&activeChatId===g.chat)return g.choice?{target:`[data-hinge-topic="${g.choice}"]`,text:g.text}:null;
+          if(hingeView==='chats')return {target:`[data-chat-open="${g.chat}"]`,text:g.text};
+          return {target:'[data-hinge-tab="chats"]',text:g.text};
+        }
+        return currentApp?home:{target:'[data-app="hinge"]',text:g.text};
+      }
+      if(g.dial){
+        if(activeGenericCall)return activeGenericCall.id===g.service?{target:'[data-service-topic^="bf:"], #call-bubble.visible [data-call-next]',text:g.text}:null;
+        if(activeCallId)return null;
+        if(g.dial==='911'){
+          if(currentApp==='calls')return dialledNumber==='911'?{target:'#dial-call',text:'Now press the green button.'}:{target:'.dial-keys',text:'Dial 911 on the keypad.'};
+          return currentApp?home:{target:'[data-app="calls"]',text:g.text};
+        }
+        if(currentApp==='calls')return dialledNumber===g.dial?{target:'#dial-call',text:'Press the green button to ring him.'}:home;
+        if(currentApp==='notes')return {target:`[data-note-dial="${g.dial}"]`,text:'Tap Tanner to ring him.'};
+        return currentApp?home:{target:'[data-app="notes"]',text:g.text};
+      }
+      if(g.bed)return currentApp?home:{target:'#day-button',text:g.text};
+      if(g.swipe&&currentApp==='hinge')return {target:'[data-hinge-tab="discover"]',text:g.text};
+      if(g.app)return currentApp?(currentApp===g.app?null:home):{target:`[data-app="${g.app}"]`,text:g.text};
+      return null;
+    }
+    function bfCoach(){return starterArrow(bfGoal());}
+    // ---- Questions on the spot (Chris, 7 November 2026): someone in front of you asks, you answer, every answer
+    // counts. Detective Graves at your door, a congressman on a stage, a guru with a headset. spec: intro steps,
+    // questions [{image,ask,answers:[{label,bad,tag,reply,end}]}], doubt (a picture for a bad answer), and either
+    // onDone(d) or judge(bad) with onCaught/onCleared. An answer with end stops there: onEnd(end,d).
+    var doorNow=null;
+    function doorTalk(spec){
+      doorNow={spec,i:0,bad:0,tags:[],picks:[]};
+      playScene(spec.intro,()=>doorAsk(),{keep:true,gap:spec.gap||3000});
+    }
+    function doorShow(image,caption){
+      const overlay=$('home-invasion'),img=$('invasion-image');
+      overlay.classList.add('visible');overlay.classList.remove('blackout');
+      img.onerror=()=>{img.onerror=null;img.src=assetUrl(invasionFrame('room-open'));};img.src=assetUrl(image);
+      $('invasion-caption').textContent=caption;
+      overlay.classList.remove('jolt');void overlay.offsetWidth;overlay.classList.add('jolt');
+    }
+    function doorAsk(){
+      const d=doorNow;if(!d)return;
+      const q=d.spec.questions[d.i];
+      doorShow(q.image,q.ask);
+      const box=$('qte');box.className='qte choices door';box.hidden=false;qteOpen=true;
+      box.innerHTML=q.answers.map((a,k)=>`<button data-door-answer="${k}"${a.end?' class="risky"':''}>${esc(a.label)}</button>`).join('');
+      playUiSound(260);
+    }
+    function doorAnswer(k){
+      const d=doorNow;if(!d)return;
+      const q=d.spec.questions[d.i],a=q?.answers[Number(k)];if(!a)return;
+      closeQte();
+      d.bad+=a.bad||0;d.i++;if(a.tag)d.tags.push(a.tag);d.picks.push(Number(k));
+      doorShow((a.bad||a.end)&&d.spec.doubt?d.spec.doubt:q.image,a.reply);
+      playUiSound(a.bad||a.end?150:420);
+      invasionTimers.push(window.setTimeout(()=>{
+        if(doorNow!==d)return;
+        if(a.end){doorNow=null;d.spec.onEnd(a.end,d);return;}
+        if(d.i<d.spec.questions.length){doorAsk();return;}
+        doorNow=null;
+        if(d.spec.onDone){d.spec.onDone(d);return;}
+        (d.spec.judge?d.spec.judge(d.bad):d.bad>=2)?d.spec.onCaught(d.bad):d.spec.onCleared(d.bad);
+      },d.spec.gap||3000));
+    }
+    function bfGraves(){
+      const b=bfState(),G=BF.graves;
+      b.visited=world.day;saveRun(true);
+      doorTalk({
+        intro:G.intro.map(bfStep),doubt:BF_ART+G.doubt,
+        questions:G.questions.map(q=>({image:BF_ART+q.image,ask:bfFill(q.ask,b),answers:q.answers.map(a=>({...a,label:bfFill(a.label,b),reply:bfFill(a.reply,b)}))})),
+        judge:bad=>bad>=2,
+        onCaught:()=>{b.caught=true;b.hospital='graves';saveRun(true);clearInvasion();starterHospital(G.caught.map(bfStep),()=>showGameNotice(G.caughtAfter));},
+        onCleared:()=>{b.cleared=true;saveRun(true);clearInvasion();playScene(G.cleared.map(bfStep),()=>{setLowered(false);showGameNotice(G.clearedNotice);saveRun(true);},{gap:3200});}
+      });
+    }
+
+    // ===== The Town Hall and Alpha Sunfall: she rings and invites you =====
+    // Day 2 your guide rings you (the tour teaches you to answer). The Town Hall: she interns for Congressman Dale
+    // Pruitt, who needs a real lonely man on stage for his town hall on the male loneliness epidemic. Alpha Sunfall:
+    // her cousin bailed and she has two tickets to Chadwick Stone's confidence seminar. Say no and she goes without
+    // you; say yes and you end up on stage answering questions, and your answers decide how it ends: whether you keep
+    // her, whether you end up on a billboard, or whether the run ends there. Pruitt and Stone win whatever you do.
+    var ST={
+      townhall:{
+        dir:'townhall',
+        invite:{
+          open:'Okay, weird favor. You know my uncle is Congressman Dale Pruitt? He’s doing a town hall tonight at the high school gym. On the male loneliness epidemic.',
+          what:{label:'Ask what she needs you for',you:'Okay. What do you need me for?',her:'He needs a real lonely guy for the Q and A. I told him about you! In a nice way. Mostly. There’s free pizza.'},
+          yes:{label:'Say you’ll be there',you:'Sure. I’ll be there.',her:'Yay! Wear a collared shirt. And maybe don’t mention you live alone. Actually, do. That’s the whole point.'},
+          no:{label:'Say you’re busy tonight',you:'I can’t tonight, sorry. I’m busy.',her:'You’re not busy. I can see you’re online. Fine. I’ll find another lonely guy. There are a LOT of them.'},
+          text:'Okay, weird favor. My uncle, Congressman Pruitt, needs a real lonely guy for his town hall tonight at the high school. I told him about you. In a nice way. Come? There’s pizza.'
+        },
+        teaser:{id:'st_townhall_teaser',section:'Politics',title:'PRUITT TO HOLD TOWN HALL ON MALE LONELINESS',summary:'The congressman says lonely young men are the crisis nobody will talk about.',body:'Congressman Dale Pruitt holds a televised town hall in the Sunfall High School gym tonight on what he calls the male loneliness epidemic. He promises real solutions and a real lonely man. His Pruitt Family Act would pay married men a bonus. Pizza will be served.',image:'assets/quests/townhall/gym-arrive.png',fallbackImage:'halloran_debate'},
+        intro:[
+          {image:'gym-arrive.png',caption:'That evening. The Sunfall High School gym. Four hundred folding chairs, three TV cameras, and one empty stool on the stage.'},
+          {image:'stage-spot.png',caption:'Congressman Pruitt: Folks, give a warm Sunfall welcome to our special guest. Come on up, son. Don’t be shy. That’s the problem, isn’t it? Shyness.'},
+          {image:'slide-pie.png',caption:'He clicks to a pie chart of your screen time. The biggest slice is Hinge. The second biggest slice is also Hinge.'},
+          {image:'slide-prompts.png',caption:'Then your dating profile, ten feet tall. He reads your prompts out loud. Slowly.'}
+        ],
+        doubt:'stage-sweat.png',
+        questions:[
+          {image:'stage-spot.png',ask:'Son, when did you last touch a woman? Hands count.',answers:[
+            {label:'My mom hugged me at Easter.',tag:'sad',reply:'His mom, folks. At Easter. Let’s hear it for his mom.'},
+            {label:'I’d rather not say.',tag:'safe',reply:'He’d rather not say. That’s a no, folks. That is a no.'},
+            {label:'Does a haircut count?',tag:'sad',reply:'A haircut. Write that down, Linda. A HAIRCUT.'}]},
+          {image:'stage-spot.png',ask:'What did you do last night, son? Be honest. America is watching.',answers:[
+            {label:'Talked to a woman on the phone. For twelve minutes.',tag:'safe',reply:'Twelve minutes! Folks, that’s progress. Let’s give him a hand.'},
+            {label:'Watched other people date on TV.',tag:'sad',reply:'He watches other people date. On TV. Folks, THIS is the epidemic.'},
+            {label:'Sorted my sock drawer by mood.',tag:'sad',reply:'By mood. I’ll be honest with you, son. I don’t know what that means, and neither does God.'}]},
+          {image:'stage-spot.png',ask:'Last one. If the government paid you to get married, would you?',answers:[
+            {label:'Yes. Immediately. To anyone.',tag:'sad',reply:'To ANYONE. You hear that, Washington? That’s a mandate.'},
+            {label:'I think love should be free.',tag:'safe',reply:'Nothing’s free, son. That’s why you’re alone. But I like your spirit.'},
+            {label:'Grab the mic and ask about his own divorce',end:'tackle',reply:'You grab the mic. Congressman, is it true your wife left you for your speechwriter? The gym goes silent. Somebody in an earpiece starts running.'}]}
+        ],
+        fatal:{
+          tackle:{steps:[{image:'tackle.png',caption:'Three men in earpieces take you down live on three channels. Your head hits the stage. The pizza goes everywhere.'},{image:'tackle.png',caption:'The congressman asks the crowd to pray for you. Then he asks them to vote.'}],branch:'tackled'}
+        },
+        // Two or more sad answers and he loves you: you're his poster boy, and she can't be seen with you.
+        // Otherwise you were forgettable: he picks a sadder man from the crowd, and she likes you more for it.
+        branch:d=>d.tags.filter(t=>t==='sad').length>=2?'poster':'forgettable',
+        outro:{
+          poster:[{image:'paddles.png',caption:'Then the vote. Marriage material: green paddle for yes, red for no. Three for. Four hundred against.'},{image:'pruitt-hug.png',caption:'Pruitt throws an arm around you for the cameras. This young man is why I’m running again. Flash. Flash. Flash.'}],
+          forgettable:[{image:'paddles.png',caption:'Then the vote. Marriage material: green paddle for yes, red for no. Forty for. Three hundred and sixty against. The congressman looks disappointed in you.'},{image:'pruitt-hug.png',caption:'He picks a sadder man out of the crowd for the photo. You stand at the edge of the stage holding a slice of pizza.'}]
+        },
+        outroNotice:'Go home. Go to bed. It’s on every channel.',
+        after:{
+          poster:{msgs:['You were AMAZING. Like, amazingly sad. The congressman is so happy.','He’s putting you on a billboard for the bill. By the freeway.','Okay, so, my uncle says I can’t date the face of the loneliness epidemic. It’s optics. You get it.','Good luck though!! Truly.'],lose:true,
+            news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER LIVE DEMONSTRATION',summary:'Polls jump eleven points after the congressman brings a lonely man on stage.',body:'Congressman Dale Pruitt’s Sunfall town hall drew the biggest television audience of his career after he brought a local lonely man on stage and put his screen time on the big screen. The Pruitt Family Act, which pays married men a bonus and lonely men nothing, now leads in every poll. The man has not commented. Nobody asked him.',image:'assets/quests/townhall/billboard.png',fallbackImage:'halloran_profile'},
+            scene:[{image:'billboard.png',caption:'By the freeway, your face, forty feet wide, for the Pruitt Family Act. Traffic slows down to look.'}]},
+          forgettable:{msgs:['Hey. You were sweet up there. Normal. Honestly, refreshing.','My uncle used the other guy for the billboard. Poor man.','Want to get a coffee sometime? Not a political one.'],lose:false,
+            news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER TOWN HALL',summary:'Polls jump eleven points after the congressman puts a lonely man on a billboard.',body:'Congressman Dale Pruitt’s Sunfall town hall drew the biggest television audience of his career. A volunteer from the crowd, who said he had not spoken to a woman since the spring, is now the face of the Pruitt Family Act on a billboard by the freeway. A second man on stage was described by the congressman as a disappointment.',image:'assets/quests/townhall/billboard-other.png',fallbackImage:'halloran_profile'},
+            scene:[{image:'billboard-other.png',caption:'By the freeway, another man’s face, forty feet wide. You got away with it. Mostly.'}]},
+          tackled:{msgs:['You’re all over the news. My uncle is calling you a domestic terrorist.','His poll numbers went up fourteen points. He sent you a fruit basket. It’s a thank-you.','Please don’t contact me. Ever.'],lose:true,
+            news:{id:'st_townhall_after',section:'Front page',title:'CONGRESSMAN SURVIVES ATTACK AT TOWN HALL',summary:'Security tackled a man who rushed the microphone. Pruitt’s polls jumped fourteen points.',body:'Congressman Dale Pruitt’s town hall on male loneliness ended in chaos when a local man grabbed the microphone and was tackled by security on live television. The man was treated at Sunfall General and released. Pruitt called it an attack on his family, asked the crowd to pray, and saw his poll numbers jump fourteen points overnight.',image:'assets/quests/townhall/tackle.png',fallbackImage:'halloran_debate'},
+            scene:[]},
+          declined:{msgs:['He found another guy. He cried on stage. It was beautiful television.','I told my uncle you’d come. I looked like an idiot.','Don’t message me again.'],lose:true,
+            news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER TOWN HALL',summary:'A lonely man wept on stage. The congressman’s polls jumped eleven points.',body:'Congressman Dale Pruitt brought a lonely man on stage at his Sunfall town hall, and the man wept for most of it. The Pruitt Family Act now leads in every poll. The congressman’s niece says the original guest did not show up.',image:'assets/quests/townhall/billboard-other.png',fallbackImage:'halloran_profile'},
+            scene:[]}
+        }
+      },
+      alpha:{
+        dir:'alpha',
+        invite:{
+          open:'Okay, random. My cousin bailed and I have two tickets to Chadwick Stone tonight. Alpha Sunfall? The confidence seminar guy?',
+          what:{label:'Ask why she wants to go',you:'Why do you want to go to that?',her:'I want to see if it’s a real thing or a cult. Probably both. Come with me? I’ll buy the protein shakes.'},
+          yes:{label:'Say you’ll come',you:'Sure. I’m in.',her:'Yes! Wear something tight. Apparently they check.'},
+          no:{label:'Say it sounds awful',you:'That sounds awful. Hard pass.',her:'Okay, wow. Fine. I’ll go by myself. Maybe I’ll learn something.'},
+          text:'Okay, random. My cousin bailed and I have two tickets to Chadwick Stone tonight. The confidence seminar guy? Come with me?'
+        },
+        teaser:{id:'st_alpha_teaser',section:'Business',title:'ALPHA SUNFALL SELLS OUT CONVENTION CENTER',summary:'Chadwick Stone brings his confidence seminar to town tonight.',body:'Self-made millionaire and confidence coach Chadwick Stone brings Alpha Sunfall to the Sunfall Convention Center tonight. Three hundred tickets sold out in an hour. Stone says the modern man has been softened by society, oat milk and dating apps. Women attend free.',image:'assets/quests/alpha/hall-arrive.png',fallbackImage:'local_ad'},
+        intro:[
+          {image:'hall-arrive.png',caption:'That evening. The Sunfall Convention Center. Three hundred men in tight T-shirts. Lasers. A smoke machine. She is the only woman in your row.'},
+          {image:'chadwick-stage.png',caption:'Chadwick Stone: I need a volunteer. You. In the polo. Everybody, look at this man. THIS is what we are fighting.'}
+        ],
+        doubt:'stage-sweat.png',
+        questions:[
+          {image:'chadwick-stage.png',ask:'Get up here, buddy. Don’t make me come and get you.',answers:[
+            {label:'Go up on stage',reply:'You go up. Three hundred men start a slow clap. It is not friendly.'},
+            {label:'Take her hand and walk out',end:'walk',reply:'You stand up, take her hand and walk out. Chadwick: Look at him RUN, gentlemen. That is a man who has never won anything.'},
+            {label:'Go up and take a swing at him',end:'swing',reply:'You go up, and you swing. Chadwick catches your fist without looking at it. Gentlemen, he says, watch closely.'}]},
+          {image:'pushups.png',ask:'Give me twenty push-ups. Three hundred men count. Then show the room your best opening line.',answers:[
+            {label:'Hey. How’s your day going?',tag:'sad',reply:'You do four push-ups. How’s your day going. Gentlemen, that is a man asking for a job interview.'},
+            {label:'Hi.',tag:'safe',reply:'You do six push-ups. Hi. Short. Confident. Wrong, but confident.'},
+            {label:'Do you like dogs? I have a dog.',tag:'sad',reply:'You do three push-ups. Does he have a dog? Look at him. He does not have a dog.'}]},
+          {image:'phone-read.png',ask:'He takes your phone and reads your texts to her on the big screen, in a baby voice. So, buddy. When she says she’s busy, what do you do?',answers:[
+            {label:'Wait a few days and text her again.',tag:'sad',reply:'Gentlemen, write this down. This is how you lose.'},
+            {label:'Respect it and move on.',tag:'safe',reply:'Respect. Respect is what you give a parking ticket.'},
+            {label:'Send a voice memo about my feelings.',tag:'sad',reply:'A VOICE MEMO. Security, check this man for a heartbeat.'}]},
+          {image:'chadwick-stage.png',ask:'Last one. Who is the most alpha man in this room?',answers:[
+            {label:'You are, Chadwick.',tag:'safe',reply:'Correct. See? He’s learning. Three hundred men cheer for you, a little.'},
+            {label:'Me.',tag:'sad',reply:'Three hundred men laugh for a full minute. Chadwick lets them.'},
+            {label:'Her.',tag:'sad',reply:'Ha! Somebody get this man a protein shake and a therapist.'}]}
+        ],
+        fatal:{
+          swing:{steps:[{image:'chokehold.png',caption:'He puts you in a chokehold for the cameras, explaining the technique as he goes. Three hundred men take notes.'},{image:'lights-out.png',caption:'Gentlemen, he says, this is what happens when a beta acts on emotion. You do not hear the applause.'}],branch:'choked'}
+        },
+        // The fewer sad answers, the more he respects you: he hires you to tour as his before picture. Either way she leaves with him.
+        branch:d=>d.picks[0]===0?(d.tags.filter(t=>t==='safe').length>=2?'hired':'tshirt'):'walked',
+        outro:{
+          tshirt:[{image:'her-stage.png',caption:'Then Chadwick points at her. You, beautiful. Come up here. She looks at you. She goes.'},{image:'her-stage.png',caption:'She leaves with him through the stage door. You walk home. Your texts are still on the big screen.'}],
+          hired:[{image:'her-stage.png',caption:'Then Chadwick points at her. You, beautiful. Come up here. She looks at you. She goes.'},{image:'chadwick-card.png',caption:'On the way out he hands you a business card. You’re a natural before picture, buddy. Come on tour. It pays.'}],
+          walked:[{image:'walk-out.png',caption:'You walk out with her through the lobby, three hundred men booing behind you. She is laughing so hard she can’t breathe.'}]
+        },
+        outroNotice:'Go home. Go to bed. Your phone will not stop buzzing.',
+        after:{
+          tshirt:{msgs:['Okay so. Don’t be mad.','Chadwick and I are engaged. It was very fast. He says hesitation is for betas.','He wants you to be an usher. He says it would be good for you.','Also they’re selling T-shirts with your face on them. I got you a medium.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says the night proved his method works.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer from the audience showed, in Stone’s words, exactly what not to be. Stone left with a date. The volunteer left alone. Stone’s online course sold eleven thousand copies overnight, and a T-shirt with the volunteer’s face on it sold out.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
+            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'},{image:'merch.png',caption:'Then one of the merch table. Your face, on a T-shirt, under a big red cross. Sold out.'}]},
+          hired:{msgs:['Okay so. Don’t be mad.','Chadwick and I are engaged. It was very fast. He says hesitation is for betas.','He says you start the tour on the bus next week. You’re the before. He’s the after.','You’ll be great at it. You’re a natural.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone hires a local man as his before picture.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, and he has hired the volunteer who joined him on stage to tour with him as what he calls the before picture. Stone left with a date. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
+            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'},{image:'tour-poster.png',caption:'Then the tour poster. Chadwick on the right, glowing. You on the left, in gray, slumped. The tour is called Before and After.'}]},
+          choked:{msgs:['Chadwick visited you in the hospital. For the cameras.','Then he took me to dinner. We’re engaged. It was very fast. He says hesitation is for betas.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'A man who took a swing at Chadwick Stone woke up in the hospital. Stone’s course sold out.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer took a swing at him on stage and was put to sleep in a chokehold that Stone explained step by step. The man was treated at Sunfall General and released. Stone visited him there with a camera crew. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/chokehold.png',fallbackImage:'local_ad'},
+            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'}]},
+          walked:{msgs:['Thank you for getting me out of there. Seriously.','Also, um. You’re trending. The clip of you leaving. Chadwick put a sad violin on it.','I don’t care. I had fun. Same time next week? Somewhere with no lasers.'],lose:false,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says a man who walked out proved his point.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. A clip of a man walking out mid-session, which Stone set to a sad violin, has been watched two million times. Stone says the man proved everything he teaches. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
+            scene:[{image:'merch.png',caption:'The clip of you walking out, set to a sad violin, is on every phone in Sunfall by morning. Chadwick sells it as a lesson.'}]},
+          declined:{msgs:['So I went by myself.','Chadwick picked me out of the crowd. We’re engaged. It was very fast. He says hesitation is for betas.','You should have come. He did a whole bit about men who stay home.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+            news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone proposes on stage to a woman he met that night.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. He proposed on stage to a woman from the audience an hour after meeting her, and she said yes. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
+            scene:[{image:'engaged.png',caption:'She sends a photo: a ring the size of a grape, on a yacht, and Chadwick’s hand on hers.'}]}
+        }
+      }
+    };
+    function stState(){
+      if(!world)return null;
+      if(!world.st||typeof world.st!=='object'||Array.isArray(world.st))world.st={stage:'none'};
+      return world.st;
+    }
+    const stKit=()=>ST[world?.st?.id]||null;
+    const stStep=()=>sceneOf(stKit().dir);
+    function stMaybeStart(){
+      const id=starterId();if(!starterReady()||!ST[id])return;
+      const s=stState();if(s.stage!=='none')return;
+      Object.assign(s,{stage:'ready',id,her:world.guide,readyDay:world.day});
+      saveRun(true);
+    }
+    function stNewDay(){
+      const s=world?.st,K=stKit();if(!s||!K)return;
+      if(s.stage==='going'&&world.day>s.inviteDay){s.stage='declined';s.branch='declined';s.eventDay=world.day-1;} // you said yes and never went (a reload): you stood her up
+      if(s.stage==='event'&&!s.branch)s.branch=K.branch({tags:[],picks:[0]}); // the evening was cut short: the quiet version
+      if(s.stage==='ready'&&world.day>s.readyDay){s.stage='invite';s.inviteDay=world.day;s.rang=false;queueNews(K.teaser,world.day);}
+      else if(['event','declined'].includes(s.stage)&&world.day>s.eventDay){
+        const A=K.after[s.branch];if(!A){s.stage='done';return;}
+        s.stage='after';s.scene='after';
+        infamyStart({poster:'poster',tackled:'poster',tshirt:'stage',hired:'stage',choked:'stage',walked:'walked'}[s.branch]);
+        queueNews(A.news,world.day);
+        starterHerSays(s.her,A.msgs,x=>x,A.lose);
+      }
+    }
+    function stAfterDayStart(){
+      const s=world?.st,K=stKit();if(!s||!K)return false;
+      if(s.stage==='invite'&&world.day===s.inviteDay&&!s.rang){stRingSoon(12000);return false;}
+      if(s.scene!=='after')return false;
+      s.scene=null;
+      const A=K.after[s.branch];
+      const finish=()=>{s.stage='done';if(A.lose){const t=hingeThreads.get(s.her);if(t)t.blocked=true;s.lost=true;showGameNotice('She blocked you.');}else showGameNotice(`${starterHerName(s.her)} messaged you.`);setLowered(false);saveRun(true);};
+      if(!A.scene.length){finish();return false;}
+      playScene(A.scene.map(stStep()),finish,{gap:3400});
+      return true;
+    }
+    // She rings: as soon as nothing else is happening.
+    function stRingSoon(ms){
+      const s=world?.st;
+      window.setTimeout(()=>{
+        if(world?.st!==s||s.stage!=='invite'||s.rang)return;
+        if(callBusy()||stage.classList.contains('lowered')){if((s.tries=(s.tries||0)+1)<40)stRingSoon(5000);return;}
+        s.rang=true;saveRun(true);startIncomingCall(s.her);
+      },ms);
+    }
+    function stInviteCall(id){
+      const s=world?.st,K=stKit();if(!K||s.stage!=='invite'||id!==s.her)return false;
+      herCall={id,kind:'invite',step:'open',said:K.invite.open};
+      hingeThreads.get(id)?.callLog.push({who:'her',text:herCall.said});
+      renderCalls();
+      return true;
+    }
+    function stCallChoices(call){
+      const K=stKit();if(!K)return [];
+      return [...(call.explained?[]:[{id:'inv:what',label:K.invite.what.label}]),{id:'inv:yes',label:K.invite.yes.label},{id:'inv:no',label:K.invite.no.label}];
+    }
+    function stChooseCall(choice,call,thread){
+      const s=stState(),K=stKit(),you=text=>thread.callLog.push({who:'you',text}),say=text=>{call.said=text;thread.callLog.push({who:'her',text});};
+      if(choice==='inv:what'){you(K.invite.what.you);say(K.invite.what.her);call.explained=true;renderCalls();return;}
+      const yes=choice==='inv:yes';
+      you(yes?K.invite.yes.you:K.invite.no.you);say(yes?K.invite.yes.her:K.invite.no.her);
+      stAnswer(yes);
+      call.step='bye';renderCalls();
+    }
+    function stAnswer(yes){
+      const s=stState();
+      if(yes){s.stage='going';stEventSoon(4000);}
+      else{s.stage='declined';s.branch='declined';s.eventDay=world.day;}
+      saveRun(true);
+    }
+    // You missed her call: she texts it instead.
+    function stMissed(id){
+      const s=world?.st,K=stKit();if(!K||s.stage!=='invite'||id!==s.her||s.texted)return false;
+      s.texted=true;starterHerSays(s.her,[K.invite.text]);saveRun(true);return true;
+    }
+    function stChoices(thread){
+      const s=world?.st,K=stKit();if(!K||thread?.id!==s.her||thread.blocked)return [];
+      if(s.stage==='invite'&&s.texted)return [['st:yes',K.invite.yes.label],['st:no',K.invite.no.label]];
+      return [];
+    }
+    function chooseStChat(id,thread,profile){
+      const K=stKit();if(!stChoices(thread).some(([key])=>key===id))return;
+      const yes=id==='st:yes';
+      thread.log.push({who:'you',text:yes?K.invite.yes.you:K.invite.no.you});
+      return fionnReply(thread,profile,[{text:yes?K.invite.yes.her:K.invite.no.her}],()=>stAnswer(yes));
+    }
+    function stEventSoon(ms){
+      const s=world?.st;
+      window.setTimeout(()=>{
+        if(world?.st!==s||s.stage!=='going')return;
+        if(herCall||incomingCall||ringingContact||activeGenericCall||activeCallId||$('home-invasion')?.classList.contains('visible')){stEventSoon(2500);return;}
+        stEvent();
+      },ms);
+    }
+    function stEvent(){
+      const s=stState(),K=stKit(),step=stStep(),art=p=>'assets/quests/'+K.dir+'/'+p;
+      s.stage='event';s.eventDay=world.day;saveRun(true);
+      if(currentApp)returnHome();
+      doorTalk({
+        intro:K.intro.map(step),doubt:art(K.doubt),gap:3200,
+        questions:K.questions.map(q=>({image:art(q.image),ask:q.ask,answers:q.answers})),
+        onEnd:(end,d)=>{
+          const F=K.fatal[end];clearInvasion();
+          if(F){s.fatal=end;s.branch=F.branch;s.hospital=end;saveRun(true);starterHospital(F.steps.map(step),()=>{});return;} // you live, and you lose her
+          stOutro(K.branch(d));
+        },
+        onDone:d=>{clearInvasion();stOutro(K.branch(d));}
+      });
+    }
+    function stOutro(branch){
+      const s=stState(),K=stKit();
+      s.branch=branch;saveRun(true);
+      playScene((K.outro[branch]||[]).map(stStep()),()=>{setLowered(false);showGameNotice(K.outroNotice);saveRun(true);},{gap:3400});
+    }
+    function stGoal(){
+      const s=world?.st;if(!s||!stKit()||selectedDifficulty!=='normie')return null;
+      if(herCall?.kind==='invite')return {call:true,text:'She’s inviting you somewhere. Pick what to say. What you choose matters.'};
+      if(s.stage==='invite'&&s.texted)return {chat:s.her,choice:'st:yes',text:'She invited you out. Answer her.'};
+      if(['event','declined'].includes(s.stage)&&world.day===s.eventDay)return {bed:true,text:stKit().outroNotice};
+      if(s.stage==='done'&&!s.swiped){
+        if(s.lost){
+          if(currentApp==='hinge'&&hingeView==='discover'){s.swiped=true;saveRun(true);return null;}
+          return {app:'hinge',swipe:true,text:'She blocked you. That’s dating in Sunfall. Swipe on. There are two hundred more women.'};
+        }
+        if(currentApp==='hinge'&&hingeView==='thread'&&activeChatId===s.her){s.swiped=true;saveRun(true);return null;}
+        return {chat:s.her,text:'She still likes you. Open your chat with her and keep talking.'};
+      }
+      return null;
+    }
+    function stCoach(){return starterArrow(stGoal());}
+
     // ===== Local hero (Chris, 6 November 2026) =====
     // Finish a side quest the right way (not a quest that wins the game) and, where it makes sense, the Sunfall Daily
     // runs a story about you the next morning. For three to five days the women of Sunfall know who you are: some
@@ -6737,6 +7384,8 @@
       if(event.target.closest?.('[data-hal-lower]')){halSteadyEnd('lower');return;}
       const halPlace=event.target.closest?.('[data-hal-hide]');
       if(halPlace){halHide(halPlace.dataset.halHide);return;}
+      const doorPick=event.target.closest?.('[data-door-answer]'); // someone at your door, asking questions
+      if(doorPick){doorAnswer(doorPick.dataset.doorAnswer);return;}
       const place=event.target.closest?.('[data-qte-hide]');
       if(place)fionnHide(place.dataset.qteHide);
     };
@@ -10514,6 +11163,7 @@
       ignoreNewDay(); // matches you never talk to nudge you, then get angry and unmatch you
       spurnNewDay(); // the women whose calls you kept declining
       fameNewDay(); // you're in the paper: women who know you say so first (before her other news)
+      starterNewDay(); // the Normie's starting quest
       arcsNewDay(); // her own story: she brings it up, and your advice plays out
       talesNewDay(); // her story: ten women with storylines of their own
       questUnlock(); // a quest that wasn't picked arrives after five quiet days
@@ -10644,6 +11294,7 @@
       const id=incomingCall.id;
       stopRinging();
       if(isStranger(id)){strangerMissed(id);if(currentApp==='calls')renderCalls();return;} // they leave a message
+      if(stMissed(id)){if(currentApp==='calls')renderCalls();return;} // the starting quest: she texts the invitation instead
       callerMissed(id); // Mogger: she noticed
       const thread=hingeThreads.get(id),profile=hingeProfile(id),kit=talkKit();
       if(thread&&profile){
@@ -10691,6 +11342,7 @@
       stopRinging();
       if(isStranger(id)){herCall=strangerAnswer(id);saveRun(true);renderCalls();return;} // Theon, or her dad
       if(!profile||!kit)return renderCalls();
+      if(stInviteCall(id))return; // the starting quest: she invites you out
       const sister=profile.factionId==='sisters_of_mercy',wasSpurned=spurnForgiven(id); // you picked up
       {const picked=hingeThreads.get(id);if(picked)picked.calledDay=world.day;} // a call counts as talking to her
       if(laviniaCallingToday(id)){ // Truecel: Lavinia, then Brad
@@ -10744,6 +11396,7 @@
       const kit=talkKit().calls,call=herCall;
       if(call.step==='bye')return [{id:'hangup',label:'☎ Hang up'}];
       if(call.stranger)return strangerChoices(call);
+      if(call.kind==='invite')return stCallChoices(call); // the starting quest
       if(call.kind==='lavinia')return [{id:'l:listen',label:'Tell her you’re listening'},{id:'l:like',label:'Tell her you like her'},{id:'l:laugh',label:'Tell her something stupid'}];
       if(call.kind==='brad')return [{id:'b:why',label:'Ask her why'},{id:'b:happy',label:'Say you’re happy for her'},{id:'b:hang',label:'Hang up'}];
       if(call.kind==='caller')return [{id:'c:calm',label:'Tell her you’re here, and to breathe'},{id:'c:promise',label:'Promise her it’s only her'},{id:'c:over',label:'Tell her this has to stop'}];
@@ -10784,6 +11437,7 @@
       if(!profile||!thread){endHerCall();return;}
       if(choice==='hangup'){endHerCall();return;}
       if(!herCallChoices().some(item=>item.id===choice))return;
+      if(call.kind==='invite'){stChooseCall(choice,call,thread);return;} // the starting quest
       const faction=profile.factionId;
       const say=text=>{call.said=text;thread.callLog.push({who:'her',text});};
       const you=text=>thread.callLog.push({who:'you',text});
@@ -11322,6 +11976,7 @@
       {id:'back',core:1,nav:1,target:'#home-hit',text:'Nice. Press the Home button to get back to your apps.',when:()=>!!currentApp&&!onGuideCall()&&!herCall&&!activeCallId&&coachNextCore()==='bed'&&coachYouSpoke()&&currentApp!=='hinge',done:()=>false}, // a way back out: shown whenever the next step is on the home screen
       {id:'bed',core:1,target:'#day-button',text:'Done for today? Tap the day up here to go to bed. Tomorrow brings new matches and the paper.',when:()=>coachHome()&&coachYouSpoke()&&world.day===1&&(!guideNumber()||!!world.guideCalled),done:()=>world.day>1},
       {id:'paper',core:1,target:'[data-app="news"]',text:'The Sunfall Daily comes every morning. Read it: everything in it ends up being useful.',when:()=>coachHome()&&world.day>=2,done:()=>currentApp==='news'},
+      {id:'bf',core:1,nav:1,target:()=>starterCoach()?.target,text:()=>starterCoach()?.text||'',when:()=>!!starterCoach(),done:()=>false}, // the starting quest: wherever it wants you next
       // Each class's own guided steps (Chris, 5 November 2026): no basics again, only what that class does differently.
       // They show when you say Yes to the class's tutorial, once each, on any day.
       {id:'lx-down',cls:'looksmaxxer',target:'#home-hit',text:'Press Home again to put the phone down. Your car keys are on the table by your bed.',when:()=>coachHome()&&walletOn(),done:()=>stage.classList.contains('lowered')},
@@ -11356,6 +12011,7 @@
       if(window.MATCH_NO_TUTORIAL_ASK||window.MATCH_NO_COACH||!world||!$('tut-ask').hidden||!$('tutorial').hidden||$('fatal-overlay')?.classList.contains('visible')||$('home-invasion')?.classList.contains('visible')){el.hidden=true;coachNow=null;return;}
       const c=coachState();let changed=false;
       if(onGuideCall())world.guideOnCall=true;else if(world.guideOnCall){world.guideOnCall=false;world.guideCalled=true;} // the call with your guide is over
+      starterMaybeStart(); // the Normie's starting quest
       const eligible=st=>!c.done[st.id]&&(st.cls?world.classTour===st.cls:st.core?c.on===true&&selectedDifficulty==='normie':c.on!==false); // a class's own steps: only after Yes to its tutorial; the basics only in a Normie game
       if(world.day>COACH_LAST_DAY)for(const st of COACH_STEPS)if(st.core&&eligible(st)){c.done[st.id]=world.day;changed=true;} // the tour's days are over
       for(let guard=0;guard<COACH_STEPS.length;guard++){const first=COACH_STEPS.find(st=>st.core&&!st.nav&&eligible(st));if(!first||!first.done())break;c.done[first.id]=world.day||1;changed=true;} // the tour's own steps finish in order: one you have already done is ticked off
@@ -11367,7 +12023,7 @@
       if(changed)saveProfile();
       if(!step||!target){el.hidden=true;coachNow=null;return;}
       delete coachMissing[step.id];
-      coachNow=step.id;coachPlace(target,step.text);
+      coachNow=step.id;coachPlace(target,typeof step.text==='function'?step.text():step.text);
     }
     function coachPlace(target,text){
       const el=$('coach'),box=stage.getBoundingClientRect(),scale=box.width/(stage.offsetWidth||box.width)||1,r=target.getBoundingClientRect();
@@ -14131,6 +14787,7 @@
       }
       {const a=armsState();if(a.pawnSeen&&a.pawnNumber)list.push({key:'service:pawn',name:'Sunfall Pawn',detail:'Guitars, gold, no questions',number:a.pawnNumber,portrait:'assets/contacts/pawn.png',fallback:'assets/icons/calls.png'});} // more ways to a gun
       {const f=fionnState();if(f.gunSeen&&f.gunNumber)list.push({key:'service:oakley',name:'Mrs. Oakley',detail:'From the classifieds',number:f.gunNumber,portrait:'assets/contacts/oakley.png',fallback:'assets/icons/calls.png'});} // Theon: the revolver
+      {const t=bfContact();if(t)list.push(t);} // the Boyfriend: Tanner's campaign line
       {const h=halState();if(h.knowsName&&h.officeNumber)list.push({key:'service:hal',name:'Halloran for Mayor',detail:'From the paper',number:h.officeNumber,portrait:'assets/contacts/halloran.png',fallback:'assets/icons/calls.png'});}
       if(selectedDifficulty==='looksmaxxer'&&world.cls?.lx){const l=world.cls.lx;for(const [k,ad] of Object.entries(LOOKS_ADS))if(l.seen[k]&&l.numbers[k])list.push({key:'service:lx-'+k,name:ad.name,detail:'From the classifieds',number:l.numbers[k],portrait:lxFace(k),fallback:'assets/icons/calls.png'});} // the Looksmaxxer
       {const g=glowState();if(g.seen&&g.number&&g.stage!=='none')list.push({key:'service:lpc',name:'LPC Laboratories',detail:'From the classifieds',number:g.number,portrait:'assets/contacts/lpc.png',fallback:'assets/icons/calls.png'});}
