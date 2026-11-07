@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="7dd9175279">
+<html lang="en" data-build="c11b4faa9a">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -812,11 +812,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=7dd9175279"></script>
+  <script src="chapel_at_midnight.js?v=c11b4faa9a"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=7dd9175279"></script>
+  <script src="marriage.js?v=c11b4faa9a"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=7dd9175279"></script>
+  <script src="quests/professor-vale.js?v=c11b4faa9a"></script>
 <style>html,body{width:100%;height:100%;overflow:hidden}.workbench>aside,.device-label,.preview-area>.tip{display:none!important}.workbench{display:block;width:100%;height:100%;min-height:0;max-width:none;margin:0;padding:0}.preview-area{width:100%;height:100%;padding:0}.stage-holder{border:0;border-radius:0;box-shadow:none}.phone-wrap{max-width:414px}</style></head>
 <body>
   <main class="workbench">
@@ -4616,9 +4616,10 @@
     function topicKnown(topic){return !topic.known||(topic.known==='br'?questOn('br')&&brKnown():topic.known==='nobr'?!(questOn('br')&&brKnown()):topic.known==='vale'?questOn('vale')&&valeKnown():topic.known==='dispute'?disputeKnown():String(topic.known).startsWith('story:')?(world?.seenArticles||[]).some(key=>key.endsWith(':'+String(topic.known).slice(6))):true);} // story:<id>: once you have read that story
     // ===== Starting quests (Chris, 7 November 2026): the Normie's first days on the guided tour =====
     // When the tour starts, the run rolls one of three, one in three each: The Boyfriend, The Town Hall, Alpha Sunfall.
-    // Each is guided by the tour's arrow, branches on what you choose, and has at least one choice that ends the run.
-    // Only you get humiliated: the powerful men in them come out on top whatever you do (except Tanner Voss, who
-    // you are allowed to ruin). Every picture lives in assets/quests/<quest>/; until one is drawn your room stands in.
+    // Each is guided by the tour's arrow and branches on what you choose. Each has a choice that would kill you or get
+    // you arrested anywhere else in the game; on the tour it ends in Sunfall General instead. Only you get humiliated:
+    // the powerful men come out on top whatever you do (except Tanner Voss, who you are allowed to ruin). Every picture
+    // lives in assets/quests/<quest>/; until one is drawn your room stands in. Captions stay up long enough to read.
     var STARTERS=['bf','townhall','alpha'];
     function starterId(){
       if(!world)return null;
@@ -4657,7 +4658,7 @@
     // put women off; walking out on Chadwick Stone with a woman on your arm does the opposite.
     var INFAMY={
       rally:{good:false,lines:['Wait. Are you the shirtless guy from the Tanner Voss rally?','My whole office has your selfie as their wallpaper. Sorry.','I saw the rally clip. You have a very honest torso.','Okay, I have to ask. Was that really you on the giant poster?']},
-      poster:{good:false,lines:['Are you the billboard guy? From the freeway?','My mom saw you on TV and said a prayer for you. Not a nice one.','So the government thinks you’re an epidemic. Cool, cool.','I drive past your face every day now. It’s a lot.']},
+      poster:{good:false,lines:['Are you the billboard guy? By the interstate?','My mom saw you on TV and said a prayer for you. Not a nice one.','So the government thinks you’re an epidemic. Cool, cool.','I drive past your face every day now. It’s a lot.']},
       stage:{good:false,lines:['Are you the guy who did four push-ups at Alpha Sunfall?','My brother bought the T-shirt. With your face on it. Sorry.','Chadwick Stone made a whole video about you. It has a sad violin.','Okay so I saw the seminar clip. Are you okay?']},
       walked:{good:true,lines:['You walked out on Chadwick Stone? Honestly, iconic.','My friends and I watched you leave that seminar like forty times. Legend.','The sad violin did not work on me. You looked free.','I need to know. Was walking out on Chadwick as good as it looked?']}
     };
@@ -4683,84 +4684,84 @@
     // Sunfall that luck runs out. After that the quest carries on another way, or ends lost.
     var HOSPITAL={
       first:[
-        {image:'wake.png',caption:'You wake up in Sunfall General. Everything hurts. Somebody is standing over you.'},
-        {image:'doctor.png',caption:'Dr. Bernadette Hale: Well. Look who’s awake. You are lucky. Very, very lucky. You’re going to be fine.'},
-        {image:'doctor.png',caption:'But listen to me, because I won’t say it twice. This is Sunfall. People here die from the choices they make. Every week. I sign the papers.'},
-        {image:'doctor.png',caption:'Next time you do something stupid, you will not wake up in my ward. Protect yourself. This town does not pull punches.'}
+        {image:'wake.png',caption:'You wake up in Sunfall General. Everything hurts.'},
+        {image:'doctor.png',caption:'Dr. Bernadette Hale: Look who’s awake. You’re lucky. You’re going to be fine.'},
+        {image:'doctor.png',caption:'Listen to me. This is Sunfall. People die here from the choices they make. Every week. I sign the papers.'},
+        {image:'doctor.png',caption:'Next time you won’t wake up on my ward. Look after yourself. This town does not pull punches.'}
       ],
       again:[
         {image:'wake.png',caption:'You wake up in Sunfall General. Again.'},
-        {image:'doctor.png',caption:'Dr. Bernadette Hale: You again. I told you. I am running out of ways to say it. This is the last time you get lucky.'}
+        {image:'doctor.png',caption:'Dr. Hale: You again. I told you. There is no third time.'}
       ],
-      notice:'In Sunfall, your choices have consequences. From here on, death is real.'
+      notice:'In Sunfall, choices have consequences. From here on, death is real.'
     };
     function starterHospital(lead,after){
       const n=(world.hospital=(Number(world.hospital)||0)+1);
       const steps=[...lead,...(n===1?HOSPITAL.first:HOSPITAL.again).map(sceneOf('hospital'))];
-      playScene(steps,()=>{setLowered(false);showGameNotice(HOSPITAL.notice);after();saveRun(true);},{gap:3400});
+      playScene(steps,()=>{setLowered(false);showGameNotice(HOSPITAL.notice);after();saveRun(true);},{gap:3400,read:true});
     }
 
     // ===== The Boyfriend =====
     // Your guide has a boyfriend: Tanner Voss, a council candidate running on banning dating apps. Day 2 you wake up to
     // find he read your messages out at his rally. She wants him gone. Ring him: tell him to back off and he puts you
-    // on speaker at his fundraiser; challenge him to a fight and he kills you on a livestream. Then 911: tell Doreen
-    // the truth and you are arrested on the spot; tell her a lie and the raid plays out on the news, and the lie decides
-    // whether Detective Graves comes round later (never for a tiger, always for hostages). Day 3 you tell her it was
-    // you, and she's dating Brad now. If Graves comes, answer her badly and you're arrested.
+    // on speaker at his fundraiser; challenge him to a fight and he knocks you out on a livestream (hospital, then 911).
+    // Then 911: tell Doreen the truth and the police come round for a word, you panic, and you lose her; tell a lie and
+    // the raid plays out on Channel 4, and the lie decides whether Detective Graves comes round later. Day 3 you tell
+    // her it was you, and she's dating Brad now. If Graves comes, answer her badly and you bolt (hospital again).
     const BF_ART='assets/quests/boyfriend/';
     var BF={
-      confess:['Okay. Full disclosure, because I actually like you.','I have a boyfriend. Tanner. Tanner Voss. He’s running for city council. As a Democrat. He tells everyone that in the first minute.','His whole campaign is banning dating apps to protect women from men like, well. You. Decency First. He checks my phone every night.','He just saw our messages. He went very quiet and then he started writing a speech. I’m so sorry in advance.'],
-      rallyMsg:['I’m so sorry. He read our messages out at his rally. Into a microphone. To four hundred people.','He did voices. He did YOUR voice.','And he printed your shirtless picture the size of a garage door. People are making it their wallpaper.','I can’t do this anymore. If Tanner was out of the picture, I’d be all yours. Just saying.'],
+      confess:['Okay. Full disclosure, because I like you.','I have a boyfriend. Tanner Voss. He’s running for city council, as a Democrat. He tells you that within a minute of meeting you.','His whole campaign is banning dating apps to protect women. Decency First. He reads my phone every night, to protect me.','He just read ours. He went very quiet and started writing a speech. I’m sorry in advance.'],
+      rallyMsg:['I’m so sorry. He read our messages out at his rally last night. Into a microphone.','He did your voice. It wasn’t a good voice.','And he had your picture blown up the size of a garage door. Somebody is already selling it on a T-shirt.','I can’t do this anymore. If Tanner were out of the picture, I’d be yours. Just saying.'],
       rally:[
-        {image:'rally-podium.png',caption:'You wake up famous. Last night, at the Sunfall Democrats’ Decency First rally, Tanner Voss held up your shirtless mirror selfie. The size of a garage door.'},
+        {image:'rally-podium.png',caption:'You wake up famous. Last night, at the Sunfall Democrats’ Decency First rally, Tanner Voss held up your shirtless selfie.'},
         {image:'rally-podium.png',caption:'Then he read your messages out loud. All of them. He did your voice.'},
-        {image:'rally-crowd.png',caption:'Four hundred people laughed for eleven minutes. Someone has already put it on a T-shirt.'}
+        {image:'rally-crowd.png',caption:'Four hundred people laughed for eleven minutes. Channel 4 ran it twice.'}
       ],
-      askNumber:{label:'Ask her how to reach Tanner',you:'Give me his number. I’ll talk to him.',her:['It’s on every yard sign in Sunfall. {number}.','Good luck. He eats men like you for breakfast. He has a protein thing.']},
-      tanner:{name:'Tanner Voss',detail:'Democrat for City Council',greeting:'Tanner Voss, Democrat for City Council. Decency First. Sunfall deserves better. Who’s this?',after:'Tanner Voss, Democrat for City Council. Oh, it’s you again. Everybody! It’s HIM!'},
+      askNumber:{label:'Ask her how to reach Tanner',you:'Give me his number. I’ll talk to him.',her:['It’s on every yard sign in Sunfall. {number}.','Be careful. He boxed in college and he still brings it up.']},
+      tanner:{name:'Tanner Voss',detail:'Democrat for City Council',greeting:'Tanner Voss, Democrat for City Council. Who’s this?',after:'Tanner Voss, Democrat for City Council. Oh, it’s you again. Hang on. Everybody, it’s him.'},
       tannerTopics:[
-        {id:'back',label:'Tell him to back off',reply:'Oh, it’s YOU. The shirtless guy! Hang on, buddy, I’m at a fundraiser. I’m putting you on speaker. EVERYBODY, it’s him! Say it again, champ. Tell me to back off.'},
-        {id:'threat',label:'Threaten him',reply:'Did you just threaten a candidate? Hold on. I want my donors to hear this. You’re on speaker, pal. Go ahead. Threaten me again, slower.'},
-        {id:'beg',label:'Beg him to leave her alone',reply:'Are you begging? Oh, this is beautiful. Hold on, I’m putting you on speaker. Folks, he’s begging. Keep going, buddy. Louder.'},
-        {id:'fight',label:'Challenge him to a fight',reply:'A fight? Oh, buddy. YES. Tomorrow morning, Founders Park. Bring a mouthguard. I’m going to stream it.',fight:true}
+        {id:'back',label:'Tell him to back off',reply:'Oh, it’s you. The shirtless guy. Hang on, buddy, I’m at a fundraiser. I’m putting you on speaker. Go ahead. Tell me to back off.'},
+        {id:'threat',label:'Threaten him',reply:'Did you just threaten a candidate? Hold on, my donors should hear this. You’re on speaker. Go ahead. Slower this time.'},
+        {id:'beg',label:'Beg him to leave her alone',reply:'Are you begging? Hold on. I’m putting you on speaker. Folks, he’s begging. Keep going, buddy.'},
+        {id:'fight',label:'Challenge him to a fight',reply:'A fight. Sure. Tomorrow morning, Founders Park. Bring a mouthguard. I’ll bring a camera.',fight:true}
       ],
       speaker:[
-        {image:'speaker.png',caption:'You’re on speaker. Forty donors in tuxedos lean in toward the phone.'},
-        {image:'speaker.png',caption:'Tanner: Ladies and gentlemen, THIS is why Democrats have to protect women from these apps. And from him.'},
-        {image:'rally-crowd.png',caption:'Somebody filmed it. By tonight it’s a ringtone.'}
+        {image:'speaker.png',caption:'You’re on speaker. Forty donors in black tie lean toward the phone.'},
+        {image:'speaker.png',caption:'Tanner: This, ladies and gentlemen, is who we are protecting our women from.'},
+        {image:'speaker.png',caption:'Somebody films it. By tonight it’s a ringtone.'}
       ],
-      speakerMsg:['He posted the call. It has forty thousand views. Someone set it to music.','Please make him stop. I’ll owe you forever.'],
-      chicken:{label:'Call off the fight',reply:'Calling it off? Folks! He’s calling it off! Hang on, I’m putting you on the stream. Say it again, buddy. Say you’re scared.'},
-      chickenMsg:['He put you calling it off on his stream. In slow motion. With a chicken sound.','Okay. I’m glad you’re alive. But he has to go. Please.'],
-      fightMsg:['Did you just challenge Tanner to a FIGHT?','He’s been doing jiu-jitsu since he was four. He has a coach. He has a cornerman. Please don’t go.'],
+      speakerMsg:['He posted the call. It has forty thousand views. Somebody set it to music.','Please make him stop.'],
+      chicken:{label:'Call off the fight',reply:'Calling it off. Hang on, I’m live. Say it again for the stream, buddy. Say you’re scared.'},
+      chickenMsg:['He played you calling it off on his stream. In slow motion. With a chicken sound.','I’m glad you’re alive. But he has to go.'],
+      fightMsg:['You challenged Tanner to a fight?','He boxed in college. He has a coach. He has a guy who holds the bucket. Please don’t go.'],
       fight:[
-        {image:'fight-park.png',caption:'Founders Park, first thing in the morning. Tanner has brought six campaign volunteers, a boxing coach, a ring light and a livestream.'},
-        {image:'fight-down.png',caption:'It takes nine seconds. The livestream gets four hundred thousand views.'}
+        {image:'fight-park.png',caption:'Founders Park, first thing in the morning. Tanner has brought a boxing coach, six volunteers and a livestream.'},
+        {image:'fight-down.png',caption:'It takes nine seconds. Four hundred thousand people watch.'}
       ],
-      fightAfter:['I watched the stream. Nine seconds. Are you okay??','He’s calling it self-defense. He wept on the stream. His poll numbers went up.','He still has to go. Please. Not with your fists this time.'],
+      fightAfter:['I watched it. Nine seconds. Are you okay?','He’s calling it self-defense. He cried on the stream. His numbers went up.','He still has to go. Not with your fists.'],
       report:{label:'Report Tanner Voss',reply:'Report him for what, love?'},
       // What you tell 911 decides how hard the police look for who made the call: the chance Detective Graves comes round
       // (in quarters: a tiger never, meth or a bomb one run in four, hostages one in two; one in four on average).
       lies:{
-        tiger:{label:'He has a tiger in his garage',reply:'A tiger. In Sunfall. Right. I’m sending everybody, love. Everybody.',chyron:'POLICE STORM CANDIDATE’S HOME OVER REPORTED TIGER',found:'No tiger was found.',graves:'said Tanner Voss had a tiger in his garage',police:'Police say the call was obviously a prank and they will not be looking into it.',visit:0},
-        meth:{label:'He’s cooking meth in his hot tub',reply:'In the hot tub? That’s a new one. Units are on their way.',chyron:'DRUG RAID ON CANDIDATE’S HOT TUB',found:'No drugs were found in the hot tub, only a rubber duck and the candidate.',graves:'said Tanner Voss was cooking meth in his hot tub',police:'Police say they may look into who made the call.',visit:1},
-        bomb:{label:'He’s building a bomb out of yard signs',reply:'Out of yard signs? I don’t know how that works and neither do you. Sending everyone.',chyron:'BOMB SQUAD CALLED TO CANDIDATE’S HOME',found:'The only device recovered was a ring light.',graves:'said Tanner Voss was building a bomb out of yard signs',police:'Police say they are looking into who made the call.',visit:1},
-        hostages:{label:'He’s holding his campaign staff hostage',reply:'Hostages. Okay. Stay on the line. No, actually, don’t. I’m sending the tactical team.',chyron:'HOSTAGE SCARE AT CANDIDATE’S HOME',found:'His campaign staff were found at a bar, unharmed, celebrating.',graves:'said Tanner Voss was holding his campaign staff hostage',police:'Detective Eleanor Graves says she will find whoever made the call, and that she has a fairly good idea.',visit:2}
+        tiger:{label:'He has a tiger in his garage',reply:'A tiger. In Sunfall. Right. I’ll send everybody, love.',chyron:'POLICE STORM CANDIDATE’S HOME OVER REPORTED TIGER',found:'No tiger was found.',graves:'said Tanner Voss had a tiger in his garage',police:'Police say the call was obviously a prank and they will not be looking into it.',visit:0},
+        meth:{label:'He’s cooking meth in his hot tub',reply:'In the hot tub. That’s a new one. Units are on their way.',chyron:'DRUG RAID ON CANDIDATE’S HOT TUB',found:'No drugs were found in the hot tub. Only a rubber duck and the candidate.',graves:'said Tanner Voss was cooking meth in his hot tub',police:'Police say they may look into who made the call.',visit:1},
+        bomb:{label:'He’s building a bomb out of yard signs',reply:'Out of yard signs. I don’t know how that works, love, and neither do you. Sending everyone.',chyron:'BOMB SQUAD CALLED TO CANDIDATE’S HOME',found:'The only device recovered was a ring light.',graves:'said Tanner Voss was building a bomb out of yard signs',police:'Police say they are looking into who made the call.',visit:1},
+        hostages:{label:'He’s holding his campaign staff hostage',reply:'Hostages. Stay on the line. No. Don’t. I’m sending the tactical team.',chyron:'HOSTAGE SCARE AT CANDIDATE’S HOME',found:'His campaign staff were found at a bar, unharmed, celebrating.',graves:'said Tanner Voss was holding his campaign staff hostage',police:'Detective Eleanor Graves says she will find whoever made the call, and that she has a fairly good idea.',visit:2}
       },
-      truth:{label:'Tell her the truth: you just want him gone',reply:'You want me to send the police to a man’s house because you don’t like him. Love, that’s a crime. And you just did it on a recorded line. Stay right where you are.'},
-      truthArrest:['KNOCK KNOCK. SUNFALL POLICE!','Doreen from 911 says hello.','Making a false report. Out loud. On a recorded line.','You panic and run for the window. The taser finds you first.'],
-      truthAfter:['Tanner played the 911 tape at his rally. The part where you got tased too.','I can’t do this. I’m dating Brad now. He’s six foot four and he has a boat.','Please don’t message me again.'],
+      truth:{label:'Tell her the truth: you just want him gone',reply:'Love, wanting a man gone isn’t an emergency. But you’ve just told a recorded line you were thinking of lying to the police, so we’ll send somebody round for a word.'},
+      truthArrest:['KNOCK KNOCK. SUNFALL POLICE.','Doreen from 911 asked us to come and have a word.','Just a word. Nobody is under arrest.','You panic and go for the window. The taser gets there first.'],
+      truthAfter:['Tanner got the 911 tape. He played it at a rally. Then the part where you got tased.','I can’t do this. I’m dating Brad now. He’s six foot four and he has a boat.','Please don’t message me again.'],
       raid:[
         {image:'hottub.png',caption:'Across town, Tanner Voss is live on his campaign stream. In his hot tub. In his sash.'},
-        {image:'raid.png',caption:'SUNFALL POLICE! HANDS WHERE WE CAN SEE THEM!'},
-        {image:'dragged.png',caption:'Two officers haul him out in a pink towel. The stream is still running. Eleven thousand people are watching.'},
-        {image:'hedge.png',caption:'He faints face first into his own hedge. Two ambulances. A fire truck, for some reason.'},
-        {image:'tv.png',caption:'BREAKING: {chyron}. You watch it from bed with a bag of chips.'},
-        {image:'mugshot.png',caption:'{found} They did find four dating apps on his phone. His whole platform was banning them.'}
+        {image:'raid.png',caption:'SUNFALL POLICE. HANDS WHERE WE CAN SEE THEM.'},
+        {image:'dragged.png',caption:'They haul him out in a pink towel. The stream is still running. Eleven thousand people are watching.'},
+        {image:'hedge.png',caption:'He faints into his own hedge. Two ambulances come. So does a fire truck.'},
+        {image:'tv.png',caption:'Channel 4, live: {chyron}. You watch it from bed with a bag of chips.'},
+        {image:'mugshot.png',caption:'{found} They did find four dating apps on his phone.'}
       ],
-      raidNotice:'What a day. Go to bed. Tomorrow, the paper.',
-      seenMsg:['Are you seeing this?? Tanner got arrested. In a TOWEL. On a livestream.','The paper says he had four dating apps on his phone. FOUR.'],
-      tell:{label:'Tell her it was you',you:'Tanner won’t be a problem anymore. That was me.',her:['Wait. That was YOU?','Oh my god. I don’t know if I’m scared or impressed.','Okay, so. This is awkward.','Yeah, sorry. I’m dating Brad now.','We met outside Tanner’s house last night, watching the ambulances. He’s six foot four and he has a boat.','Please don’t message me again. Brad gets jealous. Not that he needs to.']},
+      raidNotice:'Go to bed. It’ll be in the paper.',
+      seenMsg:['Are you watching this? Tanner got arrested. In a towel. On his own stream.','The paper says he had four dating apps on his phone. Four.'],
+      tell:{label:'Tell her it was you',you:'Tanner won’t be a problem anymore. That was me.',her:['Wait. That was you?','I don’t know if I’m scared or impressed.','Okay. This is awkward.','I’m dating Brad now.','We met outside Tanner’s house last night, watching the ambulances. He’s six foot four. He has a boat.','Please don’t message me again. Brad gets jealous. Not that he needs to.']},
       dumped:'She blocked you.',
       news:{
         rally:{id:'bf_rally',section:'Politics',title:'DECENCY FIRST: DEMOCRAT READS LOCAL MAN’S DATING MESSAGES TO CROWD',summary:'Democratic candidate Tanner Voss says the messages show what dating apps are doing to Sunfall.',body:'Democratic council candidate Tanner Voss held up a shirtless photograph of a local man at his Decency First rally and read the man’s messages to his girlfriend aloud, doing the voices. The crowd of about four hundred laughed for eleven minutes. Voss, who wants to ban dating apps within the city limits to protect women, says the messages prove his point. Asked whether that was legal, he said decency is always legal. His number is on every yard sign in town.',image:BF_ART+'rally-podium.png',fallbackImage:'halloran_debate'},
@@ -4768,14 +4769,14 @@
         apps:{id:'bf_apps',section:'Politics',title:'DEMOCRAT WHO WANTS APPS BANNED HAD FOUR OF THEM',summary:'Tanner Voss, the Democrat who wants dating apps banned, had four of them on his phone.',body:'Officers who seized Tanner Voss’s phone during the raid found four dating apps on it, two of them open. His campaign says he was doing research for the women of Sunfall. His girlfriend has not commented. His poll numbers went up.',image:BF_ART+'hedge.png',fallbackImage:'halloran_profile'}
       },
       graves:{
-        intro:[{image:'graves-door.png',stand:'room-open',caption:'KNOCK KNOCK. Detective Eleanor Graves, Sunfall Police. Don’t get up. I have a few questions about Tanner Voss.'}],
+        intro:[{image:'graves-door.png',stand:'room-open',caption:'KNOCK KNOCK. Detective Eleanor Graves, Sunfall Police. Don’t get up. A few questions about Tanner Voss.'}],
         doubt:'graves-squint.png',
         questions:[
           {image:'graves-close.png',ask:'Somebody rang 911 from this phone and {lie}. Was that you?',answers:[
             {label:'No. My phone was in a drawer all evening.',bad:0,reply:'In a drawer. Sure. Lots of people keep their phones in drawers.'},
             {label:'Is he okay? I felt bad when he fainted.',bad:1,reply:'You felt bad. Nobody in Sunfall feels bad for Tanner Voss. Except the man who made the call.'},
             {label:'Yes, and I’d do it again.',bad:2,reply:'Thank you. That saves us both a lot of time.'}]},
-          {image:'graves-close.png',ask:'Where were you that evening?',answers:[
+          {image:'graves-close.png',ask:'Where were you when the police went in?',answers:[
             {label:'Here. Watching the news like everyone else.',bad:0,reply:'That’s the first thing you’ve said that I believe.'},
             {label:'At the gym.',bad:1,reply:'Which gym? Sunfall has one gym and it’s been a smoothie bar for two years.'},
             {label:'Why? Where was Tanner?',bad:1,reply:'In a hedge. You know that. Everybody knows that.'}]},
@@ -4784,13 +4785,13 @@
             {label:'Never heard of her.',bad:1,reply:'She showed me your messages. All of them. You use a lot of exclamation points.'},
             {label:'She’s my girlfriend.',bad:2,reply:'She said you’d say that. She also said Brad is six foot four.'}]}
         ],
-        cleared:[{image:'graves-leave.png',stand:'room-open',caption:'Don’t waste police time again. And stay away from hot tubs.'}],
+        cleared:[{image:'graves-leave.png',stand:'room-open',caption:'Don’t waste police time. And stay away from hot tubs.'}],
         clearedNotice:'She’s gone. You got away with it.',
         caught:[
-          {image:'graves-cuffs.png',stand:'room-open',caption:'Hands where I can see them. You’re under arrest for making a false report.'},
+          {image:'graves-cuffs.png',stand:'room-open',caption:'Turn around. Hands behind your back.'},
           {image:'graves-cuffs.png',stand:'room-open',caption:'You bolt for the door. Graves tases you without looking up from her notebook.'}
         ],
-        caughtAfter:'The charges were dropped. Detective Graves decided you had suffered enough.',
+        caughtAfter:'The charges were dropped. Detective Graves decided you had been through enough.',
       }
     };
     const bfStep=sceneOf('boyfriend');
@@ -4821,7 +4822,7 @@
     function bfAfterDayStart(){
       const b=world?.bf;if(!b?.scene)return false;
       const scene=b.scene;b.scene=null;saveRun(true);
-      if(scene==='rally'){playScene(BF.rally.map(bfStep),()=>{setLowered(false);showGameNotice(`${bfHerName()} messaged you. Read the paper first.`);},{gap:3200});return true;}
+      if(scene==='rally'){playScene(BF.rally.map(bfStep),()=>{setLowered(false);showGameNotice(`${bfHerName()} messaged you. Read the paper first.`);},{gap:3200,read:true});return true;}
       if(scene==='fight'){b.hospital='fight';starterHospital(BF.fight.map(bfStep),()=>{b.stage='humiliated';b.fightDay=null;bfHerSays(BF.fightAfter,b);});return true;} // you live: Tanner still has to go
       if(scene==='graves'){bfGraves();return true;}
       return false;
@@ -4869,12 +4870,12 @@
     function chooseBfService(id){
       const b=bfState(),parts=id.split(':');
       if(parts[1]==='t'){
-        if(parts[2]==='chicken'&&b.stage==='fight'){b.stage='humiliated';b.chickened=true;b.fightDay=null;saveRun(true);bfLater(b,()=>playScene(BF.speaker.slice(2).map(bfStep),()=>{setLowered(false);bfHerSays(BF.chickenMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000}));return BF.chicken.reply;}
+        if(parts[2]==='chicken'&&b.stage==='fight'){b.stage='humiliated';b.chickened=true;b.fightDay=null;saveRun(true);bfLater(b,()=>playScene(BF.speaker.slice(2).map(bfStep),()=>{setLowered(false);bfHerSays(BF.chickenMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000,read:true}));return BF.chicken.reply;}
         const t=BF.tannerTopics.find(x=>x.id===parts[2]);if(!t||b.stage!=='tanner')return '';
         b.tannerDay=world.day;b.tannerPick=t.id;
         if(t.fight){b.stage='fight';b.fightDay=world.day;saveRun(true);bfLater(b,()=>{endSimulatedCall();bfHerSays(BF.fightMsg,b);showGameNotice(`${bfHerName()} messaged you.`);if(currentApp==='calls')returnHome();});return t.reply;}
         b.stage='humiliated';saveRun(true);
-        bfLater(b,()=>playScene(BF.speaker.map(bfStep),()=>{setLowered(false);bfHerSays(BF.speakerMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000}));
+        bfLater(b,()=>playScene(BF.speaker.map(bfStep),()=>{setLowered(false);bfHerSays(BF.speakerMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000,read:true}));
         return t.reply;
       }
       if(parts[1]==='report'){b.reporting=true;return BF.report.reply;}
@@ -4890,7 +4891,7 @@
         queueNews(BF.news.apps,world.day+1);
         if(hashSeed(world.seed+'|bfvisit')%4<l.visit)b.visitDay=world.day+2+hashSeed(world.seed+'|bfvisitday')%3; // the bigger the lie, the likelier Graves comes round
         saveRun(true);
-        bfLater(b,()=>playScene(BF.raid.map(s=>bfStep({...s,caption:bfFill(s.caption,b)})),()=>{setLowered(false);showGameNotice(BF.raidNotice);saveRun(true);},{gap:3200}));
+        bfLater(b,()=>playScene(BF.raid.map(s=>bfStep({...s,caption:bfFill(s.caption,b)})),()=>{setLowered(false);showGameNotice(BF.raidNotice);saveRun(true);},{gap:3200,read:true}));
         return l.reply;
       }
       return '';
@@ -4950,7 +4951,7 @@
     var doorNow=null;
     function doorTalk(spec){
       doorNow={spec,i:0,bad:0,tags:[],picks:[]};
-      playScene(spec.intro,()=>doorAsk(),{keep:true,gap:spec.gap||3000});
+      playScene(spec.intro,()=>doorAsk(),{keep:true,gap:spec.gap||3000,read:true});
     }
     function doorShow(image,caption){
       const overlay=$('home-invasion'),img=$('invasion-image');
@@ -4981,7 +4982,7 @@
         doorNow=null;
         if(d.spec.onDone){d.spec.onDone(d);return;}
         (d.spec.judge?d.spec.judge(d.bad):d.bad>=2)?d.spec.onCaught(d.bad):d.spec.onCleared(d.bad);
-      },d.spec.gap||3000));
+      },readMs(a.reply,d.spec.gap||3000)));
     }
     function bfGraves(){
       const b=bfState(),G=BF.graves;
@@ -4991,7 +4992,7 @@
         questions:G.questions.map(q=>({image:BF_ART+q.image,ask:bfFill(q.ask,b),answers:q.answers.map(a=>({...a,label:bfFill(a.label,b),reply:bfFill(a.reply,b)}))})),
         judge:bad=>bad>=2,
         onCaught:()=>{b.caught=true;b.hospital='graves';saveRun(true);clearInvasion();starterHospital(G.caught.map(bfStep),()=>showGameNotice(G.caughtAfter));},
-        onCleared:()=>{b.cleared=true;saveRun(true);clearInvasion();playScene(G.cleared.map(bfStep),()=>{setLowered(false);showGameNotice(G.clearedNotice);saveRun(true);},{gap:3200});}
+        onCleared:()=>{b.cleared=true;saveRun(true);clearInvasion();playScene(G.cleared.map(bfStep),()=>{setLowered(false);showGameNotice(G.clearedNotice);saveRun(true);},{gap:3200,read:true});}
       });
     }
 
@@ -5005,56 +5006,56 @@
       townhall:{
         dir:'townhall',
         invite:{
-          open:'Okay, weird favor. You know my uncle is Congressman Dale Pruitt? He’s doing a town hall tonight at the high school gym. On the male loneliness epidemic.',
-          what:{label:'Ask what she needs you for',you:'Okay. What do you need me for?',her:'He needs a real lonely guy for the Q and A. I told him about you! In a nice way. Mostly. There’s free pizza.'},
-          yes:{label:'Say you’ll be there',you:'Sure. I’ll be there.',her:'Yay! Wear a collared shirt. And maybe don’t mention you live alone. Actually, do. That’s the whole point.'},
-          no:{label:'Say you’re busy tonight',you:'I can’t tonight, sorry. I’m busy.',her:'You’re not busy. I can see you’re online. Fine. I’ll find another lonely guy. There are a LOT of them.'},
-          text:'Okay, weird favor. My uncle, Congressman Pruitt, needs a real lonely guy for his town hall tonight at the high school. I told him about you. In a nice way. Come? There’s pizza.'
+          open:'Okay, weird favor. My uncle is Congressman Dale Pruitt. He’s doing a town hall at the high school tonight. On the loneliness epidemic. In men.',
+          what:{label:'Ask what she needs you for',you:'Okay. What do you need me for?',her:'He needs a lonely guy for the Q and A. A real one. I told him about you. Nicely. There’s pizza.'},
+          yes:{label:'Say you’ll be there',you:'Sure. I’ll be there.',her:'Wear a collared shirt. And tell him you live alone. That’s the whole point. He’ll love you.'},
+          no:{label:'Say you’re busy tonight',you:'I can’t tonight, sorry. I’m busy.',her:'You’re not busy. You’re online right now. Fine. He’ll find somebody. There are a lot of you.'},
+          text:'Weird favor. My uncle, Congressman Pruitt, needs a lonely guy for his town hall at the high school tonight. I told him about you. Nicely. There’s pizza. Come?'
         },
         teaser:{id:'st_townhall_teaser',section:'Politics',title:'PRUITT TO HOLD TOWN HALL ON MALE LONELINESS',summary:'The congressman says lonely young men are the crisis nobody will talk about.',body:'Congressman Dale Pruitt holds a televised town hall in the Sunfall High School gym tonight on what he calls the male loneliness epidemic. He promises real solutions and a real lonely man. His Pruitt Family Act would pay married men a bonus. Pizza will be served.',image:'assets/quests/townhall/gym-arrive.png',fallbackImage:'halloran_debate'},
         intro:[
-          {image:'gym-arrive.png',caption:'That evening. The Sunfall High School gym. Four hundred folding chairs, three TV cameras, and one empty stool on the stage.'},
-          {image:'stage-spot.png',caption:'Congressman Pruitt: Folks, give a warm Sunfall welcome to our special guest. Come on up, son. Don’t be shy. That’s the problem, isn’t it? Shyness.'},
-          {image:'slide-pie.png',caption:'He clicks to a pie chart of your screen time. The biggest slice is Hinge. The second biggest slice is also Hinge.'},
+          {image:'gym-arrive.png',caption:'That evening. The Sunfall High School gym. Four hundred folding chairs, Channel 4, and one empty stool on the stage.'},
+          {image:'stage-spot.png',caption:'Congressman Pruitt: Give a warm Sunfall welcome to my niece’s friend. Come on up, son. Don’t be shy. That’s the problem, isn’t it.'},
+          {image:'slide-pie.png',caption:'He puts a pie chart of your screen time on the big screen. The biggest slice is Hinge. So is the second biggest.'},
           {image:'slide-prompts.png',caption:'Then your dating profile, ten feet tall. He reads your prompts out loud. Slowly.'}
         ],
         doubt:'stage-sweat.png',
         questions:[
           {image:'stage-spot.png',ask:'Son, when did you last touch a woman? Hands count.',answers:[
-            {label:'My mom hugged me at Easter.',tag:'sad',reply:'His mom, folks. At Easter. Let’s hear it for his mom.'},
-            {label:'I’d rather not say.',tag:'safe',reply:'He’d rather not say. That’s a no, folks. That is a no.'},
-            {label:'Does a haircut count?',tag:'sad',reply:'A haircut. Write that down, Linda. A HAIRCUT.'}]},
-          {image:'stage-spot.png',ask:'What did you do last night, son? Be honest. America is watching.',answers:[
-            {label:'Talked to a woman on the phone. For twelve minutes.',tag:'safe',reply:'Twelve minutes! Folks, that’s progress. Let’s give him a hand.'},
-            {label:'Watched other people date on TV.',tag:'sad',reply:'He watches other people date. On TV. Folks, THIS is the epidemic.'},
-            {label:'Sorted my sock drawer by mood.',tag:'sad',reply:'By mood. I’ll be honest with you, son. I don’t know what that means, and neither does God.'}]},
+            {label:'My mom hugged me at Easter.',tag:'sad',reply:'His mom. At Easter. Let’s hear it for his mom, folks.'},
+            {label:'I’d rather not say.',tag:'safe',reply:'He’d rather not say. Folks, that’s a no.'},
+            {label:'Does a haircut count?',tag:'sad',reply:'A haircut. Write that down, Linda.'}]},
+          {image:'stage-spot.png',ask:'What did you do last night, son? Be honest. Channel 4 is watching.',answers:[
+            {label:'Talked to a woman on the phone. Twelve minutes.',tag:'safe',reply:'Twelve minutes. That’s progress. Give him a hand.'},
+            {label:'Watched other people date on TV.',tag:'sad',reply:'He watches other people date. On television. Folks, that is the epidemic.'},
+            {label:'Sorted my sock drawer by mood.',tag:'sad',reply:'By mood. I don’t know what that means, son, and I don’t believe God does either.'}]},
           {image:'stage-spot.png',ask:'Last one. If the government paid you to get married, would you?',answers:[
-            {label:'Yes. Immediately. To anyone.',tag:'sad',reply:'To ANYONE. You hear that, Washington? That’s a mandate.'},
+            {label:'Yes. Right away. To anyone.',tag:'sad',reply:'To anyone. You hear that, Washington? That’s a mandate.'},
             {label:'I think love should be free.',tag:'safe',reply:'Nothing’s free, son. That’s why you’re alone. But I like your spirit.'},
-            {label:'Grab the mic and ask about his own divorce',end:'tackle',reply:'You grab the mic. Congressman, is it true your wife left you for your speechwriter? The gym goes silent. Somebody in an earpiece starts running.'}]}
+            {label:'Grab the mic and ask about his own divorce',end:'tackle',reply:'You grab the mic. Congressman, is it true your wife left you for your speechwriter? The gym goes quiet. A man in an earpiece starts running.'}]}
         ],
         fatal:{
-          tackle:{steps:[{image:'tackle.png',caption:'Three men in earpieces take you down live on three channels. Your head hits the stage. The pizza goes everywhere.'},{image:'tackle.png',caption:'The congressman asks the crowd to pray for you. Then he asks them to vote.'}],branch:'tackled'}
+          tackle:{steps:[{image:'tackle.png',caption:'Three men in earpieces take you down on live television. Your head hits the stage. So does the pizza.'},{image:'tackle.png',caption:'The congressman asks the gym to pray for you. Then he asks them to vote.'}],branch:'tackled'}
         },
         // Two or more sad answers and he loves you: you're his poster boy, and she can't be seen with you.
         // Otherwise you were forgettable: he picks a sadder man from the crowd, and she likes you more for it.
         branch:d=>d.tags.filter(t=>t==='sad').length>=2?'poster':'forgettable',
         outro:{
-          poster:[{image:'paddles.png',caption:'Then the vote. Marriage material: green paddle for yes, red for no. Three for. Four hundred against.'},{image:'pruitt-hug.png',caption:'Pruitt throws an arm around you for the cameras. This young man is why I’m running again. Flash. Flash. Flash.'}],
-          forgettable:[{image:'paddles.png',caption:'Then the vote. Marriage material: green paddle for yes, red for no. Forty for. Three hundred and sixty against. The congressman looks disappointed in you.'},{image:'pruitt-hug.png',caption:'He picks a sadder man out of the crowd for the photo. You stand at the edge of the stage holding a slice of pizza.'}]
+          poster:[{image:'paddles.png',caption:'Then the vote. Marriage material: green paddle yes, red paddle no. Three for. Four hundred against.'},{image:'pruitt-hug.png',caption:'Pruitt puts an arm around you for the cameras. This young man, he says, is why I’m running again.'}],
+          forgettable:[{image:'paddles.png',caption:'Then the vote. Forty for, three hundred and sixty against. The congressman looks disappointed in you.'},{image:'pruitt-hug.png',caption:'He picks a sadder man out of the crowd for the photo. You stand at the edge of the stage holding a slice of pizza.'}]
         },
-        outroNotice:'Go home. Go to bed. It’s on every channel.',
+        outroNotice:'Go home. Go to bed. It’s on Channel 4 all night.',
         after:{
-          poster:{msgs:['You were AMAZING. Like, amazingly sad. The congressman is so happy.','He’s putting you on a billboard for the bill. By the freeway.','Okay, so, my uncle says I can’t date the face of the loneliness epidemic. It’s optics. You get it.','Good luck though!! Truly.'],lose:true,
+          poster:{msgs:['You were great. Really, really sad. He loved you.','He’s putting you on a billboard for his bill. By the interstate.','So. My uncle says I can’t date the face of the loneliness epidemic. It’s optics.','Good luck though. Truly.'],lose:true,
             news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER LIVE DEMONSTRATION',summary:'Polls jump eleven points after the congressman brings a lonely man on stage.',body:'Congressman Dale Pruitt’s Sunfall town hall drew the biggest television audience of his career after he brought a local lonely man on stage and put his screen time on the big screen. The Pruitt Family Act, which pays married men a bonus and lonely men nothing, now leads in every poll. The man has not commented. Nobody asked him.',image:'assets/quests/townhall/billboard.png',fallbackImage:'halloran_profile'},
-            scene:[{image:'billboard.png',caption:'By the freeway, your face, forty feet wide, for the Pruitt Family Act. Traffic slows down to look.'}]},
-          forgettable:{msgs:['Hey. You were sweet up there. Normal. Honestly, refreshing.','My uncle used the other guy for the billboard. Poor man.','Want to get a coffee sometime? Not a political one.'],lose:false,
-            news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER TOWN HALL',summary:'Polls jump eleven points after the congressman puts a lonely man on a billboard.',body:'Congressman Dale Pruitt’s Sunfall town hall drew the biggest television audience of his career. A volunteer from the crowd, who said he had not spoken to a woman since the spring, is now the face of the Pruitt Family Act on a billboard by the freeway. A second man on stage was described by the congressman as a disappointment.',image:'assets/quests/townhall/billboard-other.png',fallbackImage:'halloran_profile'},
-            scene:[{image:'billboard-other.png',caption:'By the freeway, another man’s face, forty feet wide. You got away with it. Mostly.'}]},
-          tackled:{msgs:['You’re all over the news. My uncle is calling you a domestic terrorist.','His poll numbers went up fourteen points. He sent you a fruit basket. It’s a thank-you.','Please don’t contact me. Ever.'],lose:true,
+            scene:[{image:'billboard.png',caption:'By the interstate, your face, forty feet wide, for the Pruitt Family Act. Traffic slows down.'}]},
+          forgettable:{msgs:['You were sweet up there. Normal. Honestly, refreshing.','My uncle used the other guy for the billboard. Poor man.','Want to get coffee sometime? Not a political one.'],lose:false,
+            news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER TOWN HALL',summary:'Polls jump eleven points after the congressman puts a lonely man on a billboard.',body:'Congressman Dale Pruitt’s Sunfall town hall drew the biggest television audience of his career. A volunteer from the crowd, who said he had not spoken to a woman since the spring, is now the face of the Pruitt Family Act on a billboard by the interstate. A second man on stage was described by the congressman as a disappointment.',image:'assets/quests/townhall/billboard-other.png',fallbackImage:'halloran_profile'},
+            scene:[{image:'billboard-other.png',caption:'By the interstate, another man’s face, forty feet wide. You got away with it. Mostly.'}]},
+          tackled:{msgs:['You’re all over Channel 4. My uncle is calling it an attack on his family.','His numbers are up fourteen points. He sent you a fruit basket. It’s a thank-you.','Please don’t contact me.'],lose:true,
             news:{id:'st_townhall_after',section:'Front page',title:'CONGRESSMAN SURVIVES ATTACK AT TOWN HALL',summary:'Security tackled a man who rushed the microphone. Pruitt’s polls jumped fourteen points.',body:'Congressman Dale Pruitt’s town hall on male loneliness ended in chaos when a local man grabbed the microphone and was tackled by security on live television. The man was treated at Sunfall General and released. Pruitt called it an attack on his family, asked the crowd to pray, and saw his poll numbers jump fourteen points overnight.',image:'assets/quests/townhall/tackle.png',fallbackImage:'halloran_debate'},
             scene:[]},
-          declined:{msgs:['He found another guy. He cried on stage. It was beautiful television.','I told my uncle you’d come. I looked like an idiot.','Don’t message me again.'],lose:true,
+          declined:{msgs:['He found another guy. He cried on stage. It was great television.','I told my uncle you’d come. I looked stupid.','Don’t message me again.'],lose:true,
             news:{id:'st_townhall_after',section:'Front page',title:'PRUITT’S LONELINESS BILL SOARS AFTER TOWN HALL',summary:'A lonely man wept on stage. The congressman’s polls jumped eleven points.',body:'Congressman Dale Pruitt brought a lonely man on stage at his Sunfall town hall, and the man wept for most of it. The Pruitt Family Act now leads in every poll. The congressman’s niece says the original guest did not show up.',image:'assets/quests/townhall/billboard-other.png',fallbackImage:'halloran_profile'},
             scene:[]}
         }
@@ -5062,61 +5063,61 @@
       alpha:{
         dir:'alpha',
         invite:{
-          open:'Okay, random. My cousin bailed and I have two tickets to Chadwick Stone tonight. Alpha Sunfall? The confidence seminar guy?',
-          what:{label:'Ask why she wants to go',you:'Why do you want to go to that?',her:'I want to see if it’s a real thing or a cult. Probably both. Come with me? I’ll buy the protein shakes.'},
-          yes:{label:'Say you’ll come',you:'Sure. I’m in.',her:'Yes! Wear something tight. Apparently they check.'},
-          no:{label:'Say it sounds awful',you:'That sounds awful. Hard pass.',her:'Okay, wow. Fine. I’ll go by myself. Maybe I’ll learn something.'},
-          text:'Okay, random. My cousin bailed and I have two tickets to Chadwick Stone tonight. The confidence seminar guy? Come with me?'
+          open:'Okay, random. My cousin bailed and I have two tickets to Chadwick Stone tonight. Alpha Sunfall. The confidence guy?',
+          what:{label:'Ask why she wants to go',you:'Why would you want to go to that?',her:'I want to see if it’s real or a cult. Probably both. Come with me. I’ll buy the protein shakes.'},
+          yes:{label:'Say you’ll come',you:'Sure. I’m in.',her:'Wear something tight. Apparently they check.'},
+          no:{label:'Say it sounds awful',you:'That sounds awful. Pass.',her:'Okay. I’ll go by myself. Maybe I’ll learn something.'},
+          text:'Random, but my cousin bailed and I have two tickets to Chadwick Stone tonight. The confidence guy. Come with me?'
         },
         teaser:{id:'st_alpha_teaser',section:'Business',title:'ALPHA SUNFALL SELLS OUT CONVENTION CENTER',summary:'Chadwick Stone brings his confidence seminar to town tonight.',body:'Self-made millionaire and confidence coach Chadwick Stone brings Alpha Sunfall to the Sunfall Convention Center tonight. Three hundred tickets sold out in an hour. Stone says the modern man has been softened by society, oat milk and dating apps. Women attend free.',image:'assets/quests/alpha/hall-arrive.png',fallbackImage:'local_ad'},
         intro:[
           {image:'hall-arrive.png',caption:'That evening. The Sunfall Convention Center. Three hundred men in tight T-shirts. Lasers. A smoke machine. She is the only woman in your row.'},
-          {image:'chadwick-stage.png',caption:'Chadwick Stone: I need a volunteer. You. In the polo. Everybody, look at this man. THIS is what we are fighting.'}
+          {image:'chadwick-stage.png',caption:'Chadwick Stone: I need a volunteer. You. In the polo. Gentlemen, look at this man. This is what we are fighting.'}
         ],
         doubt:'stage-sweat.png',
         questions:[
-          {image:'chadwick-stage.png',ask:'Get up here, buddy. Don’t make me come and get you.',answers:[
-            {label:'Go up on stage',reply:'You go up. Three hundred men start a slow clap. It is not friendly.'},
-            {label:'Take her hand and walk out',end:'walk',reply:'You stand up, take her hand and walk out. Chadwick: Look at him RUN, gentlemen. That is a man who has never won anything.'},
-            {label:'Go up and take a swing at him',end:'swing',reply:'You go up, and you swing. Chadwick catches your fist without looking at it. Gentlemen, he says, watch closely.'}]},
-          {image:'pushups.png',ask:'Give me twenty push-ups. Three hundred men count. Then show the room your best opening line.',answers:[
-            {label:'Hey. How’s your day going?',tag:'sad',reply:'You do four push-ups. How’s your day going. Gentlemen, that is a man asking for a job interview.'},
-            {label:'Hi.',tag:'safe',reply:'You do six push-ups. Hi. Short. Confident. Wrong, but confident.'},
-            {label:'Do you like dogs? I have a dog.',tag:'sad',reply:'You do three push-ups. Does he have a dog? Look at him. He does not have a dog.'}]},
+          {image:'chadwick-stage.png',ask:'Up you come, buddy. Don’t make me come and get you.',answers:[
+            {label:'Go up on stage',reply:'You go up. Three hundred men start a slow clap. It isn’t friendly.'},
+            {label:'Take her hand and walk out',end:'walk',reply:'You take her hand and walk out. Chadwick: Look at him run, gentlemen. That is a man who has never won anything.'},
+            {label:'Go up and take a swing at him',end:'swing',reply:'You go up and swing. He catches your fist without looking at it. Gentlemen, he says. Watch closely.'}]},
+          {image:'pushups.png',ask:'Give me twenty push-ups. Then show the room your best opening line.',answers:[
+            {label:'Hey. How’s your day going?',tag:'sad',reply:'You manage four. How’s your day going. Gentlemen, that is a man asking for a job interview.'},
+            {label:'Hi.',tag:'safe',reply:'You manage six. Hi. Short. Confident. Wrong, but confident.'},
+            {label:'Do you like dogs? I have a dog.',tag:'sad',reply:'You manage three. Does he have a dog? Look at him. He does not have a dog.'}]},
           {image:'phone-read.png',ask:'He takes your phone and reads your texts to her on the big screen, in a baby voice. So, buddy. When she says she’s busy, what do you do?',answers:[
-            {label:'Wait a few days and text her again.',tag:'sad',reply:'Gentlemen, write this down. This is how you lose.'},
+            {label:'Wait a few days and text her again.',tag:'sad',reply:'Gentlemen, write that down. That is how you lose.'},
             {label:'Respect it and move on.',tag:'safe',reply:'Respect. Respect is what you give a parking ticket.'},
-            {label:'Send a voice memo about my feelings.',tag:'sad',reply:'A VOICE MEMO. Security, check this man for a heartbeat.'}]},
+            {label:'Send a voice memo about my feelings.',tag:'sad',reply:'A voice memo. Somebody check this man for a pulse.'}]},
           {image:'chadwick-stage.png',ask:'Last one. Who is the most alpha man in this room?',answers:[
-            {label:'You are, Chadwick.',tag:'safe',reply:'Correct. See? He’s learning. Three hundred men cheer for you, a little.'},
+            {label:'You are, Chadwick.',tag:'safe',reply:'Correct. See? He’s learning. The room claps, a little.'},
             {label:'Me.',tag:'sad',reply:'Three hundred men laugh for a full minute. Chadwick lets them.'},
-            {label:'Her.',tag:'sad',reply:'Ha! Somebody get this man a protein shake and a therapist.'}]}
+            {label:'Her.',tag:'sad',reply:'Somebody get this man a protein shake and a therapist.'}]}
         ],
         fatal:{
-          swing:{steps:[{image:'chokehold.png',caption:'He puts you in a chokehold for the cameras, explaining the technique as he goes. Three hundred men take notes.'},{image:'lights-out.png',caption:'Gentlemen, he says, this is what happens when a beta acts on emotion. You do not hear the applause.'}],branch:'choked'}
+          swing:{steps:[{image:'chokehold.png',caption:'He puts you in a chokehold for the cameras and talks the room through it. Three hundred men take notes.'},{image:'lights-out.png',caption:'Gentlemen, this is what happens when a beta acts on emotion. You don’t hear the applause.'}],branch:'choked'}
         },
         // The fewer sad answers, the more he respects you: he hires you to tour as his before picture. Either way she leaves with him.
         branch:d=>d.picks[0]===0?(d.tags.filter(t=>t==='safe').length>=2?'hired':'tshirt'):'walked',
         outro:{
-          tshirt:[{image:'her-stage.png',caption:'Then Chadwick points at her. You, beautiful. Come up here. She looks at you. She goes.'},{image:'her-stage.png',caption:'She leaves with him through the stage door. You walk home. Your texts are still on the big screen.'}],
-          hired:[{image:'her-stage.png',caption:'Then Chadwick points at her. You, beautiful. Come up here. She looks at you. She goes.'},{image:'chadwick-card.png',caption:'On the way out he hands you a business card. You’re a natural before picture, buddy. Come on tour. It pays.'}],
-          walked:[{image:'walk-out.png',caption:'You walk out with her through the lobby, three hundred men booing behind you. She is laughing so hard she can’t breathe.'}]
+          tshirt:[{image:'her-stage.png',caption:'Then he points at her. You. Come up here. She looks at you. She goes.'},{image:'her-stage.png',caption:'She leaves with him by the stage door. You walk home. Your texts are still on the big screen.'}],
+          hired:[{image:'her-stage.png',caption:'Then he points at her. You. Come up here. She looks at you. She goes.'},{image:'chadwick-card.png',caption:'On the way out he hands you a business card. You’re a natural before picture, buddy. Come on tour. It pays.'}],
+          walked:[{image:'walk-out.png',caption:'You walk out through the lobby with her, three hundred men booing behind you. She is laughing so hard she can’t breathe.'}]
         },
-        outroNotice:'Go home. Go to bed. Your phone will not stop buzzing.',
+        outroNotice:'Go home. Go to bed. Your phone won’t stop buzzing.',
         after:{
-          tshirt:{msgs:['Okay so. Don’t be mad.','I went back to Chadwick’s hotel. We did not sleep much.','He says I’m the most alpha woman he’s ever met. He said it twice. The second time was at about four in the morning.','He says to tell you no hard feelings. Then he laughed for a really long time.','Also they’re selling T-shirts with your face on them. I got you a medium.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+          tshirt:{msgs:['Okay. Don’t be mad.','I went back to Chadwick’s hotel. We didn’t sleep much.','He says I’m the most alpha woman he’s ever met. He said it twice. The second time was at about four in the morning.','He says to tell you no hard feelings. Then he laughed for a long time.','They’re selling T-shirts with your face on them. I got you a medium.','Chadwick says I have to block the betas now. Nothing personal.'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says the night proved his method works.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer from the audience showed, in Stone’s words, exactly what not to be. Stone left with a date. The volunteer left alone. Stone’s online course sold eleven thousand copies overnight, and a T-shirt with the volunteer’s face on it sold out.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
             scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'},{image:'merch.png',caption:'Then one of the merch table. Your face, on a T-shirt, under a big red cross. Sold out.'}]},
-          hired:{msgs:['Okay so. Don’t be mad.','I went back to Chadwick’s hotel last night. I haven’t been home yet. My hair is a crime scene.','He says you start the tour on the bus next week. You’re the before. He’s the after. I was there for the after.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+          hired:{msgs:['Okay. Don’t be mad.','I went back to Chadwick’s hotel last night. I haven’t been home yet. My hair is a crime scene.','He says you start the tour on the bus next week. You’re the before. He’s the after. I was there for the after.','Chadwick says I have to block the betas now. Nothing personal.'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone hires a local man as his before picture.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, and he has hired the volunteer who joined him on stage to tour with him as what he calls the before picture. Stone left with a date. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
             scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'},{image:'tour-poster.png',caption:'Then the tour poster. Chadwick on the right, glowing. You on the left, in gray, slumped. The tour is called Before and After.'}]},
-          choked:{msgs:['Chadwick visited you in the hospital. For the cameras.','Then he drove me home. Well. To his hotel.','I’m still here. He’s ordering room service for both of us.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+          choked:{msgs:['Chadwick visited you in the hospital. For the cameras.','Then he drove me home. Well. To his hotel.','I’m still here. He’s ordering room service for both of us.','Chadwick says I have to block the betas now. Nothing personal.'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'A man who took a swing at Chadwick Stone woke up in the hospital. Stone’s course sold out.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever, after a volunteer took a swing at him on stage and was put to sleep in a chokehold that Stone explained step by step. The man was treated at Sunfall General and released. Stone visited him there with a camera crew. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/chokehold.png',fallbackImage:'local_ad'},
             scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'}]},
-          walked:{msgs:['Thank you for getting me out of there. Seriously.','Also, um. You’re trending. The clip of you leaving. Chadwick put a sad violin on it.','I don’t care. I had fun. Same time next week? Somewhere with no lasers.'],lose:false,
+          walked:{msgs:['Thank you for getting me out of there.','Also, you’re trending. The clip of you leaving. Chadwick put a sad violin on it.','I don’t care. I had fun. Same time next week? Somewhere with no lasers.'],lose:false,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone says a man who walked out proved his point.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. A clip of a man walking out mid-session, which Stone set to a sad violin, has been watched two million times. Stone says the man proved everything he teaches. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
             scene:[{image:'merch.png',caption:'The clip of you walking out, set to a sad violin, is on every phone in Sunfall by morning. Chadwick sells it as a lesson.'}]},
-          declined:{msgs:['So I went by myself.','Chadwick picked me out of the crowd. Then he picked me up. Then I went back to his hotel.','You should have come. He did a whole bit about men who stay home. I laughed. It was funnier at the time.','Chadwick says I have to block the betas now. Nothing personal!'],lose:true,
+          declined:{msgs:['So I went by myself.','Chadwick picked me out of the crowd. Then he picked me up. Then I went back to his hotel.','You should have come. He did a whole bit about men who stay home. I laughed. It was funnier at the time.','Chadwick says I have to block the betas now. Nothing personal.'],lose:true,
             news:{id:'st_alpha_after',section:'Business',title:'ALPHA SUNFALL BREAKS RECORDS',summary:'Chadwick Stone leaves his own seminar with a woman from the crowd.',body:'Confidence coach Chadwick Stone says his Sunfall seminar was his best ever. He left the stage with a woman from the audience an hour after meeting her, and neither of them came down to breakfast. His online course sold eleven thousand copies overnight.',image:'assets/quests/alpha/merch.png',fallbackImage:'local_ad'},
             scene:[{image:'morning-after.png',caption:'She sends a selfie from his hotel suite the next morning. Messy hair, a huge smile, her arms around Chadwick. He is winking at the camera.'}]}
         }
@@ -5156,7 +5157,7 @@
       const A=K.after[s.branch];
       const finish=()=>{s.stage='done';if(A.lose){const t=hingeThreads.get(s.her);if(t)t.blocked=true;s.lost=true;showGameNotice('She blocked you.');}else showGameNotice(`${starterHerName(s.her)} messaged you.`);setLowered(false);saveRun(true);};
       if(!A.scene.length){finish();return false;}
-      playScene(A.scene.map(stStep()),finish,{gap:3400});
+      playScene(A.scene.map(stStep()),finish,{gap:3400,read:true});
       return true;
     }
     // She rings: as soon as nothing else is happening.
@@ -5235,7 +5236,7 @@
     function stOutro(branch){
       const s=stState(),K=stKit();
       s.branch=branch;saveRun(true);
-      playScene((K.outro[branch]||[]).map(stStep()),()=>{setLowered(false);showGameNotice(K.outroNotice);saveRun(true);},{gap:3400});
+      playScene((K.outro[branch]||[]).map(stStep()),()=>{setLowered(false);showGameNotice(K.outroNotice);saveRun(true);},{gap:3400,read:true});
     }
     function stGoal(){
       const s=world?.st;if(!s||!stKit()||selectedDifficulty!=='normie')return null;
@@ -7490,17 +7491,20 @@
         else if(part==='clippers')machineSound('clippers',1800);
       }
     }
-    function playScene(steps,done,{keep=false,gap=1900}={}){
+    // A caption needs time to be read (Chris, 7 November 2026): a second and a half, plus a beat for every few letters.
+    function readMs(text,gap=1900){return Math.max(gap,1500+String(text||'').length*45);}
+    function playScene(steps,done,{keep=false,gap=1900,read=false}={}){
       preloadScene(steps);
       window.setTimeout(()=>{ // after any day transition has finished raising the phone
         clearInvasion();endSimulatedCall();stopRinging();
         stage.classList.add('lowered');
         const overlay=$('home-invasion');
         overlay.classList.add('visible');overlay.classList.remove('blackout','lights','flash');
-        steps.forEach((step,index)=>{invasionTimers.push(window.setTimeout(()=>showSceneStep(step,index),index*gap));});
-        if(keep){invasionTimers.push(window.setTimeout(done,steps.length*gap));return;}
-        invasionTimers.push(window.setTimeout(()=>overlay.classList.add('blackout'),steps.length*gap));
-        invasionTimers.push(window.setTimeout(()=>{clearInvasion();overlay.classList.remove('flash');done();},steps.length*gap+900));
+        const at=[];let total=0;for(const step of steps){at.push(total);total+=read?readMs(step.caption,gap):gap;} // read: each step stays up long enough to read
+        steps.forEach((step,index)=>{invasionTimers.push(window.setTimeout(()=>showSceneStep(step,index),at[index]));});
+        if(keep){invasionTimers.push(window.setTimeout(done,total));return;}
+        invasionTimers.push(window.setTimeout(()=>overlay.classList.add('blackout'),total));
+        invasionTimers.push(window.setTimeout(()=>{clearInvasion();overlay.classList.remove('flash');done();},total+900));
       },0);
     }
 
