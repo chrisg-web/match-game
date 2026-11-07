@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-build="c11b4faa9a">
+<html lang="en" data-build="4e76935536">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -812,11 +812,11 @@
     @media(max-width: 730px) { .workbench { display: flex; flex-direction: column; gap: 16px; padding: 17px; } aside { padding: 2px; } h1 { font-size: 32px; } .settings { margin-top: 12px; } .preview-area { padding-top: 0; } }
   </style>
   <!-- Task 2: Chapel at Midnight quest engine. The standalone build inlines it. -->
-  <script src="chapel_at_midnight.js?v=c11b4faa9a"></script>
+  <script src="chapel_at_midnight.js?v=4e76935536"></script>
   <!-- Marriage: the Sisters of Mercy (and the Bluebird wedding), the only victories. The standalone build inlines it. -->
-  <script src="marriage.js?v=c11b4faa9a"></script>
+  <script src="marriage.js?v=4e76935536"></script>
   <!-- Professor Vale: "The Professor Who Won't Disappear". The standalone build inlines it. -->
-  <script src="quests/professor-vale.js?v=c11b4faa9a"></script>
+  <script src="quests/professor-vale.js?v=4e76935536"></script>
 </head>
 <body>
   <main class="workbench">
@@ -4698,7 +4698,7 @@
     function starterHospital(lead,after){
       const n=(world.hospital=(Number(world.hospital)||0)+1);
       const steps=[...lead,...(n===1?HOSPITAL.first:HOSPITAL.again).map(sceneOf('hospital'))];
-      playScene(steps,()=>{setLowered(false);showGameNotice(HOSPITAL.notice);after();saveRun(true);},{gap:3400,read:true});
+      playScene(steps,()=>{setLowered(false);showGameNotice(HOSPITAL.notice);after();saveRun(true);},{gap:2600,read:true});
     }
 
     // ===== The Boyfriend =====
@@ -4822,7 +4822,7 @@
     function bfAfterDayStart(){
       const b=world?.bf;if(!b?.scene)return false;
       const scene=b.scene;b.scene=null;saveRun(true);
-      if(scene==='rally'){playScene(BF.rally.map(bfStep),()=>{setLowered(false);showGameNotice(`${bfHerName()} messaged you. Read the paper first.`);},{gap:3200,read:true});return true;}
+      if(scene==='rally'){playScene(BF.rally.map(bfStep),()=>{setLowered(false);showGameNotice(`${bfHerName()} messaged you. Read the paper first.`);},{gap:2600,read:true});return true;}
       if(scene==='fight'){b.hospital='fight';starterHospital(BF.fight.map(bfStep),()=>{b.stage='humiliated';b.fightDay=null;bfHerSays(BF.fightAfter,b);});return true;} // you live: Tanner still has to go
       if(scene==='graves'){bfGraves();return true;}
       return false;
@@ -4870,12 +4870,12 @@
     function chooseBfService(id){
       const b=bfState(),parts=id.split(':');
       if(parts[1]==='t'){
-        if(parts[2]==='chicken'&&b.stage==='fight'){b.stage='humiliated';b.chickened=true;b.fightDay=null;saveRun(true);bfLater(b,()=>playScene(BF.speaker.slice(2).map(bfStep),()=>{setLowered(false);bfHerSays(BF.chickenMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000,read:true}));return BF.chicken.reply;}
+        if(parts[2]==='chicken'&&b.stage==='fight'){b.stage='humiliated';b.chickened=true;b.fightDay=null;saveRun(true);bfLater(b,()=>playScene(BF.speaker.slice(2).map(bfStep),()=>{setLowered(false);bfHerSays(BF.chickenMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:2600,read:true}));return BF.chicken.reply;}
         const t=BF.tannerTopics.find(x=>x.id===parts[2]);if(!t||b.stage!=='tanner')return '';
         b.tannerDay=world.day;b.tannerPick=t.id;
         if(t.fight){b.stage='fight';b.fightDay=world.day;saveRun(true);bfLater(b,()=>{endSimulatedCall();bfHerSays(BF.fightMsg,b);showGameNotice(`${bfHerName()} messaged you.`);if(currentApp==='calls')returnHome();});return t.reply;}
         b.stage='humiliated';saveRun(true);
-        bfLater(b,()=>playScene(BF.speaker.map(bfStep),()=>{setLowered(false);bfHerSays(BF.speakerMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:3000,read:true}));
+        bfLater(b,()=>playScene(BF.speaker.map(bfStep),()=>{setLowered(false);bfHerSays(BF.speakerMsg,b);showGameNotice(`${bfHerName()} messaged you.`);saveRun(true);},{gap:2600,read:true}));
         return t.reply;
       }
       if(parts[1]==='report'){b.reporting=true;return BF.report.reply;}
@@ -4891,7 +4891,7 @@
         queueNews(BF.news.apps,world.day+1);
         if(hashSeed(world.seed+'|bfvisit')%4<l.visit)b.visitDay=world.day+2+hashSeed(world.seed+'|bfvisitday')%3; // the bigger the lie, the likelier Graves comes round
         saveRun(true);
-        bfLater(b,()=>playScene(BF.raid.map(s=>bfStep({...s,caption:bfFill(s.caption,b)})),()=>{setLowered(false);showGameNotice(BF.raidNotice);saveRun(true);},{gap:3200,read:true}));
+        bfLater(b,()=>playScene(BF.raid.map(s=>bfStep({...s,caption:bfFill(s.caption,b)})),()=>{setLowered(false);showGameNotice(BF.raidNotice);saveRun(true);},{gap:2600,read:true}));
         return l.reply;
       }
       return '';
@@ -4951,7 +4951,7 @@
     var doorNow=null;
     function doorTalk(spec){
       doorNow={spec,i:0,bad:0,tags:[],picks:[]};
-      playScene(spec.intro,()=>doorAsk(),{keep:true,gap:spec.gap||3000,read:true});
+      playScene(spec.intro,()=>doorAsk(),{keep:true,gap:spec.gap||2600,read:true});
     }
     function doorShow(image,caption){
       const overlay=$('home-invasion'),img=$('invasion-image');
@@ -4982,7 +4982,7 @@
         doorNow=null;
         if(d.spec.onDone){d.spec.onDone(d);return;}
         (d.spec.judge?d.spec.judge(d.bad):d.bad>=2)?d.spec.onCaught(d.bad):d.spec.onCleared(d.bad);
-      },readMs(a.reply,d.spec.gap||3000)));
+      },readMs(a.reply,d.spec.gap||2600)));
     }
     function bfGraves(){
       const b=bfState(),G=BF.graves;
@@ -4992,7 +4992,7 @@
         questions:G.questions.map(q=>({image:BF_ART+q.image,ask:bfFill(q.ask,b),answers:q.answers.map(a=>({...a,label:bfFill(a.label,b),reply:bfFill(a.reply,b)}))})),
         judge:bad=>bad>=2,
         onCaught:()=>{b.caught=true;b.hospital='graves';saveRun(true);clearInvasion();starterHospital(G.caught.map(bfStep),()=>showGameNotice(G.caughtAfter));},
-        onCleared:()=>{b.cleared=true;saveRun(true);clearInvasion();playScene(G.cleared.map(bfStep),()=>{setLowered(false);showGameNotice(G.clearedNotice);saveRun(true);},{gap:3200,read:true});}
+        onCleared:()=>{b.cleared=true;saveRun(true);clearInvasion();playScene(G.cleared.map(bfStep),()=>{setLowered(false);showGameNotice(G.clearedNotice);saveRun(true);},{gap:2600,read:true});}
       });
     }
 
@@ -5157,7 +5157,7 @@
       const A=K.after[s.branch];
       const finish=()=>{s.stage='done';if(A.lose){const t=hingeThreads.get(s.her);if(t)t.blocked=true;s.lost=true;showGameNotice('She blocked you.');}else showGameNotice(`${starterHerName(s.her)} messaged you.`);setLowered(false);saveRun(true);};
       if(!A.scene.length){finish();return false;}
-      playScene(A.scene.map(stStep()),finish,{gap:3400,read:true});
+      playScene(A.scene.map(stStep()),finish,{gap:2600,read:true});
       return true;
     }
     // She rings: as soon as nothing else is happening.
@@ -5223,7 +5223,7 @@
       s.stage='event';s.eventDay=world.day;saveRun(true);
       if(currentApp)returnHome();
       doorTalk({
-        intro:K.intro.map(step),doubt:art(K.doubt),gap:3200,
+        intro:K.intro.map(step),doubt:art(K.doubt),gap:2600,
         questions:K.questions.map(q=>({image:art(q.image),ask:q.ask,answers:q.answers})),
         onEnd:(end,d)=>{
           const F=K.fatal[end];clearInvasion();
@@ -5236,7 +5236,7 @@
     function stOutro(branch){
       const s=stState(),K=stKit();
       s.branch=branch;saveRun(true);
-      playScene((K.outro[branch]||[]).map(stStep()),()=>{setLowered(false);showGameNotice(K.outroNotice);saveRun(true);},{gap:3400,read:true});
+      playScene((K.outro[branch]||[]).map(stStep()),()=>{setLowered(false);showGameNotice(K.outroNotice);saveRun(true);},{gap:2600,read:true});
     }
     function stGoal(){
       const s=world?.st;if(!s||!stKit()||selectedDifficulty!=='normie')return null;
@@ -7491,8 +7491,8 @@
         else if(part==='clippers')machineSound('clippers',1800);
       }
     }
-    // A caption needs time to be read (Chris, 7 November 2026): a second and a half, plus a beat for every few letters.
-    function readMs(text,gap=1900){return Math.max(gap,1500+String(text||'').length*45);}
+    // A caption needs time to be read (Chris, 7 November 2026): a long one gets a little longer, never more than about 4 seconds.
+    function readMs(text,gap=1900){return Math.max(gap,Math.min(4200,1000+String(text||'').length*22));} // about 4 seconds at most (Chris: 7 was way too long)
     function playScene(steps,done,{keep=false,gap=1900,read=false}={}){
       preloadScene(steps);
       window.setTimeout(()=>{ // after any day transition has finished raising the phone
